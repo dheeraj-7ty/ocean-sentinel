@@ -14,6 +14,7 @@ from ocean_sentinel.errors import (
     InvalidRequestError,
     InvalidTimeRangeError,
     NoObservationsError,
+    PreprocessingError,
     ProcessingError,
     ProviderInvalidResponseError,
     ProviderRateLimitedError,
@@ -127,6 +128,11 @@ class TestErrorSubclasses:
         err = ProcessingError("Raster corrupt")
         assert err.code == SatelliteErrorCode.PROCESSING_FAILURE
 
+    def test_preprocessing_error(self):
+        err = PreprocessingError("Preprocessing failure")
+        assert err.code == SatelliteErrorCode.PROCESSING_FAILURE
+        assert isinstance(err, SatelliteError)
+
     def test_raster_validation_error(self):
         err = RasterValidationError("Corrupt GeoTIFF")
         assert err.code == SatelliteErrorCode.RASTER_VALIDATION_FAILURE
@@ -151,6 +157,7 @@ class TestErrorSubclasses:
             ProviderInvalidResponseError("test"),
             ProviderRateLimitedError("test"),
             ProcessingError("test"),
+            PreprocessingError("test"),
             RasterValidationError("test"),
             ConfigurationError("test"),
         ]

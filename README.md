@@ -32,12 +32,15 @@ Raster / Geospatial Validation
 Future ML Pipeline
 ```
 
-## Current Phase: 1B — Real Sentinel-1 Data
+## Current Phase: 1C — Scientific Data Pipeline & Dataset Construction
 
+- Phase 1A ✅: Project foundation, configuration, models, errors
 - Phase 1B.1 ✅: Copernicus OAuth2 authentication
 - Phase 1B.2 ✅: Sentinel-1 STAC discovery
-- Phase 1B.3.1 ✅: Sentinel-1 Process API request construction (ImageryRequest & ProcessRequestBuilder)
+- Phase 1B.3.1 ✅: Sentinel-1 Process API request construction
 - Phase 1B.3.2 ✅: Sentinel-1 Imagery retrieval (Process API download & raster validation)
+- Phase 1C.1 ✅: SAR Preprocessing & Scientific Data Pipeline (dB conversion, invalid masking, per-band normalization)
+- Phase 1C.2 ⏳: Dataset Construction
 
 ### Running Tests
 
@@ -53,6 +56,9 @@ python scripts/verify_stac.py
 
 # Verify real Process API imagery retrieval (requires .env credentials)
 python scripts/verify_imagery.py
+
+# Verify real SAR preprocessing pipeline (requires .env credentials)
+python scripts/verify_preprocessing.py
 ```
 
 ### Prerequisites
@@ -102,11 +108,15 @@ ocean-sentinel/
 │       ├── config.py            # Configuration management
 │       ├── models.py            # Data models (AOI, acquisitions)
 │       ├── errors.py            # Error taxonomy
-│       └── satellite/
-│           ├── __init__.py      # Satellite subsystem boundary
-│           ├── auth.py          # OAuth2 token management
-│           ├── discovery.py     # STAC-based product discovery
-│           └── imagery.py       # Sentinel Hub Process API
+│       ├── satellite/           # Satellite data access subsystem
+│       │   ├── __init__.py      # Satellite subsystem boundary
+│       │   ├── auth.py          # OAuth2 token management
+│       │   ├── discovery.py     # STAC-based product discovery
+│       │   └── imagery.py       # Sentinel Hub Process API
+│       └── processing/          # SAR & raster processing subsystem
+│           ├── __init__.py      # Processing subsystem exports
+│           ├── models.py        # Preprocessing configuration and data structures
+│           └── sar.py           # SAR backscatter, dB conversion & normalization
 ├── tests/
 │   ├── conftest.py              # Shared fixtures
 │   ├── test_auth.py             # Authentication tests
@@ -115,15 +125,18 @@ ocean-sentinel/
 │   ├── test_models.py           # Data model tests
 │   ├── test_imagery_request.py  # Process API request construction tests
 │   ├── test_imagery_service.py  # Process API imagery retrieval tests
+│   ├── test_preprocessing.py    # SAR preprocessing & scientific tests
 │   ├── test_errors.py           # Error model tests
 │   └── test_raster_env.py       # Raster environment validation
 ├── scripts/
 │   ├── verify_auth.py           # Real Copernicus auth verification
 │   ├── verify_stac.py           # Real STAC discovery verification
-│   └── verify_imagery.py        # Real Process API imagery retrieval verification
+│   ├── verify_imagery.py        # Real Process API imagery retrieval verification
+│   └── verify_preprocessing.py  # Real SAR preprocessing pipeline verification
 ├── docs/
 │   ├── architecture.md          # Architecture documentation
 │   ├── copernicus-integration.md # Copernicus API details
+│   ├── sar-preprocessing.md     # SAR preprocessing & radiometric documentation
 │   ├── configuration.md         # Configuration guide
 │   └── adr/
 │       └── 001-copernicus-stac-sentinelhub.md  # ADR
