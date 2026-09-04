@@ -10,15 +10,20 @@ import pytest
 
 from ocean_sentinel.errors import (
     AuthenticationError,
+    AuthorizationError,
     ConfigurationError,
     InvalidAOIError,
+    InvalidRequestError,
     InvalidTimeRangeError,
     NoObservationsError,
     ProcessingError,
+    ProviderInvalidResponseError,
+    ProviderRateLimitedError,
     ProviderTimeoutError,
     ProviderUnavailableError,
     SatelliteError,
     SatelliteErrorCode,
+    UnsupportedBandError,
 )
 
 
@@ -77,6 +82,16 @@ class TestErrorSubclasses:
         assert err.code == SatelliteErrorCode.INVALID_AOI
         assert isinstance(err, SatelliteError)
 
+    def test_invalid_request_error(self):
+        err = InvalidRequestError("Invalid request params")
+        assert err.code == SatelliteErrorCode.INVALID_REQUEST
+        assert isinstance(err, SatelliteError)
+
+    def test_unsupported_band_error(self):
+        err = UnsupportedBandError("Requested band HH not in observation")
+        assert err.code == SatelliteErrorCode.UNSUPPORTED_PRODUCT
+        assert isinstance(err, SatelliteError)
+
     def test_invalid_time_range_error(self):
         err = InvalidTimeRangeError("End before start")
         assert err.code == SatelliteErrorCode.INVALID_TIME_RANGE
@@ -84,6 +99,10 @@ class TestErrorSubclasses:
     def test_authentication_error(self):
         err = AuthenticationError("Token expired")
         assert err.code == SatelliteErrorCode.AUTH_FAILURE
+
+    def test_authorization_error(self):
+        err = AuthorizationError("Access denied")
+        assert err.code == SatelliteErrorCode.AUTHORIZATION_DENIED
 
     def test_no_observations_error(self):
         err = NoObservationsError("No data for AOI")
@@ -97,6 +116,14 @@ class TestErrorSubclasses:
         err = ProviderTimeoutError("Request timed out")
         assert err.code == SatelliteErrorCode.PROVIDER_TIMEOUT
 
+    def test_provider_invalid_response_error(self):
+        err = ProviderInvalidResponseError("Bad JSON")
+        assert err.code == SatelliteErrorCode.PROVIDER_INVALID_RESPONSE
+
+    def test_provider_rate_limited_error(self):
+        err = ProviderRateLimitedError("Rate limit exceeded")
+        assert err.code == SatelliteErrorCode.PROVIDER_RATE_LIMITED
+
     def test_processing_error(self):
         err = ProcessingError("Raster corrupt")
         assert err.code == SatelliteErrorCode.PROCESSING_FAILURE
@@ -109,11 +136,16 @@ class TestErrorSubclasses:
         """All subclasses must be catchable as SatelliteError."""
         errors = [
             InvalidAOIError("test"),
+            InvalidRequestError("test"),
+            UnsupportedBandError("test"),
             InvalidTimeRangeError("test"),
             AuthenticationError("test"),
+            AuthorizationError("test"),
             NoObservationsError("test"),
             ProviderUnavailableError("test"),
             ProviderTimeoutError("test"),
+            ProviderInvalidResponseError("test"),
+            ProviderRateLimitedError("test"),
             ProcessingError("test"),
             ConfigurationError("test"),
         ]

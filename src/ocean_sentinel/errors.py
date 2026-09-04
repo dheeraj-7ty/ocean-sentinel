@@ -91,6 +91,16 @@ class InvalidAOIError(SatelliteError):
         super().__init__(SatelliteErrorCode.INVALID_AOI, message, **kwargs)
 
 
+class InvalidRequestError(SatelliteError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(SatelliteErrorCode.INVALID_REQUEST, message, **kwargs)
+
+
+class UnsupportedBandError(SatelliteError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(SatelliteErrorCode.UNSUPPORTED_PRODUCT, message, **kwargs)
+
+
 class InvalidTimeRangeError(SatelliteError):
     def __init__(self, message: str, **kwargs: Any) -> None:
         super().__init__(SatelliteErrorCode.INVALID_TIME_RANGE, message, **kwargs)

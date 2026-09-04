@@ -309,6 +309,42 @@ function evaluatePixel(samples) {
 - `orthorectify`: `"true"` — terrain correction
 - `backCoeff`: `"SIGMA0_ELLIPSOID"` — calibration coefficient
 
+### Request Construction Implementation (Phase 1B.3.1)
+
+Process API request construction is implemented in [`satellite/imagery.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/satellite/imagery.py) and [`models.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/models.py):
+
+- **`ImageryRequest`** — Domain model capturing observation metadata, target AOI bounding box, temporal filter, requested polarization channels, and raster output configuration.
+- **`OutputConfig`** — Encapsulates raster dimensions (`width`/`height` in pixels or `resolution_meters` ground sampling distance), MIME type (`image/tiff`), and target CRS EPSG code (default: WGS84 EPSG:4326).
+- **`ProcessRequestBuilder`** — Static builder that compiles an `ImageryRequest` into a valid, deterministic, and JSON-serializable Sentinel Hub Process API payload.
+
+#### Domain Request Flow
+
+```
+AcquisitionMetadata (from STAC Discovery)
+       ↓
+ImageryRequest(observation, bbox, time_range, requested_bands, output)
+       ↓
+ProcessRequestBuilder.build(request)
+       ↓
+Process API JSON Payload (credential-free)
+       ↓ [Future: Phase 1B.3.2]
+SentinelImageryService (attaches OAuth Bearer token & downloads GeoTIFF)
+```
+
+#### Polarization Compatibility Rules
+
+Requests must specify explicit polarizations that are a subset of the observation's available channels (`observation.polarizations`):
+
+- If observation has `[VV, VH]`: requesting `[VV]`, `[VH]`, or `[VV, VH]` is valid.
+- Requesting `[HH]` will fail validation at the domain boundary before any network request is issued.
+- Dynamic evalscripts (`//VERSION=3`) are generated matching exactly the requested band subset.
+
+#### Security & Separation of Concerns
+
+- The request builder does **not** take tokens, secrets, or credentials.
+- The generated payload contains **no** authorization headers or authentication fields.
+- Token acquisition and authorization header injection are strictly deferred to the transport layer (`SentinelImageryService` in Phase 1B.3.2).
+
 ---
 
 ## Official Documentation URLs

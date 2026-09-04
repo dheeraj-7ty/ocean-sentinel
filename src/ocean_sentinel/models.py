@@ -10,8 +10,8 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field, field_validator
-from shapely.geometry import box, shape
+from pydantic import BaseModel, Field, field_validator, model_validator
+from shapely.geometry import shape
 from shapely.validation import explain_validity
 
 
@@ -230,3 +230,167 @@ class AcquisitionMetadata(BaseModel):
                 raise
             raise ValueError(f"Cannot parse GeoJSON geometry: {e}") from e
         return v
+
+
+# ---------------------------------------------------------------------------
+# Imagery Request (Process API request domain model)
+# ---------------------------------------------------------------------------
+
+
+class OutputFormat(str, Enum):
+    """Supported output formats for the Sentinel Hub Process API.
+
+    Only scientific formats suitable for downstream analysis are listed.
+    PNG/JPEG are intentionally excluded — they are lossy and unsuitable
+    for SAR signal processing.
+    """
+
+    TIFF = "image/tiff"
+
+
+class OutputConfig(BaseModel):
+    """Raster output configuration for the Process API.
+
+    Controls the spatial resolution (or fixed pixel dimensions), output
+    format, and CRS of the returned image.
+
+    Exactly one of ``width``/``height`` OR ``resolution_meters`` must be
+    specified. Specifying both is ambiguous and will fail validation.
+    """
+
+    format: OutputFormat = Field(
+        default=OutputFormat.TIFF,
+        description="Output MIME type",
+    )
+    width: Optional[int] = Field(
+        default=None,
+        ge=1,
+        le=2500,
+        description="Output width in pixels (1–2500)",
+    )
+    height: Optional[int] = Field(
+        default=None,
+        ge=1,
+        le=2500,
+        description="Output height in pixels (1–2500)",
+    )
+    resolution_meters: Optional[float] = Field(
+        default=None,
+        gt=0.0,
+        description="Ground sampling distance in metres (> 0)",
+    )
+    crs_epsg: int = Field(
+        default=4326,
+        gt=0,
+        description="EPSG code for the output CRS (default: WGS84 geographic)",
+    )
+
+    @model_validator(mode="after")
+    def validate_dimensions(self) -> OutputConfig:
+        """Either fixed pixel dimensions OR resolution_meters must be set."""
+        width = self.width
+        height = self.height
+        resolution_meters = self.resolution_meters
+        if width is None and height is None and resolution_meters is None:
+            raise ValueError(
+                "At least one of 'width'/'height' or 'resolution_meters' must be specified"
+            )
+        if (width is not None or height is not None) and resolution_meters is not None:
+            raise ValueError(
+                "Specify either pixel dimensions ('width'/'height') or "
+                "'resolution_meters', not both"
+            )
+        if (width is None) != (height is None):
+            raise ValueError("'width' and 'height' must both be specified or both be omitted")
+        return self
+
+    def to_sh_output(self) -> dict:
+        """Serialise to Sentinel Hub Process API ``output`` section."""
+        out: dict = {
+            "responses": [
+                {
+                    "identifier": "default",
+                    "format": {"type": self.format.value},
+                }
+            ]
+        }
+        if self.width is not None and self.height is not None:
+            out["width"] = self.width
+            out["height"] = self.height
+        else:
+            out["resx"] = self.resolution_meters
+            out["resy"] = self.resolution_meters
+        return out
+
+    def to_crs_url(self) -> str:
+        """Return OGC CRS URL for the configured EPSG code."""
+        return f"http://www.opengis.net/def/crs/EPSG/0/{self.crs_epsg}"
+
+
+class ImageryRequest(BaseModel):
+    """Domain-level request for Sentinel-1 SAR imagery from the Process API.
+
+    Represents everything needed to construct a valid Sentinel Hub
+    Process API payload for one AOI and one Sentinel-1 acquisition.
+
+    Validation enforces:
+
+    - The requested bands must be a non-empty subset of the polarizations
+      reported by the acquisition (``observation.polarizations``).
+    - The bounding box must be non-degenerate.
+    - The time range must be forward-ordered.
+    - Output configuration must be consistent.
+
+    This model does NOT contain authentication credentials; those are
+    injected at the HTTP transport layer.
+    """
+
+    observation: AcquisitionMetadata = Field(
+        ...,
+        description="Sentinel-1 acquisition metadata from STAC discovery",
+    )
+    bbox: BoundingBox = Field(
+        ...,
+        description="AOI bounding box (must overlap the observation footprint)",
+    )
+    time_range: TimeRange = Field(
+        ...,
+        description="Temporal window for the Process API data filter",
+    )
+    requested_bands: list[Polarization] = Field(
+        ...,
+        min_length=1,
+        description="Polarization channels to retrieve (e.g. [VV, VH])",
+    )
+    output: OutputConfig = Field(
+        default_factory=lambda: OutputConfig(width=512, height=512),
+        description="Raster output configuration",
+    )
+
+    @field_validator("requested_bands")
+    @classmethod
+    def bands_must_be_available(
+        cls, requested: list[Polarization], info
+    ) -> list[Polarization]:
+        """Reject requests for polarizations not present in the observation."""
+        observation = info.data.get("observation")
+        if observation is None:
+            # observation failed its own validation; skip this check
+            return requested
+
+        available = observation.polarizations
+        if available is None:
+            # Observation has no polarization metadata — cannot validate;
+            # allow through and document the assumption.
+            return requested
+
+        unavailable = [p for p in requested if p not in available]
+        if unavailable:
+            available_str = ", ".join(p.value for p in available)
+            requested_str = ", ".join(p.value for p in unavailable)
+            raise ValueError(
+                f"Requested band(s) [{requested_str}] not available in this observation "
+                f"(available: [{available_str}])"
+            )
+        return requested
+
