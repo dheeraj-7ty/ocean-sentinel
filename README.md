@@ -44,7 +44,8 @@ Phase 1A establishes:
 
 ### Prerequisites
 
-- Python >= 3.10
+- CPython >= 3.10 (from [python.org](https://www.python.org/downloads/))
+  - MSYS2 Python is **not** supported (lacks pre-built wheel compatibility)
 - A Copernicus Data Space Ecosystem account
 - Sentinel Hub OAuth2 client credentials
 
@@ -55,12 +56,16 @@ Phase 1A establishes:
 git clone <repo-url> ocean-sentinel
 cd ocean-sentinel
 
-# Create virtual environment
-python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux/macOS
+# Create virtual environment (use python.org CPython, not MSYS2)
+# Windows example with explicit path:
+"C:\Users\<you>\AppData\Local\Programs\Python\Python310\python.exe" -m venv venv
+venv\Scripts\activate
 
-# Install dependencies
+# Linux/macOS:
+# python3 -m venv venv
+# source venv/bin/activate
+
+# Install dependencies (includes rasterio with GDAL)
 pip install -e ".[dev]"
 
 # Configure credentials
@@ -93,7 +98,8 @@ ocean-sentinel/
 │   ├── conftest.py              # Shared fixtures
 │   ├── test_config.py           # Configuration tests
 │   ├── test_models.py           # Data model tests
-│   └── test_errors.py           # Error model tests
+│   ├── test_errors.py           # Error model tests
+│   └── test_raster_env.py       # Raster environment validation
 ├── docs/
 │   ├── architecture.md          # Architecture documentation
 │   ├── copernicus-integration.md # Copernicus API details
