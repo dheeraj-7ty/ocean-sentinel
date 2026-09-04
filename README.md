@@ -32,15 +32,19 @@ Raster / Geospatial Validation
 Future ML Pipeline
 ```
 
-## Current Phase: 1A — Foundation
+## Current Phase: 1B — Real Sentinel-1 Data
 
-Phase 1A establishes:
-- Project structure and configuration
-- Copernicus API documentation and validation
-- Data models and error taxonomy
-- Testing foundation
+Phase 1B.1 (current): Copernicus OAuth2 authentication.
 
-## Quick Start
+### Running Tests
+
+```bash
+# Run all unit tests
+pytest -v
+
+# Verify real Copernicus authentication (requires .env credentials)
+python scripts/verify_auth.py
+```
 
 ### Prerequisites
 
@@ -96,10 +100,13 @@ ocean-sentinel/
 │           └── imagery.py       # Sentinel Hub Process API
 ├── tests/
 │   ├── conftest.py              # Shared fixtures
+│   ├── test_auth.py             # Authentication tests
 │   ├── test_config.py           # Configuration tests
 │   ├── test_models.py           # Data model tests
 │   ├── test_errors.py           # Error model tests
 │   └── test_raster_env.py       # Raster environment validation
+├── scripts/
+│   └── verify_auth.py           # Real Copernicus auth verification
 ├── docs/
 │   ├── architecture.md          # Architecture documentation
 │   ├── copernicus-integration.md # Copernicus API details

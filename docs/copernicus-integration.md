@@ -46,6 +46,40 @@ grant_type=client_credentials&client_id=YOUR_ID&client_secret=YOUR_SECRET
 }
 ```
 
+### Implementation
+
+Authentication is implemented in [`satellite/auth.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/satellite/auth.py):
+
+- **`TokenManager`** — Manages the full OAuth2 lifecycle: token acquisition, caching, expiry-aware reuse, and invalidation.
+- **`TokenInfo`** — Immutable dataclass representing a token with metadata (token_type, expires_in, scope). The access_token is excluded from `repr()` to prevent logging leakage.
+
+Usage by future satellite clients:
+
+```python
+from ocean_sentinel.config import CopernicusSettings
+from ocean_sentinel.satellite.auth import TokenManager
+
+settings = CopernicusSettings()  # Reads from .env / environment
+tm = TokenManager(settings)
+
+# For Authorization headers
+token = await tm.get_token()  # Returns str
+
+# For full metadata
+info = await tm.get_token_info()  # Returns TokenInfo
+```
+
+### Authentication Verification
+
+To verify real authentication works with your local credentials:
+
+```bash
+# Ensure .env is configured
+python scripts/verify_auth.py
+```
+
+This will safely report whether authentication succeeded without printing the actual token.
+
 ---
 
 ## STAC API
