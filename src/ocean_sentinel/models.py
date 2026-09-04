@@ -6,7 +6,7 @@ These models normalize provider-specific responses into a common schema.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Optional
 
@@ -114,8 +114,19 @@ class TimeRange(BaseModel):
         return v
 
     def to_stac_datetime(self) -> str:
-        """Format as STAC datetime interval string."""
-        return f"{self.start.isoformat()}Z/{self.end.isoformat()}Z"
+        """Format as STAC datetime interval string.
+
+        Produces ISO 8601 UTC strings with 'Z' suffix, e.g.:
+        ``2026-08-01T00:00:00Z/2026-09-01T00:00:00Z``
+        """
+        def _fmt(dt: datetime) -> str:
+            # Normalize to UTC if timezone-aware
+            if dt.tzinfo is not None:
+                dt = dt.astimezone(timezone.utc)
+            # Format without tz suffix, then append Z
+            return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        return f"{_fmt(self.start)}/{_fmt(self.end)}"
 
 
 class SearchRequest(BaseModel):
@@ -174,8 +185,12 @@ class AcquisitionMetadata(BaseModel):
         default=None,
         description="Relative orbit number",
     )
+    platform: Optional[str] = Field(
+        default=None,
+        description="Satellite platform (e.g. 'sentinel-1a', 'sentinel-1c')",
+    )
 
-    # --- Provider-specific ---
+    # --- STAC / provider-specific ---
     provider: str = Field(
         default="copernicus_cdse",
         description="Data provider identifier",
@@ -187,6 +202,14 @@ class AcquisitionMetadata(BaseModel):
     source_reference: Optional[str] = Field(
         default=None,
         description="Direct reference URL or ID in the provider system",
+    )
+    self_link: Optional[str] = Field(
+        default=None,
+        description="Canonical STAC item URL (self link)",
+    )
+    stac_assets: Optional[dict[str, Any]] = Field(
+        default=None,
+        description="STAC asset catalog (keys → asset metadata) for future retrieval",
     )
     provider_properties: Optional[dict[str, Any]] = Field(
         default=None,

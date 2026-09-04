@@ -34,7 +34,8 @@ Future ML Pipeline
 
 ## Current Phase: 1B — Real Sentinel-1 Data
 
-Phase 1B.1 (current): Copernicus OAuth2 authentication.
+- Phase 1B.1 ✅: Copernicus OAuth2 authentication
+- Phase 1B.2 ✅: Sentinel-1 STAC discovery
 
 ### Running Tests
 
@@ -44,6 +45,9 @@ pytest -v
 
 # Verify real Copernicus authentication (requires .env credentials)
 python scripts/verify_auth.py
+
+# Verify real STAC discovery (requires .env credentials)
+python scripts/verify_stac.py
 ```
 
 ### Prerequisites
@@ -101,12 +105,14 @@ ocean-sentinel/
 ├── tests/
 │   ├── conftest.py              # Shared fixtures
 │   ├── test_auth.py             # Authentication tests
+│   ├── test_discovery.py        # STAC discovery tests
 │   ├── test_config.py           # Configuration tests
 │   ├── test_models.py           # Data model tests
 │   ├── test_errors.py           # Error model tests
 │   └── test_raster_env.py       # Raster environment validation
 ├── scripts/
-│   └── verify_auth.py           # Real Copernicus auth verification
+│   ├── verify_auth.py           # Real Copernicus auth verification
+│   └── verify_stac.py           # Real STAC discovery verification
 ├── docs/
 │   ├── architecture.md          # Architecture documentation
 │   ├── copernicus-integration.md # Copernicus API details

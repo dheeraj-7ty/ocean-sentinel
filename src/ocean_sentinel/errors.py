@@ -126,6 +126,11 @@ class ProviderInvalidResponseError(SatelliteError):
         super().__init__(SatelliteErrorCode.PROVIDER_INVALID_RESPONSE, message, **kwargs)
 
 
+class ProviderRateLimitedError(SatelliteError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(SatelliteErrorCode.PROVIDER_RATE_LIMITED, message, **kwargs)
+
+
 class ProcessingError(SatelliteError):
     def __init__(self, message: str, **kwargs: Any) -> None:
         super().__init__(SatelliteErrorCode.PROCESSING_FAILURE, message, **kwargs)

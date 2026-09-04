@@ -150,6 +150,65 @@ STAC items for Sentinel-1 GRD include:
 | `sar:polarizations` | `properties` | Available polarizations |
 | `sat:orbit_state` | `properties` | ASCENDING/DESCENDING |
 | `sat:relative_orbit` | `properties` | Relative orbit number |
+| `platform` | `properties` | Satellite (sentinel-1a/1c/1d) |
+| `product:type` | `properties` | Product type (IW_GRDH_1S, etc.) |
+| `processing:level` | `properties` | Processing level (L1) |
+
+### Implementation
+
+STAC discovery is implemented in [`satellite/discovery.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/satellite/discovery.py):
+
+- **`SentinelDiscoveryService`** — Translates `SearchRequest` into STAC POST search, handles pagination via `rel=next` links, parses `FeatureCollection` responses, and normalizes STAC items into `AcquisitionMetadata` objects.
+- **`STACSearchResult`** — Container for search results with `observations`, `pages_fetched`, and `has_more` metadata.
+
+Usage:
+
+```python
+from ocean_sentinel.config import CopernicusSettings
+from ocean_sentinel.models import BoundingBox, SearchRequest, TimeRange
+from ocean_sentinel.satellite.discovery import SentinelDiscoveryService
+
+settings = CopernicusSettings()  # Reads from .env / environment
+discovery = SentinelDiscoveryService(settings)
+
+request = SearchRequest(
+    bbox=BoundingBox(west=15.0, south=39.5, east=16.0, north=40.5),
+    time_range=TimeRange(
+        start=datetime(2026, 8, 1, tzinfo=timezone.utc),
+        end=datetime(2026, 9, 1, tzinfo=timezone.utc),
+    ),
+    max_results=10,
+)
+
+result = await discovery.search(request)
+for obs in result.observations:
+    print(obs.id, obs.acquisition_time, obs.platform)
+```
+
+### STAC Discovery Error Handling
+
+| Condition | Error Class |
+|-----------|-------------|
+| HTTP 400 (bad request) | `ProviderInvalidResponseError` |
+| HTTP 401/403 (auth) | `AuthenticationError` |
+| HTTP 404 (not found) | `ProviderInvalidResponseError` |
+| HTTP 429 (rate limit) | `ProviderRateLimitedError` |
+| HTTP 5xx (server) | `ProviderUnavailableError` |
+| Network/connection failure | `ProviderUnavailableError` |
+| Timeout | `ProviderTimeoutError` |
+| Malformed JSON response | `ProviderInvalidResponseError` |
+| AOI too small or too large | `InvalidAOIError` |
+
+### Discovery Verification
+
+To verify real STAC discovery works with your local credentials:
+
+```bash
+# Ensure .env is configured
+python scripts/verify_stac.py
+```
+
+This will query the live Copernicus STAC API for a small Mediterranean AOI and report observation metadata without printing tokens or secrets.
 
 ---
 
