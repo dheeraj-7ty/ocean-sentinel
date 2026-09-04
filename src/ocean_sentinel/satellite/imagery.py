@@ -12,9 +12,8 @@ This module provides:
    validated Sentinel Hub Process API JSON payload.  It performs NO network
    I/O; authentication is the responsibility of the HTTP transport layer.
 
-2. ``SentinelImageryService`` — will perform the actual HTTP request in a
-   future phase (Phase 1B.3.2).  The request-construction layer defined here
-   is ready to be consumed by that service.
+2. ``SentinelImageryService`` — performs authenticated HTTP requests against
+   the Sentinel Hub Process API and validates/parses the returned GeoTIFF data.
 
 Canonical output: GeoTIFF / FLOAT32
 
@@ -26,20 +25,38 @@ Architecture::
           ↓
     dict  (deterministic Process API payload, no credentials)
           ↓
-    [Phase 1B.3.2] SentinelImageryService.request_imagery()
+    SentinelImageryService.request_imagery()
           ↓
-    bytes (raw GeoTIFF response)
+    ImageryResult (validated GeoTIFF metadata + raster stats + raw bytes)
 """
 
 from __future__ import annotations
 
 import logging
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Optional
+
+import httpx
+import numpy as np
+from rasterio.io import MemoryFile
 
 from ocean_sentinel.config import CopernicusSettings
-from ocean_sentinel.errors import InvalidRequestError
-from ocean_sentinel.models import ImageryRequest, Polarization
+from ocean_sentinel.errors import (
+    AuthenticationError,
+    AuthorizationError,
+    InvalidRequestError,
+    ProviderInvalidResponseError,
+    ProviderRateLimitedError,
+    ProviderTimeoutError,
+    ProviderUnavailableError,
+    RasterValidationError,
+)
+from ocean_sentinel.models import (
+    BandStatistics,
+    ImageryRequest,
+    ImageryResult,
+    Polarization,
+)
 from ocean_sentinel.satellite.auth import TokenManager
 
 logger = logging.getLogger(__name__)
@@ -229,25 +246,339 @@ class ProcessRequestBuilder:
 
 
 # ---------------------------------------------------------------------------
-# SentinelImageryService (HTTP transport — Phase 1B.3.2)
+# SentinelImageryService (HTTP transport & GeoTIFF validation)
 # ---------------------------------------------------------------------------
 
 
 class SentinelImageryService:
-    """Requests processed Sentinel-1 imagery via Sentinel Hub Process API.
+    """Requests processed Sentinel-1 imagery via Copernicus Sentinel Hub Process API.
 
-    Phase 1B.3.1 provides the request-construction layer via
-    ``ProcessRequestBuilder``.  The actual HTTP download is implemented in
-    Phase 1B.3.2.
+    Orchestrates:
+    1. Payload compilation via ``ProcessRequestBuilder``
+    2. Bearer token retrieval via ``TokenManager``
+    3. Authenticated POST to Sentinel Hub Process API
+    4. Safe error mapping and HTTP status handling
+    5. In-memory GeoTIFF validation and parsing via ``rasterio.MemoryFile``
+    6. Extraction of raster metadata, bounds, CRS, transform, and band statistics
+
+    Usage::
+
+        settings = CopernicusSettings()
+        tm = TokenManager(settings)
+        service = SentinelImageryService(settings, tm)
+
+        result = await service.request_imagery(imagery_request)
+        print(result.width, result.height, result.bands)
     """
 
-    def __init__(self, settings: CopernicusSettings, token_manager: TokenManager) -> None:
+    def __init__(
+        self,
+        settings: CopernicusSettings,
+        token_manager: TokenManager,
+        *,
+        client: Optional[httpx.AsyncClient] = None,
+    ) -> None:
         self._settings = settings
         self._token_manager = token_manager
         self._process_url = settings.copernicus_process_api_url
+        self._client = client
 
-    # Phase 1B.3.2: async def request_imagery(self, request: ImageryRequest) -> bytes
-    # Phase 1B.3.2: async def _execute_process_request(self, payload: dict, token: str) -> bytes
+    async def request_imagery(self, request: ImageryRequest) -> ImageryResult:
+        """Retrieve and validate Sentinel-1 SAR imagery for the given request.
+
+        Args:
+            request: Validated domain imagery request.
+
+        Returns:
+            Validated ``ImageryResult`` containing raster metadata, band
+            statistics, and raw GeoTIFF bytes.
+
+        Raises:
+            AuthenticationError: On OAuth or 401 token authentication failure.
+            AuthorizationError: On 403 access denial.
+            ProviderRateLimitedError: On HTTP 429 rate limit exceeded.
+            ProviderTimeoutError: On request timeout.
+            ProviderUnavailableError: On 5xx server error or network failure.
+            ProviderInvalidResponseError: On 400 bad request or unexpected format.
+            RasterValidationError: If response is empty, not a GeoTIFF, or has
+                incompatible dimensions, bands, dtype, CRS, or no finite data.
+        """
+        payload = ProcessRequestBuilder.build(request)
+        token = await self._token_manager.get_token()
+        raw_bytes = await self._execute_process_request(payload, token)
+        return self._validate_and_parse_raster(raw_bytes, request)
+
+    async def _execute_process_request(
+        self, payload: dict[str, Any], token: str
+    ) -> bytes:
+        """Send authenticated POST to Process API and return raw response bytes."""
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Accept": "image/tiff",
+            "Content-Type": "application/json",
+        }
+
+        try:
+            if self._client is not None:
+                response = await self._client.post(
+                    self._process_url,
+                    json=payload,
+                    headers=headers,
+                )
+            else:
+                async with httpx.AsyncClient(
+                    timeout=self._settings.http_timeout_seconds,
+                ) as client:
+                    response = await client.post(
+                        self._process_url,
+                        json=payload,
+                        headers=headers,
+                    )
+        except httpx.TimeoutException as e:
+            raise ProviderTimeoutError(
+                "Process API request timed out",
+                details={"timeout_seconds": self._settings.http_timeout_seconds},
+                cause=e,
+            ) from e
+        except httpx.HTTPError as e:
+            raise ProviderUnavailableError(
+                "Process API request failed due to network error",
+                cause=e,
+            ) from e
+
+        self._handle_http_status(response)
+        return response.content
+
+    def _handle_http_status(self, response: httpx.Response) -> None:
+        """Map non-2xx HTTP status codes to appropriate domain errors."""
+        status = response.status_code
+        if 200 <= status < 300:
+            return
+
+        if status == 401:
+            raise AuthenticationError(
+                f"Process API authentication failed (HTTP {status})",
+                details={"status_code": status},
+            )
+        if status == 403:
+            raise AuthorizationError(
+                f"Process API authorization denied (HTTP {status})",
+                details={"status_code": status},
+            )
+        if status == 429:
+            raise ProviderRateLimitedError(
+                "Process API rate limit exceeded (HTTP 429)",
+                details={"status_code": status},
+            )
+        if status == 400:
+            detail = self._extract_error_detail(response)
+            if detail:
+                msg = f"Process API rejected the request (HTTP 400): {detail}"
+            else:
+                msg = "Process API rejected the request (HTTP 400)"
+            raise ProviderInvalidResponseError(
+                msg,
+                details={"status_code": status, "detail": detail},
+            )
+        if status == 404:
+            raise ProviderInvalidResponseError(
+                "Process API resource not found (HTTP 404)",
+                details={"status_code": status},
+            )
+        if status >= 500:
+            raise ProviderUnavailableError(
+                f"Process API server error (HTTP {status})",
+                details={"status_code": status},
+            )
+        raise ProviderInvalidResponseError(
+            f"Process API returned unexpected status (HTTP {status})",
+            details={"status_code": status},
+        )
+
+    def _extract_error_detail(self, response: httpx.Response) -> str:
+        """Extract sanitized error detail from response body without leaking secrets."""
+        try:
+            body = response.json()
+            if isinstance(body, dict):
+                err = body.get("error", {})
+                if isinstance(err, dict):
+                    msg = err.get("message", "")
+                else:
+                    msg = str(err)
+                if not msg:
+                    msg = body.get("detail", body.get("description", ""))
+                return str(msg)[:200]
+        except Exception:
+            pass
+        return ""
+
+    def _validate_and_parse_raster(
+        self, raw_bytes: bytes, request: ImageryRequest
+    ) -> ImageryResult:
+        """Validate that raw bytes constitute a valid GeoTIFF conforming to request."""
+        if not raw_bytes:
+            raise RasterValidationError("Process API returned empty response body")
+
+        # Preliminary payload checks for HTML or JSON error responses returned with 200
+        stripped = raw_bytes[:256].strip()
+        if (
+            stripped.startswith(b"<!DOCTYPE")
+            or stripped.startswith(b"<html")
+            or b"<head>" in stripped
+        ):
+            raise RasterValidationError(
+                "Process API returned HTML content instead of GeoTIFF",
+                details={"byte_length": len(raw_bytes)},
+            )
+        if stripped.startswith(b"{") and b'"error"' in stripped:
+            raise RasterValidationError(
+                "Process API returned JSON error instead of GeoTIFF",
+                details={"byte_length": len(raw_bytes)},
+            )
+
+        try:
+            with MemoryFile(raw_bytes) as memfile:
+                with memfile.open() as dataset:
+                    # 1. Driver check
+                    if dataset.driver != "GTiff":
+                        raise RasterValidationError(
+                            f"Expected GTiff driver, got: {dataset.driver}",
+                            details={"driver": dataset.driver},
+                        )
+
+                    # 2. Dimensions check
+                    if request.output.width is not None and dataset.width != request.output.width:
+                        raise RasterValidationError(
+                            f"Raster width mismatch: expected {request.output.width}, "
+                            f"got {dataset.width}",
+                            details={
+                                "expected_width": request.output.width,
+                                "actual_width": dataset.width,
+                            },
+                        )
+                    if (
+                        request.output.height is not None
+                        and dataset.height != request.output.height
+                    ):
+                        raise RasterValidationError(
+                            f"Raster height mismatch: expected {request.output.height}, "
+                            f"got {dataset.height}",
+                            details={
+                                "expected_height": request.output.height,
+                                "actual_height": dataset.height,
+                            },
+                        )
+
+                    # 3. Band count check
+                    expected_band_count = len(request.requested_bands)
+                    if dataset.count != expected_band_count:
+                        raise RasterValidationError(
+                            f"Band count mismatch: expected {expected_band_count}, "
+                            f"got {dataset.count}",
+                            details={
+                                "expected_bands": expected_band_count,
+                                "actual_bands": dataset.count,
+                            },
+                        )
+
+                    # 4. Data type check
+                    for b_idx in range(1, dataset.count + 1):
+                        b_dtype = dataset.dtypes[b_idx - 1]
+                        if b_dtype != "float32":
+                            raise RasterValidationError(
+                                f"Band {b_idx} dtype mismatch: expected float32, got {b_dtype}",
+                                details={
+                                    "band": b_idx,
+                                    "expected_dtype": "float32",
+                                    "actual_dtype": b_dtype,
+                                },
+                            )
+
+                    # 5. CRS check
+                    if dataset.crs is None:
+                        raise RasterValidationError(
+                            "Raster is missing coordinate reference system (CRS)",
+                        )
+                    epsg = dataset.crs.to_epsg()
+                    if epsg is not None and epsg != request.output.crs_epsg:
+                        raise RasterValidationError(
+                            f"CRS EPSG mismatch: expected {request.output.crs_epsg}, got {epsg}",
+                            details={"expected_epsg": request.output.crs_epsg, "actual_epsg": epsg},
+                        )
+
+                    # 6. Geotransform / bounds check
+                    if dataset.transform is None:
+                        raise RasterValidationError("Raster is missing affine geotransform")
+
+                    # 7. Pixel values and finite data validation
+                    band_stats: list[BandStatistics] = []
+                    all_bands_empty = True
+
+                    for idx, pol in enumerate(request.requested_bands):
+                        band_arr = dataset.read(idx + 1)
+                        total_pixels = int(band_arr.size)
+                        finite_mask = np.isfinite(band_arr)
+                        finite_count = int(np.sum(finite_mask))
+
+                        if finite_count > 0:
+                            all_bands_empty = False
+                            finite_vals = band_arr[finite_mask]
+                            min_val = float(np.min(finite_vals))
+                            max_val = float(np.max(finite_vals))
+                            mean_val = float(np.mean(finite_vals))
+                        else:
+                            min_val = 0.0
+                            max_val = 0.0
+                            mean_val = 0.0
+
+                        band_stats.append(
+                            BandStatistics(
+                                polarization=pol,
+                                min_value=min_val,
+                                max_value=max_val,
+                                mean_value=mean_val,
+                                finite_pixel_count=finite_count,
+                                total_pixel_count=total_pixels,
+                            )
+                        )
+
+                    if all_bands_empty and dataset.width * dataset.height > 0:
+                        raise RasterValidationError(
+                            "Raster contains no valid finite pixel data "
+                            "(all pixels are NaN or infinite)",
+                            details={"total_pixels": dataset.width * dataset.height},
+                        )
+
+                    bounds = [
+                        float(dataset.bounds.left),
+                        float(dataset.bounds.bottom),
+                        float(dataset.bounds.right),
+                        float(dataset.bounds.top),
+                    ]
+                    transform = [float(x) for x in dataset.transform[:6]]
+                    crs_str = dataset.crs.to_string()
+
+                    return ImageryResult(
+                        observation_id=request.observation.id,
+                        width=dataset.width,
+                        height=dataset.height,
+                        band_count=dataset.count,
+                        bands=list(request.requested_bands),
+                        dtype="float32",
+                        crs=crs_str,
+                        bounds=bounds,
+                        transform=transform,
+                        band_statistics=band_stats,
+                        raw_bytes=raw_bytes,
+                    )
+
+        except RasterValidationError:
+            raise
+        except Exception as e:
+            raise RasterValidationError(
+                f"Failed to parse response as GeoTIFF: {e}",
+                cause=e,
+            ) from e
 
 
 # ---------------------------------------------------------------------------

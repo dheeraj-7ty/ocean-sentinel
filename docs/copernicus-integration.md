@@ -327,8 +327,22 @@ ImageryRequest(observation, bbox, time_range, requested_bands, output)
 ProcessRequestBuilder.build(request)
        ↓
 Process API JSON Payload (credential-free)
-       ↓ [Future: Phase 1B.3.2]
-SentinelImageryService (attaches OAuth Bearer token & downloads GeoTIFF)
+       ↓
+SentinelImageryService (attaches OAuth Bearer token & executes POST)
+       ↓
+Copernicus Sentinel Hub Process API
+       ↓
+Raw GeoTIFF Stream (bytes)
+       ↓
+Raster Validation (rasterio.io.MemoryFile)
+  - Driver: GTiff
+  - Dimensions: width × height
+  - Band count & polarizations
+  - Dtype: float32
+  - CRS & Geotransform
+  - Non-degenerate / finite value check & band statistics
+       ↓
+ImageryResult (safe summary & raw in-memory GeoTIFF)
 ```
 
 #### Polarization Compatibility Rules
@@ -343,7 +357,63 @@ Requests must specify explicit polarizations that are a subset of the observatio
 
 - The request builder does **not** take tokens, secrets, or credentials.
 - The generated payload contains **no** authorization headers or authentication fields.
-- Token acquisition and authorization header injection are strictly deferred to the transport layer (`SentinelImageryService` in Phase 1B.3.2).
+- Token acquisition and authorization header injection are strictly managed by `TokenManager` within `SentinelImageryService`.
+- Tokens are passed solely via standard `Authorization: Bearer <token>` headers over HTTPS and are never logged, formatted into exception messages, or serialized in `ImageryResult` or `repr()`.
+
+---
+
+### Imagery Retrieval Implementation (Phase 1B.3.2)
+
+Imagery retrieval and raster parsing/validation are implemented in [`satellite/imagery.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/satellite/imagery.py), [`models.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/models.py), and [`errors.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/errors.py):
+
+- **`SentinelImageryService`** — Coordinates token management, builds request payloads, dispatches authenticated HTTP POST requests to the Process API, handles provider errors, and validates the returned GeoTIFF in memory.
+- **`BandStatistics`** — Data model capturing per-band scientific statistics (`min_value`, `max_value`, `mean_value`, `finite_pixel_count`).
+- **`ImageryResult`** — Domain model encapsulating metadata, spatial dimensions, CRS, bounds, band statistics, and raw in-memory GeoTIFF bytes. Excludes `raw_bytes` from `repr()` and includes `to_safe_summary()`.
+- **`RasterValidationError`** — Specific error subclass (`SatelliteErrorCode.RASTER_VALIDATION_FAILURE`) raised when downloaded bytes fail raster format, dimension, band count, CRS, or valid pixel checks.
+
+#### Raster Validation Rules
+
+Every retrieved raster is validated in-memory via `rasterio.io.MemoryFile`:
+1. **Driver**: Must be valid GeoTIFF (`GTiff`).
+2. **Dimensions**: Output raster width and height must match the requested pixel dimensions.
+3. **Band Count**: Number of raster bands must equal the count of requested polarizations.
+4. **Data Type**: Pixel data type must be `float32`.
+5. **CRS**: Coordinate Reference System must match requested EPSG code (default: EPSG:4326).
+6. **Georeferencing**: Non-trivial geotransform and valid bounding coordinates must be present.
+7. **Content Validity**: At least one finite, non-NaN pixel must exist across the raster (guards against blank or missing tiles).
+
+#### Imagery Verification
+
+To verify real imagery retrieval end-to-end against Copernicus Process API:
+
+```bash
+# Ensure .env is configured with Copernicus client credentials
+python scripts/verify_imagery.py
+```
+
+Sample output from live verification:
+```text
+======================================================================
+REAL COPERNICUS SENTINEL-1 IMAGERY VERIFICATION
+======================================================================
+Status: PASS
+Observation: S1D_IW_GRDH_1SDV_20260901T164823_20260901T164848_004387_0081C1_6329_COG
+Raster received: YES
+Format: GeoTIFF
+Width: 256
+Height: 256
+Bands: 2
+Polarizations: ['VV', 'VH']
+Dtype: float32
+CRS: EPSG:4326
+Bounds: [15.6, 39.6, 16.0, 40.0]
+Raw GeoTIFF size: 382,854 bytes
+Valid finite pixels: 131,072 / 131,072
+  Band VV: min=0.000000, max=2.891039, mean=0.123465, finite=65,536
+  Band VH: min=0.000000, max=0.530196, mean=0.026304, finite=65,536
+Processing API: PASS
+======================================================================
+```
 
 ---
 

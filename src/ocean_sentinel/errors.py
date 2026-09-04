@@ -146,6 +146,11 @@ class ProcessingError(SatelliteError):
         super().__init__(SatelliteErrorCode.PROCESSING_FAILURE, message, **kwargs)
 
 
+class RasterValidationError(SatelliteError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(SatelliteErrorCode.RASTER_VALIDATION_FAILURE, message, **kwargs)
+
+
 class ConfigurationError(SatelliteError):
     def __init__(self, message: str, **kwargs: Any) -> None:
         super().__init__(SatelliteErrorCode.CONFIGURATION_ERROR, message, **kwargs)

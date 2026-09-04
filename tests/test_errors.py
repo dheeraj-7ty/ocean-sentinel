@@ -6,8 +6,6 @@ Verifies:
 - Error hierarchy works correctly
 """
 
-import pytest
-
 from ocean_sentinel.errors import (
     AuthenticationError,
     AuthorizationError,
@@ -21,6 +19,7 @@ from ocean_sentinel.errors import (
     ProviderRateLimitedError,
     ProviderTimeoutError,
     ProviderUnavailableError,
+    RasterValidationError,
     SatelliteError,
     SatelliteErrorCode,
     UnsupportedBandError,
@@ -128,6 +127,11 @@ class TestErrorSubclasses:
         err = ProcessingError("Raster corrupt")
         assert err.code == SatelliteErrorCode.PROCESSING_FAILURE
 
+    def test_raster_validation_error(self):
+        err = RasterValidationError("Corrupt GeoTIFF")
+        assert err.code == SatelliteErrorCode.RASTER_VALIDATION_FAILURE
+        assert isinstance(err, SatelliteError)
+
     def test_configuration_error(self):
         err = ConfigurationError("Missing client_id")
         assert err.code == SatelliteErrorCode.CONFIGURATION_ERROR
@@ -147,6 +151,7 @@ class TestErrorSubclasses:
             ProviderInvalidResponseError("test"),
             ProviderRateLimitedError("test"),
             ProcessingError("test"),
+            RasterValidationError("test"),
             ConfigurationError("test"),
         ]
         for err in errors:

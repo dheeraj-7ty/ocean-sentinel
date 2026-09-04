@@ -14,7 +14,6 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from shapely.geometry import shape
 from shapely.validation import explain_validity
 
-
 # ---------------------------------------------------------------------------
 # Enumerations
 # ---------------------------------------------------------------------------
@@ -393,4 +392,72 @@ class ImageryRequest(BaseModel):
                 f"(available: [{available_str}])"
             )
         return requested
+
+
+# ---------------------------------------------------------------------------
+# Imagery Result (Process API response domain model)
+# ---------------------------------------------------------------------------
+
+
+class BandStatistics(BaseModel):
+    """Numerical summary statistics for a single raster band."""
+
+    polarization: Polarization = Field(..., description="Band polarization channel")
+    min_value: float = Field(..., description="Minimum finite pixel value")
+    max_value: float = Field(..., description="Maximum finite pixel value")
+    mean_value: float = Field(..., description="Mean finite pixel value")
+    finite_pixel_count: int = Field(..., ge=0, description="Count of finite (non-NaN/inf) pixels")
+    total_pixel_count: int = Field(..., ge=1, description="Total pixel count in band")
+
+
+class ImageryResult(BaseModel):
+    """Result of a Sentinel-1 imagery retrieval operation.
+
+    Encapsulates validated GeoTIFF raster data and extracted metadata.
+    Contains no authentication credentials or raw HTTP objects.
+    """
+
+    observation_id: str = Field(..., description="ID of the source acquisition")
+    width: int = Field(..., ge=1, description="Raster width in pixels")
+    height: int = Field(..., ge=1, description="Raster height in pixels")
+    band_count: int = Field(..., ge=1, description="Number of raster bands")
+    bands: list[Polarization] = Field(
+        ...,
+        description="Polarization channel for each band in order",
+    )
+    dtype: str = Field(default="float32", description="Pixel data type")
+    crs: str = Field(..., description="Coordinate reference system identifier")
+    bounds: list[float] = Field(
+        ...,
+        description="Geographic bounding box [west, south, east, north]",
+    )
+    transform: list[float] = Field(
+        ...,
+        description="Affine geotransform coefficients [a, b, c, d, e, f]",
+    )
+    band_statistics: list[BandStatistics] = Field(
+        default_factory=list,
+        description="Summary statistics per band",
+    )
+    raw_bytes: bytes = Field(
+        ...,
+        repr=False,
+        description="Raw GeoTIFF raster bytes",
+    )
+
+    def to_safe_summary(self) -> dict[str, Any]:
+        """Return safe metadata summary without raw binary bytes."""
+        return {
+            "observation_id": self.observation_id,
+            "width": self.width,
+            "height": self.height,
+            "band_count": self.band_count,
+            "bands": [b.value for b in self.bands],
+            "dtype": self.dtype,
+            "crs": self.crs,
+            "bounds": self.bounds,
+            "byte_size": len(self.raw_bytes),
+            "band_statistics": [s.model_dump() for s in self.band_statistics],
+        }
+
 

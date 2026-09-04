@@ -37,7 +37,7 @@ Future ML Pipeline
 - Phase 1B.1 ✅: Copernicus OAuth2 authentication
 - Phase 1B.2 ✅: Sentinel-1 STAC discovery
 - Phase 1B.3.1 ✅: Sentinel-1 Process API request construction (ImageryRequest & ProcessRequestBuilder)
-- Phase 1B.3.2 ⏳: Sentinel-1 Imagery retrieval (Process API download & raster validation)
+- Phase 1B.3.2 ✅: Sentinel-1 Imagery retrieval (Process API download & raster validation)
 
 ### Running Tests
 
@@ -50,6 +50,9 @@ python scripts/verify_auth.py
 
 # Verify real STAC discovery (requires .env credentials)
 python scripts/verify_stac.py
+
+# Verify real Process API imagery retrieval (requires .env credentials)
+python scripts/verify_imagery.py
 ```
 
 ### Prerequisites
@@ -111,11 +114,13 @@ ocean-sentinel/
 │   ├── test_config.py           # Configuration tests
 │   ├── test_models.py           # Data model tests
 │   ├── test_imagery_request.py  # Process API request construction tests
+│   ├── test_imagery_service.py  # Process API imagery retrieval tests
 │   ├── test_errors.py           # Error model tests
 │   └── test_raster_env.py       # Raster environment validation
 ├── scripts/
 │   ├── verify_auth.py           # Real Copernicus auth verification
-│   └── verify_stac.py           # Real STAC discovery verification
+│   ├── verify_stac.py           # Real STAC discovery verification
+│   └── verify_imagery.py        # Real Process API imagery retrieval verification
 ├── docs/
 │   ├── architecture.md          # Architecture documentation
 │   ├── copernicus-integration.md # Copernicus API details
