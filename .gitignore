@@ -45,3 +45,33 @@ data/raw/
 
 # Logs
 *.log
+
+# Local scratch and investigation tools
+scratch/
+
+# ML Experiment Ephemeral Staging & Packaging
+experiments/**/src_dataset_staging/
+experiments/**/src_dataset_staging_v2/
+experiments/**/seed_dataset_staging/
+experiments/**/kaggle_push_bundle/
+experiments/**/kaggle_canary_bundle/
+experiments/**/kaggle_training_bundle/
+experiments/**/kernel_push/
+experiments/**/kernel_pull/
+experiments/**/kernel_pull_v2/
+experiments/**/bundle/
+experiments/**/temp/
+experiments/**/dry_run_preflight/
+experiments/**/test_data_dir/
+experiments/**/test_jupyter/
+
+# Narrowly scoped nested container duplicate outputs
+experiments/**/remote_training_output/exp02c_annealed_hard_negative_training/
+experiments/**/kernel_output/scripts/
+experiments/performance/gate4_3B_live_kaggle_canary_20260908_102118/kernel_output/
+experiments/performance/gate4_3B_live_kaggle_canary_20260908_102118/kernel_output_v4/
+experiments/performance/gate4_3B_live_kaggle_canary_20260908_102118/kernel_output_v5/
+experiments/performance/gate4_3C_A_gpu_qualification_20260908_194000/kernel_output/
+experiments/performance/gate4_3C_B_one_epoch_pilot_20260908_220700/kernel_output/
+experiments/performance/gate4_3C_C2_canonical_seed_20260909_000500/kernel_output/
+experiments/performance/gate4_3C_C4_resume_epoch2_20260909_002000/kernel_output/
