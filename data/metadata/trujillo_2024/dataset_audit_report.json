@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "audit_timestamp": "2026-09-06T02:20:54Z",
+    "dataset_name": "Trujillo-Acatitla Part I",
+    "zenodo_doi": "10.5281/zenodo.8346860",
+    "images_dir": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil",
+    "masks_dir": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\masks\\Mask_oil",
+    "audit_duration_seconds": 1234.3
+  },
+  "inventory": {
+    "image_count": 1200,
+    "mask_count": 1200,
+    "paired_count": 1200,
+    "orphan_image_count": 0,
+    "orphan_mask_count": 0,
+    "orphan_images": [],
+    "orphan_masks": [],
+    "duplicate_image_stems": 0,
+    "duplicate_mask_stems": 0,
+    "exact_pairing_success_rate": 100.0
+  },
+  "raster_characteristics": {
+    "dimensions_distribution": {
+      "2048x2048": 1200
+    },
+    "band_count_distribution": {
+      "2": 1200
+    },
+    "dtype_distribution": {
+      "float32,float32": 1200
+    },
+    "crs_distribution": {
+      "EPSG:4326": 1200
+    },
+    "unique_geotransforms_count": 1179,
+    "nodata_distribution": {
+      "None": 1200
+    },
+    "corrupt_unreadable_count": 0,
+    "corrupt_files": []
+  },
+  "numeric_statistics": {
+    "total_pixels_audited": 10066329600,
+    "finite_pixel_count": 10066329600,
+    "nan_pixel_count": 0,
+    "inf_pixel_count": 0,
+    "finite_ratio": 1.0,
+    "band_1": {
+      "min": -112.2777,
+      "max": 22.7972,
+      "negative_pixels_count": 4937403499,
+      "positive_pixels_count": 95761301,
+      "negative_ratio_pct": 98.1
+    },
+    "band_2": {
+      "min": -114.6702,
+      "max": 29.9399,
+      "negative_pixels_count": 4937222591,
+      "positive_pixels_count": 95942209,
+      "negative_ratio_pct": 98.09
+    }
+  },
+  "radiometric_evaluation": {
+    "conclusion": "DECIBEL",
+    "rationale": "Band 1 is 98.10% negative (min -112.28 dB, max 22.80 dB); Band 2 is 98.09% negative (min -114.67 dB, max 29.94 dB). Values are unambiguously pre-calibrated decibel (dB) backscatter."
+  },
+  "channel_polarization_evaluation": {
+    "channel_mapping": "UNKNOWN",
+    "polarizations_status": "UNKNOWN",
+    "rationale": "Neither GeoTIFF tags, band descriptions, nor author Zenodo metadata explicitly define which band index corresponds to VV or VH. Under Ocean Sentinel scientific rules, heuristic guessing is prohibited."
+  },
+  "mask_statistics": {
+    "samples_with_oil": 1200,
+    "samples_without_oil": 0,
+    "total_foreground_oil_pixels": 149967879,
+    "mean_foreground_pixels_per_sample": 124973.2325
+  }
+}

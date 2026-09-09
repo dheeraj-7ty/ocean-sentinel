@@ -1,0 +1,196 @@
+{
+  "timestamp": "2026-09-06 11:36:26",
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+    "torch_version": "2.14.0+cu126",
+    "cuda_available": true,
+    "device_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "compute_capability": [
+      8,
+      6
+    ],
+    "device_count": 1,
+    "cuda_runtime_version": "12.6",
+    "cudnn_version": 91002,
+    "total_vram_mb": 6143.5
+  },
+  "model_parameters": {
+    "resnet34_unet": {
+      "total": 24346305,
+      "trainable": 24346305,
+      "non_trainable": 0
+    },
+    "vanilla_unet": {
+      "total": 7762753,
+      "trainable": 7762753,
+      "non_trainable": 0
+    }
+  },
+  "cpu_baseline": {
+    "device": "cpu",
+    "batch_size": 1,
+    "forward_ms": 198.72,
+    "backward_ms": 349.71,
+    "total_step_ms": 548.43,
+    "samples_per_sec": 1.82
+  },
+  "cuda_synthetic_sweep": [
+    {
+      "precision": "FP32",
+      "batch_size": 1,
+      "forward_ms": 20.55,
+      "backward_ms": 39.92,
+      "step_ms": 60.46,
+      "samples_per_sec": 16.54,
+      "max_allocated_mb": 657.7,
+      "max_reserved_mb": 768.0,
+      "vram_headroom_mb": 5375.5,
+      "safe": true
+    },
+    {
+      "precision": "FP32",
+      "batch_size": 2,
+      "forward_ms": 39.2,
+      "backward_ms": 74.87,
+      "step_ms": 114.06,
+      "samples_per_sec": 17.53,
+      "max_allocated_mb": 1030.5,
+      "max_reserved_mb": 1216.0,
+      "vram_headroom_mb": 4927.5,
+      "safe": true
+    },
+    {
+      "precision": "FP32",
+      "batch_size": 4,
+      "forward_ms": 74.31,
+      "backward_ms": 139.03,
+      "step_ms": 213.35,
+      "samples_per_sec": 18.75,
+      "max_allocated_mb": 1776.6,
+      "max_reserved_mb": 2098.0,
+      "vram_headroom_mb": 4045.5,
+      "safe": true
+    },
+    {
+      "precision": "FP32",
+      "batch_size": 8,
+      "forward_ms": 137.82,
+      "backward_ms": 268.34,
+      "step_ms": 406.16,
+      "samples_per_sec": 19.7,
+      "max_allocated_mb": 3258.8,
+      "max_reserved_mb": 3886.0,
+      "vram_headroom_mb": 2257.5,
+      "safe": true
+    },
+    {
+      "precision": "AMP_FP16",
+      "batch_size": 1,
+      "forward_ms": 12.74,
+      "backward_ms": 24.9,
+      "step_ms": 37.64,
+      "samples_per_sec": 26.57,
+      "max_allocated_mb": 523.8,
+      "max_reserved_mb": 568.0,
+      "vram_headroom_mb": 5575.5,
+      "safe": true
+    },
+    {
+      "precision": "AMP_FP16",
+      "batch_size": 2,
+      "forward_ms": 22.03,
+      "backward_ms": 43.63,
+      "step_ms": 65.66,
+      "samples_per_sec": 30.46,
+      "max_allocated_mb": 718.0,
+      "max_reserved_mb": 806.0,
+      "vram_headroom_mb": 5337.5,
+      "safe": true
+    },
+    {
+      "precision": "AMP_FP16",
+      "batch_size": 4,
+      "forward_ms": 40.09,
+      "backward_ms": 77.87,
+      "step_ms": 117.96,
+      "samples_per_sec": 33.91,
+      "max_allocated_mb": 1105.0,
+      "max_reserved_mb": 1280.0,
+      "vram_headroom_mb": 4863.5,
+      "safe": true
+    },
+    {
+      "precision": "AMP_FP16",
+      "batch_size": 8,
+      "forward_ms": 77.38,
+      "backward_ms": 149.43,
+      "step_ms": 226.81,
+      "samples_per_sec": 35.27,
+      "max_allocated_mb": 1889.2,
+      "max_reserved_mb": 2210.0,
+      "vram_headroom_mb": 3933.5,
+      "safe": true
+    }
+  ],
+  "gradient_accumulation": {
+    "physical_batch": 4,
+    "accumulation_steps": 2,
+    "effective_batch": 8,
+    "step_time_ms": 258.53,
+    "samples_per_sec": 30.94,
+    "peak_allocated_mb": 1026.0,
+    "peak_reserved_mb": 1098.0,
+    "all_gradients_finite": true,
+    "feasible": true
+  },
+  "amp_validation": {
+    "losses": [
+      0.5957,
+      0.5945,
+      0.5935,
+      0.5926,
+      0.5918
+    ],
+    "gradient_norms": [
+      0.0942,
+      0.0913,
+      0.0889,
+      0.0869,
+      0.0852
+    ],
+    "scaler_scales": [
+      65536.0,
+      65536.0,
+      65536.0,
+      65536.0,
+      65536.0
+    ],
+    "all_finite_loss": true,
+    "all_finite_grads": true,
+    "stable": true
+  },
+  "real_dataloader_throughput": {
+    "workers_0": {
+      "num_workers": 0,
+      "batch_size": 4,
+      "n_batches_measured": 100,
+      "first_batch_ms": 119.72,
+      "steady_mean_batch_ms": 156.29,
+      "steady_samples_per_sec": 25.59,
+      "overall_samples_per_sec": 25.65,
+      "total_time_s": 15.59
+    }
+  },
+  "real_training_throughput": {
+    "batch_size": 4,
+    "n_batches": 25,
+    "first_step_ms": 155.11,
+    "steady_step_ms": 133.96,
+    "steady_samples_per_sec": 29.86,
+    "overall_samples_per_sec": 15.26,
+    "peak_allocated_mb": 1109.0,
+    "peak_reserved_mb": 1156.0,
+    "estimated_epoch_minutes": 7.5
+  }
+}
