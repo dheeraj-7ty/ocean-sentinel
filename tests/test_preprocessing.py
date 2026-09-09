@@ -30,6 +30,7 @@ from rasterio.transform import from_bounds
 from ocean_sentinel.errors import PreprocessingError, SatelliteErrorCode
 from ocean_sentinel.models import BandStatistics, ImageryResult, Polarization
 from ocean_sentinel.processing import (
+    BackscatterUnit,
     NormalizationMethod,
     PreprocessingConfig,
     PreprocessingResult,
@@ -177,6 +178,38 @@ class TestDecibelConversion:
         )
         db_vv = res.get_db(Polarization.VV)
         np.testing.assert_allclose(db_vv, arr)
+
+    def test_very_small_positive_linear_clamped_safely(self):
+        """Very small positive linear values (e.g. 1e-12) clamped to linear_min_threshold."""
+        arr = np.array([[1e-12, 1e-8]], dtype=np.float32)
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(
+            input_unit=BackscatterUnit.LINEAR,
+            linear_min_threshold=1e-6,
+            convert_to_db=True,
+            preserve_linear=True,
+            normalization_method=NormalizationMethod.NONE,
+        )
+        res = preprocessor.process_arrays(
+            arrays={Polarization.VV: arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_small_linear",
+            width=2,
+            height=1,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[0.5, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+        band = res.get_band(Polarization.VV)
+        # Both are strictly positive and finite -> valid
+        assert band.quality.all_valid is True
+        # Both 1e-12 and 1e-8 are clamped to 1e-6 before log10 -> 10 * log10(1e-6) = -60.0 dB
+        assert band.db_data[0, 0] == pytest.approx(-60.0, abs=1e-5)
+        assert band.db_data[0, 1] == pytest.approx(-60.0, abs=1e-5)
+        # Original linear array preserves exact values
+        assert band.linear_data[0, 0] == pytest.approx(1e-12, rel=1e-5)
+        assert band.linear_data[0, 1] == pytest.approx(1e-8, rel=1e-5)
 
 
 # ---------------------------------------------------------------------------
@@ -893,3 +926,544 @@ class TestEdgeCasesAndValidation:
         )
         with pytest.raises(ValueError, match="Unknown array kind"):
             res.to_multichannel_array(kind="unsupported_kind")
+
+
+# ===========================================================================
+# Phase 1C.3: Radiometric-Unit Generalization Tests
+# ===========================================================================
+
+
+class TestRadiometricUnitConfig:
+    """Tests for PreprocessingConfig radiometric unit handling."""
+
+    def test_default_unit_is_linear(self):
+        """Default configuration must specify BackscatterUnit.LINEAR."""
+        config = PreprocessingConfig()
+        assert config.input_unit == BackscatterUnit.LINEAR
+        assert config.derive_linear is False
+
+    def test_explicit_decibel_enum(self):
+        """Configuration accepts BackscatterUnit.DECIBEL enum."""
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        assert config.input_unit == BackscatterUnit.DECIBEL
+
+    def test_string_alias_parsing_case_insensitive(self):
+        """Configuration parses string aliases case-insensitively."""
+        assert PreprocessingConfig(input_unit="linear").input_unit == BackscatterUnit.LINEAR
+        assert PreprocessingConfig(input_unit="LINEAR").input_unit == BackscatterUnit.LINEAR
+        assert PreprocessingConfig(input_unit="lin").input_unit == BackscatterUnit.LINEAR
+        assert PreprocessingConfig(input_unit="dB").input_unit == BackscatterUnit.DECIBEL
+        assert PreprocessingConfig(input_unit="db").input_unit == BackscatterUnit.DECIBEL
+        assert PreprocessingConfig(input_unit="DB").input_unit == BackscatterUnit.DECIBEL
+        assert PreprocessingConfig(input_unit="decibel").input_unit == BackscatterUnit.DECIBEL
+        assert PreprocessingConfig(input_unit="DECIBEL").input_unit == BackscatterUnit.DECIBEL
+
+    def test_invalid_unit_string_raises(self):
+        """Invalid unit string raises ValueError."""
+        with pytest.raises(ValueError, match="Invalid input_unit"):
+            PreprocessingConfig(input_unit="watts")
+
+    def test_derive_linear_with_linear_unit_raises(self):
+        """derive_linear=True with input_unit=LINEAR raises ValueError."""
+        with pytest.raises(
+            ValueError, match="derive_linear=True is only supported when input_unit is"
+        ):
+            PreprocessingConfig(input_unit=BackscatterUnit.LINEAR, derive_linear=True)
+
+    def test_derive_linear_with_decibel_unit_allowed(self):
+        """derive_linear=True with input_unit=DECIBEL is allowed."""
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL, derive_linear=True)
+        assert config.derive_linear is True
+
+
+class TestDecibelPreprocessingSemantics:
+    """Scientific verification of decibel (dB) input preprocessing."""
+
+    def test_decibel_negative_water_pixels_remain_valid(self):
+        """Negative dB ocean water pixels (-25 dB to -10 dB) are 100% valid."""
+        # Typical sea surface and oil spill values in dB: all strictly negative
+        db_arr = np.array([
+            [-22.5, -18.0, -12.3],
+            [-15.6, -26.1, -11.0],
+            [-19.4, -20.2, -14.8],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_db_water",
+            width=3,
+            height=3,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        assert band.quality.total_pixels == 9
+        assert band.quality.valid_pixels == 9
+        assert band.quality.invalid_pixels == 0
+        assert band.quality.valid_percentage == 100.0
+        assert band.quality.all_valid is True
+        assert np.all(band.valid_mask)
+
+    def test_decibel_values_remain_unchanged_numerical_identity(self):
+        """Valid dB values must NOT be modified (numerical identity)."""
+        db_arr = np.array([
+            [-18.5, -12.0],
+            [-5.2, -28.9],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_db_identity",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        np.testing.assert_array_almost_equal(band.db_data, db_arr)
+        assert band.db_stats.min == pytest.approx(-28.9, abs=1e-5)
+        assert band.db_stats.max == pytest.approx(-5.2, abs=1e-5)
+        assert band.db_stats.mean == pytest.approx(float(np.mean(db_arr)), abs=1e-5)
+
+    def test_decibel_input_not_passed_through_log10_no_double_conversion(self):
+        """Crucial safety test: verify dB values are NEVER passed through 10*log10().
+
+        If -20.0 were passed through log10, it would produce NaN.
+        If +10.0 were passed through log10, it would produce 10.0 (10*log10(10)=10),
+        but +2.0 would become 3.01 instead of remaining 2.0.
+        """
+        db_arr = np.array([
+            [-20.0, -10.0],
+            [2.0, 10.0],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_no_double_log",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        # Ensure no NaNs exist (would happen if negative numbers passed through log10)
+        assert not np.isnan(band.db_data).any()
+        # Ensure 2.0 is still 2.0, NOT 10*log10(2.0) = 3.0103
+        assert band.db_data[1, 0] == pytest.approx(2.0, abs=1e-5)
+        np.testing.assert_array_almost_equal(band.db_data, db_arr)
+
+    def test_decibel_zero_and_positive_db_valid(self):
+        """Zero dB (1.0 linear) and positive dB (> 1.0 linear) are valid physical observations."""
+        db_arr = np.array([
+            [0.0, 3.5],
+            [12.0, 25.0],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_positive_db",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        assert band.quality.all_valid is True
+        np.testing.assert_array_almost_equal(band.db_data, db_arr)
+
+    def test_decibel_non_finite_pixels_masked_and_floored(self):
+        """NaN, +inf, and -inf pixels are masked as invalid and filled with db_floor."""
+        db_arr = np.array([
+            [-15.0, np.nan],
+            [np.inf, -np.inf],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(
+            input_unit=BackscatterUnit.DECIBEL,
+            db_floor=-50.0,
+        )
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_db_non_finite",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        assert band.quality.total_pixels == 4
+        assert band.quality.valid_pixels == 1
+        assert band.quality.invalid_pixels == 3
+        assert band.quality.valid_percentage == 25.0
+
+        expected_mask = np.array([[True, False], [False, False]])
+        np.testing.assert_array_equal(band.valid_mask, expected_mask)
+
+        # Valid pixel preserved; invalid pixels clamped to db_floor
+        assert band.db_data[0, 0] == pytest.approx(-15.0, abs=1e-5)
+        assert band.db_data[0, 1] == pytest.approx(-50.0, abs=1e-5)
+        assert band.db_data[1, 0] == pytest.approx(-50.0, abs=1e-5)
+        assert band.db_data[1, 1] == pytest.approx(-50.0, abs=1e-5)
+
+        # Ensure entire output array is strictly finite
+        assert np.isfinite(band.db_data).all()
+
+    def test_decibel_valid_values_below_floor_not_clipped(self):
+        """CAO Condition 6: Valid dB measurements must not be clipped by db_floor.
+
+        If a valid physical dB value is -55 dB and db_floor is -50 dB, the valid pixel
+        must retain -55 dB and not be clipped to -50 dB.
+        """
+        db_arr = np.array([
+            [-55.0, -60.0],
+            [-12.0, np.nan],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(
+            input_unit=BackscatterUnit.DECIBEL,
+            db_floor=-50.0,
+        )
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_db_floor_no_clip",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        # Valid pixels must NOT be clipped to -50.0
+        assert band.db_data[0, 0] == pytest.approx(-55.0, abs=1e-5)
+        assert band.db_data[0, 1] == pytest.approx(-60.0, abs=1e-5)
+        assert band.db_data[1, 0] == pytest.approx(-12.0, abs=1e-5)
+        # Invalid pixel (NaN) must be db_floor
+        assert band.db_data[1, 1] == pytest.approx(-50.0, abs=1e-5)
+        assert band.quality.valid_pixels == 3
+
+    def test_decibel_all_invalid_raises_preprocessing_error(self):
+        """If all pixels in a dB band are non-finite, raise PreprocessingError."""
+        db_arr = np.array([
+            [np.nan, np.inf],
+            [-np.inf, np.nan],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        with pytest.raises(PreprocessingError) as exc_info:
+            preprocessor.process_arrays(
+                arrays={Polarization.VV: db_arr},
+                polarizations=[Polarization.VV],
+                observation_id="test_db_all_invalid",
+                width=2,
+                height=2,
+                crs="EPSG:4326",
+                bounds=[0.0, 0.0, 1.0, 1.0],
+                transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+                config=config,
+            )
+        assert "zero valid pixels" in exc_info.value.message
+        assert exc_info.value.details.get("input_unit") == "dB"
+
+    def test_decibel_default_does_not_derive_linear(self):
+        """In DECIBEL mode, linear_data is None by default and get_linear raises ValueError."""
+        db_arr = np.array([[-15.0, -12.0], [-20.0, -18.0]], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_db_no_linear_default",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        assert band.linear_data is None
+        assert band.linear_stats is None
+
+        with pytest.raises(ValueError, match="Linear data was not derived for polarization VV"):
+            result.get_linear(Polarization.VV)
+
+        with pytest.raises(ValueError, match="Linear data was not derived in this result"):
+            result.to_multichannel_array(kind="linear")
+
+    def test_decibel_explicit_derive_linear_mathematical_accuracy(self):
+        """When derive_linear=True, sigma0_linear = 10^(sigma0_db / 10) is exact.
+
+        0 dB -> 1.0
+        -10 dB -> 0.1
+        -20 dB -> 0.01
+        -30 dB -> 0.001
+        +10 dB -> 10.0
+        """
+        db_arr = np.array([
+            [0.0, -10.0],
+            [-20.0, -30.0],
+            [10.0, np.nan],
+        ], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL, derive_linear=True)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_derive_linear_exact",
+            width=2,
+            height=3,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        band = result.get_band(Polarization.VV)
+        assert band.linear_data is not None
+        assert band.linear_stats is not None
+
+        lin = result.get_linear(Polarization.VV)
+        assert lin[0, 0] == pytest.approx(1.0, abs=1e-6)
+        assert lin[0, 1] == pytest.approx(0.1, abs=1e-6)
+        assert lin[1, 0] == pytest.approx(0.01, abs=1e-6)
+        assert lin[1, 1] == pytest.approx(0.001, abs=1e-6)
+        assert lin[2, 0] == pytest.approx(10.0, abs=1e-6)
+        # Invalid pixel has 0.0 in linear_data
+        assert lin[2, 1] == pytest.approx(0.0, abs=1e-6)
+
+        # Verify linear_stats are calculated strictly over valid pixels
+        assert band.linear_stats.min == pytest.approx(0.001, abs=1e-6)
+        assert band.linear_stats.max == pytest.approx(10.0, abs=1e-6)
+
+        # Verify to_multichannel_array("linear") works
+        stacked_lin = result.to_multichannel_array(kind="linear")
+        assert stacked_lin.shape == (1, 3, 2)
+        assert stacked_lin[0, 0, 0] == pytest.approx(1.0, abs=1e-6)
+
+    def test_safe_summary_includes_input_unit(self):
+        """to_safe_summary reflects input_unit."""
+        db_arr = np.array([[-15.0, -12.0], [-20.0, -18.0]], dtype=np.float32)
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_safe_summary_db",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        summary = result.to_safe_summary()
+        assert summary["config"]["input_unit"] == "dB"
+        assert summary["bands"]["VV"]["input_unit"] == "dB"
+        assert summary["bands"]["VV"]["has_linear"] is False
+        assert summary["bands"]["VV"]["has_db"] is True
+
+
+class TestDualPolarizationDecibel:
+    """Verification of dual polarization (VV + VH) with decibel input."""
+
+    def test_vv_and_vh_decibel_independent_processing(self):
+        """VV and VH in dB have independent statistics and correct channel separation."""
+        vv_arr = np.array([[-12.0, -14.0], [-10.0, -16.0]], dtype=np.float32)
+        vh_arr = np.array([[-22.0, -24.0], [-20.0, -26.0]], dtype=np.float32)
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(input_unit=BackscatterUnit.DECIBEL)
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: vv_arr, Polarization.VH: vh_arr},
+            polarizations=[Polarization.VV, Polarization.VH],
+            observation_id="test_dual_pol_db",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        assert result.band_count == 2
+        vv_band = result.get_band(Polarization.VV)
+        vh_band = result.get_band(Polarization.VH)
+
+        assert vv_band.db_stats.mean == pytest.approx(-13.0, abs=1e-5)
+        assert vh_band.db_stats.mean == pytest.approx(-23.0, abs=1e-5)
+        np.testing.assert_array_almost_equal(vv_band.db_data, vv_arr)
+        np.testing.assert_array_almost_equal(vh_band.db_data, vh_arr)
+
+        # Multi-channel tensor shape (2, 2, 2)
+        tensor = result.to_multichannel_array(kind="db")
+        assert tensor.shape == (2, 2, 2)
+        np.testing.assert_array_almost_equal(tensor[0], vv_arr)
+        np.testing.assert_array_almost_equal(tensor[1], vh_arr)
+
+
+class TestDecibelNormalization:
+    """Verification of normalization on decibel input."""
+
+    def test_percentile_normalization_on_decibel_input(self):
+        """Percentile normalization works identically on decibel input."""
+        db_arr = np.linspace(-30.0, -10.0, 100, dtype=np.float32).reshape(10, 10)
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(
+            input_unit=BackscatterUnit.DECIBEL,
+            normalization_method=NormalizationMethod.PERCENTILE,
+            percentile_min=5.0,
+            percentile_max=95.0,
+        )
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_norm_db_percentile",
+            width=10,
+            height=10,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[0.1, 0.0, 0.0, 0.0, -0.1, 1.0],
+            config=config,
+        )
+
+        norm = result.get_normalized(Polarization.VV)
+        assert norm is not None
+        assert norm.min() >= 0.0
+        assert norm.max() <= 1.0
+        assert norm.dtype == np.float32
+
+    def test_minmax_normalization_on_decibel_input(self):
+        """MinMax normalization maps min dB to 0.0 and max dB to 1.0."""
+        db_arr = np.array([[-30.0, -20.0], [-15.0, -10.0]], dtype=np.float32)
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(
+            input_unit=BackscatterUnit.DECIBEL,
+            normalization_method=NormalizationMethod.MINMAX,
+        )
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_norm_db_minmax",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        norm = result.get_normalized(Polarization.VV)
+        assert norm is not None
+        assert norm[0, 0] == pytest.approx(0.0, abs=1e-5)  # min (-30 dB)
+        assert norm[1, 1] == pytest.approx(1.0, abs=1e-5)  # max (-10 dB)
+        assert norm[0, 1] == pytest.approx(0.5, abs=1e-5)  # mid (-20 dB)
+
+    def test_zscore_normalization_on_decibel_input(self):
+        """Z-score standardization normalizes dB values to mean ~0 and std ~1."""
+        db_arr = np.array([[-30.0, -20.0], [-10.0, 0.0]], dtype=np.float32)
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(
+            input_unit=BackscatterUnit.DECIBEL,
+            normalization_method=NormalizationMethod.ZSCORE,
+        )
+        result = preprocessor.process_arrays(
+            arrays={Polarization.VV: db_arr},
+            polarizations=[Polarization.VV],
+            observation_id="test_norm_db_zscore",
+            width=2,
+            height=2,
+            crs="EPSG:4326",
+            bounds=[0.0, 0.0, 1.0, 1.0],
+            transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+            config=config,
+        )
+
+        norm = result.get_normalized(Polarization.VV)
+        assert norm is not None
+        assert float(np.mean(norm)) == pytest.approx(0.0, abs=1e-5)
+        assert float(np.std(norm)) == pytest.approx(1.0, abs=1e-5)
+
+
+class TestEndToEndDecibelGeoTIFF:
+    """End-to-end verification of GeoTIFF raster bytes with decibel input."""
+
+    def test_decibel_geotiff_processing_via_imagery_result(self):
+        """SARPreprocessor.process() correctly handles GeoTIFF containing dB values."""
+        vv_db = np.array([
+            [-22.0, -18.0, -12.0],
+            [-15.0, -25.0, -10.0],
+            [-19.0, -20.0, -14.0],
+        ], dtype=np.float32)
+        vh_db = vv_db - 10.0  # VH is typically ~10 dB lower
+
+        imagery = create_sample_imagery_result(
+            arrays=[vv_db, vh_db],
+            polarizations=[Polarization.VV, Polarization.VH],
+            observation_id="trujillo_simulated_patch_00000",
+        )
+
+        preprocessor = SARPreprocessor()
+        config = PreprocessingConfig(
+            input_unit=BackscatterUnit.DECIBEL,
+            derive_linear=True,
+        )
+        result = preprocessor.process(imagery, config=config)
+
+        assert result.observation_id == "trujillo_simulated_patch_00000"
+        assert result.width == 3
+        assert result.height == 3
+        assert result.band_count == 2
+
+        vv_band = result.get_band(Polarization.VV)
+        vh_band = result.get_band(Polarization.VH)
+
+        assert vv_band.input_unit == BackscatterUnit.DECIBEL
+        assert vh_band.input_unit == BackscatterUnit.DECIBEL
+        assert vv_band.quality.valid_percentage == 100.0
+        assert vh_band.quality.valid_percentage == 100.0
+
+        np.testing.assert_array_almost_equal(vv_band.db_data, vv_db)
+        np.testing.assert_array_almost_equal(vh_band.db_data, vh_db)
+
+        # Derived linear must match 10^(dB/10)
+        expected_vv_lin = np.power(10.0, vv_db / 10.0).astype(np.float32)
+        np.testing.assert_array_almost_equal(vv_band.linear_data, expected_vv_lin)
+

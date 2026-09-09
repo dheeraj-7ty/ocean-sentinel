@@ -159,3 +159,79 @@ class RasterValidationError(SatelliteError):
 class ConfigurationError(SatelliteError):
     def __init__(self, message: str, **kwargs: Any) -> None:
         super().__init__(SatelliteErrorCode.CONFIGURATION_ERROR, message, **kwargs)
+
+
+# ---------------------------------------------------------------------------
+# Offline Dataset & Ingestion Error Domain
+# ---------------------------------------------------------------------------
+
+
+class DatasetErrorCode(str, Enum):
+    """Machine-readable error codes for the offline dataset and ingestion subsystem."""
+
+    DATASET_NOT_FOUND = "DATASET_NOT_FOUND"
+    PAIRING_FAILURE = "PAIRING_FAILURE"
+    VALIDATION_FAILURE = "VALIDATION_FAILURE"
+    TILING_FAILURE = "TILING_FAILURE"
+    PROVENANCE_ERROR = "PROVENANCE_ERROR"
+    CORRUPT_RASTER = "CORRUPT_RASTER"
+
+
+class DatasetError(Exception):
+    """Base exception for the offline dataset and ingestion subsystem.
+
+    Decoupled from SatelliteError because offline dataset filesystem,
+    pairing, and tiling failures represent a distinct domain from
+    remote satellite-service and STAC API operations.
+    """
+
+    def __init__(
+        self,
+        code: DatasetErrorCode,
+        message: str,
+        *,
+        details: Optional[dict[str, Any]] = None,
+        cause: Optional[Exception] = None,
+    ) -> None:
+        self.code = code
+        self.message = message
+        self.details = details or {}
+        self.cause = cause
+        super().__init__(f"[{code.value}] {message}")
+
+    def to_dict(self) -> dict[str, Any]:
+        """Serialize to a dict safe for API and logging responses.
+
+        Never includes sensitive credentials.
+        """
+        result: dict[str, Any] = {
+            "error": self.code.value,
+            "message": self.message,
+        }
+        safe_details = {
+            k: v for k, v in self.details.items()
+            if k not in ("token", "secret", "password", "credentials")
+        }
+        if safe_details:
+            result["details"] = safe_details
+        return result
+
+
+class DatasetPairingError(DatasetError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(DatasetErrorCode.PAIRING_FAILURE, message, **kwargs)
+
+
+class DatasetValidationError(DatasetError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(DatasetErrorCode.VALIDATION_FAILURE, message, **kwargs)
+
+
+class DatasetTilingError(DatasetError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(DatasetErrorCode.TILING_FAILURE, message, **kwargs)
+
+
+class DatasetProvenanceError(DatasetError):
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        super().__init__(DatasetErrorCode.PROVENANCE_ERROR, message, **kwargs)

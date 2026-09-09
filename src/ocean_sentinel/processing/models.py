@@ -10,7 +10,7 @@ from enum import Enum
 from typing import Any, Optional
 
 import numpy as np
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from ocean_sentinel.models import Polarization
 
@@ -47,7 +47,9 @@ class QualityMetrics(BaseModel):
     total_pixels: int = Field(..., ge=0, description="Total number of pixels in band")
     valid_pixels: int = Field(..., ge=0, description="Count of valid scientific observations")
     invalid_pixels: int = Field(
-        ..., ge=0, description="Count of non-positive, NaN, or infinite pixels"
+        ...,
+        ge=0,
+        description="Count of invalid pixels (non-positive/non-finite linear, or non-finite dB)",
     )
     valid_percentage: float = Field(..., ge=0.0, le=100.0, description="Percentage of valid pixels")
 
@@ -75,24 +77,33 @@ class PreprocessedBandStats(BaseModel):
 class PreprocessingConfig(BaseModel):
     """Configuration for SAR preprocessing operations.
 
-    Controls dB conversion, invalid-pixel clamping floor, and per-band normalization.
+    Controls source radiometric unit, dB conversion, invalid-pixel clamping floor,
+    and per-band normalization.
     """
 
+    input_unit: BackscatterUnit = Field(
+        default=BackscatterUnit.LINEAR,
+        description="Authoritative radiometric unit of input data (LINEAR or DECIBEL)",
+    )
     convert_to_db: bool = Field(
         default=True,
-        description="Convert linear σ0 intensity to decibels (10 * log10(σ0))",
+        description="Convert linear σ0 to decibels (10 * log10(σ0)). Only applies to LINEAR input.",
     )
     db_floor: float = Field(
         default=-50.0,
-        description="Configurable floor in dB applied to invalid/non-positive pixels",
+        description="Floor in dB applied to invalid/non-finite pixels in dB representation",
     )
     linear_min_threshold: float = Field(
         default=1e-6,
-        description="Lower threshold for linear σ0 to avoid log10 of non-positive values",
+        description="Threshold for linear σ0 to avoid log10 non-positive (LINEAR input only)",
     )
     preserve_linear: bool = Field(
         default=True,
-        description="Retain original physical linear arrays alongside dB arrays",
+        description="Retain original physical linear arrays alongside dB arrays (LINEAR input)",
+    )
+    derive_linear: bool = Field(
+        default=False,
+        description="Derive linear backscatter from dB via 10^(dB/10) (DECIBEL input only)",
     )
     normalization_method: NormalizationMethod = Field(
         default=NormalizationMethod.PERCENTILE,
@@ -115,6 +126,21 @@ class PreprocessingConfig(BaseModel):
         description="Whether to clip normalized values to [0.0, 1.0]",
     )
 
+    @field_validator("input_unit", mode="before")
+    @classmethod
+    def validate_input_unit(cls, v: Any) -> BackscatterUnit:
+        if isinstance(v, BackscatterUnit):
+            return v
+        if isinstance(v, str):
+            v_norm = v.strip().lower()
+            if v_norm in ("linear", "lin"):
+                return BackscatterUnit.LINEAR
+            if v_norm in ("db", "decibel"):
+                return BackscatterUnit.DECIBEL
+        raise ValueError(
+            f"Invalid input_unit: {v!r}. Must be BackscatterUnit.LINEAR or BackscatterUnit.DECIBEL"
+        )
+
     @field_validator("percentile_max")
     @classmethod
     def max_must_exceed_min(cls, v: float, info) -> float:
@@ -124,6 +150,15 @@ class PreprocessingConfig(BaseModel):
                 f"percentile_max ({v}) must be greater than percentile_min ({min_val})"
             )
         return v
+
+    @model_validator(mode="after")
+    def validate_unit_consistency(self) -> PreprocessingConfig:
+        if self.input_unit == BackscatterUnit.LINEAR and self.derive_linear:
+            raise ValueError(
+                "derive_linear=True is only supported when input_unit is BackscatterUnit.DECIBEL. "
+                "For LINEAR input, use preserve_linear."
+            )
+        return self
 
 
 class PreprocessedBand(BaseModel):
@@ -136,6 +171,10 @@ class PreprocessedBand(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     polarization: Polarization = Field(..., description="Band polarization channel (e.g. VV, VH)")
+    input_unit: BackscatterUnit = Field(
+        default=BackscatterUnit.LINEAR,
+        description="Authoritative source radiometric unit of this band",
+    )
     valid_mask: np.ndarray = Field(
         ..., repr=False, description="2D boolean mask (True = valid pixel)"
     )
@@ -167,6 +206,7 @@ class PreprocessedBand(BaseModel):
         """Return safe metadata summary without raw array content."""
         return {
             "polarization": self.polarization.value,
+            "input_unit": self.input_unit.value,
             "has_linear": self.linear_data is not None,
             "has_db": self.db_data is not None,
             "has_normalized": self.normalized_data is not None,
@@ -230,9 +270,14 @@ class PreprocessingResult(BaseModel):
         """Get 2D float32 linear array for a polarization."""
         band = self.get_band(polarization)
         if band.linear_data is None:
+            if self.config.input_unit == BackscatterUnit.DECIBEL:
+                raise ValueError(
+                    f"Linear data was not derived for polarization {polarization.value} "
+                    "(derive_linear was False in configuration for DECIBEL input)"
+                )
             raise ValueError(
                 f"Linear data was not preserved for polarization {polarization.value} "
-                "(preserve_linear was False in configuration)"
+                "(preserve_linear was False in configuration for LINEAR input)"
             )
         return band.linear_data
 
@@ -260,7 +305,15 @@ class PreprocessingResult(BaseModel):
                 arrays.append(band.db_data)
             elif kind_lower == "linear":
                 if band.linear_data is None:
-                    raise ValueError("Linear data was not preserved in this result")
+                    if self.config.input_unit == BackscatterUnit.DECIBEL:
+                        raise ValueError(
+                            "Linear data was not derived in this result "
+                            "(derive_linear was False in configuration for DECIBEL input)"
+                        )
+                    raise ValueError(
+                        "Linear data was not preserved in this result "
+                        "(preserve_linear was False in configuration for LINEAR input)"
+                    )
                 arrays.append(band.linear_data)
             elif kind_lower == "normalized":
                 if band.normalized_data is None:

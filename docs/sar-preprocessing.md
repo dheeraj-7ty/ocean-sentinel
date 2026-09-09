@@ -1,104 +1,114 @@
-# SAR Preprocessing & Scientific Data Pipeline (Phase 1C.1)
+# SAR Preprocessing & Scientific Data Pipeline (Phase 1C.1 & Phase 1C.3)
 
 ## 1. Overview & Purpose
 
-The SAR preprocessing subsystem (`ocean_sentinel.processing`) transforms validated Sentinel-1 GeoTIFF rasters returned by the satellite retrieval layer (`ImageryResult`) into standardized, deterministic, and analysis-ready numerical arrays (`PreprocessingResult`).
+The SAR preprocessing subsystem (`ocean_sentinel.processing`) transforms Sentinel-1 radar rasters returned by the satellite retrieval layer (`ImageryResult`) or loaded from offline training datasets into standardized, deterministic, and analysis-ready numerical representations (`PreprocessingResult`).
 
 This layer forms the scientific foundation for:
 1. Baseline oil-spill candidate detection (Phase 1C.2)
-2. Future ML model training and inference
+2. Radiometrically generalized offline training ingestion (Phase 1C.3 & Phase 1C.4)
 3. Multi-temporal SAR change detection
 4. Geospatial intelligence visualization
 5. Rigorous radiometric evaluation
 
 ---
 
-## 2. Pipeline Architecture
+## 2. Radiometric Unit Architecture (Phase 1C.3 Generalization)
+
+SAR observations originate from multiple sources with fundamentally different radiometric scales:
 
 ```
-Copernicus Sentinel Hub Process API
-       ↓
-ImageryResult (validated GeoTIFF bytes + spatial metadata)
-       ↓
-SARPreprocessor.process(imagery, config)
-       ↓
-Raster Decoding (rasterio.io.MemoryFile)
-       ↓
-Band Identification & Polarization Mapping
-  - Band 1 = VV
-  - Band 2 = VH
-       ↓
-Invalid Pixel Detection & Masking
-  - Non-positive (x <= 0)
-  - NaN / +Inf / -Inf
-       ↓
-Physical Radiometric Conversion (Linear → Decibels)
-  σ0_dB = 10 * log10(max(x, threshold))
-  Invalid pixels clamped to db_floor (default: -50 dB)
-       ↓
-Independent Per-Band Normalization
-  - Percentile / MinMax / Z-Score
-  - Preserves physical arrays separately from normalized arrays
-       ↓
-Quality & Scientific Statistical Metrics
-       ↓
-PreprocessingResult (PreprocessedSAR)
-  - Full geospatial metadata preserved (CRS, bounds, transform, dimensions)
-  - to_multichannel_array() for ML/detector ingestion
+[Live CDSE Process API]                  [Offline Trujillo Part I]
+Linear Radar Cross-Section (σ0)          Reported Backscatter in Decibels (dB)
+     (typical: 0.001 to 0.2)                  (typical: -30 dB to -5 dB)
+             │                                        │
+             ▼                                        ▼
+   input_unit = LINEAR                      input_unit = DECIBEL
+             │                                        │
+             ├───────────────────┬────────────────────┤
+             ▼                                        ▼
+   [LINEAR Validity Mask]                   [DECIBEL Validity Mask]
+   valid = finite & (raw > 0)               valid = finite (negative, 0, positive)
+             │                                        │
+             ▼                                        ▼
+   [Physical Conversion]                    [Direct dB Preservation]
+   σ0_dB = 10 * log10(max(x, ε))            σ0_dB = raw (NO logarithm applied)
+             │                                        │
+             ├───────────────────┬────────────────────┤
+             ▼                                        ▼
+    [db_data Converged]                      [db_data Converged]
+    Physical Decibels (float32)              Physical Decibels (float32)
+             │                                        │
+             ▼                                        ▼
+   [Independent Per-Band Normalization]     [Independent Per-Band Normalization]
+   Percentile / MinMax / ZScore             Percentile / MinMax / ZScore
+             │                                        │
+             └───────────────────┬────────────────────┘
+                                 ▼
+                     PreprocessingResult / ML Tensor
 ```
+
+### Supported Radiometric Units
+
+| Unit Enum | String Aliases | Physical Meaning | Typical Marine Range |
+|---|---|---|---|
+| `BackscatterUnit.LINEAR` | `"linear"`, `"lin"` | Radar cross section per unit area $\sigma^0$ (power intensity ratio) | $0.001$ to $0.15$ |
+| `BackscatterUnit.DECIBEL` | `"dB"`, `"db"`, `"decibel"` | Logarithmic backscatter scale $10 \log_{10}(\sigma^0)$ | $-30\text{ dB}$ to $-5\text{ dB}$ |
+
+> [!CAUTION]
+> **CRITICAL SCIENTIFIC SAFETY: THE DOUBLE-CONVERSION HAZARD**
+> - The pipeline **NEVER** infers radiometric units heuristically from numeric signs, value ranges, filenames, or dataset names.
+> - If decibel imagery is passed with `input_unit = LINEAR`:
+>   1. All normal ocean pixels (negative dB, e.g. $-20\text{ dB}$) will fail `raw > 0.0` and be marked invalid, causing `PreprocessingError: zero valid pixels`.
+>   2. If not rejected, computing $10 \log_{10}(\text{negative dB})$ produces mathematical `NaN`, irreversibly corrupting training data and downstream model weights.
+> - The caller or configuration must **explicitly state** `input_unit = BackscatterUnit.DECIBEL` for pre-calibrated dB imagery.
 
 ---
 
-## 3. Scientific Radiometric Foundations
+## 3. Scientific Radiometric Foundations & Equations
 
-### Linear Radar Backscatter ($\sigma^0_{\text{linear}}$)
-In Copernicus Sentinel Hub Process API, requests specifying `backCoeff: "SIGMA0_ELLIPSOID"` and `sampleType: "FLOAT32"` produce **linear backscatter intensity (power)** $\sigma^0$.
-These values represent unitless radar cross-section per unit surface area:
-- For calm ocean surfaces, typical linear values range between $0.001$ and $0.1$.
-- For land or bright maritime targets (ships, platforms), linear values frequently exceed $1.0$.
+### Linear Backscatter ($\sigma^0_{\text{linear}}$)
+In Copernicus Sentinel Hub Process API requests specifying `backCoeff: "SIGMA0_ELLIPSOID"` and `sampleType: "FLOAT32"`, pixel values represent linear backscatter power $\sigma^0$:
+- Calm sea surface: $0.001 \le \sigma^0_{\text{linear}} \le 0.05$
+- Rough sea / ambient ocean: $0.05 \le \sigma^0_{\text{linear}} \le 0.2$
+- Hard targets (ships, platforms, land): $\sigma^0_{\text{linear}} > 1.0$
 
-### Decibel (dB) Conversion
-Because radar backscatter spans several orders of magnitude, analysis is performed in logarithmic decibels:
-$$\sigma^0_{\text{dB}} = 10 \cdot \log_{10}(\sigma^0_{\text{linear}})$$
+### Decibel Conversion (Linear $\to$ dB)
+$$\sigma^0_{\text{dB}} = 10 \cdot \log_{10}(\max(\sigma^0_{\text{linear}}, \epsilon_{\text{min}}))$$
+where $\epsilon_{\text{min}}$ is `linear_min_threshold` (default: $10^{-6} \implies -60\text{ dB}$).
 
-The decibel transformation converts multiplicative speckle noise into additive noise, compresses dynamic range, and enhances the contrast between dark formations (oil slicks, which dampen surface capillary waves: $\sim -25\text{ dB}$ to $-18\text{ dB}$) and surrounding ambient sea ($\sim -15\text{ dB}$ to $-10\text{ dB}$).
+### Linear Derivation (dB $\to$ Linear)
+When `input_unit == BackscatterUnit.DECIBEL` and the caller explicitly sets `derive_linear = True`:
+$$\sigma^0_{\text{linear}} = 10^{\frac{\sigma^0_{\text{dB}}}{10}}$$
+
+Examples:
+- $0.0\text{ dB} \implies 10^{0} = 1.0$ (linear)
+- $-10.0\text{ dB} \implies 10^{-1} = 0.1$ (linear)
+- $-20.0\text{ dB} \implies 10^{-2} = 0.01$ (linear)
+- $-30.0\text{ dB} \implies 10^{-3} = 0.001$ (linear)
+- $+10.0\text{ dB} \implies 10^{1} = 10.0$ (linear)
 
 ---
 
-## 4. Invalid Pixel Policy
+## 4. Deterministic Validity & Floor Policy
 
-Raw satellite rasters often contain zero or non-positive values along image edges, no-data boundaries, or masked sensor areas. In linear power, values $\le 0$ are scientifically non-physical.
-
-1. **Identification**:
-   A pixel is marked invalid if:
-   - $x \le 0$
-   - $x$ is `NaN`
-   - $x$ is $+\infty$ or $-\infty$
-2. **Validity Mask**:
-   A 2D boolean array `valid_mask` (`bool`, same shape `(H, W)`) is generated where `True` marks genuine physical observations.
-3. **Clamping Floor**:
-   To ensure that numerical arrays passed downstream remain strictly finite (no $-\infty$, $+\infty$, or NaN), invalid pixels in the dB representation are substituted with a configurable floor:
-   $$\text{default } \text{db\_floor} = -50.0\text{ dB}$$
-   Downstream models can safely compute convolutions or statistics while using `valid_mask` to exclude substituted floor values.
-4. **All-Invalid Protection**:
-   If a raster band contains zero valid pixels, `SARPreprocessor` raises a `PreprocessingError` rather than emitting meaningless synthetic results.
+| Check | `BackscatterUnit.LINEAR` | `BackscatterUnit.DECIBEL` |
+|---|---|---|
+| **Positive finite values ($x > 0$)** | **Valid** | **Valid** |
+| **Negative finite values ($x < 0$)** | **Invalid** (physically non-existent power) | **Valid** (standard ocean backscatter, e.g. $-20\text{ dB}$) |
+| **Zero ($x = 0.0$)** | **Invalid** (no-data / antenna boundary) | **Valid** ($0\text{ dB} \equiv 1.0$ linear) |
+| **`NaN` / $+\infty$ / $-\infty$** | **Invalid** | **Invalid** |
+| **`db_floor` substitution** | Substituted for $x \le 0$, `NaN`, $\pm\infty$ | Substituted for `NaN`, $\pm\infty$ only; **never** clips valid dB values |
+| **All-invalid protection** | Raises `PreprocessingError` | Raises `PreprocessingError` |
 
 ---
 
 ## 5. Independent Per-Band Normalization
 
-Normalization is performed **strictly for ML and visualization** and is stored separately from physical physical dB and linear arrays.
+Normalization is performed **strictly for ML feature extraction and visualization**, operating on the converged physical dB domain (`db_data`) over valid pixels (`valid_mask`):
 
-### Polarization Independence
-VV and VH channels have fundamentally different physical scattering mechanisms and magnitudes:
-- **VV**: Directly sensitive to sea surface roughness and capillary waves; typically $\sim -12\text{ dB}$ on open water.
-- **VH**: Cross-polarized signal sensitive to volumetric/depolarizing scattering; typically $8\text{ to }12\text{ dB}$ weaker than VV, closer to instrument noise.
-
-Normalizing VV and VH jointly would crush the VH channel into near-zero values. Therefore, normalization is calculated **independently per band**.
-
-### Normalization Methods
 1. **`PERCENTILE`** (Default):
-   Scales valid pixels between configurable percentiles (default: 1st and 99th) to $[0.0, 1.0]$, clipping extreme outlier spikes (such as ships or land):
+   Scales between 1st and 99th percentiles of valid pixels to $[0.0, 1.0]$:
    $$x_{\text{norm}} = \text{clip}\left(\frac{x - p_{\text{min}}}{p_{\text{max}} - p_{\text{min}}}, 0.0, 1.0\right)$$
 2. **`MINMAX`**:
    Scales between the exact minimum and maximum valid values to $[0.0, 1.0]$.
@@ -113,36 +123,39 @@ Normalizing VV and VH jointly would crush the VH channel into near-zero values. 
 ## 6. Data Contract & Domain Models
 
 ### `PreprocessingConfig`
+
 | Field | Type | Default | Description |
 |---|---|---|---|
-| `convert_to_db` | `bool` | `True` | Whether to convert linear $\sigma^0$ to decibels |
-| `db_floor` | `float` | `-50.0` | dB value applied to invalid / non-positive pixels |
-| `linear_min_threshold` | `float` | `1e-6` | Minimum linear floor to prevent $\log_{10}(0)$ |
-| `preserve_linear` | `bool` | `True` | Retain original linear $\sigma^0$ array in memory |
-| `normalization_method` | `NormalizationMethod` | `PERCENTILE` | Normalization algorithm |
+| `input_unit` | `BackscatterUnit` | `LINEAR` | Authoritative source radiometric unit (`LINEAR` or `DECIBEL`) |
+| `convert_to_db` | `bool` | `True` | Convert linear $\sigma^0$ to decibels (LINEAR input only) |
+| `db_floor` | `float` | `-50.0` | dB floor applied to invalid/non-finite pixels |
+| `linear_min_threshold` | `float` | `1e-6` | Threshold for linear $\sigma^0$ to avoid $\log_{10}(0)$ (LINEAR input only) |
+| `preserve_linear` | `bool` | `True` | Retain original linear $\sigma^0$ array in memory (LINEAR input) |
+| `derive_linear` | `bool` | `False` | Derive linear backscatter from dB via $10^{\text{dB}/10}$ (DECIBEL input only) |
+| `normalization_method` | `NormalizationMethod` | `PERCENTILE` | Normalization algorithm applied per band |
 | `percentile_min` | `float` | `1.0` | Lower percentile for percentile normalization |
 | `percentile_max` | `float` | `99.0` | Upper percentile for percentile normalization |
 | `clip_normalized` | `bool` | `True` | Clip normalized output to $[0.0, 1.0]$ |
 
 ### `PreprocessedBand`
-- `polarization`: `Polarization` (e.g. `VV`, `VH`)
-- `valid_mask`: 2D `np.ndarray` of dtype `bool` (`True` = valid)
-- `db_data`: 2D `np.ndarray` of dtype `float32` (dB values with floor substitution)
-- `linear_data`: 2D `np.ndarray` of dtype `float32` (original linear $\sigma^0$)
+- `polarization`: `Polarization` (`VV`, `VH`)
+- `input_unit`: `BackscatterUnit` (`LINEAR`, `DECIBEL`)
+- `valid_mask`: 2D `np.ndarray` of dtype `bool` (`True` = valid pixel)
+- `db_data`: 2D `np.ndarray` of dtype `float32` (dB values with floor substitution on invalid pixels)
+- `linear_data`: Optional 2D `np.ndarray` of dtype `float32` (`None` unless preserved or derived)
 - `normalized_data`: Optional 2D `np.ndarray` of dtype `float32`
 - `quality`: `QualityMetrics` (`total_pixels`, `valid_pixels`, `invalid_pixels`, `valid_percentage`)
 - `db_stats`: `PreprocessedBandStats` (`min`, `max`, `mean`, `median`, `std`)
-- `linear_stats`: `PreprocessedBandStats` over valid pixels
-- `normalization_metadata`: Parameters used for normalization (e.g. $p_{\text{min}}, p_{\text{max}}$)
+- `linear_stats`: `PreprocessedBandStats` over valid pixels (`None` if linear data not preserved/derived)
+- `normalization_metadata`: Parameters used for normalization
 
 ### `PreprocessingResult` (alias `PreprocessedSAR`)
-Encapsulates all bands and preserves complete geospatial provenance:
 - `observation_id`, `width`, `height`, `band_count`, `polarizations`, `crs`, `bounds`, `transform`
 - `bands: dict[Polarization, PreprocessedBand]`
 - Utility methods:
   - `get_band(pol) -> PreprocessedBand`
   - `get_db(pol) -> np.ndarray`
-  - `get_linear(pol) -> np.ndarray`
+  - `get_linear(pol) -> np.ndarray` (raises informative `ValueError` if not preserved/derived)
   - `get_valid_mask(pol) -> np.ndarray`
   - `get_normalized(pol) -> np.ndarray`
   - `to_multichannel_array(kind='db' | 'linear' | 'normalized') -> np.ndarray` (shape: `(C, H, W)`)
@@ -150,39 +163,72 @@ Encapsulates all bands and preserves complete geospatial provenance:
 
 ---
 
-## 7. Example Usage
+## 7. Configuration & Usage Examples
+
+### Example 1: Live Copernicus CDSE Process API Imagery (Linear Input)
 
 ```python
 from ocean_sentinel.processing import (
-    SARPreprocessor,
-    PreprocessingConfig,
+    BackscatterUnit,
     NormalizationMethod,
+    PreprocessingConfig,
+    SARPreprocessor,
 )
 from ocean_sentinel.models import Polarization
 
-# Configure preprocessor
+# Live imagery returns linear sigma0
 config = PreprocessingConfig(
-    convert_to_db=True,
-    db_floor=-50.0,
+    input_unit=BackscatterUnit.LINEAR,  # Default
+    convert_to_db=True,                 # Default
+    preserve_linear=True,               # Keep original linear data
     normalization_method=NormalizationMethod.PERCENTILE,
-    percentile_min=1.0,
-    percentile_max=99.0,
 )
 preprocessor = SARPreprocessor(default_config=config)
 
-# Process validated ImageryResult from retrieval layer
+# Process ImageryResult from Copernicus retrieval layer
 result = preprocessor.process(imagery_result)
 
-# Access physical dB array
 vv_db = result.get_db(Polarization.VV)
-vv_mask = result.get_valid_mask(Polarization.VV)
+vv_lin = result.get_linear(Polarization.VV)
+tensor = result.to_multichannel_array(kind="db")  # Shape: (2, H, W)
+```
 
-# Access normalized array for visualization or ML
-vv_norm = result.get_normalized(Polarization.VV)
+### Example 2: Offline Trujillo Training Imagery (Decibel Input)
 
-# Export stacked tensor for downstream detector (Phase 1C.2)
-# Shape: (2, height, width) where index 0 is VV and index 1 is VH
-tensor_db = result.to_multichannel_array(kind="db")
+```python
+from ocean_sentinel.processing import (
+    BackscatterUnit,
+    NormalizationMethod,
+    PreprocessingConfig,
+    SARPreprocessor,
+)
+from ocean_sentinel.models import Polarization
+
+# Trujillo imagery is already in dB
+config = PreprocessingConfig(
+    input_unit=BackscatterUnit.DECIBEL,  # Explicitly declare dB input
+    derive_linear=False,                 # Do NOT compute unnecessary linear data
+    normalization_method=NormalizationMethod.PERCENTILE,
+    db_floor=-50.0,                      # Applied only to NaN / inf border pixels
+)
+preprocessor = SARPreprocessor(default_config=config)
+
+# Process numpy arrays decoded from Trujillo GeoTIFFs
+result = preprocessor.process_arrays(
+    arrays={Polarization.VV: vv_db_arr, Polarization.VH: vh_db_arr},
+    polarizations=[Polarization.VV, Polarization.VH],
+    observation_id="trujillo_patch_00000",
+    width=2048,
+    height=2048,
+    crs="EPSG:4326",
+    bounds=[0.0, 0.0, 1.0, 1.0],
+    transform=[1.0, 0.0, 0.0, 0.0, -1.0, 1.0],
+    config=config,
+)
+
+# Access dB directly (no logarithm was applied)
+vv_db = result.get_db(Polarization.VV)
+ml_tensor = result.to_multichannel_array(kind="normalized")  # Shape: (2, 2048, 2048)
 ```
 
 ---
@@ -191,11 +237,11 @@ tensor_db = result.to_multichannel_array(kind="db")
 
 ### Automated Unit Tests
 ```bash
-pytest tests/test_preprocessing.py -v
+venv\Scripts\pytest tests/test_preprocessing.py -v
 ```
 
-### Live Real Data Verification
+### Complete Test Suite
 ```bash
-python scripts/verify_preprocessing.py
+venv\Scripts\pytest
 ```
-Outputs complete radiometric, statistical, and geospatial verification against real Sentinel-1 acquisitions.
+

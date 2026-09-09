@@ -23,6 +23,7 @@ from rasterio.io import MemoryFile
 from ocean_sentinel.errors import PreprocessingError
 from ocean_sentinel.models import ImageryResult, Polarization
 from ocean_sentinel.processing.models import (
+    BackscatterUnit,
     NormalizationMetadata,
     NormalizationMethod,
     PreprocessedBand,
@@ -193,71 +194,141 @@ class SARPreprocessor:
         """Process a single 2D float32 array for one polarization band."""
         total_pixels = int(raw_arr.size)
 
-        # 1. Deterministic Validity Mask
-        # A pixel is valid if it is finite and strictly positive in linear backscatter
-        valid_mask = np.isfinite(raw_arr) & (raw_arr > 0.0)
-        valid_count = int(np.sum(valid_mask))
-        invalid_count = total_pixels - valid_count
-        valid_percentage = (
-            float((valid_count / total_pixels) * 100.0) if total_pixels > 0 else 0.0
-        )
-
-        quality = QualityMetrics(
-            total_pixels=total_pixels,
-            valid_pixels=valid_count,
-            invalid_pixels=invalid_count,
-            valid_percentage=valid_percentage,
-        )
-
-        # Check for all-invalid array
-        if valid_count == 0:
-            raise PreprocessingError(
-                f"Band {polarization.value} contains zero valid pixels "
-                f"(all {total_pixels} pixels are non-positive, NaN, or infinite)",
-                details={
-                    "polarization": polarization.value,
-                    "total_pixels": total_pixels,
-                },
+        if config.input_unit == BackscatterUnit.LINEAR:
+            # 1. Deterministic Validity Mask for Linear backscatter
+            # In linear power, valid pixels must be finite and strictly positive (> 0.0)
+            valid_mask = np.isfinite(raw_arr) & (raw_arr > 0.0)
+            valid_count = int(np.sum(valid_mask))
+            invalid_count = total_pixels - valid_count
+            valid_percentage = (
+                float((valid_count / total_pixels) * 100.0) if total_pixels > 0 else 0.0
             )
 
-        valid_linear = raw_arr[valid_mask]
+            quality = QualityMetrics(
+                total_pixels=total_pixels,
+                valid_pixels=valid_count,
+                invalid_pixels=invalid_count,
+                valid_percentage=valid_percentage,
+            )
 
-        # 2. Linear Statistics
-        linear_stats = PreprocessedBandStats(
-            min=float(np.min(valid_linear)),
-            max=float(np.max(valid_linear)),
-            mean=float(np.mean(valid_linear)),
-            median=float(np.median(valid_linear)),
-            std=float(np.std(valid_linear)),
-        )
+            if valid_count == 0:
+                raise PreprocessingError(
+                    f"Band {polarization.value} contains zero valid pixels "
+                    f"(all {total_pixels} pixels are non-positive, NaN, or infinite)",
+                    details={
+                        "polarization": polarization.value,
+                        "total_pixels": total_pixels,
+                        "input_unit": config.input_unit.value,
+                    },
+                )
 
-        # Optional preservation of linear data
-        linear_data = raw_arr.copy() if config.preserve_linear else None
+            valid_linear = raw_arr[valid_mask]
 
-        # 3. Decibel (dB) Conversion
-        # Formula: σ0_dB = 10 * log10(σ0_linear)
-        # Invalid pixels are clamped to config.db_floor (default -50.0 dB)
-        db_data = np.full_like(raw_arr, fill_value=config.db_floor, dtype=np.float32)
+            # 2. Linear Statistics
+            linear_stats = PreprocessedBandStats(
+                min=float(np.min(valid_linear)),
+                max=float(np.max(valid_linear)),
+                mean=float(np.mean(valid_linear)),
+                median=float(np.median(valid_linear)),
+                std=float(np.std(valid_linear)),
+            )
 
-        if config.convert_to_db:
-            # Clamping linear input strictly to linear_min_threshold for numerical safety
-            clamped_linear = np.maximum(valid_linear, config.linear_min_threshold)
-            computed_db = 10.0 * np.log10(clamped_linear)
-            db_data[valid_mask] = computed_db.astype(np.float32)
+            # Optional preservation of linear data
+            linear_data = raw_arr.copy() if config.preserve_linear else None
+
+            # 3. Decibel (dB) Conversion
+            # Formula: σ0_dB = 10 * log10(σ0_linear)
+            # Invalid pixels are clamped to config.db_floor (default -50.0 dB)
+            db_data = np.full_like(raw_arr, fill_value=config.db_floor, dtype=np.float32)
+
+            if config.convert_to_db:
+                # Clamping linear input strictly to linear_min_threshold for numerical safety
+                clamped_linear = np.maximum(valid_linear, config.linear_min_threshold)
+                computed_db = 10.0 * np.log10(clamped_linear)
+                db_data[valid_mask] = computed_db.astype(np.float32)
+            else:
+                # If dB conversion disabled, physical data is linear
+                db_data[valid_mask] = valid_linear
+
+            valid_db = db_data[valid_mask]
+            db_stats = PreprocessedBandStats(
+                min=float(np.min(valid_db)),
+                max=float(np.max(valid_db)),
+                mean=float(np.mean(valid_db)),
+                median=float(np.median(valid_db)),
+                std=float(np.std(valid_db)),
+            )
+
+        elif config.input_unit == BackscatterUnit.DECIBEL:
+            # 1. Deterministic Validity Mask for Decibel backscatter
+            # In decibels, negative values (e.g. -25 dB to -10 dB) are standard ocean backscatter.
+            # A pixel is valid if and only if it is finite (not NaN, +inf, or -inf).
+            valid_mask = np.isfinite(raw_arr)
+            valid_count = int(np.sum(valid_mask))
+            invalid_count = total_pixels - valid_count
+            valid_percentage = (
+                float((valid_count / total_pixels) * 100.0) if total_pixels > 0 else 0.0
+            )
+
+            quality = QualityMetrics(
+                total_pixels=total_pixels,
+                valid_pixels=valid_count,
+                invalid_pixels=invalid_count,
+                valid_percentage=valid_percentage,
+            )
+
+            if valid_count == 0:
+                raise PreprocessingError(
+                    f"Band {polarization.value} contains zero valid pixels "
+                    f"(all {total_pixels} pixels are NaN or infinite)",
+                    details={
+                        "polarization": polarization.value,
+                        "total_pixels": total_pixels,
+                        "input_unit": config.input_unit.value,
+                    },
+                )
+
+            valid_db = raw_arr[valid_mask]
+
+            # 2. Decibel Data & Statistics
+            # Values are ALREADY in dB. NEVER apply logarithm!
+            # Invalid pixels are clamped to db_floor (default -50.0 dB) for finite downstream
+            # numerical arrays. Valid pixels are NOT clipped by db_floor or linear_min_threshold.
+            db_data = np.full_like(raw_arr, fill_value=config.db_floor, dtype=np.float32)
+            db_data[valid_mask] = valid_db.astype(np.float32)
+
+            db_stats = PreprocessedBandStats(
+                min=float(np.min(valid_db)),
+                max=float(np.max(valid_db)),
+                mean=float(np.mean(valid_db)),
+                median=float(np.median(valid_db)),
+                std=float(np.std(valid_db)),
+            )
+
+            # 3. Optional Linear Derivation: σ0_linear = 10 ** (σ0_dB / 10)
+            # Only computed when explicitly requested via derive_linear=True.
+            if config.derive_linear:
+                valid_linear = np.power(10.0, valid_db / 10.0).astype(np.float32)
+                linear_stats = PreprocessedBandStats(
+                    min=float(np.min(valid_linear)),
+                    max=float(np.max(valid_linear)),
+                    mean=float(np.mean(valid_linear)),
+                    median=float(np.median(valid_linear)),
+                    std=float(np.std(valid_linear)),
+                )
+                linear_data = np.zeros_like(raw_arr, dtype=np.float32)
+                linear_data[valid_mask] = valid_linear
+            else:
+                linear_data = None
+                linear_stats = None
         else:
-            # If dB conversion disabled, physical data is linear
-            db_data[valid_mask] = valid_linear
-
-        valid_db = db_data[valid_mask]
-        db_stats = PreprocessedBandStats(
-            min=float(np.min(valid_db)),
-            max=float(np.max(valid_db)),
-            mean=float(np.mean(valid_db)),
-            median=float(np.median(valid_db)),
-            std=float(np.std(valid_db)),
-        )
+            raise PreprocessingError(
+                f"Unsupported input_unit: {config.input_unit!r}",
+                details={"input_unit": str(config.input_unit)},
+            )
 
         # 4. Independent Per-Band Normalization
+        # Both LINEAR and DECIBEL paths converge on physical dB (db_data, valid_db)
         normalized_data: Optional[np.ndarray] = None
         norm_metadata: Optional[NormalizationMetadata] = None
 
@@ -279,6 +350,7 @@ class SARPreprocessor:
 
         return PreprocessedBand(
             polarization=polarization,
+            input_unit=config.input_unit,
             valid_mask=valid_mask,
             db_data=db_data,
             linear_data=linear_data,
