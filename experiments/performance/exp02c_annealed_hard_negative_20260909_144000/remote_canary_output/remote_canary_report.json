@@ -1,0 +1,29 @@
+{
+  "gate_id": "EXP02C_REMOTE_ZERO_UPDATE_CANARY",
+  "status": "PASS",
+  "timestamp_utc": "2026-09-09T09:40:39Z",
+  "hardware": {
+    "device": "Tesla T4",
+    "compute_capability": "sm_75",
+    "cuda_version": "12.8",
+    "pytorch_version": "2.10.0+cu128"
+  },
+  "hashes": {
+    "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "candidate_manifest_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+    "runner_sha256": "B45331E86932C9D1C83158C27D1E6F71A5FAE2769007656BF411516B982C762A",
+    "pretrained_weight_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F"
+  },
+  "schedule": {
+    "epoch_1_w_hard": 2.25,
+    "epoch_2_w_hard": 2.2456034678657697
+  },
+  "batch_shape": [
+    8,
+    2,
+    512,
+    512
+  ],
+  "test_firewall": "STRICT_ISOLATION_VERIFIED",
+  "scientific_optimizer_updates_retained": 0
+}

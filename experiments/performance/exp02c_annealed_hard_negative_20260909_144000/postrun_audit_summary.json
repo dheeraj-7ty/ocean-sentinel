@@ -1,0 +1,69 @@
+{
+  "artifact_hashes": {
+    "best_model.pt": {
+      "sha256": "14073F677F0525D2B32358056BCFAB7ADA4B598B03DB4DEB5D3A9CE162B5071A",
+      "size_bytes": 292467955
+    },
+    "final_model.pt": {
+      "sha256": "B3FC0DD08E8B2BD24025F8F7E22517739977B153AED82822B95B3ACBE0D161C2",
+      "size_bytes": 292470107
+    },
+    "latest_checkpoint.pt": {
+      "sha256": "B250126F59A79BC23EF02A6BAD123D6B1655A76800AB590A0954194090428C60",
+      "size_bytes": 292474571
+    },
+    "history.json": {
+      "sha256": "E7B607DBF2DBA5E1817F0793216664AF2A6BE89A06B8E63E15ECCB3D0C8DCE3B",
+      "size_bytes": 27381
+    },
+    "run_state.json": {
+      "sha256": "3D4AA2290C8AC434EFEE36EE6E03E0A034F356C0D5D2146399720C773631896A",
+      "size_bytes": 21711
+    },
+    "progress.log": {
+      "sha256": "35CFB2427EFBC29E2E2EE29138009F38226AE2F1490E81FFCF7A854328570E52",
+      "size_bytes": 76090
+    },
+    "stdout_training.log": {
+      "sha256": "35CFB2427EFBC29E2E2EE29138009F38226AE2F1490E81FFCF7A854328570E52",
+      "size_bytes": 76090
+    },
+    "train_exp02c.py": {
+      "sha256": "F0F569F11E60777C41AD6D3082828BD43E195E910495EF2025310694B59EA347",
+      "size_bytes": 31068
+    },
+    "ocean-sentinel-gate-4-3b-live-canary.log": {
+      "sha256": "0747F0870DF7687248F6C1957D24326019D354A6471800903AE92C3CF2825EDD",
+      "size_bytes": 122644
+    }
+  },
+  "best_qualifying_epoch": 26,
+  "best_qualifying_val_iou": 0.72879,
+  "best_qualifying_val_recall": 0.8203,
+  "best_qualifying_val_fa": 1.1494,
+  "second_best_qualifying_epoch": 25,
+  "second_best_qualifying_val_iou": 0.72682,
+  "second_best_qualifying_val_recall": 0.80208,
+  "second_best_qualifying_val_fa": 0.8758,
+  "total_qualifying_epochs": 13,
+  "qualifying_epochs_list": [
+    26,
+    25,
+    22,
+    28,
+    6,
+    5,
+    30,
+    29,
+    19,
+    23,
+    4,
+    27,
+    14
+  ],
+  "checkpoint_epoch": 26,
+  "checkpoint_param_count": 24365359,
+  "checkpoint_all_finite": true,
+  "checkpoint_sha256": "14073F677F0525D2B32358056BCFAB7ADA4B598B03DB4DEB5D3A9CE162B5071A",
+  "test_firewall_pass": true
+}

@@ -1,0 +1,41 @@
+{
+  "timestamp_utc": "2026-09-09T09:19:17Z",
+  "experiment_id": "EXP-02C",
+  "verified_hashes": {
+    "spatial_split_manifest": {
+      "path": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+      "sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "expected_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "match": true
+    },
+    "candidate_manifest": {
+      "path": "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/src_dataset_staging/candidate_manifest.json",
+      "sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+      "expected_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+      "match": true
+    },
+    "exp01_checkpoint": {
+      "path": "experiments/exp01_baseline/best_model.pt",
+      "sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+      "expected_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+      "match": true
+    },
+    "exp02b1_checkpoint": {
+      "path": "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/kernel_output/exp02b_1_hard_negative_training/best_model.pt",
+      "sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+      "expected_sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+      "match": true
+    },
+    "pretrained_resnet34": {
+      "path": "C:/Users/Dheeraj/.cache/torch/hub/checkpoints/resnet34-b627a593.pth",
+      "sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+      "expected_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+      "match": true
+    },
+    "train_exp02c_script": {
+      "path": "scripts/train_exp02c.py",
+      "sha256": "B45331E86932C9D1C83158C27D1E6F71A5FAE2769007656BF411516B982C762A",
+      "status": "VERIFIED"
+    }
+  }
+}

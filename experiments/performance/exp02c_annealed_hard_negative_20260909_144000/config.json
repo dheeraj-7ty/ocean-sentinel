@@ -1,0 +1,54 @@
+{
+  "experiment_id": "EXP-02C",
+  "experiment_title": "Annealed Hard-Negative Sampling Pressure in SAR Oil-Spill Semantic Segmentation",
+  "timestamp_utc": "2026-09-09T09:19:17Z",
+  "single_changed_variable": {
+    "name": "hard_negative_sampling_weight_schedule",
+    "formula": "w_hard(e) = 0.75 + 0.75 * (1.0 + cos((e - 1) * pi / 29.0))",
+    "endpoints": {
+      "epoch_1": 2.25,
+      "epoch_30": 0.75
+    },
+    "fixed_weights": {
+      "w_pos": 1.0,
+      "w_ord_neg": 0.75
+    },
+    "epoch_30_condition": "hard-negative / ordinary-negative per-tile weight parity"
+  },
+  "model_invariants": {
+    "architecture": "ResNet34UNet",
+    "in_channels": 2,
+    "num_classes": 1,
+    "adaptation_method": "slice_variance_scaled",
+    "total_parameters": 24346305,
+    "pretrained_imagenet_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+    "loss": "CombinedBCEAndDiceLoss (BCE=0.5, Dice=0.5, smooth=1.0)",
+    "optimizer": "AdamW (lr=1e-4, weight_decay=1e-2, betas=(0.9, 0.999), eps=1e-8)",
+    "scheduler": "CosineAnnealingLR (T_max=30, eta_min=1e-6)",
+    "batch_size": 8,
+    "accum_steps": 1,
+    "effective_batch_size": 8,
+    "precision": "FP16 CUDA AMP + GradScaler",
+    "master_seed": 42,
+    "epochs": 30,
+    "samples_per_epoch": 13440,
+    "replacement": true,
+    "eval_threshold": 0.22,
+    "threshold_search": false
+  },
+  "dataset_invariants": {
+    "manifest_path": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "train_parent_patches": 840,
+    "train_tiles": 13440,
+    "val_parent_patches": 180,
+    "val_tiles": 2880,
+    "val_gt_negative_tiles": 1827,
+    "test_split_firewall": "LOCKED_NO_ACCESS"
+  },
+  "model_selection_hierarchy": {
+    "tier_1": "Validation Recall >= 79.00%",
+    "tier_2": "Validation GT-negative FA Rate <= 12.00%",
+    "tier_3": "Maximize Global Validation IoU among Tier 1 & 2 qualifying checkpoints"
+  }
+}

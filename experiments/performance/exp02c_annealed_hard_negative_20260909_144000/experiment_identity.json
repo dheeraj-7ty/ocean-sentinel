@@ -1,0 +1,81 @@
+{
+  "experiment_id": "EXP-02C",
+  "parent_experiment": "EXP02B-1",
+  "intervention": "annealed hard-negative sampling pressure",
+  "scientific_hypothesis": "Reducing hard-negative sampling pressure over the training trajectory will test whether the observed late-epoch spatial undersegmentation can be mitigated while retaining useful false-alarm suppression.",
+  "exact_equation": "w_hard(e) = 0.75 + 0.75 * (1.0 + cos((e - 1) * pi / 29.0)) for e = 1..30",
+  "endpoints": {
+    "epoch_1": 2.25,
+    "epoch_30": 0.75,
+    "epoch_30_condition": "hard-negative / ordinary-negative per-tile weight parity"
+  },
+  "fixed_scientific_variables": {
+    "w_pos": 1.0,
+    "w_ord_neg": 0.75,
+    "architecture": "ResNet34UNet",
+    "in_channels": 2,
+    "num_classes": 1,
+    "adaptation_method": "slice_variance_scaled",
+    "total_parameters": 24346305,
+    "loss": "CombinedBCEAndDiceLoss (bce_weight=0.5, dice_weight=0.5, smooth=1.0)",
+    "optimizer": "AdamW (lr=1e-4, weight_decay=1e-2, betas=(0.9, 0.999), eps=1e-8)",
+    "lr_scheduler": "CosineAnnealingLR (T_max=30, eta_min=1e-6)",
+    "batch_size": 8,
+    "gradient_accumulation": 1,
+    "effective_batch_size": 8,
+    "amp_precision": "FP16 + GradScaler",
+    "master_seed": 42,
+    "epochs": 30,
+    "samples_per_epoch": 13440,
+    "replacement": true,
+    "normalization": {
+      "vv_mean": -33.233137,
+      "vh_mean": -19.941216,
+      "vv_std": 6.489986,
+      "vh_std": 4.531346
+    },
+    "train_augmentation": "SARGeometricAugmentation (p_hflip=0.5, p_vflip=0.5, p_rot90=0.5, seed=42)",
+    "val_transform": "IdentityTransform",
+    "decision_threshold": 0.22,
+    "threshold_search": false
+  },
+  "model_selection_hierarchy": {
+    "tier_1": "Validation Recall >= 79.00%",
+    "tier_2": "Validation GT-negative FA Rate <= 12.00%",
+    "tier_3": "Maximize Global Validation IoU among qualifying checkpoints"
+  },
+  "verified_artifact_hashes": {
+    "spatial_split_manifest": {
+      "path": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+      "sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "expected_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0"
+    },
+    "candidate_manifest": {
+      "path": "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/src_dataset_staging/candidate_manifest.json",
+      "sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+      "expected_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7"
+    },
+    "exp01_baseline_checkpoint": {
+      "path": "experiments/exp01_baseline/best_model.pt",
+      "sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+      "expected_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699"
+    },
+    "exp02b1_candidate_checkpoint": {
+      "path": "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/kernel_output/exp02b_1_hard_negative_training/best_model.pt",
+      "sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+      "expected_sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B"
+    },
+    "pretrained_imagenet_resnet34": {
+      "path": "C:/Users/Dheeraj/.cache/torch/hub/checkpoints/resnet34-b627a593.pth",
+      "sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+      "expected_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F"
+    },
+    "exp02c_runner": {
+      "path": "scripts/train_exp02c.py",
+      "sha256": "B45331E86932C9D1C83158C27D1E6F71A5FAE2769007656BF411516B982C762A"
+    }
+  },
+  "execution_target": "Kaggle GPU Worker (Tesla T4, sm_75, 16GB VRAM) via dheeraj12237/ocean-sentinel-gate-4-3b-live-canary",
+  "test_firewall_status": "LOCKED_NO_ACCESS (ds_test=None, test_loader=None, 0 test tiles loaded, 0 test evaluations)",
+  "timestamp_utc": "2026-09-09T09:35:00Z"
+}
