@@ -1,0 +1,12 @@
+{
+  "latest_checkpoint": "experiments\\exp01_baseline\\latest_checkpoint.pt",
+  "latest_epoch": 14,
+  "latest_sha256": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+  "latest_time_utc": "2026-09-06T10:33:02Z",
+  "updated_utc": "2026-09-06T10:33:02Z",
+  "best_checkpoint": "experiments\\exp01_baseline\\best_model.pt",
+  "best_epoch": 4,
+  "best_val_iou": 0.71691,
+  "best_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+  "best_time_utc": "2026-09-06T09:14:40Z"
+}

@@ -1,0 +1,52 @@
+{
+  "total_tests": 11,
+  "passed": 11,
+  "failed": 0,
+  "stdout": "============================= test session starts =============================\nplatform win32 -- Python 3.10.9, pytest-9.1.1, pluggy-1.6.0 -- D:\\Projects\\ocean-sentinel\\venv\\Scripts\\python.exe\ncachedir: .pytest_cache\nrootdir: D:\\Projects\\ocean-sentinel\nconfigfile: pyproject.toml\nplugins: anyio-4.15.0, asyncio-1.4.0, respx-0.23.1\nasyncio: mode=auto, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollecting ... collected 11 items\n\ntests/test_canonical_exp01_fingerprint.py::TestCanonicalConstantsLock::test_canonical_hyperparameter_values PASSED [  9%]\ntests/test_canonical_exp01_fingerprint.py::TestCanonicalConstantsLock::test_train_exp01_cli_defaults_match_canonical PASSED [ 18%]\ntests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_lr_5e_4 PASSED [ 27%]\ntests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_warm_restarts_scheduler PASSED [ 36%]\ntests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_max_epochs PASSED [ 45%]\ntests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_architecture PASSED [ 54%]\ntests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_accepts_valid_canonical_configuration PASSED [ 63%]\ntests/test_canonical_exp01_fingerprint.py::TestCertifiedBaselineArtifacts::test_best_model_pt_internal_optimizer_and_scheduler_state PASSED [ 72%]\ntests/test_canonical_exp01_fingerprint.py::TestCertifiedBaselineArtifacts::test_latest_checkpoint_pt_internal_optimizer_and_scheduler_state PASSED [ 81%]\ntests/test_canonical_exp01_fingerprint.py::TestCertifiedBaselineArtifacts::test_history_json_proves_smooth_cosine_decay_without_restarts PASSED [ 90%]\ntests/test_canonical_exp01_fingerprint.py::TestFingerprintGenerator::test_build_canonical_fingerprint_dict PASSED [100%]\n\n============================= 11 passed in 3.69s ==============================\n",
+  "test_cases": [
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestCanonicalConstantsLock::test_canonical_hyperparameter_values",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestCanonicalConstantsLock::test_train_exp01_cli_defaults_match_canonical",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_lr_5e_4",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_warm_restarts_scheduler",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_max_epochs",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_rejects_hallucinated_architecture",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestDiscrepancyRejection::test_accepts_valid_canonical_configuration",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestCertifiedBaselineArtifacts::test_best_model_pt_internal_optimizer_and_scheduler_state",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestCertifiedBaselineArtifacts::test_latest_checkpoint_pt_internal_optimizer_and_scheduler_state",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestCertifiedBaselineArtifacts::test_history_json_proves_smooth_cosine_decay_without_restarts",
+      "status": "PASSED"
+    },
+    {
+      "test": "tests/test_canonical_exp01_fingerprint.py::TestFingerprintGenerator::test_build_canonical_fingerprint_dict",
+      "status": "PASSED"
+    }
+  ]
+}

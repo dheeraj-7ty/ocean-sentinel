@@ -1,0 +1,88 @@
+{
+  "experiment_name": "EXP-01",
+  "experiment_revision": "Rev B",
+  "fingerprint_version": "1.0-locked",
+  "model": {
+    "architecture": "ResNet34UNet",
+    "source_file": "src/ocean_sentinel/ml/unet_resnet.py",
+    "source_section": "class ResNet34UNet",
+    "input_channels": 2,
+    "output_channels": 1,
+    "total_parameters": 24346305,
+    "trainable_parameters": 24346305,
+    "non_trainable_parameters": 0,
+    "adaptation_method": "slice_variance_scaled",
+    "pretrained_backbone": true
+  },
+  "loss": {
+    "class": "CombinedBCEAndDiceLoss",
+    "source_file": "src/ocean_sentinel/ml/losses.py",
+    "source_section": "class CombinedBCEAndDiceLoss",
+    "bce_weight": 0.5,
+    "dice_weight": 0.5,
+    "dice_smooth": 1.0
+  },
+  "optimizer": {
+    "class": "AdamW",
+    "source_file": "scripts/train_exp01.py",
+    "source_section": "Optimizer initialization",
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08
+  },
+  "scheduler": {
+    "class": "CosineAnnealingLR",
+    "source_file": "scripts/train_exp01.py",
+    "source_section": "Scheduler initialization",
+    "T_max": 30,
+    "eta_min": 1e-06
+  },
+  "training": {
+    "max_epochs": 30,
+    "early_stopping_patience": 10,
+    "physical_batch_size": 8,
+    "accumulation_steps": 1,
+    "effective_batch_size": 8,
+    "seed": 42,
+    "dataloader_num_workers": 4,
+    "amp_enabled": true,
+    "amp_precision": "CUDA FP16"
+  },
+  "data": {
+    "dataset_identity": "Trujillo Part I Oil Spill Dataset",
+    "manifest_path": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "total_patches": 1200,
+    "total_tiles": 19200,
+    "train_patches": 840,
+    "train_tiles": 13440,
+    "val_patches": 180,
+    "val_tiles": 2880,
+    "test_patches": 180,
+    "test_tiles": 2880,
+    "normalization_type": "training_derived_zscore"
+  },
+  "evaluation": {
+    "selection_metric": "Validation Global IoU",
+    "best_epoch": 4,
+    "best_val_iou": 0.71691,
+    "stopped_epoch": 14,
+    "selected_threshold": 0.22,
+    "test_iou": 0.78434,
+    "test_dice": 0.87914,
+    "test_precision": 0.81713,
+    "test_recall": 0.95133
+  },
+  "certified_artifacts": {
+    "best_model.pt": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "final_model.pt": "2E4C0881DF2F16810C4494A4071EAB320D12418151CC5F74651E91FE1F0A41AA",
+    "latest_checkpoint.pt": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+    "history.json": "E2B5EB5229E2529E1659E77D285E93275015F58DEDCA5AF1F539E45544D5FCBA",
+    "config.json": "2DF14570974288E0E6985393E139F3E23F4DD02A02C008C8F1CF00060D9A10EA",
+    "run_state.json": "F8EC3B5D461F13C8B4673E038E90CE6385E57F0B39EDD5B73156AAAD2DD0178C"
+  }
+}

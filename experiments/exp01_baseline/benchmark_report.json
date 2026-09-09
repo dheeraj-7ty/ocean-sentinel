@@ -1,0 +1,134 @@
+{
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "vram_total_mb": 6143,
+  "torch_version": "2.14.0+cu126",
+  "manifest": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+  "train_tiles": 13440,
+  "batch_results": [
+    {
+      "batch_size": 4,
+      "accum_steps": 2,
+      "nominal_effective_batch": 8,
+      "status": "OK",
+      "samples_per_sec": 12.1,
+      "mean_batch_time_ms": 331.1,
+      "mean_io_ms": 197.95,
+      "mean_fwd_ms": 41.98,
+      "mean_bwd_ms": 83.02,
+      "mean_opt_ms": 8.16,
+      "peak_vram_allocated_mb": 1263.0
+    },
+    {
+      "batch_size": 8,
+      "accum_steps": 1,
+      "nominal_effective_batch": 8,
+      "status": "OK",
+      "samples_per_sec": 12.5,
+      "mean_batch_time_ms": 640.8,
+      "mean_io_ms": 386.13,
+      "mean_fwd_ms": 81.17,
+      "mean_bwd_ms": 157.28,
+      "mean_opt_ms": 16.24,
+      "peak_vram_allocated_mb": 1976.8
+    },
+    {
+      "batch_size": 8,
+      "accum_steps": 2,
+      "nominal_effective_batch": 16,
+      "status": "OK",
+      "samples_per_sec": 13.2,
+      "mean_batch_time_ms": 607.6,
+      "mean_io_ms": 362.97,
+      "mean_fwd_ms": 79.9,
+      "mean_bwd_ms": 155.99,
+      "mean_opt_ms": 8.74,
+      "peak_vram_allocated_mb": 2075.1
+    },
+    {
+      "batch_size": 12,
+      "accum_steps": 1,
+      "nominal_effective_batch": 12,
+      "status": "OK",
+      "samples_per_sec": 13.0,
+      "mean_batch_time_ms": 926.2,
+      "mean_io_ms": 576.01,
+      "mean_fwd_ms": 112.02,
+      "mean_bwd_ms": 222.51,
+      "mean_opt_ms": 15.61,
+      "peak_vram_allocated_mb": 2781.9
+    },
+    {
+      "batch_size": 16,
+      "accum_steps": 1,
+      "nominal_effective_batch": 16,
+      "status": "OK",
+      "samples_per_sec": 13.2,
+      "mean_batch_time_ms": 1216.4,
+      "mean_io_ms": 755.71,
+      "mean_fwd_ms": 149.17,
+      "mean_bwd_ms": 295.99,
+      "mean_opt_ms": 15.53,
+      "peak_vram_allocated_mb": 3587.4
+    }
+  ],
+  "worker_results": [
+    {
+      "num_workers": 0,
+      "batch_size": 8,
+      "status": "OK",
+      "mean_batch_load_ms": 329.25,
+      "samples_per_sec": 24.3
+    },
+    {
+      "num_workers": 1,
+      "batch_size": 8,
+      "status": "OK",
+      "mean_batch_load_ms": 249.47,
+      "samples_per_sec": 32.1
+    },
+    {
+      "num_workers": 2,
+      "batch_size": 8,
+      "status": "OK",
+      "mean_batch_load_ms": 82.56,
+      "samples_per_sec": 96.9
+    },
+    {
+      "num_workers": 4,
+      "batch_size": 8,
+      "status": "OK",
+      "mean_batch_load_ms": 41.6,
+      "samples_per_sec": 192.3
+    }
+  ],
+  "baseline_config": {
+    "batch_size": 4,
+    "accum_steps": 2,
+    "nominal_effective_batch": 8,
+    "status": "OK",
+    "samples_per_sec": 12.1,
+    "mean_batch_time_ms": 331.1,
+    "mean_io_ms": 197.95,
+    "mean_fwd_ms": 41.98,
+    "mean_bwd_ms": 83.02,
+    "mean_opt_ms": 8.16,
+    "peak_vram_allocated_mb": 1263.0
+  },
+  "recommended_config": {
+    "batch_size": 8,
+    "accum_steps": 2,
+    "nominal_effective_batch": 16,
+    "status": "OK",
+    "samples_per_sec": 13.2,
+    "mean_batch_time_ms": 607.6,
+    "mean_io_ms": 362.97,
+    "mean_fwd_ms": 79.9,
+    "mean_bwd_ms": 155.99,
+    "mean_opt_ms": 8.74,
+    "peak_vram_allocated_mb": 2075.1
+  },
+  "speedup_vs_baseline": 1.091,
+  "estimated_epoch_time_s": 1020.8,
+  "estimated_30epoch_time_min": 510.4
+}

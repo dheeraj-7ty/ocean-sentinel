@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-09-07T11:59:00+05:30",
+  "task": "EXP01_CANONICAL_CONFIGURATION_RECONCILIATION",
+  "status": "COMPLETED",
+  "verdict": "PASS",
+  "discrepancy_resolved": true,
+  "canonical_parameters": {
+    "model": "ResNet34UNet",
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "scheduler": "CosineAnnealingLR",
+    "scheduler_params": {
+      "T_max": 30,
+      "eta_min": 1e-06
+    },
+    "max_epochs": 30,
+    "patience": 10,
+    "loss": "CombinedBCEAndDiceLoss",
+    "loss_weights": {
+      "bce_weight": 0.5,
+      "dice_weight": 0.5
+    },
+    "total_parameters": 24346305,
+    "trainable_parameters": 24346305,
+    "best_val_iou": 0.71691,
+    "selected_threshold": 0.22
+  },
+  "root_cause": "The claims of lr=5e-4 and CosineAnnealingWarmRestarts never existed in git history, code, configs, or checkpoints. They originated exclusively from a transient textual hallucination in line 4008 of transcript_full.jsonl during the final markdown chat rendering of the previous session.",
+  "certified_artifacts": {
+    "status": "INTACT",
+    "files_verified": 6,
+    "mismatches": 0
+  },
+  "tests": {
+    "pytest_total": 430,
+    "pytest_passed": 430,
+    "pytest_failed": 0,
+    "pytest_skipped": 0,
+    "fingerprint_regression_tests": 11,
+    "fingerprint_regression_passed": 11,
+    "closure_checks_total": 10,
+    "closure_checks_passed": 10
+  },
+  "task_defects": {
+    "introduced": 0,
+    "fixed": 0,
+    "open": 0
+  },
+  "dataset_upload": "NOT PERFORMED",
+  "training": "NOT STARTED",
+  "code_freeze": "READY"
+}

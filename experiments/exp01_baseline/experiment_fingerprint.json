@@ -1,0 +1,46 @@
+{
+  "experiment": "EXP-01_baseline_resnet34_unet_rev_b",
+  "created_utc": "2026-09-06T08:42:01Z",
+  "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+  "torch_version": "2.14.0+cu126",
+  "cuda_version": "12.6",
+  "cudnn_version": "91002",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "hostname": "Grimdawn",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "vram_total_mb": 6143,
+  "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+  "spatial_audit_sha256": "9F4AD5B3CD1771CD168F7172D2E4F9475271D10224016930694697AD591A6AAE",
+  "code_sha256": {
+    "src\\ocean_sentinel\\ml\\__init__.py": "DF470C20CBD29B2F04431679E7F682EE56B7B3931144300C807ABB907C859F06",
+    "src\\ocean_sentinel\\ml\\augmentation.py": "627B0D6E8F0DAFD83B08C116531319923921E829320BCA67285A44425049F738",
+    "src\\ocean_sentinel\\ml\\losses.py": "41CF023CB7E93467C7C0EF3BA354EF5C1A581058B839B2E3598DEDAF0CD3EDF0",
+    "src\\ocean_sentinel\\ml\\metrics.py": "6CABA4DB96EB8A161DD4881831D110065F797FD4E0086B56F435FBD4C8D32F49",
+    "src\\ocean_sentinel\\ml\\threshold.py": "19CCED1FD5C9C06D65CCF4F17ED48B1B49D458B578A616B9569EC3EFED04382E",
+    "src\\ocean_sentinel\\ml\\unet_resnet.py": "E94AA2043EBBED2D33FCA39EC3068D14A51234EDFBB58B1155684965689DFA1F",
+    "scripts/train_exp01.py": "13A4A8CDC494F5C1A7EBDB1A84FB2924EE0F880D95D2B835FAEA65A2067FD5B7"
+  },
+  "scientific_config": {
+    "model": "ResNet34UNet",
+    "in_channels": 2,
+    "num_classes": 1,
+    "adaptation_method": "slice_variance_scaled",
+    "loss": "0.5*BCE + 0.5*SoftDice(smooth=1.0)",
+    "optimizer": "AdamW",
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "scheduler": "CosineAnnealingLR",
+    "max_epochs": 30,
+    "early_stopping_patience": 10,
+    "selection_metric": "validation_global_iou",
+    "amp": "CUDA FP16",
+    "augmentation": "HFlip+VFlip+Rot90 train-only"
+  },
+  "execution_config": {
+    "physical_batch_size": 8,
+    "accum_steps": 1,
+    "nominal_effective_batch": 8,
+    "num_workers": 4,
+    "batchnorm_note": "BatchNorm statistics computed over physical_batch_size samples per step. B8 is scientifically distinct from B4+accum2."
+  }
+}
