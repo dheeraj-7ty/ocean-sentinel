@@ -1,0 +1,24 @@
+{
+  "reference_model": "EXP01_Baseline",
+  "candidate_model": "EXP02C_Epoch26",
+  "n_negative_tiles": 1772,
+  "contingency_table": {
+    "a_both_neg": 1298,
+    "b_cured_fa": 426,
+    "c_new_fa": 1,
+    "d_both_fa": 47
+  },
+  "reference_fa_rate_pct": 26.693,
+  "candidate_fa_rate_pct": 2.7088,
+  "reference_fa_tiles": 473,
+  "candidate_fa_tiles": 48,
+  "net_alarm_count_reduction": 425,
+  "abs_reduction_pct_pts": 23.9842,
+  "rel_reduction_pct": 89.852,
+  "mcnemar_chi2": 421.0211,
+  "mcnemar_p_value": 1.4628417801683761e-93,
+  "ci_95_diff_pct_pts": [
+    21.99,
+    25.9784
+  ]
+}

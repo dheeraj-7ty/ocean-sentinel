@@ -1,0 +1,23 @@
+{
+  "run_id": "test_eval_1788963942",
+  "experiment": "EXP-02C_official_held_out_test_evaluation",
+  "pre_evaluation_audit": "PASS",
+  "threshold": 0.22,
+  "checkpoint_sha256": "14073F677F0525D2B32358056BCFAB7ADA4B598B03DB4DEB5D3A9CE162B5071A",
+  "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+  "runner_sha256": "28CFBD57042009B386BFFF3EEE3A01840C2FFB10CE2344E021761E6056DE2869",
+  "start_time_utc": "2026-09-09T14:25:42Z",
+  "status": "COMPLETED",
+  "last_activity_utc": "2026-09-09T14:26:35Z",
+  "evaluating_model": "EXP02C_Epoch26",
+  "processed_tiles": 2880,
+  "total_test_tiles": 2880,
+  "throughput_tiles_per_sec": 54.6,
+  "eta_sec": 0.0,
+  "completed_time_utc": "2026-09-09T14:26:35Z",
+  "test_iou": 0.79808,
+  "test_recall": 0.93054,
+  "test_precision": 0.84864,
+  "test_fa_rate_pct": 2.7088,
+  "test_tiles_consumed": 2880
+}

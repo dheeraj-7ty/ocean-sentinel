@@ -1,0 +1,18 @@
+{
+  "n_tiles_total": 2880,
+  "n_neg_tiles": 1772,
+  "n_pos_tiles": 1108,
+  "neg_fa_tiles": 48,
+  "neg_fa_rate_pct": 2.7088,
+  "neg_macro_fa_tiles": 45,
+  "neg_extensive_fa_tiles": 26,
+  "pos_detected_tiles": 989,
+  "pos_tile_detection_rate_pct": 89.2599,
+  "pred_gt_ratio": 1.0861,
+  "undersegmented_count": 159,
+  "scale_recalls": {
+    "tiny": 0.5346,
+    "medium": 0.7983,
+    "large": 0.9334
+  }
+}
