@@ -1,0 +1,37 @@
+{
+  "packaging_timestamp_utc": "2026-09-09T04:35:44Z",
+  "runner": {
+    "path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp02b_1_hard_negative_training_20260909_094500\\kaggle_push_bundle\\train_exp02b_1.py",
+    "sha256": "F67C08387ABE7B79DE625DF008AC7578FB465A74B3857DCCE7E5B422F364E985",
+    "size": 40148
+  },
+  "canary": {
+    "path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp02b_1_hard_negative_training_20260909_094500\\kaggle_push_bundle\\canary_exp02b_1.py",
+    "sha256": "B4159DA66C99388459FE34D6C21B2827D6318F5511B84B1AADC6940E79C14AA8",
+    "size": 31199
+  },
+  "kernel_metadata": {
+    "id": "dheeraj12237/ocean-sentinel-gate-4-3b-live-canary",
+    "title": "Ocean Sentinel Gate 4.3B Live Canary",
+    "code_file": "canary_exp02b_1.py",
+    "language": "python",
+    "kernel_type": "script",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_tpu": false,
+    "enable_internet": true,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [
+      "dheeraj12237/ocean-sentinel-trujillo-corpus",
+      "dheeraj12237/ocean-sentinel-src"
+    ]
+  },
+  "preflight_invariants": {
+    "expected_imagenet_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+    "expected_split_manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "expected_candidate_manifest_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+    "expected_teacher_model_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "expected_sampling_policy_sha256": "F4F40D921238EC34EE5F33A413D22CFB5138015F133E57BD74532B4ADAF42FC9",
+    "expected_success_criteria_sha256": "DD777D1D51C2751A5F7C6E960B941A83A4783435D0B4E9BA9FF0AE9053961D29"
+  }
+}

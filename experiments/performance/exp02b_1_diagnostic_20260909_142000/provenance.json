@@ -1,0 +1,18 @@
+{
+  "timestamp_utc": "2026-09-09T08:49:51Z",
+  "manifest_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+  "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+  "candidate_checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp02b_1_hard_negative_training_20260909_094500\\kernel_output\\exp02b_1_hard_negative_training\\best_model.pt",
+  "candidate_checkpoint_sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+  "candidate_epoch": 3,
+  "teacher_checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\exp01_baseline\\best_model.pt",
+  "teacher_checkpoint_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+  "runner_script": "D:\\Projects\\ocean-sentinel\\scripts\\diagnose_exp02b_1.py",
+  "runner_sha256": "ECACE6290C26F50D85FD4DB03289BF800FAD53D6CFE26B1866DBF6678987D8E0",
+  "git_commit": "8f444de1d0fb35d09912a9e6bf27cebde8125f0d",
+  "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+  "torch_version": "2.14.0+cu126",
+  "cuda_available": true,
+  "device_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "frozen_threshold": 0.22
+}

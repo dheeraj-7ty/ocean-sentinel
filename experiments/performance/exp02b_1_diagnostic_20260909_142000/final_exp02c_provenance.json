@@ -1,0 +1,61 @@
+{
+  "created_at_utc": "2026-09-09T09:07:04Z",
+  "experiment_target": "EXP-02C",
+  "status": "PREREGISTRATION_FINAL_TECHNICAL_RECONCILIATION",
+  "system_environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+    "torch_version": "2.14.0+cu126",
+    "cuda_available": true,
+    "device_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  },
+  "verified_artifact_hashes": {
+    "spatial_split_manifest": {
+      "path": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+      "sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "expected_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "status": "PASS"
+    },
+    "candidate_manifest": {
+      "path": "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/src_dataset_staging/candidate_manifest.json",
+      "sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+      "expected_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+      "status": "PASS"
+    },
+    "exp01_baseline_checkpoint": {
+      "path": "experiments/exp01_baseline/best_model.pt",
+      "sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+      "expected_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+      "status": "PASS"
+    },
+    "exp02b1_candidate_checkpoint": {
+      "path": "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/kernel_output/exp02b_1_hard_negative_training/best_model.pt",
+      "sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+      "expected_sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+      "status": "PASS"
+    },
+    "pretrained_resnet34_weights": {
+      "path": "C:\\Users\\Dheeraj\\.cache\\torch\\hub\\checkpoints\\resnet34-b627a593.pth",
+      "sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+      "expected_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+      "status": "PASS"
+    },
+    "exp02b1_runner_script": {
+      "path": "scripts/train_exp02b_1.py",
+      "sha256": "F67C08387ABE7B79DE625DF008AC7578FB465A74B3857DCCE7E5B422F364E985",
+      "expected_sha256": "F67C08387ABE7B79DE625DF008AC7578FB465A74B3857DCCE7E5B422F364E985",
+      "status": "PASS"
+    },
+    "core_unet_resnet_source": {
+      "path": "src/ocean_sentinel/ml/unet_resnet.py",
+      "sha256": "E94AA2043EBBED2D33FCA39EC3068D14A51234EDFBB58B1155684965689DFA1F",
+      "expected_sha256": "E94AA2043EBBED2D33FCA39EC3068D14A51234EDFBB58B1155684965689DFA1F",
+      "status": "PASS"
+    },
+    "exp02c_runner_script": {
+      "path": "scripts/train_exp02c.py",
+      "sha256": "A33969531AFAEC3404DA01EB970FC2AD2A60E4E9158099721F4ED027AE2FB41C",
+      "status": "VERIFIED"
+    }
+  }
+}

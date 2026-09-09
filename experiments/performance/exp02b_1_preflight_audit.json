@@ -1,0 +1,133 @@
+{
+  "audit_timestamp_utc": "2026-09-09T04:17:57Z",
+  "git_audit": {
+    "branch": "master",
+    "head_commit": "8f444de1d0fb35d09912a9e6bf27cebde8125f0d",
+    "porcelain_status": [
+      "A  data/metadata/yang_singha_2025/data_matrix.tab",
+      " M docs/sar-preprocessing.md",
+      " M pyproject.toml",
+      "AM scripts/download_datasets.py",
+      " M src/ocean_sentinel/errors.py",
+      " M src/ocean_sentinel/processing/models.py",
+      " M src/ocean_sentinel/processing/sar.py",
+      " M tests/test_preprocessing.py",
+      "?? data/metadata/trujillo_2024/",
+      "?? data/metadata/yang_singha_2025/cdse_validation_report.json",
+      "?? docs/adr/002-radiometric-unit-generalization.md",
+      "?? docs/adr/003-ml-model-architecture-cuda-and-leakage-governance.md",
+      "?? docs/adr/004-spatially-defensible-dataset-partition.md",
+      "?? docs/adr/005-resumed-training-infrastructure-qualification.md",
+      "?? docs/context/",
+      "?? docs/dartis-cdse-cross-validation.md",
+      "?? docs/dataset-ingestion-readiness.md",
+      "?? docs/test-infrastructure.md",
+      "?? docs/trujillo-dataset-contract.md",
+      "?? experiments/",
+      "?? scripts/audit_exp02a_quality.py",
+      "?? scripts/audit_spatial_leakage.py",
+      "?? scripts/audit_trujillo_dataset.py",
+      "?? scripts/benchmark_awcc_ultra_performance.py",
+      "?? scripts/benchmark_baseline_recovery.py",
+      "?? scripts/benchmark_exp00.py",
+      "?? scripts/benchmark_exp01_perf.py",
+      "?? scripts/benchmark_gmode_controlled.py",
+      "?? scripts/benchmark_gpu_baseline.py",
+      "?? scripts/benchmark_gpu_optimization.py",
+      "?? scripts/benchmark_gpu_step2b.py",
+      "?? scripts/benchmark_reboot_baseline.py",
+      "?? scripts/benchmark_step2c_b.py",
+      "?? scripts/forensic_profiling_step2c_a.py",
+      "?? scripts/gate4_upload_harness.py",
+      "?? scripts/generate_spatial_split_manifest.py",
+      "?? scripts/generate_split_manifest.py",
+      "?? scripts/run_test_suite.py",
+      "?? scripts/train_exp01.py",
+      "?? scripts/verify_dartis_cdse.py",
+      "?? scripts/verify_exp02b_1_preflight.py",
+      "?? src/ocean_sentinel/cloud/",
+      "?? src/ocean_sentinel/ingestion/",
+      "?? src/ocean_sentinel/ml/",
+      "?? tests/test_canonical_exp01_fingerprint.py",
+      "?? tests/test_dartis_cross_validation.py",
+      "?? tests/test_dataset_pipeline.py",
+      "?? tests/test_exp01_eval.py",
+      "?? tests/test_gpu_qualification.py",
+      "?? tests/test_ml_components.py",
+      "?? tests/test_pilot_runner.py",
+      "?? tests/test_resume_qualification.py",
+      "?? tests/test_spatial_split.py",
+      "?? tests/test_trujillo_ingestion.py",
+      "?? tests/test_upload_harness.py"
+    ],
+    "diff_summary": "docs/sar-preprocessing.md               | 250 ++++++++------\n pyproject.toml                          |   8 +\n scripts/download_datasets.py            | 211 +++++++++---\n src/ocean_sentinel/errors.py            |  76 +++++\n src/ocean_sentinel/processing/models.py |  71 +++-\n src/ocean_sentinel/processing/sar.py    | 180 +++++++---\n tests/test_preprocessing.py             | 574 ++++++++++++++++++++++++++++++++\n 7 files changed, 1167 insertions(+), 203 deletions(-)"
+  },
+  "hash_audit": {
+    "teacher_model": {
+      "status": "PASS",
+      "size": 292465299,
+      "actual_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+      "expected_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699"
+    },
+    "pretrained_imagenet_resnet34": {
+      "status": "PASS",
+      "size": 87319819,
+      "actual_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+      "expected_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F"
+    },
+    "canonical_split_manifest": {
+      "status": "PASS",
+      "size": 5748446,
+      "actual_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "expected_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0"
+    },
+    "candidate_manifest": {
+      "status": "PASS",
+      "size": 7606111,
+      "actual_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+      "expected_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7"
+    },
+    "proposed_sampling_policy": {
+      "status": "PASS",
+      "size": 5152,
+      "actual_sha256": "F4F40D921238EC34EE5F33A413D22CFB5138015F133E57BD74532B4ADAF42FC9",
+      "expected_sha256": "F4F40D921238EC34EE5F33A413D22CFB5138015F133E57BD74532B4ADAF42FC9"
+    },
+    "proposed_success_criteria": {
+      "status": "PASS",
+      "size": 4752,
+      "actual_sha256": "DD777D1D51C2751A5F7C6E960B941A83A4783435D0B4E9BA9FF0AE9053961D29",
+      "expected_sha256": "DD777D1D51C2751A5F7C6E960B941A83A4783435D0B4E9BA9FF0AE9053961D29"
+    },
+    "experiment_identity": {
+      "status": "PASS",
+      "size": 3726,
+      "actual_sha256": "D78497BC951348D6E5CA078648D34F040F43B7FBABB4C756B2CC1D256A7EC44C",
+      "expected_sha256": "D78497BC951348D6E5CA078648D34F040F43B7FBABB4C756B2CC1D256A7EC44C"
+    },
+    "gate_exp02b_0_report": {
+      "status": "PASS",
+      "size": 17414,
+      "actual_sha256": "BB787BE720BCCBF3BBDD27DD3E204C64BFFC4D11070C4E8A901197D82B36C502",
+      "expected_sha256": "BB787BE720BCCBF3BBDD27DD3E204C64BFFC4D11070C4E8A901197D82B36C502"
+    }
+  },
+  "candidate_counts": {
+    "total": 13440,
+    "positive_spill_tiles": 5083,
+    "candidate_hard_negatives": 1605,
+    "ordinary_gt_negatives": 6752
+  },
+  "sampling_weights": {
+    "w_pos": [
+      1.0
+    ],
+    "w_hard_neg": [
+      2.25
+    ],
+    "w_ord_neg": [
+      0.75
+    ]
+  },
+  "preflight_status": "PASS"
+}

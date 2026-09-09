@@ -1,0 +1,75 @@
+{
+  "experiment_id": "EXP-02C",
+  "experiment_title": "Annealed Hard-Negative Sampling Pressure in SAR Oil-Spill Segmentation",
+  "status": "PROPOSED_PREREGISTRATION_DRAFT",
+  "parent_reference_experiment": "EXP-02B-1",
+  "authoritative_reference_checkpoint_sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+  "single_variable_intervention": {
+    "variable_name": "hard_negative_sampling_weight_schedule",
+    "schedule_type": "half_cycle_cosine_annealing",
+    "formula": "w_hard(epoch) = 0.75 + 0.75 * (1.0 + cos((epoch - 1) / 29.0 * pi))",
+    "epoch_range": [1, 30],
+    "w_hard_epoch_1": 2.25,
+    "w_hard_epoch_15": 1.5413,
+    "w_hard_epoch_30": 0.75,
+    "fixed_weights": {
+      "w_pos": 1.0,
+      "w_ord_neg": 0.75
+    },
+    "sampler_parameters": {
+      "replacement": true,
+      "num_samples": 13440,
+      "seed": 42
+    }
+  },
+  "locked_scientific_invariants": {
+    "model_architecture": "ResNet34UNet",
+    "input_channels": 2,
+    "num_classes": 1,
+    "adaptation_method": "slice_variance_scaled",
+    "total_parameters": 24346305,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "betas": [0.9, 0.999],
+    "eps": 1e-8,
+    "scheduler": "CosineAnnealingLR",
+    "t_max": 30,
+    "eta_min": 1e-6,
+    "batch_size": 8,
+    "accum_steps": 1,
+    "effective_batch_size": 8,
+    "precision": "amp_fp16",
+    "loss_function": "CombinedBCEAndDiceLoss(bce_weight=0.5, dice_weight=0.5, smooth=1.0)",
+    "evaluation_threshold": 0.22,
+    "spatial_manifest": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "split_cardinalities": {
+      "train_tiles": 13440,
+      "val_tiles": 2880,
+      "test_tiles": 2880
+    }
+  },
+  "model_selection_hierarchy": {
+    "tier_1_safety_floor": {
+      "metric": "val_recall",
+      "threshold": ">= 0.7900",
+      "description": "Mandatory operational safety floor; any checkpoint below 79.00% is disqualified."
+    },
+    "tier_2_fa_ceiling": {
+      "metric": "val_gt_negative_fa_rate",
+      "threshold": "<= 12.00%",
+      "description": "Guarantees >= 40.26% relative FA reduction vs EXP01 baseline (20.09%) with safety margin above EXP02B-1 (8.26%)."
+    },
+    "tier_3_optimization": {
+      "metric": "val_global_iou",
+      "objective": "maximize",
+      "description": "Select checkpoint maximizing global validation IoU among those satisfying Tiers 1 and 2."
+    }
+  },
+  "data_governance": {
+    "test_access_during_training": "STRICTLY_PROHIBITED",
+    "test_access_during_model_selection": "STRICTLY_PROHIBITED",
+    "tuning_on_test_data": "STRICTLY_PROHIBITED"
+  }
+}

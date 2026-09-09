@@ -1,0 +1,22 @@
+{
+  "run_id": "test_eval_1788968256",
+  "experiment": "EXP02B-1_held_out_test_evaluation",
+  "pre_evaluation_audit": "PASS",
+  "threshold": 0.22,
+  "checkpoint_sha256": "54B4B098E1EB64A7422F0401C1CFB8BE81EFCDF4ABACFBC4D3B35B4499765E4B",
+  "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+  "runner_sha256": "E68C372CAFD9CAC5656E191718FE82AC9D5233DF2ACEAE0E9F761700A4D4B5BD",
+  "start_time_utc": "2026-09-09T15:37:36Z",
+  "status": "COMPLETED",
+  "last_activity_utc": "2026-09-09T15:39:21Z",
+  "evaluating_model": "EXP01_Baseline",
+  "processed_tiles": 2880,
+  "total_test_tiles": 2880,
+  "throughput_tiles_per_sec": 55.2,
+  "eta_sec": 0.0,
+  "completed_time_utc": "2026-09-09T15:39:21Z",
+  "test_iou": 0.74894,
+  "test_recall": 0.90947,
+  "test_precision": 0.80927,
+  "test_fa_rate_pct": 9.1986
+}

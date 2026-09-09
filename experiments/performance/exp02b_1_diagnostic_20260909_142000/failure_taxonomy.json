@@ -1,0 +1,42 @@
+{
+  "negative_cured_fa_breakdown": {
+    "small_isolated_speckle_lt_50px": 112,
+    "moderate_cluster_50_to_1000px": 159,
+    "extensive_artifact_ge_1000px": 5
+  },
+  "negative_persistent_fa_breakdown": {
+    "small_isolated_speckle_lt_50px": 9,
+    "moderate_cluster_50_to_1000px": 61,
+    "extensive_artifact_ge_1000px": 21
+  },
+  "negative_new_fa_breakdown": {
+    "small_isolated_speckle_lt_50px": 17,
+    "moderate_cluster_50_to_1000px": 40,
+    "extensive_artifact_ge_1000px": 3
+  },
+  "positive_degradation_breakdown": {
+    "group_a_candidate_improves": 338,
+    "group_b_undersegmented": 122,
+    "group_b_other": 503,
+    "group_c_complete_miss": 17,
+    "group_d_new_detection": 8,
+    "group_e_both_miss": 65
+  },
+  "spill_size_miss_correlation": {
+    "tiny_spill_gt_lt_500px": {
+      "total_tiles": 110,
+      "missed_by_candidate": 9,
+      "detected_by_both": 42
+    },
+    "medium_spill_500_to_5000px": {
+      "total_tiles": 273,
+      "missed_by_candidate": 8,
+      "detected_by_both": 256
+    },
+    "large_spill_ge_5000px": {
+      "total_tiles": 670,
+      "missed_by_candidate": 0,
+      "detected_by_both": 665
+    }
+  }
+}

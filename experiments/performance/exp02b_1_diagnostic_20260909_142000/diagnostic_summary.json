@@ -1,0 +1,67 @@
+{
+  "experiment_id": "EXP-02B-1",
+  "diagnostic_id": "diagnostic_20260909_142000",
+  "authoritative_candidate": "best_model.pt (Epoch 3)",
+  "locked_threshold": 0.22,
+  "validation_population": {
+    "total_tiles": 2880,
+    "negative_tiles": 1827,
+    "positive_tiles": 1053
+  },
+  "negative_paired_contingency": {
+    "a_both_clean": 1400,
+    "b_cured_fa": 276,
+    "c_new_fa": 60,
+    "d_both_fa": 91,
+    "exp01_fa_count": 367,
+    "exp02b1_fa_count": 151,
+    "exp01_fa_rate_pct": 20.0876,
+    "exp02b1_fa_rate_pct": 8.2649,
+    "abs_reduction_pct_pts": 11.8227,
+    "rel_reduction_pct": 58.8556,
+    "mcnemar_chi2": 137.5744,
+    "mcnemar_p_value": 9.029577546145197e-32,
+    "ci_95_diff_pct_pts": [
+      9.9324,
+      13.7129
+    ]
+  },
+  "positive_partition": {
+    "E_neither_detects": 65,
+    "B_both_detect_other": 503,
+    "A_candidate_improves": 338,
+    "D_candidate_detects_exp01_misses": 8,
+    "B_both_detect_candidate_undersegments": 122,
+    "C_exp01_detects_candidate_misses": 17
+  },
+  "hypothesis_test_recall_loss": {
+    "question": "Is the recall loss predominantly whole-tile detection loss, or is it predominantly reduced spatial extent/undersegmentation within already-detected positive tiles?",
+    "total_positive_tiles": 1053,
+    "tiles_with_increased_fn": 151,
+    "total_fn_pixel_increase_in_deteriorated_tiles": 177389,
+    "n_whole_tile_misses_group_c": 17,
+    "pct_whole_tile_misses_group_c": 1.61,
+    "fn_pixels_from_whole_misses": 2532,
+    "pct_fn_increase_from_whole_misses": 1.43,
+    "n_undersegmented_tiles_group_b": 118,
+    "pct_undersegmented_tiles_group_b": 11.21,
+    "fn_pixels_from_undersegmentation": 172350,
+    "pct_fn_increase_from_undersegmentation": 97.16,
+    "tiles_with_improved_segmentation_group_a": 338,
+    "pct_tiles_with_improved_segmentation_group_a": 32.1,
+    "net_validation_fn_change": -643998,
+    "empirical_conclusion": "The empirical evidence decisively confirms the undersegmentation hypothesis: among the 151 positive validation tiles where candidate recall deteriorated, 97.16% of the increased false-negative pixels (172,350 of 177,389 px across 118 tiles) stem from spatial undersegmentation / boundary shrinkage within already-detected spills. Only 1.43% (2,532 px across 17 tiles) stem from complete whole-tile misses, all of which occurred on tiny (<500 px) or small (500-5000 px) spills with zero misses on large spills."
+  },
+  "pareto_efficient_epochs": [
+    2,
+    3,
+    4,
+    16,
+    17,
+    21,
+    27,
+    29,
+    30
+  ],
+  "completed_time_utc": "2026-09-09T08:54:45Z"
+}
