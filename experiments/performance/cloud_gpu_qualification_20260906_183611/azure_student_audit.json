@@ -1,0 +1,28 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "subscription_type": "Azure for Students ($100 annual credit)",
+  "local_credential_scan": {
+    "azure_cli_checked": "az",
+    "azure_cli_found": false,
+    "credentials_directory_checked": "C:/Users/Dheeraj/.azure",
+    "credentials_directory_found": false
+  },
+  "audit_protocol_compliance": {
+    "azure_vms_deployed": 0,
+    "azure_credits_consumed_usd": 0.0,
+    "unauthorized_resources_running": false
+  },
+  "gpu_quota_policy_analysis": {
+    "student_subscription_default_gpu_quota": 0,
+    "nc_series_t4_quota": "0 vCPUs (Standard NCasT4_v3 Series)",
+    "nc_series_v100_quota": "0 vCPUs (Standard NCv3 Series)",
+    "quota_request_eligibility": "BLOCKED by Microsoft Azure Policy. Student subscriptions cannot request GPU quota increases. Requires conversion to Pay-As-You-Go credit-card-backed subscription.",
+    "approximate_vm_hourly_rates": {
+      "Standard_NC4as_T4_v3 (1x T4 16GB, 4 vCPUs, 28GB RAM)": "$0.526/hr",
+      "Standard_NC6s_v3 (1x V100 16GB, 6 vCPUs, 112GB RAM)": "$3.060/hr"
+    }
+  },
+  "classification": "RESERVE ONLY (NON-VIABLE FOR FREE GPU COMPUTE)",
+  "conclusion": "Azure for Students cannot provide free GPU training due to strict 0 vCPU GPU quota enforcement. Retained exclusively as an architectural reserve."
+}

@@ -1,0 +1,110 @@
+{
+  "manifest_file": "data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+  "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+  "audit_file": "data\\metadata\\trujillo_2024\\spatial_split_audit.json",
+  "audit_sha256": "9F4AD5B3CD1771CD168F7172D2E4F9475271D10224016930694697AD591A6AAE",
+  "total_patches": 1200,
+  "train_parents": 840,
+  "val_parents": 180,
+  "test_parents": 180,
+  "expected_parents": {
+    "train": 840,
+    "val": 180,
+    "test": 180,
+    "total": 1200
+  },
+  "parents_match": true,
+  "total_tiles": 19200,
+  "train_tiles": 13440,
+  "val_tiles": 2880,
+  "test_tiles": 2880,
+  "expected_tiles": {
+    "train": 13440,
+    "val": 2880,
+    "test": 2880,
+    "total": 19200
+  },
+  "tiles_match": true,
+  "tile_parent_inheritance_valid": true,
+  "tiles_per_parent_all_16": true,
+  "spatial_components": {
+    "total_components": 204,
+    "expected_total_components": 204,
+    "total_components_match": true,
+    "cross_split_components": 0,
+    "zero_split_crossing_components": true,
+    "single_patch_components": null,
+    "multi_patch_components": null,
+    "largest_component_size": null
+  },
+  "spatial_leakage": {
+    "cross_split_overlapping_pairs": 0,
+    "zero_cross_split_positive_overlap": true,
+    "identical_gt_cross_split_count": 0,
+    "zero_identical_gt_cross_split": true,
+    "min_val_to_train_km": 18.38683475470108,
+    "min_test_to_train_km": 14.968488633307437,
+    "certification_status": "CERTIFIED_LEAKAGE_FREE"
+  },
+  "normalization": {
+    "computed_from_split": "train",
+    "channel_means": [
+      -33.233136989478695,
+      -19.941215852796695
+    ],
+    "channel_stds": [
+      6.489985665955077,
+      4.531345684833188
+    ],
+    "n_valid_pixels": [
+      3523215360,
+      3523215360
+    ],
+    "train_only_provenance": true
+  },
+  "legacy_random_split_references_audit": {
+    "flagged_code_paths": [
+      {
+        "file": "tests/test_ml_components.py",
+        "line": 42,
+        "snippet": "MANIFEST_PATH = REPO_ROOT / 'data' / 'metadata' / 'trujillo_2024' / 'split_manifest.json'",
+        "classification": "DEFECT / DRIFT IN ACTIVE TEST SUITE",
+        "severity": "HIGH",
+        "remediation": "Update to spatial_split_manifest.json to eliminate legacy reference"
+      },
+      {
+        "file": "scripts/benchmark_exp00.py",
+        "line": 622,
+        "snippet": "manifest_path = repo_root / 'data' / 'metadata' / 'trujillo_2024' / 'split_manifest.json'",
+        "classification": "LEGACY EXPERIMENT SCRIPTPATH",
+        "severity": "LOW",
+        "remediation": "Preserved for historical Phase 2.2 provenance; not used in production"
+      },
+      {
+        "file": "scripts/audit_spatial_leakage.py",
+        "line": 29,
+        "snippet": "MANIFEST_PATH = REPO_ROOT / 'data' / 'metadata' / 'trujillo_2024' / 'split_manifest.json'",
+        "classification": "INTENTIONAL HISTORICAL AUDIT TOOL",
+        "severity": "INFORMATIONAL",
+        "remediation": "Retained as forensic proof of legacy random split leakage (ADR-004)"
+      },
+      {
+        "file": "scripts/generate_split_manifest.py",
+        "line": 35,
+        "snippet": "MANIFEST_PATH = METADATA_DIR / 'split_manifest.json'",
+        "classification": "LEGACY GENERATOR SCRIPT",
+        "severity": "INFORMATIONAL",
+        "remediation": "Superseded by generate_spatial_split_manifest.py"
+      },
+      {
+        "file": "scripts/generate_spatial_split_manifest.py",
+        "line": 45,
+        "snippet": "DEFAULT_LEGACY_MANIFEST = MANIFESTS_DIR / 'split_manifest.json'",
+        "classification": "INTENTIONAL COMPARATIVE REFERENCE",
+        "severity": "INFORMATIONAL",
+        "remediation": "Used solely for comparative audit against legacy manifest"
+      }
+    ]
+  },
+  "split_audit_status": "CERTIFIED_PASS"
+}

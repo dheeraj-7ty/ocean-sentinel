@@ -1,0 +1,121 @@
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+=================================================================
+=== Ocean Sentinel Capability & Framework Smoke Probe [KAGGLE] ===
+=================================================================
+Jupyter/Ignored arguments: ['--HistoryManager.hist_file=:memory:', '-f /tmp/tmpzfmv5vi7.json']
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: 
+    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.
+    Minimum and Maximum cuda capability supported by this version of PyTorch is
+    (7.0) - (12.0)
+    
+  queued_call()
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: 
+    Please install PyTorch with a following CUDA
+    configurations:  12.6 following instructions at
+    https://pytorch.org/get-started/locally/
+    
+  queued_call()
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: 
+Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.
+If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  queued_call()
+
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: 
+    Found GPU0 Tesla P100-PCIE-16GB which is of cuda capability 6.0.
+    Minimum and Maximum cuda capability supported by this version of PyTorch is
+    (7.0) - (12.0)
+    
+  queued_call()
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: 
+    Please install PyTorch with a following CUDA
+    configurations:  12.6 following instructions at
+    https://pytorch.org/get-started/locally/
+    
+  queued_call()
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:435: UserWarning: 
+Tesla P100-PCIE-16GB with CUDA capability sm_60 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_70 sm_75 sm_80 sm_86 sm_90 sm_100 sm_120.
+If you want to use the Tesla P100-PCIE-16GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  queued_call()
+Target:            KAGGLE
+Timestamp UTC:     2026-09-06T19:49:11.431400+00:00
+OS:                Linux 6.12.90+ (Linux-6.12.90+-x86_64-with-glibc2.35)
+Python:            3.12.13 (/usr/bin/python3)
+CPU Cores:         4 logical
+Host RAM:          31.35 GB total (29.8 GB free)
+PyTorch:           2.10.0+cu128 (CUDA 12.8, cuDNN 91002)
+Torchvision:       0.25.0+cu128
+CUDA Available:    True
+CUDA Devices:      1
+  [0] Tesla P100-PCIE-16GB | Compute Cap: 6.0 | VRAM: 16269.25 MB total (16009.12 MB free)
+Smoke Tests:       FAILED
+  - tiny_tensor_allocation: FAIL (N/A ms)
+  - tiny_matmul: FAIL (N/A ms)
+  - tiny_conv2d: FAIL (N/A ms)
+  - tiny_amp_fp16: FAIL (N/A ms)
+Framework Test:    FAILED
+  - model_instantiation: PASS (350.546 ms)
+      Parameters: 24346305 (Expected: 24346305, Match: True)
+  - synthetic_forward_pass: FAIL (N/A ms)
+  - loss_computation: FAIL (N/A ms)
+      Loss Value: None
+  - autograd_and_optimizer_step: FAIL (N/A ms)
+      Peak VRAM:  None MB
+
+Filesystem Status:
+  /kaggle/working     : Total: 19.52 GB | Free: 19.5 GB | Writable: True
+  /kaggle/input       : Total: 19.52 GB | Free: 19.5 GB | Writable: False
+  /kaggle/temp        : DOES NOT EXIST
+  .                   : Total: 19.52 GB | Free: 19.5 GB | Writable: True
+
+Package Compatibility:
+  torch          : AVAILABLE (2.10.0+cu128)
+  torchvision    : AVAILABLE (0.25.0+cu128)
+  torchaudio     : AVAILABLE (2.10.0+cu128)
+  numpy          : AVAILABLE (2.0.2)
+  scipy          : AVAILABLE (1.16.3)
+  albumentations : AVAILABLE (2.0.8)
+  rasterio       : AVAILABLE (1.5.0)
+  cv2            : AVAILABLE (4.13.0)
+  PIL            : AVAILABLE (11.3.0)
+  yaml           : AVAILABLE (6.0.3)
+  tqdm           : AVAILABLE (4.67.3)
+
+Structured results saved to: /kaggle/working/capability_probe_results.json
+/usr/local/lib/python3.12/dist-packages/IPython/core/interactiveshell.py:3561: UserWarning: To exit: use 'exit', 'quit', or Ctrl-D.
+  warn("To exit: use 'exit', 'quit', or Ctrl-D.", stacklevel=1)
+
+/usr/local/lib/python3.12/dist-packages/IPython/core/interactiveshell.py:3561: UserWarning: To exit: use 'exit', 'quit', or Ctrl-D.
+  warn("To exit: use 'exit', 'quit', or Ctrl-D.", stacklevel=1)
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [1]":
+An exception has occurred, use %tb to see the full traceback.
+
+SystemExit: 2
+
+
+/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 44946 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 429099 bytes to __results__.html

@@ -1,0 +1,66 @@
+=== LOCAL HARDWARE TELEMETRY ===
+Timestamp UTC: 2026-09-06T19:20:51.475368+00:00
+
+--- CPU ---
+CPU Logical Cores: 20
+
+
+Name                      : 13th Gen Intel(R) Core(TM) i7-13650HX
+NumberOfCores             : 14
+NumberOfLogicalProcessors : 20
+
+
+
+
+--- RAM ---
+
+
+TotalVisibleMemorySize : 16454352
+FreePhysicalMemory     : 2596748
+
+
+
+
+--- GPU (nvidia-smi) ---
+Mon Sep  7 00:50:53 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 616.64                 KMD Version: 616.64        CUDA UMD Version: 13.4     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3050 ...  WDDM  |   00000000:01:00.0 Off |                  N/A |
+| N/A   61C    P0             14W /   95W |    1220MiB /   6144MiB |     14%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2600    C+G   ...2txyewy\CrossDeviceResume.exe      N/A      |
+|    0   N/A  N/A            4780    C+G   ...c76g0\app\ChatGPT Classic.exe      N/A      |
+|    0   N/A  N/A            5536    C+G   ...\SubAgent\AlienFXSubAgent.exe      N/A      |
+|    0   N/A  N/A            7356    C+G   ...Browser\Application\brave.exe      N/A      |
+|    0   N/A  N/A            7588    C+G   ...y\StartMenuExperienceHost.exe      N/A      |
+|    0   N/A  N/A           10584    C+G   ...AcrobatNotificationClient.exe      N/A      |
+|    0   N/A  N/A           13688    C+G   ..._cw5n1h2txyewy\SearchHost.exe      N/A      |
+|    0   N/A  N/A           17664    C+G   ....0.4191.66\msedgewebview2.exe      N/A      |
+|    0   N/A  N/A           18736    C+G   ...avity IDE\Antigravity IDE.exe      N/A      |
+|    0   N/A  N/A           19040    C+G   ...8bbwe\PhoneExperienceHost.exe      N/A      |
+|    0   N/A  N/A           19492    C+G   ...5n1h2txyewy\TextInputHost.exe      N/A      |
+|    0   N/A  N/A           20532    C+G   ...s\Win64\EpicGamesLauncher.exe      N/A      |
+|    0   N/A  N/A           21296    C+G   ...s\Antigravity\Antigravity.exe      N/A      |
+|    0   N/A  N/A           22440    C+G   ....0.4191.66\msedgewebview2.exe      N/A      |
+|    0   N/A  N/A           22916    C+G   ...4__8wekyb3d8bbwe\ms-teams.exe      N/A      |
+|    0   N/A  N/A           23052    C+G   ...26wp6bftszj\TranslucentTB.exe      N/A      |
+|    0   N/A  N/A           23400    C+G   ...0_x64__8j3eq9eme6ctt\IGCC.exe      N/A      |
+|    0   N/A  N/A           24476    C+G   ...Browser\Application\brave.exe      N/A      |
+|    0   N/A  N/A           25916    C+G   ...s\Antigravity\Antigravity.exe      N/A      |
+|    0   N/A  N/A           30716    C+G   ...1g1gvanyjgm\WhatsApp.Root.exe      N/A      |
+|    0   N/A  N/A           30912    C+G   ....0.4191.66\msedgewebview2.exe      N/A      |
+|    0   N/A  N/A           31992    C+G   ...avity IDE\Antigravity IDE.exe      N/A      |
++-----------------------------------------------------------------------------------------+
+

@@ -1,0 +1,13 @@
+{
+  "id": "dheeraj12237/ocean-sentinel-hierarchical-mount-rehearsal",
+  "title": "Ocean Sentinel Hierarchical Mount Rehearsal",
+  "code_file": "mount_hierarchical.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "dheeraj12237/ocean-sentinel-probe-hierarchical"
+  ]
+}

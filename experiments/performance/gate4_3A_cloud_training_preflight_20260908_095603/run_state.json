@@ -1,0 +1,64 @@
+{
+  "gate": "GATE_4.3A_REPOSITORY_HYGIENE_AND_CLOUD_PREFLIGHT",
+  "status": "COMPLETED",
+  "start_time_utc": "2026-09-08T04:26:03Z",
+  "completion_time_utc": "2026-09-08T04:35:00Z",
+  "defect_fixed": {
+    "file": "tests/test_ml_components.py",
+    "line": 42,
+    "legacy_target": "data/metadata/trujillo_2024/split_manifest.json",
+    "updated_target": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "lines_modified": 1
+  },
+  "test_execution": {
+    "total_tests": 139,
+    "passed": 139,
+    "failed": 0,
+    "skipped": 0,
+    "suites": {
+      "tests/test_ml_components.py": {"passed": 32, "total": 32, "duration_sec": 11.53},
+      "tests/test_canonical_exp01_fingerprint.py": {"passed": 11, "total": 11, "duration_sec": 4.23},
+      "tests/test_exp01_eval.py": {"passed": 14, "total": 14, "duration_sec": 7.07},
+      "tests/test_spatial_split.py": {"passed": 10, "total": 10, "duration_sec": 36.99},
+      "tests/test_dataset_pipeline.py": {"passed": 40, "total": 40, "duration_sec": 5.81},
+      "tests/test_trujillo_ingestion.py": {"passed": 32, "total": 32, "duration_sec": 3.71}
+    }
+  },
+  "canonical_exp01_immutability": {
+    "verified": true,
+    "best_model_pt_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "history_json_sha256": "E2B5EB5229E2529E1659E77D285E93275015F58DEDCA5AF1F539E45544D5FCBA",
+    "zero_canonical_modifications": true
+  },
+  "cloud_bundle": {
+    "directory": "experiments/performance/gate4_3A_cloud_training_preflight_20260908_095603/bundle",
+    "manifest": "experiments/performance/gate4_3A_cloud_training_preflight_20260908_095603/cloud_bundle_manifest.json",
+    "total_files": 29,
+    "total_size_bytes": 385664,
+    "secret_audit": "PASS_ZERO_SECRETS",
+    "preflight_execution_time_sec": 4.0,
+    "preflight_gate_result": "ALL_9_CHECKS_PASSED"
+  },
+  "pretrained_weight_access": {
+    "status": "VERIFIED_AND_CHARACTERIZED",
+    "model": "ResNet34UNet",
+    "total_params": 24346305,
+    "weight_file": "resnet34-b627a593.pth",
+    "weight_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+    "offline_loading_verified": true
+  },
+  "dataset_mount_contract": {
+    "planned_mount": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-trujillo-corpus",
+    "planned_manifest": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-trujillo-corpus/manifest/spatial_split_manifest.json",
+    "image_root": "images/Oil/",
+    "mask_root": "masks/Mask_oil/",
+    "verified": true
+  },
+  "single_gpu_policy": {
+    "target_device": "cuda:0 (Tesla T4)",
+    "ddp": false,
+    "batch_size": 8,
+    "accum_steps": 1,
+    "verified": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "phase": "C-C5",
+  "timestamp_utc": "2026-09-09T01:05:44Z",
+  "checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\gate4_3C_C4_resume_epoch2_20260909_002000\\kernel_output\\gate4_3C_C_resume\\latest_checkpoint.pt",
+  "sha256": "F6C92CD94362826AC603CFF68B900BE6B98126B32D396EBC76C699BF289242F1",
+  "best_model_sha256": "65ECF4415897644878E9BAA1A3230430250C5DDF3F66150F0DBE723ABAD983F4",
+  "size_bytes": 292471467,
+  "epoch": 2,
+  "history_length": 2,
+  "epoch_1_val_iou": 0.66277,
+  "epoch_2_val_iou": 0.66092,
+  "scheduler_t_max": 30,
+  "scheduler_last_epoch": 2,
+  "scheduler_last_lr": 9.891830623632339e-05,
+  "prior_optimizer_steps": 1680,
+  "session_optimizer_updates": 1680,
+  "cumulative_optimizer_step": 3360,
+  "amp_skipped_updates": 0,
+  "scaler_scale": 131072.0,
+  "test_tiles_consumed": 0,
+  "selected_threshold": 0.22,
+  "overall_status": "CLEAN PASS"
+}

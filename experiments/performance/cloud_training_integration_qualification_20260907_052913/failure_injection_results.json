@@ -1,0 +1,62 @@
+{
+  "A_missing_manifest": {
+    "status": "PASS",
+    "caught": "FileNotFoundError",
+    "msg": "[Errno 2] No such file or directory: 'non_existent_dir\\\\no_manifest.json'"
+  },
+  "B_missing_image_tiff": {
+    "status": "PASS",
+    "caught": "RasterioIOError",
+    "msg": "C:\\Users\\Dheeraj\\AppData\\Local\\Temp\\tmp_srwwwtx\\empty_dataset\\images\\Oil\\00012.tif: No such file or directory"
+  },
+  "C_missing_mask_tiff": {
+    "status": "PASS",
+    "caught": "RasterioIOError",
+    "msg": "C:\\Users\\Dheeraj\\AppData\\Local\\Temp\\tmpoq07zt1g\\empty_dataset\\masks\\Mask_oil\\00012.tif: No such file or directory"
+  },
+  "D_invalid_dataset_root": {
+    "status": "PASS",
+    "caught": "RasterioIOError",
+    "msg": "Z:\\non_existent\\root\\images\\Oil\\00012.tif: No such file or directory"
+  },
+  "E_corrupt_checkpoint": {
+    "status": "PASS",
+    "caught": "RuntimeError",
+    "msg": "Checkpoint C:\\Users\\Dheeraj\\AppData\\Local\\Temp\\tmp8r4rkyl4\\corrupt.pt is external to repository; refusing weights_only=False fallback."
+  },
+  "F_invalid_tensor_shape": {
+    "status": "PASS",
+    "caught": "ValueError",
+    "msg": "Expected 2 input channels, got 3 (shape (1, 3, 512, 512))"
+  },
+  "G_non_finite_loss": {
+    "status": "PASS",
+    "caught": "AssertionError",
+    "msg": "Loss is non-finite"
+  },
+  "H_cpu_fallback_simulation": {
+    "status": "PASS",
+    "caught": null,
+    "msg": "Forward on CPU passed"
+  },
+  "I_jupyter_f_argument": {
+    "status": "PASS",
+    "caught": null,
+    "msg": "Ignored args: ['-f', '/root/.local/share/jupyter/runtime/kernel-123.json']"
+  },
+  "J_unknown_cli_flag": {
+    "status": "PASS",
+    "caught": "ValueError",
+    "msg": "unrecognized arguments: --strictly-illegal-unsupported-flag"
+  },
+  "K_invalid_output_directory": {
+    "status": "PASS",
+    "caught": "FileExistsError",
+    "msg": "[WinError 183] Cannot create a file when that file already exists: 'C:\\\\Users\\\\Dheeraj\\\\AppData\\\\Local\\\\Temp\\\\tmp_lgm43mt'"
+  },
+  "L_mismatched_batch_shape": {
+    "status": "PASS",
+    "caught": "AssertionError",
+    "msg": "Unexpected img shape: torch.Size([4, 2, 512, 512])"
+  }
+}

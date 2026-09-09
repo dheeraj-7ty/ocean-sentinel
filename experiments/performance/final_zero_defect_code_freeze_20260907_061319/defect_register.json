@@ -1,0 +1,64 @@
+{
+  "defect_register_version": "1.0",
+  "audit_gate": "Gate 4.4 Final Zero-Defect Code Freeze",
+  "total_defects_tracked": 5,
+  "open_blocking_defects": 0,
+  "open_task_introduced_defects": 0,
+  "defects": [
+    {
+      "id": "DEF-001",
+      "category": "CLI / Jupyter Portability",
+      "severity": "BLOCKING",
+      "file": "scripts/train_exp01.py",
+      "description": "Jupyter automatically injects -f <kernel_connection_file>, causing strict argparse.parse_args() to fail with unrecognized arguments.",
+      "source": "PRE-EXISTING",
+      "action": "Implemented parse_known_args() to isolate and log Jupyter kernel arguments while strictly rejecting arbitrary unknown flags.",
+      "status": "FIXED",
+      "verification_test": "qualification_runner.py::test_jupyter_and_cli_entrypoint"
+    },
+    {
+      "id": "DEF-002",
+      "category": "Filesystem Portability",
+      "severity": "BLOCKING",
+      "file": "src/ocean_sentinel/ingestion/dataset.py",
+      "description": "Hardcoded local dataset paths in manifest prevent loading from read-only /kaggle/input FUSE mount.",
+      "source": "PRE-EXISTING",
+      "action": "Added --data-dir argument and data_root parameter to TrujilloTileDataset, rebasing patch paths to {data_root}/images/Oil/ and {data_root}/masks/Mask_oil/.",
+      "status": "FIXED",
+      "verification_test": "qualification_runner.py::test_simulated_kaggle_path_mount"
+    },
+    {
+      "id": "DEF-003",
+      "category": "Unit Test Regression",
+      "severity": "BLOCKING",
+      "file": "tests/test_exp01_eval.py",
+      "description": "Unconditionally passing data_root=args.data_dir in train_exp01.py broke mock_dataset_init in unit tests because mock signature lacked **kwargs.",
+      "source": "TASK-INTRODUCED",
+      "action": "Conditioned data_root passing in train_exp01.py and added defensive *args, **kwargs to mock_dataset_init.",
+      "status": "FIXED",
+      "verification_test": "pytest tests/test_exp01_eval.py (14/14 passed)"
+    },
+    {
+      "id": "DEF-004",
+      "category": "Code Modularity",
+      "severity": "MEDIUM",
+      "file": "scripts/train_exp01.py",
+      "description": "Argument parser was constructed inside main(), preventing external modular validation and testing.",
+      "source": "TASK-INTRODUCED",
+      "action": "Extracted def build_arg_parser() -> argparse.ArgumentParser as top-level function.",
+      "status": "FIXED",
+      "verification_test": "task_closure_check.py [CHECK 10/10]"
+    },
+    {
+      "id": "DEF-005",
+      "category": "Deprecation Warning",
+      "severity": "LOW",
+      "file": "venv/lib/site-packages/rasterio/transform.py",
+      "description": "PendingDeprecationWarning on * multiplication operator instead of @ matmul.",
+      "source": "PRE-EXISTING",
+      "action": "Upstream third-party package warning. Tracked as non-blocking; does not alter mathematical precision.",
+      "status": "DOCUMENTED_NON_BLOCKING",
+      "verification_test": "pytest warning capture"
+    }
+  ]
+}

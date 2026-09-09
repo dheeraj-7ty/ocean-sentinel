@@ -1,0 +1,30 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "platform": "Azure for Students",
+  "public_platform_capability": {
+    "candidate_gpu_vms": {
+      "Standard_NC4as_T4_v3": {
+        "gpu": "1x NVIDIA Tesla T4 16GB",
+        "vcpus": 4,
+        "ram_gb": 28,
+        "hourly_rate_usd": 0.526
+      },
+      "Standard_NC6s_v3": {
+        "gpu": "1x NVIDIA Tesla V100 16GB",
+        "vcpus": 6,
+        "ram_gb": 112,
+        "hourly_rate_usd": 3.06
+      }
+    },
+    "storage": "Azure Blob Storage (Hot tier ~$0.95/mo for 50 GB) + BlobFuse2"
+  },
+  "account_specific_verified_capability": {
+    "authentication_state": "NOT AUTHENTICATED",
+    "student_credit_balance": "UNKNOWN (nominally $100 allocated)",
+    "gpu_vm_quota": 0,
+    "ncast4_v3_usable": false,
+    "deployment_status": "BLOCKED BY 0 VCPU QUOTA POLICY",
+    "role": "RESERVE ONLY"
+  }
+}

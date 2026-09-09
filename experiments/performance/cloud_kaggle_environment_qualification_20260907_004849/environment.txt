@@ -1,0 +1,16 @@
+=== LOCAL ENVIRONMENT TELEMETRY ===
+Timestamp UTC: 2026-09-06T19:20:53.367170+00:00
+
+OS Platform: Windows 10 (10.0.26200)
+Platform String: Windows-10-10.0.26200-SP0
+Machine / Arch: AMD64 / Intel64 Family 6 Model 183 Stepping 1, GenuineIntel
+Hostname: Grimdawn
+Python Executable: D:\Projects\ocean-sentinel\venv\Scripts\python.exe
+Python Version: 3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]
+Working Directory: D:\Projects\ocean-sentinel
+
+--- Environment Variables (Non-sensitive) ---
+NUMBER_OF_PROCESSORS=20
+OS=Windows_NT
+PATH=C:\Program Files\PowerShell\7;C:/Users/Dheeraj/.gemini/antigravity-ide/bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\msys64\mingw64\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7-preview\preview;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\PowerShell\7\;C:\Program Files\GitHub CLI\;C:\Users\Dheeraj\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\Dheeraj\AppData\Local\Programs\Python\Python311\;C:\Users\Dheeraj\.local\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Dheeraj\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Dheeraj\AppData\Local\Programs\Python\Python310\;C:\Users\Dheeraj\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2024.3.3\bin;C:\Users\Dheeraj\AppData\Local\Programs\Python\Python313\Scripts;C:\Users\Dheeraj\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Dheeraj\.lmstudio\bin;C:\Users\Dheeraj\AppData\Local\Python\bin;C:\Users\Dheeraj\AppData\Local\Programs\Antigravity\bin;C:\Users\Dheeraj\AppData\Local\Programs\Ollama;C:\Users\Dheeraj\.dotnet\tools;C:\Users\Dheeraj\AppData\Roaming\npm;C:\Users\Dheeraj\AppData\Local\GitHubDesktop\bin;C:\ProgramData\Dheeraj\GitHubDesktop\bin;C:\Users\Dheeraj\AppData\Local\Programs\Antigravity IDE\bin
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 183 Stepping 1, GenuineIntel

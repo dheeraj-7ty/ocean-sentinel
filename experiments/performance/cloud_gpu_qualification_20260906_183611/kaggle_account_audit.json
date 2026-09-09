@@ -1,0 +1,35 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "platform": "Kaggle Notebooks",
+  "local_credential_scan": {
+    "credentials_file_checked": "C:/Users/Dheeraj/.kaggle/kaggle.json",
+    "credentials_file_found": false,
+    "env_vars_checked": [
+      "KAGGLE_USERNAME",
+      "KAGGLE_KEY"
+    ],
+    "env_vars_found": [],
+    "cli_tool_checked": "kaggle",
+    "cli_tool_found": false
+  },
+  "account_specific_status": "ACCOUNT-SPECIFIC AVAILABILITY UNKNOWN",
+  "account_audit_notes": "No local kaggle.json token found. Kaggle GPU quotas require user SMS phone verification on kaggle.com/settings to unlock GPU accelerators and notebook internet access.",
+  "platform_specifications": {
+    "free_gpu_quota_hours_per_week": 30.0,
+    "quota_reset_schedule": "Weekly reset every Saturday at 00:00 UTC",
+    "monetary_cost": "$0.00 (100% free, no credit card required)",
+    "session_limits": {
+      "max_continuous_runtime_hours": 12.0,
+      "idle_timeout_interactive_minutes": 40.0,
+      "background_save_and_run_all": true
+    },
+    "storage_architecture": {
+      "private_dataset_storage_limit_gb": 100.0,
+      "scratch_working_storage_limit_gb": 20.0,
+      "dataset_mount_path": "/kaggle/input/<dataset-slug>/",
+      "dataset_mount_type": "Read-only virtualized filesystem mount (0-second mount latency)",
+      "output_persistence": "Files in /kaggle/working are persisted via notebook version outputs or downloadable via Kaggle API."
+    }
+  }
+}

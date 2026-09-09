@@ -1,0 +1,94 @@
+{
+  "probe_metadata": {
+    "target": "LOCAL",
+    "timestamp_utc": "2026-09-06T19:20:33.767182+00:00",
+    "status": "COMPLETE",
+    "probe_script_version": "1.0.0"
+  },
+  "system": {
+    "os": "Windows",
+    "os_release": "10",
+    "os_version": "10.0.26200",
+    "platform_string": "Windows-10-10.0.26200-SP0",
+    "hostname": "Grimdawn",
+    "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+    "python_executable": "D:\\Projects\\ocean-sentinel\\venv\\Scripts\\python.exe",
+    "cpu_count_logical": 20,
+    "ram_total_gb": 15.69,
+    "ram_available_gb": 1.86
+  },
+  "pytorch": {
+    "torch_version": "2.14.0+cu126",
+    "torch_cuda_version": "12.6",
+    "cuda_available": true,
+    "cudnn_version": 91002,
+    "cudnn_enabled": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "allow_tf32_matmul": false,
+    "allow_tf32_cudnn": true,
+    "amp_supported": true,
+    "autocast_available": true,
+    "bfloat16_supported": true,
+    "float16_supported": true
+  },
+  "gpu": {
+    "cuda_available": true,
+    "device_count": 1,
+    "devices": [
+      {
+        "index": 0,
+        "name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+        "compute_capability": "8.6",
+        "total_memory_mb": 6143.5,
+        "free_memory_mb": 5161.0,
+        "multi_processor_count": 20
+      }
+    ]
+  },
+  "safe_smoke_tests": {
+    "performed": true,
+    "all_passed": true,
+    "checks": {
+      "tiny_tensor_allocation": {
+        "status": "PASS",
+        "shape": [
+          4,
+          4
+        ],
+        "device": "cuda:0",
+        "elapsed_ms": 82.169
+      },
+      "tiny_matmul": {
+        "status": "PASS",
+        "shape": [
+          64,
+          64
+        ],
+        "elapsed_ms": 134.545
+      },
+      "tiny_conv2d": {
+        "status": "PASS",
+        "input_shape": [
+          1,
+          2,
+          128,
+          128
+        ],
+        "output_shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "elapsed_ms": 67.454
+      },
+      "tiny_amp_fp16": {
+        "status": "PASS",
+        "dtype": "torch.float16",
+        "elapsed_ms": 26.449
+      }
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,81 @@
+Your Notebook is now running in the cloud.
+Enter some code at the bottom of this console and press [Enter].
+Session is starting...
+=================================================================
+=== Ocean Sentinel Capability & Framework Smoke Probe [KAGGLE] ===
+=================================================================Jupyter/Ignored arguments: ['-f /root/.local/share/jupyter/runtime/kernel-19b54d47-307d-427b-9470-29513394a137.json']
+
+Target:            KAGGLE
+Timestamp UTC:     2026-09-06T21:09:41.608573+00:00
+
+OS:                Linux 6.12.90+ (Linux-6.12.90+-x86_64-with-glibc2.35)
+
+Python:            3.12.13 (/usr/bin/python3)
+
+CPU Cores:         4 logical
+
+Host RAM:          31.35 GB total (29.63 GB free)
+
+PyTorch:           2.10.0+cu128 (CUDA 12.8, cuDNN 91002)  
+Torchvision:       0.25.0+cu128
+
+CUDA Available:    True
+
+CUDA Devices:      2
+[0] Tesla T4 | Compute Cap: 7.5 | VRAM: 14911.69 MB total (14804.81 MB free)
+  [1] Tesla T4 | Compute Cap: 7.5 | VRAM: 14911.69 MB total (14806.81 MB free)
+Smoke Tests:       ALL PASSED
+  - tiny_tensor_allocation: PASS (25.729 ms)
+- tiny_matmul: PASS (125.239 ms)
+  - tiny_conv2d: PASS (457.331 ms)
+  - tiny_amp_fp16: PASS (29.321 ms)
+Framework Test:    ALL PASSED
+ - model_instantiation: PASS (353.705 ms)
+      Parameters: 24346305 (Expected: 24346305, Match: True)
+  - synthetic_forward_pass: PASS (596.223 ms)
+  - loss_computation: PASS (152.702 ms)
+ Loss Value: 0.593347
+  - autograd_and_optimizer_step: PASS (519.986 ms)
+      Peak VRAM:  486.04 MB
+Filesystem Status:
+
+  /kaggle/working     : Total: 19.52 GB | Free: 19.5 GB | Writable: True
+  /kaggle/input       : Total: 19.52 GB | Free: 19.5 GB | Writable: False
+
+  /kaggle/temp        : DOES NOT EXIST
+                                :   Total: 19.52 GB | Free: 19.5 GB | Writable: True  
+Package Compatibility:
+
+  torch          : AVAILABLE (2.10.0+cu128)
+
+  torchvision    : AVAILABLE (0.25.0+cu128)
+
+  torchaudio     : AVAILABLE (2.10.0+cu128)
+numpy          : AVAILABLE (2.0.2)
+
+  scipy          : AVAILABLE (1.16.3)
+
+  albumentations : AVAILABLE (2.0.8)
+
+  rasterio       : AVAILABLE (1.5.0)
+cv2            : AVAILABLE (4.13.0)
+
+  PIL            : AVAILABLE (11.3.0)
+
+  yaml           : AVAILABLE (6.0.3)
+
+  tqdm           : AVAILABLE (4.67.3)
+
+
+  Structured results saved to: /kaggle/working/capability_probe_results.json  
+SystemExit
+
+0
+
+/usr/local/lib/python3.12/dist-packages/IPython/core/interactiveshell.py:3561: UserWarning: To exit: use 'exit', 'quit', or Ctrl-D.
+
+  warn("To exit: use 'exit', 'quit', or Ctrl-D.", stacklevel=1)
+
+Session is stopping...
+
+Session stopped.

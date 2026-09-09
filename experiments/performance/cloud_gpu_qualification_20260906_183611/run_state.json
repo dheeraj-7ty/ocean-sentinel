@@ -1,0 +1,29 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "lifecycle_state": "COMPLETE",
+  "phases": {
+    "discovery": "COMPLETED",
+    "lightning_audit": "COMPLETED",
+    "kaggle_audit": "COMPLETED",
+    "azure_audit": "COMPLETED",
+    "data_strategy": "COMPLETED",
+    "benchmark_design": "COMPLETED",
+    "adversarial_audit": "COMPLETED",
+    "final_review": "COMPLETED"
+  },
+  "account_access_states": {
+    "lightning_ai": "ACCOUNT-SPECIFIC AVAILABILITY UNKNOWN",
+    "kaggle": "ACCOUNT-SPECIFIC AVAILABILITY UNKNOWN",
+    "azure_for_students": "QUOTA_BLOCKED_FOR_GPU"
+  },
+  "cloud_resource_consumption": {
+    "azure_credits_spent": 0.0,
+    "lightning_credits_spent": 0.0,
+    "kaggle_gpu_hours_spent": 0.0,
+    "active_cloud_resources_remaining": 0
+  },
+  "local_baseline_preserved": true,
+  "model_code_modified": false,
+  "dataset_modified": false
+}

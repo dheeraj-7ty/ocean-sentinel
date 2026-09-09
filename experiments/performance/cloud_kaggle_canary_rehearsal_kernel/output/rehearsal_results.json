@@ -1,0 +1,9 @@
+{
+  "input_exists": true,
+  "datasets": [
+    "datasets"
+  ],
+  "canary_mounted": false,
+  "canary_files": [],
+  "canary_content_verified": false
+}

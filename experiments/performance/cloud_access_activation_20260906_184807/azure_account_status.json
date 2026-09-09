@@ -1,0 +1,31 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "platform": "Azure for Students",
+  "authentication_status": "NOT AUTHENTICATED",
+  "cli_discovery": {
+    "cli_name": "az",
+    "installed": false,
+    "executable_path": null,
+    "notes": "Not found on system PATH or within venv/Scripts"
+  },
+  "credential_directory_discovery": {
+    "expected_path": "C:/Users/Dheeraj/.azure",
+    "directory_present": false
+  },
+  "environment_variables": {
+    "AZURE_SUBSCRIPTION_ID": "NOT SET"
+  },
+  "compliance_checks": {
+    "vms_deployed": 0,
+    "credits_consumed_usd": 0.0,
+    "unauthorized_resources_running": false
+  },
+  "policy_restriction_audit": {
+    "subscription_type": "Azure for Students ($100 annual credit)",
+    "default_gpu_quota": "0 vCPUs across all GPU VM families (NCasT4_v3, NCv3, NV)",
+    "quota_increase_eligibility": "BLOCKED by Microsoft Azure Policy for Student and Free subscriptions",
+    "workaround_required": "Must convert to Pay-As-You-Go credit-card-backed subscription to request GPU quota"
+  },
+  "viability_verdict": "NON-VIABLE FOR FREE GPU COMPUTE (RESERVE ONLY)"
+}

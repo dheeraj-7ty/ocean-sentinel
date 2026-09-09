@@ -1,0 +1,200 @@
+{
+  "U0": {
+    "id": "U0",
+    "timestamp": "2026-09-07T17:07:18.232944+00:00",
+    "description": "Upload process started, local tar packaging initiated",
+    "disk_c_free_gb": 165.2,
+    "cpu_percent": 19.2,
+    "ram_percent": 78.9,
+    "details": {
+      "target_staging": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\cloud_kaggle_dataset_package_preflight_20260907_022953\\staging",
+      "target_slug": "dheeraj12237/ocean-sentinel-trujillo-corpus",
+      "total_expected_bytes": 56193499563,
+      "upload_mode": "tar"
+    }
+  },
+  "U1": {
+    "id": "U1",
+    "timestamp": "2026-09-07T17:25:56.055976+00:00",
+    "description": "Packaging of images.tar complete (51.14 GB), network upload actively streaming",
+    "disk_c_free_gb": 119.18,
+    "cpu_percent": 15.9,
+    "ram_percent": 74.7,
+    "details": {
+      "archive_name": "images.tar",
+      "archive_bytes": 51136153600,
+      "bytes_streamed": 795869184,
+      "rolling_rate_mb_s": 4.45,
+      "eta": "3:17:49",
+      "network_status": "ACTIVE"
+    }
+  },
+  "U2": {
+    "id": "U2",
+    "timestamp": "2026-09-07T17:27:01.273295+00:00",
+    "description": "1.02 GB milestone passed cleanly, streaming stable",
+    "disk_c_free_gb": 119.18,
+    "cpu_percent": 3.9,
+    "ram_percent": 74.7,
+    "details": {
+      "archive_name": "images.tar",
+      "bytes_transferred": 1095216660,
+      "bytes_transferred_gb": 1.02,
+      "elapsed_stream_time": "03:56",
+      "instantaneous_rate_mb_s": 4.71,
+      "rolling_60s_rate_mb_s": 4.42,
+      "eta": "3:18:06",
+      "network_status": "ACTIVE",
+      "cpu_percent": 3.6
+    }
+  },
+  "U3": {
+    "id": "U3",
+    "timestamp": "2026-09-07T17:45:13.218532+00:00",
+    "description": "Checkpoint U3 (10%) passed at 5.74 GB (10.97%), transfer stable and continuous",
+    "disk_c_free_gb": 119.18,
+    "cpu_percent": 9.0,
+    "ram_percent": 70.8,
+    "details": {
+      "archive_name": "images.tar",
+      "bytes_transferred": 6163382272,
+      "bytes_transferred_gb": 5.74,
+      "percentage": 10.97,
+      "elapsed_stream_time": "22:06",
+      "instantaneous_rate_mb_s": 4.17,
+      "rolling_60s_rate_mb_s": 4.45,
+      "overall_rate_mb_s": 4.43,
+      "eta": "2:58:39",
+      "network_status": "ACTIVE",
+      "cpu_percent": 6.2,
+      "retry_count": 0
+    }
+  },
+  "U4": {
+    "id": "U4",
+    "timestamp": "2026-09-07T18:16:45.611886+00:00",
+    "description": "Checkpoint U4 (25%) reached at 14.05+ GB, transfer continuous",
+    "disk_c_free_gb": 119.16,
+    "cpu_percent": 8.9,
+    "ram_percent": 72.5,
+    "details": {
+      "archive_name": "images.tar",
+      "bytes_transferred": 15139759718,
+      "bytes_transferred_gb": 14.1,
+      "percentage_total": 26.94,
+      "elapsed_stream_time": "53:40",
+      "rolling_60s_rate_mb_s": 5.12,
+      "eta": "2:07:20",
+      "network_status": "ACTIVE",
+      "retry_count": 0
+    }
+  },
+  "U5": {
+    "id": "U5",
+    "timestamp": "2026-09-07T19:05:09.965746+00:00",
+    "description": "Checkpoint U5 (50%) milestone passed at 28.88 GB (51.40%), transfer highly stable and continuous",
+    "disk_c_free_gb": 119.09,
+    "cpu_percent": 10.0,
+    "ram_percent": 77.8,
+    "details": {
+      "archive_name": "images.tar",
+      "bytes_transferred": 28883655065,
+      "bytes_transferred_gb": 28.88,
+      "percentage_total": 51.4,
+      "elapsed_stream_time": "1:42:03",
+      "instantaneous_rate_mb_s": 5.52,
+      "rolling_60s_rate_mb_s": 3.58,
+      "rolling_300s_rate_mb_s": 4.65,
+      "overall_avg_rate_mb_s": 4.06,
+      "eta": "2:06:58",
+      "network_status": "ACTIVE",
+      "retry_count": 0
+    }
+  },
+  "U6": {
+    "id": "U6",
+    "timestamp": "2026-09-07T19:55:10.249608+00:00",
+    "description": "Checkpoint U6 (75%) milestone passed at 43.16 GB (76.81%), upload highly stable and sustained",
+    "disk_c_free_gb": 119.07,
+    "cpu_percent": 6.2,
+    "ram_percent": 75.8,
+    "details": {
+      "archive_name": "images.tar",
+      "bytes_transferred": 43164421324,
+      "bytes_transferred_gb": 43.16,
+      "percentage_total": 76.81,
+      "elapsed_stream_time": "2:32:03",
+      "instantaneous_rate_mb_s": 5.13,
+      "rolling_60s_rate_mb_s": 3.59,
+      "rolling_300s_rate_mb_s": 4.65,
+      "overall_avg_rate_mb_s": 4.27,
+      "eta": "1:00:32",
+      "network_status": "ACTIVE",
+      "retry_count": 0
+    }
+  },
+  "U7": {
+    "id": "U7",
+    "timestamp": "2026-09-07T20:25:19.734903+00:00",
+    "description": "Checkpoint U7 (90%) milestone passed at 51.63 GB (91.87%), images.tar and manifest.tar fully complete, masks.tar actively streaming",
+    "disk_c_free_gb": 160.86,
+    "cpu_percent": 9.3,
+    "ram_percent": 79.4,
+    "details": {
+      "archive_name": "masks.tar",
+      "completed_archives": [
+        "images.tar",
+        "manifest.tar"
+      ],
+      "bytes_transferred": 51627037818,
+      "bytes_transferred_gb": 51.63,
+      "percentage_total": 91.87,
+      "elapsed_stream_time": "2:59:53",
+      "instantaneous_rate_mb_s": 3.64,
+      "rolling_60s_rate_mb_s": 4.71,
+      "rolling_300s_rate_mb_s": 4.23,
+      "overall_avg_rate_mb_s": 4.33,
+      "eta": "0:16:08",
+      "network_status": "ACTIVE",
+      "retry_count": 0
+    }
+  },
+  "U8": {
+    "id": "U8",
+    "timestamp": "2026-09-07T20:41:32.351495+00:00",
+    "description": "Checkpoint U8 (100%) milestone completed successfully: All archives transferred and uploader CLI exited with code 0",
+    "disk_c_free_gb": 165.57,
+    "cpu_percent": 16.5,
+    "ram_percent": 77.6,
+    "details": {
+      "archive_name": "all",
+      "completed_archives": [
+        "images.tar",
+        "manifest.tar",
+        "masks.tar"
+      ],
+      "bytes_transferred": 56193499563,
+      "bytes_transferred_gb": 56.19,
+      "percentage_total": 100.0,
+      "uploader_exit_code": 0,
+      "upload_start_time": "2026-09-07T17:06:24Z",
+      "upload_completion_time": "2026-09-07T20:41:13Z",
+      "total_wall_clock_seconds": 12889,
+      "total_wall_clock_formatted": "3h 34m 49s",
+      "packaging_duration_images_seconds": 1113,
+      "stream_duration_images_seconds": 10793,
+      "packaging_duration_manifest_seconds": 0,
+      "stream_duration_manifest_seconds": 4,
+      "packaging_duration_masks_seconds": 25,
+      "stream_duration_masks_seconds": 1066,
+      "total_stream_duration_seconds": 11863,
+      "total_stream_formatted": "3h 17m 43s",
+      "effective_transfer_rate_mb_s": 4.74,
+      "overall_effective_rate_mb_s": 4.36,
+      "stalls_count": 0,
+      "retries_count": 0,
+      "client_errors_count": 0,
+      "final_status": "SUCCESS"
+    }
+  }
+}

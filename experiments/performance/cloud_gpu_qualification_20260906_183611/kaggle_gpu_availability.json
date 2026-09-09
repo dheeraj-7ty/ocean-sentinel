@@ -1,0 +1,45 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "platform": "Kaggle Notebooks",
+  "gpus": {
+    "Kaggle_T4_Single": {
+      "gpu_count": 1,
+      "model_name": "NVIDIA Tesla T4",
+      "architecture": "Turing (TU104)",
+      "compute_capability": "7.5",
+      "vram_per_gpu_gb": 16,
+      "total_vram_gb": 16,
+      "host_cpu": "4 vCPUs (Intel Xeon / AMD EPYC)",
+      "system_ram_gb": 30.0,
+      "hourly_cost_usd": 0.0,
+      "quota_consumption": "1 GPU hour per wall-clock hour",
+      "weekly_quota_headroom_hours": 30.0,
+      "max_safe_batch_size_512x512": 16,
+      "priority": "TERTIARY",
+      "suitability_assessment": "Zero-cost baseline. 30 hours weekly recurring quota provides infinite long-term experimentation headroom. 16 GB VRAM allows batch 16."
+    },
+    "Kaggle_T4x2_MultiGPU": {
+      "gpu_count": 2,
+      "model_name": "2x NVIDIA Tesla T4",
+      "architecture": "Turing (TU104)",
+      "compute_capability": "7.5",
+      "vram_per_gpu_gb": 16,
+      "total_vram_gb": 32,
+      "interconnect": "Standard PCI-e Bus (NO NVLink / virtualized hypervisor bus)",
+      "host_cpu": "4 vCPUs (shared across both GPUs)",
+      "system_ram_gb": 30.0,
+      "hourly_cost_usd": 0.0,
+      "quota_consumption": "Standard Kaggle policy deducts 1 GPU-hour per session wall-clock hour (or 2x if accounting strictly by device)",
+      "max_safe_batch_size_512x512_per_gpu": 16,
+      "effective_batch_size_total": 32,
+      "distributed_protocol": "PyTorch DistributedDataParallel (DDP) via torchrun with NCCL backend",
+      "priority": "MULTI-GPU CANDIDATE",
+      "critical_caveats": [
+        "2 GPUs != 2x performance. PCIe gradient synchronization overhead will reduce scaling efficiency.",
+        "4 host vCPUs must feed 2 GPUs simultaneously (2 workers per GPU max before CPU thrashing).",
+        "Requires DDP training script wrapper (torchrun --nproc_per_node=2)."
+      ]
+    }
+  }
+}

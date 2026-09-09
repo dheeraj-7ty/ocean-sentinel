@@ -1,0 +1,52 @@
+{
+  "phase": "GATE_3_1_KAGGLE_T4X2_RETRIAL",
+  "status": "COMPLETED",
+  "current_step": "PHASE_7_GATE_3_1_COMPLETED",
+  "total_steps": 7,
+  "completed_steps": [
+    "PHASE_1_RECONSTRUCTION_AND_REMEDIATION",
+    "PHASE_2_KAGGLE_PACKAGE_UPDATE_AND_PUSH",
+    "PHASE_3_CLEAN_T4X2_SESSION_EXECUTION",
+    "PHASE_4_LIVE_TELEMETRY_CAPTURE",
+    "PHASE_5_STRUCTURED_RESULTS_SERIALIZATION",
+    "PHASE_6_AUDIT_REPORT_GENERATION",
+    "PHASE_7_GATE_3_1_COMPLETED"
+  ],
+  "started_at": "2026-09-06T19:44:21Z",
+  "updated_at": "2026-09-06T21:26:30Z",
+  "last_activity": "Gate 3.1 Live Kaggle GPU T4 x2 qualification probe successfully executed and validated; Decision: PASS",
+  "decision": "PASS",
+  "error": null,
+  "resumable": false,
+  "gpu_quota_consumed_minutes": 0.05,
+  "telemetry_summary": {
+    "target": "KAGGLE",
+    "accelerator": "GPU T4 x2",
+    "device_count": 2,
+    "device_names": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "compute_capability": "7.5",
+    "total_vram_mb": 29823.38,
+    "pytorch_version": "2.10.0+cu128",
+    "cuda_version": "12.8",
+    "cudnn_version": 91002,
+    "smoke_tests": "ALL PASSED",
+    "model_instantiation": "PASS (24,346,305 params, exact match)",
+    "synthetic_forward_pass": "PASS (596.22 ms)",
+    "loss_computation": "PASS (152.70 ms, L=0.593347)",
+    "autograd_optimizer_step": "PASS (519.99 ms, Peak VRAM: 486.04 MB)",
+    "filesystem_working_free_gb": 19.5,
+    "packages_available_count": 11
+  },
+  "notes": {
+    "target_platform": "Kaggle",
+    "accelerator_target": "GPU T4 x2",
+    "kernel_slug": "dheeraj12237/ocean-sentinel-gate3-probe",
+    "kernel_version": 3,
+    "dataset_transfer_bytes": 0,
+    "model_training": "NOT_STARTED",
+    "audit_directory": "experiments/performance/cloud_kaggle_t4x2_retrial_20260907_011421"
+  }
+}

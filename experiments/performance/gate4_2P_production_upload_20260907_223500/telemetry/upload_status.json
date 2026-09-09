@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-09-07T20:41:39.270126+00:00",
+  "elapsed_time_sec": 12907.36,
+  "bytes_completed": 56173705297,
+  "total_bytes": 56193499563,
+  "percentage_bytes": 99.96,
+  "files_completed": null,
+  "total_files": 2403,
+  "current_file": "masks.tar",
+  "instantaneous_throughput_bps": 0.0,
+  "rolling_60s_throughput_bps": 4515487.29,
+  "rolling_300s_throughput_bps": 4801596.22,
+  "overall_avg_throughput_bps": 4352068.1,
+  "eta_seconds": 4.4,
+  "eta_formatted": "0:00:04",
+  "last_activity_timestamp": "2026-09-07T20:41:03.677126+00:00",
+  "time_since_last_progress_sec": 35.59,
+  "retry_error_count": 0,
+  "current_state": "ACTIVE",
+  "details": {}
+}

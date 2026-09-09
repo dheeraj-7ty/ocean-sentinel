@@ -1,0 +1,268 @@
+{
+  "gate_id": "GATE_4.3C_A_GPU_QUALIFICATION",
+  "start_utc": "2026-09-08T14:12:27Z",
+  "end_utc": "2026-09-08T14:12:51Z",
+  "qualification": {
+    "gpu_present": true,
+    "gpu_name": "Tesla T4",
+    "gpu_compute_capability": "sm_75",
+    "pytorch_version": "2.10.0+cu128",
+    "cuda_runtime": "12.8",
+    "pytorch_cuda_compatible": true,
+    "cuda_tensor_smoke": "PASS",
+    "model_gpu_smoke": "PASS",
+    "loss_backward_gpu_smoke": "PASS",
+    "cpu_fallback_detected": false,
+    "optimizer_step_count": 0,
+    "training_allowed": true,
+    "gate_decision": "PASS",
+    "reasons": [],
+    "warnings": []
+  },
+  "execution_log": [
+    {
+      "timestamp": "2026-09-08T14:12:27Z",
+      "message": "============================================================"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:27Z",
+      "message": "STARTING GATE_4.3C_A_GPU_QUALIFICATION - ACTUAL CLOUD GPU QUALIFICATION"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:27Z",
+      "message": "============================================================"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:27Z",
+      "message": "Output directory: /kaggle/working/gate4_3C_A_gpu_qualification"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:27Z",
+      "message": "  Created symlink: /kaggle/working/ocean_sentinel -> /kaggle/input/ocean-sentinel-src"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:27Z",
+      "message": "  Import path resolved (flat symlink): /kaggle/working"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:27Z",
+      "message": "PHASE START: BOOT_ENVIRONMENT"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  OS / Platform:    Linux-6.12.90+-x86_64-with-glibc2.35"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  Python:           3.12.13"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  PyTorch:          2.10.0+cu128"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  CUDA Runtime:     12.8"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  cuDNN:            91002"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  GPU Count:        2"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  GPU 0:           Tesla T4"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  GPU 1:           Tesla T4"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "PHASE COMPLETE: BOOT_ENVIRONMENT"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "PHASE START: GPU_COMPATIBILITY_GATE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  Primary GPU:                Tesla T4"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  Compute Capability:         sm_75 (7.5)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "  Architectural Compatibility: PASS (sm_75 >= sm_70)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "PHASE COMPLETE: GPU_COMPATIBILITY_GATE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:39Z",
+      "message": "PHASE START: CUDA_TENSOR_SMOKE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "  CUDA basic tensor allocation and GEMM execution: PASS (device=cuda:0, finite=True)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "PHASE COMPLETE: CUDA_TENSOR_SMOKE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "PHASE START: DATASET_AND_MANIFEST"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "  Corpus root identified: /kaggle/input/ocean-sentinel-trujillo-corpus"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "  Manifest SHA256:       C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "  Tile counts:           train=13440, val=2880, test=2880 (match=True)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "  Canonical Norm Means:  [-33.233136989478695, -19.941215852796695] (match=True)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "  Canonical Norm Stds:   [6.489985665955077, 4.531345684833188] (match=True)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "PHASE COMPLETE: DATASET_AND_MANIFEST"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:40Z",
+      "message": "PHASE START: CHECKPOINT_AUDIT"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:47Z",
+      "message": "  Checkpoint Path:    /root/.cache/torch/hub/checkpoints/resnet34-b627a593.pth"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:47Z",
+      "message": "  Size:               87319819 bytes (expected 87319819) [match=True]"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:47Z",
+      "message": "  SHA256:             B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:47Z",
+      "message": "  Expected SHA256:    B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F [match=True]"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:47Z",
+      "message": "PHASE COMPLETE: CHECKPOINT_AUDIT"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:47Z",
+      "message": "PHASE START: REAL_DATA_SAMPLE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:49Z",
+      "message": "  TrujilloTileDataset initialized with 13440 train tiles."
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "  Sample Batch Images Shape: [2, 2, 512, 512] (expected [2, 2, 512, 512])"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "  Sample Batch Masks Shape:  [2, 1, 512, 512] (expected [2, 1, 512, 512])"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "  Values finite: images=True, masks=True"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "PHASE COMPLETE: REAL_DATA_SAMPLE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "PHASE START: MODEL_GPU_SMOKE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "  Architecture:         ResNet34UNet"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "  Total Parameters:     24,346,305 (expected 24,346,305) [match=True]"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:50Z",
+      "message": "  Adaptation Method:    slice_variance_scaled [match=True]"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  Forward Pass Device:  cuda:0 (is_cuda=True)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  Forward Output Shape: [2, 1, 512, 512] [match=True]"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  Forward Output Finite:True"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "PHASE COMPLETE: MODEL_GPU_SMOKE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "PHASE START: LOSS_BACKWARD_GPU_SMOKE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  Loss Value:           0.731034 (finite=True, device=cuda:0)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  Trainable Parameters with Verified Gradients: 150"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  Non-CUDA Gradients Count:                     0"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  Non-Finite Gradients Count:                   0"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "  OPTIMIZER_STEP_COUNT = 0 (STRICT ZERO)"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "PHASE COMPLETE: LOSS_BACKWARD_GPU_SMOKE"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "Artifact written: /kaggle/working/gate4_3C_A_gpu_qualification/qualification.json"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "Artifact written: /kaggle/working/gate4_3C_A_gpu_qualification/environment.txt"
+    },
+    {
+      "timestamp": "2026-09-08T14:12:51Z",
+      "message": "Artifact written: /kaggle/working/gate4_3C_A_gpu_qualification/gpu.txt"
+    }
+  ]
+}

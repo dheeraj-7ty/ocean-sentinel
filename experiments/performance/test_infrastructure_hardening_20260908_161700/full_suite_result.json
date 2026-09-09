@@ -1,0 +1,25 @@
+{
+  "suite": "full",
+  "description": "Complete test suite (all collected tests)",
+  "status": "PASS WITH WARNINGS",
+  "exit_code": 0,
+  "elapsed_sec": 48.12,
+  "timeout_limit_sec": 300.0,
+  "is_timed_out": false,
+  "last_active_test": "tests/test_trujillo_ingestion.py::TestRealTrujilloMasks::test_real_mask_files_exist_and_match_contract",
+  "counts": {
+    "passed": 473,
+    "failed": 0,
+    "skipped": 0,
+    "deselected": 0,
+    "errors": 0,
+    "warnings": 77
+  },
+  "command": [
+    "D:\\Projects\\ocean-sentinel\\venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-v"
+  ],
+  "timestamp_utc": "2026-09-08T10:48:51.150526+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "task": "POST_GATE_4_2P_FORENSIC_CLOSURE_AUDIT",
+  "status": "COMPLETED",
+  "timestamp_start_utc": "2026-09-08T01:33:10Z",
+  "timestamp_end_utc": "2026-09-08T02:02:00Z",
+  "audit_directory": "experiments/performance/gate4_2P_post_upload_forensic_audit_20260908_070310",
+  "deliverables": {
+    "repo_reconstruction.md": "PRESENT",
+    "exp01_authoritative_fingerprint.json": "PRESENT",
+    "exp01_reconciliation_matrix.md": "PRESENT",
+    "exp01_reproduction_report.md": "PRESENT",
+    "split_integrity_report.json": "PRESENT",
+    "cloud_readiness_report.json": "PRESENT",
+    "audit_commands.log": "PRESENT",
+    "run_state.json": "PRESENT",
+    "final_report.md": "PRESENT"
+  },
+  "reproduction_summary": {
+    "checkpoint_verified": "experiments/exp01_baseline/best_model.pt",
+    "checkpoint_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "val_iou_reproduced": 0.722314,
+    "val_iou_certified": 0.72231,
+    "test_iou_reproduced": 0.784344,
+    "test_iou_certified": 0.78434,
+    "test_dice_reproduced": 0.87914,
+    "test_dice_certified": 0.87914,
+    "test_precision_reproduced": 0.817131,
+    "test_precision_certified": 0.81713,
+    "test_recall_reproduced": 0.951333,
+    "test_recall_certified": 0.95133,
+    "frozen_threshold": 0.22,
+    "parity_status": "CERTIFIED_PARITY_PASS"
+  },
+  "split_integrity_summary": {
+    "manifest": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "parents": {"train": 840, "val": 180, "test": 180, "total": 1200},
+    "tiles": {"train": 13440, "val": 2880, "test": 2880, "total": 19200},
+    "spatial_components": 204,
+    "cross_split_components": 0,
+    "cross_split_positive_overlap": 0,
+    "status": "CERTIFIED_LEAKAGE_FREE"
+  },
+  "dataset_package_summary": {
+    "exact_bytes": 56193499563,
+    "total_files": 2403,
+    "images": 1200,
+    "masks": 1200,
+    "manifests": 2,
+    "metadata": 1,
+    "root_sha256": "e6e342d3c47aeed896283b31d7218d220bd465792d4d1f5d83485cc872b5c453",
+    "status": "CERTIFIED_MATCH"
+  },
+  "cloud_verification_summary": {
+    "remote_slug": "dheeraj12237/ocean-sentinel-trujillo-corpus",
+    "status": "ready",
+    "is_private": true,
+    "runtime_mount": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-trujillo-corpus",
+    "dataloader_smoke_test": "PASS",
+    "round_trip_hash_parity": "100% MATCH"
+  },
+  "cloud_training_readiness_summary": {
+    "decision": "QUALIFIED_FOR_CLOUD_TRAINING",
+    "open_items_count": 4,
+    "blocking_issues_count": 0
+  },
+  "closure_audit_decision": "PASS"
+}

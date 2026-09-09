@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "total_test_files": 15,
+  "collected": 419,
+  "passed": 419,
+  "failed": 0,
+  "skipped": 0,
+  "xfail": 0,
+  "execution_batches": [
+    {
+      "scope": "14 Fast Test Suites (auth, config, dartis, dataset_pipeline, discovery, errors, exp01_eval, imagery_request, imagery_service, ml_components, models, preprocessing, raster_env, trujillo_ingestion)",
+      "collected": 409,
+      "passed": 409,
+      "failed": 0,
+      "duration_seconds": 16.52
+    },
+    {
+      "scope": "Spatial Split Comprehensive Independent Verification (test_spatial_split.py across 1,200 raw GeoTIFF headers)",
+      "collected": 10,
+      "passed": 10,
+      "failed": 0,
+      "duration_seconds": 26.47
+    }
+  ],
+  "total_duration_seconds": 42.99,
+  "all_tests_passed": true
+}

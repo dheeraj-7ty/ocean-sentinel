@@ -1,0 +1,82 @@
+{
+  "epochs_in_history": {
+    "expected": 2,
+    "observed": 2,
+    "pass": true
+  },
+  "produced_epoch": {
+    "expected": 2,
+    "observed": 2,
+    "pass": true
+  },
+  "prior_optimizer_steps": {
+    "expected": 1680,
+    "observed": 1680,
+    "pass": true
+  },
+  "session_optimizer_updates": {
+    "expected": 1680,
+    "observed": 1680,
+    "pass": true
+  },
+  "cumulative_optimizer_steps": {
+    "expected": 3360,
+    "observed": 3360,
+    "pass": true,
+    "diagnostic_note": "Wrapper looked for key 'cumulative_optimizer_steps', which returned default 0 because train_exp01.py recorded 'cumulative_optimizer_updates': 3360. Physical checkpoint confirms 150/150 tracked parameters at step 3360.0."
+  },
+  "amp_skipped_updates": {
+    "expected": 0,
+    "observed": 0,
+    "pass": true
+  },
+  "scheduler_t_max": {
+    "expected": 30,
+    "observed": 30,
+    "pass": true
+  },
+  "scheduler_last_epoch": {
+    "expected": 2,
+    "observed": 2,
+    "pass": true
+  },
+  "optimizer_param_steps": {
+    "expected": [
+      3360.0
+    ],
+    "observed": [
+      3360.0
+    ],
+    "pass": true
+  },
+  "test_tiles_consumed": {
+    "expected": 0,
+    "observed": 0,
+    "pass": true
+  },
+  "selected_threshold": {
+    "expected": 0.22,
+    "observed": 0.22,
+    "pass": true
+  },
+  "latest_checkpoint_sha256_match": {
+    "expected": "F6C92CD94362826AC603CFF68B900BE6B98126B32D396EBC76C699BF289242F1",
+    "observed": "F6C92CD94362826AC603CFF68B900BE6B98126B32D396EBC76C699BF289242F1",
+    "pass": true
+  },
+  "best_model_present": {
+    "expected": true,
+    "observed": true,
+    "pass": true
+  },
+  "final_model_present": {
+    "expected": true,
+    "observed": true,
+    "pass": true
+  },
+  "no_cpu_fallback": {
+    "expected": true,
+    "observed": true,
+    "pass": true
+  }
+}

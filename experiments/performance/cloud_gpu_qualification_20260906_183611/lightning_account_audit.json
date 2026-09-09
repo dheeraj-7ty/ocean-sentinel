@@ -1,0 +1,33 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "platform": "Lightning AI",
+  "local_credential_scan": {
+    "credentials_directory_checked": "C:/Users/Dheeraj/.lightning",
+    "credentials_directory_found": false,
+    "env_vars_checked": [
+      "LIGHTNING_API_KEY",
+      "LIGHTNING_USERNAME",
+      "LIGHTNING_USER_ID"
+    ],
+    "env_vars_found": [],
+    "cli_tool_checked": "lightning",
+    "cli_tool_found": false
+  },
+  "account_specific_status": "ACCOUNT-SPECIFIC AVAILABILITY UNKNOWN",
+  "account_audit_notes": "No local API keys or tokens present in environment or filesystem. Requires user authentication via 'lightning login' or web portal before cloud jobs can be dispatched.",
+  "platform_specifications": {
+    "free_tier_model": "New registered accounts receive 15 to 30 free Studio credits ($1.00 per credit equivalent).",
+    "credit_billing_granularity": "Per-second execution billing deduced from compute rate.",
+    "persistent_storage_quota": "10 GB free persistent storage included per Studio workspace (/teamspace/studios/this_studio/).",
+    "excess_storage_billing": "$0.10 per GB per month ($0.00014/GB/hour) charged against credit balance.",
+    "idle_auto_shutdown": "Configurable idle sleep from 15 to 60 minutes (default 15-30 min) to prevent credit exhaustion.",
+    "persistence_semantics": {
+      "studio_files_persist": true,
+      "checkpoints_persist": true,
+      "processes_persist_on_sleep": false,
+      "reconnect_supported": true,
+      "external_storage_mounts": "Supports AWS S3, Cloudflare R2, Google Cloud Storage, or Lightning Data streaming."
+    }
+  }
+}

@@ -1,0 +1,2 @@
+CANARY_TEST_TIMESTAMP=2026-09-07T14:13:08.250252+00:00
+PURPOSE=Verify Kaggle CLI auth, dataset creation, and progress parsing on small 1KB payload.

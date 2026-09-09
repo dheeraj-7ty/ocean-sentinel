@@ -1,0 +1,49 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "benchmark_order": [
+    {
+      "gate": 1,
+      "name": "Access Activation",
+      "status": "COMPLETED (Audited, awaiting credentials)",
+      "blocking": true
+    },
+    {
+      "gate": 2,
+      "name": "Dataset Strategy Verification",
+      "status": "PENDING_CREDENTIALS",
+      "blocking": true
+    },
+    {
+      "gate": 3,
+      "name": "Environment Verification",
+      "status": "PENDING_CREDENTIALS",
+      "blocking": true
+    },
+    {
+      "gate": 4,
+      "name": "Tier A Comparable Benchmark (Single GPU)",
+      "status": "PENDING_ENVIRONMENT",
+      "blocking": true
+    },
+    {
+      "gate": 5,
+      "name": "Tier B Capacity Benchmark (Batch Scaling)",
+      "status": "PENDING_TIER_A",
+      "blocking": true
+    },
+    {
+      "gate": 6,
+      "name": "Tier D Multi-GPU Benchmark (T4x2 DDP)",
+      "status": "PENDING_TIER_B",
+      "blocking": true
+    },
+    {
+      "gate": 7,
+      "name": "Platform Comparison & Selection",
+      "status": "PENDING_ALL_BENCHMARKS",
+      "blocking": true
+    }
+  ],
+  "governance_rule": "Strictly sequential progression. Do not jump directly to multi-GPU or model training."
+}

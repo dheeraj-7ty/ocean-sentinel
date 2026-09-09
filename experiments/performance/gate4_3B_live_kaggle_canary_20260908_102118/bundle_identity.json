@@ -1,0 +1,177 @@
+{
+  "gate": "GATE_4.3B",
+  "kernel_id": "dheeraj12237/ocean-sentinel-gate4-3b-canary",
+  "secret_audit": {
+    "passed": true,
+    "violations": []
+  },
+  "total_files": 33,
+  "total_size_bytes": 347071,
+  "files": [
+    {
+      "relative_path": "canary_gate4_3B.py",
+      "size_bytes": 37445,
+      "sha256": "1D273419ACFF3B818B671B33C7271D313A530EE560E66A30FF34FA3ACB4D2B81"
+    },
+    {
+      "relative_path": "kernel-metadata.json",
+      "size_bytes": 414,
+      "sha256": "93EBC10DF4A34523AB14AB28B86B8E35F5239938E3D93B065455DA7859CCFDFD"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/__init__.py",
+      "size_bytes": 96,
+      "sha256": "BBF9E0E2050C429811F94DCCAEF23A8DA7EF1610C5FDD84074B171A69F87B34F"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/cloud/__init__.py",
+      "size_bytes": 853,
+      "sha256": "E5482193D7CA0DC87D77B76406AD79684A4955383B0A41CEA8637BE417336DD0"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/cloud/upload_harness.py",
+      "size_bytes": 54670,
+      "sha256": "D366AC7DDCCD7C11C0F3215ECFE3D3B87C8E66FBCC2670FFC2D776D2475C5C27"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/config.py",
+      "size_bytes": 2925,
+      "sha256": "080571399156E3E06874246289A63F07D5D3B0876C95F5C9EEDEB7A746F9039B"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/errors.py",
+      "size_bytes": 7989,
+      "sha256": "4C6A8017B375AF9C4C2880A6FE2FE5CE3207151953C1BAFBC98D2651A566302E"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/__init__.py",
+      "size_bytes": 1519,
+      "sha256": "0004ED30CEB8D0B6FD7F15DC5AD83BAD33E9F0C1CF07240D1A05DB2579A922EF"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/dataset.py",
+      "size_bytes": 12242,
+      "sha256": "3130AE43F3E31C6B83C9104F4D9E699B3866FAB04B60CF981C0BFF3C4DA1558F"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/models.py",
+      "size_bytes": 16749,
+      "sha256": "71611E6ADE750460B8DBFF6D69D73D4BC5523CFCF15F1A45206DC81CCF3111EC"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/split.py",
+      "size_bytes": 34933,
+      "sha256": "74DB7BAAF7903FAD6E6FBE931F6DAAD2AFACBEAD7B834FED1833FED449348F0F"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/tiling.py",
+      "size_bytes": 9956,
+      "sha256": "E6867FAF0C62425D7FF36A916D6B86DF8F473C86B9AA9FEF072A63DBD13FB66D"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/trujillo.py",
+      "size_bytes": 17697,
+      "sha256": "CE2259DEEC978BB1C30BDBB04771C8D53F74947474199681B7866F4801ECEE6A"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/__init__.py",
+      "size_bytes": 2188,
+      "sha256": "F52798192EE9FB0EBAFC9FBD1B18423DAAEED0F9CB0CBFB50E3E140D8608E652"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/augmentation.py",
+      "size_bytes": 3402,
+      "sha256": "627B0D6E8F0DAFD83B08C116531319923921E829320BCA67285A44425049F738"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/canonical_exp01.py",
+      "size_bytes": 11749,
+      "sha256": "A905123EBD3C157898B0603F8408733CB76C1F479B6550084DDAD0F86BB455FF"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/losses.py",
+      "size_bytes": 7371,
+      "sha256": "41CF023CB7E93467C7C0EF3BA354EF5C1A581058B839B2E3598DEDAF0CD3EDF0"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/metrics.py",
+      "size_bytes": 6650,
+      "sha256": "6CABA4DB96EB8A161DD4881831D110065F797FD4E0086B56F435FBD4C8D32F49"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/threshold.py",
+      "size_bytes": 5374,
+      "sha256": "19CCED1FD5C9C06D65CCF4F17ED48B1B49D458B578A616B9569EC3EFED04382E"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/unet_resnet.py",
+      "size_bytes": 13396,
+      "sha256": "E94AA2043EBBED2D33FCA39EC3068D14A51234EDFBB58B1155684965689DFA1F"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/models.py",
+      "size_bytes": 16242,
+      "sha256": "0389AFDF00DE3A9EF86ED3389F8E413DEA97C46AFC5E43356258DC276E93DC67"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/processing/__init__.py",
+      "size_bytes": 838,
+      "sha256": "E417BC593807BA22E94547CFA3E6B7F6B273788FD9F406706C122D763F04F375"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/processing/models.py",
+      "size_bytes": 13997,
+      "sha256": "6415EA2BD769A0B4A9BAB0C6A42B3D3DA04DAD9C561398AB70DC9923094D47C5"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/processing/sar.py",
+      "size_bytes": 17554,
+      "sha256": "92C642F447DF50A55E34D93365F0357B1A88C743304FB3AF59CD5AEB3A765437"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/__init__.py",
+      "size_bytes": 390,
+      "sha256": "46F2E9F266930D42CC628A8464A4524E680AF224AF3DF4A777720731D8375B61"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/auth.py",
+      "size_bytes": 7806,
+      "sha256": "413520169AAF9807E91F887FC8BDF4B24083EE58FDACDE316208E8AD80F287D0"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/discovery.py",
+      "size_bytes": 18448,
+      "sha256": "8EC8DD324A0E5E760762D5122856267ADF8647F2DFB088FBE184043D6EE09A4C"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/imagery.py",
+      "size_bytes": 22673,
+      "sha256": "394C10EFC16E4C4064A3B3ADB0C58502F82DF7BDA1C79AD36B4807BE53DCE53B"
+    },
+    {
+      "relative_path": "src/ocean_sentinel.egg-info/dependency_links.txt",
+      "size_bytes": 1,
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B"
+    },
+    {
+      "relative_path": "src/ocean_sentinel.egg-info/PKG-INFO",
+      "size_bytes": 689,
+      "sha256": "7F276F7B0F223F6C6CB59FC692F4FC7B9C7EE571638600DF89547E23725EA92C"
+    },
+    {
+      "relative_path": "src/ocean_sentinel.egg-info/requires.txt",
+      "size_bytes": 226,
+      "sha256": "7BD98A22EED6012379C55F76C28F82129CBBE1CE17E3FA6E6224413BE6AC8FEF"
+    },
+    {
+      "relative_path": "src/ocean_sentinel.egg-info/SOURCES.txt",
+      "size_bytes": 574,
+      "sha256": "F91ADE7F58FAB20C0C3914AD6126746C7DC0DC33A49505944853EB669FD0CED7"
+    },
+    {
+      "relative_path": "src/ocean_sentinel.egg-info/top_level.txt",
+      "size_bytes": 15,
+      "sha256": "2A1E47DC81333D5B018F52A6584E5BF8B50B5E7FFA1FFDE709F654D7868780FE"
+    }
+  ]
+}

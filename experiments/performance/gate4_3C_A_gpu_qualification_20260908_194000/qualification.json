@@ -1,0 +1,17 @@
+{
+  "gpu_present": true,
+  "gpu_name": "Tesla T4",
+  "gpu_compute_capability": "sm_75",
+  "pytorch_version": "2.10.0+cu128",
+  "cuda_runtime": "12.8",
+  "pytorch_cuda_compatible": true,
+  "cuda_tensor_smoke": "PASS",
+  "model_gpu_smoke": "PASS",
+  "loss_backward_gpu_smoke": "PASS",
+  "cpu_fallback_detected": false,
+  "optimizer_step_count": 0,
+  "training_allowed": true,
+  "gate_decision": "PASS",
+  "reasons": [],
+  "warnings": []
+}

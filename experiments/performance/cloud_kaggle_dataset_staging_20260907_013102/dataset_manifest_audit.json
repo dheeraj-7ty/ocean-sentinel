@@ -1,0 +1,110 @@
+{
+  "audit_timestamp_utc": "2026-09-07T01:33:32Z",
+  "dataset_name": "Trujillo-Acatitla et al. (2024) Part I",
+  "zenodo_record": "10.5281/zenodo.8346860",
+  "inventory": {
+    "total_parent_scenes": 1200,
+    "image_files_count": 1200,
+    "mask_files_count": 1200,
+    "sample_images_count": 3,
+    "archive_files_count": 2,
+    "auxiliary_files_count": 0,
+    "exact_pairs_count": 1200,
+    "orphan_images_count": 0,
+    "orphan_masks_count": 0,
+    "naming_convention": "5-digit zero-padded integer stem with .tif extension (00000.tif - 01339.tif)"
+  },
+  "byte_breakdown": {
+    "images_total_bytes": 51133994714,
+    "images_total_gib": 47.622,
+    "images_total_gb": 51.134,
+    "masks_total_bytes": 5053246936,
+    "masks_total_gib": 4.706,
+    "masks_total_gb": 5.053,
+    "extracted_total_bytes": 56187241650,
+    "extracted_total_gib": 52.328,
+    "extracted_total_gb": 56.187,
+    "sample_images_bytes": 124060970,
+    "archives": [
+      {
+        "name": "01_Train_Val_Oil_Spill_images.7z",
+        "bytes": 40712942245,
+        "gib": 37.917,
+        "gb": 40.713
+      },
+      {
+        "name": "01_Train_Val_Oil_Spill_mask.7z",
+        "bytes": 6236761,
+        "gib": 0.006,
+        "gb": 0.006
+      }
+    ]
+  },
+  "image_size_distribution_bytes": {
+    "min": 15132217,
+    "max": 45627603,
+    "mean": 42611662.26166666,
+    "median": 43214469.5,
+    "p10": 42120158.6,
+    "p25": 42950148.75,
+    "p75": 43519382.75,
+    "p90": 43720823.8,
+    "p99": 44679250.64,
+    "top_5_largest": [
+      {
+        "name": "01325.tif",
+        "bytes": 45627603,
+        "mb": 45.63
+      },
+      {
+        "name": "01331.tif",
+        "bytes": 45592110,
+        "mb": 45.59
+      },
+      {
+        "name": "01333.tif",
+        "bytes": 45590147,
+        "mb": 45.59
+      },
+      {
+        "name": "01332.tif",
+        "bytes": 45582375,
+        "mb": 45.58
+      },
+      {
+        "name": "01330.tif",
+        "bytes": 45564529,
+        "mb": 45.56
+      }
+    ]
+  },
+  "mask_size_distribution_bytes": {
+    "min": 4197618,
+    "max": 4211084,
+    "mean": 4211039.113333333,
+    "median": 4211084.0
+  },
+  "split_manifest_audit": {
+    "manifest_file": "data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+    "split_strategy": "spatial_connected_component_partition",
+    "split_seed": 42,
+    "parent_patches_by_split": {
+      "train": 840,
+      "test": 180,
+      "val": 180
+    },
+    "tiles_by_split": {
+      "train": 13440,
+      "test": 2880,
+      "val": 2880
+    },
+    "total_tiles": 19200,
+    "normalization_stats_present": true
+  },
+  "redundancy_and_pruning_analysis": {
+    "archive_7z_files": "Redundant for training runtime once extracted (40.71 GB images + 6.24 MB masks)",
+    "sample_images_dir": "Redundant subset duplicate (124.06 MB, 3 files)",
+    "mask_uncompressed_status": "Masks are uncompressed TIFFs (4,211,084 bytes each, 5.05 GB total) despite being binary uint8. In contrast, 7z compressed masks are only 6.24 MB.",
+    "image_compression_status": "Images are internally LZW compressed (mean 42.61 MB each, 51.13 GB total)."
+  }
+}

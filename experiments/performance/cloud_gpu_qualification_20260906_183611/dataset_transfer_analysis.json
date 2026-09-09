@@ -1,0 +1,65 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "dataset_specifications": {
+    "dataset_name": "Trujillo 2024 SAR Oil Spill Dataset",
+    "extracted_uncompressed_size_gb": 47.6,
+    "extracted_file_count": 28414,
+    "archive_7z_file": "01_Train_Val_Oil_Spill_images.7z",
+    "archive_7z_size_gb": 40.7,
+    "split_manifest_file": "data/metadata/trujillo_2024/split_manifest.json",
+    "split_manifest_size_mb": 1.2
+  },
+  "transfer_bandwidth_estimates": {
+    "at_25_mbps_upload": {
+      "hours": 3.62,
+      "minutes": 217
+    },
+    "at_50_mbps_upload": {
+      "hours": 1.81,
+      "minutes": 108
+    },
+    "at_100_mbps_upload": {
+      "hours": 0.9,
+      "minutes": 54
+    }
+  },
+  "platform_transfer_strategies": {
+    "Kaggle": {
+      "architecture": "Private Kaggle Dataset",
+      "dataset_slug": "trujillo-sar-tiles",
+      "storage_allowance_gb": 100.0,
+      "upload_method": "One-time upload of archive or tiles via 'kaggle datasets create -p <dir> -u' or Kaggle Web UI",
+      "repeated_upload_overhead": "ZERO. Attached read-only to /kaggle/input/trujillo-sar-tiles/ in 0 seconds on every run.",
+      "storage_cost": "$0.00",
+      "runtime_scratch_impact": "0 GB copied to /kaggle/working",
+      "viability_verdict": "OPTIMAL / HIGHEST EFFICIENCY"
+    },
+    "Lightning_AI": {
+      "architecture": "Studio Persistent Disk or External S3/R2 Mount",
+      "free_storage_allowance_gb": 10.0,
+      "excess_storage_gb": 37.6,
+      "storage_cost_credits_per_month": 3.76,
+      "alternative_strategies": [
+        "Option A: Store 47.6 GB directly on Studio persistent disk ($3.76/month in credits deducted from free tier balance).",
+        "Option B: Stream tiles via Lightning Data / WebDataset from Cloudflare R2 (zero egress fees, small R2 storage fee).",
+        "Option C: Stage representative balanced subset (e.g. 10 GB) for architecture qualification, full dataset for final run."
+      ],
+      "repeated_upload_overhead": "ZERO if stored on persistent disk; negligible if mounted from bucket.",
+      "viability_verdict": "VIABLE WITH STORAGE BUDGETING"
+    },
+    "Azure": {
+      "architecture": "Azure Blob Storage mounted via BlobFuse2 to GPU VM",
+      "storage_cost_usd_per_month": "~$0.95 for 50 GB Hot tier + egress",
+      "viability_verdict": "NOT RECOMMENDED (GPU VM quota blocked)"
+    }
+  },
+  "artifact_and_checkpoint_download_strategy": {
+    "checkpoint_format": "PyTorch .pt (model weights + AdamW optimizer state + epoch metadata)",
+    "single_checkpoint_size_mb": 255.0,
+    "model_weights_only_size_mb": 85.0,
+    "metrics_and_logs_size_mb": 5.0,
+    "download_duration_at_50_mbps": "Under 45 seconds per checkpoint",
+    "persistence_guarantee": "Checkpoints exported to Kaggle notebook output or Lightning Studio directory survive session termination."
+  }
+}

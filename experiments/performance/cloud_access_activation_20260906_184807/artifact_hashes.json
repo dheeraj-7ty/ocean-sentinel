@@ -1,0 +1,54 @@
+{
+  "local_reference.json": {
+    "sha256": "6ea89f115d971ab4f709988a6110eb386242a6460e876748437c6e1e3f349b1f",
+    "size_bytes": 2253
+  },
+  "kaggle_account_status.json": {
+    "sha256": "6f837d1d56ae92ecf76025c3d270f95ddc611d5d3d2cb79463db6321cb9103c8",
+    "size_bytes": 1325
+  },
+  "kaggle_capability.json": {
+    "sha256": "276226949a64dd3a5fc1e79b9cd63c87f8eafbf6a22a4cd6179aaac1ccefc039",
+    "size_bytes": 2107
+  },
+  "lightning_account_status.json": {
+    "sha256": "32e44b2b3d90cdd89ab14459737ab4e997fffe51bf9e59b658b9f86a0c3bb7e6",
+    "size_bytes": 1201
+  },
+  "lightning_capability.json": {
+    "sha256": "bc03e733f8ec1640fe68072240f0e90e9260865cc538bb6c75157c70aff8cf39",
+    "size_bytes": 2535
+  },
+  "azure_account_status.json": {
+    "sha256": "bbf8faca2b9b71bcf5f57c3c07da05fdae230ec6346afe1473437a4a905e9ab4",
+    "size_bytes": 1191
+  },
+  "azure_capability.json": {
+    "sha256": "e4d7702026e34ec838c95e3ca0624992d4f54d0f226c932bbfa6c6b5ffaa1d10",
+    "size_bytes": 943
+  },
+  "dataset_strategy.json": {
+    "sha256": "d90d12bf3ffa91f2d0972609318adad90cd15c7b38b082fada8b2f8a1e910731",
+    "size_bytes": 2180
+  },
+  "benchmark_gate.json": {
+    "sha256": "3e47361c6efd9900ac6a93e5f65a8f0d86288cc3143d208543ef744e9306f223",
+    "size_bytes": 1296
+  },
+  "cloud_candidate_matrix.json": {
+    "sha256": "829a54e0299a99862557a5cd382665afbd6ae5b8ff3697a48febe7c14032e691",
+    "size_bytes": 3352
+  },
+  "progress.log": {
+    "sha256": "98f3530d618f0f28b85df069beeaa9e38b5ec3c97c04ff7f98a7621c1ffc0409",
+    "size_bytes": 1982
+  },
+  "run_state.json": {
+    "sha256": "79190338da6626ee253737bb1fb78f1dc693e7a65bcf44fb2a508f06c725c7b0",
+    "size_bytes": 1325
+  },
+  "final_report.md": {
+    "sha256": "36e0becb757b8385d1245969b2f9b03a13c4d637096ca4a3d3218ef9c80fc650",
+    "size_bytes": 14841
+  }
+}

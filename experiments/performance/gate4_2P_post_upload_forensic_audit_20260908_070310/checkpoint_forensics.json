@@ -1,0 +1,38 @@
+{
+  "best_model_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+  "latest_checkpoint_sha256": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+  "epoch": 4,
+  "val_iou": 0.7169131602125703,
+  "conv1_weight_shape": [
+    64,
+    2,
+    7,
+    7
+  ],
+  "conv1_weight_mean": 0.0008102080901153386,
+  "conv1_weight_std": 0.16338367760181427,
+  "total_params": 24365359,
+  "optimizer": {
+    "lr": 9.572050015330873e-05,
+    "initial_lr": 0.0001,
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08
+  },
+  "scheduler": {
+    "T_max": 30,
+    "eta_min": 1e-06,
+    "base_lrs": [
+      0.0001
+    ],
+    "last_epoch": 4
+  },
+  "latest_checkpoint": {
+    "epoch": 14,
+    "optimizer_lr": 5.567415893174884e-05,
+    "scheduler_last_epoch": 14
+  }
+}

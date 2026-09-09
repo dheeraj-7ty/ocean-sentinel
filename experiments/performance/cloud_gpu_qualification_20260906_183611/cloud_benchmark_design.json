@@ -1,0 +1,97 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "status": "DESIGN_ONLY (EXECUTION NOT AUTHORIZED IN THIS PHASE)",
+  "scientific_control_principles": {
+    "model_architecture": "ResNet34UNet (exact production graph, in_channels=2, classes=1, 512x512)",
+    "dataset_manifest": "Exact spatial split manifest (data/metadata/trujillo_2024/spatial_split_manifest.json)",
+    "loss_function": "CombinedBCEAndDiceLoss (exact weights and epsilon)",
+    "optimizer": "AdamW (lr=1e-4, weight_decay=1e-2, betas=(0.9, 0.999))",
+    "precision": "AMP FP16 (torch.cuda.amp.autocast)",
+    "measurement_window": "10 warmup batches, 300 measured batches",
+    "hardware_synchronization": "torch.cuda.synchronize() before and after timing interval"
+  },
+  "benchmark_tiers": {
+    "Tier_A_Comparable_Benchmark": {
+      "description": "Strict 1:1 parity benchmark against local RTX 3050 reference",
+      "batch_size": 8,
+      "num_workers": 4,
+      "pin_memory": true,
+      "prefetch_factor": 2,
+      "batches": 300,
+      "warmup": 10,
+      "metrics": [
+        "throughput_samples_per_sec",
+        "mean_step_time_ms",
+        "step_time_cv_pct",
+        "peak_vram_mb",
+        "gpu_utilization_pct"
+      ],
+      "baseline_target_samples_per_sec": 32.15,
+      "candidate_evaluations": [
+        "Local RTX 3050 6GB (Reference = 32.15 samp/s)",
+        "Lightning AI L4 (Hypothesis: 55-80 samp/s)",
+        "Lightning AI T4 (Hypothesis: 30-45 samp/s)",
+        "Kaggle T4 Single (Hypothesis: 30-45 samp/s)"
+      ]
+    },
+    "Tier_B_Capacity_Benchmark": {
+      "description": "Batch scaling to discover maximum safe throughput before VRAM saturation",
+      "candidate_batches_per_gpu": {
+        "Local_RTX_3050_6GB": [
+          8
+        ],
+        "T4_16GB": [
+          8,
+          16,
+          24
+        ],
+        "L4_24GB": [
+          8,
+          16,
+          24,
+          32,
+          48
+        ]
+      },
+      "metrics": [
+        "max_stable_batch_size",
+        "throughput_at_max_batch_samples_per_sec",
+        "peak_vram_allocation_mb",
+        "vram_headroom_mb"
+      ]
+    },
+    "Tier_C_End_to_End_DataLoader_Benchmark": {
+      "description": "Full pipeline benchmarking to detect cloud I/O or filesystem bottlenecks",
+      "profiling_components": [
+        "disk_read_latency_ms (reading PNG tiles from /kaggle/input or Studio persistent disk)",
+        "cpu_decode_and_augmentation_ms",
+        "host_to_device_transfer_ms",
+        "forward_backward_compute_ms",
+        "optimizer_step_ms"
+      ],
+      "detection_objective": "Verify whether /kaggle/input virtual filesystem introduces data starvation compared to local NVMe SSD."
+    },
+    "Tier_D_Multi_GPU_DDP_Benchmark": {
+      "description": "PyTorch DistributedDataParallel (DDP) benchmark on Kaggle T4x2",
+      "launcher": "torchrun --nproc_per_node=2",
+      "backend": "nccl",
+      "configurations": [
+        {
+          "per_gpu_batch": 8,
+          "effective_batch": 16
+        },
+        {
+          "per_gpu_batch": 16,
+          "effective_batch": 32
+        }
+      ],
+      "metrics": [
+        "aggregate_throughput_samples_per_sec",
+        "scaling_efficiency_pct (aggregate / (single_gpu_throughput * 2))",
+        "gradient_all_reduce_latency_ms"
+      ],
+      "investigation_focus": "Determine exact PCIe gradient synchronization penalty."
+    }
+  }
+}

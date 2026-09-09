@@ -1,0 +1,178 @@
+{
+  "bundle_name": "ocean_sentinel_exp01_kaggle_bundle",
+  "target_platform": "Kaggle Cloud GPU (1x Tesla T4)",
+  "planned_mounts": {
+    "dataset_mount": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-trujillo-corpus",
+    "dataset_mount_fallback": "/kaggle/input/ocean-sentinel-trujillo-corpus",
+    "manifest_path": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-trujillo-corpus/manifest/spatial_split_manifest.json",
+    "image_root": "images/Oil/",
+    "mask_root": "masks/Mask_oil/"
+  },
+  "pretrained_weights_policy": {
+    "preferred_mode": "Offline supply via TORCH_HOME or ~/.cache/torch/hub/checkpoints/resnet34-b627a593.pth",
+    "fallback_mode": "Automated download via torchvision (requires enable_internet=true in kernel-metadata.json)",
+    "hash_verification": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F"
+  },
+  "single_gpu_policy": {
+    "device": "cuda:0 (Tesla T4)",
+    "physical_batch_size": 8,
+    "accum_steps": 1,
+    "nominal_effective_batch": 8,
+    "ddp_enabled": false,
+    "note": "Strictly preserves EXP01 Rev B BatchNorm statistics and single-GPU determinism."
+  },
+  "secret_audit": {
+    "passed": true,
+    "violations": [],
+    "status": "PASS: ZERO SECRETS FOUND"
+  },
+  "total_files": 29,
+  "total_size_bytes": 385928,
+  "files": [
+    {
+      "relative_path": "kernel-metadata.json",
+      "size_bytes": 358,
+      "sha256": "A547BA87BF2840BE409F8C8B143F03C22595293C5A2DF2A0387689FCF422BAA7"
+    },
+    {
+      "relative_path": "scripts/train_exp01.py",
+      "size_bytes": 68625,
+      "sha256": "20440B0C7B8625B17654BDE25465E7B2ADF6FB520A35F790089FB0F33A817F03"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/__init__.py",
+      "size_bytes": 96,
+      "sha256": "BBF9E0E2050C429811F94DCCAEF23A8DA7EF1610C5FDD84074B171A69F87B34F"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/cloud/__init__.py",
+      "size_bytes": 853,
+      "sha256": "E5482193D7CA0DC87D77B76406AD79684A4955383B0A41CEA8637BE417336DD0"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/cloud/upload_harness.py",
+      "size_bytes": 54670,
+      "sha256": "D366AC7DDCCD7C11C0F3215ECFE3D3B87C8E66FBCC2670FFC2D776D2475C5C27"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/config.py",
+      "size_bytes": 2925,
+      "sha256": "080571399156E3E06874246289A63F07D5D3B0876C95F5C9EEDEB7A746F9039B"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/errors.py",
+      "size_bytes": 7989,
+      "sha256": "4C6A8017B375AF9C4C2880A6FE2FE5CE3207151953C1BAFBC98D2651A566302E"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/__init__.py",
+      "size_bytes": 1519,
+      "sha256": "0004ED30CEB8D0B6FD7F15DC5AD83BAD33E9F0C1CF07240D1A05DB2579A922EF"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/dataset.py",
+      "size_bytes": 12203,
+      "sha256": "C8AAA94565CD8F6EBADC53D7B4A9C1B8B5749C7C325BB580B83161A4D977BE56"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/models.py",
+      "size_bytes": 16749,
+      "sha256": "71611E6ADE750460B8DBFF6D69D73D4BC5523CFCF15F1A45206DC81CCF3111EC"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/split.py",
+      "size_bytes": 34933,
+      "sha256": "74DB7BAAF7903FAD6E6FBE931F6DAAD2AFACBEAD7B834FED1833FED449348F0F"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/tiling.py",
+      "size_bytes": 9956,
+      "sha256": "E6867FAF0C62425D7FF36A916D6B86DF8F473C86B9AA9FEF072A63DBD13FB66D"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ingestion/trujillo.py",
+      "size_bytes": 17697,
+      "sha256": "CE2259DEEC978BB1C30BDBB04771C8D53F74947474199681B7866F4801ECEE6A"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/__init__.py",
+      "size_bytes": 2188,
+      "sha256": "F52798192EE9FB0EBAFC9FBD1B18423DAAEED0F9CB0CBFB50E3E140D8608E652"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/augmentation.py",
+      "size_bytes": 3402,
+      "sha256": "627B0D6E8F0DAFD83B08C116531319923921E829320BCA67285A44425049F738"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/canonical_exp01.py",
+      "size_bytes": 11749,
+      "sha256": "A905123EBD3C157898B0603F8408733CB76C1F479B6550084DDAD0F86BB455FF"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/losses.py",
+      "size_bytes": 7371,
+      "sha256": "41CF023CB7E93467C7C0EF3BA354EF5C1A581058B839B2E3598DEDAF0CD3EDF0"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/metrics.py",
+      "size_bytes": 6650,
+      "sha256": "6CABA4DB96EB8A161DD4881831D110065F797FD4E0086B56F435FBD4C8D32F49"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/threshold.py",
+      "size_bytes": 5374,
+      "sha256": "19CCED1FD5C9C06D65CCF4F17ED48B1B49D458B578A616B9569EC3EFED04382E"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/ml/unet_resnet.py",
+      "size_bytes": 13396,
+      "sha256": "E94AA2043EBBED2D33FCA39EC3068D14A51234EDFBB58B1155684965689DFA1F"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/models.py",
+      "size_bytes": 16242,
+      "sha256": "0389AFDF00DE3A9EF86ED3389F8E413DEA97C46AFC5E43356258DC276E93DC67"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/processing/__init__.py",
+      "size_bytes": 838,
+      "sha256": "E417BC593807BA22E94547CFA3E6B7F6B273788FD9F406706C122D763F04F375"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/processing/models.py",
+      "size_bytes": 13997,
+      "sha256": "6415EA2BD769A0B4A9BAB0C6A42B3D3DA04DAD9C561398AB70DC9923094D47C5"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/processing/sar.py",
+      "size_bytes": 17554,
+      "sha256": "92C642F447DF50A55E34D93365F0357B1A88C743304FB3AF59CD5AEB3A765437"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/__init__.py",
+      "size_bytes": 390,
+      "sha256": "46F2E9F266930D42CC628A8464A4524E680AF224AF3DF4A777720731D8375B61"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/auth.py",
+      "size_bytes": 7806,
+      "sha256": "413520169AAF9807E91F887FC8BDF4B24083EE58FDACDE316208E8AD80F287D0"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/discovery.py",
+      "size_bytes": 18448,
+      "sha256": "8EC8DD324A0E5E760762D5122856267ADF8647F2DFB088FBE184043D6EE09A4C"
+    },
+    {
+      "relative_path": "src/ocean_sentinel/satellite/imagery.py",
+      "size_bytes": 22673,
+      "sha256": "394C10EFC16E4C4064A3B3ADB0C58502F82DF7BDA1C79AD36B4807BE53DCE53B"
+    },
+    {
+      "relative_path": "train_runner.py",
+      "size_bytes": 9277,
+      "sha256": "FA069BF15CA03527092D542724D10DFFEB25679A870BAC938CD6F010C112529B"
+    }
+  ]
+}

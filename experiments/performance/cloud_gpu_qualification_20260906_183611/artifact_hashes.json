@@ -1,0 +1,50 @@
+{
+  "machine_reference.json": {
+    "sha256": "837aa6ac7eb49ca240e2d4927f94d14e12614157e3c35ac7b53b62848a7d671b",
+    "size_bytes": 2253
+  },
+  "lightning_account_audit.json": {
+    "sha256": "684747e20bba5c3a23094994ca43979b82854a89a69241e11d9578b879143e8f",
+    "size_bytes": 1697
+  },
+  "lightning_gpu_availability.json": {
+    "sha256": "36e97cbcc308bb732496358e7b13eeb88d179518d5dddd0d3d2b06c833271aac",
+    "size_bytes": 2943
+  },
+  "kaggle_account_audit.json": {
+    "sha256": "54b29321feb1012994f35d3939e7386911eac42438def6efae63e31c8fe8c3d2",
+    "size_bytes": 1551
+  },
+  "kaggle_gpu_availability.json": {
+    "sha256": "77a6b8e1c4ece3c6085a8e309797f67e63879c1e5616d6b78b7f00961bc61de9",
+    "size_bytes": 2009
+  },
+  "azure_student_audit.json": {
+    "sha256": "f707f82e622861d56c62bdbc156e7cdae0fe417e6f22975ba10c892f98e8a501",
+    "size_bytes": 1389
+  },
+  "dataset_transfer_analysis.json": {
+    "sha256": "858c25d3fea86ffbf47d78704f329484a3b8a0dde619680cabd4486afddefcec",
+    "size_bytes": 2938
+  },
+  "cloud_benchmark_design.json": {
+    "sha256": "9f10b5692b832678a30b001da8f4e0047f55a218d227bf7764c4e51d8fcc5736",
+    "size_bytes": 3522
+  },
+  "cloud_candidate_matrix.json": {
+    "sha256": "b324e2e13d7f1048f279ae346d9e716e13508f1c720497e193dc3461b69200be",
+    "size_bytes": 4480
+  },
+  "progress.log": {
+    "sha256": "99b63b729f9f5e9aa60a069e483e9e06bc71da4654736bad9dabf012ae5e507e",
+    "size_bytes": 2009
+  },
+  "run_state.json": {
+    "sha256": "9600b8c695e9d431af7c61188eecb7ccfe3941b9502acc18eade5a92c8d62fbd",
+    "size_bytes": 940
+  },
+  "final_report.md": {
+    "sha256": "7e72f21bcd1b4c6215b8cc4f476b9de17e513309af2b091c8e3637b19db1fd20",
+    "size_bytes": 14781
+  }
+}

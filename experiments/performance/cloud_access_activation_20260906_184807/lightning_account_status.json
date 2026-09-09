@@ -1,0 +1,29 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "platform": "Lightning AI",
+  "authentication_status": "NOT AUTHENTICATED",
+  "cli_discovery": {
+    "cli_name": "lightning",
+    "installed": false,
+    "executable_path": null,
+    "notes": "Not found on system PATH or within venv/Scripts"
+  },
+  "credential_directory_discovery": {
+    "expected_path": "C:/Users/Dheeraj/.lightning",
+    "directory_present": false
+  },
+  "environment_variables": {
+    "LIGHTNING_API_KEY": "NOT SET",
+    "LIGHTNING_USERNAME": "NOT SET",
+    "LIGHTNING_USER_ID": "NOT SET"
+  },
+  "status_message": "LIGHTNING AUTHENTICATION REQUIRED",
+  "manual_activation_procedure": [
+    "1. Sign up or log in to Lightning AI at https://lightning.ai",
+    "2. Navigate to User Profile -> Settings -> API Keys -> click 'Create API Key'",
+    "3. Install Lightning CLI in project virtual environment: 'pip install lightning'",
+    "4. Authenticate via CLI: 'lightning login' (or set environment variable LIGHTNING_API_KEY)"
+  ],
+  "security_note": "No credentials were requested in chat or stored by the assistant. Follow manual setup only."
+}

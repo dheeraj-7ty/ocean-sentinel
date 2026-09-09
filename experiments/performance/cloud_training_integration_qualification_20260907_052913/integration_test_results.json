@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "device": "cuda",
+  "batch_shape_x": [
+    4,
+    2,
+    512,
+    512
+  ],
+  "batch_shape_y": [
+    4,
+    1,
+    512,
+    512
+  ],
+  "loss_value": 0.8467551469802856,
+  "gradients_finite": true,
+  "checkpoint_sha256": "a7dd722100bf50fd9898d006836e965dd3677bab1f8b548e2ee496bc27710824",
+  "numerical_parity_atol_1e5": true
+}

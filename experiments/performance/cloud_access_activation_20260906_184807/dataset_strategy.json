@@ -1,0 +1,48 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "dataset_specifications": {
+    "dataset_name": "Trujillo 2024 SAR Oil Spill Dataset",
+    "extracted_size_gb": 47.6,
+    "extracted_tile_count": 28414,
+    "compressed_archive": "01_Train_Val_Oil_Spill_images.7z",
+    "compressed_size_gb": 40.7,
+    "split_manifest": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "split_manifest_size_mb": 1.2
+  },
+  "platform_transfer_architecture": {
+    "Kaggle": {
+      "mechanism": "Private Kaggle Dataset (slug: trujillo-sar-tiles)",
+      "storage_allowance_gb": 100.0,
+      "upload_burden": "One-time upload of 40.7 GB compressed archive or extracted tiles",
+      "repeated_upload_burden": "ZERO (0 seconds mount time on subsequent runs)",
+      "mount_path": "/kaggle/input/trujillo-sar-tiles/",
+      "mount_type": "Read-only virtualized filesystem",
+      "working_scratch_cost": "0 GB copied to /kaggle/working",
+      "monetary_cost": "$0.00",
+      "efficiency_verdict": "OPTIMAL AND MOST SUSTAINABLE"
+    },
+    "Lightning_AI": {
+      "mechanism": "Studio Persistent Disk or Cloudflare R2 Streaming",
+      "free_storage_allowance_gb": 10.0,
+      "excess_storage_gb": 37.6,
+      "storage_cost": "$3.76/month in credits deducted from balance",
+      "alternative_options": [
+        "Option 1: Pay $3.76/mo credits for full 47.6 GB persistent storage",
+        "Option 2: Stream via Lightning Data / WebDataset from Cloudflare R2 (zero egress)",
+        "Option 3: Upload 10 GB balanced spatial subset for fast prototyping"
+      ],
+      "efficiency_verdict": "VIABLE WITH STORAGE CREDIT BUDGETING"
+    },
+    "Azure": {
+      "mechanism": "Azure Blob Storage + BlobFuse2",
+      "efficiency_verdict": "NON-VIABLE (GPU VM quota is 0 vCPUs)"
+    }
+  },
+  "checkpoint_and_artifact_export": {
+    "single_checkpoint_size_mb": 255.0,
+    "weights_only_size_mb": 85.0,
+    "download_duration_50_mbps": "Under 45 seconds",
+    "persistence_strategy": "Save to /kaggle/working and download via Kaggle API / Web; or persist directly in Lightning Studio"
+  }
+}

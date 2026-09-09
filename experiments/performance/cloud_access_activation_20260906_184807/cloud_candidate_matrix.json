@@ -1,0 +1,84 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "candidates": [
+    {
+      "rank": 1,
+      "candidate": "Lightning AI L4 (1x 24GB)",
+      "platform": "Lightning AI",
+      "vram_gb": 24,
+      "architecture": "Ada Lovelace (AD104, CC 8.9)",
+      "auth_status": "NOT AUTHENTICATED",
+      "free_compute_model": "15-30 credits (~19-38 hrs compute)",
+      "dataset_practicality": "Billable credits ($3.76/mo) or R2 stream",
+      "session_reliability": "High (Studio filesystem persistence)",
+      "setup_difficulty": "Low (VS Code / CLI)",
+      "pre_benchmark_priority": "PRIMARY"
+    },
+    {
+      "rank": 2,
+      "candidate": "Lightning AI T4 (1x 16GB)",
+      "platform": "Lightning AI",
+      "vram_gb": 16,
+      "architecture": "Turing (TU104, CC 7.5)",
+      "auth_status": "NOT AUTHENTICATED",
+      "free_compute_model": "15-30 credits (~27-54 hrs compute)",
+      "dataset_practicality": "Billable credits ($3.76/mo) or R2 stream",
+      "session_reliability": "High",
+      "setup_difficulty": "Low",
+      "pre_benchmark_priority": "SECONDARY"
+    },
+    {
+      "rank": 3,
+      "candidate": "Kaggle T4 Single (1x 16GB)",
+      "platform": "Kaggle",
+      "vram_gb": 16,
+      "architecture": "Turing (TU104, CC 7.5)",
+      "auth_status": "NOT AUTHENTICATED",
+      "free_compute_model": "30 hrs/wk recurring ($0.00)",
+      "dataset_practicality": "Optimal (100 GB private dataset mount)",
+      "session_reliability": "High (12h continuous limit)",
+      "setup_difficulty": "Low (Jupyter / CLI)",
+      "pre_benchmark_priority": "TERTIARY (BEST SUSTAINED FREE TARGET)"
+    },
+    {
+      "rank": 4,
+      "candidate": "Kaggle T4x2 Multi-GPU (2x 16GB = 32GB)",
+      "platform": "Kaggle",
+      "vram_gb": 32,
+      "architecture": "Turing (TU104, CC 7.5)",
+      "auth_status": "NOT AUTHENTICATED",
+      "free_compute_model": "Deducts from 30 hrs/wk quota",
+      "dataset_practicality": "Optimal (100 GB private dataset mount)",
+      "session_reliability": "High (12h continuous limit)",
+      "setup_difficulty": "Medium (torchrun DDP config required)",
+      "pre_benchmark_priority": "MULTI-GPU CANDIDATE"
+    },
+    {
+      "rank": 5,
+      "candidate": "Local Dell G15 (RTX 3050 6GB)",
+      "platform": "Local OEM Hardware",
+      "vram_gb": 6,
+      "architecture": "Ampere (GA107, CC 8.6)",
+      "auth_status": "AUTHENTICATED (Local)",
+      "free_compute_model": "Unlimited local power",
+      "dataset_practicality": "Local NVMe SSD (instant)",
+      "session_reliability": "100% controlled",
+      "setup_difficulty": "None (Operational at 32.15 samples/sec)",
+      "pre_benchmark_priority": "LOCAL REFERENCE / FALLBACK"
+    },
+    {
+      "rank": 6,
+      "candidate": "Azure for Students (Standard_NCasT4_v3)",
+      "platform": "Microsoft Azure",
+      "vram_gb": 16,
+      "architecture": "Turing (TU104, CC 7.5)",
+      "auth_status": "NOT AUTHENTICATED",
+      "free_compute_model": "$100 credit (0 GPU quota)",
+      "dataset_practicality": "Azure Blob Storage (~$0.95/mo)",
+      "session_reliability": "N/A (VMs blocked)",
+      "setup_difficulty": "High (Pay-As-You-Go conversion req)",
+      "pre_benchmark_priority": "RESERVE ONLY (NON-VIABLE)"
+    }
+  ]
+}

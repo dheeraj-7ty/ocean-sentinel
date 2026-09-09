@@ -1,0 +1,12 @@
+{
+  "gate": "4.3C-C4",
+  "timestamp_utc": "2026-09-08T19:10:02Z",
+  "runner_sha256": "F67A1C46A3D9862F80921EF840D1EF64840CAB369B43E388F968DB0A3182FBD4",
+  "canary_sha256": "34BD0AB04BE6DDDFAAEA5D8D89A02B7A2DEF13525AB2C4CCAABB2890347347FC",
+  "seed_checkpoint_sha256": "38E7B6E12177C9BAF60C98379C76E75684D8FC9CCB3E66BA0201B938EB29BCAA",
+  "dataset_sources": [
+    "dheeraj12237/ocean-sentinel-trujillo-corpus",
+    "dheeraj12237/ocean-sentinel-src",
+    "dheeraj12237/ocean-sentinel-c-c2-seed"
+  ]
+}

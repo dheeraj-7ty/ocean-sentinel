@@ -1,0 +1,93 @@
+{
+  "phase": "C-C1",
+  "timestamp_utc": "2026-09-08T18:29:17Z",
+  "checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\gate4_3C_B_one_epoch_pilot_20260908_220700\\kernel_output\\latest_checkpoint.pt",
+  "checks": {
+    "file_size_bytes": {
+      "expected": 292470251,
+      "actual": 292470251,
+      "status": "PASS"
+    },
+    "sha256": {
+      "expected": "3B68BA80D6EE14E61066F25EC01CA3D7B70BF09C7C4F9963127A2223B6F05B9B",
+      "actual": "3B68BA80D6EE14E61066F25EC01CA3D7B70BF09C7C4F9963127A2223B6F05B9B",
+      "status": "PASS"
+    },
+    "integrity_manifest": {
+      "status": "PASS",
+      "record": {
+        "latest_checkpoint": "/kaggle/working/gate4_3C_B_pilot/latest_checkpoint.pt",
+        "latest_epoch": 1,
+        "latest_sha256": "3B68BA80D6EE14E61066F25EC01CA3D7B70BF09C7C4F9963127A2223B6F05B9B",
+        "latest_time_utc": "2026-09-08T17:28:48Z",
+        "updated_utc": "2026-09-08T17:28:50Z",
+        "best_checkpoint": "/kaggle/working/gate4_3C_B_pilot/best_model.pt",
+        "best_epoch": 1,
+        "best_val_iou": 0.66277,
+        "best_sha256": "E1CA51BF989691A62BC3DAA599036F9AB306498C33537ECA5D28DB40A8DE8964",
+        "best_time_utc": "2026-09-08T17:28:50Z"
+      }
+    },
+    "canonical_keys": {
+      "required_keys_count": 14,
+      "actual_keys_count": 14,
+      "missing_keys": [],
+      "status": "PASS"
+    },
+    "model_state": {
+      "tensors_count": 288,
+      "trainable_parameters": 24346305,
+      "missing_keys": 0,
+      "unexpected_keys": 0,
+      "status": "PASS"
+    },
+    "optimizer_state": {
+      "tracked_parameters": 150,
+      "step_value": 1680.0,
+      "param_groups": 1,
+      "status": "PASS"
+    },
+    "scheduler_state": {
+      "T_max": 1,
+      "last_epoch": 1,
+      "last_lr": [
+        1e-06
+      ],
+      "is_canonical_for_continuation": false,
+      "diagnostic_finding": "C-B checkpoint has T_max=1 due to --epochs 1. Authorized for restore audit ONLY.",
+      "status": "PASS"
+    },
+    "scaler_state": {
+      "scale": 65536.0,
+      "growth_tracker": 1680,
+      "status": "PASS"
+    },
+    "epoch_restoration": {
+      "checkpoint_epoch": 1,
+      "derived_start_epoch": 2,
+      "status": "PASS"
+    },
+    "history_restoration": {
+      "history_length": 1,
+      "epoch_1_val_iou": 0.66277,
+      "status": "PASS"
+    },
+    "best_state_sentinel_reconciliation": {
+      "raw_best_val_iou": -1.0,
+      "raw_best_epoch": 0,
+      "is_uninitialized_sentinel": true,
+      "reconciled_best_val_iou": 0.66277,
+      "reconciled_best_epoch": 1,
+      "status": "PASS"
+    },
+    "experiment_fingerprint": {
+      "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "status": "PASS"
+    },
+    "output_dir_isolation_guard": {
+      "isolation_collision_detected": true,
+      "status": "PASS"
+    }
+  },
+  "overall_status": "PASS"
+}

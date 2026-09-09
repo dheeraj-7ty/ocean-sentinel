@@ -1,0 +1,114 @@
+{
+  "check_1_warning_reconciliation": {
+    "pass": true,
+    "tracked_params": 150,
+    "steps": [
+      3360.0
+    ],
+    "cumulative_updates": 3360
+  },
+  "check_2_c_c2_seed_immutability": {
+    "pass": true,
+    "sha256": "38E7B6E12177C9BAF60C98379C76E75684D8FC9CCB3E66BA0201B938EB29BCAA",
+    "expected": "38E7B6E12177C9BAF60C98379C76E75684D8FC9CCB3E66BA0201B938EB29BCAA"
+  },
+  "check_3_seed_consumption": {
+    "pass": true,
+    "staged_seed_sha256": "38E7B6E12177C9BAF60C98379C76E75684D8FC9CCB3E66BA0201B938EB29BCAA",
+    "found_in_cloud_log": true
+  },
+  "check_4_best_model_bitwise_identity": {
+    "pass": true,
+    "c_c2_sha256": "65ECF4415897644878E9BAA1A3230430250C5DDF3F66150F0DBE723ABAD983F4",
+    "c_c4_sha256": "65ECF4415897644878E9BAA1A3230430250C5DDF3F66150F0DBE723ABAD983F4",
+    "c_c2_size": 292465043,
+    "c_c4_size": 292465043
+  },
+  "check_5_latest_checkpoint_attributes": {
+    "pass": true,
+    "epoch": 2,
+    "history_length": 2,
+    "scheduler_T_max": 30,
+    "scheduler_last_epoch": 2,
+    "scaler_scale": 131072.0,
+    "dataset_manifest_hash": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0"
+  },
+  "check_6_test_isolation": {
+    "pass": true,
+    "test_tiles": 0,
+    "selected_threshold": 0.22,
+    "evaluation_status": "COMPLETED",
+    "no_test_flag": true,
+    "zero_test_tiles": true,
+    "evaluation_skipped": true,
+    "threshold_locked": true
+  },
+  "check_7_artifact_immutability": {
+    "pass": true,
+    "c_b_hash": "3B68BA80D6EE14E61066F25EC01CA3D7B70BF09C7C4F9963127A2223B6F05B9B",
+    "c_c2_hash": "38E7B6E12177C9BAF60C98379C76E75684D8FC9CCB3E66BA0201B938EB29BCAA"
+  },
+  "check_8_version_reconciliation": {
+    "pass": true,
+    "version_16_status": "SUPERSEDED / NON-AUTHORITATIVE (wrapper audit failure)",
+    "version_17_status": "AUTHORITATIVE (exit code 0, complete artifact generation)"
+  },
+  "check_9_git_audit": {
+    "pass": true,
+    "modified_files": [
+      "A  data/metadata/yang_singha_2025/data_matrix.tab",
+      "M docs/sar-preprocessing.md",
+      "M pyproject.toml",
+      "AM scripts/download_datasets.py",
+      "M src/ocean_sentinel/errors.py",
+      "M src/ocean_sentinel/processing/models.py",
+      "M src/ocean_sentinel/processing/sar.py",
+      "M tests/test_preprocessing.py",
+      "?? data/metadata/trujillo_2024/",
+      "?? data/metadata/yang_singha_2025/cdse_validation_report.json",
+      "?? docs/adr/002-radiometric-unit-generalization.md",
+      "?? docs/adr/003-ml-model-architecture-cuda-and-leakage-governance.md",
+      "?? docs/adr/004-spatially-defensible-dataset-partition.md",
+      "?? docs/context/",
+      "?? docs/dartis-cdse-cross-validation.md",
+      "?? docs/dataset-ingestion-readiness.md",
+      "?? docs/test-infrastructure.md",
+      "?? docs/trujillo-dataset-contract.md",
+      "?? experiments/",
+      "?? scripts/audit_exp02a_quality.py",
+      "?? scripts/audit_spatial_leakage.py",
+      "?? scripts/audit_trujillo_dataset.py",
+      "?? scripts/benchmark_awcc_ultra_performance.py",
+      "?? scripts/benchmark_baseline_recovery.py",
+      "?? scripts/benchmark_exp00.py",
+      "?? scripts/benchmark_exp01_perf.py",
+      "?? scripts/benchmark_gmode_controlled.py",
+      "?? scripts/benchmark_gpu_baseline.py",
+      "?? scripts/benchmark_gpu_optimization.py",
+      "?? scripts/benchmark_gpu_step2b.py",
+      "?? scripts/benchmark_reboot_baseline.py",
+      "?? scripts/benchmark_step2c_b.py",
+      "?? scripts/forensic_profiling_step2c_a.py",
+      "?? scripts/gate4_upload_harness.py",
+      "?? scripts/generate_spatial_split_manifest.py",
+      "?? scripts/generate_split_manifest.py",
+      "?? scripts/run_test_suite.py",
+      "?? scripts/train_exp01.py",
+      "?? scripts/verify_dartis_cdse.py",
+      "?? src/ocean_sentinel/cloud/",
+      "?? src/ocean_sentinel/ingestion/",
+      "?? src/ocean_sentinel/ml/",
+      "?? tests/test_canonical_exp01_fingerprint.py",
+      "?? tests/test_dartis_cross_validation.py",
+      "?? tests/test_dataset_pipeline.py",
+      "?? tests/test_exp01_eval.py",
+      "?? tests/test_gpu_qualification.py",
+      "?? tests/test_ml_components.py",
+      "?? tests/test_pilot_runner.py",
+      "?? tests/test_resume_qualification.py",
+      "?? tests/test_spatial_split.py",
+      "?? tests/test_trujillo_ingestion.py",
+      "?? tests/test_upload_harness.py"
+    ]
+  }
+}

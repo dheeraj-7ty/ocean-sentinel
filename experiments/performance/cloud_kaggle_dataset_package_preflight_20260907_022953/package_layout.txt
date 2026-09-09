@@ -1,0 +1,43 @@
+CANONICAL MONOLITHIC KAGGLE DATASET PACKAGE LAYOUT
+Dataset Slug: dheeraj12237/ocean-sentinel-trujillo-corpus
+Visibility: PRIVATE
+Total Files: 2,403
+Total Size: 56,193,499,563 bytes (52.3343 GiB / 56.1935 GB)
+Zenodo Source DOI: 10.5281/zenodo.8346860
+
+ocean-sentinel-trujillo-corpus/
+├── dataset-metadata.json                      [750 bytes, Kaggle private dataset configuration]
+├── manifest/
+│   ├── spatial_split_manifest.json           [5,748,446 bytes, 840 train / 180 val / 180 test partition manifest]
+│   └── integrity_manifest.json               [508,717 bytes, SHA-256 checksums of all 2,401 packaged files]
+├── images/
+│   └── Oil/                                  [1,200 GeoTIFF files, 51,133,994,714 bytes total]
+│       ├── 00000.tif                         [41,552,591 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── 00001.tif                         [40,432,189 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── 00002.tif                         [41,233,828 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── 00003.tif                         [41,274,551 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── 00004.tif                         [41,720,111 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── ...                               [1,190 intermediate files, stems 00005 to 01334]
+│       ├── 01335.tif                         [43,010,488 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── 01336.tif                         [42,987,120 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── 01337.tif                         [43,150,230 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       ├── 01338.tif                         [43,112,094 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+│       └── 01339.tif                         [43,201,894 bytes, float32, 2-band dB SAR, 2048x2048, EPSG:4326]
+└── masks/
+    └── Mask_oil/                             [1,200 GeoTIFF files, 5,053,246,936 bytes total]
+        ├── 00000.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── 00001.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── 00002.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── 00003.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── 00004.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── ...                               [1,190 intermediate files, stems 00005 to 01334]
+        ├── 01335.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── 01336.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── 01337.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        ├── 01338.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+        └── 01339.tif                         [4,211,048 bytes, uint8, binary {0, 1}, 2048x2048]
+
+EXCLUDED FROM PACKAGE (REDUNDANT OR UNRELATED):
+- data/raw/trujillo_2024/01_Train_Val_Oil_Spill_images.7z (40,712,942,245 bytes): Raw archive, redundant with extracted TIFFs.
+- data/raw/trujillo_2024/01_Train_Val_Oil_Spill_mask.7z (6,236,761 bytes): Raw archive, redundant with extracted TIFFs.
+- data/raw/trujillo_2024/sample_images/ (3 files, 124,060,970 bytes): Redundant duplicate subset.

@@ -1,0 +1,90 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "candidates": [
+    {
+      "rank": 1,
+      "platform": "Lightning AI",
+      "target": "NVIDIA L4 (1x 24GB)",
+      "account_access_confirmed": false,
+      "access_requirement": "Sign up on lightning.ai; generate API key; requires phone/email verification",
+      "vram_gb": 24,
+      "free_compute_model": "15-30 free Studio credits (~19-38 hours compute)",
+      "data_storage_practicality": "47.6 GB requires 37.6 GB billable storage ($3.76/month credits) or external S3/R2 mount",
+      "session_reliability": "High; persistent Studio filesystem; 15-60 min idle sleep",
+      "setup_difficulty": "Low (native VS Code / Jupyter / SSH / CLI)",
+      "expected_benchmark_priority": "PRIMARY",
+      "key_tradeoff": "Highest single-GPU performance and largest VRAM, but credits are finite."
+    },
+    {
+      "rank": 2,
+      "platform": "Lightning AI",
+      "target": "NVIDIA T4 (1x 16GB)",
+      "account_access_confirmed": false,
+      "access_requirement": "Same as Lightning L4",
+      "vram_gb": 16,
+      "free_compute_model": "15-30 free Studio credits (~27-54 hours compute)",
+      "data_storage_practicality": "Same as Lightning L4 ($3.76/month credits for full dataset)",
+      "session_reliability": "High",
+      "setup_difficulty": "Low",
+      "expected_benchmark_priority": "SECONDARY",
+      "key_tradeoff": "More hours than L4 per credit, but older Turing architecture."
+    },
+    {
+      "rank": 3,
+      "platform": "Kaggle Notebooks",
+      "target": "NVIDIA T4 Single (1x 16GB)",
+      "account_access_confirmed": false,
+      "access_requirement": "Kaggle account with SMS phone verification (unlocks GPU + internet)",
+      "vram_gb": 16,
+      "free_compute_model": "30 hours/week recurring free quota (0 monetary cost, resets weekly)",
+      "data_storage_practicality": "Optimal: 100 GB free private dataset storage; 0-second mount at /kaggle/input/",
+      "session_reliability": "High (12-hour execution limit; headless Save & Run All)",
+      "setup_difficulty": "Low (standard Jupyter notebook or Kaggle CLI push)",
+      "expected_benchmark_priority": "TERTIARY (BEST SUSTAINABLE FREE COMPUTE)",
+      "key_tradeoff": "Turing SMs may not outperform local Ampere clock-for-clock, but 100% free with zero transfer overhead."
+    },
+    {
+      "rank": 4,
+      "platform": "Kaggle Notebooks",
+      "target": "NVIDIA T4x2 Multi-GPU (2x 16GB = 32GB)",
+      "account_access_confirmed": false,
+      "access_requirement": "Same as Kaggle Single T4",
+      "vram_gb": 32,
+      "free_compute_model": "Deducts from 30 hours/week quota pool",
+      "data_storage_practicality": "Optimal (same 100 GB private dataset mount)",
+      "session_reliability": "High (12 hours continuous)",
+      "setup_difficulty": "Medium (requires torchrun DDP configuration)",
+      "expected_benchmark_priority": "MULTI-GPU CANDIDATE",
+      "key_tradeoff": "32 GB total VRAM enables batch 32, but PCIe interconnect limits scaling."
+    },
+    {
+      "rank": 5,
+      "platform": "Dell G15 Local (RTX 3050 6GB)",
+      "target": "Local Ampere Reference",
+      "account_access_confirmed": true,
+      "access_requirement": "None (Local hardware)",
+      "vram_gb": 6,
+      "free_compute_model": "Unlimited local compute (power only)",
+      "data_storage_practicality": "Local NVMe SSD (instant)",
+      "session_reliability": "100% controlled",
+      "setup_difficulty": "None (fully operational baseline: 32.15 samples/sec)",
+      "expected_benchmark_priority": "LOCAL REFERENCE / FALLBACK",
+      "key_tradeoff": "VRAM capped at 6 GB (batch 8 maximum); thermal/power clamped at ~78W."
+    },
+    {
+      "rank": 6,
+      "platform": "Azure for Students",
+      "target": "Standard_NCasT4_v3 (1x T4 16GB)",
+      "account_access_confirmed": false,
+      "access_requirement": "Azure for Students active account",
+      "vram_gb": 16,
+      "free_compute_model": "$100 annual credit (BLOCKED: 0 vCPU GPU quota)",
+      "data_storage_practicality": "Azure Blob Storage ($0.95/mo Hot tier)",
+      "session_reliability": "N/A (cannot deploy VM)",
+      "setup_difficulty": "High (requires Pay-As-You-Go conversion)",
+      "expected_benchmark_priority": "RESERVE ONLY (NON-VIABLE)",
+      "key_tradeoff": "Microsoft blocks GPU quota on student accounts."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "slug": "dheeraj12237/ocean-sentinel-trujillo-corpus",
+  "status": "ready",
+  "is_private": true,
+  "total_remote_files": 2402,
+  "image_files_count": 1200,
+  "mask_files_count": 1200,
+  "manifest_files_count": 2,
+  "total_remote_bytes": 56193498813,
+  "expected_bytes_files_only": 56193498801,
+  "bytes_match": false,
+  "sample_files": [
+    {
+      "name": "images/Oil/00000.tif",
+      "bytes": 41552591
+    },
+    {
+      "name": "images/Oil/00001.tif",
+      "bytes": 41436546
+    },
+    {
+      "name": "images/Oil/00002.tif",
+      "bytes": 41233828
+    },
+    {
+      "name": "images/Oil/01337.tif",
+      "bytes": 41813688
+    },
+    {
+      "name": "images/Oil/01338.tif",
+      "bytes": 43478716
+    },
+    {
+      "name": "images/Oil/01339.tif",
+      "bytes": 41857591
+    },
+    {
+      "name": "masks/Mask_oil/00000.tif",
+      "bytes": 4211084
+    },
+    {
+      "name": "masks/Mask_oil/00001.tif",
+      "bytes": 4211084
+    },
+    {
+      "name": "masks/Mask_oil/00002.tif",
+      "bytes": 4211084
+    },
+    {
+      "name": "masks/Mask_oil/01337.tif",
+      "bytes": 4211084
+    },
+    {
+      "name": "masks/Mask_oil/01338.tif",
+      "bytes": 4211084
+    },
+    {
+      "name": "masks/Mask_oil/01339.tif",
+      "bytes": 4211084
+    },
+    {
+      "name": "manifest/integrity_manifest.json",
+      "bytes": 508717
+    },
+    {
+      "name": "manifest/spatial_split_manifest.json",
+      "bytes": 5748446
+    }
+  ]
+}

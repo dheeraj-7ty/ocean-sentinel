@@ -1,0 +1,67 @@
+{
+  "dataset_name": "ocean-sentinel-trujillo-corpus",
+  "kaggle_slug": "dheeraj12237/ocean-sentinel-trujillo-corpus",
+  "is_private": true,
+  "staging_directory": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\cloud_kaggle_dataset_package_preflight_20260907_022953\\staging",
+  "staging_mechanism": "NTFS directory junctions (zero byte duplication) for image/mask trees + canonical manifests",
+  "generated_at_utc": "2026-09-07T02:35:37.718164+00:00",
+  "totals": {
+    "total_files": 2403,
+    "total_bytes": 56193499563,
+    "total_gib": 52.334275,
+    "total_gb": 56.1935
+  },
+  "categories": {
+    "images": {
+      "relative_dir": "images/Oil",
+      "file_count": 1200,
+      "bytes": 51133994714,
+      "gib": 47.622244,
+      "gb": 51.133995,
+      "format": "GeoTIFF (2-channel float32 dB, LZW compressed, EPSG:4326)"
+    },
+    "masks": {
+      "relative_dir": "masks/Mask_oil",
+      "file_count": 1200,
+      "bytes": 5053246936,
+      "gib": 4.706203,
+      "gb": 5.053247,
+      "format": "GeoTIFF (1-channel uint8 binary {0, 1}, uncompressed)"
+    },
+    "manifests": {
+      "relative_dir": "manifest",
+      "file_count": 2,
+      "bytes": 6257163,
+      "files": [
+        "manifest/integrity_manifest.json",
+        "manifest/spatial_split_manifest.json"
+      ]
+    },
+    "metadata": {
+      "relative_dir": ".",
+      "file_count": 1,
+      "bytes": 750,
+      "files": [
+        "dataset-metadata.json"
+      ]
+    }
+  },
+  "exclusions": [
+    {
+      "source_path": "data/raw/trujillo_2024/01_Train_Val_Oil_Spill_images.7z",
+      "bytes": 40712942245,
+      "reason": "Redundant raw compressed 7z image archive; extracted TIFFs are packaged directly"
+    },
+    {
+      "source_path": "data/raw/trujillo_2024/01_Train_Val_Oil_Spill_mask.7z",
+      "bytes": 6236761,
+      "reason": "Redundant raw compressed 7z mask archive; extracted TIFFs are packaged directly"
+    },
+    {
+      "source_path": "data/raw/trujillo_2024/sample_images",
+      "bytes": 124060970,
+      "file_count": 3,
+      "reason": "Redundant 3-tile sample duplicate of Oil/00000.tif, 00002.tif, 00003.tif"
+    }
+  ]
+}

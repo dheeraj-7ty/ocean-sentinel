@@ -1,0 +1,49 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "platform": "Kaggle",
+  "public_platform_capability": {
+    "free_quota_model": "30.0 hours per week recurring free GPU quota (resets every Saturday 00:00 UTC)",
+    "monetary_cost": "$0.00 (100% free, no credit card required)",
+    "single_t4_gpu": {
+      "model": "NVIDIA Tesla T4",
+      "architecture": "Turing (TU104)",
+      "compute_capability": "7.5",
+      "vram_gb": 16,
+      "host_cpu": "4 vCPUs (Intel Xeon / AMD EPYC)",
+      "system_ram_gb": 30.0,
+      "max_batch_size_512x512": 16
+    },
+    "multi_gpu_t4x2": {
+      "model": "2x NVIDIA Tesla T4",
+      "architecture": "Turing (TU104)",
+      "total_vram_gb": 32,
+      "vram_per_gpu_gb": 16,
+      "interconnect": "Standard PCI-e bus (virtualized; NO NVLink)",
+      "distributed_support": "PyTorch DistributedDataParallel (DDP) via torchrun with NCCL backend",
+      "effective_batch_size_512x512": 32,
+      "scaling_caveat": "2 GPUs != 2x performance due to PCIe gradient all-reduce synchronization overhead"
+    },
+    "session_limits": {
+      "max_continuous_runtime_hours": 12.0,
+      "interactive_idle_timeout_minutes": 40.0,
+      "headless_background_execution": true
+    },
+    "storage_architecture": {
+      "private_dataset_storage_limit_gb": 100.0,
+      "scratch_working_storage_limit_gb": 20.0,
+      "mount_mechanism": "Read-only virtualized mount at /kaggle/input/<dataset-slug>/ (0-second mount latency)",
+      "output_persistence": "Exported to notebook output artifacts or downloadable via Kaggle API"
+    }
+  },
+  "account_specific_verified_capability": {
+    "authentication_state": "NOT AUTHENTICATED",
+    "account_access_confirmed": false,
+    "account_specific_gpu_access": "ACCOUNT-SPECIFIC GPU ACCESS UNKNOWN",
+    "t4_access_verified": "UNKNOWN",
+    "t4x2_access_verified": "UNKNOWN",
+    "current_quota_remaining_hours": "UNKNOWN",
+    "phone_verification_status": "UNKNOWN",
+    "verification_gate": "BLOCKED_PENDING_USER_AUTHENTICATION"
+  }
+}

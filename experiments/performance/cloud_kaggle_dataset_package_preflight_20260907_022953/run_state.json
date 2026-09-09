@@ -1,0 +1,37 @@
+{
+  "phase": "GATE_4_1_MONOLITHIC_KAGGLE_DATASET_PACKAGE_PREFLIGHT",
+  "status": "COMPLETED",
+  "decision": "PASS",
+  "current_step": 11,
+  "total_steps": 11,
+  "completed_steps": [
+    "RECONSTRUCT_REPOSITORY_STATE",
+    "VERIFY_SOURCE_DATASET_INVENTORY",
+    "RECONCILE_NUMERICAL_FIGURES",
+    "BUILD_CANONICAL_PACKAGE_LAYOUT",
+    "AUDIT_LOADER_PATH_ASSUMPTIONS",
+    "COMPUTE_SHA256_INTEGRITY_MANIFEST",
+    "VERIFY_PAIRING_AND_SPLIT_INTEGRITY",
+    "VALIDATE_REPRESENTATIVE_TIFF_CONTENT",
+    "KAGGLE_METADATA_AND_LIMITS_PREFLIGHT",
+    "ESTIMATE_UPLOAD_REQUIREMENTS",
+    "GENERATE_CHECKLIST_AND_FINAL_REPORT"
+  ],
+  "started_at": "2026-09-07T02:29:53.000000+00:00",
+  "updated_at": "2026-09-07T02:36:30.000000+00:00",
+  "last_activity": "Gate 4.1 completed successfully with PASS decision",
+  "error": null,
+  "resumable": false,
+  "bytes_transferred": 0,
+  "gpu_quota_consumed_minutes": 0.0,
+  "model_training": "NOT_STARTED",
+  "human_approval_required": true,
+  "package_summary": {
+    "total_files": 2403,
+    "total_bytes": 56193499563,
+    "total_gib": 52.334293,
+    "total_gb": 56.193500,
+    "corpus_root_sha256": "e6e342d3c47aeed896283b31d7218d220bd465792d4d1f5d83485cc872b5c453",
+    "staging_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\cloud_kaggle_dataset_package_preflight_20260907_022953\\staging"
+  }
+}

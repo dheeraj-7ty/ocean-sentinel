@@ -1,0 +1,19 @@
+{
+  "title": "Ocean Sentinel - Trujillo Part I Oil Spill Corpus",
+  "id": "dheeraj12237/ocean-sentinel-trujillo-corpus",
+  "licenses": [
+    {
+      "name": "CC-BY-4.0"
+    }
+  ],
+  "isPrivate": true,
+  "description": "Canonical private dataset package for Ocean Sentinel oil-spill segmentation experiments. Contains complete 1,200 Sentinel-1 SAR GeoTIFF image patches (2-channel float32 dB) and 1,200 ground-truth masks (1-channel uint8 binary) from Trujillo-Acatitla et al. (July 2024) Part I (Zenodo DOI: 10.5281/zenodo.8346860), accompanied by the canonical spatial split manifest and SHA-256 integrity manifest.",
+  "keywords": [
+    "sar",
+    "oil-spill",
+    "sentinel-1",
+    "segmentation",
+    "remote-sensing",
+    "ocean-sentinel"
+  ]
+}

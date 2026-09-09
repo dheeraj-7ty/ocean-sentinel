@@ -1,0 +1,13 @@
+{
+  "id": "dheeraj12237/ocean-sentinel-production-validation",
+  "title": "Ocean Sentinel Production Validation",
+  "code_file": "validate_production_dataset.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "dheeraj12237/ocean-sentinel-trujillo-corpus"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "audit_timestamp_utc": "2026-09-08T01:59:00Z",
+  "target_cloud_runtime": "Kaggle Cloud GPU (Tesla T4 / P100)",
+  "readiness_status": "READY_WITH_DOCUMENTED_OPEN_ITEMS",
+  "readiness_matrix": {
+    "dataset_mount_path_handling": {
+      "status": "READY",
+      "evidence": "--data-dir CLI argument and OCEAN_SENTINEL_DATA_DIR env var supported in scripts/train_exp01.py:881-888. TrujilloTileDataset rebases image and mask paths seamlessly to data_root."
+    },
+    "manifest_path_handling": {
+      "status": "READY",
+      "evidence": "--manifest CLI argument supported, accepts absolute POSIX or relative path to spatial_split_manifest.json."
+    },
+    "posix_path_compatibility": {
+      "status": "READY",
+      "evidence": "All path manipulations use pathlib.Path with forward slashes. Zero hardcoded Windows drive letters (C:\\ or D:\\) in dataset or model loaders."
+    },
+    "dataloader_configuration": {
+      "status": "READY",
+      "evidence": "DataLoader configured with num_workers=4, pin_memory=True, persistent_workers=True. rasterio.open is strictly scoped inside __getitem__ to eliminate file descriptor leaks across worker processes."
+    },
+    "model_reconstruction": {
+      "status": "READY",
+      "evidence": "ResNet34UNet reconstructs identically with in_channels=2, num_classes=1, adaptation_method='slice_variance_scaled', yielding exactly 24,346,305 parameters."
+    },
+    "normalization": {
+      "status": "READY",
+      "evidence": "Training-derived z-score normalization loaded directly from manifest normalization_stats (means=[-33.2331, -19.9412], stds=[6.4900, 4.5313]). Applied consistently across train, val, test."
+    },
+    "checkpoint_save_load": {
+      "status": "READY",
+      "evidence": "Atomic writes via temporary files (*.tmp) and safe_load_checkpoint with allowlisted PyTorch globals (pathlib.WindowsPath, PosixPath, TorchVersion)."
+    },
+    "resume_behavior": {
+      "status": "READY",
+      "evidence": "Automatic resume from latest_checkpoint.pt or explicit --resume <path>. Re-validates manifest SHA-256 against saved checkpoint fingerprint and restores optimizer/scheduler/scaler states."
+    },
+    "single_gpu_execution": {
+      "status": "READY",
+      "evidence": "--device cuda targets primary GPU device (cuda:0). Fully tested on RTX 3050 and qualified on Kaggle Tesla T4."
+    },
+    "amp_configuration": {
+      "status": "READY",
+      "evidence": "CUDA FP16 automatic mixed precision enabled by default via torch.amp.autocast('cuda') and GradScaler('cuda'). Tested with finite gradients."
+    },
+    "logging_run_state_telemetry": {
+      "status": "READY",
+      "evidence": "run_state.json emits real-time heartbeat and phase transitions. history.json flushes atomically per epoch. progress.log streams unbuffered UTC timestamps. run.lock prevents duplicate executions."
+    }
+  },
+  "open_items": [
+    {
+      "id": "OPEN-01",
+      "topic": "Pretrained Backbone Weights Offline Access",
+      "description": "ImageNet pretrained weights (ResNet34_Weights.DEFAULT) are fetched from PyTorch hub. If Kaggle internet access is disabled, torch.hub download fails. Requires internet enabled in kernel settings OR offline weights dataset mounted.",
+      "severity": "OPERATIONAL_RISK",
+      "mitigation": "Enable 'Internet: On' in Kaggle kernel metadata, or upload resnet34-b627a593.pth as an auxiliary dataset."
+    },
+    {
+      "id": "OPEN-02",
+      "topic": "Codebase Bundling for Kaggle Execution",
+      "description": "Kaggle execution requires pushing source code (src/ocean_sentinel and scripts/train_exp01.py).",
+      "severity": "WORKFLOW_REQUIREMENT",
+      "mitigation": "Package codebase into a wheel or push directly via kaggle kernels push as demonstrated in Gate 4.2P."
+    },
+    {
+      "id": "OPEN-03",
+      "topic": "Dual-GPU T4 Allocation Policy",
+      "description": "Kaggle provides 2x Tesla T4 GPUs when GPU accelerator is enabled. Current train_exp01.py executes on single GPU (cuda:0).",
+      "severity": "INFORMATIONAL",
+      "mitigation": "Single-GPU execution is scientifically faithful to the certified EXP01 Rev B baseline. Multi-GPU DDP is not required for EXP01 reproduction."
+    },
+    {
+      "id": "OPEN-04",
+      "topic": "Session Preemption Checkpoint Exfiltration",
+      "description": "Kaggle sessions have a hard 9-hour limit and may disconnect. Output files in /kaggle/working are only saved permanently if the kernel finishes cleanly or checkpoints are committed.",
+      "severity": "OPERATIONAL_RISK",
+      "mitigation": "Run training in headless batch kernel mode (kaggle kernels push) so /kaggle/working artifacts are preserved upon completion."
+    }
+  ],
+  "cloud_training_readiness_decision": "QUALIFIED_FOR_CLOUD_TRAINING"
+}

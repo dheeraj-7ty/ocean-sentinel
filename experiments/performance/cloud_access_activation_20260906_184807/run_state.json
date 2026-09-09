@@ -1,0 +1,39 @@
+{
+  "experiment_id": "CLOUD_ACCESS_ACTIVATION_20260906_184807",
+  "timestamp_utc": "2026-09-06T18:48:07Z",
+  "lifecycle_state": "COMPLETE",
+  "phases": {
+    "init": "COMPLETED",
+    "repo_reconstruction": "COMPLETED",
+    "local_reference": "COMPLETED",
+    "kaggle_discovery": "COMPLETED",
+    "lightning_discovery": "COMPLETED",
+    "azure_discovery": "COMPLETED",
+    "data_architecture": "COMPLETED",
+    "benchmark_design": "COMPLETED",
+    "security_audit": "COMPLETED",
+    "final_review": "COMPLETED"
+  },
+  "account_authentication_states": {
+    "kaggle": "NOT AUTHENTICATED",
+    "lightning": "NOT AUTHENTICATED",
+    "azure": "NOT AUTHENTICATED"
+  },
+  "account_gpu_access_states": {
+    "kaggle_t4": "ACCOUNT-SPECIFIC GPU ACCESS UNKNOWN",
+    "kaggle_t4x2": "ACCOUNT-SPECIFIC GPU ACCESS UNKNOWN",
+    "lightning_l4": "ACCOUNT-SPECIFIC GPU ACCESS UNKNOWN",
+    "lightning_t4": "ACCOUNT-SPECIFIC GPU ACCESS UNKNOWN",
+    "azure_gpu": "QUOTA_BLOCKED_FOR_GPU"
+  },
+  "cloud_resource_tracking": {
+    "azure_vms_deployed": 0,
+    "azure_credits_spent": 0.0,
+    "lightning_studios_launched": 0,
+    "lightning_credits_spent": 0.0,
+    "kaggle_sessions_run": 0,
+    "active_cloud_resources_remaining": 0
+  },
+  "local_baseline_preserved": true,
+  "production_ml_modified": false
+}

@@ -1,0 +1,27 @@
+{
+  "suite": "heavyweight",
+  "description": "Heavyweight real-data validation suite (1,200 GeoTIFFs, masks, checkpoints)",
+  "status": "PASS WITH WARNINGS",
+  "exit_code": 0,
+  "elapsed_sec": 24.01,
+  "timeout_limit_sec": 180.0,
+  "is_timed_out": false,
+  "last_active_test": "tests/test_trujillo_ingestion.py::TestRealTrujilloMasks::test_paired_loader_with_synthetic_image_and_real_mask",
+  "counts": {
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "deselected": 458,
+    "errors": 0,
+    "warnings": 2
+  },
+  "command": [
+    "D:\\Projects\\ocean-sentinel\\venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-m",
+    "slow or real_data",
+    "-v"
+  ],
+  "timestamp_utc": "2026-09-08T10:47:14.002630+00:00"
+}

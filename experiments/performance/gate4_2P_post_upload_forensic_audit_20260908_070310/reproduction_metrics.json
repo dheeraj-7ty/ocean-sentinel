@@ -1,0 +1,69 @@
+{
+  "checkpoint": "D:\\Projects\\ocean-sentinel\\experiments\\exp01_baseline\\best_model.pt",
+  "checkpoint_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+  "manifest_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+  "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+  "device": "cuda",
+  "amp_enabled": true,
+  "frozen_threshold": 0.22,
+  "normalization": {
+    "channel_means": [
+      -33.233136989478695,
+      -19.941215852796695
+    ],
+    "channel_stds": [
+      6.489985665955077,
+      4.531345684833188
+    ],
+    "computed_from_split": "train"
+  },
+  "adaptation_method": "slice_variance_scaled",
+  "param_counts": {
+    "total": 24346305,
+    "trainable": 24346305,
+    "non_trainable": 0
+  },
+  "val_evaluation": {
+    "iou": 0.7223137191538984,
+    "dice": 0.8387713703038274,
+    "precision": 0.8513821234101191,
+    "recall": 0.8265287477648826,
+    "tp": 13339788.0,
+    "fp": 2328603.0,
+    "fn": 2799745.0,
+    "tn": 736506584.0,
+    "n_samples": 2880,
+    "threshold": 0.22,
+    "loss": 0.38564012034071815,
+    "duration_sec": 43.13351225852966
+  },
+  "test_evaluation": {
+    "iou": 0.7843440432155779,
+    "dice": 0.8791399239376577,
+    "precision": 0.817130991597336,
+    "recall": 0.9513329255760474,
+    "tp": 30757854.0,
+    "fp": 6883423.0,
+    "fn": 1573471.0,
+    "tn": 715759972.0,
+    "n_samples": 2880,
+    "threshold": 0.22,
+    "loss": 0.37854355519844424,
+    "duration_sec": 42.0236074924469
+  },
+  "certified_reference": {
+    "val_iou": 0.72231,
+    "test_iou": 0.78434,
+    "test_dice": 0.87914,
+    "test_precision": 0.81713,
+    "test_recall": 0.95133
+  },
+  "comparison_diff": {
+    "val_iou_diff": 3.719153898407157e-06,
+    "test_iou_diff": 4.043215577897996e-06,
+    "test_dice_diff": -7.606234231349873e-08,
+    "test_precision_diff": 9.915973360197228e-07,
+    "test_recall_diff": 2.925576047418943e-06
+  },
+  "reproduction_match": true
+}

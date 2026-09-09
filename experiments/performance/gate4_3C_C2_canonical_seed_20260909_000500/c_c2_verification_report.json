@@ -1,0 +1,21 @@
+{
+  "phase": "C-C2.5",
+  "timestamp_utc": "2026-09-08T18:49:12Z",
+  "canonical_seed_checkpoint": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\gate4_3C_C2_canonical_seed_20260909_000500\\kernel_output\\latest_checkpoint.pt",
+  "sha256": "38E7B6E12177C9BAF60C98379C76E75684D8FC9CCB3E66BA0201B938EB29BCAA",
+  "size_bytes": 292470251,
+  "scheduler_t_max": 30,
+  "scheduler_last_epoch": 1,
+  "scheduler_last_lr": 9.972883382072954e-05,
+  "optimizer_cumulative_step": 1680.0,
+  "history_length": 1,
+  "val_iou": 0.662765898393945,
+  "diagnostic_model_comparison": {
+    "total_tensors": 288,
+    "identical_tensors": 288,
+    "identical_percentage": 100.0,
+    "max_absolute_difference": 0.0,
+    "overall_l2_difference_norm": 0.0
+  },
+  "canonical_continuation_qualification": "CLEAN PASS \u2014 Authorized as continuation seed for Phase C-C3/C-C4"
+}

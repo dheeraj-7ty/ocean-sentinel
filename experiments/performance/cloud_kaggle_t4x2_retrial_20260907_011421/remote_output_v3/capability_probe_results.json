@@ -1,0 +1,182 @@
+{
+  "probe_metadata": {
+    "target": "KAGGLE",
+    "timestamp_utc": "2026-09-06T19:49:11.431400+00:00",
+    "status": "COMPLETE",
+    "probe_script_version": "2.1.0-gate3.1",
+    "ignored_jupyter_args": [
+      "--HistoryManager.hist_file=:memory:",
+      "-f /tmp/tmpzfmv5vi7.json"
+    ]
+  },
+  "system": {
+    "os": "Linux",
+    "os_release": "6.12.90+",
+    "os_version": "#1 SMP Sat May 30 15:40:53 UTC 2026",
+    "platform_string": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "hostname": "88e22b368fa7",
+    "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+    "python_executable": "/usr/bin/python3",
+    "cpu_count_logical": 4,
+    "ram_total_gb": 31.35,
+    "ram_available_gb": 29.8
+  },
+  "pytorch": {
+    "torch_version": "2.10.0+cu128",
+    "torch_cuda_version": "12.8",
+    "torchvision_version": "0.25.0+cu128",
+    "cuda_available": true,
+    "cudnn_version": 91002,
+    "cudnn_enabled": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "allow_tf32_matmul": false,
+    "allow_tf32_cudnn": true,
+    "amp_supported": true,
+    "autocast_available": true,
+    "bfloat16_supported": true,
+    "float16_supported": true
+  },
+  "gpu": {
+    "cuda_available": true,
+    "device_count": 1,
+    "devices": [
+      {
+        "index": 0,
+        "name": "Tesla P100-PCIE-16GB",
+        "compute_capability": "6.0",
+        "total_memory_mb": 16269.25,
+        "free_memory_mb": 16009.12,
+        "multi_processor_count": 56
+      }
+    ]
+  },
+  "packages": {
+    "torch": {
+      "status": "AVAILABLE",
+      "version": "2.10.0+cu128"
+    },
+    "torchvision": {
+      "status": "AVAILABLE",
+      "version": "0.25.0+cu128"
+    },
+    "torchaudio": {
+      "status": "AVAILABLE",
+      "version": "2.10.0+cu128"
+    },
+    "numpy": {
+      "status": "AVAILABLE",
+      "version": "2.0.2"
+    },
+    "scipy": {
+      "status": "AVAILABLE",
+      "version": "1.16.3"
+    },
+    "albumentations": {
+      "status": "AVAILABLE",
+      "version": "2.0.8"
+    },
+    "rasterio": {
+      "status": "AVAILABLE",
+      "version": "1.5.0"
+    },
+    "cv2": {
+      "status": "AVAILABLE",
+      "version": "4.13.0"
+    },
+    "PIL": {
+      "status": "AVAILABLE",
+      "version": "11.3.0"
+    },
+    "yaml": {
+      "status": "AVAILABLE",
+      "version": "6.0.3"
+    },
+    "tqdm": {
+      "status": "AVAILABLE",
+      "version": "4.67.3"
+    }
+  },
+  "filesystem": {
+    "/kaggle/working": {
+      "exists": true,
+      "is_dir": true,
+      "total_gb": 19.52,
+      "used_gb": 0.0,
+      "free_gb": 19.5,
+      "writable": true
+    },
+    "/kaggle/input": {
+      "exists": true,
+      "is_dir": true,
+      "total_gb": 19.52,
+      "used_gb": 0.0,
+      "free_gb": 19.5,
+      "writable": false
+    },
+    "/kaggle/temp": {
+      "exists": false,
+      "is_dir": false
+    },
+    ".": {
+      "exists": true,
+      "is_dir": true,
+      "total_gb": 19.52,
+      "used_gb": 0.0,
+      "free_gb": 19.5,
+      "writable": true
+    }
+  },
+  "safe_smoke_tests": {
+    "performed": true,
+    "all_passed": false,
+    "checks": {
+      "tiny_tensor_allocation": {
+        "status": "FAIL",
+        "error": "CUDA error: no kernel image is available for execution on the device\nSearch for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+      },
+      "tiny_matmul": {
+        "status": "FAIL",
+        "error": "CUDA error: no kernel image is available for execution on the device\nSearch for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+      },
+      "tiny_conv2d": {
+        "status": "FAIL",
+        "error": "CUDA error: no kernel image is available for execution on the device\nSearch for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+      },
+      "tiny_amp_fp16": {
+        "status": "FAIL",
+        "error": "cannot access local variable 'x' where it is not associated with a value"
+      }
+    }
+  },
+  "ocean_sentinel_framework_test": {
+    "performed": true,
+    "all_passed": false,
+    "checks": {
+      "model_instantiation": {
+        "status": "PASS",
+        "model_class": "ResNet34UNet",
+        "in_channels": 2,
+        "num_classes": 1,
+        "first_conv_adaptation": "slice_variance_scaled",
+        "parameter_count": 24346305,
+        "expected_parameter_count": 24346305,
+        "parameter_match": true,
+        "elapsed_ms": 350.546
+      },
+      "synthetic_forward_pass": {
+        "status": "FAIL",
+        "error": "CUDA error: no kernel image is available for execution on the device\nSearch for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+      },
+      "loss_computation": {
+        "status": "FAIL",
+        "error": "CUDA error: no kernel image is available for execution on the device\nSearch for `cudaErrorNoKernelImageForDevice' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+      },
+      "autograd_and_optimizer_step": {
+        "status": "FAIL",
+        "error": "cannot access local variable 'loss' where it is not associated with a value"
+      }
+    }
+  },
+  "errors": []
+}

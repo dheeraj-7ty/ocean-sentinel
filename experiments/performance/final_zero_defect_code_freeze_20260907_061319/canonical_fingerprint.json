@@ -1,0 +1,125 @@
+{
+  "experiment_name": "EXP-01",
+  "experiment_revision": "Rev B",
+  "fingerprint_version": "1.0-freeze",
+  "model": {
+    "architecture": "ResNet34UNet",
+    "source_file": "src/ocean_sentinel/ml/unet_resnet.py",
+    "source_section": "class ResNet34UNet (L25-L160)",
+    "input_channels": 2,
+    "output_channels": 1,
+    "total_parameters": 24346305,
+    "trainable_parameters": 24346305,
+    "non_trainable_parameters": 0,
+    "adaptation_method": "slice_variance_scaled",
+    "pretrained_backbone": true,
+    "backbone_weights": "ResNet34_Weights.IMAGENET1K_V1"
+  },
+  "preprocessing": {
+    "source_file": "src/ocean_sentinel/ingestion/dataset.py",
+    "source_section": "TrujilloTileDataset.__getitem__ (L170-L240)",
+    "normalization_type": "training_derived_zscore",
+    "channel_means_db": [
+      -33.233136989478695,
+      -19.941215852796695
+    ],
+    "channel_stds_db": [
+      6.489985665955077,
+      4.531345684833188
+    ],
+    "polarization_mapping": "UNKNOWN",
+    "channel_0": "first raw TIFF channel",
+    "channel_1": "second raw TIFF channel",
+    "tile_dimensions": [512, 512],
+    "image_dtype": "torch.float32",
+    "mask_dtype": "torch.float32",
+    "mask_binary_values": [0.0, 1.0]
+  },
+  "loss": {
+    "class": "CombinedBCEAndDiceLoss",
+    "source_file": "src/ocean_sentinel/ml/losses.py",
+    "source_section": "class CombinedBCEAndDiceLoss (L112-L140)",
+    "bce_weight": 0.5,
+    "dice_weight": 0.5,
+    "dice_smooth": 1.0,
+    "pos_weight": null
+  },
+  "optimizer": {
+    "class": "AdamW",
+    "source_file": "scripts/train_exp01.py",
+    "source_section": "Optimizer initialization (L542, L1248)",
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "betas": [0.9, 0.999],
+    "eps": 1e-08
+  },
+  "scheduler": {
+    "class": "CosineAnnealingLR",
+    "source_file": "scripts/train_exp01.py",
+    "source_section": "Scheduler initialization (L1254)",
+    "T_max": 30,
+    "eta_min": 1e-06
+  },
+  "data": {
+    "dataset_identity": "Trujillo Part I Oil Spill Dataset",
+    "manifest_path": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "manifest_sha256": "c052720a954c2e7a3e9a87aa64557450bf0deabec71d54c2a813849db60812e0",
+    "split_strategy": "deterministic_sorted_group",
+    "seed": 42,
+    "total_patches": 1200,
+    "total_tiles": 19200,
+    "split_counts": {
+      "train": {
+        "patches": 840,
+        "tiles": 13440,
+        "ratio": 0.70
+      },
+      "val": {
+        "patches": 180,
+        "tiles": 2880,
+        "ratio": 0.15
+      },
+      "test": {
+        "patches": 180,
+        "tiles": 2880,
+        "ratio": 0.15
+      }
+    }
+  },
+  "training": {
+    "source_file": "scripts/train_exp01.py",
+    "batch_size": 8,
+    "effective_batch_size": 8,
+    "accumulation_steps": 1,
+    "max_epochs": 30,
+    "early_stopping_patience": 10,
+    "amp_enabled": true,
+    "amp_precision": "CUDA FP16",
+    "dataloader_num_workers": 4,
+    "dataloader_pin_memory": true,
+    "dataloader_persistent_workers": true,
+    "augmentation": {
+      "class": "SARGeometricAugmentation",
+      "p_hflip": 0.5,
+      "p_vflip": 0.5,
+      "p_rot90": 0.5,
+      "seed": 42
+    }
+  },
+  "evaluation": {
+    "selection_criterion": "Validation Global IoU",
+    "threshold_search_space": [0.10, 0.90],
+    "threshold_search_step": 0.05,
+    "held_out_test_evaluation": "single_pass_frozen_threshold",
+    "metrics": [
+      "IoU (Intersection over Union)",
+      "Dice / F1 Score",
+      "Precision",
+      "Recall"
+    ]
+  },
+  "hashes": {
+    "manifest_sha256": "c052720a954c2e7a3e9a87aa64557450bf0deabec71d54c2a813849db60812e0",
+    "train_exp01_py_sha256": "20440b0c7b8625b17654bde25465e7b2adf6fb520a35f790089fb0f33a817f03"
+  }
+}

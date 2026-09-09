@@ -1,0 +1,71 @@
+{
+  "experiment_id": "CLOUD_GPU_QUALIFICATION_20260906_183611",
+  "timestamp_utc": "2026-09-06T18:36:11Z",
+  "platform": "Lightning AI",
+  "gpus": {
+    "NVIDIA_L4": {
+      "model_name": "NVIDIA L4 Tensor Core GPU",
+      "architecture": "Ada Lovelace (AD104)",
+      "compute_capability": "8.9",
+      "vram_gb": 24,
+      "memory_type": "GDDR6 with ECC",
+      "memory_bandwidth_gb_s": 300.0,
+      "fp32_tflops": 30.3,
+      "tensor_cores": "4th Generation (supports FP8, FP16, BF16, TF32)",
+      "hourly_cost_credits": 0.79,
+      "hourly_cost_usd": 0.79,
+      "free_credit_lifespan_hours": {
+        "with_15_credits": 18.98,
+        "with_30_credits": 37.97
+      },
+      "concurrency_limit_free": 1,
+      "max_safe_batch_size_512x512": 32,
+      "availability_status": "HIGH (Standard available Studio SKU)",
+      "priority": "PRIMARY",
+      "suitability_assessment": "Highest single-GPU candidate. 24 GB VRAM allows 4x larger batch size (batch 32 vs 8), modern Ada Lovelace FP16/TF32 Tensor Cores, and 19-38 hours free training headroom on free credits."
+    },
+    "NVIDIA_T4": {
+      "model_name": "NVIDIA Tesla T4",
+      "architecture": "Turing (TU104)",
+      "compute_capability": "7.5",
+      "vram_gb": 16,
+      "memory_type": "GDDR6",
+      "memory_bandwidth_gb_s": 320.0,
+      "fp32_tflops": 8.1,
+      "tensor_cores": "2nd Generation (FP16 only; no BF16, no TF32, no FP8)",
+      "hourly_cost_credits": 0.55,
+      "hourly_cost_usd": 0.55,
+      "free_credit_lifespan_hours": {
+        "with_15_credits": 27.27,
+        "with_30_credits": 54.54
+      },
+      "concurrency_limit_free": 1,
+      "max_safe_batch_size_512x512": 16,
+      "availability_status": "HIGH (Standard entry Studio SKU)",
+      "priority": "SECONDARY",
+      "suitability_assessment": "Strong fallback candidate. 16 GB VRAM allows batch 16. Turing architecture is older than local Ampere GA107, so compute throughput per SM may be comparable or lower, but VRAM headroom is 2.67x higher."
+    },
+    "NVIDIA_A100_40GB": {
+      "model_name": "NVIDIA A100 SXM4 / PCIe 40GB",
+      "architecture": "Ampere (GA100)",
+      "compute_capability": "8.0",
+      "vram_gb": 40,
+      "memory_type": "HBM2",
+      "memory_bandwidth_gb_s": 1555.0,
+      "hourly_cost_credits": 2.19,
+      "status": "RESERVED - DO NOT USE",
+      "reason": "Excessive credit consumption rate ($2.19/hr burns 15 credits in 6.8 hours; not required for Phase 2.2 model scale)."
+    },
+    "NVIDIA_A100_80GB": {
+      "model_name": "NVIDIA A100 SXM4 80GB",
+      "architecture": "Ampere (GA100)",
+      "compute_capability": "8.0",
+      "vram_gb": 80,
+      "memory_type": "HBM2e",
+      "memory_bandwidth_gb_s": 2039.0,
+      "hourly_cost_credits": 2.71,
+      "status": "RESERVED - DO NOT USE",
+      "reason": "Excessive credit consumption rate ($2.71/hr burns 15 credits in 5.5 hours)."
+    }
+  }
+}

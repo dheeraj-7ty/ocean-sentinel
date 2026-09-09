@@ -1,0 +1,408 @@
+[
+  {
+    "role": "early_filename",
+    "filename": "00000.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil\\00000.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 2,
+    "dtype": "float32",
+    "crs": "EPSG:4326",
+    "transform": [
+      [
+        8.983152841195215e-05,
+        0.0,
+        3.9656639450910203
+      ],
+      [
+        0.0,
+        -8.983152841195215e-05,
+        55.33396508271642
+      ]
+    ],
+    "compression": "Compression.lzw",
+    "all_finite": true,
+    "band_1_stats": {
+      "min": -54.12104797363281,
+      "max": -1.9929887056350708,
+      "mean": -34.27082061767578,
+      "negative_pct": 100.0
+    },
+    "band_2_stats": {
+      "min": -38.24626159667969,
+      "max": 5.545726299285889,
+      "mean": -20.784467697143555,
+      "negative_pct": 99.99663829803467
+    },
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_2": true,
+      "dtype_float32": true,
+      "crs_epsg4326": true,
+      "lzw_compression": true,
+      "all_finite": true,
+      "decibel_radiometry": true
+    }
+  },
+  {
+    "role": "median_sized_image",
+    "filename": "00789.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil\\00789.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 2,
+    "dtype": "float32",
+    "crs": "EPSG:4326",
+    "transform": [
+      [
+        8.983152841195215e-05,
+        0.0,
+        -88.86188467070892
+      ],
+      [
+        0.0,
+        -8.983152841195215e-05,
+        29.155244341174097
+      ]
+    ],
+    "compression": "Compression.lzw",
+    "all_finite": true,
+    "band_1_stats": {
+      "min": -52.95594787597656,
+      "max": 1.4142760038375854,
+      "mean": -39.469451904296875,
+      "negative_pct": 99.99969005584717
+    },
+    "band_2_stats": {
+      "min": -46.63081741333008,
+      "max": 8.864459991455078,
+      "mean": -23.332101821899414,
+      "negative_pct": 99.99659061431885
+    },
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_2": true,
+      "dtype_float32": true,
+      "crs_epsg4326": true,
+      "lzw_compression": true,
+      "all_finite": true,
+      "decibel_radiometry": true
+    }
+  },
+  {
+    "role": "largest_image",
+    "filename": "01325.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil\\01325.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 2,
+    "dtype": "float32",
+    "crs": "EPSG:4326",
+    "transform": [
+      [
+        8.983152841195215e-05,
+        0.0,
+        12.239114357925782
+      ],
+      [
+        0.0,
+        -8.983152841195215e-05,
+        -6.2691047148394965
+      ]
+    ],
+    "compression": "Compression.lzw",
+    "all_finite": true,
+    "band_1_stats": {
+      "min": -45.906368255615234,
+      "max": -1.0607194900512695,
+      "mean": -29.72434425354004,
+      "negative_pct": 100.0
+    },
+    "band_2_stats": {
+      "min": -33.67291259765625,
+      "max": 3.6896355152130127,
+      "mean": -20.497425079345703,
+      "negative_pct": 99.99847412109375
+    },
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_2": true,
+      "dtype_float32": true,
+      "crs_epsg4326": true,
+      "lzw_compression": true,
+      "all_finite": true,
+      "decibel_radiometry": true
+    }
+  },
+  {
+    "role": "representative_mask",
+    "filename": "00000.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\masks\\Mask_oil\\00000.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 1,
+    "dtype": "uint8",
+    "crs": null,
+    "unique_values": [
+      0,
+      1
+    ],
+    "oil_pixel_count": 14539,
+    "background_pixel_count": 4179765,
+    "oil_pixel_ratio": 0.003466,
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_1": true,
+      "dtype_uint8": true,
+      "binary_semantics": true,
+      "all_finite": true
+    }
+  },
+  {
+    "role": "train_scene_image",
+    "filename": "00000.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil\\00000.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 2,
+    "dtype": "float32",
+    "crs": "EPSG:4326",
+    "transform": [
+      [
+        8.983152841195215e-05,
+        0.0,
+        3.9656639450910203
+      ],
+      [
+        0.0,
+        -8.983152841195215e-05,
+        55.33396508271642
+      ]
+    ],
+    "compression": "Compression.lzw",
+    "all_finite": true,
+    "band_1_stats": {
+      "min": -54.12104797363281,
+      "max": -1.9929887056350708,
+      "mean": -34.27082061767578,
+      "negative_pct": 100.0
+    },
+    "band_2_stats": {
+      "min": -38.24626159667969,
+      "max": 5.545726299285889,
+      "mean": -20.784467697143555,
+      "negative_pct": 99.99663829803467
+    },
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_2": true,
+      "dtype_float32": true,
+      "crs_epsg4326": true,
+      "lzw_compression": true,
+      "all_finite": true,
+      "decibel_radiometry": true
+    }
+  },
+  {
+    "role": "train_scene_mask",
+    "filename": "00000.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\masks\\Mask_oil\\00000.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 1,
+    "dtype": "uint8",
+    "crs": null,
+    "unique_values": [
+      0,
+      1
+    ],
+    "oil_pixel_count": 14539,
+    "background_pixel_count": 4179765,
+    "oil_pixel_ratio": 0.003466,
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_1": true,
+      "dtype_uint8": true,
+      "binary_semantics": true,
+      "all_finite": true
+    }
+  },
+  {
+    "role": "val_scene_image",
+    "filename": "00012.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil\\00012.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 2,
+    "dtype": "float32",
+    "crs": "EPSG:4326",
+    "transform": [
+      [
+        8.983152841195215e-05,
+        0.0,
+        29.149503721826417
+      ],
+      [
+        0.0,
+        -8.983152841195215e-05,
+        32.295409919863275
+      ]
+    ],
+    "compression": "Compression.lzw",
+    "all_finite": true,
+    "band_1_stats": {
+      "min": -47.991668701171875,
+      "max": -25.439376831054688,
+      "mean": -34.81257247924805,
+      "negative_pct": 100.0
+    },
+    "band_2_stats": {
+      "min": -40.66175842285156,
+      "max": -14.531427383422852,
+      "mean": -21.677061080932617,
+      "negative_pct": 100.0
+    },
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_2": true,
+      "dtype_float32": true,
+      "crs_epsg4326": true,
+      "lzw_compression": true,
+      "all_finite": true,
+      "decibel_radiometry": true
+    }
+  },
+  {
+    "role": "val_scene_mask",
+    "filename": "00012.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\masks\\Mask_oil\\00012.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 1,
+    "dtype": "uint8",
+    "crs": null,
+    "unique_values": [
+      0,
+      1
+    ],
+    "oil_pixel_count": 168158,
+    "background_pixel_count": 4026146,
+    "oil_pixel_ratio": 0.040092,
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_1": true,
+      "dtype_uint8": true,
+      "binary_semantics": true,
+      "all_finite": true
+    }
+  },
+  {
+    "role": "test_scene_image",
+    "filename": "00005.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil\\00005.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 2,
+    "dtype": "float32",
+    "crs": "EPSG:4326",
+    "transform": [
+      [
+        8.983152841195215e-05,
+        0.0,
+        5.679829170247891
+      ],
+      [
+        0.0,
+        -8.983152841195215e-05,
+        55.12142368649374
+      ]
+    ],
+    "compression": "Compression.lzw",
+    "all_finite": true,
+    "band_1_stats": {
+      "min": -55.32816696166992,
+      "max": 1.656172752380371,
+      "mean": -37.95271301269531,
+      "negative_pct": 99.99980926513672
+    },
+    "band_2_stats": {
+      "min": -45.860599517822266,
+      "max": 9.05048656463623,
+      "mean": -22.06764793395996,
+      "negative_pct": 99.99639987945557
+    },
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_2": true,
+      "dtype_float32": true,
+      "crs_epsg4326": true,
+      "lzw_compression": true,
+      "all_finite": true,
+      "decibel_radiometry": true
+    }
+  },
+  {
+    "role": "test_scene_mask",
+    "filename": "00005.tif",
+    "path": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\masks\\Mask_oil\\00005.tif",
+    "dimensions": [
+      2048,
+      2048
+    ],
+    "band_count": 1,
+    "dtype": "uint8",
+    "crs": null,
+    "unique_values": [
+      0,
+      1
+    ],
+    "oil_pixel_count": 55530,
+    "background_pixel_count": 4138774,
+    "oil_pixel_ratio": 0.013239,
+    "contract_compliance": true,
+    "checks": {
+      "height_2048": true,
+      "width_2048": true,
+      "bands_1": true,
+      "dtype_uint8": true,
+      "binary_semantics": true,
+      "all_finite": true
+    }
+  }
+]

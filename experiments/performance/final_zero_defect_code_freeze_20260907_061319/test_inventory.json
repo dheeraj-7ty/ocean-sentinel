@@ -1,0 +1,92 @@
+{
+  "test_inventory_version": "1.0",
+  "audit_gate": "Gate 4.4 Final Zero-Defect Code Freeze",
+  "total_test_files": 15,
+  "total_discovered_pytest_items": 419,
+  "passed_pytest_items": 419,
+  "failed_pytest_items": 0,
+  "skipped_pytest_items": 0,
+  "xfail_pytest_items": 0,
+  "per_file_inventory": {
+    "tests/test_auth.py": {
+      "test_count": 37,
+      "scope": "Authentication, tokens, secure headers, error handling",
+      "status": "PASS"
+    },
+    "tests/test_config.py": {
+      "test_count": 11,
+      "scope": "Configuration loading, environment variables, validation",
+      "status": "PASS"
+    },
+    "tests/test_dartis_cross_validation.py": {
+      "test_count": 6,
+      "scope": "DARTIS vs CDSE cross-validation, metadata verification",
+      "status": "PASS"
+    },
+    "tests/test_dataset_pipeline.py": {
+      "test_count": 48,
+      "scope": "Dataset manifest generation, split determinism, leakage prevention, lazy loading, normalization",
+      "status": "PASS"
+    },
+    "tests/test_discovery.py": {
+      "test_count": 37,
+      "scope": "Scene discovery, spatial bounding queries, catalog traversal",
+      "status": "PASS"
+    },
+    "tests/test_errors.py": {
+      "test_count": 20,
+      "scope": "Domain error hierarchy, serialization, formatted error strings",
+      "status": "PASS"
+    },
+    "tests/test_exp01_eval.py": {
+      "test_count": 14,
+      "scope": "EXP01 evaluation lifecycle, run locks, process liveness, safe checkpoint loading",
+      "status": "PASS"
+    },
+    "tests/test_imagery_request.py": {
+      "test_count": 69,
+      "scope": "Imagery request validation, coordinate transforms, bbox formatting",
+      "status": "PASS"
+    },
+    "tests/test_imagery_service.py": {
+      "test_count": 32,
+      "scope": "Service integration, async downloaders, retry policies",
+      "status": "PASS"
+    },
+    "tests/test_ml_components.py": {
+      "test_count": 32,
+      "scope": "ResNet34UNet, SoftDiceLoss, CombinedBCEAndDiceLoss, threshold optimization, spatial leakage",
+      "status": "PASS"
+    },
+    "tests/test_models.py": {
+      "test_count": 23,
+      "scope": "Domain models, dataclass serialization, Pydantic schemas",
+      "status": "PASS"
+    },
+    "tests/test_preprocessing.py": {
+      "test_count": 49,
+      "scope": "SAR calibration, decibel conversion, speckle filtering, clipping",
+      "status": "PASS"
+    },
+    "tests/test_raster_env.py": {
+      "test_count": 7,
+      "scope": "GDAL/Rasterio environment configuration, drivers, thread safety",
+      "status": "PASS"
+    },
+    "tests/test_spatial_split.py": {
+      "test_count": 10,
+      "scope": "SpatialGroupSplitter, connected components, raw GeoTIFF cross-split overlap verification",
+      "status": "PASS"
+    },
+    "tests/test_trujillo_ingestion.py": {
+      "test_count": 24,
+      "scope": "Raw Trujillo Part I GeoTIFF ingestion, mask validation, paired loading",
+      "status": "PASS"
+    }
+  },
+  "discrepancy_reconciliation": {
+    "pre_upload_hardening_report_claimed_417": "The '417' figure represented 368 unit tests listed in an aggregated table plus 49 independent pipeline/smoke assertions.",
+    "gate_4_3_report_claimed_368": "Gate 4.3 referenced the 368 unit test figure from the earlier aggregated table.",
+    "reconciliation_finding": "Independent per-file test collection shows the true, complete test suite comprises exactly 419 Pytest test items across 15 test files. All 419 tests are active, none were lost, disabled, or skipped, and all 419 pass unconditionally."
+  }
+}

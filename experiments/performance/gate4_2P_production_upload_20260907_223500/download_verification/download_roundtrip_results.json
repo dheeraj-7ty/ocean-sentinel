@@ -1,0 +1,61 @@
+{
+  "all_match": true,
+  "files": [
+    {
+      "file": "manifest/integrity_manifest.json",
+      "bytes": 508717,
+      "sha256": "03b68bc2d6e52ef9eef58f01e70b5a9f62e3c635fea1b333131d559480246be5",
+      "local_sha256": "03b68bc2d6e52ef9eef58f01e70b5a9f62e3c635fea1b333131d559480246be5",
+      "match": true
+    },
+    {
+      "file": "manifest/spatial_split_manifest.json",
+      "bytes": 5748446,
+      "sha256": "c052720a954c2e7a3e9a87aa64557450bf0deabec71d54c2a813849db60812e0",
+      "local_sha256": "c052720a954c2e7a3e9a87aa64557450bf0deabec71d54c2a813849db60812e0",
+      "match": true
+    },
+    {
+      "file": "images/Oil/00000.tif",
+      "bytes": 41552591,
+      "sha256": "b164662ebf451ab83578d1214f94cdfeda26de10395fa7cba67aa3d3583d9693",
+      "local_sha256": "b164662ebf451ab83578d1214f94cdfeda26de10395fa7cba67aa3d3583d9693",
+      "match": true
+    },
+    {
+      "file": "images/Oil/00500.tif",
+      "bytes": 43005219,
+      "sha256": "17f0dd7b6235a1aa02127ce2ca7f88ab8bc400380a4fb77c8088834e389405bb",
+      "local_sha256": "17f0dd7b6235a1aa02127ce2ca7f88ab8bc400380a4fb77c8088834e389405bb",
+      "match": true
+    },
+    {
+      "file": "images/Oil/01199.tif",
+      "bytes": 43663571,
+      "sha256": "636be774f1c06ca5ab6d9bc0f6b3117009beee5559f8f0791f80bec1bb45ecc1",
+      "local_sha256": "636be774f1c06ca5ab6d9bc0f6b3117009beee5559f8f0791f80bec1bb45ecc1",
+      "match": true
+    },
+    {
+      "file": "masks/Mask_oil/00000.tif",
+      "bytes": 4211084,
+      "sha256": "16ccddfecc14e3225a2d2be6e525bd36eb990947ac13a100419e25d1795eb001",
+      "local_sha256": "16ccddfecc14e3225a2d2be6e525bd36eb990947ac13a100419e25d1795eb001",
+      "match": true
+    },
+    {
+      "file": "masks/Mask_oil/00500.tif",
+      "bytes": 4211084,
+      "sha256": "8b4550524cec005d894e01caa9a9a3694b4f442bdd3558aedf21ef7f6dafc396",
+      "local_sha256": "8b4550524cec005d894e01caa9a9a3694b4f442bdd3558aedf21ef7f6dafc396",
+      "match": true
+    },
+    {
+      "file": "masks/Mask_oil/01199.tif",
+      "bytes": 4211084,
+      "sha256": "27586d695b7831facf84d4453d0d7420e849bbe21d206c6558dd941d59dff548",
+      "local_sha256": "27586d695b7831facf84d4453d0d7420e849bbe21d206c6558dd941d59dff548",
+      "match": true
+    }
+  ]
+}

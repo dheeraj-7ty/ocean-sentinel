@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-09-07T14:42:28.588772+00:00",
+  "git_branch": "master",
+  "git_commit": "8f444de1d0fb35d09912a9e6bf27cebde8125f0d",
+  "git_status": "DIRTY",
+  "git_dirty_files_count": 47,
+  "dataset_staging_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\cloud_kaggle_dataset_package_preflight_20260907_022953\\staging",
+  "exact_total_byte_count": 56193499563,
+  "exact_file_count": 2403,
+  "image_count": 1200,
+  "mask_count": 1200,
+  "manifest_root_sha256": "e6e342d3c47aeed896283b31d7218d220bd465792d4d1f5d83485cc872b5c453",
+  "kaggle_dataset_slug": "dheeraj12237/ocean-sentinel-trujillo-corpus",
+  "kaggle_cli_version": "Kaggle CLI 2.2.4",
+  "python_executable": "D:\\Tools\\cloud-tools\\Scripts\\python.exe",
+  "cloud_venv_valid": true,
+  "authentication_state": "SET",
+  "local_disk_free_space": {
+    "C:": {
+      "total_bytes": 474200666112,
+      "free_bytes": 179543650304,
+      "used_bytes": 294657015808,
+      "free_gb": 167.21,
+      "total_gb": 441.63
+    },
+    "D:": {
+      "total_bytes": 524286947328,
+      "free_bytes": 416856489984,
+      "used_bytes": 107430457344,
+      "free_gb": 388.23,
+      "total_gb": 488.28
+    }
+  },
+  "source_volume_filesystem": {
+    "drive": "D:",
+    "filesystem": "NTFS",
+    "label": "Grim Dawn"
+  },
+  "active_network_adapter": {
+    "name": "Wi-Fi",
+    "interface_description": "Intel(R) Wi-Fi 6 AX201 160MHz",
+    "status": "Up",
+    "link_speed": "288 Mbps"
+  },
+  "negotiated_link_speed": "288 Mbps",
+  "current_network_connectivity": {
+    "kaggle_com": {
+      "reachable": true,
+      "rtt_ms": 67.14
+    },
+    "storage_googleapis_com": {
+      "reachable": true,
+      "rtt_ms": 29.01
+    }
+  },
+  "upload_benchmark_result": null,
+  "system_power_state": {
+    "ac_line_status": "Online",
+    "battery_percent": 81,
+    "power_saving_active": false
+  }
+}

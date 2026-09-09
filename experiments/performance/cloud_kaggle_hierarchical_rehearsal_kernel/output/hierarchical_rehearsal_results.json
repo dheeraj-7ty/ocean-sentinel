@@ -1,0 +1,19 @@
+{
+  "tree": [
+    "DIR: /kaggle/input/datasets",
+    "DIR: /kaggle/input/datasets/dheeraj12237",
+    "DIR: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical",
+    "DIR: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/images",
+    "DIR: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/manifest",
+    "DIR: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/masks",
+    "FILE: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/manifest/integrity_manifest.json (57 bytes)",
+    "DIR: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/images/Oil",
+    "FILE: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/images/Oil/00000.tif (39 bytes)",
+    "DIR: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/masks/Mask_oil",
+    "FILE: /kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/masks/Mask_oil/00000.tif (39 bytes)"
+  ],
+  "image_path": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/images/Oil/00000.tif",
+  "mask_path": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/masks/Mask_oil/00000.tif",
+  "manifest_path": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-probe-hierarchical/manifest/integrity_manifest.json",
+  "hierarchy_preserved": true
+}

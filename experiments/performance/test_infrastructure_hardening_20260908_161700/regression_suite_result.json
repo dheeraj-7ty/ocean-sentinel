@@ -1,0 +1,27 @@
+{
+  "suite": "regression",
+  "description": "Gate 4.3B cross-platform manifest path resolution regression suite",
+  "status": "PASS",
+  "exit_code": 0,
+  "elapsed_sec": 5.42,
+  "timeout_limit_sec": 30.0,
+  "is_timed_out": false,
+  "last_active_test": "tests/test_dataset_pipeline.py::TestCrossPlatformManifestPathResolution::test_production_manifest_paths_resolve_cleanly_if_manifest_present",
+  "counts": {
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "deselected": 470,
+    "errors": 0,
+    "warnings": 0
+  },
+  "command": [
+    "D:\\Projects\\ocean-sentinel\\venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-k",
+    "TestCrossPlatformManifestPathResolution",
+    "-v"
+  ],
+  "timestamp_utc": "2026-09-08T10:46:44.917897+00:00"
+}

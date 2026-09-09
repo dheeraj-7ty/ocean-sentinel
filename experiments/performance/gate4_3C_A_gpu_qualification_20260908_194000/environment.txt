@@ -1,0 +1,12 @@
+cuda_available: True
+cuda_version: 12.8
+cudnn_version: 91002
+cwd: /kaggle/working
+gpu_count: 2
+gpu_names: ['Tesla T4', 'Tesla T4']
+hostname: 48dd9c0d5a70
+platform: Linux-6.12.90+-x86_64-with-glibc2.35
+python_executable: /usr/bin/python3
+python_version: 3.12.13
+torch_version: 2.10.0+cu128
+torchvision_version: 0.25.0+cu128

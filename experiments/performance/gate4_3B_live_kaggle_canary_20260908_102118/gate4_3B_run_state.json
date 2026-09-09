@@ -1,0 +1,54 @@
+{
+  "gate": "4.3B",
+  "verdict": "PASS_WITH_WARNINGS",
+  "software_model_data_contract": "PASS",
+  "gpu_training_qualification": "NOT_QUALIFIED",
+  "closure_status": "CLOSED",
+  "completion_time_utc": "2026-09-08T09:58:00.000000Z",
+  "kernel_slug": "dheeraj12237/ocean-sentinel-gate-4-3b-live-canary",
+  "kernel_version": 5,
+  "kernel_status": "KernelWorkerStatus.COMPLETE",
+  "checks_passed": [
+    "boot_environment",
+    "dataset_mount",
+    "manifest_verification",
+    "dataloader_contract",
+    "pretrained_weight",
+    "model_contract",
+    "normalization",
+    "observability",
+    "security"
+  ],
+  "checks_failed": [],
+  "warnings": [
+    "P100_sm60_gpu_fell_back_to_cpu"
+  ],
+  "warning_details": "P100 sm_60 is incompatible with installed PyTorch CUDA build (2.10.0+cu128 requires sm_70+); model contract used CPU fallback; CPU fallback prohibited for production training.",
+  "fixes_applied": [
+    "dataset.py: PureWindowsPath cross-platform path fix",
+    "canary: GPU compute capability check with CPU fallback",
+    "canary: symlink-based ocean_sentinel package mount"
+  ],
+  "canonical_param_count": 24346305,
+  "canonical_adaptation": "slice_variance_scaled",
+  "checkpoint_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+  "norm_means": [
+    -33.233136989478695,
+    -19.941215852796695
+  ],
+  "norm_stds": [
+    6.489985665955077,
+    4.531345684833188
+  ],
+  "regression_test_status": "PASS",
+  "regression_test_suite": "tests/test_dataset_pipeline.py::TestCrossPlatformManifestPathResolution (3 passed)",
+  "source_dataset_deployment": "VERIFIED",
+  "source_dataset_id": "dheeraj12237/ocean-sentinel-src",
+  "source_dataset_status": "ready",
+  "source_dataset_file_size_dataset_py": 12242,
+  "full_local_test_suite_status": "INCOMPLETE",
+  "full_local_test_suite_reason": "Stalls in tests/test_spatial_split.py during sequential I/O across 1,200 large raw GeoTIFFs (54 GB) and 719,400 pairwise polygon intersections; 466 targeted/unit tests PASSED.",
+  "next_gate": "4.3C",
+  "training_executed": false,
+  "optimizer_steps": 0
+}

@@ -1,0 +1,53 @@
+{
+  "corpus_root": "/kaggle/input/datasets/dheeraj12237/ocean-sentinel-trujillo-corpus",
+  "checks": {
+    "dataloader_initialized": true,
+    "batch_loaded": true,
+    "image_shape_valid": true,
+    "mask_shape_valid": true,
+    "image_dtype_valid": true,
+    "mask_dtype_valid": true,
+    "no_missing_path_errors": true,
+    "no_tiff_decoding_errors": true,
+    "no_unexpected_dtype_errors": true,
+    "paired_filenames_resolve": true,
+    "total_images_found": 1200,
+    "total_masks_found": 1200,
+    "manifest_files_found": [
+      "integrity_manifest.json",
+      "spatial_split_manifest.json"
+    ]
+  },
+  "sample_image_meta": {
+    "count": 2,
+    "width": 2048,
+    "height": 2048,
+    "dtypes": [
+      "float32",
+      "float32"
+    ],
+    "crs": "EPSG:4326"
+  },
+  "sample_mask_meta": {
+    "count": 1,
+    "width": 2048,
+    "height": 2048,
+    "dtypes": [
+      "uint8"
+    ],
+    "crs": "None"
+  },
+  "batch_images_shape": [
+    2,
+    2,
+    512,
+    512
+  ],
+  "batch_masks_shape": [
+    2,
+    1,
+    512,
+    512
+  ],
+  "all_passed": true
+}

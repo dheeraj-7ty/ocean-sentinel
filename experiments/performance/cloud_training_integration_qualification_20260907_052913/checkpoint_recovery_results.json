@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "restored_epoch": 1,
+  "restored_val_iou": 0.555,
+  "prediction_continuity_atol_1e6": true,
+  "scheduler_lr_continuity": true,
+  "resumed_step2_lr": 9.891830623632339e-05
+}

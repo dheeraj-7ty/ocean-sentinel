@@ -1,0 +1,209 @@
+{
+  "probe_metadata": {
+    "target": "KAGGLE",
+    "timestamp_utc": "2026-09-06T21:09:41.608573+00:00",
+    "status": "COMPLETE",
+    "probe_script_version": "2.1.0-gate3.1",
+    "ignored_jupyter_args": [
+      "-f /root/.local/share/jupyter/runtime/kernel-19b54d47-307d-427b-9470-29513394a137.json"
+    ]
+  },
+  "system": {
+    "os": "Linux",
+    "os_release": "6.12.90+",
+    "os_version": "#1 SMP Sat May 30 15:40:53 UTC 2026",
+    "platform_string": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "hostname": "700fe041d790",
+    "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+    "python_executable": "/usr/bin/python3",
+    "cpu_count_logical": 4,
+    "ram_total_gb": 31.35,
+    "ram_available_gb": 29.63
+  },
+  "pytorch": {
+    "torch_version": "2.10.0+cu128",
+    "torch_cuda_version": "12.8",
+    "torchvision_version": "0.25.0+cu128",
+    "cuda_available": true,
+    "cudnn_version": 91002,
+    "cudnn_enabled": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "allow_tf32_matmul": false,
+    "allow_tf32_cudnn": true,
+    "amp_supported": true,
+    "autocast_available": true,
+    "bfloat16_supported": false,
+    "float16_supported": true
+  },
+  "gpu": {
+    "cuda_available": true,
+    "device_count": 2,
+    "devices": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "compute_capability": "7.5",
+        "total_memory_mb": 14911.69,
+        "free_memory_mb": 14804.81,
+        "multi_processor_count": 40
+      },
+      {
+        "index": 1,
+        "name": "Tesla T4",
+        "compute_capability": "7.5",
+        "total_memory_mb": 14911.69,
+        "free_memory_mb": 14806.81,
+        "multi_processor_count": 40
+      }
+    ]
+  },
+  "packages": {
+    "torch": {
+      "status": "AVAILABLE",
+      "version": "2.10.0+cu128"
+    },
+    "torchvision": {
+      "status": "AVAILABLE",
+      "version": "0.25.0+cu128"
+    },
+    "torchaudio": {
+      "status": "AVAILABLE",
+      "version": "2.10.0+cu128"
+    },
+    "numpy": {
+      "status": "AVAILABLE",
+      "version": "2.0.2"
+    },
+    "scipy": {
+      "status": "AVAILABLE",
+      "version": "1.16.3"
+    },
+    "albumentations": {
+      "status": "AVAILABLE",
+      "version": "2.0.8"
+    },
+    "rasterio": {
+      "status": "AVAILABLE",
+      "version": "1.5.0"
+    },
+    "cv2": {
+      "status": "AVAILABLE",
+      "version": "4.13.0"
+    },
+    "PIL": {
+      "status": "AVAILABLE",
+      "version": "11.3.0"
+    },
+    "yaml": {
+      "status": "AVAILABLE",
+      "version": "6.0.3"
+    },
+    "tqdm": {
+      "status": "AVAILABLE",
+      "version": "4.67.3"
+    }
+  },
+  "filesystem": {
+    "/kaggle/working": {
+      "exists": true,
+      "is_dir": true,
+      "total_gb": 19.52,
+      "used_gb": 0.02,
+      "free_gb": 19.5,
+      "writable": true
+    },
+    "/kaggle/input": {
+      "exists": true,
+      "is_dir": true,
+      "total_gb": 19.52,
+      "used_gb": 0.02,
+      "free_gb": 19.5,
+      "writable": false
+    },
+    "/kaggle/temp": {
+      "exists": false,
+      "is_dir": false
+    },
+    ".": {
+      "exists": true,
+      "is_dir": true,
+      "total_gb": 19.52,
+      "used_gb": 0.02,
+      "free_gb": 19.5,
+      "writable": true
+    }
+  },
+  "safe_smoke_tests": {
+    "performed": true,
+    "all_passed": true,
+    "checks": {
+      "tiny_tensor_allocation": {
+        "status": "PASS",
+        "shape": [4, 4],
+        "device": "cuda:0",
+        "elapsed_ms": 25.729
+      },
+      "tiny_matmul": {
+        "status": "PASS",
+        "shape": [64, 64],
+        "device": "cuda:0",
+        "elapsed_ms": 125.239
+      },
+      "tiny_conv2d": {
+        "status": "PASS",
+        "input_shape": [1, 2, 128, 128],
+        "output_shape": [1, 16, 128, 128],
+        "elapsed_ms": 457.331
+      },
+      "tiny_amp_fp16": {
+        "status": "PASS",
+        "dtype": "torch.float16",
+        "elapsed_ms": 29.321
+      }
+    }
+  },
+  "ocean_sentinel_framework_test": {
+    "performed": true,
+    "all_passed": true,
+    "checks": {
+      "model_instantiation": {
+        "status": "PASS",
+        "model_class": "ResNet34UNet",
+        "in_channels": 2,
+        "num_classes": 1,
+        "first_conv_adaptation": "slice_variance_scaled",
+        "parameter_count": 24346305,
+        "expected_parameter_count": 24346305,
+        "parameter_match": true,
+        "elapsed_ms": 353.705
+      },
+      "synthetic_forward_pass": {
+        "status": "PASS",
+        "input_shape": [1, 2, 512, 512],
+        "output_shape": [1, 1, 512, 512],
+        "expected_shape": [1, 1, 512, 512],
+        "shape_match": true,
+        "output_dtype": "torch.float16",
+        "elapsed_ms": 596.223
+      },
+      "loss_computation": {
+        "status": "PASS",
+        "loss_function": "CombinedBCEAndDiceLoss(0.5 BCE + 0.5 SoftDice)",
+        "loss_value": 0.593347,
+        "loss_valid": true,
+        "elapsed_ms": 152.702
+      },
+      "autograd_and_optimizer_step": {
+        "status": "PASS",
+        "optimizer": "AdamW(lr=1e-4, weight_decay=1e-2)",
+        "grad_scaler": "torch.amp.GradScaler('cuda')",
+        "backward_pass": "SUCCESS",
+        "optimizer_step": "SUCCESS",
+        "peak_vram_allocated_mb": 486.04,
+        "elapsed_ms": 519.986
+      }
+    }
+  },
+  "errors": []
+}

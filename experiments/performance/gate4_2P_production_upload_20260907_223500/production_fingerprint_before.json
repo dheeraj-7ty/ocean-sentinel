@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-09-07T17:04:20.572373+00:00",
+  "staging_dir": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\cloud_kaggle_dataset_package_preflight_20260907_022953\\staging",
+  "exact_total_bytes": 56193499563,
+  "exact_total_files": 2403,
+  "image_count": 1200,
+  "mask_count": 1200,
+  "unexpected_files_count": 0,
+  "unexpected_files": [],
+  "corpus_root_sha256": "e6e342d3c47aeed896283b31d7218d220bd465792d4d1f5d83485cc872b5c453",
+  "dataset_slug": "dheeraj12237/ocean-sentinel-trujillo-corpus",
+  "is_private": true,
+  "sample_hashes": {
+    "images/Oil/00000.tif": "b164662ebf451ab83578d1214f94cdfeda26de10395fa7cba67aa3d3583d9693",
+    "images/Oil/01339.tif": "927b382ebffc2f84447a17b80b30e6c3f1f6758fcb8d6e7a13e7c4de70932405",
+    "masks/Mask_oil/00000.tif": "16ccddfecc14e3225a2d2be6e525bd36eb990947ac13a100419e25d1795eb001",
+    "masks/Mask_oil/01339.tif": "81ed3665ce12bb82bc269a4d57cb8488a513efe17d8e6b9586c5058b2dff76d8",
+    "manifest/integrity_manifest.json": "03b68bc2d6e52ef9eef58f01e70b5a9f62e3c635fea1b333131d559480246be5",
+    "dataset-metadata.json": "67fc9a6e610fba347c3f7e7e88e204872be28f69852144e31fa7f977960bca4e"
+  },
+  "checks": {
+    "bytes_match": true,
+    "files_match": true,
+    "images_match": true,
+    "masks_match": true,
+    "unexpected_zero": true,
+    "root_sha256_match": true,
+    "slug_match": true,
+    "private_match": true
+  },
+  "PACKAGE_FINGERPRINT_PASS": "YES"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "dheeraj12237/ocean-sentinel-gate3-probe",
+  "id_no": 133357821,
+  "title": "ocean-sentinel-gate3-probe",
+  "code_file": "ocean-sentinel-gate3-probe.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [],
+  "model_sources": []
+}
