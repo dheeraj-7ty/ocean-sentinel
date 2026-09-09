@@ -1,0 +1,159 @@
+{
+  "metadata": {
+    "dataset_name": "trujillo_2024_part_i",
+    "audit_scope": "spatial_connected_component_leakage_and_proximity",
+    "audit_timestamp": "2026-09-06T07:20:19Z",
+    "manifest_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+    "split_strategy": "spatial_connected_component_partition",
+    "split_seed": 42,
+    "total_patches_audited": 1200,
+    "total_tiles_audited": 19200
+  },
+  "split_composition": {
+    "train_parents": 840,
+    "val_parents": 180,
+    "test_parents": 180,
+    "train_tiles": 13440,
+    "val_tiles": 2880,
+    "test_tiles": 2880,
+    "train_pct": 70.0,
+    "val_pct": 15.0,
+    "test_pct": 15.0
+  },
+  "connected_components_analysis": {
+    "total_components": 204,
+    "train_components": 140,
+    "val_components": 32,
+    "test_components": 32,
+    "cross_split_components": 0,
+    "largest_components": [
+      114,
+      113,
+      47,
+      35,
+      34,
+      33,
+      29,
+      29,
+      28,
+      26
+    ],
+    "singleton_components": 66
+  },
+  "geotransform_analysis": {
+    "unique_geotransforms": 1198,
+    "multi_patch_geotransforms": 2,
+    "identical_gt_cross_split_count": 0
+  },
+  "spatial_overlap_analysis": {
+    "total_positive_area_overlapping_pairs": 9318,
+    "same_split_overlapping_pairs": 9318,
+    "cross_split_overlapping_pairs": 0,
+    "cross_split_overlap_gte_10pct": 0,
+    "cross_split_overlap_gte_50pct": 0
+  },
+  "proximity_analysis": {
+    "val_to_train_km": {
+      "min": 18.38683475470108,
+      "p10": 28.711456740244817,
+      "p25": 40.52212944473984,
+      "median": 52.111993946589116,
+      "mean": 78.0903284378625,
+      "lt_5km": 0,
+      "lt_20km": 2
+    },
+    "test_to_train_km": {
+      "min": 14.968488633307437,
+      "p10": 32.21662034134877,
+      "p25": 44.84005521257025,
+      "median": 67.70349741644966,
+      "mean": 238.34792879183578,
+      "lt_5km": 0,
+      "lt_20km": 1
+    }
+  },
+  "regional_geographic_distribution": {
+    "train": {
+      "North Sea / Baltic / NW Europe": 53,
+      "Mediterranean / Black Sea": 223,
+      "Gulf of Mexico / Caribbean": 313,
+      "Persian Gulf / Red Sea / Arabian Sea": 83,
+      "SE Asia / South China Sea": 43,
+      "Other": 125
+    },
+    "val": {
+      "North Sea / Baltic / NW Europe": 4,
+      "Mediterranean / Black Sea": 91,
+      "Gulf of Mexico / Caribbean": 50,
+      "Persian Gulf / Red Sea / Arabian Sea": 22,
+      "SE Asia / South China Sea": 2,
+      "Other": 11
+    },
+    "test": {
+      "North Sea / Baltic / NW Europe": 14,
+      "Mediterranean / Black Sea": 54,
+      "Gulf of Mexico / Caribbean": 34,
+      "Persian Gulf / Red Sea / Arabian Sea": 40,
+      "SE Asia / South China Sea": 5,
+      "Other": 33
+    }
+  },
+  "legacy_vs_spatial_comparison": {
+    "legacy_manifest_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\split_manifest.json",
+    "parents_changed_split": 577,
+    "parents_changed_split_pct": 48.083333333333336,
+    "legacy_cross_split_overlaps": 4496,
+    "new_cross_split_overlaps": 0,
+    "overlap_reduction_pct": 100.0,
+    "legacy_val_min_dist_km": 0.0736,
+    "new_val_min_dist_km": 18.38683475470108,
+    "legacy_test_min_dist_km": 0.0,
+    "new_test_min_dist_km": 14.968488633307437,
+    "legacy_norm_stats": {
+      "computed_from_split": "train",
+      "channel_means": [
+        -33.32684698693239,
+        -19.97632068432514
+      ],
+      "channel_stds": [
+        5.82214486385128,
+        4.16518320163678
+      ],
+      "n_valid_pixels": [
+        3523215360,
+        3523215360
+      ]
+    },
+    "new_norm_stats": {
+      "computed_from_split": "train",
+      "channel_means": [
+        -33.233136989478695,
+        -19.941215852796695
+      ],
+      "channel_stds": [
+        6.489985665955077,
+        4.531345684833188
+      ],
+      "n_valid_pixels": [
+        3523215360,
+        3523215360
+      ]
+    }
+  },
+  "conclusions": {
+    "certification_status": "CERTIFIED_LEAKAGE_FREE",
+    "proven_facts": [
+      "Zero cross-split positive-area footprint intersections across all 1,200 patches.",
+      "Zero cross-split identical geotransforms.",
+      "All 204 connected spatial components are 100% contained in their assigned split.",
+      "Parent sample counts: 840 train (70.0%), 180 val (15.0%), 180 test (15.0%).",
+      "Tile counts: 13,440 train (70.0%), 2,880 val (15.0%), 2,880 test (15.0%).",
+      "Minimum distance from validation to train: 18.39 km.",
+      "Minimum distance from test to train: 14.97 km."
+    ],
+    "scientific_limitations": [
+      "Acquisition timestamps and parent Sentinel-1 scene product IDs remain unknown in the author archive.",
+      "While direct footprint overlap is 100% eliminated, spatial autocorrelation across marine basins remains a natural physical feature."
+    ]
+  }
+}

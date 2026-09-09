@@ -1,0 +1,256 @@
+{
+  "metadata": {
+    "dataset_name": "trujillo_2024_part_i",
+    "audit_scope": "spatial_and_scene_leakage",
+    "total_patches_audited": 1200,
+    "manifest_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\split_manifest.json"
+  },
+  "metadata_inspection": {
+    "has_embedded_scene_ids": false,
+    "has_embedded_timestamps": false,
+    "discovered_tiff_tags": [
+      "AREA_OR_POINT",
+      "TIFFTAG_RESOLUTIONUNIT",
+      "TIFFTAG_XRESOLUTION",
+      "TIFFTAG_YRESOLUTION"
+    ],
+    "unresolved_scene_identity": true,
+    "rationale": "Neither GeoTIFF tags, band metadata, nor author Zenodo metadata provide Sentinel-1 product IDs or acquisition timestamps. Scene identity cannot be proven from raster headers alone."
+  },
+  "geotransform_analysis": {
+    "unique_geotransforms": 1198,
+    "multi_patch_geotransforms": 2,
+    "identical_gt_cross_split_count": 2,
+    "identical_gt_cross_split_details": [
+      {
+        "stems": [
+          "00007",
+          "01339"
+        ],
+        "splits": [
+          "test",
+          "train"
+        ],
+        "transform": [
+          8.983152841195215e-05,
+          0.0,
+          30.625126448259813,
+          0.0,
+          -8.983152841195215e-05,
+          32.269626175898125,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "centroid": [
+          30.71711393335365,
+          32.17763869080429
+        ]
+      },
+      {
+        "stems": [
+          "00356",
+          "00357"
+        ],
+        "splits": [
+          "val",
+          "test"
+        ],
+        "transform": [
+          8.983152841195215e-05,
+          0.0,
+          54.77122311541472,
+          0.0,
+          -8.983152841195215e-05,
+          25.652220525954892,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "centroid": [
+          54.86321060050856,
+          25.560233040861053
+        ]
+      }
+    ]
+  },
+  "spatial_overlap_analysis": {
+    "total_overlapping_pairs": 9319,
+    "same_split_overlapping_pairs": 4823,
+    "cross_split_overlapping_pairs": 4496,
+    "cross_split_by_pair": {
+      "train_val": 2371,
+      "train_test": 1695,
+      "val_test": 430
+    },
+    "cross_split_overlap_gte_10pct": 3548,
+    "cross_split_overlap_gte_50pct": 1234,
+    "sample_significant_cross_overlaps": [
+      {
+        "stem_a": "00002",
+        "split_a": "val",
+        "stem_b": "00003",
+        "split_b": "train",
+        "overlap_area_deg2": 0.01105097475669586,
+        "overlap_pct_of_smaller": 32.64999389648634,
+        "centroid_distance_km": 11.487530794658424
+      },
+      {
+        "stem_a": "00005",
+        "split_a": "train",
+        "stem_b": "00006",
+        "split_b": "test",
+        "overlap_area_deg2": 0.019433040336477043,
+        "overlap_pct_of_smaller": 57.41472244262501,
+        "centroid_distance_km": 4.744540306700444
+      },
+      {
+        "stem_a": "00007",
+        "split_a": "train",
+        "stem_b": "00371",
+        "split_b": "val",
+        "overlap_area_deg2": 0.016654445096675373,
+        "overlap_pct_of_smaller": 49.20539072142465,
+        "centroid_distance_km": 10.078941754635585
+      },
+      {
+        "stem_a": "00007",
+        "split_a": "train",
+        "stem_b": "01339",
+        "split_b": "test",
+        "overlap_area_deg2": 0.03384678965555662,
+        "overlap_pct_of_smaller": 100.0,
+        "centroid_distance_km": 0.0
+      },
+      {
+        "stem_a": "00008",
+        "split_a": "train",
+        "stem_b": "00371",
+        "split_b": "val",
+        "overlap_area_deg2": 0.019579917912714264,
+        "overlap_pct_of_smaller": 57.848670766031816,
+        "centroid_distance_km": 6.486970164263759
+      },
+      {
+        "stem_a": "00008",
+        "split_a": "train",
+        "stem_b": "01339",
+        "split_b": "test",
+        "overlap_area_deg2": 0.019147776317864892,
+        "overlap_pct_of_smaller": 56.57191276550332,
+        "centroid_distance_km": 6.606416725468883
+      },
+      {
+        "stem_a": "00009",
+        "split_a": "val",
+        "stem_b": "00010",
+        "split_b": "train",
+        "overlap_area_deg2": 0.013542963754143073,
+        "overlap_pct_of_smaller": 40.012550354003004,
+        "centroid_distance_km": 9.84889392038685
+      },
+      {
+        "stem_a": "00012",
+        "split_a": "train",
+        "stem_b": "00013",
+        "split_b": "test",
+        "overlap_area_deg2": 0.023783167330808163,
+        "overlap_pct_of_smaller": 70.26712894439514,
+        "centroid_distance_km": 4.63691151511874
+      },
+      {
+        "stem_a": "00015",
+        "split_a": "val",
+        "stem_b": "00016",
+        "split_b": "train",
+        "overlap_area_deg2": 0.008303256855432449,
+        "overlap_pct_of_smaller": 24.531888961791996,
+        "centroid_distance_km": 13.244373114245876
+      },
+      {
+        "stem_a": "00016",
+        "split_a": "train",
+        "stem_b": "00208",
+        "split_b": "val",
+        "overlap_area_deg2": 0.014366569525681383,
+        "overlap_pct_of_smaller": 42.44588533176537,
+        "centroid_distance_km": 9.076922101162257
+      }
+    ]
+  },
+  "proximity_analysis": {
+    "val_distance_to_nearest_train_km": {
+      "min": 0.07360975581833182,
+      "median": 7.562728982678543,
+      "mean": 10.746523352188337,
+      "lt_5km": 66,
+      "lt_20km": 159
+    },
+    "test_distance_to_nearest_train_km": {
+      "min": 0.0,
+      "median": 8.119001752270519,
+      "mean": 11.703971970583163,
+      "lt_5km": 63,
+      "lt_20km": 156
+    }
+  },
+  "geographic_distribution": {
+    "longitude_bounds": [
+      -95.15987011265985,
+      130.20885525389497
+    ],
+    "latitude_bounds": [
+      -8.067112621726096,
+      61.36290831964317
+    ],
+    "clusters": {
+      "North Sea / Baltic / NW Europe": 71,
+      "Mediterranean / Black Sea": 408,
+      "Gulf of Mexico / Caribbean": 397,
+      "Persian Gulf / Red Sea / Arabian Sea": 145,
+      "SE Asia / South China Sea": 50,
+      "Other": 129
+    },
+    "split_cluster_distribution": {
+      "train": {
+        "North Sea / Baltic / NW Europe": 51,
+        "Mediterranean / Black Sea": 281,
+        "Gulf of Mexico / Caribbean": 283,
+        "Persian Gulf / Red Sea / Arabian Sea": 102,
+        "SE Asia / South China Sea": 32,
+        "Other": 91
+      },
+      "val": {
+        "North Sea / Baltic / NW Europe": 9,
+        "Mediterranean / Black Sea": 58,
+        "Gulf of Mexico / Caribbean": 62,
+        "Persian Gulf / Red Sea / Arabian Sea": 21,
+        "SE Asia / South China Sea": 10,
+        "Other": 20
+      },
+      "test": {
+        "North Sea / Baltic / NW Europe": 11,
+        "Mediterranean / Black Sea": 69,
+        "Gulf of Mexico / Caribbean": 52,
+        "Persian Gulf / Red Sea / Arabian Sea": 22,
+        "SE Asia / South China Sea": 8,
+        "Other": 18
+      }
+    }
+  },
+  "conclusions": {
+    "proven_facts": [
+      "Zero tile or parent-stem leakage across splits (100% group-safe at stem level).",
+      "Dataset spans 1198 unique geotransforms across 1,200 patches.",
+      "There are 2 geotransforms shared by multiple patches.",
+      "There are 2 identical geotransform groups that cross split boundaries.",
+      "There are 4496 patch pairs that spatially overlap across split boundaries (3548 with >= 10% overlap).",
+      "Patches are distributed across multiple global marine regions (NW Europe, Mediterranean, Gulf of Mexico, SE Asia, Arabian Sea)."
+    ],
+    "unresolved_uncertainties": [
+      "Acquisition timestamps are absent; it is unknown whether spatially overlapping patches were acquired on the same date or months apart.",
+      "Sentinel-1 scene product IDs are absent in the Zenodo Part I archive."
+    ],
+    "scientific_assessment_for_exp01": "The current split was created via deterministic group shuffle on patch stems. Because multiple patches in the dataset share identical or overlapping spatial bounds (originating from adjacent slices or multi-temporal captures of the same area), randomly assigning stems allows spatial correlation leakage between train and validation/test. For EXP-00 (hardware/numerical microbenchmark), the current split is 100% safe to proceed. For EXP-01 baseline training, this spatial overlap constitutes a material confounding factor that must be explicitly surfaced for CAO architectural decision."
+  }
+}
