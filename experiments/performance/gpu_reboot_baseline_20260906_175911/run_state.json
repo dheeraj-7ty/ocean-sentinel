@@ -1,0 +1,19 @@
+{
+  "experiment_id": "GPU_REBOOT_BASELINE_20260906",
+  "phase": "COMPLETE",
+  "current_repetition": 2,
+  "current_batch": 300,
+  "elapsed": 74.8,
+  "ETA": "Calculating...",
+  "latest_throughput": 32.1,
+  "gpu_temp": 80,
+  "gpu_clock": 1897,
+  "gpu_power": 80.85,
+  "cpu_telemetry": {
+    "cpu_util_pct": 12.6,
+    "ram_load_pct": 90
+  },
+  "state": "COMPLETE",
+  "failure_state": null,
+  "last_heartbeat_utc": "2026-09-06T18:04:20Z"
+}

@@ -1,0 +1,8 @@
+{
+  "control_artifact": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\gpu_step2b_results_20260906_131544.json",
+  "control_baseline_target": 33.52,
+  "control_reproduced_mean": 33.54,
+  "control_sustained_300_mean": 33.34,
+  "control_workload": "ResNet34UNet, AMP FP16, batch_size=8, num_workers=4, 20 warmup + 100 measure",
+  "control_hardware_state": "Dell G15 5530, Best Performance overlay, AC Online, AWCC Balanced/Default"
+}

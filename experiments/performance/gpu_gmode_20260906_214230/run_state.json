@@ -1,0 +1,10 @@
+{
+  "experiment_id": "GPU_GMODE_CONTROLLED_20260906_165532",
+  "phase": "EXPERIMENT_COMPLETE",
+  "status": "SUCCESS",
+  "timestamp_utc": "2026-09-06T17:09:29Z",
+  "details": {
+    "decision": "NEUTRAL",
+    "delta_pct": 0.57
+  }
+}

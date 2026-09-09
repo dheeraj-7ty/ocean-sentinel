@@ -1,0 +1,173 @@
+{
+  "run_1_600": {
+    "experiment_id": "GMODE_RUN_1",
+    "experiment_name": "G-Mode 600-batch Steady-State Run 1",
+    "num_warmup_batches": 100,
+    "num_measure_batches": 600,
+    "wall_time_sec": 149.66,
+    "samples_per_sec": 32.07,
+    "batches_per_sec": 4.01,
+    "timing_ms": {
+      "mean_step": 249.41,
+      "median_step": 244.49,
+      "std_step": 11.6,
+      "cv_step_pct": 4.65,
+      "p95_step": 273.56,
+      "loader_wait": 0.21,
+      "host_transfer": 2.51,
+      "forward": 77.61,
+      "backward": 153.69,
+      "optimizer": 15.21
+    },
+    "quarterly_breakdown": {
+      "q1_throughput_samp_sec": 32.66,
+      "q2_throughput_samp_sec": 32.72,
+      "q3_throughput_samp_sec": 32.14,
+      "q4_throughput_samp_sec": 31.16,
+      "throughput_decay_pct": -4.61,
+      "q1_gpu_clock_mean_mhz": 1912.0,
+      "q4_gpu_clock_mean_mhz": 1905.0,
+      "clock_decay_mhz": -7.0,
+      "q1_gpu_temp_mean_c": 71.4,
+      "q4_gpu_temp_mean_c": 75.7,
+      "temp_rise_c": 4.3,
+      "q1_gpu_power_mean_w": 77.28,
+      "q4_gpu_power_mean_w": 75.48,
+      "power_change_w": -1.8
+    },
+    "telemetry_summary": {
+      "gpu_temp_start": 70,
+      "gpu_temp_peak": 76,
+      "gpu_temp_end": 76,
+      "gpu_temp_mean": 73.9,
+      "gpu_clock_start": 1920,
+      "gpu_clock_min": 1905,
+      "gpu_clock_max": 1920,
+      "gpu_clock_mean": 1908.8,
+      "gpu_power_mean": 76.98,
+      "gpu_power_peak": 78.5,
+      "gpu_util_mean": 99.4,
+      "cpu_util_mean": 17.1
+    },
+    "vram": {
+      "peak_allocated_mb": 1885.2,
+      "peak_reserved_mb": 2204.0
+    }
+  },
+  "extended_1200": {
+    "experiment_id": "GMODE_EXTENDED_1200",
+    "experiment_name": "G-Mode 1200-batch Extended Steady-State",
+    "num_warmup_batches": 100,
+    "num_measure_batches": 1200,
+    "wall_time_sec": 304.69,
+    "samples_per_sec": 31.51,
+    "batches_per_sec": 3.94,
+    "timing_ms": {
+      "mean_step": 253.89,
+      "median_step": 253.83,
+      "std_step": 1.43,
+      "cv_step_pct": 0.56,
+      "p95_step": 255.69,
+      "loader_wait": 0.21,
+      "host_transfer": 2.57,
+      "forward": 79.05,
+      "backward": 156.57,
+      "optimizer": 15.32
+    },
+    "quarterly_breakdown": {
+      "q1_throughput_samp_sec": 31.52,
+      "q2_throughput_samp_sec": 31.49,
+      "q3_throughput_samp_sec": 31.48,
+      "q4_throughput_samp_sec": 31.55,
+      "throughput_decay_pct": 0.1,
+      "q1_gpu_clock_mean_mhz": 1910.0,
+      "q4_gpu_clock_mean_mhz": 1905.0,
+      "clock_decay_mhz": -5.0,
+      "q1_gpu_temp_mean_c": 73.9,
+      "q4_gpu_temp_mean_c": 78.9,
+      "temp_rise_c": 5.0,
+      "q1_gpu_power_mean_w": 76.43,
+      "q4_gpu_power_mean_w": 77.5,
+      "power_change_w": 1.06
+    },
+    "telemetry_summary": {
+      "gpu_temp_start": 71,
+      "gpu_temp_peak": 80,
+      "gpu_temp_end": 80,
+      "gpu_temp_mean": 76.9,
+      "gpu_clock_start": 1912,
+      "gpu_clock_min": 1905,
+      "gpu_clock_max": 1912,
+      "gpu_clock_mean": 1906.3,
+      "gpu_power_mean": 76.99,
+      "gpu_power_peak": 79.22,
+      "gpu_util_mean": 99.5,
+      "cpu_util_mean": 17.5
+    },
+    "vram": {
+      "peak_allocated_mb": 1883.7,
+      "peak_reserved_mb": 2034.0
+    }
+  },
+  "run_2_600": {
+    "experiment_id": "GMODE_RUN_2",
+    "experiment_name": "G-Mode 600-batch Steady-State Run 2",
+    "num_warmup_batches": 100,
+    "num_measure_batches": 600,
+    "wall_time_sec": 152.53,
+    "samples_per_sec": 31.47,
+    "batches_per_sec": 3.93,
+    "timing_ms": {
+      "mean_step": 254.19,
+      "median_step": 254.11,
+      "std_step": 0.94,
+      "cv_step_pct": 0.37,
+      "p95_step": 255.92,
+      "loader_wait": 0.21,
+      "host_transfer": 2.59,
+      "forward": 79.14,
+      "backward": 156.77,
+      "optimizer": 15.31
+    },
+    "quarterly_breakdown": {
+      "q1_throughput_samp_sec": 31.54,
+      "q2_throughput_samp_sec": 31.49,
+      "q3_throughput_samp_sec": 31.44,
+      "q4_throughput_samp_sec": 31.44,
+      "throughput_decay_pct": -0.3,
+      "q1_gpu_clock_mean_mhz": 1912.0,
+      "q4_gpu_clock_mean_mhz": 1897.0,
+      "clock_decay_mhz": -15.0,
+      "q1_gpu_temp_mean_c": 73.3,
+      "q4_gpu_temp_mean_c": 77.0,
+      "temp_rise_c": 3.7,
+      "q1_gpu_power_mean_w": 76.35,
+      "q4_gpu_power_mean_w": 75.92,
+      "power_change_w": -0.43
+    },
+    "telemetry_summary": {
+      "gpu_temp_start": 72,
+      "gpu_temp_peak": 77,
+      "gpu_temp_end": 77,
+      "gpu_temp_mean": 75.4,
+      "gpu_clock_start": 1912,
+      "gpu_clock_min": 1897,
+      "gpu_clock_max": 1912,
+      "gpu_clock_mean": 1901.9,
+      "gpu_power_mean": 76.02,
+      "gpu_power_peak": 76.99,
+      "gpu_util_mean": 99.5,
+      "cpu_util_mean": 17.1
+    },
+    "vram": {
+      "peak_allocated_mb": 1883.7,
+      "peak_reserved_mb": 2034.0
+    }
+  },
+  "repeatability_600": {
+    "run_1_samples_sec": 32.07,
+    "run_2_samples_sec": 31.47,
+    "absolute_diff": 0.6,
+    "pct_diff": 1.89
+  }
+}

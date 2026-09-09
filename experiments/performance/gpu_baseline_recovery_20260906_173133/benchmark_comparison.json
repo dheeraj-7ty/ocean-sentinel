@@ -1,0 +1,33 @@
+{
+  "description": "Systematic comparison between benchmark scripts to detect methodological drift.",
+  "comparisons": [
+    {
+      "parameter": "Inner Step Timing Loop",
+      "scripts_benchmark_gpu_step2b_sustained": "Pure time.perf_counter() around step, zero CUDA Events in loop",
+      "scripts_benchmark_gmode_controlled": "8 torch.cuda.Event.record() + 4 elapsed_time() inside loop",
+      "scripts_benchmark_baseline_recovery": "Pure time.perf_counter() around step, zero CUDA Events in loop (reused Step 2B)",
+      "methodological_impact": "Negligible CPU overhead (<0.01 ms), but eliminates event polling variance"
+    },
+    {
+      "parameter": "torch.set_float32_matmul_precision",
+      "scripts_benchmark_gpu_step2b_sustained": "Unset (Default: highest)",
+      "scripts_benchmark_gmode_controlled": "Explicitly set to 'high'",
+      "scripts_benchmark_baseline_recovery": "Unset (Default: highest) \u2014 identical to Step 2B",
+      "methodological_impact": "Guarantees exact FP32 kernel selection matches Step 2B"
+    },
+    {
+      "parameter": "Warmup and Measurement Batches",
+      "scripts_benchmark_gpu_step2b_sustained": "20 warmup + 300 measured",
+      "scripts_benchmark_gmode_controlled": "20 warmup + 300 measured",
+      "scripts_benchmark_baseline_recovery": "20 warmup + 300 measured",
+      "methodological_impact": "Identical protocol length (300 batches = 2400 tiles)"
+    },
+    {
+      "parameter": "Telemetry Sampling Method",
+      "scripts_benchmark_gpu_step2b_sustained": "Asynchronous background thread (0.2s interval) via nvml.dll",
+      "scripts_benchmark_gmode_controlled": "Asynchronous background thread (0.2s interval) via nvml.dll + Win32",
+      "scripts_benchmark_baseline_recovery": "Asynchronous background thread (0.2s interval) via nvml.dll + Win32",
+      "methodological_impact": "Zero impact on CUDA execution queue"
+    }
+  ]
+}

@@ -1,0 +1,734 @@
+{
+  "title": "Ocean Sentinel \u2014 Step 2C-A Operator-Level / U-Net Graph Forensic Profiling Report",
+  "timestamp_utc": "2026-09-06T14:07:26Z",
+  "total_elapsed_sec": 56.41,
+  "hardware_environment": {
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "vram_total_mb": 6143.5,
+    "driver": "616.64",
+    "compute_capability": "8.6",
+    "torch_version": "2.14.0+cu126",
+    "cuda_version": "12.6",
+    "cudnn_version": 91002,
+    "os": "Windows 10 (10.0.26200)"
+  },
+  "exp01_hashes_pre": {
+    "experiments/exp01_baseline/best_model.pt": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "experiments/exp01_baseline/final_model.pt": "2E4C0881DF2F16810C4494A4071EAB320D12418151CC5F74651E91FE1F0A41AA",
+    "experiments/exp01_baseline/latest_checkpoint.pt": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+    "experiments/exp01_baseline/history.json": "E2B5EB5229E2529E1659E77D285E93275015F58DEDCA5AF1F539E45544D5FCBA",
+    "experiments/exp01_baseline/config.json": "2DF14570974288E0E6985393E139F3E23F4DD02A02C008C8F1CF00060D9A10EA",
+    "experiments/exp01_baseline/run_state.json": "F8EC3B5D461F13C8B4673E038E90CE6385E57F0B39EDD5B73156AAAD2DD0178C"
+  },
+  "exp01_hashes_post": {
+    "experiments/exp01_baseline/best_model.pt": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "experiments/exp01_baseline/final_model.pt": "2E4C0881DF2F16810C4494A4071EAB320D12418151CC5F74651E91FE1F0A41AA",
+    "experiments/exp01_baseline/latest_checkpoint.pt": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+    "experiments/exp01_baseline/history.json": "E2B5EB5229E2529E1659E77D285E93275015F58DEDCA5AF1F539E45544D5FCBA",
+    "experiments/exp01_baseline/config.json": "2DF14570974288E0E6985393E139F3E23F4DD02A02C008C8F1CF00060D9A10EA",
+    "experiments/exp01_baseline/run_state.json": "F8EC3B5D461F13C8B4673E038E90CE6385E57F0B39EDD5B73156AAAD2DD0178C"
+  },
+  "baseline_timing": {
+    "mean_step_ms": 250.25,
+    "mean_fwd_ms": 77.56,
+    "mean_bwd_ms": 154.23,
+    "mean_opt_ms": 15.21,
+    "samples_per_sec": 31.97,
+    "peak_allocated_mb": 1977.9,
+    "peak_reserved_mb": 2204.0
+  },
+  "conversion_forensics": {
+    "total_cuda_time_ms": 503.71,
+    "total_conversion_calls": 427,
+    "total_conversion_time_ms": 57.57,
+    "conversion_fraction_pct": 11.43,
+    "nchw_to_nhwc": {
+      "calls": 284,
+      "time_ms": 38.08
+    },
+    "nhwc_to_nchw": {
+      "calls": 143,
+      "time_ms": 19.49
+    },
+    "clusters": [
+      {
+        "cluster_name": "encoder.conv1+bn+relu",
+        "source_module": "encoder.conv1+bn+relu",
+        "input_shape": "[8, 2, 512, 512]",
+        "total_cuda_ms": 17.65,
+        "nchw_to_nhwc_calls": 2,
+        "nchw_to_nhwc_ms": 1.8,
+        "nhwc_to_nchw_calls": 2,
+        "nhwc_to_nchw_ms": 1.29,
+        "total_conversion_calls": 4,
+        "total_conversion_ms": 3.09,
+        "conversion_pct_of_module": 17.5,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "encoder.layer1 (x3 blk)",
+        "source_module": "encoder.layer1 (x3 blk)",
+        "input_shape": "[8, 64, 128, 128]",
+        "total_cuda_ms": 31.46,
+        "nchw_to_nhwc_calls": 36,
+        "nchw_to_nhwc_ms": 5.21,
+        "nhwc_to_nchw_calls": 18,
+        "nhwc_to_nchw_ms": 2.58,
+        "total_conversion_calls": 54,
+        "total_conversion_ms": 7.79,
+        "conversion_pct_of_module": 24.8,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "encoder.layer2 (x4 blk)",
+        "source_module": "encoder.layer2 (x4 blk)",
+        "input_shape": "[8, 64, 128, 128]",
+        "total_cuda_ms": 27.98,
+        "nchw_to_nhwc_calls": 51,
+        "nchw_to_nhwc_ms": 4.21,
+        "nhwc_to_nchw_calls": 25,
+        "nhwc_to_nchw_ms": 2.47,
+        "total_conversion_calls": 76,
+        "total_conversion_ms": 6.68,
+        "conversion_pct_of_module": 23.9,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "encoder.layer3 (x6 blk)",
+        "source_module": "encoder.layer3 (x6 blk)",
+        "input_shape": "[8, 128, 64, 64]",
+        "total_cuda_ms": 30.25,
+        "nchw_to_nhwc_calls": 75,
+        "nchw_to_nhwc_ms": 3.48,
+        "nhwc_to_nchw_calls": 37,
+        "nhwc_to_nchw_ms": 1.67,
+        "total_conversion_calls": 112,
+        "total_conversion_ms": 5.15,
+        "conversion_pct_of_module": 17.0,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "encoder.layer4 (x3 blk)",
+        "source_module": "encoder.layer4 (x3 blk)",
+        "input_shape": "[8, 256, 32, 32]",
+        "total_cuda_ms": 15.46,
+        "nchw_to_nhwc_calls": 40,
+        "nchw_to_nhwc_ms": 1.8,
+        "nhwc_to_nchw_calls": 20,
+        "nhwc_to_nchw_ms": 0.87,
+        "total_conversion_calls": 60,
+        "total_conversion_ms": 2.67,
+        "conversion_pct_of_module": 17.3,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "decoder.dec4",
+        "source_module": "decoder.dec4",
+        "input_shape": "[8, 512, 16, 16]",
+        "total_cuda_ms": 7.94,
+        "nchw_to_nhwc_calls": 18,
+        "nchw_to_nhwc_ms": 0.92,
+        "nhwc_to_nchw_calls": 9,
+        "nhwc_to_nchw_ms": 0.45,
+        "total_conversion_calls": 27,
+        "total_conversion_ms": 1.37,
+        "conversion_pct_of_module": 17.2,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "decoder.dec3",
+        "source_module": "decoder.dec3",
+        "input_shape": "[8, 256, 32, 32]",
+        "total_cuda_ms": 9.67,
+        "nchw_to_nhwc_calls": 17,
+        "nchw_to_nhwc_ms": 1.45,
+        "nhwc_to_nchw_calls": 9,
+        "nhwc_to_nchw_ms": 0.74,
+        "total_conversion_calls": 26,
+        "total_conversion_ms": 2.19,
+        "conversion_pct_of_module": 22.6,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "decoder.dec2",
+        "source_module": "decoder.dec2",
+        "input_shape": "[8, 128, 64, 64]",
+        "total_cuda_ms": 14.53,
+        "nchw_to_nhwc_calls": 15,
+        "nchw_to_nhwc_ms": 2.6,
+        "nhwc_to_nchw_calls": 8,
+        "nhwc_to_nchw_ms": 1.3,
+        "total_conversion_calls": 23,
+        "total_conversion_ms": 3.9,
+        "conversion_pct_of_module": 26.8,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "decoder.dec1",
+        "source_module": "decoder.dec1",
+        "input_shape": "[8, 64, 128, 128]",
+        "total_cuda_ms": 29.07,
+        "nchw_to_nhwc_calls": 15,
+        "nchw_to_nhwc_ms": 6.34,
+        "nhwc_to_nchw_calls": 8,
+        "nhwc_to_nchw_ms": 3.02,
+        "total_conversion_calls": 23,
+        "total_conversion_ms": 9.36,
+        "conversion_pct_of_module": 32.2,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "decoder.final_up+conv",
+        "source_module": "decoder.final_up+conv",
+        "input_shape": "[8, 32, 256, 256]",
+        "total_cuda_ms": 45.23,
+        "nchw_to_nhwc_calls": 15,
+        "nchw_to_nhwc_ms": 9.07,
+        "nhwc_to_nchw_calls": 8,
+        "nhwc_to_nchw_ms": 5.29,
+        "total_conversion_calls": 23,
+        "total_conversion_ms": 14.36,
+        "conversion_pct_of_module": 31.8,
+        "confidence": "VERIFIED"
+      },
+      {
+        "cluster_name": "head.conv1x1",
+        "source_module": "head.conv1x1",
+        "input_shape": "[8, 16, 512, 512]",
+        "total_cuda_ms": 1.56,
+        "nchw_to_nhwc_calls": 0,
+        "nchw_to_nhwc_ms": 0.0,
+        "nhwc_to_nchw_calls": 0,
+        "nhwc_to_nchw_ms": 0.0,
+        "total_conversion_calls": 0,
+        "total_conversion_ms": 0.0,
+        "conversion_pct_of_module": 0.0,
+        "confidence": "VERIFIED"
+      }
+    ]
+  },
+  "tensor_layouts": [
+    {
+      "boundary": "Input (imgs)",
+      "shape": [
+        8,
+        2,
+        512,
+        512
+      ],
+      "stride": [
+        524288,
+        262144,
+        512,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float32"
+    },
+    {
+      "boundary": "encoder.conv1 output",
+      "shape": [
+        8,
+        64,
+        256,
+        256
+      ],
+      "stride": [
+        4194304,
+        65536,
+        256,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "encoder.bn1 output",
+      "shape": [
+        8,
+        64,
+        256,
+        256
+      ],
+      "stride": [
+        4194304,
+        65536,
+        256,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "Skip 0 (x0: H/2)",
+      "shape": [
+        8,
+        64,
+        256,
+        256
+      ],
+      "stride": [
+        4194304,
+        65536,
+        256,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "encoder.maxpool output",
+      "shape": [
+        8,
+        64,
+        128,
+        128
+      ],
+      "stride": [
+        1048576,
+        16384,
+        128,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "Skip 1 (layer1 / x1: H/4)",
+      "shape": [
+        8,
+        64,
+        128,
+        128
+      ],
+      "stride": [
+        1048576,
+        16384,
+        128,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "Skip 2 (layer2 / x2: H/8)",
+      "shape": [
+        8,
+        128,
+        64,
+        64
+      ],
+      "stride": [
+        524288,
+        4096,
+        64,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "Skip 3 (layer3 / x3: H/16)",
+      "shape": [
+        8,
+        256,
+        32,
+        32
+      ],
+      "stride": [
+        262144,
+        1024,
+        32,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "Bottleneck (layer4 / x4: H/32)",
+      "shape": [
+        8,
+        512,
+        16,
+        16
+      ],
+      "stride": [
+        131072,
+        256,
+        16,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec4.up (ConvTranspose2d)",
+      "shape": [
+        8,
+        256,
+        32,
+        32
+      ],
+      "stride": [
+        262144,
+        1024,
+        32,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec4.cat([up4, skip3])",
+      "shape": [
+        8,
+        512,
+        32,
+        32
+      ],
+      "stride": [
+        524288,
+        1024,
+        32,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec4.conv output",
+      "shape": [
+        8,
+        256,
+        32,
+        32
+      ],
+      "stride": [
+        262144,
+        1024,
+        32,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec3.up (ConvTranspose2d)",
+      "shape": [
+        8,
+        128,
+        64,
+        64
+      ],
+      "stride": [
+        524288,
+        4096,
+        64,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec3.cat([up3, skip2])",
+      "shape": [
+        8,
+        256,
+        64,
+        64
+      ],
+      "stride": [
+        1048576,
+        4096,
+        64,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec3.conv output",
+      "shape": [
+        8,
+        128,
+        64,
+        64
+      ],
+      "stride": [
+        524288,
+        4096,
+        64,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec2.up (ConvTranspose2d)",
+      "shape": [
+        8,
+        64,
+        128,
+        128
+      ],
+      "stride": [
+        1048576,
+        16384,
+        128,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec2.cat([up2, skip1])",
+      "shape": [
+        8,
+        128,
+        128,
+        128
+      ],
+      "stride": [
+        2097152,
+        16384,
+        128,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec2.conv output",
+      "shape": [
+        8,
+        64,
+        128,
+        128
+      ],
+      "stride": [
+        1048576,
+        16384,
+        128,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec1.up (ConvTranspose2d)",
+      "shape": [
+        8,
+        32,
+        256,
+        256
+      ],
+      "stride": [
+        2097152,
+        65536,
+        256,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec1.cat([up1, skip0])",
+      "shape": [
+        8,
+        96,
+        256,
+        256
+      ],
+      "stride": [
+        6291456,
+        65536,
+        256,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "dec1.conv output",
+      "shape": [
+        8,
+        32,
+        256,
+        256
+      ],
+      "stride": [
+        2097152,
+        65536,
+        256,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "final_up (ConvTranspose2d)",
+      "shape": [
+        8,
+        16,
+        512,
+        512
+      ],
+      "stride": [
+        4194304,
+        262144,
+        512,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "final_conv (DoubleConv)",
+      "shape": [
+        8,
+        16,
+        512,
+        512
+      ],
+      "stride": [
+        4194304,
+        262144,
+        512,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": false,
+      "dtype": "float16"
+    },
+    {
+      "boundary": "head output (Logits: H)",
+      "shape": [
+        8,
+        1,
+        512,
+        512
+      ],
+      "stride": [
+        262144,
+        262144,
+        512,
+        1
+      ],
+      "nchw_contiguous": true,
+      "channels_last_contiguous": true,
+      "dtype": "float16"
+    }
+  ],
+  "microbenchmarks": [
+    {
+      "test_name": "1A. Conv2d(64->64, 128x128) NCHW",
+      "avg_step_ms": 4.222,
+      "conversion_ms": 1.372,
+      "nchw_to_nhwc_calls": 6,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 32.5
+    },
+    {
+      "test_name": "1B. Conv2d(64->64, 128x128) NHWC",
+      "avg_step_ms": 16.494,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "2A. ConvTranspose2d(256->128) NCHW",
+      "avg_step_ms": 1.502,
+      "conversion_ms": 0.578,
+      "nchw_to_nhwc_calls": 5,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 38.5
+    },
+    {
+      "test_name": "2B. ConvTranspose2d(256->128) NHWC",
+      "avg_step_ms": 1.179,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "3A. cat([NHWC_up, NCHW_skip]) (Mixed)",
+      "avg_step_ms": 0.944,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "3B. cat([NCHW_up, NCHW_skip]) (Pure NCHW)",
+      "avg_step_ms": 0.894,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "3C. cat([NHWC_up, NHWC_skip]) (Pure NHWC)",
+      "avg_step_ms": 0.901,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "4A. DecoderBlock3(256+128->128) NCHW",
+      "avg_step_ms": 10.767,
+      "conversion_ms": 2.261,
+      "nchw_to_nhwc_calls": 17,
+      "nhwc_to_nchw_calls": 9,
+      "conversion_pct": 21.0
+    },
+    {
+      "test_name": "4B. DecoderBlock3(256+128->128) NHWC",
+      "avg_step_ms": 56.64,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "5A. BatchNorm2d(16, 512x512) NCHW",
+      "avg_step_ms": 9.026,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "5B. BatchNorm2d(16, 512x512) NHWC",
+      "avg_step_ms": 138.591,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    }
+  ]
+}

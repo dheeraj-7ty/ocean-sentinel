@@ -1,0 +1,54 @@
+{
+  "experiment_id": "GPU_REBOOT_BASELINE_20260906",
+  "benchmark_timestamp_utc": "20260906_175911",
+  "historical_canonical": {
+    "protocol": "300 continuous batches (batch_size=8, FP16 AMP, ResNet34UNet, AdamW, Combined Loss)",
+    "throughput_samples_per_sec": 33.34,
+    "wall_time_sec": 71.99,
+    "gpu_clock_start_mhz": 1987,
+    "gpu_clock_min_mhz": 1920,
+    "gpu_clock_max_mhz": 2010,
+    "gpu_clock_end_mhz": 1942,
+    "gpu_clock_mean_approx_mhz": 1965.0,
+    "gpu_power_avg_w": 80.2,
+    "gpu_power_max_w": 87.28,
+    "gpu_temp_start_c": 80,
+    "gpu_temp_peak_c": 87,
+    "gpu_temp_final_c": 87,
+    "throttling_detected": false,
+    "source_artifact": "experiments/performance/gpu_step2b_results_20260906_131544.json"
+  },
+  "pre_reboot_controlled_reference": {
+    "protocol": "300 continuous batches (batch_size=8, Step 2B exact harness)",
+    "run_a_samples_per_sec": 31.04,
+    "run_b_samples_per_sec": 31.3,
+    "mean_samples_per_sec": 31.17,
+    "variance_samples_per_sec": 0.26,
+    "gpu_power_mean_w": 75.97,
+    "gpu_clock_mean_mhz": 1889.3,
+    "gpu_temp_peak_c": 83,
+    "source_artifact": "experiments/performance/gpu_baseline_recovery_20260906_173133/final_report.md"
+  },
+  "post_reboot_results": {
+    "run_a_samples_per_sec": 21.45,
+    "run_b_samples_per_sec": 32.1,
+    "mean_samples_per_sec": 26.77,
+    "run_to_run_spread_samples_per_sec": 10.65,
+    "run_to_run_spread_pct": 39.78,
+    "gpu_power_mean_w": 66.58,
+    "gpu_clock_mean_mhz": 1896.5,
+    "gpu_temp_peak_c": 81
+  },
+  "comparative_deltas": {
+    "vs_historical_samples_sec": -6.57,
+    "vs_historical_pct": -19.71,
+    "vs_pre_reboot_samples_sec": -4.4,
+    "vs_pre_reboot_pct": -14.12,
+    "power_delta_vs_historical_w": -13.62,
+    "power_delta_vs_pre_reboot_w": -9.39,
+    "clock_delta_vs_historical_mhz": -68.5,
+    "clock_delta_vs_pre_reboot_mhz": 7.2,
+    "temp_delta_vs_historical_c": -6,
+    "temp_delta_vs_pre_reboot_c": -2
+  }
+}

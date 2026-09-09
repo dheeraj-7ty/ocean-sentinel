@@ -1,0 +1,24 @@
+{
+  "task": "STEP_2C_B_DECODER_LAYOUT_OPTIMIZATION",
+  "phase": "ALL_PHASES_COMPLETE",
+  "experiment_id": "STEP_2C_B",
+  "status": "COMPLETED",
+  "elapsed_sec": 451.28,
+  "last_updated_utc": "2026-09-06T14:35:48Z",
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "gpu_telemetry": {
+    "temperature_c": 78.0,
+    "clock_mhz": 2002.0,
+    "power_w": 22.3,
+    "utilization_pct": 0.0,
+    "vram_allocated_mb": 943.2,
+    "vram_reserved_mb": 1988.0,
+    "vram_max_allocated_mb": 2888.97
+  },
+  "details": {
+    "results_file": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\gpu_step2c_b_results_20260906_200548.json",
+    "control_sps": 32.03,
+    "candidates_tested": 5
+  }
+}

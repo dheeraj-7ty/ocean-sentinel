@@ -1,0 +1,16 @@
+{
+  "task": "STEP_2C_A_FORENSIC_PROFILING",
+  "phase": "ALL_PHASES_COMPLETE",
+  "status": "COMPLETED",
+  "elapsed_sec": 56.41,
+  "last_updated_utc": "2026-09-06T14:07:26Z",
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "details": {
+    "output_results": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\gpu_step2c_a_results.json",
+    "output_trace": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\gpu_step2c_a_trace.json",
+    "total_conversion_ms": 57.57,
+    "total_conversion_calls": 427,
+    "baseline_samples_per_sec": 31.97
+  }
+}

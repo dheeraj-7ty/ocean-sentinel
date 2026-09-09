@@ -1,0 +1,19 @@
+{
+  "nvml_available": true,
+  "current_power_limit_w": null,
+  "default_power_limit_w": 80.0,
+  "min_power_limit_w": 1.0,
+  "max_power_limit_w": 95.0,
+  "performance_state": "P0",
+  "target_temperature_c": null,
+  "slowdown_temperature_c": null,
+  "shutdown_temperature_c": null,
+  "nvidia_smi_ceiling_limit_w": 95.0,
+  "nvidia_smi_default_limit_w": 80.0,
+  "nvidia_smi_max_limit_w": 95.0,
+  "nvidia_smi_target_temp_c": 87,
+  "nvidia_smi_slowdown_temp_c": 97,
+  "nvidia_smi_shutdown_temp_c": 100,
+  "ac_power_online": true,
+  "battery_percent": 83
+}

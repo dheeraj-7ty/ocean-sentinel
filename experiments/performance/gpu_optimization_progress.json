@@ -1,0 +1,116 @@
+{
+  "status": "COMPLETE",
+  "current_phase": "COMBINATION_TESTING",
+  "total_experiments": 10,
+  "completed_count": 13,
+  "control_baseline_samp_per_sec": 32.53,
+  "current_experiment_id": "COMBO_3_FULL_SOFTWARE_STACK",
+  "current_throughput": 32.83,
+  "best_individual_optimization": {
+    "id": "EXP_3A_TF32_HIGH",
+    "name": "TF32 Enabled + Matmul Precision High",
+    "samples_per_sec": 32.88,
+    "gain_percent": 1.08
+  },
+  "best_combined_optimization": {
+    "id": "COMBO_2_CUDNN_CHANNELS_LAST_TF32",
+    "name": "cuDNN Benchmark + Channels-Last + TF32 Matmul",
+    "samples_per_sec": 5.21,
+    "gain_percent": -84.0
+  },
+  "last_completed_experiment": "COMBO_3_FULL_SOFTWARE_STACK",
+  "experiments": {
+    "EXP_0_CONTROL": {
+      "name": "Control Baseline Reproduction",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 32.52,
+      "percentage_gain": -0.05
+    },
+    "EXP_1_CUDNN_BENCHMARK": {
+      "name": "cuDNN Autotuner Enablement",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 32.61,
+      "percentage_gain": 0.23
+    },
+    "EXP_2_CHANNELS_LAST": {
+      "name": "Channels-Last (NHWC) Memory Format",
+      "classification": "REGRESSION",
+      "samples_per_sec": 4.75,
+      "percentage_gain": -85.41
+    },
+    "EXP_3A_TF32_HIGH": {
+      "name": "TF32 Enabled + Matmul Precision High",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 32.88,
+      "percentage_gain": 1.08
+    },
+    "EXP_3B_TF32_MEDIUM": {
+      "name": "TF32 Enabled + Matmul Precision Medium",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 32.84,
+      "percentage_gain": 0.95
+    },
+    "EXP_4A_AMP_BF16": {
+      "name": "AMP BFloat16 (Native Ampere Tensor Cores)",
+      "classification": "REGRESSION",
+      "samples_per_sec": 31.37,
+      "percentage_gain": -3.58
+    },
+    "EXP_5_SYNC_TRANSFER": {
+      "name": "Host Transfer Path: Synchronous non_blocking=False",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 32.8,
+      "percentage_gain": 0.83
+    },
+    "EXP_6A_THREADS_8": {
+      "name": "CPU Intra-Op Threads = 8 (P-core matching)",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 32.82,
+      "percentage_gain": 0.89
+    },
+    "EXP_6B_THREADS_4": {
+      "name": "CPU Intra-Op Threads = 4",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 32.83,
+      "percentage_gain": 0.91
+    },
+    "EXP_7_TORCH_COMPILE": {
+      "id": "EXP_7_TORCH_COMPILE",
+      "name": "PyTorch Compilation (torch.compile)",
+      "classification": "INCOMPATIBLE",
+      "reason": "Incompatible on Windows / PyTorch without Triton: TritonMissing (Cannot find a working triton installation. Either the package is not installed or it is too old. More information on installing Triton can be found at: https://)",
+      "mean_samples_per_sec": 0.0,
+      "percentage_gain": 0.0
+    },
+    "COMBO_1_CUDNN_CHANNELS_LAST": {
+      "name": "cuDNN Benchmark + Channels-Last (NHWC)",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 5.19,
+      "percentage_gain": -84.05
+    },
+    "COMBO_2_CUDNN_CHANNELS_LAST_TF32": {
+      "name": "cuDNN Benchmark + Channels-Last + TF32 Matmul",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 5.21,
+      "percentage_gain": -84.0
+    },
+    "COMBO_3_FULL_SOFTWARE_STACK": {
+      "name": "cuDNN Benchmark + Channels-Last + TF32 + 8 Threads",
+      "classification": "NEUTRAL",
+      "samples_per_sec": 5.21,
+      "percentage_gain": -83.98
+    }
+  },
+  "last_updated_utc": "2026-09-06T12:20:09Z",
+  "current_config": {
+    "cudnn_benchmark": true,
+    "use_channels_last": true,
+    "allow_tf32": true,
+    "matmul_precision": "high",
+    "amp_dtype": "float16",
+    "use_grad_scaler": true,
+    "pin_memory": true,
+    "non_blocking": true,
+    "num_threads": 8
+  }
+}

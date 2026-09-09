@@ -1,0 +1,14 @@
+{
+  "comparison.json": "e56083033385250b713a35364888f869d36c95c60f508e5657cb0f7305c7cb5c",
+  "control_run_a.json": "e27041d9a16d62975851fa8a112c86c8a9e73e300d4a2c69540d2bea6d6fe293",
+  "control_run_b.json": "1a79d77fdf63dd336b78e31d4159439714a33b14dc18eded323f37d86de71200",
+  "current_fingerprint.json": "729cc61127a1308918388f106e21d92274b9ebf3391e21b6b930db187266b9bd",
+  "final_report.md": "33290e251bcf5f8f5d816482fe504a0071fd6d2eae91b61037041ff267382841",
+  "historical_fingerprint.json": "af2db9ca089f79ef6ca1bc1427485335db604b2c18ed65cdd8a7e05b7bd12914",
+  "machine_environment.json": "3a156f8d581aa8d2db5e0965296e6dd066a0479d34aa0e6b18cb2c163fe02ed7",
+  "power_state.json": "f8a8575e872aaf744af57b30f1b24bdb92ce2ff68c98faaa90935e909f4c992e",
+  "progress.log": "30b2b57ca5f3489e5e677f0277268d54a94b0931476fc82c8f73824816b769b2",
+  "run_state.json": "cc60aabe88ee407520414a8b97f80d5d5deaf56977ba0a7b0c5032388781e6c6",
+  "telemetry_run_a.json": "1e65802694d0e2ef2edc4a6d16972d6240325f6223001aee6620229c229e7a1f",
+  "telemetry_run_b.json": "5b0739cfa75f80148a44c15bfef050ed315ae74bef8c99be99ba0ab87ae0646e"
+}

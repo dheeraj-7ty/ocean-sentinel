@@ -1,0 +1,9 @@
+{
+  "experiment_id": "GPU_REBOOT_BASELINE_20260906",
+  "post_reboot_mean_throughput": 32.15,
+  "post_reboot_spread": 0.7,
+  "post_reboot_gpu_power_mean_w": 78.05,
+  "post_reboot_gpu_clock_mean_mhz": 1897.4,
+  "post_reboot_gpu_temp_peak_c": 82,
+  "post_reboot_power_limit_ceiling_w": null
+}

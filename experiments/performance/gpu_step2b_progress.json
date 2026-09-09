@@ -1,0 +1,13 @@
+{
+  "status": "COMPLETED",
+  "current_phase": "COMPLETE",
+  "start_time_utc": "20260906_131544",
+  "completed_experiments": 4,
+  "control_baseline_samp_per_sec": 33.52,
+  "experiments": {
+    "EXP_0_CONTROL": {
+      "mean_samples_per_sec": 33.54
+    }
+  },
+  "last_updated_utc": "2026-09-06T13:23:25Z"
+}

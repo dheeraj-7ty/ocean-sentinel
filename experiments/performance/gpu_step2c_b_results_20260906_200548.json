@@ -1,0 +1,467 @@
+{
+  "title": "Ocean Sentinel \u2014 Step 2C-B Selective Decoder Layout Optimization Benchmark Results",
+  "timestamp_utc": "2026-09-06T14:35:48Z",
+  "total_elapsed_sec": 451.27,
+  "environment": {
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "vram_total_mb": 6143.5,
+    "driver": "616.64",
+    "compute_capability": "8.6",
+    "torch_version": "2.14.0+cu126",
+    "cuda_version": "12.6",
+    "cudnn_version": 91002,
+    "os": "Windows 10 (10.0.26200)"
+  },
+  "exp01_hashes_pre": {
+    "experiments/exp01_baseline/best_model.pt": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "experiments/exp01_baseline/final_model.pt": "2E4C0881DF2F16810C4494A4071EAB320D12418151CC5F74651E91FE1F0A41AA",
+    "experiments/exp01_baseline/latest_checkpoint.pt": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+    "experiments/exp01_baseline/history.json": "E2B5EB5229E2529E1659E77D285E93275015F58DEDCA5AF1F539E45544D5FCBA",
+    "experiments/exp01_baseline/config.json": "2DF14570974288E0E6985393E139F3E23F4DD02A02C008C8F1CF00060D9A10EA",
+    "experiments/exp01_baseline/run_state.json": "F8EC3B5D461F13C8B4673E038E90CE6385E57F0B39EDD5B73156AAAD2DD0178C"
+  },
+  "exp01_hashes_post": {
+    "experiments/exp01_baseline/best_model.pt": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "experiments/exp01_baseline/final_model.pt": "2E4C0881DF2F16810C4494A4071EAB320D12418151CC5F74651E91FE1F0A41AA",
+    "experiments/exp01_baseline/latest_checkpoint.pt": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+    "experiments/exp01_baseline/history.json": "E2B5EB5229E2529E1659E77D285E93275015F58DEDCA5AF1F539E45544D5FCBA",
+    "experiments/exp01_baseline/config.json": "2DF14570974288E0E6985393E139F3E23F4DD02A02C008C8F1CF00060D9A10EA",
+    "experiments/exp01_baseline/run_state.json": "F8EC3B5D461F13C8B4673E038E90CE6385E57F0B39EDD5B73156AAAD2DD0178C"
+  },
+  "control_reproduction": {
+    "rep1": {
+      "candidate": "Control_Baseline",
+      "repetition": 1,
+      "num_measure": 100,
+      "samples_per_sec": 32.06,
+      "mean_step_ms": 249.55,
+      "median_step_ms": 249.42,
+      "p95_step_ms": 250.84,
+      "std_step_ms": 0.73,
+      "mean_fwd_ms": 77.5,
+      "mean_bwd_ms": 154.0,
+      "mean_opt_ms": 15.37,
+      "peak_vram_mb": 1980.62,
+      "temperature_c": 79.0,
+      "clock_mhz": 2010.0,
+      "power_w": 86.7,
+      "utilization_pct": 100.0,
+      "final_loss": 0.7023
+    },
+    "rep2": {
+      "candidate": "Control_Baseline",
+      "repetition": 2,
+      "num_measure": 100,
+      "samples_per_sec": 32.0,
+      "mean_step_ms": 249.99,
+      "median_step_ms": 249.89,
+      "p95_step_ms": 251.19,
+      "std_step_ms": 0.69,
+      "mean_fwd_ms": 77.76,
+      "mean_bwd_ms": 154.03,
+      "mean_opt_ms": 15.44,
+      "peak_vram_mb": 1976.62,
+      "temperature_c": 82.0,
+      "clock_mhz": 2002.0,
+      "power_w": 85.36,
+      "utilization_pct": 100.0,
+      "final_loss": 0.674
+    },
+    "mean_sps": 32.03,
+    "mean_step_ms": 249.77
+  },
+  "microbenchmarks": [
+    {
+      "test_name": "A. Conv2d NCHW [dec1 (96->32, 256x256)]",
+      "total_latency_ms": 239.9,
+      "conversion_ms": 137.818,
+      "nchw_to_nhwc_calls": 6,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 57.4
+    },
+    {
+      "test_name": "B. Conv2d NHWC [dec1 (96->32, 256x256)]",
+      "total_latency_ms": 127.176,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "F. Conv2d->BN2d NCHW [dec1 (96->32, 256x256)]",
+      "total_latency_ms": 249.341,
+      "conversion_ms": 121.49,
+      "nchw_to_nhwc_calls": 6,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 48.7
+    },
+    {
+      "test_name": "G. NHWC Conv->to(NCHW)->BN [dec1 (96->32, 256x256)]",
+      "total_latency_ms": 125.443,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "I. NHWC Conv->BN NHWC [dec1 (96->32, 256x256)]",
+      "total_latency_ms": 217.475,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "A. Conv2d NCHW [final (16->16, 512x512)]",
+      "total_latency_ms": 16.598,
+      "conversion_ms": 37.022,
+      "nchw_to_nhwc_calls": 6,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 223.1
+    },
+    {
+      "test_name": "B. Conv2d NHWC [final (16->16, 512x512)]",
+      "total_latency_ms": 11.744,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "F. Conv2d->BN2d NCHW [final (16->16, 512x512)]",
+      "total_latency_ms": 21.168,
+      "conversion_ms": 49.686,
+      "nchw_to_nhwc_calls": 6,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 234.7
+    },
+    {
+      "test_name": "G. NHWC Conv->to(NCHW)->BN [final (16->16, 512x512)]",
+      "total_latency_ms": 23.582,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "I. NHWC Conv->BN NHWC [final (16->16, 512x512)]",
+      "total_latency_ms": 103.916,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "A. Conv2d NCHW [dec2 (128->64, 128x128)]",
+      "total_latency_ms": 7.555,
+      "conversion_ms": 2.135,
+      "nchw_to_nhwc_calls": 6,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 28.3
+    },
+    {
+      "test_name": "B. Conv2d NHWC [dec2 (128->64, 128x128)]",
+      "total_latency_ms": 5.554,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "F. Conv2d->BN2d NCHW [dec2 (128->64, 128x128)]",
+      "total_latency_ms": 8.586,
+      "conversion_ms": 2.149,
+      "nchw_to_nhwc_calls": 6,
+      "nhwc_to_nchw_calls": 3,
+      "conversion_pct": 25.0
+    },
+    {
+      "test_name": "G. NHWC Conv->to(NCHW)->BN [dec2 (128->64, 128x128)]",
+      "total_latency_ms": 7.835,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "I. NHWC Conv->BN NHWC [dec2 (128->64, 128x128)]",
+      "total_latency_ms": 51.888,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "C. ConvTranspose2d NCHW",
+      "total_latency_ms": 4.937,
+      "conversion_ms": 1.598,
+      "nchw_to_nhwc_calls": 3,
+      "nhwc_to_nchw_calls": 2,
+      "conversion_pct": 32.4
+    },
+    {
+      "test_name": "D. ConvTranspose2d NHWC",
+      "total_latency_ms": 3.942,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "test_name": "E1. ConvTrans->Conv2d NCHW",
+      "total_latency_ms": 10.294,
+      "conversion_ms": 4.344,
+      "nchw_to_nhwc_calls": 9,
+      "nhwc_to_nchw_calls": 5,
+      "conversion_pct": 42.2
+    },
+    {
+      "test_name": "E2. ConvTrans->Conv2d NHWC",
+      "total_latency_ms": 6.573,
+      "conversion_ms": 0.0,
+      "nchw_to_nhwc_calls": 0,
+      "nhwc_to_nchw_calls": 0,
+      "conversion_pct": 0.0
+    }
+  ],
+  "single_block_prototypes": [
+    {
+      "block_test": "dec1 Variant A (Original NCHW)",
+      "total_step_ms": 36.308,
+      "conversion_ms": 9.719,
+      "conversion_calls": 23,
+      "conversion_pct": 26.8
+    },
+    {
+      "block_test": "dec1 Variant B (NHWC up + Selective DC)",
+      "total_step_ms": 42.28,
+      "conversion_ms": 0.0,
+      "conversion_calls": 0,
+      "conversion_pct": 0.0
+    },
+    {
+      "block_test": "dec1 Variant C (NCHW explicit cat)",
+      "total_step_ms": 36.419,
+      "conversion_ms": 10.003,
+      "conversion_calls": 23,
+      "conversion_pct": 27.5
+    },
+    {
+      "block_test": "dec1 Variant D (NCHW up + Selective DC)",
+      "total_step_ms": 46.599,
+      "conversion_ms": 1.318,
+      "conversion_calls": 5,
+      "conversion_pct": 2.8
+    },
+    {
+      "block_test": "final_stage Variant A (Original NCHW)",
+      "total_step_ms": 47.842,
+      "conversion_ms": 14.726,
+      "conversion_calls": 23,
+      "conversion_pct": 30.8
+    },
+    {
+      "block_test": "final_stage Variant B (Selective DoubleConv)",
+      "total_step_ms": 68.748,
+      "conversion_ms": 3.394,
+      "conversion_calls": 5,
+      "conversion_pct": 4.9
+    },
+    {
+      "block_test": "dec2 Variant A (Original NCHW)",
+      "total_step_ms": 17.315,
+      "conversion_ms": 3.896,
+      "conversion_calls": 23,
+      "conversion_pct": 22.5
+    },
+    {
+      "block_test": "dec2 Variant D (NCHW up + Selective DC)",
+      "total_step_ms": 19.54,
+      "conversion_ms": 0.664,
+      "conversion_calls": 5,
+      "conversion_pct": 3.4
+    }
+  ],
+  "full_loop_results": [
+    {
+      "candidate": "Control_Baseline",
+      "rep1_sps": 32.06,
+      "rep2_sps": 32.0,
+      "mean_sps": 32.03,
+      "mean_step_ms": 249.77,
+      "gain_vs_control_pct": 0.0,
+      "peak_vram_mb": 1980.62,
+      "temp_c": 82.0,
+      "verdict": "REFERENCE CONTROL"
+    },
+    {
+      "candidate": "Prototype_S1_dec1",
+      "rep1_sps": 29.98,
+      "rep2_sps": 30.1,
+      "mean_sps": 30.04,
+      "mean_step_ms": 266.31,
+      "gain_vs_control_pct": -6.21,
+      "peak_vram_mb": 2484.42,
+      "temp_c": 83.0,
+      "verdict": "REGRESSION"
+    },
+    {
+      "candidate": "Prototype_S2_final",
+      "rep1_sps": 29.61,
+      "rep2_sps": 29.59,
+      "mean_sps": 29.6,
+      "mean_step_ms": 270.28,
+      "gain_vs_control_pct": -7.59,
+      "peak_vram_mb": 2577.17,
+      "temp_c": 86.0,
+      "verdict": "REGRESSION"
+    },
+    {
+      "candidate": "Prototype_S3_dec1_final",
+      "rep1_sps": 28.05,
+      "rep2_sps": 28.06,
+      "mean_sps": 28.05,
+      "mean_step_ms": 285.17,
+      "gain_vs_control_pct": -12.43,
+      "peak_vram_mb": 2610.42,
+      "temp_c": 86.0,
+      "verdict": "REGRESSION"
+    },
+    {
+      "candidate": "Prototype_S5_all_dec",
+      "rep1_sps": 27.87,
+      "rep2_sps": 27.84,
+      "mean_sps": 27.86,
+      "mean_step_ms": 287.23,
+      "gain_vs_control_pct": -13.02,
+      "peak_vram_mb": 2637.55,
+      "temp_c": 87.0,
+      "verdict": "REGRESSION"
+    },
+    {
+      "candidate": "Alternative_Bilinear",
+      "rep1_sps": 28.42,
+      "rep2_sps": 29.3,
+      "mean_sps": 28.86,
+      "mean_step_ms": 277.29,
+      "gain_vs_control_pct": -9.9,
+      "peak_vram_mb": 2692.8,
+      "temp_c": 87.0,
+      "verdict": "REGRESSION"
+    }
+  ],
+  "numerical_correctness_gate": [
+    {
+      "candidate": "Prototype_S1_dec1",
+      "shape_match": true,
+      "is_finite": true,
+      "param_count": 24346305,
+      "param_count_matches_base": true,
+      "max_abs_diff": 0.355713,
+      "mean_abs_diff": 0.050537,
+      "base_loss": 0.6219,
+      "cand_loss": 0.6262,
+      "loss_diff": 0.004256,
+      "base_grad_norm": 0.5238,
+      "cand_grad_norm": 0.5238,
+      "grad_norm_diff": 0.0,
+      "passed": true
+    },
+    {
+      "candidate": "Prototype_S2_final",
+      "shape_match": true,
+      "is_finite": true,
+      "param_count": 24346305,
+      "param_count_matches_base": true,
+      "max_abs_diff": 0.355713,
+      "mean_abs_diff": 0.050537,
+      "base_loss": 0.6219,
+      "cand_loss": 0.6262,
+      "loss_diff": 0.004256,
+      "base_grad_norm": 0.5238,
+      "cand_grad_norm": 0.5238,
+      "grad_norm_diff": 0.0,
+      "passed": true
+    },
+    {
+      "candidate": "Prototype_S3_dec1_final",
+      "shape_match": true,
+      "is_finite": true,
+      "param_count": 24346305,
+      "param_count_matches_base": true,
+      "max_abs_diff": 0.355713,
+      "mean_abs_diff": 0.050537,
+      "base_loss": 0.6219,
+      "cand_loss": 0.6262,
+      "loss_diff": 0.004256,
+      "base_grad_norm": 0.5238,
+      "cand_grad_norm": 0.5238,
+      "grad_norm_diff": 0.0,
+      "passed": true
+    },
+    {
+      "candidate": "Prototype_S5_all_dec",
+      "shape_match": true,
+      "is_finite": true,
+      "param_count": 24346305,
+      "param_count_matches_base": true,
+      "max_abs_diff": 0.355713,
+      "mean_abs_diff": 0.050537,
+      "base_loss": 0.6219,
+      "cand_loss": 0.6262,
+      "loss_diff": 0.004257,
+      "base_grad_norm": 0.5238,
+      "cand_grad_norm": 0.5241,
+      "grad_norm_diff": 0.0003,
+      "passed": true
+    },
+    {
+      "candidate": "Alternative_Bilinear",
+      "shape_match": true,
+      "is_finite": true,
+      "param_count": 23822033,
+      "param_count_matches_base": false,
+      "max_abs_diff": 1.134766,
+      "mean_abs_diff": 0.124146,
+      "base_loss": 0.6219,
+      "cand_loss": 0.6265,
+      "loss_diff": 0.00461,
+      "base_grad_norm": 0.5238,
+      "cand_grad_norm": 0.3719,
+      "grad_norm_diff": 0.1519,
+      "passed": false
+    }
+  ],
+  "profiler_comparison": {
+    "control": {
+      "total_cuda_time_ms": 434.7,
+      "conversion_calls": 420,
+      "conversion_ms": 53.39,
+      "nchw_to_nhwc": {
+        "calls": 279,
+        "ms": 35.72
+      },
+      "nhwc_to_nchw": {
+        "calls": 141,
+        "ms": 17.68
+      }
+    },
+    "candidate_name": "Prototype_S1_dec1",
+    "candidate": {
+      "total_cuda_time_ms": 462.49,
+      "conversion_calls": 402,
+      "conversion_ms": 46.0,
+      "nchw_to_nhwc": {
+        "calls": 267,
+        "ms": 30.7
+      },
+      "nhwc_to_nchw": {
+        "calls": 135,
+        "ms": 15.3
+      }
+    },
+    "conversion_calls_change": -18,
+    "conversion_ms_change": -7.39,
+    "total_cuda_ms_change": 27.79
+  }
+}

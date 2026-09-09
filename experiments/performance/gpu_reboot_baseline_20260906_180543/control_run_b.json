@@ -1,0 +1,61 @@
+{
+  "run_id": "POST_REBOOT_RUN_B",
+  "run_name": "Post-Reboot 300-batch Sustained Control Run B",
+  "num_warmup_batches": 20,
+  "num_measure_batches": 300,
+  "wall_time_sec": 75.46,
+  "samples_per_sec": 31.8,
+  "batches_per_sec": 3.98,
+  "historical_reference_sustained": 33.34,
+  "pre_reboot_reference_mean": 31.17,
+  "delta_vs_historical_samples_sec": -1.54,
+  "delta_vs_historical_pct": -4.62,
+  "delta_vs_pre_reboot_samples_sec": 0.63,
+  "delta_vs_pre_reboot_pct": 2.02,
+  "timing_ms": {
+    "mean_step": 251.49,
+    "median_step": 253.62,
+    "std_step": 5.85,
+    "cv_step_pct": 2.33,
+    "p95_step": 258.68
+  },
+  "quarterly_breakdown": {
+    "initial_100_batches_samples_per_sec": 31.67,
+    "middle_100_batches_samples_per_sec": 31.95,
+    "final_100_batches_samples_per_sec": 31.82,
+    "throughput_drift_pct": 0.47
+  },
+  "telemetry_summary": {
+    "gpu_temp_start_c": 73,
+    "gpu_temp_peak_c": 82,
+    "gpu_temp_final_c": 81,
+    "gpu_temp_mean_c": 78.4,
+    "gpu_clock_start_mhz": 1905,
+    "gpu_clock_min_mhz": 1852,
+    "gpu_clock_max_mhz": 1905,
+    "gpu_clock_final_mhz": 1860,
+    "gpu_clock_mean_mhz": 1896.7,
+    "gpu_power_mean_w": 78.06,
+    "gpu_power_peak_w": 87.96,
+    "gpu_power_min_w": 63.21,
+    "gpu_util_mean_pct": 99.6,
+    "cpu_util_mean_pct": 20.2,
+    "raw_throttle_reasons_frequency": {
+      "0x400": 259,
+      "0x4": 60,
+      "0x404": 50
+    },
+    "verified_throttle_reasons_frequency": {
+      "None": 259,
+      "SwPowerCap": 110
+    },
+    "unverified_throttle_reasons_frequency": {
+      "Reliability (VRel - Clocks limited by voltage reliability)": 309,
+      "None": 60
+    }
+  },
+  "vram": {
+    "peak_allocated_mb": 1879.7,
+    "peak_reserved_mb": 2034.0
+  }
+}

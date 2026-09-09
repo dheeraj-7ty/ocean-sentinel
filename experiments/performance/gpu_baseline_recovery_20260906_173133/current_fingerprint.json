@@ -1,0 +1,26 @@
+{
+  "experiment_id": "GPU_BASELINE_RECOVERY_20260906",
+  "benchmark_timestamp_utc": "20260906_173133",
+  "control_runs": {
+    "run_a_throughput": 31.04,
+    "run_b_throughput": 31.3,
+    "mean_throughput": 31.17,
+    "variance_samples_per_sec": 0.26
+  },
+  "diagnostic_stage_breakdown": {
+    "num_batches": 50,
+    "wall_time_sec": 12.98,
+    "samples_per_sec": 30.83,
+    "mean_step_ms": 259.48,
+    "loader_wait_ms": 0.21,
+    "host_transfer_ms": 2.53,
+    "forward_ms": 80.39,
+    "backward_ms": 160.55,
+    "optimizer_ms": 15.6
+  },
+  "telemetry_means": {
+    "gpu_power_mean_w": 75.97,
+    "gpu_clock_mean_mhz": 1889.3,
+    "gpu_temp_peak_c": 83
+  }
+}

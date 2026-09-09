@@ -1,0 +1,12 @@
+{
+  "experiment_id": "AWCC_ULTRA_PERF_20260906_155005",
+  "thermal_mode": "Ultra Performance (Manual)",
+  "g_mode_state": "OFF (Manual)",
+  "phase": "COMPLETE",
+  "status": "SUCCESS",
+  "timestamp_utc": "2026-09-06T16:01:50Z",
+  "details": {
+    "decision": "REGRESSION",
+    "delta_pct": -45.56
+  }
+}

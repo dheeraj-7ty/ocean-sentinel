@@ -1,0 +1,65 @@
+{
+  "experiment_id": "STEP_2B_HISTORICAL_CANONICAL",
+  "sustained_300_batches": {
+    "protocol": "300 continuous batches (batch_size=8, FP16 AMP, AdamW, Combined Loss)",
+    "throughput_samples_per_sec": 33.34,
+    "wall_time_sec": 71.99,
+    "gpu_clock_start_mhz": 1987,
+    "gpu_clock_min_mhz": 1920,
+    "gpu_clock_max_mhz": 2010,
+    "gpu_clock_end_mhz": 1942,
+    "gpu_clock_mean_approx_mhz": 1965.0,
+    "gpu_power_avg_w": 80.2,
+    "gpu_power_max_w": 87.28,
+    "gpu_temp_start_c": 80,
+    "gpu_temp_peak_c": 87,
+    "gpu_temp_final_c": 87,
+    "throttling_detected": false,
+    "source_artifact": "experiments/performance/gpu_step2b_results_20260906_131544.json"
+  },
+  "repeatability_100_batches": {
+    "run_1_samp_sec": 33.56,
+    "run_2_samp_sec": 33.52,
+    "mean_samp_sec": 33.54,
+    "gpu_power_mean_w": 80.22,
+    "gpu_clock_mean_mhz": 2008.6,
+    "gpu_temp_max_c": 80
+  },
+  "model": {
+    "class": "ResNet34UNet",
+    "in_channels": 2,
+    "num_classes": 1,
+    "adaptation_method": "slice_variance_scaled",
+    "pretrained": true,
+    "total_params": 24434241
+  },
+  "dataset": {
+    "manifest": "data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "split": "train",
+    "total_tiles": 3762,
+    "tile_shape": [
+      2,
+      512,
+      512
+    ],
+    "dtype": "float32"
+  },
+  "workload": {
+    "batch_size": 8,
+    "num_workers": 4,
+    "pin_memory": true,
+    "persistent_workers": true,
+    "prefetch_factor": 2,
+    "shuffle": true,
+    "drop_last": true,
+    "precision": "AMP FP16 (GradScaler)",
+    "optimizer": "AdamW (lr=1e-4, weight_decay=1e-2)",
+    "loss": "CombinedBCEAndDiceLoss (0.5, 0.5, 1.0)"
+  },
+  "pytorch_backend": {
+    "cudnn_benchmark": true,
+    "cuda_matmul_allow_tf32": true,
+    "cudnn_allow_tf32": true,
+    "num_threads": 14
+  }
+}

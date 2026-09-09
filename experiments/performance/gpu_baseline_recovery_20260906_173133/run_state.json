@@ -1,0 +1,19 @@
+{
+  "experiment_id": "GPU_BASELINE_RECOVERY_20260906",
+  "start_time_utc": "20260906_173133",
+  "current_phase": "COMPLETE",
+  "current_repetition": 2,
+  "current_batch": 300,
+  "elapsed_time_sec": 76.7,
+  "latest_throughput": 31.3,
+  "gpu_temp": 82,
+  "gpu_clock": 1890,
+  "gpu_power": 76.62,
+  "cpu_telemetry": {
+    "cpu_util_pct": 16.6,
+    "ram_load_pct": 86
+  },
+  "failure_state": null,
+  "last_heartbeat_utc": "2026-09-06T17:36:16Z",
+  "status": "COMPLETE"
+}
