@@ -1,0 +1,23 @@
+{
+  "archive_type": "interrupted_run",
+  "experiment": "EXP-01_baseline_resnet34_unet",
+  "archive_timestamp_utc": "2026-09-06T08:28:52Z",
+  "interruption_reason": "CAO-authorized termination: re-engineering for performance, observability, and resumability per Phase 2.3 rebaseline directive",
+  "original_start_time_utc": "2026-09-06T07:39:33Z",
+  "epochs_completed": 1,
+  "epoch_1_val_iou": 0.6865206809052885,
+  "epoch_1_val_dice": 0.814126608322145,
+  "epoch_1_val_loss": 0.512979657202959,
+  "pid_terminated": 3792,
+  "command_line": "python scripts/train_exp01.py --manifest data/metadata/trujillo_2024/spatial_split_manifest.json --output-dir experiments/exp01_baseline --seed 42 --epochs 30 --batch-size 4 --accum-steps 2 --lr 1e-4 --weight-decay 1e-2 --patience 10 --num-workers 0 --log-interval 200",
+  "source_checkpoint": "experiments/exp01_baseline/best_model.pt",
+  "source_sha256": "8B306D97FA22A8B79E7E0C3F82CD1A60ED85B5DCA903697D4D1771F740AE53B6",
+  "archive_checkpoint": "experiments/archive/exp01_interrupted_20260906_135852/best_model.pt",
+  "archive_sha256": "8B306D97FA22A8B79E7E0C3F82CD1A60ED85B5DCA903697D4D1771F740AE53B6",
+  "hash_match": true,
+  "model_keys": 288,
+  "model_total_parameters": 24346305,
+  "architecture_reconstruction": "SUCCESS",
+  "status": "RECOVERY_ARTIFACT_ONLY",
+  "note": "This checkpoint is NOT a completed EXP-01 result. Do not use for evaluation."
+}
