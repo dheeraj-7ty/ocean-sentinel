@@ -1,0 +1,288 @@
+{
+  "title": "Ocean Sentinel \u2014 EXP-02A Baseline Quality & Diagnostic Audit Report",
+  "timestamp_utc": "2026-09-06T15:11:21Z",
+  "total_duration_sec": 328.71,
+  "environment": {
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "vram_total_mb": 6441.9,
+    "driver": "616.64",
+    "compute_capability": "8.6",
+    "torch_version": "2.14.0+cu126",
+    "cuda_version": "12.6",
+    "cudnn_version": 91002,
+    "os_platform": "Windows-10-10.0.26200-SP0",
+    "os_system": "Windows 10 (Build 10.0.26200)",
+    "cpu_canonical": "13th Gen Intel(R) Core(TM) i7-13650HX (14 cores / 20 logical threads)"
+  },
+  "exp01_hashes": {
+    "experiments/exp01_baseline/best_model.pt": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "experiments/exp01_baseline/final_model.pt": "2E4C0881DF2F16810C4494A4071EAB320D12418151CC5F74651E91FE1F0A41AA",
+    "experiments/exp01_baseline/latest_checkpoint.pt": "2F8F7718D687FF1621F4D92FD7190AE3D582AC67CCD2A529F72E1088A139AA6A",
+    "experiments/exp01_baseline/history.json": "E2B5EB5229E2529E1659E77D285E93275015F58DEDCA5AF1F539E45544D5FCBA",
+    "experiments/exp01_baseline/config.json": "2DF14570974288E0E6985393E139F3E23F4DD02A02C008C8F1CF00060D9A10EA",
+    "experiments/exp01_baseline/run_state.json": "F8EC3B5D461F13C8B4673E038E90CE6385E57F0B39EDD5B73156AAAD2DD0178C"
+  },
+  "checkpoint_evaluated": {
+    "path": "D:\\Projects\\ocean-sentinel\\experiments\\exp01_baseline\\best_model.pt",
+    "sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "epoch": 4,
+    "selected_threshold": 0.22
+  },
+  "canonical_metric_reproduction": {
+    "validation": {
+      "canonical_iou": 0.72231,
+      "reproduced_iou": 0.7223134904824773,
+      "difference": 3e-06,
+      "metrics": {
+        "iou": 0.7223134904824773,
+        "dice": 0.8387712161275973,
+        "precision": 0.8513816084905649,
+        "recall": 0.8265289336438669,
+        "tp": 13339791.0,
+        "fp": 2328613.0,
+        "fn": 2799742.0,
+        "tn": 736506574.0,
+        "n_tiles": 2880,
+        "threshold": 0.22
+      },
+      "ci_95": {
+        "n_boot": 1000,
+        "n_parents_sampled": 180,
+        "cluster_unit": "parent_stem",
+        "iou_ci": {
+          "mean": 0.72243,
+          "std": 0.01479,
+          "ci_95_lo": 0.69399,
+          "ci_95_hi": 0.75209
+        },
+        "dice_ci": {
+          "mean": 0.83876,
+          "std": 0.00996,
+          "ci_95_lo": 0.81935,
+          "ci_95_hi": 0.85851
+        },
+        "precision_ci": {
+          "mean": 0.85093,
+          "std": 0.0164,
+          "ci_95_lo": 0.81663,
+          "ci_95_hi": 0.88024
+        },
+        "recall_ci": {
+          "mean": 0.82734,
+          "std": 0.0165,
+          "ci_95_lo": 0.79569,
+          "ci_95_hi": 0.86191
+        }
+      }
+    },
+    "test": {
+      "canonical_iou": 0.78434,
+      "reproduced_iou": 0.7843438887049587,
+      "difference": 4e-06,
+      "metrics": {
+        "iou": 0.7843438887049587,
+        "dice": 0.879139826879694,
+        "precision": 0.8171308010802075,
+        "recall": 0.9513329565058036,
+        "tp": 30757855.0,
+        "fp": 6883432.0,
+        "fn": 1573470.0,
+        "tn": 715759963.0,
+        "n_tiles": 2880,
+        "threshold": 0.22
+      },
+      "ci_95": {
+        "n_boot": 1000,
+        "n_parents_sampled": 180,
+        "cluster_unit": "parent_stem",
+        "iou_ci": {
+          "mean": 0.78279,
+          "std": 0.01944,
+          "ci_95_lo": 0.73961,
+          "ci_95_hi": 0.81642
+        },
+        "dice_ci": {
+          "mean": 0.87803,
+          "std": 0.01231,
+          "ci_95_lo": 0.85032,
+          "ci_95_hi": 0.89894
+        },
+        "precision_ci": {
+          "mean": 0.81606,
+          "std": 0.01805,
+          "ci_95_lo": 0.77666,
+          "ci_95_hi": 0.84834
+        },
+        "recall_ci": {
+          "mean": 0.95044,
+          "std": 0.01035,
+          "ci_95_lo": 0.92757,
+          "ci_95_hi": 0.96739
+        }
+      }
+    },
+    "reproduction_status": "EXACT_BIT_PARITY"
+  },
+  "validation_vs_test_gap_analysis": {
+    "val_iou": 0.7223134904824773,
+    "test_iou": 0.7843438887049587,
+    "gap_iou": 0.06203,
+    "val_foreground_ratio": 0.021378,
+    "test_foreground_ratio": 0.042824,
+    "val_empty_tile_count": 1827,
+    "test_empty_tile_count": 1772,
+    "val_recall": 0.8265289336438669,
+    "test_recall": 0.9513329565058036,
+    "recall_gap": 0.1248,
+    "val_precision": 0.8513816084905649,
+    "test_precision": 0.8171308010802075,
+    "precision_gap": -0.03425,
+    "gap_explanation": "The +6.20 IoU point advantage on Test is predominantly explained by a 2.0x higher foreground oil prevalence (4.28% on Test vs 2.14% on Validation). Large spills dominate Test, which massively elevates model Recall from 82.65% to 95.13%, while Precision slightly declines from 85.14% to 81.71%. Because IoU = TP / (TP + FP + FN), doubling TP while halving FN creates a mathematical surge in global IoU despite zero architectural or weight change."
+  },
+  "calibration": {
+    "validation": [
+      {
+        "bin": "[0.0, 0.1)",
+        "count": 7612081,
+        "mean_pred_prob": 0.0017,
+        "observed_positive_rate": 0.0032,
+        "calibration_error": 0.0015
+      },
+      {
+        "bin": "[0.1, 0.2)",
+        "count": 10884,
+        "mean_pred_prob": 0.1427,
+        "observed_positive_rate": 0.3716,
+        "calibration_error": 0.2289
+      },
+      {
+        "bin": "[0.2, 0.3)",
+        "count": 5947,
+        "mean_pred_prob": 0.2469,
+        "observed_positive_rate": 0.4244,
+        "calibration_error": 0.1775
+      },
+      {
+        "bin": "[0.3, 0.4)",
+        "count": 4874,
+        "mean_pred_prob": 0.3498,
+        "observed_positive_rate": 0.4571,
+        "calibration_error": 0.1073
+      },
+      {
+        "bin": "[0.4, 0.5)",
+        "count": 6231,
+        "mean_pred_prob": 0.4513,
+        "observed_positive_rate": 0.4558,
+        "calibration_error": 0.0045
+      },
+      {
+        "bin": "[0.5, 0.6)",
+        "count": 4534,
+        "mean_pred_prob": 0.5489,
+        "observed_positive_rate": 0.5503,
+        "calibration_error": 0.0014
+      },
+      {
+        "bin": "[0.6, 0.7)",
+        "count": 4627,
+        "mean_pred_prob": 0.6508,
+        "observed_positive_rate": 0.6093,
+        "calibration_error": 0.0415
+      },
+      {
+        "bin": "[0.7, 0.8)",
+        "count": 5886,
+        "mean_pred_prob": 0.7524,
+        "observed_positive_rate": 0.6587,
+        "calibration_error": 0.0937
+      },
+      {
+        "bin": "[0.8, 0.9)",
+        "count": 10790,
+        "mean_pred_prob": 0.8564,
+        "observed_positive_rate": 0.7238,
+        "calibration_error": 0.1325
+      },
+      {
+        "bin": "[0.9, 1.0)",
+        "count": 121666,
+        "mean_pred_prob": 0.9833,
+        "observed_positive_rate": 0.9371,
+        "calibration_error": 0.0462
+      }
+    ],
+    "test": [
+      {
+        "bin": "[0.0, 0.1)",
+        "count": 7380237,
+        "mean_pred_prob": 0.0019,
+        "observed_positive_rate": 0.0017,
+        "calibration_error": 0.0001
+      },
+      {
+        "bin": "[0.1, 0.2)",
+        "count": 15307,
+        "mean_pred_prob": 0.1436,
+        "observed_positive_rate": 0.1855,
+        "calibration_error": 0.0419
+      },
+      {
+        "bin": "[0.2, 0.3)",
+        "count": 9227,
+        "mean_pred_prob": 0.2477,
+        "observed_positive_rate": 0.2145,
+        "calibration_error": 0.0333
+      },
+      {
+        "bin": "[0.3, 0.4)",
+        "count": 8559,
+        "mean_pred_prob": 0.3508,
+        "observed_positive_rate": 0.2533,
+        "calibration_error": 0.0975
+      },
+      {
+        "bin": "[0.4, 0.5)",
+        "count": 12993,
+        "mean_pred_prob": 0.4536,
+        "observed_positive_rate": 0.2712,
+        "calibration_error": 0.1824
+      },
+      {
+        "bin": "[0.5, 0.6)",
+        "count": 9781,
+        "mean_pred_prob": 0.5482,
+        "observed_positive_rate": 0.345,
+        "calibration_error": 0.2033
+      },
+      {
+        "bin": "[0.6, 0.7)",
+        "count": 10154,
+        "mean_pred_prob": 0.651,
+        "observed_positive_rate": 0.4088,
+        "calibration_error": 0.2422
+      },
+      {
+        "bin": "[0.7, 0.8)",
+        "count": 13344,
+        "mean_pred_prob": 0.7529,
+        "observed_positive_rate": 0.4865,
+        "calibration_error": 0.2664
+      },
+      {
+        "bin": "[0.8, 0.9)",
+        "count": 25104,
+        "mean_pred_prob": 0.8565,
+        "observed_positive_rate": 0.6147,
+        "calibration_error": 0.2418
+      },
+      {
+        "bin": "[0.9, 1.0)",
+        "count": 302814,
+        "mean_pred_prob": 0.9784,
+        "observed_positive_rate": 0.9264,
+        "calibration_error": 0.052
+      }
+    ]
+  }
+}

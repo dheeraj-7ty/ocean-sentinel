@@ -1,0 +1,81 @@
+{
+  "experiment_id": "EXP-02B-0_hard_negative_design_and_candidate_audit",
+  "timestamp_utc": "2026-09-09T02:18:42Z",
+  "status": "PASS",
+  "governing_cao_authorization": "EXP02B-0 REVISION 3",
+  "scientific_intervention": "HARD_NEGATIVE_SAMPLING_ONLY",
+  "cryptographic_provenance": {
+    "canonical_spatial_split_manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "canonical_teacher_model_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "certified_pretrained_resnet34_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+    "candidate_manifest_sha256": "5876A4E65FA636F6C0CD39377E56EEC6D9E848E8E48254927BE71ED4668B97E7",
+    "output_directory": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp02b_0_hard_negative_design_20260909_021500"
+  },
+  "teacher_specification": {
+    "path": "D:\\Projects\\ocean-sentinel\\experiments\\exp01_baseline\\best_model.pt",
+    "sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "model_class": "ocean_sentinel.ml.unet_resnet.ResNet34UNet",
+    "parameters": 24365359,
+    "inference_mode": "model.eval() with torch.no_grad()",
+    "diagnostic_threshold": 0.22
+  },
+  "candidate_mining_summary": {
+    "target_split": "train_only",
+    "total_train_tiles": 13440,
+    "positive_spill_tiles": 5083,
+    "candidate_hard_negatives": 1605,
+    "ordinary_gt_negatives": 6752,
+    "cutoff_rule": "is_gt_negative AND fp_pixel_count >= 100"
+  },
+  "sampler_configuration": {
+    "sampler_class": "torch.utils.data.WeightedRandomSampler",
+    "replacement": true,
+    "num_samples": 13440,
+    "batch_size": 8,
+    "batches_per_epoch": 1680,
+    "generator_seed": 42,
+    "weight_vector": {
+      "w_pos": 1.0,
+      "w_hard_neg": 2.25,
+      "w_ord_neg": 0.75,
+      "hard_to_ord_ratio": 3.0
+    },
+    "dry_run_draws": {
+      "total_draws": 13440,
+      "unique_tiles_drawn": 8059,
+      "unique_tiles_pct": 59.96,
+      "duplicate_draws": 5381,
+      "duplicate_draws_pct": 40.04,
+      "positive_draws_observed": 4901,
+      "positive_draws_expected": 4965.42,
+      "positive_draws_pct": 36.47,
+      "hard_negative_draws_observed": 3590,
+      "hard_negative_draws_expected": 3527.72,
+      "hard_negative_draws_pct": 26.71,
+      "ordinary_negative_draws_observed": 4949,
+      "ordinary_negative_draws_expected": 4946.86,
+      "ordinary_negative_draws_pct": 36.82,
+      "mean_draws_per_positive_tile": 0.964,
+      "mean_draws_per_hard_negative_tile": 2.237,
+      "mean_draws_per_ordinary_negative_tile": 0.733,
+      "effective_hard_to_ordinary_exposure_ratio": 3.052,
+      "theoretical_exposure_ratio": 3.0
+    }
+  },
+  "exp02b_1_initialization_contract": {
+    "trajectory_type": "FRESH_TRAJECTORY_IDENTICALLY_INITIALIZED_TO_EXP01",
+    "pretrained_weights_artifact": "torchvision://resnet34 (resnet34-b627a593.pth)",
+    "pretrained_weights_sha256": "B627A593BCBE140C234610266FE4F8AE95EA42FC881D091C9B6052E6B1D0590F",
+    "model_adaptation": "slice_variance_scaled",
+    "model_seed": 42,
+    "optimizer": "AdamW (fresh initial state, lr=0.0001, wd=0.01)",
+    "scheduler": "CosineAnnealingLR (T_max=30, last_epoch=-1, eta_min=1e-06)",
+    "resume_prohibition": "EXP02B-1 will NOT resume from any EXP01 trained checkpoint or any C-C checkpoint."
+  },
+  "pre_registered_evaluation": {
+    "primary_endpoint": "Validation GT-negative tile FA_rate at threshold 0.22 <= 17.0%",
+    "statistical_test": "Two-sided paired McNemar test on n=1,827 validation GT-negative tiles (alpha=0.05)",
+    "safety_recall_lower_bound": 0.79,
+    "safety_iou_lower_bound": 0.7
+  }
+}

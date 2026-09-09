@@ -1,0 +1,187 @@
+{
+  "phase": "EXP02B-0_FINAL_AUDIT",
+  "timestamp_utc": "2026-09-09T02:16:54Z",
+  "target_split": "train_only",
+  "total_train_tiles": 13440,
+  "eligible_gt_negative_tiles": 8357,
+  "eligible_gt_negative_pct": 62.18,
+  "positive_spill_tiles": 5083,
+  "positive_spill_pct": 37.82,
+  "diagnostic_threshold": 0.22,
+  "zero_fp_tiles": 5758,
+  "zero_fp_pct": 68.9,
+  "any_fp_tiles": 2599,
+  "any_fp_pct": 31.1,
+  "max_prob_distribution": {
+    "min": 0.016976,
+    "p10": 0.031449,
+    "p25": 0.038777,
+    "p50": 0.061703,
+    "p75": 0.513135,
+    "p90": 0.9776436,
+    "p95": 0.9952692000000001,
+    "p99": 0.99918764,
+    "max": 0.999949,
+    "mean": 0.28709924685892063,
+    "std": 0.36952379665386587
+  },
+  "mean_prob_distribution": {
+    "min": 0.000365,
+    "p10": 0.001114,
+    "p25": 0.001274,
+    "p50": 0.00167,
+    "p75": 0.002394,
+    "p90": 0.0036876000000000022,
+    "p95": 0.006882199999999998,
+    "p99": 0.11679040000000054,
+    "max": 0.983726,
+    "mean": 0.007595784851023094,
+    "std": 0.05678091408039407
+  },
+  "fp_pixel_count_all_negatives": {
+    "min": 0.0,
+    "p10": 0.0,
+    "p25": 0.0,
+    "p50": 0.0,
+    "p75": 30.0,
+    "p90": 430.8000000000011,
+    "p95": 1493.199999999999,
+    "p99": 39247.84000000068,
+    "max": 262144.0,
+    "mean": 1874.8562881416776,
+    "std": 17085.991426431763
+  },
+  "fp_pixel_count_pos_only": {
+    "min": 1.0,
+    "p10": 9.0,
+    "p25": 45.0,
+    "p50": 168.0,
+    "p75": 711.5,
+    "p90": 3527.0000000000055,
+    "p95": 17885.399999999972,
+    "p99": 220538.83999999997,
+    "max": 262144.0,
+    "mean": 6028.539438245479,
+    "std": 30226.715462951404
+  },
+  "max_connected_component_pos_only": {
+    "min": 1.0,
+    "p10": 8.0,
+    "p25": 41.5,
+    "p50": 149.0,
+    "p75": 561.0,
+    "p90": 2144.800000000004,
+    "p95": 9181.19999999999,
+    "p99": 214827.5599999999,
+    "max": 262144.0,
+    "mean": 5362.150442477876,
+    "std": 29531.370254848724
+  },
+  "fp_area_frequencies": {
+    "fp_gte_1": 2599,
+    "fp_gte_10": 2331,
+    "fp_gte_50": 1910,
+    "fp_gte_100": 1605,
+    "fp_gte_500": 786,
+    "fp_gte_1000": 528,
+    "fp_gte_5000": 213,
+    "fp_gte_10000": 162
+  },
+  "teacher_population_diagnostic": {
+    "limitation_statement": "Hard-negative candidates are mined from teacher inferences on the teacher's own training population. Because the teacher was trained on these tiles, low false-positive rates on training negatives may reflect training-set memorization. Conversely, persistent false positives on training negatives indicate severe lookalike features, high radar clutter, or unmodeled ocean backscatter ambiguity that survived 30 epochs of optimization.",
+    "total_parent_patches_with_negatives": 839,
+    "parent_patches_with_any_fp": 718,
+    "parent_patches_with_all_fp": 19,
+    "top_10_fp_concentrated_patches": [
+      {
+        "parent_stem": "00536",
+        "neg_tiles": 15,
+        "fp_tiles": 14,
+        "fp_rate": 0.9333
+      },
+      {
+        "parent_stem": "00633",
+        "neg_tiles": 14,
+        "fp_tiles": 12,
+        "fp_rate": 0.8571
+      },
+      {
+        "parent_stem": "00183",
+        "neg_tiles": 12,
+        "fp_tiles": 11,
+        "fp_rate": 0.9167
+      },
+      {
+        "parent_stem": "00308",
+        "neg_tiles": 11,
+        "fp_tiles": 11,
+        "fp_rate": 1.0
+      },
+      {
+        "parent_stem": "00309",
+        "neg_tiles": 11,
+        "fp_tiles": 11,
+        "fp_rate": 1.0
+      },
+      {
+        "parent_stem": "00430",
+        "neg_tiles": 11,
+        "fp_tiles": 11,
+        "fp_rate": 1.0
+      },
+      {
+        "parent_stem": "00632",
+        "neg_tiles": 13,
+        "fp_tiles": 11,
+        "fp_rate": 0.8462
+      },
+      {
+        "parent_stem": "00634",
+        "neg_tiles": 13,
+        "fp_tiles": 11,
+        "fp_rate": 0.8462
+      },
+      {
+        "parent_stem": "00658",
+        "neg_tiles": 11,
+        "fp_tiles": 11,
+        "fp_rate": 1.0
+      },
+      {
+        "parent_stem": "00712",
+        "neg_tiles": 12,
+        "fp_tiles": 11,
+        "fp_rate": 0.9167
+      }
+    ]
+  },
+  "status": "PASS",
+  "classification_breakdown": {
+    "positive_spill_tiles": {
+      "count": 5083,
+      "pct_of_train": 37.82,
+      "sampling_weight": 1.0,
+      "expected_epoch_draws": 4965.4,
+      "expected_exposure_pct": 36.95
+    },
+    "candidate_hard_negatives": {
+      "count": 1605,
+      "pct_of_train": 11.94,
+      "pct_of_gt_negatives": 19.21,
+      "sampling_weight": 2.25,
+      "expected_epoch_draws": 3527.7,
+      "expected_exposure_pct": 26.25,
+      "selection_rule": "is_gt_negative AND fp_pixel_count >= 100 at threshold 0.22"
+    },
+    "ordinary_gt_negatives": {
+      "count": 6752,
+      "pct_of_train": 50.24,
+      "pct_of_gt_negatives": 80.79,
+      "sampling_weight": 0.75,
+      "expected_epoch_draws": 4946.9,
+      "expected_exposure_pct": 36.81,
+      "selection_rule": "is_gt_negative AND fp_pixel_count < 100 at threshold 0.22"
+    }
+  },
+  "effective_exposure_multiplier": 3.0
+}

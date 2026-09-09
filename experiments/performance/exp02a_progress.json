@@ -1,0 +1,18 @@
+{
+  "task": "EXP_02A_SEGMENTATION_QUALITY_AUDIT",
+  "phase": "ALL_PHASES_COMPLETE",
+  "subphase": "EXP02A_AUDIT",
+  "status": "COMPLETED",
+  "elapsed_sec": 328.72,
+  "last_updated_utc": "2026-09-06T15:11:21Z",
+  "device": "cuda",
+  "details": {
+    "quality_audit_json": "D:\\Projects\\ocean-sentinel\\experiments\\exp02a_baseline_quality_audit.json",
+    "error_summary_json": "D:\\Projects\\ocean-sentinel\\experiments\\exp02a_error_summary.json",
+    "threshold_analysis_json": "D:\\Projects\\ocean-sentinel\\experiments\\exp02a_threshold_analysis.json",
+    "group_metrics_json": "D:\\Projects\\ocean-sentinel\\experiments\\exp02a_group_metrics.json",
+    "gallery_dir": "D:\\Projects\\ocean-sentinel\\experiments\\exp02a_qualitative_gallery",
+    "val_iou": 0.7223134904824773,
+    "test_iou": 0.7843438887049587
+  }
+}
