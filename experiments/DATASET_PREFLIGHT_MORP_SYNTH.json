@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_type": "DATASET_PREFLIGHT",
+  "version": "1.1.0",
+  "generated_at_utc": "2026-09-09T17:15:00Z",
+  "target_specification": {
+    "intended_dataset_identity": "MORP-Synth Peruvian Coastal Dataset (Andre Juarez, Luis Salsavilca, Frida Coaquira, Celso Gonzales, arXiv:2512.02290v1)",
+    "target_status": "UNRESOLVED",
+    "primary_authors": [
+      "Andre Juarez (André Juárez Castro)",
+      "Luis Salsavilca",
+      "Frida Coaquira",
+      "Celso Gonzales"
+    ],
+    "author_affiliations": [
+      "Circulo de Investigacion de Maquinas de Aprendizaje (CIMA)",
+      "Departamento de Estadistica e Informatica, Universidad Nacional Agraria La Molina (UNALM), Lima, Peru"
+    ],
+    "expected_platform": {
+      "value": "Sentinel-1",
+      "classification": "OBSERVED",
+      "verification_status": "REQUIRED"
+    },
+    "expected_sensor_band": {
+      "value": "C-band (5.405 GHz), IW swath, GRD product",
+      "classification": "OBSERVED",
+      "verification_status": "REQUIRED"
+    },
+    "expected_polarizations": {
+      "value": ["VV"],
+      "classification": "OBSERVED",
+      "verification_status": "REQUIRED"
+    },
+    "expected_geographic_domain": {
+      "value": "Peru (Peruvian Coastal Waters, Southeast Pacific / Humboldt Current Upwelling Zone; 40 scenes spanning Callao, Talara, Ilo)",
+      "classification": "OBSERVED",
+      "verification_status": "REQUIRED"
+    },
+    "expected_dataset_structure": {
+      "value": "2,112 labeled 512x512 patches extracted from 40 Sentinel-1 GRD scenes (2014-2024)",
+      "classification": "OBSERVED",
+      "verification_status": "REQUIRED"
+    },
+    "expected_mask_semantics": {
+      "value": "5 semantic classes harmonized with CleanSeaNet: Sea (0), Oil spill (1), Look-alike (2), Ships (3), Coastal Land (4); binary evaluation focus on {0, 1}",
+      "classification": "OBSERVED",
+      "verification_status": "REQUIRED"
+    },
+    "expected_doi": {
+      "value": null,
+      "classification": "UNKNOWN",
+      "verification_status": "NOT_YET_MINTED"
+    },
+    "mandatory_positive_keywords": [
+      "MORP",
+      "Peru"
+    ],
+    "prohibited_negative_guards": [
+      "UAVSAR",
+      "airborne",
+      "L-band",
+      "Gulf of Mexico",
+      "QPOSD",
+      "Quad-Polarization"
+    ]
+  },
+  "candidate_resolution_evaluation": {
+    "candidate_query": "10.5281/zenodo.19258036",
+    "resolved_record_id": 19258036,
+    "resolved_doi": "10.5281/zenodo.19258036",
+    "resolved_title": "Quad-Polarization Dataset for Marine Oil Spill and Look-Alike Segmentation",
+    "resolved_authors": [
+      "Jamal, Sohail",
+      "Li, Yu"
+    ],
+    "resolved_affiliation": "Beijing University of Technology",
+    "resolved_sensor_observed": "Airborne UAVSAR L-band polarimetric SAR",
+    "resolved_geographic_domain_observed": "U.S. Gulf of Mexico (2010-2022)",
+    "resolved_archive_filename_observed": "QPOSD.zip",
+    "resolved_archive_size_bytes": 3871940048,
+    "resolved_archive_md5": "876771b06f9ae344bdb1843f98b0a7aa"
+  },
+  "acceptance_criteria": [
+    "Resolved record must originate from authorized authors (Juarez, Salsavilca, Coaquira, Gonzales) or UNALM/CIMA.",
+    "Resolved record must match expected DOI if formally established upon manuscript acceptance.",
+    "Resolved record title, description, and keywords must reference Sentinel-1, C-band, and Peruvian coast.",
+    "Resolved record must contain mandatory positive keywords ['MORP', 'Peru'].",
+    "Resolved record must NOT match any prohibited negative guards."
+  ],
+  "rejection_criteria": [
+    "Detection of airborne sensor (UAVSAR).",
+    "Detection of L-band radar frequency.",
+    "Detection of non-Peruvian domain (Gulf of Mexico).",
+    "Detection of substituted dataset acronym (QPOSD).",
+    "Absence of mandatory Peruvian / MORP terminology."
+  ],
+  "verification_audit_outcome": {
+    "decision": "BLOCKED_DATASET_PROVENANCE",
+    "is_valid": false,
+    "mismatches_detected": [
+      "PROHIBITED_KEYWORD_DETECTED: Record contains prohibited keyword 'UAVSAR'.",
+      "PROHIBITED_KEYWORD_DETECTED: Record contains prohibited keyword 'L-band'.",
+      "PROHIBITED_KEYWORD_DETECTED: Record contains prohibited keyword 'Gulf of Mexico'.",
+      "PROHIBITED_KEYWORD_DETECTED: Record contains prohibited keyword 'QPOSD'.",
+      "PROHIBITED_KEYWORD_DETECTED: Record contains prohibited keyword 'Quad-Polarization'.",
+      "MISSING_REQUIRED_KEYWORD: Required keyword 'MORP' was not found in record metadata.",
+      "MISSING_REQUIRED_KEYWORD: Required keyword 'Peru' was not found in record metadata.",
+      "GEOGRAPHIC_DOMAIN_MISMATCH: Expected region 'Peru' not referenced in record metadata.",
+      "AUTHOR_MISMATCH: Expected Juarez et al. (UNALM), found Jamal & Li (Beijing Univ. of Technology)."
+    ],
+    "token_issued": null,
+    "download_authorized": false,
+    "archive_requests_permitted": 0,
+    "bytes_permitted": 0
+  },
+  "current_data_access_declaration": {
+    "status": "MORP_SYNTH_DATA_ACCESS = UNRESOLVED",
+    "decision": "BLOCKED_DATASET_PROVENANCE",
+    "literature_finding": "arXiv:2512.02290v1 explicitly states under Data and Code Availability that Peruvian ground-truth masks and metadata will be uploaded to Zenodo upon manuscript acceptance.",
+    "github_repository": "https://github.com/andrexandrex/MorpSynth (code available, raw dataset rasters and masks omitted)",
+    "huggingface_profile": "https://huggingface.co/andrexandrex (user profile exists, 0 public datasets/models)",
+    "zenodo_status": "No published record exists on Zenodo for MORP-Synth as of 2026-09-09.",
+    "remedial_action": "Dataset acquisition remains strictly blocked pending author communication or manuscript acceptance announcement."
+  }
+}
