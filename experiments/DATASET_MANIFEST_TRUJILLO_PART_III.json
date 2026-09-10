@@ -1,0 +1,55 @@
+{
+  "manifest_version": "1.0",
+  "generated_at_utc": "2026-09-09T17:59:02Z",
+  "dataset_identity": "Trujillo Part III Held-Out Test Set",
+  "scientific_role": "SAME-FAMILY HOLDOUT TEST SET / SAME-FAMILY GENERALIZATION",
+  "provenance_status": "NETWORK_BLOCKED",
+  "repository": {
+    "provider": "Zenodo",
+    "doi": "10.5281/zenodo.13761290",
+    "record_id": 13761290,
+    "title": "Sentinel-1 SAR Oil spill image dataset for train, validate, and test deep learning models. Part III",
+    "publication_date": "2024-09-13",
+    "license": "CC-BY-4.0"
+  },
+  "archive": {
+    "filename": "02_Test_images_and_ground_truth.7z",
+    "expected_size_bytes": 10630044484,
+    "expected_size_gb": 9.90,
+    "expected_md5": "5dce64cd7ff9d80189d13504bd3bcbf5",
+    "status": "NOT_ACQUIRED_NETWORK_BLOCKED"
+  },
+  "preflight_checks": {
+    "fresh_live_provenance_query": "BLOCKED_HTTP_403_RATE_LIMIT",
+    "provenance_spec_contract": "MATCHES_CACHED_SPECIFICATION",
+    "disk_capacity_check": "PASS",
+    "disk_free_gb": 386.72,
+    "disk_estimated_required_gb": 37.90,
+    "stale_state_check": "PASS",
+    "network_transfer_endpoint": "BLOCKED_BEFORE_TRANSFER_HTTP_403"
+  },
+  "quarantine_storage": {
+    "target_dir": "data/raw/external_validation/trujillo_part_iii",
+    "files_on_disk": 0,
+    "bytes_on_disk": 0
+  },
+  "frozen_model": {
+    "run_id": "exp02c_annealed_hard_negative_20260909_144000",
+    "checkpoint": "best_model.pt",
+    "sha256": "14073F677F0525D2B32358056BCFAB7ADA4B598B03DB4DEB5D3A9CE162B5071A",
+    "locked_threshold": 0.22,
+    "forward_passes_executed": 0,
+    "canonical_normalization": {
+      "channel_means": [
+        -33.2331369895,
+        -19.9412158528
+      ],
+      "channel_stds": [
+        6.4899856660,
+        4.5313456848
+      ],
+      "channel_order_mapping": "UNKNOWN"
+    }
+  },
+  "final_qualification_state": "TRUJILLO_PART_III_ACQUISITION_FAILED"
+}
