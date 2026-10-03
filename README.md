@@ -1,7 +1,7 @@
 # Ocean Sentinel
 
 > **Earth-Observation Maritime Investigation & SAR Anomaly Platform**
-> Operational real-data Sentinel-1 acquisition, cryptographic provenance, fail-closed SAR validation, and REST API evidence orchestration.
+> Operational real-data Sentinel-1 acquisition, SHA-256 integrity binding and provenance metadata, fail-closed SAR validation, and REST API evidence orchestration.
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -15,12 +15,12 @@
 
 Ocean Sentinel is an Earth-observation maritime investigation platform engineered to process real synthetic aperture radar (SAR) observations from the European Space Agency's Copernicus constellation.
 
-The system provides an end-to-end, fail-closed operational bridge from user-defined spatio-temporal requests to validated, cryptographically bound satellite evidence:
+The system provides an end-to-end, fail-closed operational bridge from user-defined spatio-temporal requests to validated, SHA-256 integrity-bound satellite evidence:
 - **Discovers** Sentinel-1 GRD observations matching user Areas of Interest (AOI).
 - **Retrieves** real dual-polarization (`[VV, VH]`) radar rasters from the Copernicus Data Space Ecosystem (CDSE).
-- **Persists** acquired imagery atomically with cryptographic SHA-256 digests and structured metadata sidecars.
+- **Persists** acquired imagery atomically with SHA-256 integrity digests and structured metadata sidecars.
 - **Validates** radiometric properties, geospatial coordinate reference systems, and polarization channel contracts (`Ch0 = VH`, `Ch1 = VV`).
-- **Orchestrates** investigation jobs through a deterministic lifecycle into a sealed evidence state (`READY_FOR_DETECTION`).
+- **Orchestrates** investigation jobs through a deterministic lifecycle into a structured operational evidence state (`READY_FOR_DETECTION`).
 
 For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md).
 
@@ -31,7 +31,7 @@ For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](do
 | Status Dimension | Verified Reality | Evidence Authority |
 | :--- | :--- | :--- |
 | **Current Milestone** | **Phase 6C Closure & Operational Contract Hardening** | PR #11 (`3c5ca81`), PR #10 (`12d7be6`) |
-| **Operational Pipeline** | **Production-grade synchronous workflow operational** | Proven via live CDSE & live REST API smoke tests |
+| **Operational Pipeline** | **Operational synchronous acquisition workflow verified for current Phase 6C scope** | Proven via live CDSE & live REST API smoke tests |
 | **Scientific Safety** | **Strictly Gated (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` fail-closed firewall |
 | **Protected Baseline** | **8/8 Canonical baseline files bitwise intact (100%)** | `test_all_eight_protected_baseline_hashes_match` |
 | **Automated Tests** | **201/201 In-scope tests passing (100%)** | 9 governed operational and guardrail suites |
@@ -48,7 +48,7 @@ The Phase 6 operational chain transforms raw satellite data into validated, audi
 [ Operator / API Request ]
             │  (AOI Polygon + Datetime Window + Polarization [VV, VH])
             ▼
-    [ SUBMITTED ] ─────────── (Job Manifest Initialized in outputs/jobs/)
+    [ REQUESTED ] ─────────── (Job Manifest Initialized in outputs/jobs/)
             │
             ▼
    [ DISCOVERING ] ────────── (Copernicus CDSE STAC Search: sentinel-1-grd)
@@ -63,7 +63,7 @@ The Phase 6 operational chain transforms raw satellite data into validated, audi
     [ VALIDATING ] ────────── (SHA-256 Hash Binding + SAR Preflight + Mapping A Channel Order)
             │
             ▼
-[ READY_FOR_DETECTION ] ───── (Evidence Object Sealed: execution_authorized=False, has_prediction=False)
+[ READY_FOR_DETECTION ] ───── (Structured Operational Evidence State: execution_authorized=False, has_prediction=False)
 ```
 
 ### Core Operational Invariants
@@ -92,7 +92,7 @@ SCIENTIFIC_SAFETY_STATE:
   VESSEL_ATTRIBUTION: 0 (Zero causal blame assigned)
 ```
 
-The canonical trained model checkpoint [`experiments/performance/exp06_positive_bce_weight/best_model.pt`](file:///d:/Projects/ocean-sentinel/experiments/performance/exp06_positive_bce_weight/best_model.pt) is verified against the canonical SHA-256 digest (`B5FFCCA3...E8DF`) derived dynamically from [`experiments/ARTIFACT_REGISTRY.md`](experiments/ARTIFACT_REGISTRY.md) Section 7.1.
+The canonical trained model checkpoint [`experiments/performance/exp06_positive_bce_weight/best_model.pt`](experiments/performance/exp06_positive_bce_weight/best_model.pt) is verified against the canonical SHA-256 digest (`B5FFCCA3...E8DF`) derived dynamically from [`experiments/ARTIFACT_REGISTRY.md`](experiments/ARTIFACT_REGISTRY.md) Section 7.1.
 
 ---
 
@@ -111,12 +111,13 @@ The canonical trained model checkpoint [`experiments/performance/exp06_positive_
 
 ## 6. Project History & Reconciled Taxonomy
 
-The repository history comprises four distinct engineering tracks:
+The repository history comprises four historical / current engineering tracks plus one planned next engineering track:
 
 1. **Track 1: Foundation & Data Access Prototype (Phases 1A – 1C)**: Initial package layout, Copernicus OAuth2 authentication, STAC discovery, and exploratory preprocessing. *(Historical / Superseded)*
 2. **Track 2: Scientific Research & ML Training (Phases 2 – 8, EXP-01 – EXP-08)**: Baseline model exploration, hard negative training (EXP-03–EXP-06), Part III external evaluation, and OPS-01/OPS-02 dataset split freezes. *(Historical Research Baseline)*
 3. **Track 3: Governance V2 & Repository Integration**: 8 protected baseline files, machine-verifiable rule/lesson/incident catalogs, 10-commit-group integration, and surgical artifact accounting. *(Governed / Active)*
-4. **Track 4: Operational Production Pipeline (Phases 6A – 6C)**: Fail-closed operational SAR pipeline, live CDSE acquisition proof, persistent GeoTIFF storage, and FastAPI REST endpoints. *(Current Verified Milestone)*
+4. **Track 4: Operational Pipeline (Phases 6A – 6C)**: Fail-closed operational SAR pipeline, live CDSE acquisition proof, persistent GeoTIFF storage, and FastAPI REST endpoints. *(Current Verified Milestone)*
+5. **Track 5: Operational Visualization & Globe (Phase 7)**: Interactive geospatial investigation interface and 3D globe visualization. *(Planned Next Engineering Milestone)*
 
 For the complete evidence-backed timeline, see [**`docs/PROJECT_PHASE_HISTORY.md`**](docs/PROJECT_PHASE_HISTORY.md).
 For the complete claim-to-proof mapping, see [**`docs/EVIDENCE_MATRIX.md`**](docs/EVIDENCE_MATRIX.md).
@@ -240,7 +241,7 @@ npm run dev
 - **Phase 7: 3D Operational Globe & Geospatial Investigation Interface**:
   - Connect the Three.js interactive globe directly to the Phase 6C REST API.
   - Visualize Sentinel-1 observation footprints, AOI bounding boxes, and persisted GeoTIFF metadata.
-  - Stream real-time acquisition state transitions (`SUBMITTED` → `READY_FOR_DETECTION`).
+  - Stream real-time acquisition state transitions (`REQUESTED` → `READY_FOR_DETECTION`).
   - Maintain the scientific safety firewall (`EXECUTION_AUTHORIZED = False`).
 
 ---

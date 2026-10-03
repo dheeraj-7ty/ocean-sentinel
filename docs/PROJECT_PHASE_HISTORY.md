@@ -8,22 +8,22 @@
 
 ## 1. Executive Taxonomy Reconciliation
 
-Project Ocean Sentinel's development history spans four orthogonal engineering tracks. Historical documentation references multiple phase-numbering conventions; this document reconciles them into an unambiguous, evidence-backed timeline.
+Project Ocean Sentinel's development history is structured across four historical / current engineering tracks plus one planned next engineering track. Because these tracks originated in separate historical project workstreams that have now been unified into a single coherent repository, phase numbers can recur across distinct tracks (for example, historical scientific Phase 6 external evaluation vs. operational Phase 6A–6C pipeline; historical scientific Phase 7 lookalikes vs. planned operational Phase 7 3D globe interface).
 
 ```
-TRACK 1: PROTOTYPE & DATA ACCESS (Phases 1A – 1C) [HISTORICAL]
+TRACK 1: HISTORICAL PROTOTYPE & DATA ACCESS (Phases 1A – 1C) [HISTORICAL]
    │
    ▼
-TRACK 2: SCIENTIFIC RESEARCH & ML EXPERIMENTS (Phases 2 – 8, EXP-01 – EXP-08) [HISTORICAL RESEARCH BASELINE]
+TRACK 2: HISTORICAL SCIENTIFIC RESEARCH & ML (Phases 2 – 8, EXP-01 – EXP-08) [HISTORICAL RESEARCH BASELINE]
    │
    ▼
 TRACK 3: GOVERNANCE V2 & REPOSITORY INTEGRATION (10-Commit Group Boundary) [GOVERNED / ACTIVE]
    │
    ▼
-TRACK 4: OPERATIONAL PRODUCTION PIPELINE (Phases 6A – 6C) [CURRENT COMPLETED MILESTONE]
+TRACK 4: CURRENT OPERATIONAL PIPELINE (Phases 6A – 6C) [CURRENT COMPLETED MILESTONE]
    │
    ▼
-TRACK 5: OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [NEXT ENGINEERING MILESTONE]
+TRACK 5: PLANNED OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [PLANNED NEXT ENGINEERING TRACK]
 ```
 
 ---
@@ -60,7 +60,7 @@ TRACK 5: OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [NEXT ENGINEERING MILESTONE
 > [!IMPORTANT]
 > **Distinction Between Phase 6 Scientific vs Phase 6 Operational**:
 > - **Historical Phase 6 (Sept 12, 2026)**: Evaluated model weight performance against external Peruvian SAR holdouts.
-> - **Operational Phase 6 (Oct 2026)**: Engineered the production-grade, real-data Earth-observation ingestion, persistence, and REST API pipeline.
+> - **Operational Phase 6 (Oct 2026)**: Engineered the operational, real-data Earth-observation ingestion, persistence, and REST API pipeline.
 
 ---
 
@@ -78,7 +78,7 @@ TRACK 5: OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [NEXT ENGINEERING MILESTONE
 
 ---
 
-## 5. Track 4: Operational Production Pipeline (Phases 6A – 6C)
+## 5. Track 4: Operational Pipeline (Phases 6A – 6C)
 
 *Status*: **CURRENT VERIFIED MILESTONE (COMPLETE)**
 
@@ -86,7 +86,7 @@ TRACK 5: OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [NEXT ENGINEERING MILESTONE
 | :--- | :--- | :--- | :--- |
 | **Phase 6A** | Pipeline Foundation | Fail-closed pipeline boundary, spatial/temporal validation, polarization handling (`Ch0=VH`, `Ch1=VV`). | `src/ocean_sentinel/operational_pipeline.py`, `tests/test_operational_pipeline.py` (25 tests) |
 | **Phase 6B** | Live Acquisition & Persistence | Authenticated retrieval of real Copernicus Sentinel-1 observation (`S1A_IW_GRDH_..._D2F2_COG`), atomic GeoTIFF persistence, SHA-256 sidecars. | Direct CDSE live smoke test passed; `tests/test_acquisition_persistence.py` (11 tests) |
-| **Phase 6C** | Acquisition Job & API Surface | Full state machine (`SUBMITTED` → `READY_FOR_DETECTION`), FastAPI REST API (`/api/v1/acquisitions`), evidence result endpoint. | Direct live HTTP API smoke test passed; `tests/test_acquisition_job.py` (22 tests), `tests/test_backend_api.py` (20 tests) |
+| **Phase 6C** | Acquisition Job & API Surface | Full state machine (`REQUESTED` → `READY_FOR_DETECTION`), FastAPI REST API (`/api/v1/acquisitions`), evidence result endpoint. | Direct live HTTP API smoke test passed; `tests/test_acquisition_job.py` (22 tests), `tests/test_backend_api.py` (20 tests) |
 | **Phase 6C Hardening** | Contract Hardening & Reconciliation | Test cardinality reconciled (201 in-scope tests), dynamic canonical checkpoint hash derivation from ARTIFACT_REGISTRY, API path sanitization, proven polarization order invariance under inverted input `[VV, VH]`. | PR #11 (`3c5ca81`), all 201 in-scope tests passing |
 
 ---

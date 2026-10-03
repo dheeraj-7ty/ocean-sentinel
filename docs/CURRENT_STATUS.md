@@ -1,9 +1,9 @@
 # Ocean Sentinel — Current Operational & Governance Status
 
 **Authoritative Current State Document**
-**Last Verified Timestamp**: 2026-10-03T23:15:00+05:30
+**Last Verified Timestamp**: 2026-10-04T00:30:00+05:30
 **Current Branch**: `master`
-**Current Synchronized HEAD**: `3c5ca81f6393ec6a2524c5fdd6bd85c88caec8c9`
+**Current Synchronized Baseline HEAD**: `f776c9095e983b1fc9d656b3831bbda35839d419`
 **Remote Target**: `origin/master` (Synchronized, clean working tree)
 
 ---
@@ -14,8 +14,8 @@ Ocean Sentinel is an Earth-observation maritime investigation platform combining
 
 | Status Dimension | Current State | Verification Authority |
 | :--- | :--- | :--- |
-| **Current Verified Milestone** | **Phase 6C Closure & Operational Hardening** | PR #11 (`3c5ca81`), PR #10 (`12d7be6`) |
-| **Operational Pipeline Status** | **Production-Grade Synchronous Workflow (READY)** | End-to-End Live CDSE & API Smoke Tests |
+| **Current Verified Milestone** | **Phase 6C Closure & Operational Hardening** | PR #11 (`3c5ca81`), PR #12 (`f776c90`) |
+| **Operational Pipeline Status** | **Operational Synchronous Workflow Verified for Phase 6C Scope** | End-to-End Live CDSE & API Smoke Tests |
 | **Scientific Safety Status** | **STRICTLY GATED (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` Firewall |
 | **Protected Baseline Integrity** | **8/8 Canonical Hashes Intact (100% Match)** | `test_all_eight_protected_baseline_hashes_match` |
 | **Automated Test Battery** | **201/201 In-Scope Tests Passing (100%)** | 9 Governed Operational & Policy Suites |
@@ -26,14 +26,29 @@ Ocean Sentinel is an Earth-observation maritime investigation platform combining
 ## 2. Dynamic Repository & Git State
 
 ```yaml
-REPOSITORY_ROOT: d:\Projects\ocean-sentinel
+REPOSITORY: dheeraj-7ty/ocean-sentinel
+CANONICAL_TARGET: refs/heads/master
 GIT_BRANCH: master
-GIT_HEAD: 3c5ca81f6393ec6a2524c5fdd6bd85c88caec8c9
-ORIGIN_MASTER: 3c5ca81f6393ec6a2524c5fdd6bd85c88caec8c9
+GIT_HEAD: f776c9095e983b1fc9d656b3831bbda35839d419
+ORIGIN_MASTER: f776c9095e983b1fc9d656b3831bbda35839d419
 SYNCHRONIZATION: IN_SYNC (HEAD == origin/master)
 WORKING_TREE_STATE: CLEAN (0 staged, 0 modified, 0 untracked)
 GITHUB_RULESET: master-canonical-protection (ID: 24407361)
 ```
+
+### 2.1 PR #12 Merge Governance Analysis & Forward Merge Policy
+- **Investigation of PR #12 Merge**: PR #12 was merged using CLI invocation `gh pr merge 12 --squash --delete-branch --admin`. Inspection of the active repository ruleset #24407361 (`master-canonical-protection`) reveals:
+  - Conditions: Enforces rules on `refs/heads/master`.
+  - Rules: Requires deletion protection, non-fast-forward protection, linear history, and pull request.
+  - Review / Status Parameters: `required_approving_review_count: 0`, `required_reviewers: []`, 0 required status checks, all review threads resolved, squash merges allowed.
+  - Bypass Permissions: `bypass_actors: []`, `current_user_can_bypass: "never"`.
+  - **Factual Determination**: PR #12 met all requirements of the active ruleset. While `--admin` was provided on the CLI, no unmet protection requirement was bypassed.
+- **Forward-Looking Governance Rule**:
+  ```
+  ADMIN_MERGE_BYPASS = PROHIBITED BY DEFAULT
+  EXCEPTION = only with explicit human authorization and explicit documentation of the unmet requirement
+  ```
+  Standard governed PR merges (`gh pr merge --squash --delete-branch`) are strictly required for all future changes.
 
 ---
 
@@ -45,7 +60,7 @@ The Phase 6 operational chain executes a deterministic, fail-closed workflow fro
 [ POST /api/v1/acquisitions ]
             │
             ▼
-    [ SUBMITTED ] ─────────── (Job Manifest Initialized in outputs/jobs/)
+    [ REQUESTED ] ─────────── (Job Manifest Initialized in outputs/jobs/)
             │
             ▼
    [ DISCOVERING ] ────────── (Copernicus CDSE STAC Search: sentinel-1-grd)
@@ -60,7 +75,7 @@ The Phase 6 operational chain executes a deterministic, fail-closed workflow fro
     [ VALIDATING ] ────────── (SHA-256 Hash Binding + SAR Preflight + Mapping A Channel Order)
             │
             ▼
-[ READY_FOR_DETECTION ] ───── (Evidence Object Sealed: execution_authorized=False, has_prediction=False)
+[ READY_FOR_DETECTION ] ───── (Structured Operational Evidence State: execution_authorized=False, has_prediction=False)
 ```
 
 ### 3.1 Verified Operational Contracts
@@ -69,7 +84,7 @@ The Phase 6 operational chain executes a deterministic, fail-closed workflow fro
 3. **Canonical Storage Namespace**: Acquired Sentinel-1 rasters and sidecars persist exclusively under governed path `data/raw/acquisitions/{product_id}/`.
 4. **API Path Safety & Sanitization**: The API response model sanitizes all host filesystem references into safe relative paths (`data/raw/acquisitions/...`), preventing server host drive letter leakage.
 5. **Polarization Channel Order Contract**: The SAR pipeline contract strictly enforces Mapping A channel ordering (`Ch0 = VH`, `Ch1 = VV`). Polarization order is invariant under inverted provider response orders (`[VV, VH]`).
-6. **Empirical Raster Format**: Downloaded Copernicus observation rasters are verified as multi-band, strip-organized GeoTIFFs (`driver: GTiff`, `dtype: float32`, `tiled: False`), stored alongside cryptographic SHA-256 digests.
+6. **Empirical Raster Format**: Downloaded Copernicus observation rasters are verified as multi-band, strip-organized GeoTIFFs (`driver: GTiff`, `dtype: float32`, `tiled: False`), stored alongside SHA-256 integrity digests.
 
 ---
 
@@ -89,7 +104,7 @@ SCIENTIFIC_SAFETY_STATE:
   VESSEL_ATTRIBUTION: 0 (No legal or causal culpability inferred)
 ```
 
-The canonical trained model checkpoint [`experiments/performance/exp06_positive_bce_weight/best_model.pt`](file:///d:/Projects/ocean-sentinel/experiments/performance/exp06_positive_bce_weight/best_model.pt) is verified against the canonical SHA-256 digest (`B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF`) derived dynamically from [`experiments/ARTIFACT_REGISTRY.md`](file:///d:/Projects/ocean-sentinel/experiments/ARTIFACT_REGISTRY.md) Section 7.1.
+The canonical trained model checkpoint [`experiments/performance/exp06_positive_bce_weight/best_model.pt`](experiments/performance/exp06_positive_bce_weight/best_model.pt) is verified against the canonical SHA-256 digest (`B5FFCCA3...E8DF`) derived dynamically from [`experiments/ARTIFACT_REGISTRY.md`](experiments/ARTIFACT_REGISTRY.md) Section 7.1.
 
 ---
 
@@ -99,14 +114,14 @@ The 8 canonical baseline authorities remain strictly frozen and bitwise verified
 
 | Canonical Protected Path | Role | Baseline Hash Match |
 | :--- | :--- | :---: |
-| [`data/metadata/governance_v2/rules.json`](file:///d:/Projects/ocean-sentinel/data/metadata/governance_v2/rules.json) | Governance V2 Rule Engine Definitions | **100% MATCH** |
-| [`data/metadata/governance_v2/lessons.json`](file:///d:/Projects/ocean-sentinel/data/metadata/governance_v2/lessons.json) | Approved Governance Lessons Ledger | **100% MATCH** |
-| [`data/metadata/governance_v2/incidents.json`](file:///d:/Projects/ocean-sentinel/data/metadata/governance_v2/incidents.json) | Governance Incident Log | **100% MATCH** |
-| [`src/ocean_sentinel/governance/runner.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/governance/runner.py) | Governed Preflight & Rule Validation Runner | **100% MATCH** |
-| [`src/ocean_sentinel/ingestion/dataset.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/ingestion/dataset.py) | Ingestion Dataset Schema & Normalization | **100% MATCH** |
-| [`src/ocean_sentinel/temporal.py`](file:///d:/Projects/ocean-sentinel/src/ocean_sentinel/temporal.py) | Temporal Analysis & Timeline Geometry | **100% MATCH** |
-| [`experiments/performance/exp06_positive_bce_weight/best_model.pt`](file:///d:/Projects/ocean-sentinel/experiments/performance/exp06_positive_bce_weight/best_model.pt) | Canonical EXP-06 Best Model Weights | **100% MATCH** |
-| [`docs/exp08_corrected_protocol.md`](file:///d:/Projects/ocean-sentinel/docs/exp08_corrected_protocol.md) | Corrected CDSE Replication Protocol | **100% MATCH** |
+| [`data/metadata/governance_v2/rules.json`](data/metadata/governance_v2/rules.json) | Governance V2 Rule Engine Definitions | **100% MATCH** |
+| [`data/metadata/governance_v2/lessons.json`](data/metadata/governance_v2/lessons.json) | Approved Governance Lessons Ledger | **100% MATCH** |
+| [`data/metadata/governance_v2/incidents.json`](data/metadata/governance_v2/incidents.json) | Governance Incident Log | **100% MATCH** |
+| [`src/ocean_sentinel/governance/runner.py`](src/ocean_sentinel/governance/runner.py) | Governed Preflight & Rule Validation Runner | **100% MATCH** |
+| [`src/ocean_sentinel/ingestion/dataset.py`](src/ocean_sentinel/ingestion/dataset.py) | Ingestion Dataset Schema & Normalization | **100% MATCH** |
+| [`src/ocean_sentinel/temporal.py`](src/ocean_sentinel/temporal.py) | Temporal Analysis & Timeline Geometry | **100% MATCH** |
+| [`experiments/performance/exp06_positive_bce_weight/best_model.pt`](experiments/performance/exp06_positive_bce_weight/best_model.pt) | Canonical EXP-06 Best Model Weights | **100% MATCH** |
+| [`docs/exp08_corrected_protocol.md`](docs/exp08_corrected_protocol.md) | Corrected CDSE Replication Protocol | **100% MATCH** |
 
 ---
 
