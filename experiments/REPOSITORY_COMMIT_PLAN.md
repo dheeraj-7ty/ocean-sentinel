@@ -1,5 +1,15 @@
 # REPOSITORY COMMIT ARCHITECTURE PLAN
 
+> [!NOTE]
+> **DOCUMENT STATUS: HISTORICAL / SUPERSEDED BY OCTOBER 2026 CONVERGENCE**
+>
+> This plan reflects the historical 2026-09-09 repository state (HEAD `8f444de`, 542 working-tree entries, 13 checkpoints). It culminated in the successful 15-commit integration ending at commit `97567f7` and the subsequent 6-commit Phase 3.6B integration ending at commit `542bab1`.
+>
+> This document is preserved for historical and provenance audit integrity. It does NOT represent the current October 2026 repository state or current commit authorization.
+>
+> For authoritative current repository artifact governance, see [`experiments/ARTIFACT_REGISTRY.md`](file:///d:/Projects/ocean-sentinel/experiments/ARTIFACT_REGISTRY.md).
+> For authoritative current source-control integration and verification state, see [`docs/OCEAN_SENTINEL_SOURCE_CONTROL_INTEGRATION_V2_REPORT.md`](file:///d:/Projects/ocean-sentinel/docs/OCEAN_SENTINEL_SOURCE_CONTROL_INTEGRATION_V2_REPORT.md).
+
 **Author**: Antigravity IDE Agent (under CAO Master Oversight)  
 **Date**: 2026-09-09  
 **Baseline Git HEAD**: `8f444de1d0fb35d09912a9e6bf27cebde8125f0d`  

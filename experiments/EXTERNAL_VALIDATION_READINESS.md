@@ -23,8 +23,8 @@
 | **Checkpoint & Firewall Integrity** | All 6 Certified Hashes Match 100% | `[OBSERVED FACT]` | Production weights and test records frozen. |
 | **Official Held-Out Test Baseline** | $\text{IoU} = 0.79808$, $\text{Dice} = 0.88770$ (Thresh: 0.22) | `[OBSERVED FACT]` | Canonical baseline locked; draft error ($0.81467$) expunged. |
 | **Local Physical Raster Data** | **0 Bytes** of External Imagery on Local Disk | `[OBSERVED FACT]` | Absolute data deficit prior to acquisition. |
-| **DARTIS Spatial Footprint Overlap** | **2,468 / 5,515 patches (44.8%)** overlap Trujillo Part I | `[OBSERVED FACT]` | Severe spatial overlap with training split (1,316 patches). |
-| **Zero Spatial-Footprint Overlap** | **3,047 Patches (55.2%)** zero spatial-footprint overlap | `[OBSERVED FACT]` | Spatially non-overlapping sub-catalog identified. |
+| **DARTIS Spatial Footprint Overlap** | **2,468 / 5,515 records (44.8%)** [SUPERSEDED] | `[SUPERSEDED / MIXED-ENTITY]` | SUPERSEDED in Phase 11-R4: denominator of 5,515 mixed oil objects and no-oil patches. Recomputed on consistent entities: 789 / 2,290 no-oil patches (34.5%) and 712 / 1,365 oil patches (52.2%) intersect Trujillo rasters. See `docs/exp08_spatial_overlap_r4.md`. |
+| **Zero Spatial-Footprint Overlap** | **3,047 Records (55.2%)** [SUPERSEDED] | `[SUPERSEDED / MIXED-ENTITY]` | SUPERSEDED in Phase 11-R4: Recomputed on consistent entities: 1,501 / 2,290 no-oil patches (65.5%) and 653 / 1,365 oil patches (47.8%) have zero Trujillo overlap. See `data/metadata/exp08_spatial_overlap_r4.json`. |
 | **Acquisition-Level Independence** | Parent S1 scene telemetry absent in Trujillo | `[OBSERVED FACT]` | **NOT DETERMINABLE FROM CURRENT ARTIFACTS**. |
 | **Channel Physical Mapping (VV/VH)** | Band 0 ~$-33.2\text{ dB}$, Band 1 ~$-19.9\text{ dB}$ | `[INFERRED FROM STATISTICS]` | **UNVERIFIED CHANNEL PHYSICAL MAPPING**. |
 | **CDSE Raster Preprocessing State** | No physical CDSE rasters present locally | `[UNVERIFIED]` | **METADATA-LEVEL EXPECTATION (PENDING PHYSICAL RASTER VERIFICATION)**. |
@@ -79,7 +79,16 @@ Forensic investigation revealed:
 ## 3. Phase 2: Spatial Independence vs. Acquisition-Level Independence
 
 ### 3.1 Spatial Footprint Overlap Analysis
-An exhaustive geometric intersection test between all 1,200 Trujillo Part I rasters and all 5,515 DARTIS bounding boxes established:
+
+> [!WARNING]
+> **SUPERSEDED RESULT NOTICE (Phase 11-R4 Forensic Correction)**:
+> The calculation below evaluated 5,515 total entries, which was an invalid mixed-entity denominator (mixing 3,225 oil objects across 1,365 patches with 2,290 no-oil patches). The 2,468 overlapping / 3,047 zero-overlap numbers are **HISTORICAL AND SUPERSEDED**.
+> In Phase 11-R4, the spatial relationship was recomputed using consistent entity populations (`docs/exp08_spatial_overlap_r4.md`):
+> - **No-oil lookalikes (2,290 unique patches)**: 789 (34.5%) overlap Trujillo footprints; **1,501 (65.5%) have zero Trujillo footprint overlap**.
+> - **Oil proposal patches (1,365 unique patches)**: 712 (52.2%) overlap Trujillo footprints; **653 (47.8%) have zero Trujillo footprint overlap**.
+> See machine-readable results: `data/metadata/exp08_spatial_overlap_r4.json`.
+
+*Historical draft computation (retained for audit lineage):*
 
 $$\text{Overlap} \iff \text{Polygon}(\text{Trujillo}) \cap \text{Polygon}(\text{DARTIS}) \neq \emptyset$$
 
