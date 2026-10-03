@@ -75,3 +75,80 @@ experiments/performance/gate4_3C_A_gpu_qualification_20260908_194000/kernel_outp
 experiments/performance/gate4_3C_B_one_epoch_pilot_20260908_220700/kernel_output/
 experiments/performance/gate4_3C_C2_canonical_seed_20260909_000500/kernel_output/
 experiments/performance/gate4_3C_C4_resume_epoch2_20260909_002000/kernel_output/
+
+# Checkpoint binary weights: specifically registered known generated large binary artifacts (hashes registered in ARTIFACT_REGISTRY.md)
+experiments/exp01_baseline/*.pt
+experiments/archive/exp01_interrupted_20260906_135852/*.pt
+experiments/performance/exp02b_1_hard_negative_training_20260909_094500/kernel_output/exp02b_1_hard_negative_training/*.pt
+experiments/performance/exp02c_annealed_hard_negative_20260909_144000/*.pt
+experiments/performance/exp02c_annealed_hard_negative_20260909_144000/remote_training_output/*.pt
+
+# Generated external evaluation per-scene prediction payloads (preserved on disk, verified in ARTIFACT_REGISTRY.md)
+experiments/performance/trujillo_part_iii_eval_20260911_exp01/mapping_a/
+experiments/performance/trujillo_part_iii_eval_20260911_exp01/mapping_b/
+experiments/performance/trujillo_part_iii_eval_20260911_exp01/logs/
+
+# Generated smoke test prediction artifacts (preserved on disk)
+experiments/performance/trujillo_part_iii_smoke_20260911_baseline_exp01/
+
+# Generated qualitative visual diagnostic renders (preserved on disk)
+experiments/performance/phase_5a_diagnostics/
+
+# Generated Phase 6 external evaluation per-scene prediction payloads (P3-C3 GITIGNORE-RULE-001/002/003)
+experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/
+experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/
+experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/logs/
+
+# Materialized OPS-01 dataset binary masks (P3-C3 GITIGNORE-RULE-004; hashes anchored in ops01_physical_dataset_manifest_v4.json)
+data/derived/ops01/masks/
+
+# Ephemeral pipeline job execution workspaces (JobStore runtime outputs)
+outputs/jobs/
+
+# Registered post-Phase 5A model checkpoint weights (itemized in ARTIFACT_REGISTRY.md Section 7.1; preserved on disk)
+data/ops02/initial_model_state_canonical.pt
+data/ops02/initial_model_state.pt
+experiments/performance/exp06_positive_bce_weight/best_model.pt
+experiments/performance/exp06_positive_bce_weight/last_model.pt
+experiments/performance/exp05_candidate_severity_cap/best_model.pt
+experiments/performance/exp05_candidate_severity_cap/last_model.pt
+experiments/performance/exp04_hard_neg_ablation/best_model.pt
+experiments/performance/exp04_hard_neg_ablation/last_model.pt
+experiments/performance/exp03_baseline_hard_neg/best_model.pt
+experiments/performance/exp03_baseline_hard_neg/last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01/control_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01/control_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01/treatment_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01/treatment_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_101/control/control_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_101/control/control_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_101/treatment/treatment_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_101/treatment/treatment_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_202/control/control_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_202/control/control_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_202/treatment/treatment_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_202/treatment/treatment_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_303/control/control_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_303/control/control_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_303/treatment/treatment_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_303/treatment/treatment_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_404/control/control_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_404/control/control_last_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_404/treatment/treatment_best_model.pt
+experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/seed_404/treatment/treatment_last_model.pt
+experiments/EXP-07/runs/EXP07_RUN001_SEED42/best_model.pt
+experiments/EXP-07/runs/EXP07_RUN001_SEED42/last_model.pt
+experiments/EXP-07/runs/EXP07_RUN002_SEED101/best_model.pt
+experiments/EXP-07/runs/EXP07_RUN002_SEED101/last_model.pt
+experiments/EXP-07/runs/EXP07_RUN003_SEED42/best_model.pt
+experiments/EXP-07/runs/EXP07_RUN003_SEED42/last_model.pt
+
+# Generated OPS-02 diagnostic rendered binary masks (dedicated boundary; 225 renders preserved on disk)
+data/ops02/derived/masks/
+
+# Dense prediction payloads and ephemeral runtime heartbeats (preserved on disk)
+experiments/performance/phase_5g_positive_failure_forensics/positive_tiles_forensics.json
+experiments/EXP-07/runs/EXP07_RUN003_SEED42/live_progress.json
+
+# Raw unbuffered console execution logs (preserved on disk)
+experiments/EXP-07/runs/EXP07_RUN003_SEED42/ocean-sentinel-exp07-c16-replicate-003.txt
