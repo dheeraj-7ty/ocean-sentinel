@@ -1,0 +1,561 @@
+{
+  "timestamp_utc": "2026-09-12T01:17:29.101626+00:00",
+  "total_validation_tiles": 2880,
+  "total_gt_positive_tiles": 1053,
+  "total_clean_water_tiles": 1827,
+  "model_summaries": {
+    "EXP-01": {
+      "model_id": "EXP-01",
+      "name": "EXP-01 Teacher Baseline",
+      "tp": 13339788,
+      "fp": 2328603,
+      "fn": 2799745,
+      "tn": 736506584,
+      "iou": 0.72231,
+      "dice": 0.83877,
+      "precision": 0.85138,
+      "recall": 0.82653,
+      "clean_water_far_pct": 20.09,
+      "significant_far_pct": 10.56,
+      "pred_pos_mass": 15668391,
+      "detected_pos_tiles": 994,
+      "dropped_pos_tiles": 59
+    },
+    "EXP-03": {
+      "model_id": "EXP-03",
+      "name": "EXP-03 Baseline Hard-Negative (12.5%)",
+      "tp": 12473772,
+      "fp": 1570089,
+      "fn": 3665761,
+      "tn": 737265098,
+      "iou": 0.70435,
+      "dice": 0.82653,
+      "precision": 0.8882,
+      "recall": 0.77287,
+      "clean_water_far_pct": 0.33,
+      "significant_far_pct": 0.33,
+      "pred_pos_mass": 14043861,
+      "detected_pos_tiles": 820,
+      "dropped_pos_tiles": 233
+    },
+    "EXP-04": {
+      "model_id": "EXP-04",
+      "name": "EXP-04 Exposure Ablation (6.25%)",
+      "tp": 12625901,
+      "fp": 1666000,
+      "fn": 3513632,
+      "tn": 737169187,
+      "iou": 0.7091,
+      "dice": 0.82979,
+      "precision": 0.88343,
+      "recall": 0.7823,
+      "clean_water_far_pct": 0.55,
+      "significant_far_pct": 0.55,
+      "pred_pos_mass": 14291901,
+      "detected_pos_tiles": 822,
+      "dropped_pos_tiles": 231
+    },
+    "EXP-05": {
+      "model_id": "EXP-05",
+      "name": "EXP-05 Severity Capping (<= 50k)",
+      "tp": 12625435,
+      "fp": 1689666,
+      "fn": 3514098,
+      "tn": 737145521,
+      "iou": 0.70813,
+      "dice": 0.82913,
+      "precision": 0.88197,
+      "recall": 0.78227,
+      "clean_water_far_pct": 0.49,
+      "significant_far_pct": 0.49,
+      "pred_pos_mass": 14315101,
+      "detected_pos_tiles": 850,
+      "dropped_pos_tiles": 203
+    }
+  },
+  "fn_decomposition": {
+    "EXP-01": {
+      "total_fn_pixels": 2799745,
+      "dropout_fn_pixels": 106609,
+      "dropout_fn_pct": 3.81,
+      "partial_fn_pixels": 2693136,
+      "partial_fn_pct": 96.19,
+      "full_fn_pixels": 0
+    },
+    "EXP-03": {
+      "total_fn_pixels": 3665761,
+      "dropout_fn_pixels": 734588,
+      "dropout_fn_pct": 20.04,
+      "partial_fn_pixels": 2931173,
+      "partial_fn_pct": 79.96,
+      "full_fn_pixels": 0
+    },
+    "EXP-04": {
+      "total_fn_pixels": 3513632,
+      "dropout_fn_pixels": 767168,
+      "dropout_fn_pct": 21.83,
+      "partial_fn_pixels": 2746464,
+      "partial_fn_pct": 78.17,
+      "full_fn_pixels": 0
+    },
+    "EXP-05": {
+      "total_fn_pixels": 3514098,
+      "dropout_fn_pixels": 671336,
+      "dropout_fn_pct": 19.1,
+      "partial_fn_pixels": 2842762,
+      "partial_fn_pct": 80.9,
+      "full_fn_pixels": 0
+    }
+  },
+  "iou_decomposition": {
+    "EXP-01": {
+      "iou": 0.72231,
+      "tp": 13339788,
+      "fp": 2328603,
+      "fn": 2799745,
+      "total_error_pixels": 5128348,
+      "fn_error_pct": 54.59,
+      "fp_error_pct": 45.41,
+      "fn_to_fp_ratio": 1.2
+    },
+    "EXP-03": {
+      "iou": 0.70435,
+      "tp": 12473772,
+      "fp": 1570089,
+      "fn": 3665761,
+      "total_error_pixels": 5235850,
+      "fn_error_pct": 70.01,
+      "fp_error_pct": 29.99,
+      "fn_to_fp_ratio": 2.33
+    },
+    "EXP-04": {
+      "iou": 0.7091,
+      "tp": 12625901,
+      "fp": 1666000,
+      "fn": 3513632,
+      "total_error_pixels": 5179632,
+      "fn_error_pct": 67.84,
+      "fp_error_pct": 32.16,
+      "fn_to_fp_ratio": 2.11
+    },
+    "EXP-05": {
+      "iou": 0.70813,
+      "tp": 12625435,
+      "fp": 1689666,
+      "fn": 3514098,
+      "total_error_pixels": 5203764,
+      "fn_error_pct": 67.53,
+      "fp_error_pct": 32.47,
+      "fn_to_fp_ratio": 2.08
+    }
+  },
+  "transition_summary": {
+    "consistently_dropped_mining_count": 188,
+    "recovered_in_exp04_count": 27,
+    "dropped_in_exp04_count": 25,
+    "recovered_in_exp05_count": 37,
+    "dropped_in_exp05_count": 9,
+    "net_recovery_exp05": 28,
+    "oscillating_tiles_count": 24,
+    "exp04_to_exp05_transitions": {
+      "COMPLETE_DROPOUT->COMPLETE_DROPOUT": 194,
+      "PARTIAL_DETECTION->PARTIAL_DETECTION": 682,
+      "COMPLETE_DROPOUT->PARTIAL_DETECTION": 36,
+      "FULL_DETECTION->FULL_DETECTION": 97,
+      "COMPLETE_DROPOUT->FULL_DETECTION": 1,
+      "PARTIAL_DETECTION->FULL_DETECTION": 20,
+      "FULL_DETECTION->PARTIAL_DETECTION": 14,
+      "PARTIAL_DETECTION->COMPLETE_DROPOUT": 9
+    },
+    "exp03_to_exp04_transitions": {
+      "COMPLETE_DROPOUT->COMPLETE_DROPOUT": 206,
+      "PARTIAL_DETECTION->PARTIAL_DETECTION": 673,
+      "PARTIAL_DETECTION->COMPLETE_DROPOUT": 24,
+      "FULL_DETECTION->FULL_DETECTION": 101,
+      "PARTIAL_DETECTION->FULL_DETECTION": 8,
+      "FULL_DETECTION->COMPLETE_DROPOUT": 1,
+      "FULL_DETECTION->PARTIAL_DETECTION": 13,
+      "COMPLETE_DROPOUT->PARTIAL_DETECTION": 25,
+      "COMPLETE_DROPOUT->FULL_DETECTION": 2
+    },
+    "recovered_tile_ids_exp05": [
+      "00022_r03_c02",
+      "00023_r00_c02",
+      "00024_r02_c02",
+      "00029_r00_c01",
+      "00030_r02_c01",
+      "00032_r02_c02",
+      "00173_r00_c03",
+      "00173_r01_c03",
+      "00173_r02_c01",
+      "00214_r01_c01",
+      "00228_r01_c02",
+      "00291_r02_c02",
+      "00391_r00_c01",
+      "00391_r00_c02",
+      "00392_r02_c01",
+      "00392_r02_c02",
+      "00393_r01_c00",
+      "00394_r01_c03",
+      "00395_r01_c02",
+      "00395_r02_c01",
+      "00468_r03_c03",
+      "00471_r02_c03",
+      "00545_r01_c01",
+      "00791_r02_c03",
+      "00941_r03_c02",
+      "01010_r03_c01",
+      "01014_r01_c01",
+      "01015_r01_c01",
+      "01015_r02_c01",
+      "01016_r03_c03",
+      "01033_r01_c03",
+      "01033_r03_c01",
+      "01034_r00_c03",
+      "01035_r01_c00",
+      "01196_r02_c01",
+      "01266_r01_c00",
+      "01331_r02_c00"
+    ]
+  },
+  "area_stratified": {
+    "very_small": {
+      "range": [
+        0,
+        2712.0
+      ],
+      "tile_count": 264,
+      "total_gt_pixels": 246328,
+      "models": {
+        "EXP-01": {
+          "dropouts": 53,
+          "dropout_rate_pct": 20.08,
+          "recalled_pixels": 190722,
+          "fn_pixels": 55606,
+          "fp_pixels": 217258,
+          "macro_recall": 0.62622,
+          "aggregate_recall": 0.77426,
+          "aggregate_iou": 0.41141,
+          "mean_gt_prob": 0.59359
+        },
+        "EXP-03": {
+          "dropouts": 163,
+          "dropout_rate_pct": 61.74,
+          "recalled_pixels": 125999,
+          "fn_pixels": 120329,
+          "fp_pixels": 107822,
+          "macro_recall": 0.33474,
+          "aggregate_recall": 0.51151,
+          "aggregate_iou": 0.35578,
+          "mean_gt_prob": 0.32592
+        },
+        "EXP-04": {
+          "dropouts": 162,
+          "dropout_rate_pct": 61.36,
+          "recalled_pixels": 126568,
+          "fn_pixels": 119760,
+          "fp_pixels": 107525,
+          "macro_recall": 0.34379,
+          "aggregate_recall": 0.51382,
+          "aggregate_iou": 0.35769,
+          "mean_gt_prob": 0.33539
+        },
+        "EXP-05": {
+          "dropouts": 148,
+          "dropout_rate_pct": 56.06,
+          "recalled_pixels": 134876,
+          "fn_pixels": 111452,
+          "fp_pixels": 121332,
+          "macro_recall": 0.37769,
+          "aggregate_recall": 0.54755,
+          "aggregate_iou": 0.36685,
+          "mean_gt_prob": 0.36667
+        }
+      }
+    },
+    "small": {
+      "range": [
+        2712.0,
+        8049.0
+      ],
+      "tile_count": 264,
+      "total_gt_pixels": 1388768,
+      "models": {
+        "EXP-01": {
+          "dropouts": 3,
+          "dropout_rate_pct": 1.14,
+          "recalled_pixels": 1133634,
+          "fn_pixels": 255134,
+          "fp_pixels": 464962,
+          "macro_recall": 0.81536,
+          "aggregate_recall": 0.81629,
+          "aggregate_iou": 0.61154,
+          "mean_gt_prob": 0.76842
+        },
+        "EXP-03": {
+          "dropouts": 44,
+          "dropout_rate_pct": 16.67,
+          "recalled_pixels": 997088,
+          "fn_pixels": 391680,
+          "fp_pixels": 369684,
+          "macro_recall": 0.70325,
+          "aggregate_recall": 0.71797,
+          "aggregate_iou": 0.56703,
+          "mean_gt_prob": 0.66969
+        },
+        "EXP-04": {
+          "dropouts": 43,
+          "dropout_rate_pct": 16.29,
+          "recalled_pixels": 974873,
+          "fn_pixels": 413895,
+          "fp_pixels": 333860,
+          "macro_recall": 0.69769,
+          "aggregate_recall": 0.70197,
+          "aggregate_iou": 0.56592,
+          "mean_gt_prob": 0.66412
+        },
+        "EXP-05": {
+          "dropouts": 30,
+          "dropout_rate_pct": 11.36,
+          "recalled_pixels": 1038925,
+          "fn_pixels": 349843,
+          "fp_pixels": 352464,
+          "macro_recall": 0.74679,
+          "aggregate_recall": 0.74809,
+          "aggregate_iou": 0.59666,
+          "mean_gt_prob": 0.71543
+        }
+      }
+    },
+    "medium": {
+      "range": [
+        8049.0,
+        19367.0
+      ],
+      "tile_count": 264,
+      "total_gt_pixels": 3424945,
+      "models": {
+        "EXP-01": {
+          "dropouts": 1,
+          "dropout_rate_pct": 0.38,
+          "recalled_pixels": 2824475,
+          "fn_pixels": 600470,
+          "fp_pixels": 568247,
+          "macro_recall": 0.82791,
+          "aggregate_recall": 0.82468,
+          "aggregate_iou": 0.70732,
+          "mean_gt_prob": 0.77817
+        },
+        "EXP-03": {
+          "dropouts": 20,
+          "dropout_rate_pct": 7.58,
+          "recalled_pixels": 2676905,
+          "fn_pixels": 748040,
+          "fp_pixels": 486414,
+          "macro_recall": 0.77999,
+          "aggregate_recall": 0.78159,
+          "aggregate_iou": 0.68439,
+          "mean_gt_prob": 0.73726
+        },
+        "EXP-04": {
+          "dropouts": 20,
+          "dropout_rate_pct": 7.58,
+          "recalled_pixels": 2685713,
+          "fn_pixels": 739232,
+          "fp_pixels": 518447,
+          "macro_recall": 0.78347,
+          "aggregate_recall": 0.78416,
+          "aggregate_iou": 0.68107,
+          "mean_gt_prob": 0.73997
+        },
+        "EXP-05": {
+          "dropouts": 19,
+          "dropout_rate_pct": 7.2,
+          "recalled_pixels": 2692693,
+          "fn_pixels": 732252,
+          "fp_pixels": 510869,
+          "macro_recall": 0.78312,
+          "aggregate_recall": 0.7862,
+          "aggregate_iou": 0.68415,
+          "mean_gt_prob": 0.74599
+        }
+      }
+    },
+    "large": {
+      "range": [
+        19367.0,
+        "max"
+      ],
+      "tile_count": 263,
+      "total_gt_pixels": 11090253,
+      "models": {
+        "EXP-01": {
+          "dropouts": 3,
+          "dropout_rate_pct": 1.14,
+          "recalled_pixels": 9194929,
+          "fn_pixels": 1895324,
+          "fp_pixels": 611680,
+          "macro_recall": 0.82077,
+          "aggregate_recall": 0.8291,
+          "aggregate_iou": 0.78576,
+          "mean_gt_prob": 0.7681
+        },
+        "EXP-03": {
+          "dropouts": 7,
+          "dropout_rate_pct": 2.66,
+          "recalled_pixels": 8677653,
+          "fn_pixels": 2412600,
+          "fp_pixels": 526427,
+          "macro_recall": 0.7821,
+          "aggregate_recall": 0.78246,
+          "aggregate_iou": 0.747,
+          "mean_gt_prob": 0.72993
+        },
+        "EXP-04": {
+          "dropouts": 7,
+          "dropout_rate_pct": 2.66,
+          "recalled_pixels": 8842719,
+          "fn_pixels": 2247534,
+          "fp_pixels": 583231,
+          "macro_recall": 0.79451,
+          "aggregate_recall": 0.79734,
+          "aggregate_iou": 0.7575,
+          "mean_gt_prob": 0.74264
+        },
+        "EXP-05": {
+          "dropouts": 7,
+          "dropout_rate_pct": 2.66,
+          "recalled_pixels": 8762750,
+          "fn_pixels": 2327503,
+          "fp_pixels": 575960,
+          "macro_recall": 0.78986,
+          "aggregate_recall": 0.79013,
+          "aggregate_iou": 0.75112,
+          "mean_gt_prob": 0.7484
+        }
+      }
+    }
+  },
+  "confidence_stratified": {
+    "strongly_suppressed": {
+      "range": [
+        0.0,
+        0.1
+      ],
+      "tile_count": 207,
+      "exp05_dropouts": 203,
+      "exp05_dropout_pct": 98.07,
+      "mean_gt_pixels": 3490.5
+    },
+    "near_threshold_low": {
+      "range": [
+        0.1,
+        0.22
+      ],
+      "tile_count": 7,
+      "exp05_dropouts": 0,
+      "exp05_dropout_pct": 0.0,
+      "mean_gt_pixels": 22191.9
+    },
+    "near_threshold_high": {
+      "range": [
+        0.22,
+        0.35
+      ],
+      "tile_count": 20,
+      "exp05_dropouts": 0,
+      "exp05_dropout_pct": 0.0,
+      "mean_gt_pixels": 21127.4
+    },
+    "confident_positive": {
+      "range": [
+        0.35,
+        1.0
+      ],
+      "tile_count": 819,
+      "exp05_dropouts": 0,
+      "exp05_dropout_pct": 0.0,
+      "mean_gt_pixels": 18118.6
+    }
+  },
+  "structure_stratified": {
+    "compact": {
+      "tile_count": 805,
+      "exp01_dropouts": 52,
+      "exp03_dropouts": 190,
+      "exp04_dropouts": 178,
+      "exp05_dropouts": 162,
+      "exp05_recall": 0.82432
+    },
+    "fragmented_or_elongated": {
+      "tile_count": 248,
+      "exp01_dropouts": 7,
+      "exp03_dropouts": 43,
+      "exp04_dropouts": 53,
+      "exp05_dropouts": 41,
+      "exp05_recall": 0.67566
+    }
+  },
+  "top_dropout_scenes": [
+    {
+      "scene": "00609",
+      "total_pos_tiles": 9,
+      "exp04_dropouts": 7,
+      "exp05_dropouts": 7
+    },
+    {
+      "scene": "00470",
+      "total_pos_tiles": 11,
+      "exp04_dropouts": 5,
+      "exp05_dropouts": 6
+    },
+    {
+      "scene": "00126",
+      "total_pos_tiles": 10,
+      "exp04_dropouts": 5,
+      "exp05_dropouts": 5
+    },
+    {
+      "scene": "00217",
+      "total_pos_tiles": 6,
+      "exp04_dropouts": 3,
+      "exp05_dropouts": 5
+    },
+    {
+      "scene": "00608",
+      "total_pos_tiles": 9,
+      "exp04_dropouts": 5,
+      "exp05_dropouts": 5
+    },
+    {
+      "scene": "00022",
+      "total_pos_tiles": 5,
+      "exp04_dropouts": 5,
+      "exp05_dropouts": 4
+    },
+    {
+      "scene": "00024",
+      "total_pos_tiles": 5,
+      "exp04_dropouts": 5,
+      "exp05_dropouts": 4
+    },
+    {
+      "scene": "00216",
+      "total_pos_tiles": 7,
+      "exp04_dropouts": 4,
+      "exp05_dropouts": 4
+    },
+    {
+      "scene": "00840",
+      "total_pos_tiles": 8,
+      "exp04_dropouts": 4,
+      "exp05_dropouts": 4
+    },
+    {
+      "scene": "01015",
+      "total_pos_tiles": 8,
+      "exp04_dropouts": 6,
+      "exp05_dropouts": 4
+    }
+  ]
+}

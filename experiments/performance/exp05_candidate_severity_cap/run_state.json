@@ -1,0 +1,23 @@
+{
+  "experiment_id": "EXP-05_CANDIDATE_SEVERITY_CAP",
+  "attempt_id": "EXP05_ATTEMPT_001",
+  "pid": 21392,
+  "command_line": "scripts\\train_exp05.py --authorized",
+  "git_commit": "542bab19f6f08c9bba8b8762e6480386c8b6026b",
+  "status": "COMPLETED",
+  "phase": "COMPLETE",
+  "start_time_iso": "2026-09-11T20:18:51.881161+00:00",
+  "last_heartbeat_iso": "2026-09-11T21:57:59.343674+00:00",
+  "current_epoch": 10,
+  "current_batch": 896,
+  "completed_batches": 8960,
+  "percent_complete": 100.0,
+  "eta_seconds": 0,
+  "current_train_loss": 0.09465,
+  "current_lr": 3.4227024433899e-06,
+  "best_val_iou": 0.70813,
+  "best_epoch": 10,
+  "latest_checkpoint": "best_model.pt (IoU=0.70813, SHA=D9FC12E312E5)",
+  "gpu_vram_allocated_mb": 436.1,
+  "failure_reason": null
+}

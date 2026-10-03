@@ -1,0 +1,52 @@
+{
+  "timestamp_utc": "2026-09-12T11:08:10.113557+00:00",
+  "hostname": "Grimdawn",
+  "os": "Windows-10-10.0.26200-SP0",
+  "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+  "pytorch_version": "2.14.0+cu126",
+  "torchvision_version": "0.29.0+cu126",
+  "cuda_version": "12.6",
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "vram_total_gb": 5.99951171875,
+  "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "ram_total_gb": 15.692092895507812,
+  "ram_avail_gb": 3.9502029418945312,
+  "repository_head": "542bab19f6f08c9bba8b8762e6480386c8b6026b",
+  "git_branch": "master",
+  "checkpoint": {
+    "path": "D:/Projects/ocean-sentinel/experiments/performance/exp06_positive_bce_weight/best_model.pt",
+    "byte_size": 292461395,
+    "sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+    "trainable_parameters": 24346305
+  },
+  "runner_sha256": "53D3CC769777B33531048DCE4BBA88FE7F2749E7A3AE4A907983A7C4064A9787",
+  "model_implementation_sha256": "E94AA2043EBBED2D33FCA39EC3068D14A51234EDFBB58B1155684965689DFA1F",
+  "normalization_source": {
+    "manifest": "D:/Projects/ocean-sentinel/data/metadata/trujillo_2024/spatial_split_manifest.json",
+    "manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "ch0_mu": -33.233136989478695,
+    "ch0_sigma": 6.489985665955077,
+    "ch1_mu": -19.941215852796695,
+    "ch1_sigma": 4.531345684833188
+  },
+  "benchmark_inventory": {
+    "pairing_manifest": "D:/Projects/ocean-sentinel/scratch/trujillo_part_iii_pairing.json",
+    "pairing_manifest_sha256": "316D5E7DF8BAD266702C47C6671E497F655B7E5761C3467BD5B2CA20D9A727DC",
+    "scene_count": 450,
+    "tile_count_per_mapping": 7200,
+    "total_inferences": 14400,
+    "stratification": {
+      "Oil": 150,
+      "No oil": 150,
+      "Lookalike": 150
+    }
+  },
+  "threshold": 0.22,
+  "mappings": {
+    "MAPPING_A": "Band 1 -> Ch0, Band 2 -> Ch1",
+    "MAPPING_B": "Band 2 -> Ch0, Band 1 -> Ch1"
+  },
+  "run_type": "OFFICIAL_EXTERNAL_BENCHMARK",
+  "scientific_status": "FROZEN",
+  "official_result": "NOT_YET_AVAILABLE"
+}

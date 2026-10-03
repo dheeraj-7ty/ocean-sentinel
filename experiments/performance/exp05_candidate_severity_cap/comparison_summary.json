@@ -1,0 +1,290 @@
+{
+  "exp01_baseline_metrics": {
+    "val_loss": 0.00922,
+    "val_iou": 0.71691,
+    "val_dice": 0.83512,
+    "val_precision": 0.85138,
+    "val_recall": 0.78488,
+    "clean_water_far_pct": 20.09,
+    "significant_far_pct": 10.56,
+    "total_fp_pixels": 2327942,
+    "total_fn_pixels": 2798401,
+    "total_pred_pos_pixels": 15668391,
+    "pos_tiles_detected": 1053,
+    "pos_tiles_dropped": 0
+  },
+  "exp03_baseline_metrics": {
+    "val_loss": 0.09007,
+    "val_iou": 0.70435,
+    "val_dice": 0.82653,
+    "val_precision": 0.8882,
+    "val_recall": 0.77287,
+    "clean_water_far_pct": 0.33,
+    "significant_far_pct": 0.33,
+    "total_fp_pixels": 79742,
+    "total_fn_pixels": 3664417,
+    "total_pred_pos_pixels": 14043861,
+    "pos_tiles_detected": 826,
+    "pos_tiles_dropped": 227
+  },
+  "exp04_metrics": {
+    "val_loss": 0.08907,
+    "val_iou": 0.7091,
+    "val_dice": 0.82979,
+    "val_precision": 0.88343,
+    "val_recall": 0.7823,
+    "clean_water_far_pct": 0.55,
+    "significant_far_pct": 0.55,
+    "total_fp_pixels": 122937,
+    "total_fn_pixels": 3513632,
+    "total_pred_pos_pixels": 14291901,
+    "pos_tiles_detected": 822,
+    "pos_tiles_dropped": 231
+  },
+  "exp05_metrics": {
+    "val_loss": 0.08544,
+    "val_iou": 0.70813,
+    "val_dice": 0.82913,
+    "val_precision": 0.88197,
+    "val_recall": 0.78227,
+    "clean_water_far_pct": 0.49,
+    "significant_far_pct": 0.49,
+    "total_fp_pixels": 129041,
+    "total_fn_pixels": 3514098,
+    "total_pred_pos_pixels": 14315101,
+    "pos_tiles_detected": 850,
+    "pos_tiles_dropped": 203
+  },
+  "comparison_exp01_vs_exp05": {
+    "val_iou": {
+      "base": 0.71691,
+      "target": 0.70813,
+      "delta": -0.00878,
+      "rel_pct": -1.22
+    },
+    "val_dice": {
+      "base": 0.83512,
+      "target": 0.82913,
+      "delta": -0.00599,
+      "rel_pct": -0.72
+    },
+    "val_precision": {
+      "base": 0.85138,
+      "target": 0.88197,
+      "delta": 0.03059,
+      "rel_pct": 3.59
+    },
+    "val_recall": {
+      "base": 0.78488,
+      "target": 0.78227,
+      "delta": -0.00261,
+      "rel_pct": -0.33
+    },
+    "clean_water_far_pct": {
+      "base": 20.09,
+      "target": 0.49,
+      "delta": -19.6,
+      "rel_pct": -97.56
+    },
+    "significant_far_pct": {
+      "base": 10.56,
+      "target": 0.49,
+      "delta": -10.07,
+      "rel_pct": -95.36
+    },
+    "total_fp_pixels": {
+      "base": 2327942,
+      "target": 129041,
+      "delta": -2198901,
+      "rel_pct": -94.46
+    },
+    "total_fn_pixels": {
+      "base": 2798401,
+      "target": 3514098,
+      "delta": 715697,
+      "rel_pct": 25.58
+    },
+    "total_pred_pos_pixels": {
+      "base": 15668391,
+      "target": 14315101,
+      "delta": -1353290,
+      "rel_pct": -8.64
+    },
+    "pos_tiles_detected": {
+      "base": 1053,
+      "target": 850,
+      "delta": -203,
+      "rel_pct": -19.28
+    },
+    "pos_tiles_dropped": {
+      "base": 0,
+      "target": 203,
+      "delta": 203,
+      "rel_pct": 0.0
+    }
+  },
+  "comparison_exp03_vs_exp05": {
+    "val_iou": {
+      "base": 0.70435,
+      "target": 0.70813,
+      "delta": 0.00378,
+      "rel_pct": 0.54
+    },
+    "val_dice": {
+      "base": 0.82653,
+      "target": 0.82913,
+      "delta": 0.0026,
+      "rel_pct": 0.31
+    },
+    "val_precision": {
+      "base": 0.8882,
+      "target": 0.88197,
+      "delta": -0.00623,
+      "rel_pct": -0.7
+    },
+    "val_recall": {
+      "base": 0.77287,
+      "target": 0.78227,
+      "delta": 0.0094,
+      "rel_pct": 1.22
+    },
+    "clean_water_far_pct": {
+      "base": 0.33,
+      "target": 0.49,
+      "delta": 0.16,
+      "rel_pct": 48.48
+    },
+    "significant_far_pct": {
+      "base": 0.33,
+      "target": 0.49,
+      "delta": 0.16,
+      "rel_pct": 48.48
+    },
+    "total_fp_pixels": {
+      "base": 79742,
+      "target": 129041,
+      "delta": 49299,
+      "rel_pct": 61.82
+    },
+    "total_fn_pixels": {
+      "base": 3664417,
+      "target": 3514098,
+      "delta": -150319,
+      "rel_pct": -4.1
+    },
+    "total_pred_pos_pixels": {
+      "base": 14043861,
+      "target": 14315101,
+      "delta": 271240,
+      "rel_pct": 1.93
+    },
+    "pos_tiles_detected": {
+      "base": 826,
+      "target": 850,
+      "delta": 24,
+      "rel_pct": 2.91
+    },
+    "pos_tiles_dropped": {
+      "base": 227,
+      "target": 203,
+      "delta": -24,
+      "rel_pct": -10.57
+    }
+  },
+  "comparison_exp04_vs_exp05": {
+    "val_iou": {
+      "base": 0.7091,
+      "target": 0.70813,
+      "delta": -0.00097,
+      "rel_pct": -0.14
+    },
+    "val_dice": {
+      "base": 0.82979,
+      "target": 0.82913,
+      "delta": -0.00066,
+      "rel_pct": -0.08
+    },
+    "val_precision": {
+      "base": 0.88343,
+      "target": 0.88197,
+      "delta": -0.00146,
+      "rel_pct": -0.17
+    },
+    "val_recall": {
+      "base": 0.7823,
+      "target": 0.78227,
+      "delta": -3e-05,
+      "rel_pct": -0.0
+    },
+    "clean_water_far_pct": {
+      "base": 0.55,
+      "target": 0.49,
+      "delta": -0.06,
+      "rel_pct": -10.91
+    },
+    "significant_far_pct": {
+      "base": 0.55,
+      "target": 0.49,
+      "delta": -0.06,
+      "rel_pct": -10.91
+    },
+    "total_fp_pixels": {
+      "base": 122937,
+      "target": 129041,
+      "delta": 6104,
+      "rel_pct": 4.97
+    },
+    "total_fn_pixels": {
+      "base": 3513632,
+      "target": 3514098,
+      "delta": 466,
+      "rel_pct": 0.01
+    },
+    "total_pred_pos_pixels": {
+      "base": 14291901,
+      "target": 14315101,
+      "delta": 23200,
+      "rel_pct": 0.16
+    },
+    "pos_tiles_detected": {
+      "base": 822,
+      "target": 850,
+      "delta": 28,
+      "rel_pct": 3.41
+    },
+    "pos_tiles_dropped": {
+      "base": 231,
+      "target": 203,
+      "delta": -28,
+      "rel_pct": -12.12
+    }
+  },
+  "acceptance_gates": {
+    "val_recall": {
+      "gate": ">= 0.78500",
+      "value": 0.78227,
+      "pass": false
+    },
+    "val_iou": {
+      "gate": ">= 0.71731",
+      "value": 0.70813,
+      "pass": false
+    },
+    "clean_water_far_pct": {
+      "gate": "< 5.00%",
+      "value": 0.49,
+      "pass": true
+    },
+    "significant_far_pct": {
+      "gate": "< 3.00%",
+      "value": 0.49,
+      "pass": true
+    },
+    "total_fp_pixels": {
+      "gate": "< 350000",
+      "value": 129041,
+      "pass": true
+    }
+  },
+  "overall_acceptance_status": "FAIL"
+}

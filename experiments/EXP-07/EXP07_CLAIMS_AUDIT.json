@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "document_id": "EXP07_CLAIMS_AUDIT_V1",
+    "status": "VERIFIED"
+  },
+  "claims": [
+    {
+      "claim_id": "CLM-01",
+      "claim_text": "Loss weighting has proven futile: Five paired random seeds established that loss weighting has a zero net effect (+0.00004 delta).",
+      "claim_category": "SCIENTIFIC_INTERPRETATION",
+      "evidence_source": "experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/exp07_diag01_replication_aggregate.json",
+      "evidence_status": "OVERCLAIM",
+      "allowed_wording": "No consistent weighting benefit was observed in this small paired study; the observed deltas were mixed and the aggregate mean delta was near zero (+0.00004) relative to observed variability.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-02",
+      "claim_text": "The variation between random seeds is roughly 300x larger than the mean treatment effect (0.01006 SD vs 0.00004 mean). This proves conclusively that tuning class weights cannot solve the performance deficit.",
+      "claim_category": "NUMERICAL",
+      "evidence_source": "C22-D aggregate JSON (Sample SD=0.01006, mean delta=0.000042, ratio \u2248 239.4)",
+      "evidence_status": "INACCURATE_AND_UNSTABLE",
+      "allowed_wording": "The ratio of sample SD (0.01006) to |mean delta| (0.000042) is approximately 240, but this ratio is numerically unstable because the denominator is near zero. Observed deltas alternated signs across seeds, indicating that weighting differences were dominated by random seed variability in this small sample.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-03",
+      "claim_text": "Task/taxonomy compatibility: UNSUPPORTED. Forcing flat categorical softmax Cross-Entropy loss upon non-mutually-exclusive phenomena creates an intractable winner-take-all optimization conflict.",
+      "claim_category": "SCIENTIFIC_INTERPRETATION",
+      "evidence_source": "Taxonomy specification & physical raster inspection",
+      "evidence_status": "OVERCLAIM_CONFLATING_PHYSICS_AND_LABELS",
+      "allowed_wording": "Task/taxonomy compatibility: TASK FORMULATION CONCERN. Pixel-label exclusivity is mathematically satisfied because ground-truth rasters assign a single dense class ID (0..11) per pixel. However, physical co-occurrence of oceanic and atmospheric phenomena creates ambiguity in dominant-class assignment and raises concerns regarding the suitability of flat multi-class softmax.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-04",
+      "claim_text": "Single-polarization (VV) SAR backscatter lacks the physical degrees of freedom to differentiate capillary-attenuating lookalikes at the individual pixel level without ancillary contextual fields.",
+      "claim_category": "GENERALIZATION",
+      "evidence_source": "EXP-07 empirical results & SAR backscatter physics",
+      "evidence_status": "UNPROVEN_UNIVERSAL_GENERALIZATION",
+      "allowed_wording": "Under the tested task and data regime, single-polarization (VV) SAR backscatter alone showed poor empirical separability across dark-patch phenomena; incorporating wide contextual or auxiliary environmental data (wind, SST) represents an important future hypothesis.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-05",
+      "claim_text": "132 training tiles across 40 parent acquisitions is orders of magnitude inadequate for 12 dense classes... Expanding to adequate coverage would require hundreds of thousands of multi-scene annotations.",
+      "claim_category": "GENERALIZATION",
+      "evidence_source": "scratch/ops02_train_dev_physical_support.json",
+      "evidence_status": "UNSUPPORTED_SPECULATIVE_THRESHOLDS",
+      "allowed_wording": "Observed class and parent support is sparse and highly uneven across the 132 training tiles (from 2.66M pixels down to 1,201 pixels), with several classes appearing in only 1\u20133 parent acquisitions in DEV. The current experiments do not establish that the dataset supports robust cross-scene generalization.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-06",
+      "claim_text": "The implementation is verified correct: There are no bugs in data loading, normalization, architecture, or evaluation metrics.",
+      "claim_category": "IMPLEMENTATION",
+      "evidence_source": "tests/test_exp07_p0_c22a9_protocol_consistency_guardrails.py & code audits",
+      "evidence_status": "OVERCLAIM_PERFECTION",
+      "allowed_wording": "No material implementation defect was identified in the audited data loader, normalization pipeline, ResNet18-UNet architecture, loss, or metric evaluation code paths.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-07",
+      "claim_text": "Proven Binary Oil Detector (EXP-06).",
+      "claim_category": "ARCHITECTURAL_RECOMMENDATION",
+      "evidence_source": "EXP-06 reports & manifests",
+      "evidence_status": "OVERCLAIM_OPERATIONAL_PROVENANCE",
+      "allowed_wording": "Existing EXP-06 internal binary oil detection baseline.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-08",
+      "claim_text": "A falsified experiment protocol justifies architectural pivoting: it proves that attempting to segment all oceanic background phenomena simultaneously via flat single-band segmentation is an unproductive architectural dead-end.",
+      "claim_category": "SCIENTIFIC_INTERPRETATION",
+      "evidence_source": "Candidate Lesson EXP07-07",
+      "evidence_status": "INACCURATE_FALSIFICATION_LANGUAGE",
+      "allowed_wording": "A negative experimental result can justify changing development direction while preserving validated components, provided the pivot is treated as a proposed development architecture rather than a proven scientific conclusion.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-09",
+      "claim_text": "DEV-Oracle Random Predictor achieves 0.03853 dev_mIoU_phenomena. (Presented without clear oracle caveats).",
+      "claim_category": "NUMERICAL",
+      "evidence_source": "scratch/compute_diagnostic_baselines.py",
+      "evidence_status": "INSUFFICIENTLY_CONTEXTUALIZED",
+      "allowed_wording": "Descriptive Oracle-Prior Baseline (dev_mIoU_phenomena = 0.03853): Provided strictly for non-learning contextual comparison; not an independent test benchmark because its class prior is derived directly from DEV ground truth.",
+      "action": "REWORD"
+    },
+    {
+      "claim_id": "CLM-10",
+      "claim_text": "Source of Truth = Executable Code + Machine-Readable Manifests + Cryptographic Hashes + Filesystem State.",
+      "claim_category": "GOVERNANCE",
+      "evidence_source": "Candidate Lesson EXP07-02",
+      "evidence_status": "INCOMPLETE_HISTORICAL_LINEAGE",
+      "allowed_wording": "For a historical experiment, run-specific truth is established through the binding protocol version + execution manifest + raw result artifacts + artifact identity/hashes + recorded runtime environment. Current executable code is authoritative only when its lineage to the specific execution is established.",
+      "action": "REWORD"
+    }
+  ]
+}

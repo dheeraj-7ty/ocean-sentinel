@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "document_id": "EXP07_RADIOMETRIC_LINEAGE_RECONCILIATION_V1",
+    "task_id": "OCEAN-SENTINEL-EXP07-FINAL-FORENSIC-CORRECTIVE-CLOSURE-V2",
+    "evaluated_at_utc": "2026-09-26T15:10:00Z",
+    "status": "VERIFIED_AND_BOUNDED",
+    "investigator": "AG / Antigravity IDE 2.0 Forensic Worker"
+  },
+  "executive_summary": {
+    "finding": "The radiometric transformation distinction between np.log1p(max(DN,0)) and 10*log10(DN+1e-6) is fully reconciled. The early draft design (PHASE_EXP07_P0 draft contract) proposed 10*log10(DN + 1e-6) and colloquially termed it 'pseudo-dB'. However, the formal frozen protocol contract (C4 Section 3 & Section 10, C15, C21) and 100% of executable training runs (Run 001, Run 002, Run 003, C22-B Diag01, C22-D Replication) implemented and executed np.log1p(np.maximum(raw_dn, 0.0)) with standardized TRAIN-only normalization. Calling log1p 'pseudo-dB' in historical reports was a loose documentation terminology error. Calibrated physical sigma0 dB was never established.",
+    "mathematical_equivalence_status": "NOT_EQUIVALENT",
+    "mathematical_note": "np.log1p(x) is natural logarithm ln(1+x), whereas 10*log10(x) is (10/ln(10))*ln(x) \u2248 4.3429*ln(x). They differ by a scale factor of ~4.34 and offset. However, subsequent standardization (z - mu)/sigma absorbs linear scale and shift, so both map linear inputs to standardized normal-like ranges, though they are mathematically distinct functions.",
+    "executed_representation_across_all_runs": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+    "calibration_status": "EXPLICITLY_UNCALIBRATED (detected amplitude DN, not physical sigma0/gamma0)"
+  },
+  "runs_and_versions_lineage": [
+    {
+      "run_or_version_id": "EXP07_P0_DRAFT_SPEC",
+      "phase_or_task": "EXP-07-P0 Initial Proposal",
+      "binding_protocol": "PHASE_EXP07_P0_SCIENTIFIC_PROTOCOL_AND_OPS01_CONTRACT_20260913.md",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean of native Level-1 GRD detected amplitude",
+      "exact_transformation_name": "PSEUDO_DB_DRAFT",
+      "exact_formula": "10 * log10(raw_DN + 1e-6)",
+      "normalization": "TRAIN standardization (preliminary draft values)",
+      "code_location": "data/metadata/ops01_loader_contract_v1.json",
+      "manifest_reference": "data/metadata/ops01_physical_dataset_manifest_v1.json",
+      "status": "VERSIONED_CHANGE",
+      "notes": "Draft proposal only; superseded by C4 protocol freeze before any model training."
+    },
+    {
+      "run_or_version_id": "OPS01_FROZEN_SPEC",
+      "phase_or_task": "EXP-07-P0-C4 Protocol Freeze",
+      "binding_protocol": "EXP07_P0_C4_FINAL_PROTOCOL_FREEZE_IMPLEMENTATION_CONTRACT_20260913.md",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean",
+      "exact_transformation_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "exact_formula": "z = np.log1p(np.maximum(raw_dn, 0.0)); x_hat = (z - 4.2756) / 0.3866",
+      "normalization": "mu_train = 4.2756, sigma_train = 0.3866 (computed over 4,712,082 valid OPS-01 TRAIN pixels)",
+      "code_location": "src/ocean_sentinel/ml/exp07_reference.py::preprocess_sar_image",
+      "manifest_reference": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+      "status": "VERIFIED",
+      "notes": "Frozen contract governing Run 001 and Run 002. C4 Section 3 proved that spatial block-averaging breaks physical sigma0 calibration via Jensen's inequality."
+    },
+    {
+      "run_or_version_id": "EXP07_RUN001_SEED42",
+      "phase_or_task": "EXP-07-P0-C8 Baseline Run 001",
+      "binding_protocol": "EXP07_P0_C4_FINAL_PROTOCOL_FREEZE_IMPLEMENTATION_CONTRACT_20260913.md",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean",
+      "exact_transformation_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "exact_formula": "z = np.log1p(np.maximum(raw_dn, 0.0)); x_hat = (z - 4.2756) / 0.3866",
+      "normalization": "mu_train = 4.2756, sigma_train = 0.3866",
+      "code_location": "scripts/train_exp07.py",
+      "manifest_reference": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+      "status": "VERIFIED",
+      "notes": "Executed on Kaggle Tesla T4. dev_mIoU_phenomena = 0.11903."
+    },
+    {
+      "run_or_version_id": "EXP07_RUN002_SEED101",
+      "phase_or_task": "EXP-07-P0-C10 Replicate Run 002",
+      "binding_protocol": "EXP07_P0_C4_FINAL_PROTOCOL_FREEZE_IMPLEMENTATION_CONTRACT_20260913.md",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean",
+      "exact_transformation_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "exact_formula": "z = np.log1p(np.maximum(raw_dn, 0.0)); x_hat = (z - 4.2756) / 0.3866",
+      "normalization": "mu_train = 4.2756, sigma_train = 0.3866",
+      "code_location": "scripts/train_exp07.py",
+      "manifest_reference": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+      "status": "VERIFIED",
+      "notes": "Executed on Kaggle Tesla T4. dev_mIoU_phenomena = 0.13782."
+    },
+    {
+      "run_or_version_id": "OPS02_FROZEN_SPEC",
+      "phase_or_task": "EXP-07-P0-C15 / C18 Dataset Expansion",
+      "binding_protocol": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean",
+      "exact_transformation_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "exact_formula": "z = np.log1p(np.maximum(raw_dn, 0.0)); x_hat = (z - 4.424158) / 0.469261",
+      "normalization": "mu_train = 4.424158, sigma_train = 0.469261 (computed over 8,401,060 valid OPS-02 TRAIN pixels)",
+      "code_location": "src/ocean_sentinel/ml/exp07_reference.py::preprocess_sar_image",
+      "manifest_reference": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "status": "VERIFIED",
+      "notes": "Versioned dataset expansion. Normalization constants formally updated to match OPS-02 TRAIN distribution."
+    },
+    {
+      "run_or_version_id": "EXP07_RUN003_SEED42",
+      "phase_or_task": "EXP-07-P0-C16 Kaggle Replicate 003",
+      "binding_protocol": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean",
+      "exact_transformation_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "exact_formula": "z = np.log1p(np.maximum(raw_dn, 0.0)); x_hat = (z - 4.424158) / 0.469261",
+      "normalization": "mu_train = 4.424158, sigma_train = 0.469261",
+      "code_location": "scratch/kaggle_replicate003_kernel",
+      "manifest_reference": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "status": "VERIFIED",
+      "notes": "First run on OPS-02. dev_mIoU_phenomena = 0.04940."
+    },
+    {
+      "run_or_version_id": "EXP07_DIAG01_C22B",
+      "phase_or_task": "EXP-07-P0-C22-B Paired Training (Seed 42)",
+      "binding_protocol": "ops02_c21_single_variable_diagnostic_protocol_v1.json / C22-A.9",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean",
+      "exact_transformation_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "exact_formula": "z = np.log1p(np.maximum(raw_dn, 0.0)); x_hat = (z - 4.424158) / 0.469261",
+      "normalization": "mu_train = 4.424158, sigma_train = 0.469261",
+      "code_location": "scripts/rehearse_exp07_diag01_canonical_zero_step.py / Kaggle kernel",
+      "manifest_reference": "experiments/EXP-07/runs/EXP07_DIAG01/exp07_diag01_manifest.json",
+      "status": "VERIFIED",
+      "notes": "Control: 0.04147, Treatment: 0.05318, Delta: +0.01171. Preprocessing was identical between Control and Treatment."
+    },
+    {
+      "run_or_version_id": "EXP07_DIAG01_REPLICATION_C22D",
+      "phase_or_task": "EXP-07-P0-C22-D Paired Replication (Seeds 101, 202, 303, 404)",
+      "binding_protocol": "ops02_c21_single_variable_diagnostic_protocol_v1.json / C22-C",
+      "raw_input_representation": "10x10 spatial block-mean raw DN",
+      "block_aggregation": "10x10 arithmetic mean",
+      "exact_transformation_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "exact_formula": "z = np.log1p(np.maximum(raw_dn, 0.0)); x_hat = (z - 4.424158) / 0.469261",
+      "normalization": "mu_train = 4.424158, sigma_train = 0.469261",
+      "code_location": "scratch/kaggle_c22d_kernel",
+      "manifest_reference": "experiments/EXP-07/runs/EXP07_DIAG01_REPLICATION/exp07_diag01_replication_manifest.json",
+      "status": "VERIFIED",
+      "notes": "All 8 runs (4 pairs) strictly executed AGGREGATED_RAW_DN_LOG1P_STANDARDIZED with mu=4.424158, sigma=0.469261."
+    }
+  ],
+  "definitive_terminology_rule": {
+    "prohibited_terms": [
+      "calibrated sigma0 dB (Prohibited because radiometric calibration is not established)",
+      "physical backscatter dB (Prohibited for aggregated DN crops)",
+      "10*log10 pseudo-dB (Prohibited as a description of executed runs; only applicable to early draft proposal)"
+    ],
+    "authorized_terms": [
+      "log1p-transformed DN",
+      "log-transformed detected intensity",
+      "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+      "standardized log-amplitude"
+    ]
+  }
+}

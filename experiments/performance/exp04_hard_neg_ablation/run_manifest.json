@@ -1,0 +1,37 @@
+{
+  "experiment_id": "EXP-04_HARD_NEGATIVE_ABLATION",
+  "attempt_id": "EXP04_ATTEMPT_001",
+  "start_time_utc": "2026-09-11T18:21:17Z",
+  "pid": 6872,
+  "command_line": "scripts/train_exp04.py --authorized",
+  "git_branch": "master",
+  "git_head": "542bab19f6f08c9bba8b8762e6480386c8b6026b",
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "single_variable_intervention": {
+    "description": "50% reduction in hard-negative exposure",
+    "exp03_batch_composition": "14 std + 2 mined = 16 tiles (12.5%)",
+    "exp04_batch_composition": "15 std + 1 mined = 16 tiles (6.25%)",
+    "batches_per_epoch": 896,
+    "standard_exposures_per_epoch": 13440,
+    "mined_exposures_per_epoch": 896,
+    "total_optimizer_steps": 8960
+  },
+  "frozen_constants": {
+    "teacher_checkpoint": "D:\\Projects\\ocean-sentinel\\experiments\\exp01_baseline\\best_model.pt",
+    "teacher_checkpoint_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "candidate_manifest": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\exp03_hard_negative_manifest.json",
+    "candidate_manifest_sha256": "3867671E639F020A686C5ACCA4FE5DA4280EB7DAEAB9BD9FEF467C192AA9F9F4",
+    "spatial_split_manifest": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+    "spatial_split_manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "trainable_parameters": 24346305,
+    "buffers": 19054,
+    "total_state_dict_elements": 24365359,
+    "threshold_tau": 0.22,
+    "epochs": 10,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "seed": 42,
+    "manifest_provenance_audit": "experiments/performance/exp04_hard_neg_ablation/manifest_provenance_audit.json"
+  }
+}

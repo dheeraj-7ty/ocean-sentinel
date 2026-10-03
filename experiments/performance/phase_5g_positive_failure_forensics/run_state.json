@@ -1,0 +1,27 @@
+{
+  "phase": "PHASE_5G_POSITIVE_FAILURE_FORENSICS",
+  "status": "COMPLETED",
+  "pid": 30852,
+  "command_line": "scratch/run_phase_5g_forensics.py",
+  "start_time_iso": "2026-09-12T01:08:08.371830+00:00",
+  "last_heartbeat_iso": "2026-09-12T01:17:29.222230+00:00",
+  "current_task": "Forensics Execution Finished",
+  "progress_pct": 100.0,
+  "eta_seconds": 0.0,
+  "completed_analyses": [
+    "CHECKPOINT_VERIFICATION",
+    "PART_III_FIREWALL_AUDIT",
+    "GT_GEOMETRY_EXTRACTION",
+    "FOUR_MODEL_INFERENCE",
+    "POPULATION_FORENSICS",
+    "TRANSITION_MATRIX",
+    "FN_DECOMPOSITION",
+    "AREA_STRATIFICATION"
+  ],
+  "artifact_paths": [
+    "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5g_positive_failure_forensics\\forensics_summary.json",
+    "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5g_positive_failure_forensics\\positive_tiles_forensics.json"
+  ],
+  "current_diagnostic": "All four models evaluated, transition matrices generated, and forensics summarized.",
+  "failure_state": null
+}

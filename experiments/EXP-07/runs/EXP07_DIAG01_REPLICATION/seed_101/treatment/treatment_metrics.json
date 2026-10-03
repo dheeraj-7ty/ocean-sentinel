@@ -1,0 +1,47 @@
+{
+  "seed": 101,
+  "arm_name": "TREATMENT",
+  "loss_weights": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+  "best_epoch": 5,
+  "best_dev_mIoU_phenomena": 0.04481,
+  "total_epochs_trained": 15,
+  "total_duration_sec": 26.29,
+  "best_epoch_metrics": {
+    "epoch": 5,
+    "train_loss": 2.35667,
+    "dev_loss": 4.43253,
+    "dev_mIoU_phenomena": 0.04481,
+    "learning_rate": 0.0004983,
+    "duration_sec": 1.65,
+    "class_ious": {
+      "BG": 0.0802,
+      "AF": 0.0,
+      "BS": 0.05895,
+      "LWA": 0.04661,
+      "MCC": 0.15148,
+      "OF": 1e-05,
+      "POW": 0.00025,
+      "RF": 0.0,
+      "WS": 0.0,
+      "Eddy": 0.0,
+      "IWs": 0.23561,
+      "HM": 0.0
+    }
+  },
+  "best_model_sha256": "CDBA3618FE4A7BECA0D82B11E8E57BE9DD82DA31360C85A523A96577866B74FC",
+  "last_model_sha256": "EF4CC726EBEC00DEA1FB7A0F59FD2E02B00C569EA733ED4F6D6251F1740BC74B"
+}

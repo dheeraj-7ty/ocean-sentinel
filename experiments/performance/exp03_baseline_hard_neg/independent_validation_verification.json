@@ -1,0 +1,32 @@
+{
+  "verifier_status": "COMPLETED",
+  "best_model_path": "experiments\\performance\\exp03_baseline_hard_neg\\best_model.pt",
+  "best_model_epoch": 9,
+  "evaluated_tiles": 2880,
+  "threshold": 0.22,
+  "recomputed_metrics": {
+    "val_loss": 0.09007,
+    "val_iou": 0.70435,
+    "val_dice": 0.82653,
+    "val_precision": 0.8882,
+    "val_recall": 0.77287,
+    "clean_water_far_pct": 0.33,
+    "significant_far_pct": 0.33,
+    "total_fp_pixels": 79742,
+    "empty_tiles_evaluated": 1827
+  },
+  "saved_metrics": {
+    "val_loss": 0.09007,
+    "val_iou": 0.70435,
+    "val_dice": 0.82653,
+    "val_precision": 0.8882,
+    "val_recall": 0.77287,
+    "clean_water_far_pct": 0.33,
+    "significant_far_pct": 0.33,
+    "total_fp_pixels": 79742,
+    "empty_tiles_evaluated": 1827
+  },
+  "exact_equality_verified": true,
+  "completion_utc": "2026-09-11T17:47:26Z",
+  "duration_sec": 112.17
+}

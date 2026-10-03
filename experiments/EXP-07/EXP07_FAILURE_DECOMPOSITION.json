@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "document_id": "EXP07_FAILURE_DECOMPOSITION_V2",
+    "task_id": "OCEAN-SENTINEL-EXP07-FINAL-FORENSIC-CORRECTIVE-CLOSURE-V2",
+    "evaluated_at_utc": "2026-09-26T15:15:00Z",
+    "status": "COMPLETED_VALID",
+    "evaluator": "AG / Antigravity IDE 2.0 Forensic Worker"
+  },
+  "executive_finding": {
+    "primary_failure_question": "Why did EXP-07 produce low cross-scene segmentation performance (~0.04\u20130.05 mIoU)?",
+    "root_cause_classification": "H. MULTIPLE CONTRIBUTING CAUSES (Task Formulation Concern + Sparse Class Coverage + Physical Modality Separability Limitation)",
+    "primary_factors": [
+      "1. Task Formulation Concern: While pixel-label exclusivity is mathematically satisfied by single-label rasters, physical co-occurrence of oceanic and atmospheric phenomena creates ambiguity in dominant-class pixel assignment under flat categorical softmax.",
+      "2. Physical Modality Separability Limitation: Under the tested regime, single-polarization (VV) SAR backscatter alone showed poor empirical separability among dark-patch phenomena (biological slicks, low wind areas, rain cells) without ancillary contextual fields.",
+      "3. Sparse & Uneven Data Support: 132 training samples across 40 parent acquisitions provides limited and highly uneven coverage for 12 dense classes spanning 4 orders of magnitude in pixel support.",
+      "4. Evaluation Split Sensitivity: 2 classes (OF, RF) depend on exactly 1 parent acquisition in DEV, and 3 classes (BS, WS, Eddy) depend on only 2 parents, creating high evaluation sensitivity."
+    ],
+    "non_factors_ruled_out": [
+      "1. Implementation defects in audited paths: No material defect was identified in the audited data loader, UNet architecture, loss, or metric code paths.",
+      "2. Metric implementation defects: dev_mIoU_phenomena semantics verified mathematically sound and procedurally consistent.",
+      "3. Class loss weighting intervention: C22-B and C22-D 5-seed replication showed no consistent weighting benefit (aggregate mean delta +0.00004, mixed seed wins).",
+      "4. Radiometric normalization shift: TRAIN and DEV log1p distributions match closely (mean ~4.44 in both partitions)."
+    ]
+  },
+  "decomposition_dimensions": {
+    "A_dataset_adequacy": {
+      "flag": "LOW",
+      "total_train_samples": 132,
+      "total_train_parents": 40,
+      "total_dev_samples": 40,
+      "total_dev_parents": 12,
+      "total_train_valid_pixels": 8401060,
+      "total_dev_valid_pixels": 2564519,
+      "support_dynamic_range": "Over 4 orders of magnitude (from 2.66M px for IWs down to 1,201 px for HM in TRAIN; 853k px down to 117 px in DEV)",
+      "classes_with_near_zero_support_in_dev": {
+        "HM": {
+          "dev_pixels": 117,
+          "dev_percentage": 0.005,
+          "dev_samples": 3,
+          "dev_parents": 3
+        },
+        "OF": {
+          "dev_pixels": 1709,
+          "dev_percentage": 0.07,
+          "dev_samples": 1,
+          "dev_parents": 1
+        },
+        "RF": {
+          "dev_pixels": 9550,
+          "dev_percentage": 0.37,
+          "dev_samples": 2,
+          "dev_parents": 1
+        }
+      },
+      "classes_confined_to_single_parent_in_dev": [
+        "OF (parent 00E063)",
+        "RF (parent 00BDE6)"
+      ],
+      "classes_confined_to_two_parents_in_dev": [
+        "BS (2 parents)",
+        "WS (2 parents)",
+        "Eddy (2 parents)"
+      ],
+      "fraction_of_classes_with_le_2_parents_in_dev": "5 / 11 phenomena (45.5%)",
+      "dominant_class_concentration_in_dev": "Top 2 phenomena (MCC: 33.3%, IWs: 22.6%) account for 55.9% of all DEV valid pixels; Background accounts for 25.1%",
+      "train_vs_dev_distributional_skew": "MCC is 3x more prevalent in DEV (33.3%) than in TRAIN (11.3%); OF is 4x less prevalent in DEV than in TRAIN",
+      "assessment": "Observed class and parent support is sparse and highly uneven across the 132 training tiles, with several classes appearing in only 1\u20133 parent acquisitions in DEV. The current experiments do not establish that the dataset supports robust cross-scene generalization."
+    },
+    "B_label_taxonomy_compatibility": {
+      "flag": "TASK_FORMULATION_CONCERN",
+      "physical_co_occurrence": "TRUE. Physical oceanic and atmospheric phenomena frequently co-occur within the same marine scene. For example, wind streaks (WS) and low wind areas (LWA) overlay internal waves (IWs) and biological slicks (BS); rain cells (RF) induce atmospheric fronts (AF) and downdrafts.",
+      "pixel_label_exclusivity": "TRUE. Ground-truth rasters assign exactly one integer class ID (0..11) or -100 per valid pixel. The representation is single-label exclusive, rendering flat categorical softmax mathematically well-defined on the data array.",
+      "scientific_semantic_exclusivity": "QUESTIONABLE / TASK FORMULATION CONCERN. Because physical processes interact continuously, forcing single-label winner-take-all assignment at diffuse boundaries creates ambiguity in ground truth and training loss signals.",
+      "physical_modality_separability": "Under the tested regime, single-polarization (VV) radar backscatter alone showed poor empirical separability among dark-patch features without ancillary contextual fields (wind vectors, SST).",
+      "spatial_scale_disparity": "Receptive field requirements span wide scales: Anthropogenic Objects (HM) are point targets (10\u2013100 m), Internal Waves (IWs) are narrow curvilinear solitons, while Mesoscale Cellular Convection (MCC) and Atmospheric Fronts (AF) span 100+ km. Balancing these simultaneously in a single standard ResNet18-UNet architecture presents substantial optimization difficulty.",
+      "assessment": "Task formulation concern. While pixel-label exclusivity is mathematically satisfied, physical co-occurrence and modality ambiguity raise substantial concerns regarding the suitability of flat multi-class softmax for this task."
+    },
+    "C_label_quality": {
+      "flag": "MEDIUM",
+      "annotation_source": "Li et al. (2024) 10x10 aggregated SAR crops.",
+      "findings": [
+        "HM annotations are minute point targets (117 pixels across entire DEV partition, 3 tiles).",
+        "Boundary delineations for diffuse phenomena (WS, LWA, AF) reflect annotator interpretation variability.",
+        "No empty or completely corrupted masks detected on disk.",
+        "Source classes 3 (Iceberg), 9 (Sea Ice), and 14 (Oil Spill) are cleanly mapped to -100 ignore_index."
+      ],
+      "assessment": "Label quality is adequate for exploratory analysis, but boundary variability in diffuse meteorological phenomena and point-target sparsity for HM contribute to low pixel-level IoU."
+    },
+    "D_input_distribution": {
+      "flag": "PASS",
+      "train_log1p_mean": 4.4431,
+      "train_log1p_std": 0.1294,
+      "dev_log1p_mean": 4.4368,
+      "dev_log1p_std": 0.2514,
+      "standardization_parameters": {
+        "mean": 4.424158,
+        "std": 0.469261
+      },
+      "zero_padding_policy": "Zero pixels occur strictly as slant-to-ground margin border padding; correctly masked via validity_mask (raw > 0) and excluded via ignore_index=-100.",
+      "domain_shift_status": "No catastrophic radiometric shift between TRAIN and DEV.",
+      "assessment": "Input distribution and preprocessing pipeline are verified mathematically consistent."
+    },
+    "E_loader_correctness": {
+      "flag": "PASS",
+      "image_loading": "Single-band float32 GeoTIFF, shape [1, 256, 256].",
+      "mask_loading": "Uint8 PNG, dense values 0..11, excluded mapped to -100.",
+      "validity_masking": "Invalid border padding set to 0.0 standardized input and -100 target.",
+      "sampling_engine": "Candidate F Hybrid verified deterministic per seed.",
+      "batch_collation": "Mini-batch size 8, gradient accumulation 2, virtual batch 16.",
+      "assessment": "No material implementation defect identified in audited loader paths."
+    },
+    "F_metric_correctness": {
+      "flag": "PASS",
+      "primary_metric": "dev_mIoU_phenomena (classes 1..11)",
+      "background_exclusion": "Background Class 0 strictly excluded from primary metric numerator and denominator.",
+      "absent_class_handling": "Classes with GT=0 evaluate to None and are omitted from denominator; classes with GT>0 and TP=0 evaluate to 0.0 and enter denominator. On OPS-02 DEV, all 11 classes have GT>0, so denominator is always exactly 11.",
+      "metric_recomputation_verification": "Recomputed metrics match logged metrics to 5 decimal places.",
+      "assessment": "Metric implementation is mathematically sound and procedurally consistent with the frozen protocol contract."
+    },
+    "G_optimization_behavior": {
+      "flag": "MEASURED_PLATEAU",
+      "training_loss_trajectory": "Decreases smoothly from ~2.45 to ~2.20 over 15\u201320 epochs.",
+      "dev_loss_trajectory": "Flattens rapidly around epochs 5\u201310, then begins slight increase.",
+      "dev_mIoU_trajectory": "Reaches peak between Epoch 5 and Epoch 17 across seeds, triggering early stopping between Epoch 15 and Epoch 30.",
+      "class_collapse_analysis": [
+        "RF and HM collapse to 0.0 IoU across virtually all runs.",
+        "AF, OF, LWA, and WS remain near floor (< 0.01 IoU).",
+        "Only MCC (0.15\u20130.30), IWs (0.06\u20130.26), and BS (0.00\u20130.16) show active learning.",
+        "Overall mIoU plateaus at ~0.04\u20130.05 because 8 of 11 classes fail to escape near-zero performance."
+      ],
+      "assessment": "Optimization is functioning as designed, but the model under single-band VV on 132 tiles plateaus on the 2\u20133 dominant textures, unable to learn rare or visually ambiguous phenomena."
+    },
+    "H_generalization_split_effect": {
+      "flag": "HIGH_SPLIT_SENSITIVITY",
+      "parent_clustering": "64 independent parent clusters (40 TRAIN / 12 DEV / 12 HOLDOUT) rigorously prevent spatial leakage, adhering to GOV-RULE-075 and GOV-RULE-077.",
+      "leave_one_parent_out_sensitivity": "Removing parent 00E063 drops OF to GT=0 on that subset, changing mIoU by +0.004 over 10 classes. Removing parent 00BDE6 drops RF to GT=0, altering subset score by +0.0105. This demonstrates sensitivity to small-sample partition boundaries.",
+      "assessment": "Strict scene-level splitting exposed the difficulty of cross-scene generalization on this dataset."
+    },
+    "I_randomness_stability": {
+      "flag": "UNSTABLE_NOISE_LEVEL_EFFECT",
+      "five_seed_paired_results": [
+        {
+          "seed": 42,
+          "control": 0.04147,
+          "treatment": 0.05318,
+          "delta": 0.01171,
+          "winner": "TREATMENT"
+        },
+        {
+          "seed": 101,
+          "control": 0.05886,
+          "treatment": 0.04481,
+          "delta": -0.01405,
+          "winner": "CONTROL"
+        },
+        {
+          "seed": 202,
+          "control": 0.04358,
+          "treatment": 0.04741,
+          "delta": 0.00383,
+          "winner": "TREATMENT"
+        },
+        {
+          "seed": 303,
+          "control": 0.05191,
+          "treatment": 0.04605,
+          "delta": -0.00586,
+          "winner": "CONTROL"
+        },
+        {
+          "seed": 404,
+          "control": 0.0494,
+          "treatment": 0.05398,
+          "delta": 0.00458,
+          "winner": "TREATMENT"
+        }
+      ],
+      "aggregate_metrics": {
+        "all_five_control_mean": 0.04904,
+        "all_five_treatment_mean": 0.04909,
+        "all_five_mean_delta": 4e-05,
+        "all_five_delta_std": 0.01006,
+        "all_five_delta_median": 0.00383,
+        "all_five_delta_min": -0.01405,
+        "all_five_delta_max": 0.01171,
+        "treatment_wins": 3,
+        "control_wins": 2,
+        "confidence_interval_95_student_t": [
+          -0.01244,
+          0.01253
+        ],
+        "prospective_replications_mean_delta": -0.00288
+      },
+      "conclusion": "No consistent weighting benefit was observed in this small paired study; observed deltas alternated signs across seeds and the aggregate mean delta was near zero relative to cross-seed variability."
+    },
+    "J_cheap_baselines_context": {
+      "baseline_evaluations_on_dev": {
+        "all_background_predictor": {
+          "predicted_class": "Class 0 (BG) everywhere",
+          "dev_mIoU_phenomena": 0.0,
+          "dev_mIoU_all": 0.02092,
+          "role": "Descriptive trivial baseline"
+        },
+        "train_majority_phenomenon_predictor": {
+          "predicted_class": "Class 10 (IWs) everywhere",
+          "dev_mIoU_phenomena": 0.02054,
+          "dev_mIoU_all": 0.01883,
+          "role": "Descriptive constant baseline"
+        },
+        "dev_majority_predictor": {
+          "predicted_class": "Class 4 (MCC) everywhere",
+          "dev_mIoU_phenomena": 0.03025,
+          "dev_mIoU_all": 0.02773,
+          "role": "Descriptive constant baseline"
+        },
+        "train_prior_random_predictor": {
+          "method": "Independent random pixel assignment using TRAIN marginal probabilities",
+          "dev_mIoU_phenomena": 0.03192,
+          "dev_mIoU_all": 0.04225,
+          "role": "Descriptive stochastic prior baseline"
+        },
+        "dev_oracle_random_predictor": {
+          "method": "Independent random pixel assignment using DEV oracle marginal probabilities",
+          "dev_mIoU_phenomena": 0.03853,
+          "dev_mIoU_all": 0.04728,
+          "role": "Descriptive Oracle-Prior Baseline (Contextualization only; not an independent benchmark)"
+        },
+        "trained_resnet18_unet": {
+          "performance_range": "0.04147 - 0.05886 (Mean 0.04907)",
+          "delta_over_dev_majority_baseline": "+0.01882",
+          "delta_over_dev_oracle_random_baseline": "+0.01054",
+          "interpretation": "A small margin over non-learning baselines combined with high cross-seed instability indicates that the model has not established robust spatial multi-class discrimination across the full taxonomy under the tested regime."
+        }
+      }
+    }
+  }
+}

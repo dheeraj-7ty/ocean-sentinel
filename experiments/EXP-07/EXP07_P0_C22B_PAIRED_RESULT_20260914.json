@@ -1,0 +1,77 @@
+{
+  "experiment_id": "EXP07_DIAG01",
+  "task_id": "EXP-07-P0-C22-B",
+  "timestamp_utc": "2026-09-14T08:25:16Z",
+  "status": "COMPLETED_VALID",
+  "objective": "Preregistered single-variable hypothesis test: canonical class-loss weighting vs uniform unweighted CrossEntropyLoss on OPS-02",
+  "arms": {
+    "control": {
+      "arm_name": "CONTROL",
+      "loss_type": "CrossEntropyLoss(weight=w_canonical, ignore_index=-100, reduction='mean')",
+      "loss_vector": [
+        0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476,
+        0.719641, 2.956203, 1.064525, 1.88287, 0.387652, 18.243211
+      ],
+      "best_epoch": 10,
+      "best_dev_mIoU_phenomena": 0.04147,
+      "total_epochs_trained": 20,
+      "total_duration_sec": 75.84,
+      "best_checkpoint_sha256": "FF98D4A93660BC70016FEEAF2F04450B7AC1110226DECBAE027F71FF286633FA",
+      "last_checkpoint_sha256": "079A476F86BA581AE15F2FA7F2E4DAA274BF9D38C63358800E3C84B03B73B9C1"
+    },
+    "treatment": {
+      "arm_name": "TREATMENT",
+      "loss_type": "CrossEntropyLoss(weight=w_uniform, ignore_index=-100, reduction='mean')",
+      "loss_vector": [
+        1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+      ],
+      "best_epoch": 5,
+      "best_dev_mIoU_phenomena": 0.05318,
+      "total_epochs_trained": 15,
+      "total_duration_sec": 54.74,
+      "best_checkpoint_sha256": "0B7F51B1E902AAC9DF839D2864F1E9658F3B0631813FC47D8ADA1738FFC47745",
+      "last_checkpoint_sha256": "4AFE95A823BE69A4DF4921BAE394C0F846B239728524B1C2704D37754E117573"
+    }
+  },
+  "comparison": {
+    "monitored_metric": "dev_mIoU_phenomena",
+    "control_best_dev_mIoU": 0.04147,
+    "treatment_best_dev_mIoU": 0.05318,
+    "delta_dev_mIoU_treatment_minus_control": 0.01171,
+    "relative_change_percent": 28.24,
+    "per_class_delta": {
+      "AF": -0.00005,
+      "BS": 0.05084,
+      "LWA": 0.00481,
+      "MCC": -0.05683,
+      "OF": -0.00032,
+      "POW": -0.02554,
+      "RF": 0.0,
+      "WS": -0.01544,
+      "Eddy": 0.00438,
+      "IWs": 0.16692,
+      "HM": 0.0
+    }
+  },
+  "invariants_and_provenance": {
+    "dataset_specification": "OPS02_v1.0.1_FROZEN",
+    "dataset_manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "canonical_initial_state_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "pretrained_backbone_sha256": "F37072FD47E89C5E827621C5BAFFA7500819F7896BBACEC160B1A16C560E07EC",
+    "control_initial_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "treatment_initial_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "initial_states_bitwise_identical": true,
+    "candidate_f_sampler_seed": 42,
+    "candidate_f_schedule_sha256": "2B1562E33FF32F73A8BF373D24951AF220E423FF74F12F7B589CEDA426A6834B",
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0
+  },
+  "environment": {
+    "platform": "Kaggle Cloud GPU",
+    "gpu_model": "NVIDIA Tesla T4",
+    "total_vram_bytes": 15636037632,
+    "cuda_version": "12.8",
+    "pytorch_version": "2.10.0+cu128",
+    "cudnn_version": "91002"
+  }
+}

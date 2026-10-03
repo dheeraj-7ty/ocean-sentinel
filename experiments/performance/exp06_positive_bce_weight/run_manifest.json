@@ -1,0 +1,50 @@
+{
+  "experiment_id": "EXP-06_POSITIVE_BCE_WEIGHT",
+  "attempt_id": "EXP06_ATTEMPT_001",
+  "timestamp_start_utc": "2026-09-12T03:45:54.406955+00:00",
+  "pid": 31076,
+  "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "device": "cuda",
+  "device_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "preflight": {
+    "split_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+    "candidate_manifest_sha256": "3867671E639F020A686C5ACCA4FE5DA4280EB7DAEAB9BD9FEF467C192AA9F9F4",
+    "teacher_checkpoint_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "teacher_checkpoint_size_bytes": 292465299,
+    "loss_verification": {
+      "pos_weight": 2.0,
+      "negative_target_diff": 0.0,
+      "positive_target_ratio": 2.0,
+      "dice_identity_diff": 0.0,
+      "status": "PASS"
+    },
+    "disk_free_gb": 355.9,
+    "preflight_status": "PASS"
+  },
+  "model_architecture": "ResNet34UNet(in_channels=2, num_classes=1, adaptation_method='slice_variance_scaled')",
+  "parameters": {
+    "total": 24346305,
+    "trainable": 24346305,
+    "non_trainable": 0
+  },
+  "single_changed_variable": {
+    "name": "loss_bce_pos_weight",
+    "exp05_value": 1.0,
+    "exp06_value": 2.0,
+    "formula": "L_total = 0.5 * BCE(pos_weight=2.0) + 0.5 * Dice(smooth=1.0)"
+  },
+  "severity_cap_threshold": 50000,
+  "retained_candidate_count": 355,
+  "excluded_candidate_count": 45,
+  "surviving_scenes_count": 251,
+  "batch_composition": {
+    "standard_tiles": 15,
+    "mined_tiles": 1,
+    "total": 16
+  },
+  "batches_per_epoch": 896,
+  "total_epochs": 10,
+  "total_optimizer_steps": 8960,
+  "operating_threshold": 0.22
+}

@@ -1,0 +1,17 @@
+{
+  "experiment_id": "EXP-03_HARD_NEGATIVE_BASELINE",
+  "status": "RUNNING",
+  "start_time_utc": "2026-09-11T15:36:22Z",
+  "latest_heartbeat_utc": "2026-09-11T15:44:30Z",
+  "current_epoch": 1,
+  "total_epochs": 10,
+  "current_batch": 960,
+  "total_batches": 960,
+  "completed_epochs": 0,
+  "current_loss": 0.29942,
+  "best_val_iou": 0.0,
+  "allocated_vram_mb": 500.4,
+  "teacher_checkpoint_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+  "candidate_manifest_sha256": "3867671E639F020A686C5ACCA4FE5DA4280EB7DAEAB9BD9FEF467C192AA9F9F4",
+  "spatial_split_manifest_sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0"
+}

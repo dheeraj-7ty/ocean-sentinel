@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "evaluated_scenes": 900,
+  "mapping_a": {
+    "oil_macro_iou": 0.7788212305331581,
+    "no_oil_far": 0.41333333333333333,
+    "lookalike_far": 0.9866666666666667
+  },
+  "mapping_b": {
+    "oil_macro_iou": 0.10051491498558998,
+    "no_oil_far": 0.9866666666666667,
+    "lookalike_far": 1.0
+  },
+  "tolerance_used": 1e-06,
+  "integer_match": "EXACT_100_PERCENT",
+  "float_match": "WITHIN_TOLERANCE_100_PERCENT"
+}

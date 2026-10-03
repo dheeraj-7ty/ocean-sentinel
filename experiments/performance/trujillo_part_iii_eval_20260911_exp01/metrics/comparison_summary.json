@@ -1,0 +1,62 @@
+{
+  "benchmark_dataset": "Trujillo Part III",
+  "checkpoint": "experiments/exp01_baseline/best_model.pt",
+  "checkpoint_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+  "generated_at": "2026-09-11T10:17:56.076726+00:00",
+  "oil_stratum_comparison": {
+    "macro_mean_iou": {
+      "MAPPING_A": 0.7788212305331583,
+      "MAPPING_B": 0.10051491498558995,
+      "delta_b_minus_a": -0.6783063155475684
+    },
+    "macro_mean_dice": {
+      "MAPPING_A": 0.863899699587801,
+      "MAPPING_B": 0.16052077929317957,
+      "delta_b_minus_a": -0.7033789202946215
+    },
+    "macro_mean_precision": {
+      "MAPPING_A": 0.8299876729768209,
+      "MAPPING_B": 0.10060139133919616,
+      "delta_b_minus_a": -0.7293862816376246
+    },
+    "macro_mean_recall": {
+      "MAPPING_A": 0.9406384781623272,
+      "MAPPING_B": 0.9992301896300918,
+      "delta_b_minus_a": 0.05859171146776465
+    },
+    "micro_pooled_iou": {
+      "MAPPING_A": 0.8222135760023919,
+      "MAPPING_B": 0.10112352928854283,
+      "delta_b_minus_a": -0.721090046713849
+    }
+  },
+  "no_oil_stratum_comparison": {
+    "scene_far_primary": {
+      "MAPPING_A": 0.41333333333333333,
+      "MAPPING_B": 0.9866666666666667
+    },
+    "significant_far_secondary": {
+      "MAPPING_A": 0.30666666666666664,
+      "MAPPING_B": 0.9866666666666667
+    },
+    "mean_fp_pixels_per_scene": {
+      "MAPPING_A": 577.0133333333333,
+      "MAPPING_B": 3411368.96
+    }
+  },
+  "lookalike_stratum_comparison": {
+    "scene_far_primary": {
+      "MAPPING_A": 0.9866666666666667,
+      "MAPPING_B": 1.0
+    },
+    "significant_far_secondary": {
+      "MAPPING_A": 0.98,
+      "MAPPING_B": 1.0
+    },
+    "mean_fp_pixels_per_scene": {
+      "MAPPING_A": 1335767.78,
+      "MAPPING_B": 3671556.22
+    }
+  },
+  "polarization_interpretation_clause": "Polarization channel order is physically uncalibrated in upstream source data. Neither Mapping A nor Mapping B can be designated as physically correct or scientifically winning based on benchmark metrics. Both mappings represent sensitivity boundaries under the frozen Evaluation Contract."
+}

@@ -1,0 +1,11 @@
+{
+  "experiment_id": "EXP-06_POSITIVE_BCE_WEIGHT",
+  "total_mined_draws": 8960,
+  "retained_pool_size": 355,
+  "unique_candidates_sampled": 10,
+  "coverage_percentage": 2.82,
+  "min_exposures_per_candidate": 896,
+  "max_exposures_per_candidate": 896,
+  "mean_exposures_per_candidate": 896.0,
+  "sampled_sequence_sha256": "F4FC25B7EA6D4BFA59FFD7395BE0B931ACD407C79336501922DA94756F157F84"
+}

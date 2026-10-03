@@ -1,0 +1,23 @@
+{
+  "experiment_id": "EXP-06_POSITIVE_BCE_WEIGHT",
+  "attempt_id": "EXP06_ATTEMPT_001",
+  "pid": 31076,
+  "command_line": "scripts\\train_exp06.py --authorized",
+  "git_commit": "542bab19f6f08c9bba8b8762e6480386c8b6026b",
+  "status": "COMPLETED",
+  "phase": "COMPLETE",
+  "start_time_iso": "2026-09-12T03:45:54.406955+00:00",
+  "last_heartbeat_iso": "2026-09-12T07:35:51.570748+00:00",
+  "current_epoch": 10,
+  "current_batch": 896,
+  "completed_batches": 8960,
+  "percent_complete": 100.0,
+  "eta_seconds": 0,
+  "current_train_loss": 0.10266,
+  "current_lr": 1e-06,
+  "best_val_iou": 0.72168,
+  "best_epoch": 9,
+  "latest_checkpoint": "best_model.pt (IoU=0.72168, SHA=B5FFCCA3D95A)",
+  "gpu_vram_allocated_mb": 441.8,
+  "failure_reason": null
+}

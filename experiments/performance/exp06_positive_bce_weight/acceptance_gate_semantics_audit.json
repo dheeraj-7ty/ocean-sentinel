@@ -1,0 +1,144 @@
+{
+  "audit_metadata": {
+    "timestamp_utc": "2026-09-12T08:30:00Z",
+    "document_id": "PHASE_5H_EXP06_ACCEPTANCE_SEMANTICS_AUDIT_20260912",
+    "governance": "CAIO Scientific Governance",
+    "experiment_id": "EXP-06_POSITIVE_BCE_WEIGHT",
+    "attempt_id": "EXP06_ATTEMPT_001",
+    "canonical_contract_document": "experiments/PHASE_5G_EXP06_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md",
+    "overall_gate_status": "EXP-06 DEVELOPMENT/VALIDATION ACCEPTANCE: PASS — CERTIFIED & CLOSED WITHIN THE AUDITED PHASE 5H SCOPE."
+  },
+  "gates": [
+    {
+      "gate_id": 1,
+      "name": "Validation Recall",
+      "original_contract_file": "experiments/PHASE_5G_EXP06_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md",
+      "original_contract_section": "Section 2 (Falsification Condition 1) & Section 6 (Pre-Registered Acceptance Gates Table)",
+      "original_wording": "Validation Recall >= 0.78500",
+      "definition": "Global Part I validation pixel recall at fixed operating threshold tau=0.22",
+      "formula": "TP / (TP + FN)",
+      "threshold": ">= 0.78500",
+      "implementation_source": "ocean_sentinel.ml.metrics.SegmentationMeter.compute()['recall']",
+      "test_source": "tests/test_phase_5h_preflight.py::test_epoch_transaction_preflight_end_to_end",
+      "training_artifact_source": "experiments/performance/exp06_positive_bce_weight/history.json (Epoch 9) & metrics.json",
+      "independent_verification_source": "experiments/performance/exp06_positive_bce_weight/independent_validation_verification.json",
+      "reported_value": 0.81153,
+      "recomputed_value": 0.8115344,
+      "margin": "+0.02653 (+2.653 pp)",
+      "semantic_status": "CONSISTENT",
+      "audit_status": "PASS"
+    },
+    {
+      "gate_id": 2,
+      "name": "Validation IoU",
+      "original_contract_file": "experiments/PHASE_5G_EXP06_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md",
+      "original_contract_section": "Section 2 (Falsification Condition 2) & Section 6 (Pre-Registered Acceptance Gates Table)",
+      "original_wording": "Validation IoU >= 0.71731",
+      "definition": "Global Part I validation Intersection-over-Union at fixed operating threshold tau=0.22",
+      "formula": "TP / (TP + FP + FN)",
+      "threshold": ">= 0.71731",
+      "implementation_source": "ocean_sentinel.ml.metrics.SegmentationMeter.compute()['iou']",
+      "test_source": "tests/test_phase_5h_preflight.py::test_epoch_transaction_preflight_end_to_end",
+      "training_artifact_source": "experiments/performance/exp06_positive_bce_weight/history.json (Epoch 9) & metrics.json",
+      "independent_verification_source": "experiments/performance/exp06_positive_bce_weight/independent_validation_verification.json",
+      "reported_value": 0.72168,
+      "recomputed_value": 0.7216784,
+      "margin": "+0.00437 (+0.437 pp)",
+      "semantic_status": "CONSISTENT",
+      "audit_status": "PASS"
+    },
+    {
+      "gate_id": 3,
+      "name": "Clean-Water FAR",
+      "original_contract_file": "experiments/PHASE_5G_EXP06_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md",
+      "original_contract_section": "Section 2 (Falsification Condition 3) & Section 6 (Pre-Registered Acceptance Gates Table)",
+      "original_wording": "Clean-Water FAR < 5.00%",
+      "definition": "Percentage of empty validation tiles (GT positive pixels == 0) having at least 1 false positive pixel at tau=0.22",
+      "formula": "(count(empty tiles with fp >= 1) / total empty tiles) * 100.0",
+      "threshold": "< 5.00%",
+      "implementation_source": "scripts/train_exp06.py::evaluate_validation",
+      "test_source": "tests/test_phase_5h_preflight.py::test_epoch_transaction_preflight_end_to_end",
+      "training_artifact_source": "experiments/performance/exp06_positive_bce_weight/history.json (Epoch 9) & metrics.json",
+      "independent_verification_source": "experiments/performance/exp06_positive_bce_weight/independent_validation_verification.json",
+      "reported_value": 0.55,
+      "recomputed_value": 0.54735,
+      "margin": "+4.450 pp",
+      "semantic_status": "CONSISTENT",
+      "audit_status": "PASS"
+    },
+    {
+      "gate_id": 4,
+      "name": "Significant FAR",
+      "original_contract_file": "experiments/PHASE_5G_EXP06_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md",
+      "original_contract_section": "Section 2 (Falsification Condition 3) & Section 6 (Pre-Registered Acceptance Gates Table)",
+      "original_wording": "Significant FAR < 3.00%",
+      "definition": "Percentage of empty validation tiles (GT positive pixels == 0) having at least 100 false positive pixels at tau=0.22",
+      "formula": "(count(empty tiles with fp >= 100) / total empty tiles) * 100.0",
+      "threshold": "< 3.00%",
+      "implementation_source": "scripts/train_exp06.py::evaluate_validation",
+      "test_source": "tests/test_phase_5h_preflight.py::test_epoch_transaction_preflight_end_to_end",
+      "training_artifact_source": "experiments/performance/exp06_positive_bce_weight/history.json (Epoch 9) & metrics.json",
+      "independent_verification_source": "experiments/performance/exp06_positive_bce_weight/independent_validation_verification.json",
+      "reported_value": 0.55,
+      "recomputed_value": 0.54735,
+      "margin": "+2.450 pp",
+      "semantic_status": "CONSISTENT",
+      "audit_status": "PASS"
+    },
+    {
+      "gate_id": 5,
+      "name": "Clean-Water FP Pixels (Empty Validation Tiles)",
+      "original_contract_file": "experiments/PHASE_5G_EXP06_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md",
+      "original_contract_section": "Section 2 (Falsification Condition 4) & Section 6 (Pre-Registered Acceptance Gates Table)",
+      "original_wording": "Total FP pixels on empty validation tiles rises to >= 350,000 pixels / Total FP Pixels (Empty) < 350,000",
+      "definition": "Sum of false positive pixels strictly on the 1,827 empty validation tiles (GT positive pixels == 0) at tau=0.22",
+      "formula": "sum_{b in empty_tiles} sum(preds >= tau)",
+      "threshold": "< 350,000",
+      "implementation_source": "scripts/train_exp06.py::evaluate_validation (if m_sum == 0: total_fp_pixels += fp_px)",
+      "test_source": "tests/test_phase_5d_preflight.py::test_exp04_metric_keys & tests/test_phase_5_guardrails.py",
+      "training_artifact_source": "experiments/performance/exp06_positive_bce_weight/history.json (Epoch 9) & metrics.json (key: total_fp_pixels)",
+      "independent_verification_source": "experiments/performance/exp06_positive_bce_weight/independent_validation_verification.json (metrics.total_fp_pixels)",
+      "reported_value": 113187,
+      "recomputed_value": 113187,
+      "margin": "+236,813 px",
+      "semantic_status": "NAMING_ERROR",
+      "audit_status": "PASS"
+    }
+  ],
+  "metric_semantics_distinction": {
+    "total_validation_fp_pixels": {
+      "value": 2009530,
+      "population": "All 2,880 Part I validation tiles",
+      "definition": "Global FP in confusion matrix: sum of false positive pixels across both empty tiles and positive slick tiles",
+      "status": "INFORMATIONAL_METRIC"
+    },
+    "clean_water_fp_pixels": {
+      "value": 113187,
+      "population": "1,827 empty Part I validation tiles (clean ocean)",
+      "definition": "Sum of false positive pixels on empty validation tiles (zero GT positive pixels)",
+      "status": "ACCEPTANCE_GATE_TARGET (Gate 5: < 350,000)"
+    },
+    "slick_tile_fp_pixels": {
+      "value": 1896343,
+      "population": "1,053 positive Part I validation tiles (containing oil slicks)",
+      "definition": "Sum of false positive pixels on tiles with oil slicks (1,053 slick-containing validation tiles)",
+      "status": "DIAGNOSTIC_METRIC"
+    },
+    "mathematical_identity": "clean_water_fp_pixels (113,187) + slick_tile_fp_pixels (1,896,343) == total_validation_fp_pixels (2,009,530) [Difference == 0]"
+  },
+  "clean_water_vs_significant_far_forensic": {
+    "clean_water_far": {
+      "value_pct": 0.55,
+      "denominator": 1827,
+      "numerator_count": 10,
+      "criterion": "fp_pixels >= 1"
+    },
+    "significant_far": {
+      "value_pct": 0.55,
+      "denominator": 1827,
+      "numerator_count": 10,
+      "criterion": "fp_pixels >= 100"
+    },
+    "explanation_of_equality": "Clean-Water FAR and Significant FAR are distinct metrics. They happen to be numerically equal for the final EXP-06 checkpoint because the same 10 empty validation tiles satisfy both false-alarm conditions (all 10 false-positive empty validation tiles contained at least 100 false-positive pixels). In earlier epochs (Epoch 1: 13.52% vs 9.63%; Epoch 2: 6.13% vs 4.43%; Epoch 5: 0.82% vs 0.77%), the two metrics produced distinct values as designed."
+  }
+}

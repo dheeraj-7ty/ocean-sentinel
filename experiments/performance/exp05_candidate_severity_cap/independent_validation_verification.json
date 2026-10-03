@@ -1,0 +1,36 @@
+{
+  "experiment_id": "EXP-05_CANDIDATE_SEVERITY_CAP",
+  "checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp05_candidate_severity_cap\\best_model.pt",
+  "checkpoint_sha256": "D9FC12E312E5DF012650E8106DCF90782534EFB1BD1E38BA7FDCF4E0802A0481",
+  "checkpoint_size_bytes": 292467395,
+  "best_epoch_in_checkpoint": 10,
+  "evaluation_timestamp_utc": "2026-09-11T22:00:10Z",
+  "total_duration_sec": 112.7,
+  "device": "cuda",
+  "threshold": 0.22,
+  "confusion_counts": {
+    "tp": 12625435,
+    "fp": 1689666,
+    "fn": 3514098,
+    "tn": 737145521
+  },
+  "metrics": {
+    "val_loss": 0.08544,
+    "val_iou": 0.70813,
+    "val_dice": 0.82913,
+    "val_precision": 0.88197,
+    "val_recall": 0.78227,
+    "clean_water_far_pct": 0.49,
+    "significant_far_pct": 0.49,
+    "total_fp_pixels": 129041,
+    "empty_tiles_evaluated": 1827
+  },
+  "mass_and_spatial_metrics": {
+    "total_gt_pos_pixels": 16139533,
+    "total_pred_pos_pixels": 14315101,
+    "pos_tiles_gt_count": 1053,
+    "pos_tiles_pred_count": 859,
+    "pos_tiles_detected_count": 850,
+    "pos_tiles_completely_dropped": 203
+  }
+}

@@ -1,0 +1,4176 @@
+{
+  "evaluation_document": "PHASE_7A.2_PROXY_ZERO_SHOT_DIAGNOSTIC_20260912",
+  "evaluation_timestamp_utc": "2026-09-12T18:06:41.009435+00:00",
+  "model": {
+    "checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp06_positive_bce_weight\\best_model.pt",
+    "checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+    "architecture": "ResNet34UNet",
+    "decision_threshold_tau": 0.22,
+    "channel_contract": "Mapping A (Ch0: VH dB, Ch1: VV dB)",
+    "normalization_mean": [
+      -33.2323,
+      -19.9405
+    ],
+    "normalization_std": [
+      6.4912,
+      4.5308
+    ]
+  },
+  "proxy_dataset": {
+    "manifest_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\proxy_dataset_manifest.json",
+    "manifest_sha256": "347A0CD9409377197783BBAE42A89EC77A1BE63FD84E777BCE0009804C39F6AE",
+    "population_evaluated": "PHYSICALLY_VALIDATED_PROXIES",
+    "semantic_status": "SEMANTIC_STATUS_UNRESOLVED",
+    "evaluated_patches_denominator": 517,
+    "evaluated_pixels_total": 135528448,
+    "tile_window": "Central 512x512 window from 640x640 candidate patch"
+  },
+  "diagnostic_metrics": {
+    "metric_name": "PROVISIONAL_PROXY_ALARM_RATE",
+    "patches_with_any_positive": 464,
+    "provisional_proxy_alarm_rate_pct": 89.7485,
+    "patches_with_significant_alarm": 464,
+    "significant_proxy_alarm_rate_pct": 89.7485,
+    "total_false_positive_pixels": 97044583,
+    "pixel_false_positive_rate_pct": 71.604585
+  },
+  "caveats_and_scope": "This metric is strictly a diagnostic on physically validated proxy candidates with unresolved semantic status. It must NOT be cited as a definitive 'lookalike false alarm rate' or external generalization metric, as per-pixel ground truth of natural lookalikes is not yet established on this corpus.",
+  "patch_results": [
+    {
+      "candidate_id": "nc-0002-00-000002",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 166593,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0004-00-000004",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 98935,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0007-00-000007",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 132537,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0008-00-000008",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 62966,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0014-00-000014",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 83628,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0015-00-000015",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 195571,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0016-00-000016",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 154202,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0017-00-000017",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 253122,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0024-00-000024",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 53437,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0030-00-000030",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 232678,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0036-00-000036",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 169789,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0037-00-000037",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 130761,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0038-00-000038",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 11667,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0042-00-000042",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 218915,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0046-00-000046",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 13064,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0047-00-000047",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0049-00-000049",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 221377,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0051-00-000051",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 164634,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0052-00-000052",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 11269,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0053-00-000053",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 942,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0055-00-000055",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 189986,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0058-00-000058",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 86895,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0059-00-000059",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0066-00-000066",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 149,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0072-00-000072",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 87818,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0076-00-000076",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 251051,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0087-01-000011",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 143608,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0092-01-000016",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 146049,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0101-01-000025",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257366,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0104-01-000028",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0105-01-000029",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 539,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0106-01-000030",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257608,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0109-01-000033",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 167431,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0110-01-000034",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 3477,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0111-01-000035",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 240444,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0113-01-000037",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0114-01-000038",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 193762,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0115-01-000039",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0116-01-000040",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 141761,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0118-01-000042",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 31344,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0119-01-000043",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 102706,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0121-01-000045",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 190,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0126-01-000050",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0129-01-000053",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 121332,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0132-01-000056",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 121517,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0137-01-000061",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 3006,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0143-01-000067",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 193315,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0147-01-000071",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 91590,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0148-01-000072",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0151-01-000075",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0153-01-000077",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 190439,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0157-01-000081",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 70267,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0158-01-000082",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 142871,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0159-01-000083",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0162-02-000002",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 107986,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0165-02-000005",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 219078,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0166-02-000006",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 55703,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0167-02-000007",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 250439,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0168-02-000008",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 87250,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0170-02-000010",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 96353,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0173-02-000013",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 231830,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0180-02-000020",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 196459,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0181-02-000021",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0183-02-000023",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 58008,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0184-02-000024",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 239392,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0194-02-000034",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260232,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0195-02-000035",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 219585,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0200-02-000040",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 4028,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0201-02-000041",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 169796,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0202-02-000042",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 235598,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0203-02-000043",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 78284,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0206-02-000046",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 249836,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0221-02-000061",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 250311,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0228-02-000068",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 51624,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0232-02-000072",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0234-02-000074",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0235-02-000075",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 75776,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0238-03-000003",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 42536,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0239-03-000004",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 3240,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0242-03-000007",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 84344,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0245-03-000010",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 47200,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0250-03-000015",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 139970,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0251-03-000016",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 76441,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0255-03-000020",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 26056,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0260-03-000025",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0262-03-000027",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0263-03-000028",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 100413,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0266-03-000031",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 179753,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0267-03-000032",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 144533,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0268-03-000033",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 72501,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0269-03-000034",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 138468,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0270-03-000035",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 28897,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0278-03-000043",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 14028,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0279-03-000044",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 107528,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0280-04-000001",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 82617,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0281-04-000002",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 241291,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0284-04-000005",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 84695,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0287-04-000008",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 55304,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0288-04-000009",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 95469,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0289-04-000010",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 91692,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0290-04-000011",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0292-04-000013",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0293-04-000014",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 109439,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0294-04-000015",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0295-04-000016",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 54237,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0297-04-000018",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 230412,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0299-04-000020",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 235704,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0307-04-000028",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 184426,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0308-04-000029",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 114305,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0310-04-000031",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 188303,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0316-04-000037",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 227431,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0317-04-000038",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 20243,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0321-04-000042",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 143145,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0323-04-000044",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 167691,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0324-04-000045",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0331-04-000052",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 41835,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0335-04-000056",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 170852,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0340-04-000061",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 16661,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0341-04-000062",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 242013,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0342-04-000063",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0344-04-000065",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 127865,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0347-04-000068",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 82227,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0348-04-000069",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 14631,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0349-04-000070",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 44783,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nc-0350-04-000071",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nc-0351-04-000072",
+      "subset": "nc",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 415,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0001-00-000001",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261550,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0003-00-000003",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259516,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0005-00-000005",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 221654,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0006-00-000006",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 223991,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0020-00-000020",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0032-00-000032",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 243240,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0033-00-000033",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 242873,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0040-00-000040",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 248860,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0048-00-000048",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259949,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0053-00-000053",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 253122,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0066-00-000066",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0067-00-000067",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257723,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0082-00-000082",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255472,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0083-00-000083",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255492,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0088-00-000088",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260794,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0102-00-000102",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 224775,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0106-00-000106",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 218240,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0107-00-000107",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 199946,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0108-00-000108",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 172793,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0111-00-000111",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 220025,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0114-00-000114",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 242926,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0116-00-000116",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259694,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0122-00-000122",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 248745,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0130-00-000130",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261563,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0131-00-000131",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 187998,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0140-00-000140",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 217746,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0147-00-000147",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261556,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0148-00-000148",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 250884,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0149-00-000149",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 235156,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0170-00-000170",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259471,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0171-00-000171",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 252591,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0180-01-000008",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0188-01-000016",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 91446,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0189-01-000017",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 254785,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0192-01-000020",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0193-01-000021",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 239181,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0194-01-000022",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259379,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0197-01-000025",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258992,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0201-01-000029",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 228829,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0203-01-000031",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0204-01-000032",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0205-01-000033",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259312,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0212-01-000040",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261792,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0220-01-000048",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261051,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0223-01-000051",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262143,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0224-01-000052",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261308,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0227-01-000055",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262138,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0230-01-000058",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260142,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0243-01-000071",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261889,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0249-01-000077",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262115,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0251-01-000079",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0257-01-000085",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262078,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0260-01-000088",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0266-01-000094",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 187013,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0267-01-000095",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 205303,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0268-01-000096",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0277-01-000105",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262093,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0279-01-000107",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 243164,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0280-01-000108",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0281-01-000109",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259941,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0282-01-000110",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 250554,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0291-01-000119",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 251012,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0303-01-000131",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0304-01-000132",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260574,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0305-01-000133",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0306-01-000134",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 217240,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0308-01-000136",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 119717,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0309-01-000137",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 253601,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0312-01-000140",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0313-01-000141",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0315-01-000143",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0316-01-000144",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0322-01-000150",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 251969,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0337-01-000165",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262121,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0340-01-000168",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261892,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0341-01-000169",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256680,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0343-01-000171",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262124,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0354-02-000011",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257664,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0356-02-000013",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260020,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0359-02-000016",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 158578,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0371-02-000028",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258672,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0385-02-000042",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259701,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0387-02-000044",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 62494,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0389-02-000046",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 254484,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0397-02-000054",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 103159,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0402-02-000059",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0406-02-000063",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 203534,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0407-02-000064",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 241266,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0408-02-000065",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256097,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0414-02-000071",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 207413,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0420-02-000077",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 225339,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0423-02-000080",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 134836,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0424-02-000081",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 241524,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0444-02-000101",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 225308,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0454-02-000111",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 223403,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0455-02-000112",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 245359,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0466-02-000123",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 230191,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0467-02-000124",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 252729,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0479-02-000136",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 123564,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0484-02-000141",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262115,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0493-02-000150",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 45878,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0501-02-000158",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0502-02-000159",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 42116,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0504-03-000001",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0505-03-000002",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 220343,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0506-03-000003",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 83751,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0514-03-000011",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0536-03-000033",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 237768,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0538-03-000035",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0548-03-000045",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 226049,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0556-03-000053",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 203399,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0559-03-000056",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0568-03-000065",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 216371,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0569-03-000066",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256129,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0578-03-000075",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255226,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0597-03-000094",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 242751,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0602-03-000099",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261908,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0606-03-000103",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 159431,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0611-03-000108",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 230703,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0616-03-000113",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258909,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0619-03-000116",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261206,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0620-03-000117",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260509,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0621-03-000118",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0622-03-000119",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261373,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0643-03-000140",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262126,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0644-03-000141",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 40327,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0648-03-000145",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0649-03-000146",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 189525,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0659-03-000156",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0660-03-000157",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0661-03-000158",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0681-04-000016",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259808,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0689-04-000024",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261053,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0690-04-000025",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 243201,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0691-04-000026",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 159288,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0692-04-000027",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 216095,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0696-04-000031",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0709-04-000044",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0712-04-000047",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 241903,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0724-04-000059",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259041,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0725-04-000060",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260722,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0742-04-000077",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262133,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0744-04-000079",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 205305,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0745-04-000080",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261333,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0756-05-000010",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257698,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0759-05-000013",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0761-05-000015",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0764-05-000018",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262112,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0771-05-000025",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261134,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0773-05-000027",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262143,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0785-05-000039",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0790-05-000044",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0792-05-000046",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261730,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0796-05-000050",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261646,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0799-05-000053",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262025,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0800-05-000054",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 120767,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0803-05-000057",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262143,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0812-05-000066",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262123,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0813-05-000067",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 80961,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0820-05-000074",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262066,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0821-05-000075",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260479,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0826-05-000080",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260330,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0832-05-000086",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260505,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0838-05-000092",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 69283,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0839-05-000093",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261556,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0840-05-000094",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0842-05-000096",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261774,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0843-05-000097",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0844-05-000098",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259507,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0845-05-000099",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262139,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0851-05-000105",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0854-05-000108",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 243712,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0857-05-000111",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262141,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0858-05-000112",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0859-05-000113",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262139,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0860-05-000114",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0865-05-000119",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262124,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0866-05-000120",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0876-05-000130",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 177485,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0878-05-000132",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261852,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0882-05-000136",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0886-05-000140",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0894-05-000148",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0900-05-000154",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258469,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0901-05-000155",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261692,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0902-05-000156",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0903-05-000157",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 212954,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0904-05-000158",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 168886,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0905-05-000159",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 244842,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0906-05-000160",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259345,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0908-05-000162",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0909-05-000163",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0911-05-000165",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-0912-05-000166",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261353,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0925-06-000013",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 208321,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0937-06-000025",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 218956,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0940-06-000028",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0941-06-000029",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0942-06-000030",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261352,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0955-06-000043",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257354,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0956-06-000044",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 254404,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0961-06-000049",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262058,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0962-06-000050",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261959,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0970-06-000058",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 253266,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0971-06-000059",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256059,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0972-06-000060",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262142,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0973-06-000061",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260502,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0974-06-000062",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255154,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0975-06-000063",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256445,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0976-06-000064",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 184961,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0977-06-000065",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 253730,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0978-06-000066",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 225023,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0985-06-000073",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262136,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0986-06-000074",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-0987-06-000075",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1009-06-000097",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1018-06-000106",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256435,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1024-06-000112",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262084,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1025-06-000113",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259365,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1035-06-000123",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1039-06-000127",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 223836,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1040-06-000128",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1044-06-000132",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 254277,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1045-06-000133",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260818,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1048-06-000136",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259913,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1050-06-000138",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258193,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1055-06-000143",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256266,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1058-06-000146",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261950,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1064-06-000152",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262001,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1067-06-000155",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256820,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1068-06-000156",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 239376,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1070-06-000158",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 252867,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1085-07-000007",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 175955,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1088-07-000010",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 193500,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1099-07-000021",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261450,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1100-07-000022",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260807,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1101-07-000023",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262118,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1102-07-000024",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1106-07-000028",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 254985,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1111-07-000033",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258392,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1118-07-000040",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 16541,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1122-07-000044",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262136,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1135-07-000057",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261937,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1139-07-000061",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262094,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1143-07-000065",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260626,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1150-07-000072",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258870,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1151-07-000073",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 188749,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1157-07-000079",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 212618,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1162-07-000084",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1176-07-000098",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262089,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1182-07-000104",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1184-07-000106",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260549,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1188-07-000110",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1198-07-000120",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261483,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1201-07-000123",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257460,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1205-07-000127",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 237053,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1224-07-000146",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 243106,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1230-07-000152",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261986,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1231-07-000153",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258892,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1232-07-000154",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257555,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1249-07-000171",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 188774,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1254-08-000005",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 112216,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1266-08-000017",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 195371,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1268-08-000019",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1269-08-000020",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 160649,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1270-08-000021",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 92929,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1272-08-000023",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 92140,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1293-08-000044",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256529,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1294-08-000045",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258459,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1305-08-000056",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 214930,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1309-08-000060",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 217343,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1320-08-000071",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255004,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1321-08-000072",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 159292,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1342-08-000093",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 201813,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1345-08-000096",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 122296,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1352-08-000103",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259309,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1353-08-000104",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 180506,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1365-08-000116",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1367-08-000118",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 103414,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1368-08-000119",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1377-08-000128",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 216650,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1378-08-000129",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 203501,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1380-08-000131",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 242673,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1381-08-000132",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 240138,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1387-08-000138",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 221390,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1401-08-000152",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1405-08-000156",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 115866,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1408-08-000159",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258283,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1413-08-000164",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1415-08-000166",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 187430,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1416-08-000167",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1417-08-000168",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258769,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1418-08-000169",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 184933,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1419-08-000170",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 210555,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1420-08-000171",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262120,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1421-08-000172",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261660,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1422-08-000173",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260336,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1423-08-000174",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 140578,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1426-09-000002",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1427-09-000003",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 248341,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1430-09-000006",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 197684,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1431-09-000007",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1437-09-000013",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1438-09-000014",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 21041,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1441-09-000017",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1448-09-000024",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1450-09-000026",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261832,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1454-09-000030",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1455-09-000031",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 250048,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1457-09-000033",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 254421,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1460-09-000036",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 143897,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1463-09-000039",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1465-09-000041",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262125,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1469-09-000045",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1473-09-000049",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 224703,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1488-09-000064",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261787,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1490-09-000066",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256636,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1491-09-000067",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261820,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1493-09-000069",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257205,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1495-09-000071",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261868,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1502-09-000078",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 215356,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1504-09-000080",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262100,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1508-09-000084",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1511-09-000087",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258736,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1516-09-000092",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 216465,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1519-09-000095",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 241464,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1525-09-000101",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261075,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1527-09-000103",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258811,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1528-09-000104",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 249423,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1532-09-000108",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261049,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1536-09-000112",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 253264,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1537-09-000113",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262053,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1561-09-000137",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1566-09-000142",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261647,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1577-09-000153",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262143,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1578-09-000154",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 250269,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1579-09-000155",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 251491,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1580-09-000156",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261949,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1585-09-000161",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 12526,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1586-09-000162",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 166178,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1587-09-000163",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1588-09-000164",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1590-09-000166",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 232496,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1591-09-000167",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 143620,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1592-09-000168",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 211372,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1594-10-000002",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 251500,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1614-10-000022",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260492,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1623-10-000031",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257265,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1629-10-000037",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 238061,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1638-10-000046",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 0,
+      "alarm_primary": false,
+      "alarm_significant": false
+    },
+    {
+      "candidate_id": "nw-1639-10-000047",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 256084,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1654-10-000062",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 257517,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1675-10-000083",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261504,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1685-10-000093",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 251267,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1686-10-000094",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262144,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1687-10-000095",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261799,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1688-10-000096",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258092,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1698-10-000106",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 237597,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1744-10-000152",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259789,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1748-10-000156",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261742,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1782-11-000016",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 238200,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1799-11-000033",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259888,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1802-11-000036",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 258475,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1807-11-000041",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262061,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1810-11-000044",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261553,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1811-11-000045",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 253352,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1812-11-000046",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255715,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1813-11-000047",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 252471,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1814-11-000048",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 249109,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1816-11-000050",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261361,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1830-11-000064",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260259,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1831-11-000065",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262138,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1837-11-000071",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262122,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1839-11-000073",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 238318,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1840-11-000074",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 259601,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1841-11-000075",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255320,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1842-11-000076",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 167011,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1843-11-000077",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 255308,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1847-11-000081",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 138929,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1856-11-000090",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 260369,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1872-11-000106",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 251530,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1892-11-000126",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261501,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1894-11-000128",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261855,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1897-11-000131",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 261861,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1898-11-000132",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 262111,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1910-11-000144",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 196905,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1912-11-000146",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 168269,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1913-11-000147",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 172791,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1916-11-000150",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 181357,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1933-11-000167",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 234302,
+      "alarm_primary": true,
+      "alarm_significant": true
+    },
+    {
+      "candidate_id": "nw-1934-11-000168",
+      "subset": "nw",
+      "pixels_evaluated": 262144,
+      "predicted_positive_pixels": 175833,
+      "alarm_primary": true,
+      "alarm_significant": true
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "experiment_id": "EXP-06_POSITIVE_BCE_WEIGHT",
+  "attempt_id": "EXP06_ATTEMPT_001",
+  "best_epoch": 9,
+  "best_val_iou": 0.72168,
+  "best_checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+  "last_checkpoint_sha256": "9CA4D910C4804AC994EF8C3E8C96A88AC93BDA2FFD76F9C0817E6C54803D8025",
+  "total_training_duration_seconds": 13798.2,
+  "metrics_at_best_epoch": {
+    "epoch": 9,
+    "train_loss": 0.10435,
+    "val_loss": 0.09256,
+    "val_iou": 0.72168,
+    "val_dice": 0.83834,
+    "val_precision": 0.86698,
+    "val_recall": 0.81153,
+    "clean_water_far_pct": 0.55,
+    "significant_far_pct": 0.55,
+    "total_fp_pixels": 113187,
+    "empty_tiles_evaluated": 1827,
+    "is_best": true,
+    "epoch_duration_sec": 1446.3
+  }
+}

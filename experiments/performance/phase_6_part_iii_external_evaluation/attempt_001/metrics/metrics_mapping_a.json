@@ -1,0 +1,69 @@
+{
+  "mapping": "MAPPING_A",
+  "run_id": "phase_6_part_iii_external_evaluation",
+  "attempt_id": "attempt_001",
+  "checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+  "oil_stratum": {
+    "n_scenes": 150,
+    "macro_mean": {
+      "iou": 0.7448561327020893,
+      "dice": 0.8407049437988974,
+      "precision": 0.8396372136288889,
+      "recall": 0.8908610633874211
+    },
+    "macro_median": {
+      "iou": 0.7851194305009119,
+      "dice": 0.8796266858865013,
+      "precision": 0.8913187310478422,
+      "recall": 0.9712625114781107
+    },
+    "micro_pooled": {
+      "iou": 0.7249204577447332,
+      "dice": 0.8405262451261535,
+      "precision": 0.8762291940467752,
+      "recall": 0.8076189001799254,
+      "total_tp": 50477786,
+      "total_fp": 7130185,
+      "total_fn": 12024201,
+      "total_tn": 559513428
+    }
+  },
+  "no_oil_stratum": {
+    "n_scenes": 150,
+    "scene_far_primary": {
+      "fa_scenes": 7,
+      "far": 0.04666666666666667,
+      "rule": "I(FP > 0)"
+    },
+    "scene_significant_far_secondary": {
+      "sig_fa_scenes": 7,
+      "significant_far": 0.04666666666666667,
+      "rule": "I(FP >= 100)"
+    },
+    "pixel_metrics": {
+      "total_fp_pixels": 95157,
+      "mean_fp_pixels_per_scene": 634.38,
+      "median_fp_pixels_per_scene": 0.0,
+      "max_fp_pixels_in_scene": 43007
+    }
+  },
+  "lookalike_stratum": {
+    "n_scenes": 150,
+    "scene_far_primary": {
+      "fa_scenes": 136,
+      "far": 0.9066666666666666,
+      "rule": "I(FP > 0)"
+    },
+    "scene_significant_far_secondary": {
+      "sig_fa_scenes": 135,
+      "significant_far": 0.9,
+      "rule": "I(FP >= 100)"
+    },
+    "pixel_metrics": {
+      "total_fp_pixels": 130502095,
+      "mean_fp_pixels_per_scene": 870013.9666666667,
+      "median_fp_pixels_per_scene": 276174.0,
+      "max_fp_pixels_in_scene": 4188549
+    }
+  }
+}

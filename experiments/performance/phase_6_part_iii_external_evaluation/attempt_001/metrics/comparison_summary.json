@@ -1,0 +1,42 @@
+{
+  "benchmark_dataset": "Trujillo Part III External Benchmark",
+  "checkpoint_path": "D:/Projects/ocean-sentinel/experiments/performance/exp06_positive_bce_weight/best_model.pt",
+  "checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+  "computed_at": "2026-09-12T11:24:35.175242+00:00",
+  "oil_stratum_comparison": {
+    "macro_mean_iou": {
+      "MAPPING_A": 0.7448561327020893,
+      "MAPPING_B": 0.09170689791519507,
+      "delta_b_minus_a": -0.6531492347868942,
+      "abs_gap": 0.6531492347868942
+    },
+    "micro_pooled_iou": {
+      "MAPPING_A": 0.7249204577447332,
+      "MAPPING_B": 0.09223340484051795,
+      "delta_b_minus_a": -0.6326870529042152,
+      "abs_gap": 0.6326870529042152
+    }
+  },
+  "no_oil_stratum_comparison": {
+    "scene_far_primary": {
+      "MAPPING_A": 0.04666666666666667,
+      "MAPPING_B": 0.92,
+      "delta_b_minus_a": 0.8733333333333334
+    },
+    "significant_far_secondary": {
+      "MAPPING_A": 0.04666666666666667,
+      "MAPPING_B": 0.9
+    }
+  },
+  "lookalike_stratum_comparison": {
+    "scene_far_primary": {
+      "MAPPING_A": 0.9066666666666666,
+      "MAPPING_B": 0.98,
+      "delta_b_minus_a": 0.07333333333333336
+    },
+    "significant_far_secondary": {
+      "MAPPING_A": 0.9,
+      "MAPPING_B": 0.98
+    }
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "experiment_id": "EXP07_DIAG01_REPLICATION",
+  "task_id": "EXP-07-P0-C22-D",
+  "timestamp_utc": "2026-09-14T09:01:55Z",
+  "status": "COMPLETED_VALID",
+  "hardware": {
+    "gpu_model": "Tesla T4",
+    "total_vram_bytes": 15636037632,
+    "cuda_version": "12.8",
+    "pytorch_version": "2.10.0+cu128",
+    "cudnn_version": "91002"
+  },
+  "dataset": {
+    "specification": "OPS02_v1.0.1_FROZEN",
+    "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "train_samples": 132,
+    "dev_samples": 40,
+    "holdout_access_count": 0
+  },
+  "canonical_initial_state_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+  "monitored_metric": "dev_mIoU_phenomena",
+  "all_five_pairs": [
+    {
+      "seed": 42,
+      "seed_type": "DISCOVERY_OBSERVATION",
+      "control": {
+        "best_epoch": 10,
+        "best_dev_mIoU_phenomena": 0.04147,
+        "total_epochs": 20,
+        "best_model_sha256": "FF98D4A93660BC70016FEEAF2F04450B7AC1110226DECBAE027F71FF286633FA"
+      },
+      "treatment": {
+        "best_epoch": 5,
+        "best_dev_mIoU_phenomena": 0.05318,
+        "total_epochs": 15,
+        "best_model_sha256": "0B7F51B1E902AAC9DF839D2864F1E9658F3B0631813FC47D8ADA1738FFC47745"
+      },
+      "delta_dev_mIoU_phenomena": 0.01171,
+      "relative_percent": 28.24,
+      "winner": "TREATMENT"
+    },
+    {
+      "seed": 101,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 15,
+        "best_dev_mIoU_phenomena": 0.05886,
+        "total_epochs": 25,
+        "best_model_sha256": "86F1AF99128797DCD9024117B8BF9051FD2AD7575DFC2AD0BA4BCC87A6218F97"
+      },
+      "treatment": {
+        "best_epoch": 5,
+        "best_dev_mIoU_phenomena": 0.04481,
+        "total_epochs": 15,
+        "best_model_sha256": "CDBA3618FE4A7BECA0D82B11E8E57BE9DD82DA31360C85A523A96577866B74FC"
+      },
+      "delta_dev_mIoU_phenomena": -0.01405,
+      "relative_percent": -23.87,
+      "winner": "CONTROL"
+    },
+    {
+      "seed": 202,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 27,
+        "best_dev_mIoU_phenomena": 0.04358,
+        "total_epochs": 30,
+        "best_model_sha256": "23DEFB142B43375F2E93A5E16590AE8843A87311A6221786FC43D539C5156E63"
+      },
+      "treatment": {
+        "best_epoch": 6,
+        "best_dev_mIoU_phenomena": 0.04741,
+        "total_epochs": 16,
+        "best_model_sha256": "000D4E7E0D37CB6A6D562C7B81B8AD2CAE85483BE6BCE07706AD97F709EA1CDD"
+      },
+      "delta_dev_mIoU_phenomena": 0.00383,
+      "relative_percent": 8.79,
+      "winner": "TREATMENT"
+    },
+    {
+      "seed": 303,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 19,
+        "best_dev_mIoU_phenomena": 0.05191,
+        "total_epochs": 29,
+        "best_model_sha256": "1E5D948B323AA97AD1A0B381128C2697806E23973D30E31BD25313DA68E723DB"
+      },
+      "treatment": {
+        "best_epoch": 5,
+        "best_dev_mIoU_phenomena": 0.04605,
+        "total_epochs": 15,
+        "best_model_sha256": "837068454D10BF82B8AE85A52D618CD99B7AED4F1E0371B034B73C763663FF8B"
+      },
+      "delta_dev_mIoU_phenomena": -0.00586,
+      "relative_percent": -11.29,
+      "winner": "CONTROL"
+    },
+    {
+      "seed": 404,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 21,
+        "best_dev_mIoU_phenomena": 0.0494,
+        "total_epochs": 30,
+        "best_model_sha256": "E2F180A0439C75588EDCDFE27D72A4B5FCCF08C4EB5BB3AB8B50CA5E4217B3A3"
+      },
+      "treatment": {
+        "best_epoch": 7,
+        "best_dev_mIoU_phenomena": 0.05398,
+        "total_epochs": 17,
+        "best_model_sha256": "B8286A1CD00EF5D1CA1E00BCC4A8211BEBF751A96832D91E1439F1061C3D1D79"
+      },
+      "delta_dev_mIoU_phenomena": 0.00458,
+      "relative_percent": 9.27,
+      "winner": "TREATMENT"
+    }
+  ],
+  "prospective_replications_only": [
+    {
+      "seed": 101,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 15,
+        "best_dev_mIoU_phenomena": 0.05886,
+        "total_epochs": 25,
+        "best_model_sha256": "86F1AF99128797DCD9024117B8BF9051FD2AD7575DFC2AD0BA4BCC87A6218F97"
+      },
+      "treatment": {
+        "best_epoch": 5,
+        "best_dev_mIoU_phenomena": 0.04481,
+        "total_epochs": 15,
+        "best_model_sha256": "CDBA3618FE4A7BECA0D82B11E8E57BE9DD82DA31360C85A523A96577866B74FC"
+      },
+      "delta_dev_mIoU_phenomena": -0.01405,
+      "relative_percent": -23.87,
+      "winner": "CONTROL"
+    },
+    {
+      "seed": 202,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 27,
+        "best_dev_mIoU_phenomena": 0.04358,
+        "total_epochs": 30,
+        "best_model_sha256": "23DEFB142B43375F2E93A5E16590AE8843A87311A6221786FC43D539C5156E63"
+      },
+      "treatment": {
+        "best_epoch": 6,
+        "best_dev_mIoU_phenomena": 0.04741,
+        "total_epochs": 16,
+        "best_model_sha256": "000D4E7E0D37CB6A6D562C7B81B8AD2CAE85483BE6BCE07706AD97F709EA1CDD"
+      },
+      "delta_dev_mIoU_phenomena": 0.00383,
+      "relative_percent": 8.79,
+      "winner": "TREATMENT"
+    },
+    {
+      "seed": 303,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 19,
+        "best_dev_mIoU_phenomena": 0.05191,
+        "total_epochs": 29,
+        "best_model_sha256": "1E5D948B323AA97AD1A0B381128C2697806E23973D30E31BD25313DA68E723DB"
+      },
+      "treatment": {
+        "best_epoch": 5,
+        "best_dev_mIoU_phenomena": 0.04605,
+        "total_epochs": 15,
+        "best_model_sha256": "837068454D10BF82B8AE85A52D618CD99B7AED4F1E0371B034B73C763663FF8B"
+      },
+      "delta_dev_mIoU_phenomena": -0.00586,
+      "relative_percent": -11.29,
+      "winner": "CONTROL"
+    },
+    {
+      "seed": 404,
+      "seed_type": "PROSPECTIVE_REPLICATION",
+      "control": {
+        "best_epoch": 21,
+        "best_dev_mIoU_phenomena": 0.0494,
+        "total_epochs": 30,
+        "best_model_sha256": "E2F180A0439C75588EDCDFE27D72A4B5FCCF08C4EB5BB3AB8B50CA5E4217B3A3"
+      },
+      "treatment": {
+        "best_epoch": 7,
+        "best_dev_mIoU_phenomena": 0.05398,
+        "total_epochs": 17,
+        "best_model_sha256": "B8286A1CD00EF5D1CA1E00BCC4A8211BEBF751A96832D91E1439F1061C3D1D79"
+      },
+      "delta_dev_mIoU_phenomena": 0.00458,
+      "relative_percent": 9.27,
+      "winner": "TREATMENT"
+    }
+  ],
+  "aggregate_statistics": {
+    "n_pairs": 5,
+    "control_mean_dev_mIoU": 0.04904,
+    "control_std_dev_mIoU": 0.00693,
+    "treatment_mean_dev_mIoU": 0.04909,
+    "treatment_std_dev_mIoU": 0.00421,
+    "delta_mean": 4e-05,
+    "delta_std": 0.01006,
+    "delta_median": 0.00383,
+    "delta_min": -0.01405,
+    "delta_max": 0.01171,
+    "treatment_wins": 3,
+    "control_wins": 2,
+    "ties": 0,
+    "proportion_treatment_superior": 0.6,
+    "ci_95_student_t_delta": [
+      -0.01244,
+      0.01253
+    ],
+    "statistical_limitation_note": "Small sample size (n=5). CI reported as descriptive dispersion, not confirmatory hypothesis rejection."
+  }
+}

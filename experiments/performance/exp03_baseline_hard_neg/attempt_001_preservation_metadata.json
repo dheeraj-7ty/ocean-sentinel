@@ -1,0 +1,12 @@
+{
+  "experiment_id": "EXP-03_HARD_NEGATIVE_BASELINE",
+  "attempt_id": "EXP03_ATTEMPT_001",
+  "status": "FAILED_DURING_EPOCH_1_VALIDATION_METRIC_EXTRACTION",
+  "checkpoint_status": "NO_VALID_CHECKPOINT_EXISTED",
+  "last_training_batch": 960,
+  "last_validation_batch": 180,
+  "completed_epochs": 0,
+  "root_cause": "AttributeError: SegmentationMeter object has no attribute summary at scripts/train_exp03.py:426",
+  "repair_applied": "summary = meter.compute()",
+  "preservation_time_utc": "2026-09-11T15:48:24Z"
+}

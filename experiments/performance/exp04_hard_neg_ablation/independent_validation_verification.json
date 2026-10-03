@@ -1,0 +1,36 @@
+{
+  "experiment_id": "EXP-04_HARD_NEGATIVE_ABLATION",
+  "checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp04_hard_neg_ablation\\best_model.pt",
+  "checkpoint_sha256": "FAC3C313386F3FE561C2ECF0945B7F960CAA74897C5E8105FB68635529F1320B",
+  "checkpoint_size_bytes": 292466907,
+  "best_epoch_in_checkpoint": 9,
+  "evaluation_timestamp_utc": "2026-09-11T20:00:23Z",
+  "total_duration_sec": 170.3,
+  "device": "cuda",
+  "threshold": 0.22,
+  "confusion_counts": {
+    "tp": 12625901,
+    "fp": 1666000,
+    "fn": 3513632,
+    "tn": 737169187
+  },
+  "metrics": {
+    "val_loss": 0.08907,
+    "val_iou": 0.7091,
+    "val_dice": 0.82979,
+    "val_precision": 0.88343,
+    "val_recall": 0.7823,
+    "clean_water_far_pct": 0.55,
+    "significant_far_pct": 0.55,
+    "total_fp_pixels": 122937,
+    "empty_tiles_evaluated": 1827
+  },
+  "mass_and_spatial_metrics": {
+    "total_gt_pos_pixels": 16139533,
+    "total_pred_pos_pixels": 14291901,
+    "pos_tiles_gt_count": 1053,
+    "pos_tiles_pred_count": 832,
+    "pos_tiles_detected_count": 822,
+    "pos_tiles_completely_dropped": 231
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "arm_name": "CONTROL",
+  "loss_weights": [
+    0.403935,
+    2.450546,
+    0.876692,
+    0.945945,
+    0.648189,
+    4.211476,
+    0.719641,
+    2.956203,
+    1.064525,
+    1.88287,
+    0.387652,
+    18.243211
+  ],
+  "initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+  "best_epoch": 10,
+  "best_dev_mIoU_phenomena": 0.04147,
+  "total_epochs_trained": 20,
+  "total_duration_sec": 75.84,
+  "best_epoch_metrics": {
+    "epoch": 10,
+    "train_loss": 2.2998,
+    "dev_loss": 2.34518,
+    "dev_mIoU_phenomena": 0.04147,
+    "learning_rate": 0.0004216,
+    "duration_sec": 3.58,
+    "class_ious": {
+      "BG": 0.01198,
+      "AF": 5e-05,
+      "BS": 0.04431,
+      "LWA": 0.00068,
+      "MCC": 0.26843,
+      "OF": 0.00043,
+      "POW": 0.02849,
+      "RF": 0.0,
+      "WS": 0.01544,
+      "Eddy": 0.00201,
+      "IWs": 0.09634,
+      "HM": 0.0
+    }
+  },
+  "best_model_sha256": "FF98D4A93660BC70016FEEAF2F04450B7AC1110226DECBAE027F71FF286633FA",
+  "last_model_sha256": "079A476F86BA581AE15F2FA7F2E4DAA274BF9D38C63358800E3C84B03B73B9C1"
+}

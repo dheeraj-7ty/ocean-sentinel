@@ -1,0 +1,40 @@
+{
+  "timestamp_utc": "2026-09-11T18:24:45Z",
+  "file_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\trujillo_2024\\exp03_hard_negative_manifest.json",
+  "actual_file_size_bytes": 261621,
+  "actual_sha256": "3867671E639F020A686C5ACCA4FE5DA4280EB7DAEAB9BD9FEF467C192AA9F9F4",
+  "independent_hashing_methods": [
+    "python_hashlib",
+    "powershell_get_filehash",
+    "windows_certutil"
+  ],
+  "all_methods_agreed": true,
+  "discrepancy_reported": "3867671E639F020CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+  "discrepancy_diagnosis": {
+    "classification": "PROMPT_TEXT_SPLICING_COLLISION",
+    "characters_1_to_15": "3867671E639F020 (prefix of actual candidate manifest)",
+    "character_16": "C (transcription error)",
+    "characters_17_to_64": "C062125074E8B21789FBBBAA55C903D55D8904003BDD1699 (exact 48-char suffix of teacher baseline checkpoint)",
+    "teacher_baseline_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "is_repository_artifact_modified": false,
+    "actual_manifest_modified_since_creation": false,
+    "manifest_creation_timestamp": "2026-09-11 20:41:01",
+    "manifest_last_write_timestamp": "2026-09-11 20:41:01"
+  },
+  "repository_citations_matching_actual_sha": [
+    "tests/test_phase_5_guardrails.py:148",
+    "scripts/train_exp03.py:58",
+    "scripts/train_exp04.py:64",
+    "experiments/PHASE_5B_CANDIDATE_MANIFEST_FREEZE_AUDIT_20260911.md:131,200",
+    "experiments/PHASE_5B_EXP03_TRAINING_EXECUTION_REPORT_20260911.md:175",
+    "experiments/PHASE_5B_FINAL_PRETRAINING_ENVIRONMENT_AND_INTEGRITY_GATE_20260911.md:83,294",
+    "experiments/PHASE_5B_FINAL_TRAINING_LAUNCH_READINESS_AUDIT_20260911.md:33,300",
+    "experiments/PHASE_5B_HARD_NEGATIVE_TRAINING_CONTRACT_20260911.md:95",
+    "experiments/PHASE_5C_EXP04_HYPOTHESIS_AND_TRAINING_CONTRACT_20260911.md:85",
+    "experiments/performance/exp03_baseline_hard_neg/run_state.json:29",
+    "experiments/performance/exp04_hard_neg_ablation/run_state.json:33",
+    "experiments/performance/exp04_hard_neg_ablation/run_manifest.json:24"
+  ],
+  "manifest_provenance_verdict": "VERIFIED",
+  "exp04_run_validity_verdict": "VALID"
+}

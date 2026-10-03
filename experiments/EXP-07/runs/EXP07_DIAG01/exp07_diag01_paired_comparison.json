@@ -1,0 +1,152 @@
+{
+  "experiment_id": "EXP07_DIAG01",
+  "task_id": "EXP-07-P0-C22-B",
+  "timestamp_utc": "2026-09-14T08:25:16Z",
+  "status": "COMPLETED_VALID",
+  "hardware": {
+    "gpu_model": "Tesla T4",
+    "total_vram_bytes": 15636037632,
+    "cuda_version": "12.8",
+    "pytorch_version": "2.10.0+cu128",
+    "cudnn_version": "91002"
+  },
+  "dataset": {
+    "specification": "OPS02_v1.0.1_FROZEN",
+    "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "train_samples": 132,
+    "dev_samples": 40,
+    "holdout_access_count": 0
+  },
+  "initialization": {
+    "canonical_initial_state_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "control_initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "treatment_initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "initial_state_bitwise_equal": true
+  },
+  "sampling": {
+    "strategy": "Candidate F Hybrid (70% parent, 30% class, 72 draws/epoch, seed=42)",
+    "schedule_sha256": "2B1562E33FF32F73A8BF373D24951AF220E423FF74F12F7B589CEDA426A6834B"
+  },
+  "optimization": {
+    "optimizer": "AdamW (lr=5e-4, weight_decay=0.01 on 2D weights)",
+    "scheduler": "LinearWarmupCosineAnnealingLR (30 epochs, 3 warmup)",
+    "batch_dynamics": "physical=8, accum=2, virtual=16, BN=8"
+  },
+  "stopping_rule": {
+    "max_epochs": 30,
+    "min_epochs": 15,
+    "patience": 10,
+    "monitored_metric": "dev_mIoU_phenomena"
+  },
+  "results": {
+    "control": {
+      "arm_name": "CONTROL",
+      "loss_weights": [
+        0.403935,
+        2.450546,
+        0.876692,
+        0.945945,
+        0.648189,
+        4.211476,
+        0.719641,
+        2.956203,
+        1.064525,
+        1.88287,
+        0.387652,
+        18.243211
+      ],
+      "initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+      "best_epoch": 10,
+      "best_dev_mIoU_phenomena": 0.04147,
+      "total_epochs_trained": 20,
+      "total_duration_sec": 75.84,
+      "best_epoch_metrics": {
+        "epoch": 10,
+        "train_loss": 2.2998,
+        "dev_loss": 2.34518,
+        "dev_mIoU_phenomena": 0.04147,
+        "learning_rate": 0.0004216,
+        "duration_sec": 3.58,
+        "class_ious": {
+          "BG": 0.01198,
+          "AF": 5e-05,
+          "BS": 0.04431,
+          "LWA": 0.00068,
+          "MCC": 0.26843,
+          "OF": 0.00043,
+          "POW": 0.02849,
+          "RF": 0.0,
+          "WS": 0.01544,
+          "Eddy": 0.00201,
+          "IWs": 0.09634,
+          "HM": 0.0
+        }
+      },
+      "best_model_sha256": "FF98D4A93660BC70016FEEAF2F04450B7AC1110226DECBAE027F71FF286633FA",
+      "last_model_sha256": "079A476F86BA581AE15F2FA7F2E4DAA274BF9D38C63358800E3C84B03B73B9C1"
+    },
+    "treatment": {
+      "arm_name": "TREATMENT",
+      "loss_weights": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+      "best_epoch": 5,
+      "best_dev_mIoU_phenomena": 0.05318,
+      "total_epochs_trained": 15,
+      "total_duration_sec": 54.74,
+      "best_epoch_metrics": {
+        "epoch": 5,
+        "train_loss": 2.28436,
+        "dev_loss": 4.22013,
+        "dev_mIoU_phenomena": 0.05318,
+        "learning_rate": 0.0004933,
+        "duration_sec": 3.56,
+        "class_ious": {
+          "BG": 0.00502,
+          "AF": 0.0,
+          "BS": 0.09515,
+          "LWA": 0.00549,
+          "MCC": 0.2116,
+          "OF": 0.00011,
+          "POW": 0.00295,
+          "RF": 0.0,
+          "WS": 0.0,
+          "Eddy": 0.00639,
+          "IWs": 0.26326,
+          "HM": 0.0
+        }
+      },
+      "best_model_sha256": "0B7F51B1E902AAC9DF839D2864F1E9658F3B0631813FC47D8ADA1738FFC47745",
+      "last_model_sha256": "4AFE95A823BE69A4DF4921BAE394C0F846B239728524B1C2704D37754E117573"
+    },
+    "comparison": {
+      "delta_dev_mIoU_phenomena": 0.01171,
+      "relative_change_percent": 28.24,
+      "per_class_delta": {
+        "AF": -5e-05,
+        "BS": 0.05084,
+        "LWA": 0.00481,
+        "MCC": -0.05683,
+        "OF": -0.00032,
+        "POW": -0.02554,
+        "RF": 0.0,
+        "WS": -0.01544,
+        "Eddy": 0.00438,
+        "IWs": 0.16692,
+        "HM": 0.0
+      }
+    }
+  }
+}

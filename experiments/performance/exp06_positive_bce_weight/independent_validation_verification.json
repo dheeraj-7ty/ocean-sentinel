@@ -1,0 +1,77 @@
+{
+  "experiment_id": "EXP-06_POSITIVE_BCE_WEIGHT",
+  "attempt_id": "EXP06_ATTEMPT_001",
+  "checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp06_positive_bce_weight\\best_model.pt",
+  "checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+  "checkpoint_size_bytes": 292461395,
+  "last_checkpoint_sha256": "9CA4D910C4804AC994EF8C3E8C96A88AC93BDA2FFD76F9C0817E6C54803D8025",
+  "best_epoch_in_checkpoint": 9,
+  "evaluation_timestamp_utc": "2026-09-12T07:38:10Z",
+  "total_duration_sec": 119.3,
+  "device": "cuda",
+  "threshold": 0.22,
+  "confusion_counts": {
+    "tp": 13097786,
+    "fp": 2009530,
+    "fn": 3041747,
+    "tn": 736825657
+  },
+  "metrics": {
+    "val_loss": 0.09256,
+    "val_iou": 0.72168,
+    "val_dice": 0.83834,
+    "val_precision": 0.86698,
+    "val_recall": 0.81153,
+    "clean_water_far_pct": 0.55,
+    "significant_far_pct": 0.55,
+    "total_fp_pixels": 113187,
+    "empty_tiles_evaluated": 1827
+  },
+  "mass_and_spatial_metrics": {
+    "total_gt_pos_pixels": 16139533,
+    "total_pred_pos_pixels": 15107316,
+    "pos_tiles_gt_count": 1053,
+    "pos_tiles_pred_count": 890,
+    "pos_tiles_detected_count": 879,
+    "pos_tiles_completely_dropped": 174
+  },
+  "positive_fn_forensics": {
+    "total_fn_pixels": 3041747,
+    "dropout_fn_pixels": 468829,
+    "partial_detection_fn_pixels": 2572918,
+    "dropout_fn_ratio": 0.15413,
+    "partial_detection_fn_ratio": 0.84587,
+    "stratified_by_size": {
+      "small": {
+        "gt_pixels": 52888,
+        "tp_pixels": 21326,
+        "fn_pixels": 31562,
+        "total_tiles": 158,
+        "detected_tiles": 46,
+        "dropped_tiles": 112,
+        "pixel_recall": 0.40323,
+        "tile_detection_rate": 0.29114
+      },
+      "medium": {
+        "gt_pixels": 4996392,
+        "tp_pixels": 4026933,
+        "fn_pixels": 969459,
+        "total_tiles": 632,
+        "detected_tiles": 576,
+        "dropped_tiles": 56,
+        "pixel_recall": 0.80597,
+        "tile_detection_rate": 0.91139
+      },
+      "large": {
+        "gt_pixels": 11090253,
+        "tp_pixels": 9049527,
+        "fn_pixels": 2040726,
+        "total_tiles": 263,
+        "detected_tiles": 257,
+        "dropped_tiles": 6,
+        "pixel_recall": 0.81599,
+        "tile_detection_rate": 0.97719
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "seed": 101,
+  "seed_type": "PROSPECTIVE_REPLICATION",
+  "schedule_sha256": "6EB40F9BE51C70A5C53EB387CADA259CF3CD8FE8AEA458A0E0220509A8A9E6EA",
+  "control": {
+    "seed": 101,
+    "arm_name": "CONTROL",
+    "loss_weights": [
+      0.403935,
+      2.450546,
+      0.876692,
+      0.945945,
+      0.648189,
+      4.211476,
+      0.719641,
+      2.956203,
+      1.064525,
+      1.88287,
+      0.387652,
+      18.243211
+    ],
+    "initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "best_epoch": 15,
+    "best_dev_mIoU_phenomena": 0.05886,
+    "total_epochs_trained": 25,
+    "total_duration_sec": 44.01,
+    "best_epoch_metrics": {
+      "epoch": 15,
+      "train_loss": 2.3346,
+      "dev_loss": 2.26423,
+      "dev_mIoU_phenomena": 0.05886,
+      "learning_rate": 0.0003221,
+      "duration_sec": 1.64,
+      "class_ious": {
+        "BG": 0.04471,
+        "AF": 0.0,
+        "BS": 0.15839,
+        "LWA": 0.0,
+        "MCC": 0.30509,
+        "OF": 0.0,
+        "POW": 0.10183,
+        "RF": 0.0,
+        "WS": 0.01839,
+        "Eddy": 0.00071,
+        "IWs": 0.06305,
+        "HM": 0.0
+      }
+    },
+    "best_model_sha256": "86F1AF99128797DCD9024117B8BF9051FD2AD7575DFC2AD0BA4BCC87A6218F97",
+    "last_model_sha256": "03F33B5FC6C6462D32B5F0D89454A364597D48A8FEE581193A11F5172A4EE0A6"
+  },
+  "treatment": {
+    "seed": 101,
+    "arm_name": "TREATMENT",
+    "loss_weights": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "initial_state_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "best_epoch": 5,
+    "best_dev_mIoU_phenomena": 0.04481,
+    "total_epochs_trained": 15,
+    "total_duration_sec": 26.29,
+    "best_epoch_metrics": {
+      "epoch": 5,
+      "train_loss": 2.35667,
+      "dev_loss": 4.43253,
+      "dev_mIoU_phenomena": 0.04481,
+      "learning_rate": 0.0004983,
+      "duration_sec": 1.65,
+      "class_ious": {
+        "BG": 0.0802,
+        "AF": 0.0,
+        "BS": 0.05895,
+        "LWA": 0.04661,
+        "MCC": 0.15148,
+        "OF": 1e-05,
+        "POW": 0.00025,
+        "RF": 0.0,
+        "WS": 0.0,
+        "Eddy": 0.0,
+        "IWs": 0.23561,
+        "HM": 0.0
+      }
+    },
+    "best_model_sha256": "CDBA3618FE4A7BECA0D82B11E8E57BE9DD82DA31360C85A523A96577866B74FC",
+    "last_model_sha256": "EF4CC726EBEC00DEA1FB7A0F59FD2E02B00C569EA733ED4F6D6251F1740BC74B"
+  },
+  "delta_dev_mIoU_phenomena": -0.01405,
+  "relative_percent": -23.87,
+  "winner": "CONTROL",
+  "initial_state_bitwise_equal": true
+}

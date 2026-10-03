@@ -1,0 +1,154 @@
+{
+  "experiment_id": "EXP-06_POSITIVE_BCE_WEIGHT",
+  "attempt_id": "EXP06_ATTEMPT_001",
+  "timestamp_utc": "2026-09-12T08:30:00Z",
+  "canonical_contract_document": "experiments/PHASE_5G_EXP06_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md",
+  "checkpoints": {
+    "EXP-01 Baseline Teacher": {
+      "path": "experiments\\exp01_baseline\\best_model.pt",
+      "sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+      "size_bytes": 292465299
+    },
+    "EXP-03 Best Checkpoint": {
+      "path": "experiments\\performance\\exp03_baseline_hard_neg\\best_model.pt",
+      "sha256": "BE00C1C8B35A3648FCCAD3864F844ED2EB68E079F2CC390C1BA3EC147BF2DA57",
+      "size_bytes": 292463187
+    },
+    "EXP-04 Best Checkpoint": {
+      "path": "experiments\\performance\\exp04_hard_neg_ablation\\best_model.pt",
+      "sha256": "FAC3C313386F3FE561C2ECF0945B7F960CAA74897C5E8105FB68635529F1320B",
+      "size_bytes": 292466907
+    },
+    "EXP-05 Best Checkpoint": {
+      "path": "experiments\\performance\\exp05_candidate_severity_cap\\best_model.pt",
+      "sha256": "D9FC12E312E5DF012650E8106DCF90782534EFB1BD1E38BA7FDCF4E0802A0481",
+      "size_bytes": 292467395
+    },
+    "EXP-06 Best Checkpoint": {
+      "path": "experiments\\performance\\exp06_positive_bce_weight\\best_model.pt",
+      "sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+      "size_bytes": 292461395,
+      "epoch": 9
+    },
+    "EXP-06 Last Checkpoint": {
+      "path": "experiments\\performance\\exp06_positive_bce_weight\\last_model.pt",
+      "sha256": "9CA4D910C4804AC994EF8C3E8C96A88AC93BDA2FFD76F9C0817E6C54803D8025",
+      "size_bytes": 292461395,
+      "epoch": 10
+    },
+    "Hard-Negative Manifest": {
+      "path": "data\\metadata\\trujillo_2024\\exp03_hard_negative_manifest.json",
+      "sha256": "3867671E639F020A686C5ACCA4FE5DA4280EB7DAEAB9BD9FEF467C192AA9F9F4",
+      "size_bytes": 261621
+    },
+    "Spatial Split Manifest": {
+      "path": "data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+      "sha256": "C052720A954C2E7A3E9A87AA64557450BF0DEABEC71D54C2A813849DB60812E0",
+      "size_bytes": 5748446
+    }
+  },
+  "teacher_hash_reconciliation": {
+    "on_disk_sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "on_disk_byte_size": 292465299,
+    "prompt_hash_variant": "9B8BD867DC02C68CC062125074E8E21789FBBBAA55C903D55D8904003BDD1699",
+    "differing_index": 28,
+    "differing_char_disk": "B",
+    "differing_char_prompt": "E",
+    "disposition": "AUTHORITATIVE_DISK_WINS",
+    "classification": "REPORTING_TYPO_IN_PROMPT"
+  },
+  "lifecycle_verification": {
+    "training_completed": true,
+    "total_epochs": 10,
+    "total_steps": 8960,
+    "best_epoch": 9,
+    "independent_validation_completed": true,
+    "canonical_tiles_evaluated": 2880,
+    "threshold": 0.22,
+    "num_workers": 0,
+    "part_iii_accessed": false
+  },
+  "confusion_matrix": {
+    "tp": 13097786,
+    "fp": 2009530,
+    "fn": 3041747,
+    "tn": 736825657,
+    "total_evaluated_pixels": 754974720
+  },
+  "recomputed_metrics": {
+    "iou": 0.72168,
+    "dice": 0.83834,
+    "precision": 0.86698,
+    "recall": 0.81153,
+    "clean_water_far_pct": 0.55,
+    "significant_far_pct": 0.55,
+    "total_validation_fp_pixels": 2009530,
+    "clean_water_fp_pixels": 113187,
+    "positive_tile_fp_pixels": 1896343
+  },
+  "preregistered_acceptance_gates": [
+    {
+      "gate_id": 1,
+      "gate": "Validation Recall >= 0.78500",
+      "contracted_metric": "val_recall",
+      "value": "0.81153",
+      "margin": "+0.02653 (+2.653 pp)",
+      "status": "PASS"
+    },
+    {
+      "gate_id": 2,
+      "gate": "Validation IoU >= 0.71731",
+      "contracted_metric": "val_iou",
+      "value": "0.72168",
+      "margin": "+0.00437 (+0.437 pp)",
+      "status": "PASS"
+    },
+    {
+      "gate_id": 3,
+      "gate": "Clean-Water FAR < 5.00%",
+      "contracted_metric": "clean_water_far_pct",
+      "value": "0.55%",
+      "margin": "-4.45 pp",
+      "status": "PASS"
+    },
+    {
+      "gate_id": 4,
+      "gate": "Significant FAR < 3.00%",
+      "contracted_metric": "significant_far_pct",
+      "value": "0.55%",
+      "margin": "-2.45 pp",
+      "status": "PASS"
+    },
+    {
+      "gate_id": 5,
+      "gate": "Clean-Water FP Pixels (Empty Validation Tiles) < 350,000",
+      "contracted_metric": "clean_water_fp_pixels",
+      "value": "113,187 px",
+      "margin": "-236,813 px",
+      "status": "PASS",
+      "note": "Originally contracted as 'Total FP pixels on empty validation tiles' (< 350,000). Distinct from total validation FP (2,009,530 px)."
+    }
+  ],
+  "final_scientific_disposition": "EXP-06 DEVELOPMENT/VALIDATION ACCEPTANCE: PASS — CERTIFIED & CLOSED WITHIN THE AUDITED PHASE 5H SCOPE.",
+  "scope_limitation": "EXP-06 PASS certifies the predefined development/validation acceptance gates within the audited Phase 5H scope; it does not constitute Part III external evaluation, deployment validation, or evidence of generalization beyond the development/validation domain.",
+  "forensics_summary": {
+    "total_positive_tiles": 1053,
+    "detected_positive_tiles": 879,
+    "dropped_positive_tiles": 174,
+    "total_fn_pixels": 3041747,
+    "partial_undersegmentation_fn_pixels": 2572918,
+    "complete_dropout_fn_pixels": 468829,
+    "partial_fn_percentage": 84.59,
+    "dropout_fn_percentage": 15.41
+  },
+  "part_iii_firewall": {
+    "part_iii_accessed": false,
+    "part_iii_evaluated": false,
+    "firewall_status": "ENFORCED_ZERO_LEAKAGE"
+  },
+  "git_state": {
+    "staged_files": 0,
+    "committed": false,
+    "pushed": false
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "task_id": "EXP-07-P0-C16",
+  "replicate_id": "REPLICATE_003",
+  "seed": 42,
+  "dataset_version": "OPS02_v1.0.0_FROZEN",
+  "status": "COMPLETED",
+  "best_epoch": 17,
+  "best_dev_mIoU_phenomena": 0.04939909220776271,
+  "total_epochs_trained": 27,
+  "total_training_time_seconds": 120.63,
+  "best_metrics_summary": {
+    "epoch": 17,
+    "train_loss": 2.20789,
+    "dev_loss": 2.34101,
+    "dev_mIoU_phenomena": 0.0494,
+    "learning_rate": 0.0002355,
+    "duration_sec": 4.07,
+    "class_ious": {
+      "BG": 0.026582773050047134,
+      "AF": 0.0,
+      "BS": 0.10258497040429665,
+      "LWA": 0.02938535747678501,
+      "MCC": 0.2285722476858737,
+      "OF": 0.0005095355947008298,
+      "POW": 0.04297172990468008,
+      "RF": 0.0,
+      "WS": 0.02237772992925254,
+      "Eddy": 0.01312667812646503,
+      "IWs": 0.10386176516333606,
+      "HM": 0.0
+    }
+  },
+  "checkpoints": {
+    "best_model_sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+    "last_model_sha256": "60411490EFB81D5DE806F4DFFBA760F5D7F4486B14AB4F144AD35D37EE16FA9E"
+  },
+  "holdout_access_count": 0,
+  "seed2024_started": false
+}

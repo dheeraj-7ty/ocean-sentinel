@@ -1,0 +1,23 @@
+{
+  "experiment_id": "EXP-05_CANDIDATE_SEVERITY_CAP",
+  "attempt_id": "EXP05_ATTEMPT_001",
+  "status": "COMPLETED",
+  "best_epoch": 10,
+  "total_epochs": 10,
+  "total_optimizer_steps": 8960,
+  "best_validation_metrics": {
+    "epoch": 10,
+    "train_loss": 0.09465,
+    "val_loss": 0.08544,
+    "val_iou": 0.70813,
+    "val_dice": 0.82913,
+    "val_precision": 0.88197,
+    "val_recall": 0.78227,
+    "clean_water_far_pct": 0.49,
+    "significant_far_pct": 0.49,
+    "total_fp_pixels": 129041,
+    "is_best": true,
+    "epoch_duration_sec": 553.1
+  },
+  "total_elapsed_seconds": 5948.4
+}

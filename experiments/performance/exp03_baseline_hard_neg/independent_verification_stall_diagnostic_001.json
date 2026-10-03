@@ -1,0 +1,32 @@
+{
+  "diagnostic_id": "INDEPENDENT_VERIFICATION_STALL_001",
+  "recorded_utc": "2026-09-11T17:45:00Z",
+  "target_script": "scratch/independent_verify_exp03.py",
+  "classification": "STALLED_NO_PROGRESS",
+  "evidence": [
+    {
+      "process_id": 13996,
+      "parent_process_id": 27576,
+      "name": "python.exe",
+      "command_line": "\"D:\\Projects\\ocean-sentinel\\venv\\Scripts\\python.exe\" scratch/independent_verify_exp03.py",
+      "creation_date": "2026-09-11T22:48:24.849399+05:30",
+      "user_mode_time_units": 156250,
+      "kernel_mode_time_units": 0,
+      "working_set_bytes": 4452352
+    },
+    {
+      "process_id": 25360,
+      "parent_process_id": 13996,
+      "name": "python.exe",
+      "command_line": "\"C:\\Users\\Dheeraj\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\" scratch/independent_verify_exp03.py",
+      "creation_date": "2026-09-11T22:48:24.861623+05:30",
+      "user_mode_time_units": 46718750,
+      "kernel_mode_time_units": 18437500,
+      "working_set_bytes": 1028657152
+    }
+  ],
+  "stall_mechanism_analysis": {
+    "root_cause": "DataLoader num_workers=4 without if __name__ == '__main__': guard on Windows caused multiprocessing spawn deadlock/stall when attempting to launch worker subprocesses from top-level script scope.",
+    "evidence_type": "OBSERVED_FACT_AND_INFERENCE"
+  }
+}

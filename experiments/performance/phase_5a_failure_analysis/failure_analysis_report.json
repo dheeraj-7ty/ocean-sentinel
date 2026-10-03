@@ -1,0 +1,312 @@
+{
+  "title": "Ocean Sentinel \u2014 Phase 5A Development-Split Failure Analysis & Hard-Negative Audit",
+  "timestamp_utc": "2026-09-11T10:56:58Z",
+  "duration_seconds": 785.58,
+  "baseline_checkpoint": {
+    "path": "D:\\Projects\\ocean-sentinel\\experiments\\exp01_baseline\\best_model.pt",
+    "sha256": "9B8BD867DC02C68CC062125074E8B21789FBBBAA55C903D55D8904003BDD1699",
+    "verification_status": "SHA256_DIGEST_MATCHED"
+  },
+  "frozen_evaluation_contract": {
+    "threshold": 0.22,
+    "split_evaluated": "trujillo_2024_part_i_val",
+    "tile_shape": [
+      512,
+      512
+    ],
+    "norm_mean": [
+      -33.233136989478695,
+      -19.941215852796695
+    ],
+    "norm_std": [
+      6.489985665955077,
+      4.531345684833188
+    ],
+    "firewall_status": "ZERO_PART_III_LEAKAGE_ENFORCED"
+  },
+  "validation_split_metrics": {
+    "total_tiles": 2880,
+    "total_scenes": 180,
+    "empty_tiles": {
+      "total_count": 1827,
+      "clean_water_tn_count": 1460,
+      "clean_water_fa_count": 367,
+      "sig_fa_count_gte_100": 193,
+      "clean_water_tn_pct": 79.91,
+      "clean_water_fa_pct": 20.09,
+      "sig_fa_pct_gte_100": 10.56
+    },
+    "empty_scenes": {
+      "total_count": 0,
+      "scenes_with_fp": 0,
+      "scenes_with_sig_fp_gte_100": 0,
+      "scene_far_pct": 0.0,
+      "sig_scene_far_pct": 0.0
+    },
+    "fp_area_stats_empty_tiles": {
+      "count": 367,
+      "sum": 465950,
+      "mean": 1269.62,
+      "std": 8998.12,
+      "min": 1,
+      "p25": 33.0,
+      "median": 109.0,
+      "p75": 330.5,
+      "p90": 837.6,
+      "p95": 1588.1,
+      "p99": 27681.8,
+      "max": 118792
+    },
+    "fp_area_stats_all_tiles": {
+      "count": 1268,
+      "sum": 2327942,
+      "mean": 1835.92,
+      "std": 5733.06,
+      "min": 1,
+      "p25": 84.0,
+      "median": 414.5,
+      "p75": 1793.75,
+      "p90": 4562.1,
+      "p95": 6948.85,
+      "p99": 16186.21,
+      "max": 118792
+    },
+    "fp_component_morphology": {
+      "total_components": 19807,
+      "component_area_quantiles": {
+        "count": 19807,
+        "sum": 2327942,
+        "mean": 117.53,
+        "std": 1299.99,
+        "min": 1,
+        "p25": 1.0,
+        "median": 2.0,
+        "p75": 15.0,
+        "p90": 124.0,
+        "p95": 366.4,
+        "p99": 2108.94,
+        "max": 115060
+      }
+    },
+    "fp_confidence_histogram": {
+      "[0.22, 0.30)": 247228,
+      "[0.30, 0.40)": 254134,
+      "[0.40, 0.50)": 297000,
+      "[0.50, 0.60)": 188606,
+      "[0.60, 0.70)": 168846,
+      "[0.70, 0.80)": 188462,
+      "[0.80, 0.90)": 263409,
+      "[0.90, 0.95)": 209637,
+      "[0.95, 1.00)": 510620
+    }
+  },
+  "training_candidate_harvest": {
+    "total_empty_training_tiles": 8357,
+    "empty_training_tiles_with_fp": 2599,
+    "candidate_yield_fp_gte_100": 1605,
+    "candidate_yield_fp_gte_500": 786,
+    "candidate_yield_fp_gte_1000": 528,
+    "candidate_yield_fp_gte_5000": 213,
+    "top_candidates_sample": [
+      {
+        "tile_index": 620,
+        "parent_stem": "00088",
+        "col_offset": 0,
+        "row_offset": 1536,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9707
+      },
+      {
+        "tile_index": 4432,
+        "parent_stem": "00526",
+        "col_offset": 0,
+        "row_offset": 0,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9639
+      },
+      {
+        "tile_index": 6723,
+        "parent_stem": "00751",
+        "col_offset": 1536,
+        "row_offset": 0,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9528
+      },
+      {
+        "tile_index": 6738,
+        "parent_stem": "00752",
+        "col_offset": 1024,
+        "row_offset": 0,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9777
+      },
+      {
+        "tile_index": 6747,
+        "parent_stem": "00752",
+        "col_offset": 1536,
+        "row_offset": 1024,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9837
+      },
+      {
+        "tile_index": 10642,
+        "parent_stem": "01130",
+        "col_offset": 1024,
+        "row_offset": 0,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9837
+      },
+      {
+        "tile_index": 10643,
+        "parent_stem": "01130",
+        "col_offset": 1536,
+        "row_offset": 0,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9836
+      },
+      {
+        "tile_index": 10647,
+        "parent_stem": "01130",
+        "col_offset": 1536,
+        "row_offset": 512,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9835
+      },
+      {
+        "tile_index": 10651,
+        "parent_stem": "01130",
+        "col_offset": 1536,
+        "row_offset": 1024,
+        "fp_pixels": 262144,
+        "mean_conf_fp": 0.9812
+      },
+      {
+        "tile_index": 6737,
+        "parent_stem": "00752",
+        "col_offset": 512,
+        "row_offset": 0,
+        "fp_pixels": 262140,
+        "mean_conf_fp": 0.9329
+      },
+      {
+        "tile_index": 5751,
+        "parent_stem": "00657",
+        "col_offset": 1536,
+        "row_offset": 512,
+        "fp_pixels": 262105,
+        "mean_conf_fp": 0.9678
+      },
+      {
+        "tile_index": 6722,
+        "parent_stem": "00751",
+        "col_offset": 1024,
+        "row_offset": 0,
+        "fp_pixels": 262057,
+        "mean_conf_fp": 0.9474
+      },
+      {
+        "tile_index": 10646,
+        "parent_stem": "01130",
+        "col_offset": 1024,
+        "row_offset": 512,
+        "fp_pixels": 260275,
+        "mean_conf_fp": 0.9452
+      },
+      {
+        "tile_index": 10655,
+        "parent_stem": "01130",
+        "col_offset": 1536,
+        "row_offset": 1536,
+        "fp_pixels": 257977,
+        "mean_conf_fp": 0.9634
+      },
+      {
+        "tile_index": 5747,
+        "parent_stem": "00657",
+        "col_offset": 1536,
+        "row_offset": 0,
+        "fp_pixels": 254048,
+        "mean_conf_fp": 0.9089
+      }
+    ]
+  },
+  "forensic_case_manifest": [
+    {
+      "category": "worst_fp_01",
+      "title": "Worst False Positive Tile (Validation)",
+      "tile_index": 2131,
+      "parent_stem": "00932",
+      "fp_pixels": 118792,
+      "tp_pixels": 0,
+      "fn_pixels": 0,
+      "iou": 0.0,
+      "panel_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5a_diagnostics\\forensic_worst_fp_01_tile_2131_00932.png"
+    },
+    {
+      "category": "worst_fp_02",
+      "title": "2nd Worst False Positive Tile (Validation)",
+      "tile_index": 2147,
+      "parent_stem": "00933",
+      "fp_pixels": 101779,
+      "tp_pixels": 0,
+      "fn_pixels": 0,
+      "iou": 0.0,
+      "panel_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5a_diagnostics\\forensic_worst_fp_02_tile_2147_00933.png"
+    },
+    {
+      "category": "median_fp",
+      "title": "Median False Positive Tile (Validation)",
+      "tile_index": 1351,
+      "parent_stem": "00512",
+      "fp_pixels": 109,
+      "tp_pixels": 0,
+      "fn_pixels": 0,
+      "iou": 0.0,
+      "panel_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5a_diagnostics\\forensic_median_fp_tile_1351_00512.png"
+    },
+    {
+      "category": "moderate_fp",
+      "title": "Moderate False Positive Tile (Validation)",
+      "tile_index": 2287,
+      "parent_stem": "00941",
+      "fp_pixels": 332,
+      "tp_pixels": 0,
+      "fn_pixels": 0,
+      "iou": 0.0,
+      "panel_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5a_diagnostics\\forensic_moderate_fp_tile_2287_00941.png"
+    },
+    {
+      "category": "borderline_fp",
+      "title": "Borderline False Positive Tile (Validation)",
+      "tile_index": 2338,
+      "parent_stem": "01009",
+      "fp_pixels": 300,
+      "tp_pixels": 0,
+      "fn_pixels": 0,
+      "iou": 0.0,
+      "panel_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5a_diagnostics\\forensic_borderline_fp_tile_2338_01009.png"
+    },
+    {
+      "category": "true_negative_clean",
+      "title": "Clean Water True Negative (Validation)",
+      "tile_index": 3,
+      "parent_stem": "00012",
+      "fp_pixels": 0,
+      "tp_pixels": 0,
+      "fn_pixels": 0,
+      "iou": 1.0,
+      "panel_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5a_diagnostics\\forensic_true_negative_clean_tile_0003_00012.png"
+    },
+    {
+      "category": "mixed_spill_with_fp",
+      "title": "Mixed Oil Spill Tile with False Positives (Validation)",
+      "tile_index": 2,
+      "parent_stem": "00012",
+      "fp_pixels": 1070,
+      "tp_pixels": 18737,
+      "fn_pixels": 616,
+      "iou": 0.91745,
+      "panel_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\phase_5a_diagnostics\\forensic_mixed_spill_with_fp_tile_0002_00012.png"
+    }
+  ]
+}

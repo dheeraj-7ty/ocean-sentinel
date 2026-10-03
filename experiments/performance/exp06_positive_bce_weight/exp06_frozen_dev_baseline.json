@@ -1,0 +1,115 @@
+{
+  "evaluation_document": "PHASE_7A_RECOVERY_PROTOCOL_INTEGRITY_20260912",
+  "evaluation_timestamp_utc": "2026-09-12T17:32:27.644959+00:00",
+  "orchestration_status": "SERIAL_EXECUTION_VERIFIED",
+  "model": {
+    "checkpoint_path": "D:\\Projects\\ocean-sentinel\\experiments\\performance\\exp06_positive_bce_weight\\best_model.pt",
+    "checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+    "architecture": "ResNet34UNet",
+    "adaptation_method": "slice_variance_scaled",
+    "total_parameters": 24346305
+  },
+  "dataset": {
+    "manifest_path": "D:\\Projects\\ocean-sentinel\\data\\metadata\\internal_development_split_manifest.json",
+    "manifest_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+    "population_evaluated": "DEV",
+    "parent_scenes_count": 180,
+    "total_tiles_evaluated": 2880,
+    "positive_tiles_count": 1053,
+    "clean_water_tiles_count": 1827
+  },
+  "protocol": {
+    "decision_threshold_tau": 0.22,
+    "channel_contract": "Mapping A (Band 1 VH -> Ch0, Band 2 VV -> Ch1)",
+    "normalization_mean": [
+      -33.2323,
+      -19.9405
+    ],
+    "normalization_std": [
+      6.4912,
+      4.5308
+    ],
+    "evaluation_device": "cuda",
+    "cuda_device_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  },
+  "primary_micro_metrics": {
+    "val_loss": 0.09254,
+    "val_iou": 0.72169,
+    "val_dice": 0.83835,
+    "val_recall": 0.81157,
+    "val_precision": 0.86696
+  },
+  "primary_macro_metrics": {
+    "macro_mean_iou": 0.70247,
+    "macro_mean_dice": 0.81551,
+    "macro_mean_recall": 0.83565,
+    "macro_mean_precision": 0.85242,
+    "scenes_evaluated_count": 180
+  },
+  "negative_rejection_metrics": {
+    "clean_water_tiles_evaluated": 1827,
+    "clean_water_fa_tiles": 10,
+    "clean_water_far_pct": 0.5473,
+    "significant_fa_tiles": 10,
+    "significant_far_pct": 0.5473,
+    "clean_water_fp_pixels": 113229,
+    "clean_water_pixel_specificity": 0.999764
+  },
+  "positive_dropout_metrics": {
+    "positive_tiles_evaluated": 1053,
+    "positive_tiles_detected": 879,
+    "positive_tiles_dropped": 174,
+    "tile_dropout_rate_pct": 16.52,
+    "positive_gt_pixels_total": 16139533,
+    "positive_pred_pixels_total": 14995314
+  },
+  "preregistered_acceptance_gates": {
+    "primary_macro_mean_iou": {
+      "scope": "Internal Positive DEV (180 parent scenes)",
+      "baseline": 0.70247,
+      "acceptance_floor": 0.695,
+      "regression_tolerance": "-0.0075 (-1.06%)"
+    },
+    "primary_macro_mean_recall": {
+      "scope": "Internal Positive DEV (180 parent scenes)",
+      "baseline": 0.83565,
+      "acceptance_floor": 0.82,
+      "regression_tolerance": "-0.0156 (-1.87%)"
+    },
+    "primary_micro_mean_iou": {
+      "scope": "Internal Positive DEV Tiles (1,053 tiles)",
+      "baseline": 0.72169,
+      "acceptance_floor": 0.715,
+      "regression_tolerance": "-0.0067 (-0.93%)"
+    },
+    "clean_water_tile_far": {
+      "scope": "Empty Ocean DEV Tiles (1,827 tiles)",
+      "baseline": 0.55,
+      "acceptance_ceiling": 1.0,
+      "regression_tolerance": "+0.45 pp (<= 18 tiles)"
+    },
+    "significant_tile_far": {
+      "scope": "Empty Ocean DEV Tiles (1,827 tiles)",
+      "baseline": 0.55,
+      "acceptance_ceiling": 1.0,
+      "regression_tolerance": "+0.45 pp (<= 18 tiles)"
+    },
+    "complete_tile_dropouts": {
+      "scope": "GT-Positive DEV Tiles (1,053 tiles)",
+      "baseline": 174,
+      "acceptance_ceiling": 174,
+      "regression_tolerance": "+0 tiles (strict non-regression)"
+    },
+    "clean_water_fp_pixels": {
+      "scope": "Empty Ocean DEV Tiles (1,827 tiles)",
+      "baseline": 113229,
+      "acceptance_ceiling": 150000,
+      "regression_tolerance": "+36,771 px (+32.5%)"
+    }
+  },
+  "timing_and_throughput": {
+    "evaluation_duration_seconds": 125.95,
+    "total_pipeline_duration_seconds": 169.42,
+    "throughput_tiles_per_sec": 22.87
+  }
+}

@@ -1,0 +1,1070 @@
+{
+  "metadata": {
+    "document_id": "EXP07_FORENSIC_PROTOCOL_LINEAGE_V1",
+    "task_id": "OCEAN-SENTINEL-EXP07-FINAL-SCIENTIFIC-FORENSIC-TRIAGE-V1",
+    "evaluated_at_utc": "2026-09-26T14:45:00Z",
+    "status": "RECONCILED",
+    "investigator": "AG / Antigravity IDE 2.0 Forensic Worker",
+    "source_authority": "Executable machine-readable artifacts, run manifests, code, and frozen protocol documents"
+  },
+  "executive_summary": {
+    "verdict": "PROTOCOL_LINEAGE_FULLY_RECONCILED",
+    "summary": "Every historical discrepancy across EXP-07 stages is rigorously resolved and classified. No untracked execution drift occurred in the core diagnostic runs (C22-B, C22-D). Changes across iterations were legitimate versioned protocol evolutions (e.g. OPS-01 to OPS-02 dataset expansion, schedule refinement from 50 to 30 epochs, and Candidate F sampler introduction), while apparent discrepancies between report narrative and machine truth were typographical documentation drafting errors (e.g., 'VV/VH' misnomer and truncated 3-element loss weight vector).",
+    "material_implementation_defects": 0,
+    "material_documentation_defects": 4,
+    "execution_drift_count": 0,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0
+  },
+  "reconciled_historical_inconsistencies": {
+    "A_channels": {
+      "inconsistency": "Earlier documentation described VV/VH dual-pol, whereas C22-A.9 executable truth is single-band VV.",
+      "classification": "DOCUMENTATION_ERROR",
+      "evidence": "Sentinel-1 Level-1 GRD crops derived from the Li IW archive contain solely single-channel VV raster data (256x256 GeoTIFF). The dataloader and conv1 network adaptation consume exactly 1 channel. 'VV/VH' in early report narrative was a typographical misnomer.",
+      "verdict": "RESOLVED_AS_DOCUMENTATION_ERROR"
+    },
+    "B_initialization": {
+      "inconsistency": "Early draft protocol described from-scratch / Kaiming initialization, whereas C22-A.9 reported initial_model_state_canonical.pt with ImageNet ResNet18 initialization.",
+      "classification": "VERSIONED_CHANGE",
+      "evidence": "The initial proposal (OPEN-ARCH-001 in exp07_protocol_design_v1.json) contemplated Kaiming from-scratch, but the frozen protocol contracts (C4, C15, C22-A.3, C22-A.4) formally adopted ImageNet pre-trained ResNet18 (IMAGENET1K_V1, conv1 mean-slice adaptation) with Kaiming uniform decoder under seed 42. Checkpoint initial_model_state_canonical.pt (SHA256: 67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D) was verified bitwise across C22-B and C22-D runs.",
+      "verdict": "RESOLVED_AS_VERSIONED_CHANGE"
+    },
+    "C_training_schedule": {
+      "inconsistency": "Early protocol documentation described 50 epochs / patience 15, whereas C22-A.9 executable truth described MAX_EPOCHS = 30, MIN_EPOCHS = 15, PATIENCE = 10.",
+      "classification": "VERSIONED_CHANGE",
+      "evidence": "The early Phase 7B / EXP-07-P0 draft proposal proposed 50 epochs (patience 15). During protocol freeze (C7, C8, C15, C21), the schedule was formally shortened to MAX_EPOCHS = 30, MIN_EPOCHS = 15, PATIENCE = 10 to prevent overfitting on small sample sizes. In C22-A.8 narrative, 'epochs = 15' conflated MIN_EPOCHS with MAX_EPOCHS; this was repaired in C22-A.9 erratum. Executable runs (C16, C22-B, C22-D) strictly executed MAX_EPOCHS=30, MIN_EPOCHS=15, PATIENCE=10.",
+      "verdict": "RESOLVED_AS_VERSIONED_CHANGE_WITH_C22A8_DOCUMENTATION_ERRATUM"
+    },
+    "D_augmentation": {
+      "inconsistency": "Earlier documentation described H-flip + V-flip p=0.5, whereas C22-A.9 reported augmentation disabled.",
+      "classification": "VERSIONED_CHANGE",
+      "evidence": "Early preprocessing draft (OPEN-PREPROC-003) explored H-flip and V-flip. However, in C4 (Section 11, BASELINE_IDENTITY_NO_AUGMENTATION) and C15 (INV-18), augmentations were formally disabled to maintain physical SAR radiometric geometry and deterministic reproducibility. Executable code and run manifests strictly used zero data augmentation.",
+      "verdict": "RESOLVED_AS_VERSIONED_CHANGE"
+    },
+    "E_sampler": {
+      "inconsistency": "Earlier protocol discussed WeightedRandomSampler / inverse dominant-class frequency, whereas C22-A.9 used Candidate F Hybrid sampler.",
+      "classification": "VERSIONED_CHANGE",
+      "evidence": "Inverse frequency sampling risked severe parent-scene memorization (observed in C3 validation). C4 Section 7 and C15 formally adopted the Candidate F Hybrid Sampler (70% parent uniform + 30% class presence uniform, drawing 72 tiles/epoch with replacement). In C22-B and C22-D, Candidate F was bitwise locked and deterministic per seed. All 19 scientific invariants between Control and Treatment arms were identical.",
+      "verdict": "RESOLVED_AS_VERSIONED_CHANGE"
+    },
+    "F_dataset_version_splits": {
+      "inconsistency": "Earlier OPS-01 documentation used 72 TRAIN / 39 DEV / 36 HOLDOUT (147 tiles, 27 parents), whereas later C22-A.9 used OPS02_v1.0.1_FROZEN with 132 TRAIN / 40 DEV / 40 HOLDOUT (212 tiles, 64 parents).",
+      "classification": "VERSIONED_CHANGE",
+      "evidence": "OPS-01 was the initial 147-tile pilot dataset derived from 27 parent scenes (used in Run 001 and Run 002). In C12\u2013C15, OPS-02 was assembled as a formal multi-scene dataset expansion, establishing 212 physical tiles from 64 independent parent clusters. In C15 narrative, a drafting typo claimed 41 DEV / 39 HOLDOUT; this was corrected in C18 freeze spec v1.0.1 to match the actual manifest counts of 40 DEV / 40 HOLDOUT. Runs C16, C22-B, and C22-D strictly executed on OPS02_v1.0.1_FROZEN.",
+      "verdict": "RESOLVED_AS_VERSIONED_CHANGE"
+    },
+    "G_radiometric_representation": {
+      "inconsistency": "Earlier documentation discussed raw DN values and uncalibrated sigma0, while later protocol used 10*log10 or log1p(DN) described as pseudo-dB.",
+      "classification": "DOCUMENTATION_ERROR",
+      "evidence": "Executable code in exp07_reference.py executes: np.log1p(np.maximum(raw_dn, 0.0)) followed by standardization using TRAIN mean (4.424158) and std (0.469261). C4 Section 3 explicitly proved that spatial 10x10 block-averaging violates Jensen's inequality for physical sigma0 dB calibration. True representation is pseudo-dB / log1p-transformed DN, NOT calibrated physical sigma0 dB.",
+      "verdict": "RESOLVED_AS_DOCUMENTATION_ERROR_TERMINOLOGY_BOUNDED"
+    },
+    "H_metric_selection_semantics": {
+      "inconsistency": "Verify primary metric dev_mIoU_phenomena semantics across protocol, training code, checkpoint selection, and reports.",
+      "classification": "SAME_AS_PREVIOUS",
+      "evidence": "Primary metric dev_mIoU_phenomena is strictly defined as macro unweighted average across dense classes 1..11. Background Class 0 is strictly excluded. In compute_metrics_from_confusion_matrix, classes with GT=0 evaluate to None and are omitted from denominator; classes with GT>0 and TP=0 evaluate to 0.0 and enter the denominator. On OPS-02 DEV, all 11 classes have GT>0, so denominator is always exactly 11. Checkpoint selection strictly selected the epoch maximizing dev_mIoU_phenomena.",
+      "verdict": "RESOLVED_CONSISTENT_ACROSS_ALL_LEVELS"
+    },
+    "I_holdout_quarantine": {
+      "inconsistency": "Verify all EXP-07 runs maintained zero HOLDOUT access.",
+      "classification": "SAME_AS_PREVIOUS",
+      "evidence": "Audited across Run 001, Run 002, Run 003, C22-B, and C22-D manifests and logs: holdout_access_count = 0 in every single run. Zero payload content was accessed. Part III access = 0.",
+      "verdict": "RESOLVED_STRICTLY_PRESERVED"
+    }
+  },
+  "thirty_six_dimension_lineage_table": {
+    "DIM_01_dataset_identifier": {
+      "dimension": "Dataset Identifier / Version",
+      "Stage_1_Draft_Spec": {
+        "value": "OPS01_v1.0.0",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "OPS01_v1.0.0",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "OPS01_v1.0.0",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "OPS02_v1.0.0_FROZEN",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "OPS02_v1.0.1_FROZEN",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "OPS02_v1.0.1_FROZEN",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_02_physical_samples": {
+      "dimension": "Physical Sample Count",
+      "Stage_1_Draft_Spec": {
+        "value": 147,
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": 147,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": 147,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": 212,
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": 212,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": 212,
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_03_split_counts": {
+      "dimension": "TRAIN / DEV / HOLDOUT Counts",
+      "Stage_1_Draft_Spec": {
+        "value": "72 / 39 / 36",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "72 / 39 / 36",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "72 / 39 / 36",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "132 / 40 / 40",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "132 / 40 / 40",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "132 / 40 / 40",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_04_parent_counts": {
+      "dimension": "Parent Acquisition Counts",
+      "Stage_1_Draft_Spec": {
+        "value": "27 parents (12 TRN / 7 DEV / 8 HLD)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "27 parents (12 TRN / 7 DEV / 8 HLD)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "27 parents (12 TRN / 7 DEV / 8 HLD)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "64 clusters (40 TRN / 12 DEV / 12 HLD)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "64 clusters (40 TRN / 12 DEV / 12 HLD)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "64 clusters (40 TRN / 12 DEV / 12 HLD)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_05_input_channels": {
+      "dimension": "Input Bands / Channels",
+      "Stage_1_Draft_Spec": {
+        "value": "Single-band VV (1 channel, 256x256)",
+        "classification": "DOCUMENTATION_ERROR"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Single-band VV (1 channel)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Single-band VV (1 channel)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Single-band VV (1 channel)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Single-band VV (1 channel)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Single-band VV (1 channel)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_06_input_representation": {
+      "dimension": "Input Representation",
+      "Stage_1_Draft_Spec": {
+        "value": "10x10 spatial block-mean raw DN",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "10x10 spatial block-mean raw DN",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "10x10 spatial block-mean raw DN",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "10x10 spatial block-mean raw DN",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "10x10 spatial block-mean raw DN",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "10x10 spatial block-mean raw DN",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_07_radiometric_transformation": {
+      "dimension": "Radiometric Transformation",
+      "Stage_1_Draft_Spec": {
+        "value": "np.log1p(np.maximum(DN, 0.0))",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "np.log1p(np.maximum(DN, 0.0))",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "np.log1p(np.maximum(DN, 0.0))",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "np.log1p(np.maximum(DN, 0.0))",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "np.log1p(np.maximum(DN, 0.0))",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "np.log1p(np.maximum(DN, 0.0))",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_08_normalization": {
+      "dimension": "Normalization Statistics",
+      "Stage_1_Draft_Spec": {
+        "value": "mu=4.2756, sigma=0.3866 (OPS-01 TRAIN)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "mu=4.2756, sigma=0.3866 (OPS-01 TRAIN)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "mu=4.2756, sigma=0.3866 (OPS-01 TRAIN)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "mu=4.424158, sigma=0.469261 (OPS-02 TRAIN)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "mu=4.424158, sigma=0.469261 (OPS-02 TRAIN)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "mu=4.424158, sigma=0.469261 (OPS-02 TRAIN)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_09_label_encoding": {
+      "dimension": "Label Encoding",
+      "Stage_1_Draft_Spec": {
+        "value": "Dense categorical integers 0..11",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Dense categorical integers 0..11",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Dense categorical integers 0..11",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Dense categorical integers 0..11",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Dense categorical integers 0..11",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Dense categorical integers 0..11",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_10_taxonomy_version": {
+      "dimension": "Taxonomy / Version",
+      "Stage_1_Draft_Spec": {
+        "value": "OPS-01-TAXONOMY-V1 (12 classes)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "OPS-01-TAXONOMY-V1 (12 classes)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "OPS-01-TAXONOMY-V1 (12 classes)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "CANONICAL_DENSE_12_CLASS_V1",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "CANONICAL_DENSE_12_CLASS_V1",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "CANONICAL_DENSE_12_CLASS_V1",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_11_ignore_index": {
+      "dimension": "Ignore Index",
+      "Stage_1_Draft_Spec": {
+        "value": -100,
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": -100,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": -100,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": -100,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": -100,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": -100,
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_12_augmentation": {
+      "dimension": "Data Augmentation",
+      "Stage_1_Draft_Spec": {
+        "value": "Disabled (Identity)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Disabled (Identity)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Disabled (Identity)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Disabled (Identity)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Disabled (Identity)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Disabled (Identity)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_13_sampler": {
+      "dimension": "Sampler Strategy",
+      "Stage_1_Draft_Spec": {
+        "value": "Candidate F Hybrid (70% parent, 30% class, 72 draws)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Candidate F Hybrid (72 draws, seed 42)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Candidate F Hybrid (72 draws, seed 101)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Candidate F Hybrid (72 draws, seed 42)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Candidate F Hybrid (72 draws, seed 42)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Candidate F Hybrid (72 draws, per-seed streams)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_14_batch_size": {
+      "dimension": "Physical Batch Size (B_mini)",
+      "Stage_1_Draft_Spec": {
+        "value": 8,
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": 8,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": 8,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": 8,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": 8,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": 8,
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_15_gradient_accumulation": {
+      "dimension": "Gradient Accumulation Steps",
+      "Stage_1_Draft_Spec": {
+        "value": "2 steps (effective batch size 16)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "2 steps (effective batch size 16)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "2 steps (effective batch size 16)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "2 steps (effective batch size 16)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "2 steps (effective batch size 16)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "2 steps (effective batch size 16)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_16_architecture": {
+      "dimension": "Network Architecture",
+      "Stage_1_Draft_Spec": {
+        "value": "ResNet18-UNet (Option B, BatchNorm2d momentum=0.05)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "ResNet18-UNet",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "ResNet18-UNet",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "ResNet18-UNet",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "ResNet18-UNet",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "ResNet18-UNet",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_17_parameter_count": {
+      "dimension": "Parameter Count",
+      "Stage_1_Draft_Spec": {
+        "value": "14,310,860 trainable (14,322,636 total)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "14,310,860 trainable (14,322,636 total)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "14,310,860 trainable (14,322,636 total)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "14,310,860 trainable (14,322,636 total)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "14,310,860 trainable (14,322,636 total)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "14,310,860 trainable (14,322,636 total)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_18_initialization": {
+      "dimension": "Model Initialization",
+      "Stage_1_Draft_Spec": {
+        "value": "ImageNet ResNet18 backbone + Kaiming UNet decoder",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "ImageNet ResNet18 + Kaiming decoder (Seed 42)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "ImageNet ResNet18 + Kaiming decoder (Seed 101)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Canonical initial_model_state_canonical.pt (SHA256 verified)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Canonical initial_model_state_canonical.pt (SHA256 verified)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Canonical initial_model_state_canonical.pt (SHA256 verified)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_19_loss": {
+      "dimension": "Loss Function Formulation",
+      "Stage_1_Draft_Spec": {
+        "value": "nn.CrossEntropyLoss(weight=w, ignore_index=-100)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "nn.CrossEntropyLoss(weight=w_ops01, ignore_index=-100)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "nn.CrossEntropyLoss(weight=w_ops01, ignore_index=-100)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "nn.CrossEntropyLoss(weight=w_ops02, ignore_index=-100)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Control: CrossEntropyLoss(w_c16); Treatment: CrossEntropyLoss([1.0]*12)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Control: CrossEntropyLoss(w_c16); Treatment: CrossEntropyLoss([1.0]*12)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_20_class_weight_vector": {
+      "dimension": "Class Weight Vector",
+      "Stage_1_Draft_Spec": {
+        "value": "OPS-01 Sqrt-Median Freq [0.272584 ... 12.151197]",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "OPS-01 Sqrt-Median Freq [0.272584 ... 12.151197]",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "OPS-01 Sqrt-Median Freq [0.272584 ... 12.151197]",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "OPS-02 Sqrt-Median Freq [0.403935 ... 18.243211]",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Control: [0.403935 ... 18.243211]; Treatment: [1.0] * 12",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Control: [0.403935 ... 18.243211]; Treatment: [1.0] * 12",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_21_optimizer": {
+      "dimension": "Optimizer",
+      "Stage_1_Draft_Spec": {
+        "value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_22_learning_rate": {
+      "dimension": "Base Learning Rate",
+      "Stage_1_Draft_Spec": {
+        "value": "0.0005 (5e-4)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "0.0005 (5e-4)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "0.0005 (5e-4)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "0.0005 (5e-4)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "0.0005 (5e-4)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "0.0005 (5e-4)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_23_weight_decay": {
+      "dimension": "Weight Decay",
+      "Stage_1_Draft_Spec": {
+        "value": "0.01 (2D conv/linear only)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "0.01 (2D conv/linear only)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "0.01 (2D conv/linear only)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "0.01 (2D conv/linear only)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "0.01 (2D conv/linear only)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "0.01 (2D conv/linear only)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_24_scheduler": {
+      "dimension": "Learning Rate Scheduler",
+      "Stage_1_Draft_Spec": {
+        "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warm=3, eta_min=1e-6)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warm=3, eta_min=1e-6)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warm=3, eta_min=1e-6)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warm=3, eta_min=1e-6)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warm=3, eta_min=1e-6)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warm=3, eta_min=1e-6)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_25_max_epochs": {
+      "dimension": "Maximum Epochs",
+      "Stage_1_Draft_Spec": {
+        "value": 30,
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": 30,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": 30,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": 30,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": 30,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": 30,
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_26_min_epochs": {
+      "dimension": "Minimum Epochs",
+      "Stage_1_Draft_Spec": {
+        "value": 15,
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": 15,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": 15,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": 15,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": 15,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": 15,
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_27_early_stopping": {
+      "dimension": "Early Stopping Rule",
+      "Stage_1_Draft_Spec": {
+        "value": "Patience 10, min_epoch 15, monitoring dev_mIoU_phenomena",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Patience 10 (stopped Ep 27, best Ep 17)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Patience 10 (stopped Ep 25, best Ep 15)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Patience 10 (stopped Ep 27, best Ep 17)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Patience 10 (Ctrl stopped Ep 20, Trt stopped Ep 15)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Patience 10 (all 8 runs evaluated strictly at min 15, patience 10)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_28_seed_policy": {
+      "dimension": "Seed Policy",
+      "Stage_1_Draft_Spec": {
+        "value": "Three Seeds: [42, 101, 2024]",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Seed 42",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Seed 101",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Seed 42",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Seed 42 (Paired Control vs Treatment)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Seeds [101, 202, 303, 404] (Paired Replications)",
+        "classification": "VERSIONED_CHANGE"
+      }
+    },
+    "DIM_29_primary_metric": {
+      "dimension": "Primary Metric",
+      "Stage_1_Draft_Spec": {
+        "value": "dev_mIoU_phenomena (classes 1..11)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "dev_mIoU_phenomena = 0.11903",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "dev_mIoU_phenomena = 0.13782",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "dev_mIoU_phenomena = 0.04940",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "dev_mIoU_phenomena (Ctrl: 0.04147, Trt: 0.05318, Delta: +0.01171)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "dev_mIoU_phenomena (Ctrl Mean: 0.04904, Trt Mean: 0.04909, Delta: +0.00004)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_30_secondary_metrics": {
+      "dimension": "Secondary Metrics",
+      "Stage_1_Draft_Spec": {
+        "value": "mIoU_all (0..11), per-class IoUs, confusion matrix",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "mIoU_all, per-class IoUs, confusion matrix",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "mIoU_all, per-class IoUs, confusion matrix",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "mIoU_all, per-class IoUs, confusion matrix",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "mIoU_all, per-class IoUs, confusion matrix",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "mIoU_all, per-class IoUs, confusion matrix",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_31_checkpoint_selection": {
+      "dimension": "Checkpoint Selection Rule",
+      "Stage_1_Draft_Spec": {
+        "value": "Highest dev_mIoU_phenomena checkpoint",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Highest dev_mIoU_phenomena (Epoch 17)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Highest dev_mIoU_phenomena (Epoch 15)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Highest dev_mIoU_phenomena (Epoch 17)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Highest dev_mIoU_phenomena (Ctrl: Ep 10, Trt: Ep 5)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Highest dev_mIoU_phenomena (Best epoch per run)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_32_holdout_access": {
+      "dimension": "HOLDOUT Access Count",
+      "Stage_1_Draft_Spec": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_33_part_iii_access": {
+      "dimension": "Part-III Benchmark Access Count",
+      "Stage_1_Draft_Spec": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": 0,
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_34_hardware": {
+      "dimension": "Execution Hardware",
+      "Stage_1_Draft_Spec": {
+        "value": "CPU Reference Specification",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Tesla T4 (Kaggle)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Tesla T4 (Kaggle)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Tesla T4 (Kaggle)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Tesla T4 (Kaggle)",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Tesla T4 (Kaggle)",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_35_software_environment": {
+      "dimension": "Software Environment",
+      "Stage_1_Draft_Spec": {
+        "value": "Python 3.10 / PyTorch CPU Reference",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "Python 3.10.12, PyTorch 2.1.2+cu121",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "Python 3.10.12, PyTorch 2.1.2+cu121",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "Python 3.10.12, PyTorch 2.1.2+cu121",
+        "classification": "SAME_AS_PREVIOUS"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "Python 3.10.12, PyTorch 2.10.0+cu128",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "Python 3.10.12, PyTorch 2.10.0+cu128",
+        "classification": "SAME_AS_PREVIOUS"
+      }
+    },
+    "DIM_36_source_commit_hash": {
+      "dimension": "Source / Checkpoint Hash",
+      "Stage_1_Draft_Spec": {
+        "value": "Frozen protocol specification artifacts",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_2_Run001_Seed42": {
+        "value": "exp07_run001_manifest",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_3_Run002_Seed101": {
+        "value": "exp07_run002_manifest",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_4_Run003_Seed42": {
+        "value": "best_model SHA256: 936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_5_C22B_Diag01": {
+        "value": "exp07_diag01_manifest.json (Bitwise verified)",
+        "classification": "VERSIONED_CHANGE"
+      },
+      "Stage_6_C22D_Replication": {
+        "value": "exp07_diag01_replication_manifest.json (Bitwise verified)",
+        "classification": "VERSIONED_CHANGE"
+      }
+    }
+  },
+  "single_variable_isolation_verdict": {
+    "C22_B_DIAG01": {
+      "claimed_variable": "Loss function class-weighting (Sqrt-Median Frequency vs Uniform unweighted)",
+      "control_weights": "[0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.88287, 0.387652, 18.243211]",
+      "treatment_weights": "[1.0] * 12",
+      "all_other_19_invariants_identical": true,
+      "initial_model_state_bitwise_equal": true,
+      "dataset_manifest_sha256_identical": true,
+      "sampler_schedule_sha256_identical": true,
+      "isolation_status": "VALID",
+      "verdict_justification": "Machine-readable run manifest exp07_diag01_paired_comparison.json and logs confirm bitwise identical initial weights, identical Candidate F sampling schedule, identical dataset partition, identical optimizer/scheduler hyperparameters, and identical evaluation code. Only the class-weight tensor passed to nn.CrossEntropyLoss differed."
+    },
+    "C22_D_REPLICATION": {
+      "claimed_variable": "Loss function class-weighting across 4 independent random seed replications (Seeds 101, 202, 303, 404)",
+      "all_other_19_invariants_identical": true,
+      "initial_model_state_bitwise_equal": true,
+      "per_seed_pairing_valid": true,
+      "isolation_status": "VALID",
+      "verdict_justification": "All 4 prospective replication pairs maintained exact single-variable isolation within each seed. Each pair shared the identical seed-specific Candidate F sampling sequence and initial weights, differing solely in the loss weight vector."
+    }
+  }
+}
