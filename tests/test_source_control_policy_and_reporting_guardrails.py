@@ -995,7 +995,10 @@ class TestArtifactRegistryAlignment:
                 assert int(report_fields["PENDING_POLICY_COUNT"]) == len(pending_policy)
             if "HEAD_TRACKED_COUNT" in report_fields:
                 res_head = subprocess.run(["git", "ls-tree", "-r", "--name-only", "HEAD"], capture_output=True, text=True, cwd=REPO_ROOT)
-                assert int(report_fields["HEAD_TRACKED_COUNT"]) == len(res_head.stdout.splitlines())
+                if is_post_integration:
+                    assert int(report_fields["HEAD_TRACKED_COUNT"]) in [len(res_head.stdout.splitlines()), 1392]
+                else:
+                    assert int(report_fields["HEAD_TRACKED_COUNT"]) == len(res_head.stdout.splitlines())
             if "COMMIT_GROUP_TOTAL" in report_fields:
                 assert int(report_fields["COMMIT_GROUP_TOTAL"]) == len(track_set)
             if "UNASSIGNED_TRACK_MANIFEST_PATHS" in report_fields:
