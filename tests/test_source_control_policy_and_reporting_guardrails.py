@@ -1309,16 +1309,35 @@ class TestArtifactRegistryAlignment:
             status = match.group(1).strip()
             assert status in ["HISTORICAL", "SUPERSEDED"], f"AI-SRC-008 must be HISTORICAL or SUPERSEDED, got {status}"
 
-        # Cross-AI Ledger check: AI-SRC-001 evidence source must not claim stale pre-PR HEAD (63af216) as current live tree
+        # Cross-AI Ledger check: AI-SRC-001 evidence source must dynamically correspond to the live repository HEAD
         ledger_path = REPO_ROOT / "scratch" / "cross_ai_evidence_reconciliation_ledger.md"
         if ledger_path.is_file():
             ledger_content = ledger_path.read_text(encoding="utf-8")
             match_ledger = re.search(r"\|\s*`AI-SRC-001`\s*\|[^|]+\|[^|]+\|\s*([^|]+)\|", ledger_content)
             if match_ledger:
                 ev_source = match_ledger.group(1).strip()
-                assert "Live Git tree (63af216)" not in ev_source, (
-                    f"AI-SRC-001 evidence source must not assert stale pre-PR HEAD (63af216) as current live tree: {ev_source}"
-                )
+                res_head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=REPO_ROOT)
+                assert res_head.returncode == 0, "git rev-parse HEAD failed"
+                live_head = res_head.stdout.strip().lower()
+
+                # Extract the current live-tree HEAD from the evidence source pattern "Live Git tree (<sha> ...)"
+                m_live = re.search(r"Live Git tree\s*\(\s*([0-9a-fA-F]{40})", ev_source)
+                assert m_live, f"AI-SRC-001 evidence source must specify the full 40-char live tree HEAD, got: {ev_source}"
+                current_ledger_head = m_live.group(1).lower()
+
+                # Check if executing on a working branch vs master
+                res_branch = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True, cwd=REPO_ROOT)
+                curr_branch = res_branch.stdout.strip()
+                if curr_branch and curr_branch != "master":
+                    res_master = subprocess.run(["git", "rev-parse", "master"], capture_output=True, text=True, cwd=REPO_ROOT)
+                    valid_heads = {live_head, res_master.stdout.strip().lower()}
+                    assert current_ledger_head in valid_heads, (
+                        f"AI-SRC-001 live-tree HEAD in ledger ({current_ledger_head}) does not match live HEAD ({live_head}) or master ({res_master.stdout.strip()})"
+                    )
+                else:
+                    assert current_ledger_head == live_head, (
+                        f"AI-SRC-001 live-tree HEAD in ledger ({current_ledger_head}) does not match live git rev-parse HEAD ({live_head})"
+                    )
 
     def test_candidate_lessons_count_and_header_consistency(self):
         """Verify candidate lessons catalog header matches actual count of defined CL items."""
@@ -1482,6 +1501,17 @@ class TestArtifactRegistryAlignment:
         # Section 18 must be labeled as historical pre-integration gate, not current convergence gate
         assert "## 18. Final Stability, Historical-Report & Volatile-Telemetry Closure Audit (TASK_ID: OCEAN-SENTINEL-FINAL-STABILITY-CLOSURE-V1) [CURRENT CONVERGENCE GATE]" not in content, (
             "Section 18 must be labeled as historical pre-integration gate, not current convergence gate"
+        )
+
+        # Report header must not label historical pre-PR4 checkpoint as current final HEAD
+        assert not re.search(r"^\*\*CURRENT_FINAL_HEAD\*\*:\s*\[?`?f6d21b0", content, re.MULTILINE), (
+            "Report top header must not have CURRENT_FINAL_HEAD pointing to pre-PR4 checkpoint f6d21b0"
+        )
+        assert re.search(r"^\*\*PRE_PR4_CHECKPOINT_HEAD\*\*:\s*\[?`?f6d21b0", content, re.MULTILINE), (
+            "Report top header must classify f6d21b0 explicitly as PRE_PR4_CHECKPOINT_HEAD"
+        )
+        assert re.search(r"^\*\*CURRENT_FINAL_HEAD\*\*:\s*`?DYNAMIC_LIVE_HEAD", content, re.MULTILINE), (
+            "Report top header must specify CURRENT_FINAL_HEAD as DYNAMIC_LIVE_HEAD"
         )
 
 
