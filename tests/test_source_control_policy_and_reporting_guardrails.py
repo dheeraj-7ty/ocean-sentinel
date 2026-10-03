@@ -1309,6 +1309,17 @@ class TestArtifactRegistryAlignment:
             status = match.group(1).strip()
             assert status in ["HISTORICAL", "SUPERSEDED"], f"AI-SRC-008 must be HISTORICAL or SUPERSEDED, got {status}"
 
+        # Cross-AI Ledger check: AI-SRC-001 evidence source must not claim stale pre-PR HEAD (63af216) as current live tree
+        ledger_path = REPO_ROOT / "scratch" / "cross_ai_evidence_reconciliation_ledger.md"
+        if ledger_path.is_file():
+            ledger_content = ledger_path.read_text(encoding="utf-8")
+            match_ledger = re.search(r"\|\s*`AI-SRC-001`\s*\|[^|]+\|[^|]+\|\s*([^|]+)\|", ledger_content)
+            if match_ledger:
+                ev_source = match_ledger.group(1).strip()
+                assert "Live Git tree (63af216)" not in ev_source, (
+                    f"AI-SRC-001 evidence source must not assert stale pre-PR HEAD (63af216) as current live tree: {ev_source}"
+                )
+
     def test_candidate_lessons_count_and_header_consistency(self):
         """Verify candidate lessons catalog header matches actual count of defined CL items."""
         lessons_path = REPO_ROOT / "scratch" / "candidate_lessons.md"
@@ -1456,6 +1467,22 @@ class TestArtifactRegistryAlignment:
         assert "UNTRACKED = 1078" in sec2_content
         assert "IGNORED = 308" in sec2_content
         assert "TOTAL PENDING IN WORKING TREE = 1082" in sec2_content
+
+        # Report header must not confuse origin baseline with current state
+        assert not re.search(r"^\*\*CURRENT_STATUS\*\*:\s*`.*HUMAN_GIT_INTEGRATION_PENDING", content, re.MULTILINE), (
+            "Report top header must not have CURRENT_STATUS pointing to pre-integration pending state"
+        )
+        assert re.search(r"^\*\*REPORT_ORIGIN_STATUS\*\*:\s*`.*HUMAN_GIT_INTEGRATION_PENDING", content, re.MULTILINE), (
+            "Report top header must classify origin status with explicit REPORT_ORIGIN_ prefix"
+        )
+        assert re.search(r"^\*\*CURRENT_FINAL_STATUS\*\*:\s*`.*GITHUB_INTEGRATION_COMPLETE", content, re.MULTILINE), (
+            "Report top header must have CURRENT_FINAL_STATUS reflecting post-integration synchronization"
+        )
+
+        # Section 18 must be labeled as historical pre-integration gate, not current convergence gate
+        assert "## 18. Final Stability, Historical-Report & Volatile-Telemetry Closure Audit (TASK_ID: OCEAN-SENTINEL-FINAL-STABILITY-CLOSURE-V1) [CURRENT CONVERGENCE GATE]" not in content, (
+            "Section 18 must be labeled as historical pre-integration gate, not current convergence gate"
+        )
 
 
 
