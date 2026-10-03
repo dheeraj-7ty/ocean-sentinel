@@ -6,7 +6,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Governance: V2](https://img.shields.io/badge/Governance-V2%20Active-brightgreen.svg)](docs/governance/)
-[![Tests: 201 Passing](https://img.shields.io/badge/Tests-201%20In--Scope%20Pass-success.svg)](tests/)
+[![Tests: 212 Passing](https://img.shields.io/badge/Tests-212%20In--Scope%20Pass-success.svg)](tests/)
 [![Scientific Execution: Gated](https://img.shields.io/badge/Scientific%20Execution-Gated-orange.svg)](docs/CURRENT_STATUS.md)
 
 ---
@@ -20,9 +20,10 @@ The system provides an end-to-end, fail-closed operational bridge from user-defi
 - **Retrieves** real dual-polarization (`[VV, VH]`) radar rasters from the Copernicus Data Space Ecosystem (CDSE).
 - **Persists** acquired imagery atomically with SHA-256 integrity digests and structured metadata sidecars.
 - **Validates** radiometric properties, geospatial coordinate reference systems, and polarization channel contracts (`Ch0 = VH`, `Ch1 = VV`).
-- **Orchestrates** investigation jobs through a deterministic lifecycle into a structured operational evidence state (`READY_FOR_DETECTION`).
+- **Orchestrates** investigation runs via a 10-stage `ScientificDAG` through a deterministic lifecycle into a structured operational evidence state (`READY_FOR_DETECTION`).
+- **Recovers** deterministically after process interruption without duplicate stage re-execution.
 
-For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md).
+For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md) and [**`docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md`**](docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md).
 
 ---
 
@@ -30,13 +31,13 @@ For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](do
 
 | Status Dimension | Verified Reality | Evidence Authority |
 | :--- | :--- | :--- |
-| **Current Milestone** | **Phase 6C Closure & Operational Contract Hardening** | PR #11 (`3c5ca81`), PR #10 (`12d7be6`) |
-| **Operational Pipeline** | **Operational synchronous acquisition workflow verified for current Phase 6C scope** | Proven via live CDSE & live REST API smoke tests |
+| **Current Milestone** | **Phase 7A: Investigation Run Kernel & Durable Execution Spine** | `InvestigationRun`, `ScientificDAG`, Dynamic Recovery Proof |
+| **Operational Pipeline** | **Operational synchronous acquisition workflow & durable execution spine verified** | Proven via live CDSE, live REST API, and crash-recovery smoke tests |
 | **Scientific Safety** | **Strictly Gated (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` fail-closed firewall |
 | **Protected Baseline** | **8/8 Canonical baseline files bitwise intact (100%)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Tests** | **201/201 In-scope tests passing (100%)** | 9 governed operational and guardrail suites |
+| **Automated Tests** | **212/212 In-scope tests passing (100%)** | 10 governed operational, spine, and guardrail suites |
 | **Git Working Tree** | **Clean (0 staged, 0 modified, 0 untracked)** | Synchronized with `origin/master` |
-| **Next Milestone** | **Phase 7: 3D Operational Globe Interface** | Interactive Web Visualizer for Evidence |
+| **Next Milestone** | **Phase 7B: Event Spine & Stream Telemetry** | Structured Event Stream & Durable Logging |
 
 ---
 
