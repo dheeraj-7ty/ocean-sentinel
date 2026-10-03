@@ -6,8 +6,9 @@ and machine-readable response structures.
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class HealthResponse(BaseModel):
@@ -210,3 +211,124 @@ class ErrorResponse(BaseModel):
     stage: Optional[str] = None
     retryable: bool = False
     details: Dict[str, Any] = Field(default_factory=dict)
+
+
+# ---------------------------------------------------------------------------
+# Operational Acquisition Job Schemas (Phase 6C)
+# ---------------------------------------------------------------------------
+
+
+class AcquisitionJobRequest(BaseModel):
+    """Request schema to initialize and execute an operational acquisition job."""
+
+    west: float = Field(..., ge=-180.0, le=180.0, description="Western longitude")
+    south: float = Field(..., ge=-90.0, le=90.0, description="Southern latitude")
+    east: float = Field(..., ge=-180.0, le=180.0, description="Eastern longitude")
+    north: float = Field(..., ge=-90.0, le=90.0, description="Northern latitude")
+    start_time: datetime = Field(..., description="Start of temporal window (UTC)")
+    end_time: datetime = Field(..., description="End of temporal window (UTC)")
+    provider: str = Field(
+        default="copernicus_cdse",
+        description="Approved Earth observation provider (default: copernicus_cdse)",
+    )
+    platform: str = Field(
+        default="sentinel-1",
+        description="Satellite platform (default: sentinel-1)",
+    )
+    polarizations: List[str] = Field(
+        default_factory=lambda: ["VV", "VH"],
+        description="Requested polarization channels (e.g. ['VV', 'VH'])",
+    )
+    width: Optional[int] = Field(
+        default=512,
+        ge=1,
+        le=2500,
+        description="Target output raster width in pixels (1-2500)",
+    )
+    height: Optional[int] = Field(
+        default=512,
+        ge=1,
+        le=2500,
+        description="Target output raster height in pixels (1-2500)",
+    )
+    investigation_label: Optional[str] = Field(
+        default=None,
+        description="Optional human-readable label for the acquisition investigation",
+    )
+
+    @field_validator("provider")
+    @classmethod
+    def validate_provider(cls, v: str) -> str:
+        val = str(v).strip().lower()
+        if not val:
+            raise ValueError("provider cannot be empty")
+        if any(f in val for f in ["synthetic", "mock", "demo", "dummy", "fake", "simulated"]):
+            raise ValueError(f"Provider '{v}' rejected: only real operational EO providers are authorized.")
+        return val
+
+    @field_validator("polarizations")
+    @classmethod
+    def validate_polarizations(cls, v: List[str]) -> List[str]:
+        if not v:
+            raise ValueError("At least one polarization channel must be specified")
+        allowed = {"VV", "VH", "HH", "HV"}
+        clean = []
+        for p in v:
+            up = str(p).strip().upper()
+            if up not in allowed:
+                raise ValueError(f"Polarization '{p}' invalid. Allowed: {allowed}")
+            if up not in clean:
+                clean.append(up)
+        return clean
+
+    @model_validator(mode="after")
+    def validate_spatial_and_temporal_extents(self) -> AcquisitionJobRequest:
+        if self.east <= self.west:
+            raise ValueError(f"east ({self.east}) must be strictly greater than west ({self.west})")
+        if self.north <= self.south:
+            raise ValueError(f"north ({self.north}) must be strictly greater than south ({self.south})")
+        if self.end_time <= self.start_time:
+            raise ValueError(f"end_time ({self.end_time}) must be strictly after start_time ({self.start_time})")
+        return self
+
+
+class AcquisitionJobLinks(BaseModel):
+    """Hypermedia navigation links for an operational acquisition job."""
+
+    self: str
+    result: str
+    geotiff: Optional[str] = None
+
+
+class AcquisitionJobResponse(BaseModel):
+    """Machine-readable operational acquisition job state response."""
+
+    job_id: str
+    status: str
+    current_stage: str
+    created_at: str
+    started_at: Optional[str] = None
+    finished_at: Optional[str] = None
+    request_params: Dict[str, Any] = Field(default_factory=dict)
+    stage_timings: Dict[str, Dict[str, Any]] = Field(default_factory=dict)
+    acquisition_id: Optional[str] = None
+    provider: Optional[str] = None
+    source_reference: Optional[str] = None
+    geotiff_path: Optional[str] = None
+    metadata_path: Optional[str] = None
+    content_sha256: Optional[str] = None
+    sar_validation: Optional[Dict[str, Any]] = None
+    evidence_id: Optional[str] = None
+    execution_authorized: bool = False
+    has_prediction: bool = False
+    error: Optional[Dict[str, Any]] = None
+    limitations: List[str] = Field(default_factory=list)
+    links: AcquisitionJobLinks
+
+
+class AcquisitionJobListResponse(BaseModel):
+    """List response model for acquisition jobs endpoint."""
+
+    total_jobs: int
+    limit: int
+    jobs: List[Dict[str, Any]]

@@ -42,6 +42,8 @@ POST_BASELINE_OPERATIONAL_FILES = {
     "tests/test_operational_pipeline.py",
     "src/ocean_sentinel/satellite/persistence.py",
     "tests/test_acquisition_persistence.py",
+    "src/ocean_sentinel/orchestration/acquisition_job.py",
+    "tests/test_acquisition_job.py",
 }
 
 
