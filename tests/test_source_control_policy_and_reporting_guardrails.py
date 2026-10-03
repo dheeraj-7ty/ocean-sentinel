@@ -36,10 +36,12 @@ CANONICAL_PROTECTED_HASHES = {
     "docs/exp08_corrected_protocol.md": "E6691A6C3A70D6762A03462E5A8E6B6B60F0DD1AD066A552DD047375DE6FB50E",
 }
 
-# Post-reconciliation engineering phase files (Phase 6+) excluded from historical baseline commit plan checks
+# Post-reconciliation engineering phase files (Phase 6/6B) excluded from historical baseline commit plan checks
 POST_BASELINE_OPERATIONAL_FILES = {
     "src/ocean_sentinel/operational_pipeline.py",
     "tests/test_operational_pipeline.py",
+    "src/ocean_sentinel/satellite/persistence.py",
+    "tests/test_acquisition_persistence.py",
 }
 
 
