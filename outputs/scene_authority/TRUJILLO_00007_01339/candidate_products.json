@@ -1,0 +1,3023 @@
+{
+  "query_parameters": {
+    "target_scenario": "TRUJILLO_00007_01339",
+    "bbox_wgs84": [
+      30.625126448259813,
+      32.08565101683457,
+      30.809101004128035,
+      32.269626175898125
+    ],
+    "collection": "sentinel-1-grd",
+    "search_window": "2023-01-01T00:00:00Z/2024-05-01T00:00:00Z",
+    "total_candidates_captured": 50
+  },
+  "matching_criteria_predefined": {
+    "similarity_metric": "normalized_cross_correlation_and_radiometric_mae",
+    "acceptance_threshold": 0.98,
+    "rejection_threshold": 0.9,
+    "uniqueness_requirement": "Top candidate score must exceed second candidate score by delta >= 0.05 without radiometric conflict",
+    "status": "AMBIGUOUS_CANDIDATE_SET_UNRESOLVED"
+  },
+  "candidates": [
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240427T035244_20240427T035309_053614_068284_FED9_COG",
+      "timestamp": "2024-04-27T03:52:44.936092Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 53614,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.068844,
+              30.81407
+            ],
+            [
+              33.411453,
+              32.320057
+            ],
+            [
+              30.720829,
+              32.727631
+            ],
+            [
+              30.421909,
+              31.224016
+            ],
+            [
+              33.068844,
+              30.81407
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.421909,
+        30.81407,
+        33.411453,
+        32.727631
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(49f32ce9-bfe3-44ca-812f-817a5cb3ca68)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240420T040046_20240420T040111_053512_067E82_1E5D_COG",
+      "timestamp": "2024-04-20T04:00:46.785749Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 53512,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.177599,
+              31.516163
+            ],
+            [
+              31.52211,
+              33.022022
+            ],
+            [
+              28.790503,
+              33.431393
+            ],
+            [
+              28.491533,
+              31.927858
+            ],
+            [
+              31.177599,
+              31.516163
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.491533,
+        31.516163,
+        31.52211,
+        33.431393
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(ea62fe95-9896-4b40-aeb6-71b357902ba7)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240419T155732_20240419T155757_053505_067E42_AB2E_COG",
+      "timestamp": "2024-04-19T15:57:32.371586Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 53505,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.606462,
+              32.416458
+            ],
+            [
+              29.949198,
+              30.910246
+            ],
+            [
+              32.691284,
+              31.333662
+            ],
+            [
+              32.394009,
+              32.837379
+            ],
+            [
+              29.606462,
+              32.416458
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.606462,
+        30.910246,
+        32.691284,
+        32.837379
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(75aed36d-c803-4fc1-ac5c-fe4f20875dc2)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240415T035243_20240415T035308_053439_067BA4_1B46_COG",
+      "timestamp": "2024-04-15T03:52:43.991915Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 53439,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.073231,
+              30.813992
+            ],
+            [
+              33.415913,
+              32.320065
+            ],
+            [
+              30.725302,
+              32.727711
+            ],
+            [
+              30.426311,
+              31.224009
+            ],
+            [
+              33.073231,
+              30.813992
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.426311,
+        30.813992,
+        33.415913,
+        32.727711
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(f35a8187-ae30-463c-9440-6e774b6978cc)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240408T040046_20240408T040111_053337_06779A_F59A_COG",
+      "timestamp": "2024-04-08T04:00:46.513452Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 53337,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.177145,
+              31.51618
+            ],
+            [
+              31.521662,
+              33.022038
+            ],
+            [
+              28.790052,
+              33.431412
+            ],
+            [
+              28.491077,
+              31.927879
+            ],
+            [
+              31.177145,
+              31.51618
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.491077,
+        31.51618,
+        31.521662,
+        33.431412
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(6f18eafd-e54f-4c93-9b1e-a5ad6054cb49)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240407T155732_20240407T155757_053330_067750_918C_COG",
+      "timestamp": "2024-04-07T15:57:32.076872Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 53330,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.606054,
+              32.416481
+            ],
+            [
+              29.948792,
+              30.910265
+            ],
+            [
+              32.69088,
+              31.333679
+            ],
+            [
+              32.3936,
+              32.837399
+            ],
+            [
+              29.606054,
+              32.416481
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.606054,
+        30.910265,
+        32.69088,
+        32.837399
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(876801e9-8b9e-4c06-8d24-d5169758f15a)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240403T035244_20240403T035309_053264_0674B1_A4CC_COG",
+      "timestamp": "2024-04-03T03:52:44.437719Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 53264,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.069599,
+              30.814051
+            ],
+            [
+              33.412285,
+              32.32003
+            ],
+            [
+              30.721783,
+              32.727676
+            ],
+            [
+              30.422785,
+              31.22407
+            ],
+            [
+              33.069599,
+              30.814051
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422785,
+        30.814051,
+        33.412285,
+        32.727676
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(df38a30c-41a0-474a-a950-a299afcc323c)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240327T040045_20240327T040110_053162_0670CF_5DD3_COG",
+      "timestamp": "2024-03-27T04:00:45.585978Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 53162,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.179747,
+              31.516176
+            ],
+            [
+              31.524273,
+              33.021942
+            ],
+            [
+              28.792675,
+              33.431351
+            ],
+            [
+              28.493689,
+              31.92791
+            ],
+            [
+              31.179747,
+              31.516176
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.493689,
+        31.516176,
+        31.524273,
+        33.431351
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(67809c6f-84d2-4fa2-9503-b0d0c326ef73)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240326T155731_20240326T155756_053155_067095_2D6D_COG",
+      "timestamp": "2024-03-26T15:57:31.130688Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 53155,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.607542,
+              32.416279
+            ],
+            [
+              29.950275,
+              30.910158
+            ],
+            [
+              32.692249,
+              31.333599
+            ],
+            [
+              32.39497,
+              32.837223
+            ],
+            [
+              29.607542,
+              32.416279
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.607542,
+        30.910158,
+        32.692249,
+        32.837223
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(dcb081ba-e446-4fdb-af99-804486b39d24)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240322T035243_20240322T035308_053089_066E1B_6F79_COG",
+      "timestamp": "2024-03-22T03:52:43.843390Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 53089,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.068981,
+              30.813988
+            ],
+            [
+              33.411644,
+              32.319969
+            ],
+            [
+              30.721346,
+              32.727543
+            ],
+            [
+              30.422367,
+              31.223934
+            ],
+            [
+              33.068981,
+              30.813988
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422367,
+        30.813988,
+        33.411644,
+        32.727543
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(f64808c8-0041-4616-85a8-bfa0162861c5)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240315T040045_20240315T040110_052987_066A1A_65FF_COG",
+      "timestamp": "2024-03-15T04:00:45.705694Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 52987,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.178495,
+              31.516111
+            ],
+            [
+              31.52309,
+              33.021965
+            ],
+            [
+              28.791607,
+              33.431404
+            ],
+            [
+              28.492552,
+              31.927877
+            ],
+            [
+              31.178495,
+              31.516111
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.492552,
+        31.516111,
+        31.52309,
+        33.431404
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(6f136223-4276-4a7e-b066-0feff95352c8)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240314T155731_20240314T155756_052980_0669D8_8A0D_COG",
+      "timestamp": "2024-03-14T15:57:31.275692Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 52980,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.604826,
+              32.416222
+            ],
+            [
+              29.947618,
+              30.910093
+            ],
+            [
+              32.689991,
+              31.333656
+            ],
+            [
+              32.392662,
+              32.837292
+            ],
+            [
+              29.604826,
+              32.416222
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.604826,
+        30.910093,
+        32.689991,
+        32.837292
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(87c1ae94-d134-494d-a311-361e68e7d84e)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240310T035243_20240310T035308_052914_06679A_A2C1_COG",
+      "timestamp": "2024-03-10T03:52:43.349179Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 52914,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.069641,
+              30.813999
+            ],
+            [
+              33.412292,
+              32.319984
+            ],
+            [
+              30.721785,
+              32.727585
+            ],
+            [
+              30.422819,
+              31.223972
+            ],
+            [
+              33.069641,
+              30.813999
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422819,
+        30.813999,
+        33.412292,
+        32.727585
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(ad0e82c1-82b7-4dc9-b5bf-c8d3dd87d96f)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240303T040045_20240303T040110_052812_066423_2F6B_COG",
+      "timestamp": "2024-03-03T04:00:45.720533Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 52812,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.177868,
+              31.516182
+            ],
+            [
+              31.522459,
+              33.021942
+            ],
+            [
+              28.790873,
+              33.431412
+            ],
+            [
+              28.491821,
+              31.927977
+            ],
+            [
+              31.177868,
+              31.516182
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.491821,
+        31.516182,
+        31.522459,
+        33.431412
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(dc04d844-db41-4a33-b2bf-4b958d5cecb2)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240302T155731_20240302T155756_052805_0663E2_E078_COG",
+      "timestamp": "2024-03-02T15:57:31.261481Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 52805,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.603706,
+              32.416126
+            ],
+            [
+              29.946499,
+              30.910088
+            ],
+            [
+              32.688972,
+              31.333681
+            ],
+            [
+              32.39164,
+              32.837227
+            ],
+            [
+              29.603706,
+              32.416126
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.603706,
+        30.910088,
+        32.688972,
+        32.837227
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(21a314e5-49a4-49f9-a9cb-9378405a0b39)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240227T035243_20240227T035308_052739_0661AB_CD1D_COG",
+      "timestamp": "2024-02-27T03:52:43.376078Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 52739,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.069061,
+              30.81403
+            ],
+            [
+              33.411747,
+              32.32003
+            ],
+            [
+              30.721132,
+              32.727665
+            ],
+            [
+              30.422138,
+              31.224037
+            ],
+            [
+              33.069061,
+              30.81403
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422138,
+        30.81403,
+        33.411747,
+        32.727665
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(3ef1b562-2474-4a54-b580-a1bede5b5905)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240220T040045_20240220T040110_052637_065E28_8A5C_COG",
+      "timestamp": "2024-02-20T04:00:45.493451Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 52637,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.177917,
+              31.516193
+            ],
+            [
+              31.522491,
+              33.022049
+            ],
+            [
+              28.790892,
+              33.431461
+            ],
+            [
+              28.491858,
+              31.927933
+            ],
+            [
+              31.177917,
+              31.516193
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.491858,
+        31.516193,
+        31.522491,
+        33.431461
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(95a19d75-be3d-4822-9873-21be3c5b57d2)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240219T155731_20240219T155756_052630_065DED_605F_COG",
+      "timestamp": "2024-02-19T15:57:31.091635Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 52630,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.605017,
+              32.41618
+            ],
+            [
+              29.947798,
+              30.910046
+            ],
+            [
+              32.690384,
+              31.333603
+            ],
+            [
+              32.39307,
+              32.837242
+            ],
+            [
+              29.605017,
+              32.41618
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.605017,
+        30.910046,
+        32.690384,
+        32.837242
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(48cca53d-c9d1-437c-ac87-f5d36cc43832)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240215T035243_20240215T035308_052564_065BB2_03A2_COG",
+      "timestamp": "2024-02-15T03:52:43.462985Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 52564,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.070045,
+              30.814051
+            ],
+            [
+              33.412766,
+              32.320049
+            ],
+            [
+              30.722157,
+              32.727711
+            ],
+            [
+              30.423128,
+              31.224085
+            ],
+            [
+              33.070045,
+              30.814051
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.423128,
+        30.814051,
+        33.412766,
+        32.727711
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(4506dfb2-c048-4e49-9ed0-f26afd47060c)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240208T040045_20240208T040110_052462_065838_7376_COG",
+      "timestamp": "2024-02-08T04:00:45.598066Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 52462,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.178164,
+              31.516239
+            ],
+            [
+              31.52272,
+              33.022095
+            ],
+            [
+              28.790901,
+              33.431511
+            ],
+            [
+              28.49189,
+              31.927979
+            ],
+            [
+              31.178164,
+              31.516239
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.49189,
+        31.516239,
+        31.52272,
+        33.431511
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(b92529b8-89b9-4f04-a64b-6a807dc00888)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240207T155731_20240207T155756_052455_065802_47B3_COG",
+      "timestamp": "2024-02-07T15:57:31.157648Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 52455,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.606033,
+              32.416225
+            ],
+            [
+              29.948792,
+              30.910105
+            ],
+            [
+              32.69128,
+              31.333614
+            ],
+            [
+              32.39399,
+              32.837238
+            ],
+            [
+              29.606033,
+              32.416225
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.606033,
+        30.910105,
+        32.69128,
+        32.837238
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(09dca29e-7b79-4a21-b7e5-eda24dedc604)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240207T155731_20240207T155756_052455_065802_0045_COG",
+      "timestamp": "2024-02-07T15:57:31.157647Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 52455,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.606033,
+              32.416225
+            ],
+            [
+              29.948792,
+              30.910103
+            ],
+            [
+              32.69128,
+              31.333611
+            ],
+            [
+              32.39399,
+              32.837238
+            ],
+            [
+              29.606033,
+              32.416225
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.606033,
+        30.910103,
+        32.69128,
+        32.837238
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(91b3e6dc-bd64-4459-8bd9-7dd6731d5e96)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240203T035243_20240203T035308_052389_0655C9_6CAA_COG",
+      "timestamp": "2024-02-03T03:52:43.706195Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 52389,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.070801,
+              30.814083
+            ],
+            [
+              33.413521,
+              32.320061
+            ],
+            [
+              30.722807,
+              32.727737
+            ],
+            [
+              30.423779,
+              31.224131
+            ],
+            [
+              33.070801,
+              30.814083
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.423779,
+        30.814083,
+        33.413521,
+        32.727737
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(5d67f070-64cf-4f39-bac7-be0b1c557dd6)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240127T040046_20240127T040111_052287_06524E_009F_COG",
+      "timestamp": "2024-01-27T04:00:46.063541Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 52287,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.177805,
+              31.516258
+            ],
+            [
+              31.522367,
+              33.022022
+            ],
+            [
+              28.790449,
+              33.43148
+            ],
+            [
+              28.49143,
+              31.928041
+            ],
+            [
+              31.177805,
+              31.516258
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.49143,
+        31.516258,
+        31.522367,
+        33.43148
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(da7d4183-6e9a-40dc-8a78-846bbfb96a45)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240126T155731_20240126T155756_052280_065211_4454_COG",
+      "timestamp": "2024-01-26T15:57:31.622707Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 52280,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.604877,
+              32.416222
+            ],
+            [
+              29.947657,
+              30.910084
+            ],
+            [
+              32.690456,
+              31.333649
+            ],
+            [
+              32.393143,
+              32.837288
+            ],
+            [
+              29.604877,
+              32.416222
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.604877,
+        30.910084,
+        32.690456,
+        32.837288
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(72817cee-10e1-4245-98e7-929d10e3a0a8)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240122T035244_20240122T035309_052214_064FDE_C215_COG",
+      "timestamp": "2024-01-22T03:52:44.204439Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 52214,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.070232,
+              30.8141
+            ],
+            [
+              33.412945,
+              32.32008
+            ],
+            [
+              30.722122,
+              32.727757
+            ],
+            [
+              30.423103,
+              31.22415
+            ],
+            [
+              33.070232,
+              30.8141
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.423103,
+        30.8141,
+        33.412945,
+        32.727757
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(cc99e939-60f8-4993-b507-33dd39469f0b)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240115T040046_20240115T040111_052112_064C6B_49BE_COG",
+      "timestamp": "2024-01-15T04:00:46.225434Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 52112,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.179209,
+              31.516235
+            ],
+            [
+              31.523798,
+              33.022045
+            ],
+            [
+              28.791883,
+              33.431526
+            ],
+            [
+              28.49284,
+              31.928041
+            ],
+            [
+              31.179209,
+              31.516235
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.49284,
+        31.516235,
+        31.523798,
+        33.431526
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(07c189f4-58a5-4ef9-9030-57d0e41808aa)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240114T155731_20240114T155756_052105_064C35_8E1F_COG",
+      "timestamp": "2024-01-14T15:57:31.844776Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 52105,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.605705,
+              32.416332
+            ],
+            [
+              29.948496,
+              30.910194
+            ],
+            [
+              32.691193,
+              31.333754
+            ],
+            [
+              32.393867,
+              32.837395
+            ],
+            [
+              29.605705,
+              32.416332
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.605705,
+        30.910194,
+        32.691193,
+        32.837395
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(27049a55-218e-4ade-a1d0-8ee8ece8ed9d)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240110T035244_20240110T035309_052039_0649FC_BA19_COG",
+      "timestamp": "2024-01-10T03:52:44.499144Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 52039,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.070221,
+              30.814049
+            ],
+            [
+              33.412891,
+              32.320049
+            ],
+            [
+              30.722168,
+              32.727665
+            ],
+            [
+              30.423189,
+              31.224035
+            ],
+            [
+              33.070221,
+              30.814049
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.423189,
+        30.814049,
+        33.412891,
+        32.727665
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(24674343-27b1-4423-8544-74747406b05f)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240103T040046_20240103T040111_051937_064675_82E6_COG",
+      "timestamp": "2024-01-03T04:00:46.833900Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 51937,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.179596,
+              31.516171
+            ],
+            [
+              31.524202,
+              33.022022
+            ],
+            [
+              28.792292,
+              33.431515
+            ],
+            [
+              28.493233,
+              31.92799
+            ],
+            [
+              31.179596,
+              31.516171
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.493233,
+        31.516171,
+        31.524202,
+        33.431515
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(49f4db99-1f0a-4652-95ac-941a874eb6ff)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20240102T155732_20240102T155757_051930_064639_A8A6_COG",
+      "timestamp": "2024-01-02T15:57:32.326592Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 51930,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.605854,
+              32.416233
+            ],
+            [
+              29.94866,
+              30.910099
+            ],
+            [
+              32.691452,
+              31.3337
+            ],
+            [
+              32.394115,
+              32.837337
+            ],
+            [
+              29.605854,
+              32.416233
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.605854,
+        30.910099,
+        32.691452,
+        32.837337
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(b77cdc1d-fabf-493e-8c33-35eae9e97dfb)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "260327122600+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231229T035245_20231229T035310_051864_064403_9BEC_COG",
+      "timestamp": "2023-12-29T03:52:45.063772Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 51864,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.069946,
+              30.814001
+            ],
+            [
+              30.422709,
+              31.224024
+            ],
+            [
+              30.721703,
+              32.727726
+            ],
+            [
+              33.41264,
+              32.320076
+            ],
+            [
+              33.069946,
+              30.814001
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422709,
+        30.814001,
+        33.41264,
+        32.727726
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(7b67f1c8-7aee-4586-84cc-434cf0db3ee9)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231222T040047_20231222T040112_051762_064079_3127_COG",
+      "timestamp": "2023-12-22T04:00:47.317219Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 51762,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.180941,
+              31.516319
+            ],
+            [
+              28.494362,
+              31.928162
+            ],
+            [
+              28.793409,
+              33.431599
+            ],
+            [
+              31.525536,
+              33.022079
+            ],
+            [
+              31.180941,
+              31.516319
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.494362,
+        31.516319,
+        31.525536,
+        33.431599
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(bab2563b-7ea0-4110-99ba-a68defa1d211)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231221T155732_20231221T155757_051755_06403D_DA29_COG",
+      "timestamp": "2023-12-21T15:57:32.795059Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 51755,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.606873,
+              32.41621
+            ],
+            [
+              32.395447,
+              32.837364
+            ],
+            [
+              32.69278,
+              31.333815
+            ],
+            [
+              29.949675,
+              30.910166
+            ],
+            [
+              29.606873,
+              32.41621
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.606873,
+        30.910166,
+        32.69278,
+        32.837364
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(a9b2955e-cfbe-40ba-b739-19640da06519)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231217T035245_20231217T035310_051689_063DF3_5980_COG",
+      "timestamp": "2023-12-17T03:52:45.919343Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 51689,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.069786,
+              30.813978
+            ],
+            [
+              30.422558,
+              31.224045
+            ],
+            [
+              30.721563,
+              32.727654
+            ],
+            [
+              33.412487,
+              32.319958
+            ],
+            [
+              33.069786,
+              30.813978
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422558,
+        30.813978,
+        33.412487,
+        32.727654
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(b7dfd4e5-e57d-475f-b7a8-1dd39554a4fa)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231210T040048_20231210T040113_051587_063A5F_2BD2_COG",
+      "timestamp": "2023-12-10T04:00:48.486342Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 51587,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.178259,
+              31.51623
+            ],
+            [
+              28.491781,
+              31.92803
+            ],
+            [
+              28.790829,
+              33.431561
+            ],
+            [
+              31.522854,
+              33.022083
+            ],
+            [
+              31.178259,
+              31.51623
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.491781,
+        31.51623,
+        31.522854,
+        33.431561
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(256ecba8-d982-4f75-bcf4-6ef9ffaf2f56)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231209T155734_20231209T155759_051580_063A23_9A80_COG",
+      "timestamp": "2023-12-09T15:57:34.027467Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 51580,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.604862,
+              32.416225
+            ],
+            [
+              32.39323,
+              32.837326
+            ],
+            [
+              32.690544,
+              31.333776
+            ],
+            [
+              29.947643,
+              30.910181
+            ],
+            [
+              29.604862,
+              32.416225
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.604862,
+        30.910181,
+        32.690544,
+        32.837326
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(4591e88e-1397-49ab-9307-7b83033c08ee)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231205T035246_20231205T035311_051514_0637D5_64E0_COG",
+      "timestamp": "2023-12-05T03:52:46.542349Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 51514,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.070133,
+              30.814009
+            ],
+            [
+              30.423012,
+              31.224091
+            ],
+            [
+              30.722059,
+              32.727695
+            ],
+            [
+              33.412872,
+              32.319984
+            ],
+            [
+              33.070133,
+              30.814009
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.423012,
+        30.814009,
+        33.412872,
+        32.727695
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(74c98efc-c6f3-490b-bc15-4e729a8e4551)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231128T040048_20231128T040113_051412_063451_9792_COG",
+      "timestamp": "2023-11-28T04:00:48.572166Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 51412,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.179081,
+              31.516172
+            ],
+            [
+              28.492706,
+              31.927944
+            ],
+            [
+              28.791739,
+              33.431473
+            ],
+            [
+              31.523659,
+              33.022026
+            ],
+            [
+              31.179081,
+              31.516172
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.492706,
+        31.516172,
+        31.523659,
+        33.431473
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(418e9403-8dc7-4ca1-b9c0-b9beba9c82c3)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231127T155734_20231127T155759_051405_063415_1B8E_COG",
+      "timestamp": "2023-11-27T15:57:34.147013Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 51405,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.606289,
+              32.416313
+            ],
+            [
+              32.394665,
+              32.837391
+            ],
+            [
+              32.691975,
+              31.33375
+            ],
+            [
+              29.94907,
+              30.910175
+            ],
+            [
+              29.606289,
+              32.416313
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.606289,
+        30.910175,
+        32.691975,
+        32.837391
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(13e4c16f-dc80-4ac0-ba79-2a2c5434588c)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231123T035246_20231123T035311_051339_0631D4_17DC_COG",
+      "timestamp": "2023-11-23T03:52:46.776360Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 51339,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.071362,
+              30.81394
+            ],
+            [
+              30.424244,
+              31.224024
+            ],
+            [
+              30.723272,
+              32.727631
+            ],
+            [
+              33.414082,
+              32.31992
+            ],
+            [
+              33.071362,
+              30.81394
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.424244,
+        30.81394,
+        33.414082,
+        32.727631
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(a5aba0bb-bcaf-4249-8c7a-bafd262ef3c4)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231116T040049_20231116T040114_051237_062E43_D543_COG",
+      "timestamp": "2023-11-16T04:00:49.292657Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 51237,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.177811,
+              31.516167
+            ],
+            [
+              28.491335,
+              31.927963
+            ],
+            [
+              28.790354,
+              33.431404
+            ],
+            [
+              31.522375,
+              33.021931
+            ],
+            [
+              31.177811,
+              31.516167
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.491335,
+        31.516167,
+        31.522375,
+        33.431404
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(2ae295fe-9c8b-49c3-99f7-999e671e98c6)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231115T155734_20231115T155759_051230_062E0C_C18F_COG",
+      "timestamp": "2023-11-15T15:57:34.849848Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 51230,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.60487,
+              32.416332
+            ],
+            [
+              32.39325,
+              32.83741
+            ],
+            [
+              32.690559,
+              31.333769
+            ],
+            [
+              29.947655,
+              30.910192
+            ],
+            [
+              29.60487,
+              32.416332
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.60487,
+        30.910192,
+        32.690559,
+        32.83741
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(65658a44-7bd1-463e-a8a4-daaaea5c6391)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231111T035247_20231111T035312_051164_062BC6_C548_COG",
+      "timestamp": "2023-11-11T03:52:47.170105Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 51164,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.071121,
+              30.813965
+            ],
+            [
+              30.423889,
+              31.22402
+            ],
+            [
+              30.722872,
+              32.72765
+            ],
+            [
+              33.413799,
+              32.319969
+            ],
+            [
+              33.071121,
+              30.813965
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.423889,
+        30.813965,
+        33.413799,
+        32.72765
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(52e42bc1-0db8-4185-943c-40c897fb4649)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231104T040049_20231104T040114_051062_06283B_A014_COG",
+      "timestamp": "2023-11-04T04:00:49.450593Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 51062,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.178778,
+              31.516155
+            ],
+            [
+              28.492516,
+              31.927948
+            ],
+            [
+              28.791555,
+              33.431385
+            ],
+            [
+              31.523359,
+              33.021919
+            ],
+            [
+              31.178778,
+              31.516155
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.492516,
+        31.516155,
+        31.523359,
+        33.431385
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(7d9df31f-60b1-43e5-b370-c0167a5ff8c2)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231103T155734_20231103T155759_051055_0627FF_2397_COG",
+      "timestamp": "2023-11-03T15:57:34.950149Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 51055,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.605167,
+              32.416271
+            ],
+            [
+              32.393433,
+              32.837368
+            ],
+            [
+              32.690765,
+              31.333729
+            ],
+            [
+              29.947973,
+              30.910137
+            ],
+            [
+              29.605167,
+              32.416271
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.605167,
+        30.910137,
+        32.690765,
+        32.837368
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(63875ca5-175d-4016-a0a0-f6f1fd5f8fe6)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231030T035247_20231030T035312_050989_0625C3_4413_COG",
+      "timestamp": "2023-10-30T03:52:47.607001Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 50989,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.06971,
+              30.813898
+            ],
+            [
+              30.422678,
+              31.223879
+            ],
+            [
+              30.721634,
+              32.727493
+            ],
+            [
+              33.412354,
+              32.319885
+            ],
+            [
+              33.06971,
+              30.813898
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422678,
+        30.813898,
+        33.412354,
+        32.727493
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(81fc1d90-ad95-4503-8a79-2f3c823d2ed2)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231023T040049_20231023T040114_050887_06223A_68CC_COG",
+      "timestamp": "2023-10-23T04:00:49.941148Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 65,
+      "absolute_orbit": 50887,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.178272,
+              31.516043
+            ],
+            [
+              28.491915,
+              31.927872
+            ],
+            [
+              28.790977,
+              33.431396
+            ],
+            [
+              31.522882,
+              33.021893
+            ],
+            [
+              31.178272,
+              31.516043
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        28.491915,
+        31.516043,
+        31.522882,
+        33.431396
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(43f510f1-fca3-4360-8124-5b40c7dc439d)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231022T155735_20231022T155800_050880_0621FE_3961_COG",
+      "timestamp": "2023-10-22T15:57:35.524018Z",
+      "platform": "sentinel-1a",
+      "orbit": "ascending",
+      "relative_orbit": 58,
+      "absolute_orbit": 50880,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              29.604094,
+              32.416351
+            ],
+            [
+              32.392147,
+              32.837437
+            ],
+            [
+              32.689476,
+              31.333889
+            ],
+            [
+              29.94689,
+              30.910307
+            ],
+            [
+              29.604094,
+              32.416351
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        29.604094,
+        30.910307,
+        32.689476,
+        32.837437
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(7d3dff5c-dc14-48cd-8006-00420f0a8b5b)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    },
+    {
+      "product_id": "S1A_IW_GRDH_1SDV_20231018T035247_20231018T035312_050814_061FD2_4EAC_COG",
+      "timestamp": "2023-10-18T03:52:47.838872Z",
+      "platform": "sentinel-1a",
+      "orbit": "descending",
+      "relative_orbit": 167,
+      "absolute_orbit": 50814,
+      "instrument_mode": "IW",
+      "polarization": [
+        "VV",
+        "VH"
+      ],
+      "product_type": "GRD",
+      "footprint": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              33.069603,
+              30.813892
+            ],
+            [
+              30.422474,
+              31.223927
+            ],
+            [
+              30.721464,
+              32.727535
+            ],
+            [
+              33.412281,
+              32.319874
+            ],
+            [
+              33.069603,
+              30.813892
+            ]
+          ]
+        ]
+      },
+      "bbox": [
+        30.422474,
+        30.813892,
+        33.412281,
+        32.727535
+      ],
+      "assets": {
+        "thumbnail": {
+          "href": "https://datahub.creodias.eu/odata/v1/Assets(1ac9d072-9705-44bd-9694-4fb6722bfbab)/$value",
+          "type": "image/png"
+        }
+      },
+      "processing_metadata": {
+        "processing_level": "L1",
+        "software_version": {
+          "eometadatatool": "251021130925+dirty"
+        },
+        "constellation": "sentinel-1"
+      }
+    }
+  ]
+}

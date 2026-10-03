@@ -1,0 +1,63 @@
+{
+  "engine": "ocean_sentinel_origin_drift_v1",
+  "mode": "DEMO",
+  "direction": "FORWARD",
+  "observation": {
+    "event_id": "00260_00608_new_0010",
+    "source_scene": "00608",
+    "observation_time_utc": "2024-05-13T00:00:00+00:00",
+    "timestamp_provenance": "EXTERNALLY_SUPPLIED_TEST_TIMESTAMP",
+    "centroid": [
+      -90.386402,
+      27.0864
+    ],
+    "area_m2": 2530230.61
+  },
+  "forcing_provenance": {
+    "forcing_source": "synthetic_deterministic_fixture",
+    "source_type": "SYNTHETIC_TEST_FIXTURE",
+    "is_authoritative": false,
+    "spatial_resolution_deg": null,
+    "temporal_resolution_hours": null,
+    "allow_missing_wind": false,
+    "allow_missing_current": false
+  },
+  "model_parameters": {
+    "duration_hours": 12.0,
+    "timestep_seconds": 1800.0,
+    "windage_min": 0.01,
+    "windage_max": 0.04,
+    "windage_steps": 4,
+    "tested_windage_factors": [
+      0.01,
+      0.02,
+      0.03,
+      0.04
+    ],
+    "spatial_seed_particles": 10,
+    "total_ensemble_particles": 40
+  },
+  "envelopes": {
+    "trajectory_envelope_area_m2": 75880792.58,
+    "trajectory_envelope_area_km2": 75.880793,
+    "candidate_origin_region_area_m2": null,
+    "candidate_origin_region_area_km2": null
+  },
+  "summary_statistics": {
+    "trajectory_count": 40,
+    "mean_net_displacement_m": 9319.33,
+    "min_net_displacement_m": 7826.83,
+    "max_net_displacement_m": 11240.3,
+    "mean_total_distance_m": 9319.33,
+    "dominant_driver": "BALANCED_WIND_AND_CURRENT",
+    "sample_surface_current_speed_ms": 0.18,
+    "sample_wind_leeway_speed_ms": 0.133
+  },
+  "scientific_limitations": [
+    "Oil slicks are complex non-passive surface films subject to weathering, spreading, and emulsification.",
+    "SAR detectability is dependent on sea state and local wind speed threshold (2 m/s <= u10 <= 12 m/s).",
+    "Windage factor is modeled as an empirical leeway ensemble (1% to 4%), not a single deterministic value.",
+    "Backward trajectory integration yields a physically consistent candidate origin hypothesis under selected dynamics, NOT proven source attribution.",
+    "Metocean forcing resolution and sub-grid turbulence represent significant sources of unmodeled variance."
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "engine": "ocean_sentinel_origin_drift_v1",
+  "mode": "DEMO",
+  "direction": "BACKWARD",
+  "observation": {
+    "event_id": "00260_00608_new_0010",
+    "source_scene": "00608",
+    "observation_time_utc": "2024-05-13T00:00:00+00:00",
+    "timestamp_provenance": "EXTERNALLY_SUPPLIED_TEST_TIMESTAMP",
+    "centroid": [
+      -90.386402,
+      27.0864
+    ],
+    "area_m2": 2530230.61
+  },
+  "forcing_provenance": {
+    "forcing_source": "synthetic_deterministic_fixture",
+    "source_type": "SYNTHETIC_TEST_FIXTURE",
+    "is_authoritative": false,
+    "spatial_resolution_deg": null,
+    "temporal_resolution_hours": null,
+    "spatial_bounds": null,
+    "temporal_bounds": null,
+    "allow_missing_wind": false,
+    "allow_missing_current": false
+  },
+  "model_parameters": {
+    "duration_hours": 24.0,
+    "timestep_seconds": 1800.0,
+    "windage_min": 0.01,
+    "windage_max": 0.04,
+    "windage_steps": 4,
+    "tested_windage_factors": [
+      0.01,
+      0.02,
+      0.03,
+      0.04
+    ],
+    "spatial_seed_particles": 5,
+    "total_ensemble_particles": 20
+  },
+  "envelopes": {
+    "trajectory_envelope_area_m2": 204312124.42,
+    "trajectory_envelope_area_km2": 204.312124,
+    "candidate_origin_region_area_m2": 11065034.1,
+    "candidate_origin_region_area_km2": 11.065034
+  },
+  "summary_statistics": {
+    "trajectory_count": 20,
+    "mean_net_displacement_m": 18638.67,
+    "min_net_displacement_m": 15653.67,
+    "max_net_displacement_m": 22480.61,
+    "mean_total_distance_m": 18638.67,
+    "dominant_driver": "BALANCED_WIND_AND_CURRENT",
+    "sample_surface_current_speed_ms": 0.18,
+    "sample_wind_leeway_speed_ms": 0.133
+  },
+  "scientific_limitations": [
+    "Oil slicks are complex non-passive surface films subject to weathering, spreading, and emulsification.",
+    "SAR detectability depends on sea state (literature operational heuristic: ~2-3 m/s <= u10 <= ~10-12 m/s).",
+    "Windage factor is modeled as a configurable empirical leeway ensemble (operational default: 1% to 4%), not a universal physical constant.",
+    "Backward trajectory integration yields a physically consistent candidate origin hypothesis under selected dynamics, NOT proven source attribution.",
+    "Trajectory envelope and candidate origin polygons are convex hull bounds, not probability distributions or exact release footprints.",
+    "Metocean forcing resolution, interpolation, and sub-grid turbulence represent significant sources of unmodeled variance."
+  ]
+}

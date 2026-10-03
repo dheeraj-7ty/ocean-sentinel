@@ -1,0 +1,32 @@
+{
+  "task_id": "OCEAN-SENTINEL-REPORT-RECONCILIATION-LEARNING-HARDENING-V1-CLOSURE",
+  "timestamp_utc": "2026-09-21T05:15:28.408915+00:00",
+  "measured_files": {
+    "mask_00007": {
+      "path": "data\\raw\\trujillo_2024\\masks\\Mask_oil\\00007.tif",
+      "sha256": "4d2638e21b23f84e733fd1fcd7ee43290297a01dc8d7523407a0b2c765ab4866",
+      "foreground_pixel_count": 70772,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    "mask_01339": {
+      "path": "data\\raw\\trujillo_2024\\masks\\Mask_oil\\01339.tif",
+      "sha256": "81ed3665ce12bb82bc269a4d57cb8488a513efe17d8e6b9586c5058b2dff76d8",
+      "foreground_pixel_count": 74906,
+      "dimensions": [
+        2048,
+        2048
+      ]
+    }
+  },
+  "comparison": {
+    "pixel_difference_count": 5058,
+    "foreground_difference": 4134,
+    "all_masks_equal": false,
+    "matches_expected_exact_values": true
+  },
+  "scientific_wording": "Underlying source rasters are byte-for-byte identical; masks differ. The evidence establishes annotation/label divergence, but does not establish the cause of that divergence.",
+  "status": "EVIDENCE_CLOSED_VERIFIED"
+}

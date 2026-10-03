@@ -1,0 +1,308 @@
+{
+  "type": "FeatureCollection",
+  "name": "ocean_sentinel_evidence_fusion",
+  "metadata": {
+    "mode": "DEMO",
+    "feature_count": 7,
+    "generated_timestamp_utc": "2026-09-20T19:02:00.652041+00:00",
+    "negative_proof_guard": "AIS_ABSENCE_IS_NOT_VESSEL_ABSENCE",
+    "scientific_boundary": "EVIDENCE_COMPATIBILITY_ONLY_NO_LEGAL_ATTRIBUTION"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "evidence_sar_scene_01339_det01",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.63,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.12
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "evidence_item",
+        "evidence_id": "evidence_sar_scene_01339_det01",
+        "evidence_type": "SAR_DETECTION",
+        "source_type": "SENTINEL_1_SAR",
+        "observation_time_utc": "2024-04-10T14:00:00+00:00",
+        "provenance_class": "HISTORICAL_ARCHIVE",
+        "observed_vs_inferred": "OBSERVED",
+        "metric_values": {
+          "area_m2": 3007776.0,
+          "mean_probability": 0.88
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "evidence_temporal_00007_01339_change01",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.63,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.12
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "evidence_item",
+        "evidence_id": "evidence_temporal_00007_01339_change01",
+        "evidence_type": "TEMPORAL_CHANGE",
+        "source_type": "TEMPORAL_ANALYSIS",
+        "observation_time_utc": "2024-04-10T14:00:00+00:00",
+        "provenance_class": "HISTORICAL_ARCHIVE",
+        "observed_vs_inferred": "OBSERVED",
+        "metric_values": {
+          "event_type": "persistent",
+          "area_m2": 3007776.0,
+          "iou": 0.92
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "evidence_drift_candidate_origin_01",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.599999999999998,
+              31.89
+            ],
+            [
+              30.529999999999998,
+              31.990000000000002
+            ],
+            [
+              30.57,
+              32.04
+            ],
+            [
+              30.66,
+              31.96
+            ],
+            [
+              30.599999999999998,
+              31.89
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "evidence_item",
+        "evidence_id": "evidence_drift_candidate_origin_01",
+        "evidence_type": "DRIFT_ORIGIN_HYPOTHESIS",
+        "source_type": "LAGRANGIAN_DRIFT_MODEL",
+        "observation_time_utc": "2024-04-09T14:00:00+00:00",
+        "provenance_class": "SYNTHETIC_DEMO",
+        "observed_vs_inferred": "HYPOTHESIS",
+        "metric_values": {
+          "area_m2": 103274809.0,
+          "duration_hours": 24.0,
+          "direction": "BACKWARD"
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "evidence_drift_trajectory_envelope_01",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            30.65,
+            32.14
+          ],
+          [
+            30.619999999999997,
+            32.04
+          ],
+          [
+            30.59,
+            31.94
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "evidence_item",
+        "evidence_id": "evidence_drift_trajectory_envelope_01",
+        "evidence_type": "DRIFT_TRAJECTORY",
+        "source_type": "LAGRANGIAN_DRIFT_MODEL",
+        "observation_time_utc": "2024-04-10T14:00:00+00:00",
+        "provenance_class": "SYNTHETIC_DEMO",
+        "observed_vs_inferred": "INFERRED",
+        "metric_values": {
+          "particle_count": 20,
+          "timesteps": 48
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "evidence_optical_s2_consistent",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.63,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.12
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "evidence_item",
+        "evidence_id": "evidence_optical_s2_consistent",
+        "evidence_type": "OPTICAL_OBSERVATION",
+        "source_type": "OPTICAL_SATELLITE",
+        "observation_time_utc": "2024-04-10T15:00:00+00:00",
+        "provenance_class": "SYNTHETIC_DEMO",
+        "observed_vs_inferred": "OBSERVED",
+        "metric_values": {
+          "optical_slick_confirmed": true,
+          "sheen_thickness_um": 2.5
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "evidence_optical_landsat_conflict",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.5,
+              31.94
+            ],
+            [
+              30.549999999999997,
+              31.94
+            ],
+            [
+              30.549999999999997,
+              31.990000000000002
+            ],
+            [
+              30.5,
+              31.990000000000002
+            ],
+            [
+              30.5,
+              31.94
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "evidence_item",
+        "evidence_id": "evidence_optical_landsat_conflict",
+        "evidence_type": "OPTICAL_OBSERVATION",
+        "source_type": "OPTICAL_SATELLITE",
+        "observation_time_utc": "2024-04-09T16:00:00+00:00",
+        "provenance_class": "SYNTHETIC_DEMO",
+        "observed_vs_inferred": "OBSERVED",
+        "metric_values": {
+          "optical_slick_confirmed": false,
+          "water_reflectance_anomaly": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "hypothesis_origin_cluster_01",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.599999999999998,
+              31.89
+            ],
+            [
+              30.529999999999998,
+              31.990000000000002
+            ],
+            [
+              30.57,
+              32.04
+            ],
+            [
+              30.66,
+              31.96
+            ],
+            [
+              30.599999999999998,
+              31.89
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "candidate_hypothesis",
+        "hypothesis_id": "hypothesis_origin_cluster_01",
+        "hypothesis_type": "CANDIDATE_SPILL_ORIGIN",
+        "overall_status": "CONSISTENT_WITH_AVAILABLE_EVIDENCE",
+        "independent_support_cluster_count": 1,
+        "summary": "Candidate origin 'hypothesis_origin_cluster_01' evaluated across 2 evidence items (1 independent root source clusters). Overall status: CONSISTENT_WITH_AVAILABLE_EVIDENCE."
+      }
+    }
+  ]
+}

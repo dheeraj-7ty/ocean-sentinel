@@ -1,0 +1,23 @@
+{
+  "task_id": "OCEAN-SENTINEL-REPORT-RECONCILIATION-LEARNING-HARDENING-V1-CLOSURE",
+  "timestamp_utc": "2026-09-21T05:15:10.189531+00:00",
+  "statement": "9,316 independently recomputed and validated by reproducible artifact lineage tied to current corpus",
+  "methodology": "Pairwise spatial bounding box intersection (inter_area > 0.0) over N=1200 rasters with exact duplicate groups excluded",
+  "total_corpus_rasters": 1200,
+  "total_pairwise_combinations": 719400,
+  "exact_duplicates_excluded": [
+    [
+      "00007.tif",
+      "01339.tif"
+    ],
+    [
+      "00356.tif",
+      "00357.tif"
+    ]
+  ],
+  "recomputed_candidate_pairs_count": 9316,
+  "audit_artifact_candidate_pairs_count": 9316,
+  "set_equality": true,
+  "differences_count": 0,
+  "status": "EVIDENCE_CLOSED_VERIFIED"
+}

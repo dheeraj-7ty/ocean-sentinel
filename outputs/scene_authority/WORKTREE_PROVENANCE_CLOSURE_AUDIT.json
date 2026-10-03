@@ -1,0 +1,55 @@
+{
+  "task_id": "OCEAN-SENTINEL-REPORT-RECONCILIATION-LEARNING-HARDENING-V1-CLOSURE",
+  "timestamp_utc": "2026-09-21T05:16:47.967811+00:00",
+  "git_state": {
+    "head": "542bab19f6f08c9bba8b8762e6480386c8b6026b",
+    "commits_created": 0,
+    "pushes_attempted": 0,
+    "tags_created": 0,
+    "releases_created": 0,
+    "tracked_modified_files": [
+      ".gitignore",
+      "pyproject.toml",
+      "src/ocean_sentinel/ingestion/dataset.py"
+    ],
+    "diff_stat": ".gitignore                              | 26 ++++++++++++++++++++++++++\n pyproject.toml                          |  4 ++++\n src/ocean_sentinel/ingestion/dataset.py |  9 +++++++++\n 3 files changed, 39 insertions(+)"
+  },
+  "protected_files_status": {
+    "count": 7,
+    "all_match": true,
+    "hashes": {
+      ".gitignore": "a664092c8717f70f88941dce08d8000e29cdcb453df9b1d64d9eeaeb3dbd0444",
+      "src/ocean_sentinel/ingestion/dataset.py": "f5bf1387769e43462af8e4e4de37867c761dd7adbc040455532a3463ebfa0b0c",
+      "src/ocean_sentinel/governance/runner.py": "dd345558c3118ee61c0c966744d539c66dcfaabeab2b9c66b03903c66eb3c9e0",
+      "data/metadata/governance_v2/rules.json": "b216f369d68a027e4708e8cbcf3991d8effd5ba5a063a3b8b6b3fc2261d85c4e",
+      "data/metadata/governance_v2/lessons.json": "4784a440070bc00612bc3bfa9b29a7acc181934f894a9e22bd340faab7076395",
+      "data/metadata/governance_v2/incidents.json": "fa3051a185894ee1fe46edb5825ebcfe92b107f80fb7527bf5746d4ec5b91836",
+      "src/ocean_sentinel/temporal.py": "46614361e1be20a278d0af9ceee222e4787df1eade7d52a88b372965170e26cf"
+    }
+  },
+  "untracked_files_summary": {
+    "total_untracked_files": 1105,
+    "pre_existing_authorized_count": 1004,
+    "created_by_prior_task_count": 3,
+    "created_by_this_closure_task_count": 4,
+    "temporary_jobs_count": 94,
+    "unexpected_count": 0
+  },
+  "classification_categories": {
+    "pre_existing_authorized": "Files from prior phases (Phase 5-8, frontend, ML models, benchmarks, historical tests)",
+    "created_by_prior_task": [
+      "outputs/scene_authority/REPORT_RECONCILIATION_CANDIDATE_LESSONS.json",
+      "outputs/scene_authority/TRUJILLO_CORPUS_INVENTORY_RECONCILED.json",
+      "tests/test_report_reconciliation_learning.py"
+    ],
+    "created_by_this_closure_task": [
+      "outputs/scene_authority/CANDIDATE_TEMPORAL_PAIRS_RECOMPUTATION_EVIDENCE.json",
+      "outputs/scene_authority/DIRECT_MASK_MEASUREMENT_EVIDENCE.json",
+      "outputs/scene_authority/LEGACY_ARTIFACT_INTEGRITY_BASELINE.json",
+      "outputs/scene_authority/REAL_RUNTIME_GUARD_EXECUTION_EVIDENCE.json"
+    ],
+    "temporary": "94 job execution directories in outputs/jobs/",
+    "unexpected": []
+  },
+  "status": "EVIDENCE_CLOSED_VERIFIED"
+}

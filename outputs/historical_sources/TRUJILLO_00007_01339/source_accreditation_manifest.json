@@ -1,0 +1,301 @@
+{
+  "manifest_schema_version": "1.0.0",
+  "manifest_title": "Source Specification / Feasibility Manifest — NOT YET ACCREDITED",
+  "scenario_id": "TRUJILLO_00007_01339",
+  "generated_at_utc": "2026-09-21T01:20:00Z",
+  "overall_accreditation_status": "BLOCKED_AWAITING_AUTHORITATIVE_SCENE_TIMESTAMP",
+  "accreditation_classification": "NOT_YET_ACCREDITED_SOURCE_SPECIFICATION_ONLY",
+  "gate_0_scene_authority_evaluation": {
+    "status": "GATE_0_BLOCKED",
+    "scene_pair": ["00007", "01339"],
+    "raster_spatial_bounds_wgs84": {
+      "crs": "EPSG:4326",
+      "west": 30.625126448259813,
+      "south": 32.08565101683457,
+      "east": 30.809101004128036,
+      "north": 32.269626175898125,
+      "dimensions": [2048, 2048],
+      "channels": 2,
+      "dtype": "float32_dB",
+      "overlap": "100% spatial coincidence"
+    },
+    "scene_identity_evidence_audit": {
+      "raster_headers": "No acquisition timestamps, no orbit numbers, no SAFE product identifiers present in GeoTIFF tags (stripped during author patch extraction).",
+      "zenodo_records": "Zenodo records 8346860, 8253899, 13761290 contain only sequential patch filenames (00001 to 01200) without scene-to-SAFE cross-reference tables.",
+      "companion_literature": "Trujillo-Acatitla et al. (Marine Pollution Bulletin 2024, 204:116549) describes methodology but provides no per-patch SAFE product mapping index.",
+      "cdse_stac_search": "Spatial search over target footprint [30.6251° E, 32.0856° N, 30.8091° E, 32.2696° N] in collection 'sentinel-1-grd' returns multiple candidates (7 distinct S1A products in April 2024 alone; hundreds across 2015-2024).",
+      "gating_rule": "Section 4 strictly forbids arbitrary product selection or date guessing. If exact authoritative T0/T1 timestamps cannot be established, STOP HISTORICAL INTEGRATION HERE."
+    }
+  },
+  "sources": [
+    {
+      "source_id": "copernicus_sentinel1_sar_primary",
+      "provider": "European Space Agency (ESA) / Copernicus Data Space Ecosystem (CDSE)",
+      "product_id": "SENTINEL-1_SAR_GRD",
+      "dataset_version": "IPF_V2_OR_V3",
+      "source_type": "HISTORICAL_ARCHIVE",
+      "source_subtype": "SATELLITE_SYNTHETIC_APERTURE_RADAR",
+      "processing_level": "LEVEL-1_GROUND_RANGE_DETECTED",
+      "historical_or_operational": "HISTORICAL_ARCHIVE",
+      "license_status": "Copernicus Open Access / CC-BY 4.0",
+      "retrieval_timestamp_utc": "2026-09-20T19:00:00Z",
+      "query_spatial_extent": {
+        "west": 30.625126,
+        "south": 32.085651,
+        "east": 30.809101,
+        "north": 32.269626,
+        "crs": "EPSG:4326"
+      },
+      "query_temporal_extent": {
+        "t0": "2024-04-05T14:00:00Z (EXTERNALLY_SUPPLIED_TEST_TIMESTAMP)",
+        "t1": "2024-04-10T14:00:00Z (EXTERNALLY_SUPPLIED_TEST_TIMESTAMP)",
+        "authority": "UNVERIFIED_TEST_CONVENTION"
+      },
+      "variables": ["sigma0_VV_dB", "sigma0_VH_dB"],
+      "native_resolution": "10m pixel spacing (GRD-IW)",
+      "artifact_paths": [
+        "data/raw/trujillo_2024/images/Oil/00007.tif",
+        "data/raw/trujillo_2024/images/Oil/01339.tif"
+      ],
+      "artifact_sha256": {
+        "data/raw/trujillo_2024/images/Oil/00007.tif": "260c6b0ef216f9f9d784a92a5433a0b327b7f14120ec08b5be9cba604d538f97",
+        "data/raw/trujillo_2024/images/Oil/01339.tif": "44db36397ca3b006fc4b8109bfafcc7266669ff8146749ecbe5fc7c6a0c5c4e3"
+      },
+      "transformation_steps": [
+        "Raw Sentinel-1 SAFE slice ingested by Trujillo et al. (2024)",
+        "Patch extraction 2048x2048 float32 dB representation",
+        "Spatial geotransform preserved; SAFE product metadata stripped by dataset creators"
+      ],
+      "transformed_artifact_sha256": {
+        "outputs/inference/00007_mask.tif": "129b0a7c41a4a4918e69837aee186c35c24e7561be177b9fc542981f7ba79d1b",
+        "outputs/inference/01339_mask.tif": "26487e076fb44ffbbd95f87b8b4081ae2bb609b1f73ec1b3bf1f03f7ca2b6e5e"
+      },
+      "coverage_assessment": "Geographic footprint 100% verified; primary scene acquisition timestamp unresolved.",
+      "known_limitations": [
+        "Original Sentinel-1 SAFE product identifier stripped by dataset authors",
+        "Exact acquisition timestamp unverified in primary headers",
+        "Patchified from larger scene, losing full antenna pattern and orbit vectors"
+      ],
+      "source_lineage": "ESA Sentinel-1 -> Trujillo et al. (2024) -> Ocean Sentinel Ingestion",
+      "independent_source_cluster_id": "SENTINEL1_SAR_PRIMARY_OBSERVATION",
+      "accreditation_status": "ACCREDITED_HISTORICAL_ARCHIVE_WITH_TIME_LIMITATION"
+    },
+    {
+      "source_id": "copernicus_marine_medsea_phy_reanalysis",
+      "provider": "Copernicus Marine Environment Monitoring Service (CMEMS)",
+      "product_id": "MEDSEA_MULTIYEAR_PHY_006_004",
+      "dataset_version": "v202411",
+      "source_type": "HISTORICAL_REANALYSIS",
+      "source_subtype": "OCEAN_NUMERICAL_REANALYSIS_MODEL",
+      "processing_level": "LEVEL-4_PHYSICAL_REANALYSIS_ESTIMATE",
+      "historical_or_operational": "HISTORICAL_REANALYSIS",
+      "license_status": "Copernicus Open Access / Marine Service Terms",
+      "retrieval_timestamp_utc": null,
+      "query_spatial_extent": {
+        "west": 30.50,
+        "south": 31.95,
+        "east": 30.95,
+        "north": 32.40,
+        "crs": "EPSG:4326"
+      },
+      "query_temporal_extent": {
+        "status": "HALTED_AT_GATE_0",
+        "reason": "Authoritative historical timestamp not verified; unverified downloads prohibited"
+      },
+      "variables": ["uo (eastward surface water velocity)", "vo (northward surface water velocity)"],
+      "native_resolution": "1/24 degree (~4.5 km), standard daily/hourly surface layer (depth index 0, ~1.018m)",
+      "artifact_paths": [],
+      "artifact_sha256": {},
+      "transformation_steps": [
+        "Server-side spatial/temporal subsetting via CMEMS API (pending authoritative T0/T1)",
+        "Interpolation to local particle coordinates dx/dt = u + alpha * u_wind"
+      ],
+      "transformed_artifact_sha256": {},
+      "coverage_assessment": "Covers Mediterranean basin including Nile Delta offshore sector; pending authoritative acquisition window.",
+      "known_limitations": [
+        "Reanalysis estimate from hydrodynamic numerical model assimilation, NOT in-situ direct observation",
+        "Sub-grid turbulence, microscale filaments, and Stokes drift excluded",
+        "1/24 degree grid requires spatial bilinear interpolation across ~4.5 km cells"
+      ],
+      "source_lineage": "NEMO-Mediterranean model assimilation -> CMEMS -> Ocean Sentinel Drift Engine",
+      "independent_source_cluster_id": "DRIFT_METOCEAN_FORCING_CLUSTER",
+      "accreditation_status": "SOURCE_SPECIFICATION_ONLY_NOT_ACCREDITED"
+    },
+    {
+      "source_id": "ecmwf_era5_hourly_single_level_wind",
+      "provider": "European Centre for Medium-Range Weather Forecasts (ECMWF) / Copernicus Climate Change Service (C3S)",
+      "product_id": "ERA5_HOURLY_SINGLE_LEVELS",
+      "dataset_version": "ERA5_v1",
+      "source_type": "HISTORICAL_REANALYSIS",
+      "source_subtype": "ATMOSPHERIC_NUMERICAL_REANALYSIS_MODEL",
+      "processing_level": "LEVEL-4_ATMOSPHERIC_REANALYSIS_ESTIMATE",
+      "historical_or_operational": "HISTORICAL_REANALYSIS",
+      "license_status": "Copernicus C3S / ECMWF Open Licence",
+      "retrieval_timestamp_utc": null,
+      "query_spatial_extent": {
+        "west": 30.50,
+        "south": 31.95,
+        "east": 30.95,
+        "north": 32.40,
+        "crs": "EPSG:4326"
+      },
+      "query_temporal_extent": {
+        "status": "HALTED_AT_GATE_0",
+        "reason": "Authoritative historical timestamp not verified; unverified downloads prohibited"
+      },
+      "variables": ["10u (10m eastward wind component, m/s)", "10v (10m northward wind component, m/s)"],
+      "native_resolution": "0.25 degree (~31 km), 1-hour temporal cadence",
+      "artifact_paths": [],
+      "artifact_sha256": {},
+      "transformation_steps": [
+        "CDS API spatial/temporal bounding box subsetting",
+        "Unit verification (m/s), UTC timestamp verification",
+        "Windage ensemble coefficient scaling (alpha in [0.01, 0.04])"
+      ],
+      "transformed_artifact_sha256": {},
+      "coverage_assessment": "Global coverage including Mediterranean domain; pending authoritative acquisition window.",
+      "known_limitations": [
+        "Atmospheric numerical reanalysis estimate, NOT direct anemometer observation",
+        "0.25 degree spatial resolution does not resolve localized sea-breeze fronts or vessel-scale gusts",
+        "Coupled with CMEMS in same drift model; must NOT be double-counted as independent corroborating evidence"
+      ],
+      "source_lineage": "ECMWF IFS 4D-Var data assimilation -> Copernicus CDS -> Ocean Sentinel Drift Engine",
+      "independent_source_cluster_id": "DRIFT_METOCEAN_FORCING_CLUSTER",
+      "accreditation_status": "SOURCE_SPECIFICATION_ONLY_NOT_ACCREDITED"
+    },
+    {
+      "source_id": "global_fishing_watch_aggregated_presence_ais",
+      "provider": "Global Fishing Watch (GFW)",
+      "product_id": "PUBLIC_GLOBAL_PRESENCE_V2",
+      "dataset_version": "v2_aggregated_presence",
+      "source_type": "HISTORICAL_ARCHIVE",
+      "source_subtype": "AGGREGATED_AIS_PRESENCE",
+      "processing_level": "PROVIDER_PROCESSED_HOURLY_PRESENCE",
+      "historical_or_operational": "HISTORICAL_ARCHIVE",
+      "license_status": "Creative Commons Attribution 4.0 International (CC-BY 4.0)",
+      "retrieval_timestamp_utc": null,
+      "query_spatial_extent": {
+        "west": 30.50,
+        "south": 31.95,
+        "east": 30.95,
+        "north": 32.40,
+        "crs": "EPSG:4326"
+      },
+      "query_temporal_extent": {
+        "status": "HALTED_AT_GATE_0",
+        "reason": "Authoritative historical timestamp not verified; unverified downloads prohibited"
+      },
+      "variables": ["mmsi", "timestamp_utc", "lat", "lon", "apparent_fishing_hours", "vessel_class"],
+      "native_resolution": "Hourly aggregated raster / waypoint presence",
+      "artifact_paths": [],
+      "artifact_sha256": {},
+      "transformation_steps": [
+        "GFW 4-point bounding box API query across all vessel types (no synthetic MMSI seeding)",
+        "Normalization to AISRecord / VesselTrack schema",
+        "Preserve provider aggregation metadata (AGGREGATED_AIS_PRESENCE)"
+      ],
+      "transformed_artifact_sha256": {},
+      "coverage_assessment": "High coverage in Mediterranean maritime routes; subject to provider temporal aggregation.",
+      "capability_evaluation": {
+        "status": "SOURCE_CAPABILITY_MISMATCH",
+        "intended_role": "AIS_PRESENCE_CONTEXT",
+        "rationale": "GFW 4Wings presence dataset provides hourly gridded presence summaries, not continuous vessel-specific time-indexed kinematic tracks. It cannot satisfy the AISRecord/VesselTrack correlation contract without an individual tracking feed."
+      },
+      "known_limitations": [
+        "Hourly aggregated presence is NOT raw AIS telemetry message playback or kinematic tracks",
+        "Receiver satellite revisit gaps and terrestrial station blind spots exist",
+        "AIS absence does NOT prove vessel absence (AIS_ABSENCE_IS_NOT_VESSEL_ABSENCE)"
+      ],
+      "source_lineage": "Satellite/Terrestrial AIS receivers -> Spire/Orbcomm -> GFW Aggregation -> Ocean Sentinel AIS",
+      "independent_source_cluster_id": "AIS_OBSERVATIONAL_CLUSTER_GFW",
+      "accreditation_status": "SOURCE_SPECIFICATION_ONLY_NOT_ACCREDITED"
+    },
+    {
+      "source_id": "spire_maritime_historical_ais_evaluation",
+      "provider": "Spire Global Maritime",
+      "product_id": "SPIRE_HISTORICAL_AIS_MESSAGES_API",
+      "dataset_version": "v2_messages_api",
+      "source_type": "HISTORICAL_ARCHIVE",
+      "source_subtype": "SATELLITE_TERRESTRIAL_DYNAMIC_AIS",
+      "processing_level": "LEVEL-2_RAW_AND_CLEANED_DYNAMIC_MESSAGES",
+      "historical_or_operational": "HISTORICAL_ARCHIVE",
+      "license_status": "Commercial Proprietary (Evaluation Required)",
+      "retrieval_timestamp_utc": null,
+      "query_spatial_extent": {
+        "west": 30.50,
+        "south": 31.95,
+        "east": 30.95,
+        "north": 32.40,
+        "crs": "EPSG:4326"
+      },
+      "query_temporal_extent": {
+        "status": "HELD_PENDING_SCENE_AUTHORITY",
+        "reason": "Evaluated for individual track capability (satisfies AISRecord/VesselTrack contract)"
+      },
+      "variables": ["mmsi", "imo", "timestamp", "latitude", "longitude", "sog", "cog", "heading", "nav_status"],
+      "native_resolution": "High-frequency dynamic message telemetry",
+      "artifact_paths": [],
+      "artifact_sha256": {},
+      "transformation_steps": [],
+      "transformed_artifact_sha256": {},
+      "coverage_assessment": "Global satellite AIS constellation coverage.",
+      "capability_evaluation": {
+        "status": "SOURCE_CAPABILITY_MATCH",
+        "intended_role": "PRIMARY_HISTORICAL_TRACK_CORRELATION",
+        "rationale": "Directly provides time-indexed vessel telemetry compatible with AISRecord and VesselTrack schemas."
+      },
+      "known_limitations": [
+        "Commercial licensing requires accreditation and credentials",
+        "Satellite coverage gaps during constellation orbit passes"
+      ],
+      "source_lineage": "Spire CubeSat Constellation + Terrestrial Base Stations -> Spire API",
+      "independent_source_cluster_id": "AIS_OBSERVATIONAL_CLUSTER_SPIRE",
+      "accreditation_status": "SOURCE_SPECIFICATION_ONLY_NOT_ACCREDITED"
+    },
+    {
+      "source_id": "kpler_historical_vessel_points_fallback",
+      "provider": "Kpler Marine Tracking",
+      "provider": "Kpler Marine Tracking",
+      "product_id": "KPLER_HISTORICAL_VESSEL_POINTS",
+      "dataset_version": "v1_points_api",
+      "source_type": "HISTORICAL_ARCHIVE",
+      "source_subtype": "PROVIDER_PROCESSED_TRACKS",
+      "processing_level": "PROVIDER_PROCESSED_RESAMPLED_WAYPOINTS",
+      "historical_or_operational": "HISTORICAL_ARCHIVE",
+      "license_status": "Commercial Proprietary (Evaluation Credential Required)",
+      "retrieval_timestamp_utc": null,
+      "query_spatial_extent": {
+        "west": 30.50,
+        "south": 31.95,
+        "east": 30.95,
+        "north": 32.40,
+        "crs": "EPSG:4326"
+      },
+      "query_temporal_extent": {
+        "status": "HELD_AS_FALLBACK",
+        "reason": "Secondary fallback evaluation if GFW resolution is insufficient"
+      },
+      "variables": ["mmsi", "imo", "vessel_name", "timestamp", "lat", "lon", "sog", "cog"],
+      "native_resolution": "High-frequency point telemetry",
+      "artifact_paths": [],
+      "artifact_sha256": {},
+      "transformation_steps": [],
+      "transformed_artifact_sha256": {},
+      "coverage_assessment": "Comprehensive commercial fleet tracking; requires valid credential.",
+      "known_limitations": [
+        "Commercial proprietary restrictions prohibit raw redistribution",
+        "Vendor-side dead-reckoning smoothing may obscure sharp maneuvers"
+      ],
+      "source_lineage": "Satellite AIS constellations -> Kpler Ingestion -> Ocean Sentinel AIS Adapter",
+      "independent_source_cluster_id": "AIS_OBSERVATIONAL_CLUSTER_KPLER",
+      "accreditation_status": "FALLBACK_EVALUATION_ONLY"
+    }
+  ],
+  "governance_and_integrity_invariants": {
+    "double_counting_prohibition": "CMEMS current velocity and ERA5 wind velocity drive the same drift trajectory equation. They share cluster 'DRIFT_METOCEAN_FORCING_CLUSTER' and must never be counted as two independent corroborating lines of evidence in Evidence Fusion.",
+    "modelled_vs_observed_distinction": "CMEMS and ERA5 are numerical reanalysis model assimilations. They are labelled 'HISTORICAL_REANALYSIS' or 'MODELLED_FORCING', never 'OBSERVED'.",
+    "aggregated_ais_distinction": "GFW hourly presence is labelled 'AGGREGATED_AIS_PRESENCE', never 'RAW_AIS_TELEMETRY'.",
+    "negative_proof_guard": "Absence of AIS in provider results never implies vessel absence (AIS_ABSENCE_IS_NOT_VESSEL_ABSENCE).",
+    "synthetic_downstream_retention": "Because Gate 0 halts external historical download, downstream drift and AIS artifacts in scenario TRUJILLO_00007_01339 remain SYNTHETIC_DEMO. Overall scenario provenance remains PROVENANCE_LIMITED."
+  }
+}

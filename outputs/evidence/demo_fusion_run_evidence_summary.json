@@ -1,0 +1,726 @@
+{
+  "engine": "ocean_sentinel_evidence_fusion_v1",
+  "mode": "DEMO",
+  "total_evidence_items": 11,
+  "total_candidate_hypotheses": 6,
+  "multiple_plausible_candidates": true,
+  "plausible_candidate_count": 2,
+  "candidate_spill_hypotheses": [
+    {
+      "hypothesis_id": "hypothesis_origin_cluster_01",
+      "hypothesis_type": "CANDIDATE_SPILL_ORIGIN",
+      "subject_id": "drift_backward_24h",
+      "spatial_geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.599999999999998,
+              31.89
+            ],
+            [
+              30.529999999999998,
+              31.990000000000002
+            ],
+            [
+              30.57,
+              32.04
+            ],
+            [
+              30.66,
+              31.96
+            ],
+            [
+              30.599999999999998,
+              31.89
+            ]
+          ]
+        ]
+      },
+      "temporal_window_utc": [
+        "2024-04-09T12:00:00+00:00",
+        "2024-04-09T14:00:00+00:00"
+      ],
+      "supporting_evidence_ids": [
+        "evidence_drift_candidate_origin_01"
+      ],
+      "conflicting_evidence_ids": [],
+      "consistent_evidence_ids": [
+        "evidence_drift_trajectory_envelope_01"
+      ],
+      "inconclusive_evidence_ids": [],
+      "unknown_evidence_ids": [],
+      "independent_support_cluster_count": 1,
+      "dependency_summary": {
+        "total_supporting_items": 1,
+        "independent_source_clusters": 1,
+        "is_independent_corroboration": false,
+        "double_counting_prevented": false,
+        "clusters": [
+          [
+            "evidence_drift_candidate_origin_01"
+          ]
+        ]
+      },
+      "overall_status": "CONSISTENT_WITH_AVAILABLE_EVIDENCE",
+      "limitations": [
+        "Candidate origin is an evidence-bounded hypothesis, NOT confirmed historical release location.",
+        "Windage leeway factor and sub-grid turbulence are unmodeled empirical variance sources."
+      ],
+      "summary": "Candidate origin 'hypothesis_origin_cluster_01' evaluated across 2 evidence items (1 independent root source clusters). Overall status: CONSISTENT_WITH_AVAILABLE_EVIDENCE."
+    }
+  ],
+  "candidate_vessel_hypotheses": [
+    {
+      "hypothesis_id": "hypothesis_vessel_368123450",
+      "mmsi": "368123450",
+      "vessel_name": "MT_HORIZON_STAR",
+      "vessel_type": "Crude Oil Tanker",
+      "closest_approach_distance_m": 1321.9,
+      "closest_approach_time_utc": "2024-04-09T14:00:00+00:00",
+      "temporal_offset_hours": 0.0,
+      "is_position_inferred": true,
+      "inside_origin_region": true,
+      "inside_trajectory_envelope": true,
+      "coverage_status": "OBSERVED_IN_WINDOW",
+      "evidence_compatibility_score": 0.8606,
+      "supporting_evidence_ids": [
+        "evidence_ais_corr_368123450"
+      ],
+      "conflicting_evidence_ids": [],
+      "consistent_evidence_ids": [],
+      "unknown_evidence_ids": [],
+      "independent_support_cluster_count": 1,
+      "dependency_summary": {
+        "supporting_evidence_count": 1,
+        "conflicting_evidence_count": 0,
+        "independent_source_clusters": 1,
+        "clusters": [
+          [
+            "evidence_ais_corr_368123450"
+          ]
+        ]
+      },
+      "overall_status": "SUPPORTED_BY_AVAILABLE_EVIDENCE",
+      "limitations": [
+        "AIS compatibility establishes spatio-temporal alignment only, NOT legal attribution.",
+        "Vessel Course Over Ground (COG) is not required to match slick drift direction.",
+        "Absence of an AIS track does NOT prove vessel absence."
+      ],
+      "summary": "Candidate vessel 'MT_HORIZON_STAR' (MMSI: 368123450): score 0.8606, min distance 1322m. Status: SUPPORTED_BY_AVAILABLE_EVIDENCE."
+    },
+    {
+      "hypothesis_id": "hypothesis_vessel_368777880",
+      "mmsi": "368777880",
+      "vessel_name": "GULF_SUPPLIER_VII",
+      "vessel_type": "Offshore Supply",
+      "closest_approach_distance_m": 1492.0,
+      "closest_approach_time_utc": "2024-04-09T14:00:00+00:00",
+      "temporal_offset_hours": 0.0,
+      "is_position_inferred": true,
+      "inside_origin_region": true,
+      "inside_trajectory_envelope": true,
+      "coverage_status": "OBSERVED_IN_WINDOW",
+      "evidence_compatibility_score": 0.8351,
+      "supporting_evidence_ids": [
+        "evidence_ais_corr_368777880"
+      ],
+      "conflicting_evidence_ids": [],
+      "consistent_evidence_ids": [],
+      "unknown_evidence_ids": [],
+      "independent_support_cluster_count": 1,
+      "dependency_summary": {
+        "supporting_evidence_count": 1,
+        "conflicting_evidence_count": 0,
+        "independent_source_clusters": 1,
+        "clusters": [
+          [
+            "evidence_ais_corr_368777880"
+          ]
+        ]
+      },
+      "overall_status": "SUPPORTED_BY_AVAILABLE_EVIDENCE",
+      "limitations": [
+        "AIS compatibility establishes spatio-temporal alignment only, NOT legal attribution.",
+        "Vessel Course Over Ground (COG) is not required to match slick drift direction.",
+        "Absence of an AIS track does NOT prove vessel absence."
+      ],
+      "summary": "Candidate vessel 'GULF_SUPPLIER_VII' (MMSI: 368777880): score 0.8351, min distance 1492m. Status: SUPPORTED_BY_AVAILABLE_EVIDENCE."
+    },
+    {
+      "hypothesis_id": "hypothesis_vessel_369555660",
+      "mmsi": "369555660",
+      "vessel_name": "GLITCH_RUNNER",
+      "vessel_type": "UNKNOWN",
+      "closest_approach_distance_m": 1800.0,
+      "closest_approach_time_utc": "2024-04-10T04:00:00+00:00",
+      "temporal_offset_hours": 14.0,
+      "is_position_inferred": true,
+      "inside_origin_region": true,
+      "inside_trajectory_envelope": true,
+      "coverage_status": "OBSERVED_IN_WINDOW",
+      "evidence_compatibility_score": 0.4461,
+      "supporting_evidence_ids": [],
+      "conflicting_evidence_ids": [
+        "evidence_ais_corr_369555660"
+      ],
+      "consistent_evidence_ids": [],
+      "unknown_evidence_ids": [],
+      "independent_support_cluster_count": 0,
+      "dependency_summary": {
+        "supporting_evidence_count": 0,
+        "conflicting_evidence_count": 1,
+        "independent_source_clusters": 0,
+        "clusters": []
+      },
+      "overall_status": "CONFLICTING_EVIDENCE",
+      "limitations": [
+        "AIS compatibility establishes spatio-temporal alignment only, NOT legal attribution.",
+        "Vessel Course Over Ground (COG) is not required to match slick drift direction.",
+        "Absence of an AIS track does NOT prove vessel absence."
+      ],
+      "summary": "Candidate vessel 'GLITCH_RUNNER' (MMSI: 369555660): score 0.4461, min distance 1800m. Status: CONFLICTING_EVIDENCE."
+    },
+    {
+      "hypothesis_id": "hypothesis_vessel_367111220",
+      "mmsi": "367111220",
+      "vessel_name": "OCEAN_TUG_TITAN",
+      "vessel_type": "Tug / Supply",
+      "closest_approach_distance_m": 51988.0,
+      "closest_approach_time_utc": "2024-04-09T14:00:00+00:00",
+      "temporal_offset_hours": 0.0,
+      "is_position_inferred": false,
+      "inside_origin_region": false,
+      "inside_trajectory_envelope": false,
+      "coverage_status": "OBSERVED_IN_WINDOW",
+      "evidence_compatibility_score": 0.2937,
+      "supporting_evidence_ids": [],
+      "conflicting_evidence_ids": [
+        "evidence_ais_corr_367111220"
+      ],
+      "consistent_evidence_ids": [],
+      "unknown_evidence_ids": [],
+      "independent_support_cluster_count": 0,
+      "dependency_summary": {
+        "supporting_evidence_count": 0,
+        "conflicting_evidence_count": 1,
+        "independent_source_clusters": 0,
+        "clusters": []
+      },
+      "overall_status": "CONFLICTING_EVIDENCE",
+      "limitations": [
+        "AIS compatibility establishes spatio-temporal alignment only, NOT legal attribution.",
+        "Vessel Course Over Ground (COG) is not required to match slick drift direction.",
+        "Absence of an AIS track does NOT prove vessel absence."
+      ],
+      "summary": "Candidate vessel 'OCEAN_TUG_TITAN' (MMSI: 367111220): score 0.2937, min distance 51988m. Status: CONFLICTING_EVIDENCE."
+    },
+    {
+      "hypothesis_id": "hypothesis_vessel_366333440",
+      "mmsi": "366333440",
+      "vessel_name": "SEA_PROWLER",
+      "vessel_type": "Fishing Vessel",
+      "closest_approach_distance_m": 7500.0,
+      "closest_approach_time_utc": "2024-04-09T19:00:00+00:00",
+      "temporal_offset_hours": 5.0,
+      "is_position_inferred": false,
+      "inside_origin_region": false,
+      "inside_trajectory_envelope": false,
+      "coverage_status": "TELEMETRY_GAP_ACROSS_WINDOW",
+      "evidence_compatibility_score": 0.2087,
+      "supporting_evidence_ids": [],
+      "conflicting_evidence_ids": [],
+      "consistent_evidence_ids": [],
+      "unknown_evidence_ids": [
+        "evidence_ais_corr_366333440"
+      ],
+      "independent_support_cluster_count": 0,
+      "dependency_summary": {
+        "supporting_evidence_count": 0,
+        "conflicting_evidence_count": 0,
+        "independent_source_clusters": 0,
+        "clusters": []
+      },
+      "overall_status": "INSUFFICIENT_EVIDENCE",
+      "limitations": [
+        "Track has large 8.0h telemetry gap across candidate release window.",
+        "AIS compatibility establishes spatio-temporal alignment only, NOT legal attribution.",
+        "Vessel Course Over Ground (COG) is not required to match slick drift direction.",
+        "Absence of an AIS track does NOT prove vessel absence."
+      ],
+      "summary": "Candidate vessel 'SEA_PROWLER' (MMSI: 366333440): score 0.2087, min distance 7500m. Status: INSUFFICIENT_EVIDENCE."
+    }
+  ],
+  "evidence_ledger": [
+    {
+      "evidence_id": "evidence_sar_scene_01339_det01",
+      "evidence_type": "SAR_DETECTION",
+      "source_type": "SENTINEL_1_SAR",
+      "source_id": "scene_01339",
+      "observation_time_utc": "2024-04-10T14:00:00+00:00",
+      "spatial_geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.63,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.12
+            ]
+          ]
+        ]
+      },
+      "provenance_class": "HISTORICAL_ARCHIVE",
+      "provenance_source": "Copernicus_Sentinel_1_GRD",
+      "source_artifact": "outputs/detections/01339_detections.geojson",
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [],
+      "root_source_ids": [
+        "SENTINEL1_SCENE_01339"
+      ],
+      "derivation_type": "DIRECT_OBSERVATION",
+      "observed_vs_inferred": "OBSERVED",
+      "metric_values": {
+        "area_m2": 3007776.0,
+        "mean_probability": 0.88
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "4804edc091d9c56be24310691919b8d06a835cd9080b6066af9d772970122dfd"
+    },
+    {
+      "evidence_id": "evidence_temporal_00007_01339_change01",
+      "evidence_type": "TEMPORAL_CHANGE",
+      "source_type": "TEMPORAL_ANALYSIS",
+      "source_id": "temporal_00007_to_01339",
+      "observation_time_utc": "2024-04-10T14:00:00+00:00",
+      "spatial_geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.63,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.12
+            ]
+          ]
+        ]
+      },
+      "provenance_class": "HISTORICAL_ARCHIVE",
+      "provenance_source": "OceanSentinel_TemporalChangeEngine",
+      "source_artifact": "outputs/temporal/00007_to_01339_temporal_events.geojson",
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_sar_scene_01339_det01"
+      ],
+      "root_source_ids": [
+        "SENTINEL1_SCENE_00007",
+        "SENTINEL1_SCENE_01339"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "OBSERVED",
+      "metric_values": {
+        "event_type": "persistent",
+        "area_m2": 3007776.0,
+        "iou": 0.92
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "152b885acd5947ee2cadb33e55dfe459d830325d00742317807bc4412b034eb0"
+    },
+    {
+      "evidence_id": "evidence_drift_candidate_origin_01",
+      "evidence_type": "DRIFT_ORIGIN_HYPOTHESIS",
+      "source_type": "LAGRANGIAN_DRIFT_MODEL",
+      "source_id": "drift_backward_24h",
+      "observation_time_utc": "2024-04-09T14:00:00+00:00",
+      "spatial_geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.599999999999998,
+              31.89
+            ],
+            [
+              30.529999999999998,
+              31.990000000000002
+            ],
+            [
+              30.57,
+              32.04
+            ],
+            [
+              30.66,
+              31.96
+            ],
+            [
+              30.599999999999998,
+              31.89
+            ]
+          ]
+        ]
+      },
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "OceanSentinel_OriginDriftEngine",
+      "source_artifact": "outputs/origin_drift/trujillo_00007_01339.geojson",
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_temporal_00007_01339_change01"
+      ],
+      "root_source_ids": [
+        "SENTINEL1_SCENE_01339",
+        "SYNTHETIC_METOCEAN_FIELD"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "HYPOTHESIS",
+      "metric_values": {
+        "area_m2": 103274809.0,
+        "duration_hours": 24.0,
+        "direction": "BACKWARD"
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "1b91d9cd61c5607ddc639df05f12a49024e00893275aeeec7f608cee6515d569"
+    },
+    {
+      "evidence_id": "evidence_drift_trajectory_envelope_01",
+      "evidence_type": "DRIFT_TRAJECTORY",
+      "source_type": "LAGRANGIAN_DRIFT_MODEL",
+      "source_id": "drift_trajectories_ensemble",
+      "observation_time_utc": "2024-04-10T14:00:00+00:00",
+      "spatial_geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            30.65,
+            32.14
+          ],
+          [
+            30.619999999999997,
+            32.04
+          ],
+          [
+            30.59,
+            31.94
+          ]
+        ]
+      },
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "OceanSentinel_OriginDriftEngine",
+      "source_artifact": "outputs/origin_drift/trujillo_00007_01339.geojson",
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_temporal_00007_01339_change01"
+      ],
+      "root_source_ids": [
+        "SENTINEL1_SCENE_01339",
+        "SYNTHETIC_METOCEAN_FIELD"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "INFERRED",
+      "metric_values": {
+        "particle_count": 20,
+        "timesteps": 48
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "d202dfdfdc94f47b02080484d881361b9a3f1542f96fc5130d914cd7b6d6b221"
+    },
+    {
+      "evidence_id": "evidence_optical_s2_consistent",
+      "evidence_type": "OPTICAL_OBSERVATION",
+      "source_type": "OPTICAL_SATELLITE",
+      "source_id": "S2A_MSI_20240410_SCENE",
+      "observation_time_utc": "2024-04-10T15:00:00+00:00",
+      "spatial_geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.63,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.12
+            ],
+            [
+              30.669999999999998,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.160000000000004
+            ],
+            [
+              30.63,
+              32.12
+            ]
+          ]
+        ]
+      },
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "Synthetic_Sentinel2_Fixture",
+      "source_artifact": null,
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [],
+      "root_source_ids": [
+        "S2A_MSI_20240410_SCENE"
+      ],
+      "derivation_type": "SYNTHETIC_FIXTURE",
+      "observed_vs_inferred": "OBSERVED",
+      "metric_values": {
+        "optical_slick_confirmed": true,
+        "sheen_thickness_um": 2.5
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "9e71645b6f96df46e0c7f3041b77e38f7d46713b1fc61bcff0f96d810d588f3a"
+    },
+    {
+      "evidence_id": "evidence_optical_landsat_conflict",
+      "evidence_type": "OPTICAL_OBSERVATION",
+      "source_type": "OPTICAL_SATELLITE",
+      "source_id": "LANDSAT_OLI_20240409_SCENE",
+      "observation_time_utc": "2024-04-09T16:00:00+00:00",
+      "spatial_geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.5,
+              31.94
+            ],
+            [
+              30.549999999999997,
+              31.94
+            ],
+            [
+              30.549999999999997,
+              31.990000000000002
+            ],
+            [
+              30.5,
+              31.990000000000002
+            ],
+            [
+              30.5,
+              31.94
+            ]
+          ]
+        ]
+      },
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "Synthetic_Landsat_Fixture",
+      "source_artifact": null,
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [],
+      "root_source_ids": [
+        "LANDSAT_OLI_20240409_SCENE"
+      ],
+      "derivation_type": "SYNTHETIC_FIXTURE",
+      "observed_vs_inferred": "OBSERVED",
+      "metric_values": {
+        "optical_slick_confirmed": false,
+        "water_reflectance_anomaly": false
+      },
+      "limitations": [],
+      "status": "CONFLICT",
+      "seal": "198ffa8090875a73a39f6f2e5feead3e6379ec3d491e6231986c2265a53f7620"
+    },
+    {
+      "evidence_id": "evidence_ais_corr_368123450",
+      "evidence_type": "AIS_CORRELATION",
+      "source_type": "VESSEL_AIS_FEED",
+      "source_id": "vessel_368123450",
+      "observation_time_utc": "2024-04-09T14:00:00+00:00",
+      "spatial_geometry": null,
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "SYNTHETIC_DEMO_FEED",
+      "source_artifact": null,
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_drift_candidate_origin_01"
+      ],
+      "root_source_ids": [
+        "MMSI_368123450"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "INFERRED",
+      "metric_values": {
+        "min_distance_to_trajectory_m": 1321.9,
+        "min_distance_to_origin_m": 1854.3,
+        "temporal_offset_hours": 0.0,
+        "evidence_compatibility_score": 0.8606,
+        "inside_origin": true,
+        "coverage_status": "OBSERVED_IN_WINDOW"
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "b466f50308f4475a9582caef2fbccd69a77ee63480e215678f22390aee59a92a"
+    },
+    {
+      "evidence_id": "evidence_ais_corr_368777880",
+      "evidence_type": "AIS_CORRELATION",
+      "source_type": "VESSEL_AIS_FEED",
+      "source_id": "vessel_368777880",
+      "observation_time_utc": "2024-04-09T14:00:00+00:00",
+      "spatial_geometry": null,
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "SYNTHETIC_DEMO_FEED",
+      "source_artifact": null,
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_drift_candidate_origin_01"
+      ],
+      "root_source_ids": [
+        "MMSI_368777880"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "INFERRED",
+      "metric_values": {
+        "min_distance_to_trajectory_m": 1492.0,
+        "min_distance_to_origin_m": 1492.0,
+        "temporal_offset_hours": 0.0,
+        "evidence_compatibility_score": 0.8351,
+        "inside_origin": true,
+        "coverage_status": "OBSERVED_IN_WINDOW"
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "4afe3242a008dc48d6e632ee114ad2f84801a4fd5255b0fed6d6e25cd942b7b1"
+    },
+    {
+      "evidence_id": "evidence_ais_corr_369555660",
+      "evidence_type": "AIS_CORRELATION",
+      "source_type": "VESSEL_AIS_FEED",
+      "source_id": "vessel_369555660",
+      "observation_time_utc": "2024-04-10T04:00:00+00:00",
+      "spatial_geometry": null,
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "SYNTHETIC_DEMO_FEED",
+      "source_artifact": null,
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_drift_candidate_origin_01"
+      ],
+      "root_source_ids": [
+        "MMSI_369555660"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "INFERRED",
+      "metric_values": {
+        "min_distance_to_trajectory_m": 1800.0,
+        "min_distance_to_origin_m": 2029.0,
+        "temporal_offset_hours": 14.0,
+        "evidence_compatibility_score": 0.4461,
+        "inside_origin": true,
+        "coverage_status": "OBSERVED_IN_WINDOW"
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "b7eb4bc26f2b00482dff947870a6042de9d4def7a9a3c365893854871e327479"
+    },
+    {
+      "evidence_id": "evidence_ais_corr_367111220",
+      "evidence_type": "AIS_CORRELATION",
+      "source_type": "VESSEL_AIS_FEED",
+      "source_id": "vessel_367111220",
+      "observation_time_utc": "2024-04-09T14:00:00+00:00",
+      "spatial_geometry": null,
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "SYNTHETIC_DEMO_FEED",
+      "source_artifact": null,
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_drift_candidate_origin_01"
+      ],
+      "root_source_ids": [
+        "MMSI_367111220"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "OBSERVED",
+      "metric_values": {
+        "min_distance_to_trajectory_m": 51988.0,
+        "min_distance_to_origin_m": 51988.0,
+        "temporal_offset_hours": 0.0,
+        "evidence_compatibility_score": 0.2937,
+        "inside_origin": false,
+        "coverage_status": "OBSERVED_IN_WINDOW"
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "301ae6d8f33ee7ac659acff1797de71594deeb0ec54e41f9b48a08d1617f0960"
+    },
+    {
+      "evidence_id": "evidence_ais_corr_366333440",
+      "evidence_type": "AIS_CORRELATION",
+      "source_type": "VESSEL_AIS_FEED",
+      "source_id": "vessel_366333440",
+      "observation_time_utc": "2024-04-09T19:00:00+00:00",
+      "spatial_geometry": null,
+      "provenance_class": "SYNTHETIC_DEMO",
+      "provenance_source": "SYNTHETIC_DEMO_FEED",
+      "source_artifact": null,
+      "execution_identity": "default_run",
+      "parent_evidence_ids": [
+        "evidence_drift_candidate_origin_01"
+      ],
+      "root_source_ids": [
+        "MMSI_366333440"
+      ],
+      "derivation_type": "DERIVED_ANALYSIS",
+      "observed_vs_inferred": "OBSERVED",
+      "metric_values": {
+        "min_distance_to_trajectory_m": 7500.0,
+        "min_distance_to_origin_m": 8113.0,
+        "temporal_offset_hours": 5.0,
+        "evidence_compatibility_score": 0.2087,
+        "inside_origin": false,
+        "coverage_status": "TELEMETRY_GAP_ACROSS_WINDOW"
+      },
+      "limitations": [],
+      "status": "ACTIVE",
+      "seal": "78b54b8d6275e4c1a8ea2574b0d2066f2b2652884f32a06685f8f422e09fe799"
+    }
+  ],
+  "scientific_boundaries": [
+    "Evidence Fusion establishes spatio-temporal compatibility, NOT legal attribution or responsibility.",
+    "Absence of an AIS track in the candidate region does NOT prove no vessel was present.",
+    "Multiple candidates may remain simultaneously plausible; Ocean Sentinel does not force a single winner.",
+    "Evidence items sharing root observations are tracked as non-independent to prevent double-counting.",
+    "Conflicting and contradictory evidence is preserved in the graph rather than erased."
+  ],
+  "negative_proof_guard": "AIS_ABSENCE_IS_NOT_VESSEL_ABSENCE"
+}

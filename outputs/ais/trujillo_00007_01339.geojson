@@ -1,0 +1,783 @@
+{
+  "type": "FeatureCollection",
+  "name": "ocean_sentinel_ais_correlation",
+  "metadata": {
+    "mode": "DEMO",
+    "event_id": "00007_01339_persistent_0003",
+    "candidate_count": 6,
+    "generated_timestamp_utc": "2026-09-20T18:36:19.254328+00:00",
+    "scientific_boundary": "EVIDENCE_COMPATIBILITY_ONLY_NO_LEGAL_ATTRIBUTION",
+    "negative_proof_guard": "AIS_ABSENCE_IS_NOT_VESSEL_ABSENCE"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "00007_01339_persistent_0003_candidate_origin_region",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.620581,
+              31.909109
+            ],
+            [
+              30.524509,
+              32.00261
+            ],
+            [
+              30.561238,
+              32.060031
+            ],
+            [
+              30.564305,
+              32.064245
+            ],
+            [
+              30.564395,
+              32.064245
+            ],
+            [
+              30.596451,
+              32.033078
+            ],
+            [
+              30.628497,
+              32.001911
+            ],
+            [
+              30.660532,
+              31.970744
+            ],
+            [
+              30.64343,
+              31.935248
+            ],
+            [
+              30.620581,
+              31.909109
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "candidate_origin_region_reference",
+        "event_id": "00007_01339_persistent_0003"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "00007_01339_persistent_0003_trajectory_envelope",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              30.620581,
+              31.909109
+            ],
+            [
+              30.524509,
+              32.00261
+            ],
+            [
+              30.561238,
+              32.060031
+            ],
+            [
+              30.564305,
+              32.064245
+            ],
+            [
+              30.573074,
+              32.073335
+            ],
+            [
+              30.577459,
+              32.07788
+            ],
+            [
+              30.584037,
+              32.084698
+            ],
+            [
+              30.592808,
+              32.093788
+            ],
+            [
+              30.599387,
+              32.100606
+            ],
+            [
+              30.60816,
+              32.109696
+            ],
+            [
+              30.623514,
+              32.125604
+            ],
+            [
+              30.632289,
+              32.134694
+            ],
+            [
+              30.636677,
+              32.139239
+            ],
+            [
+              30.641065,
+              32.143784
+            ],
+            [
+              30.652036,
+              32.155147
+            ],
+            [
+              30.660814,
+              32.164237
+            ],
+            [
+              30.66959305482373,
+              32.173326777440515
+            ],
+            [
+              30.669682886352142,
+              32.173326777440515
+            ],
+            [
+              30.660532,
+              31.970744
+            ],
+            [
+              30.64343,
+              31.935248
+            ],
+            [
+              30.620581,
+              31.909109
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "trajectory_envelope_reference",
+        "event_id": "00007_01339_persistent_0003"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_368123450_track",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            30.473359656222435,
+            31.86586008326915
+          ],
+          [
+            30.493359656222434,
+            31.88586008326915
+          ],
+          [
+            30.513359656222434,
+            31.90586008326915
+          ],
+          [
+            30.533359656222434,
+            31.92586008326915
+          ],
+          [
+            30.553359656222433,
+            31.94586008326915
+          ],
+          [
+            30.573359656222436,
+            31.965860083269153
+          ],
+          [
+            30.593359656222436,
+            31.985860083269152
+          ],
+          [
+            30.613359656222435,
+            32.00586008326915
+          ],
+          [
+            30.633359656222435,
+            32.02586008326915
+          ],
+          [
+            30.653359656222435,
+            32.045860083269154
+          ],
+          [
+            30.673359656222434,
+            32.06586008326915
+          ],
+          [
+            30.693359656222434,
+            32.085860083269154
+          ],
+          [
+            30.713359656222433,
+            32.10586008326915
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_track_linestring",
+        "mmsi": "368123450",
+        "vessel_name": "MT_HORIZON_STAR",
+        "imo": "IMO9123456",
+        "vessel_type": "Crude Oil Tanker",
+        "evidence_compatibility_score": 0.8606,
+        "score_breakdown": {
+          "primary_spatial_trajectory_component": 0.7676894348201843,
+          "primary_temporal_proximity_component": 1.0,
+          "secondary_origin_endpoint_component": 0.690136790069527,
+          "secondary_origin_polygon_component": 1.0,
+          "tertiary_envelope_containment": true,
+          "spatial_trajectory_proximity_component": 0.7676894348201843,
+          "temporal_proximity_component": 1.0,
+          "origin_endpoint_proximity_component": 0.690136790069527,
+          "origin_polygon_coincidence": 1.0,
+          "track_quality_factor": 1.0,
+          "score_weights_version": "1.1.0"
+        },
+        "score_version": "1.1.0",
+        "min_distance_to_trajectory_m": 1321.9,
+        "min_distance_to_origin_m": 1854.3,
+        "closest_approach_time_utc": "2024-04-09T14:30:38.297872+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T14:30:38.297872+00:00",
+        "temporal_offset_seconds": 0.0,
+        "closest_hypothesis_particle_id": "00007_01339_persistent_0003_p015_w030",
+        "closest_hypothesis_step": 46,
+        "closest_hypothesis_windage": 0.03,
+        "is_position_inferred": true,
+        "interpolation_gap_seconds": 1200.0,
+        "inside_candidate_origin": true,
+        "inside_trajectory_envelope": true,
+        "coverage_status": "OBSERVED_IN_WINDOW",
+        "track_continuity_ratio": 1.0,
+        "identity_provenance": {
+          "mmsi": "368123450",
+          "imo": "IMO9123456",
+          "vessel_name": "MT_HORIZON_STAR",
+          "vessel_type": "Crude Oil Tanker",
+          "source_identifiers": [
+            "DEMO_STATION_GULF"
+          ],
+          "identity_resolution_status": "SINGLE_MMSI_UNRESOLVED_TEMPORAL_IDENTITY"
+        },
+        "provenance": "SYNTHETIC_DEMO_FEED",
+        "data_limitations": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_368123450_closest_approach",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.63336,
+          32.02586
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_closest_approach_point",
+        "mmsi": "368123450",
+        "vessel_name": "MT_HORIZON_STAR",
+        "imo": "IMO9123456",
+        "vessel_type": "Crude Oil Tanker",
+        "timestamp_utc": "2024-04-09T14:40:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T14:30:38.297872+00:00",
+        "min_distance_to_trajectory_m": 1321.9,
+        "min_distance_to_origin_m": 1854.3,
+        "evidence_compatibility_score": 0.8606,
+        "is_position_inferred": true,
+        "coverage_status": "OBSERVED_IN_WINDOW",
+        "provenance": "SYNTHETIC_DEMO_FEED"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_368777880_track",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            30.543359656222435,
+            32.02386008326915
+          ],
+          [
+            30.558359656222436,
+            32.03886008326915
+          ],
+          [
+            30.573359656222436,
+            32.05386008326915
+          ],
+          [
+            30.588359656222437,
+            32.06886008326915
+          ],
+          [
+            30.603359656222434,
+            32.08386008326915
+          ],
+          [
+            30.618359656222434,
+            32.09886008326915
+          ],
+          [
+            30.633359656222435,
+            32.11386008326915
+          ],
+          [
+            30.648359656222436,
+            32.128860083269146
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_track_linestring",
+        "mmsi": "368777880",
+        "vessel_name": "GULF_SUPPLIER_VII",
+        "imo": null,
+        "vessel_type": "Offshore Supply",
+        "evidence_compatibility_score": 0.8351,
+        "score_breakdown": {
+          "primary_spatial_trajectory_component": 0.741997731954586,
+          "primary_temporal_proximity_component": 1.0,
+          "secondary_origin_endpoint_component": 0.741997731954586,
+          "secondary_origin_polygon_component": 0.8464817248906141,
+          "tertiary_envelope_containment": true,
+          "spatial_trajectory_proximity_component": 0.741997731954586,
+          "temporal_proximity_component": 1.0,
+          "origin_endpoint_proximity_component": 0.741997731954586,
+          "origin_polygon_coincidence": 0.8464817248906141,
+          "track_quality_factor": 1.0,
+          "score_weights_version": "1.1.0"
+        },
+        "score_version": "1.1.0",
+        "min_distance_to_trajectory_m": 1492.0,
+        "min_distance_to_origin_m": 1492.0,
+        "closest_approach_time_utc": "2024-04-09T14:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T14:00:00+00:00",
+        "temporal_offset_seconds": 0.0,
+        "closest_hypothesis_particle_id": "00007_01339_persistent_0003_p017_w010",
+        "closest_hypothesis_step": 47,
+        "closest_hypothesis_windage": 0.01,
+        "is_position_inferred": true,
+        "interpolation_gap_seconds": 1500.0,
+        "inside_candidate_origin": true,
+        "inside_trajectory_envelope": true,
+        "coverage_status": "OBSERVED_IN_WINDOW",
+        "track_continuity_ratio": 1.0,
+        "identity_provenance": {
+          "mmsi": "368777880",
+          "imo": null,
+          "vessel_name": "GULF_SUPPLIER_VII",
+          "vessel_type": "Offshore Supply",
+          "source_identifiers": [
+            "unknown_source"
+          ],
+          "identity_resolution_status": "SINGLE_MMSI_UNRESOLVED_TEMPORAL_IDENTITY"
+        },
+        "provenance": "SYNTHETIC_DEMO_FEED",
+        "data_limitations": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_368777880_closest_approach",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.57336,
+          32.05386
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_closest_approach_point",
+        "mmsi": "368777880",
+        "vessel_name": "GULF_SUPPLIER_VII",
+        "imo": null,
+        "vessel_type": "Offshore Supply",
+        "timestamp_utc": "2024-04-09T13:50:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T14:00:00+00:00",
+        "min_distance_to_trajectory_m": 1492.0,
+        "min_distance_to_origin_m": 1492.0,
+        "evidence_compatibility_score": 0.8351,
+        "is_position_inferred": true,
+        "coverage_status": "OBSERVED_IN_WINDOW",
+        "provenance": "SYNTHETIC_DEMO_FEED"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_369555660_closest_approach",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.54336,
+          31.98586
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_closest_approach_point",
+        "mmsi": "369555660",
+        "vessel_name": "GLITCH_RUNNER",
+        "imo": null,
+        "vessel_type": null,
+        "timestamp_utc": "2024-04-09T13:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T14:30:38.297872+00:00",
+        "min_distance_to_trajectory_m": 1886.3,
+        "min_distance_to_origin_m": 2028.8,
+        "evidence_compatibility_score": 0.4461,
+        "is_position_inferred": false,
+        "coverage_status": "OUTSIDE_WINDOW",
+        "provenance": "SYNTHETIC_DEMO_FEED"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_367111220_track",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            29.943359656222437,
+            31.985860083269152
+          ],
+          [
+            29.948359656222436,
+            31.99086008326915
+          ],
+          [
+            29.95335965622244,
+            31.995860083269154
+          ],
+          [
+            29.958359656222438,
+            32.00086008326915
+          ],
+          [
+            29.963359656222437,
+            32.005860083269155
+          ],
+          [
+            29.968359656222436,
+            32.01086008326915
+          ],
+          [
+            29.97335965622244,
+            32.01586008326915
+          ],
+          [
+            29.978359656222437,
+            32.02086008326915
+          ],
+          [
+            29.983359656222436,
+            32.02586008326915
+          ],
+          [
+            29.98835965622244,
+            32.030860083269154
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_track_linestring",
+        "mmsi": "367111220",
+        "vessel_name": "OCEAN_TUG_TITAN",
+        "imo": "IMO9333444",
+        "vessel_type": "Tug / Supply",
+        "evidence_compatibility_score": 0.2937,
+        "score_breakdown": {
+          "primary_spatial_trajectory_component": 3.695645864401916e-05,
+          "primary_temporal_proximity_component": 0.9789481541381837,
+          "secondary_origin_endpoint_component": 3.0503789422068184e-05,
+          "secondary_origin_polygon_component": 0.0,
+          "tertiary_envelope_containment": false,
+          "spatial_trajectory_proximity_component": 3.695645864401916e-05,
+          "temporal_proximity_component": 0.9789481541381837,
+          "origin_endpoint_proximity_component": 3.0503789422068184e-05,
+          "origin_polygon_coincidence": 0.0,
+          "track_quality_factor": 1.0,
+          "score_weights_version": "1.1.0"
+        },
+        "score_version": "1.1.0",
+        "min_distance_to_trajectory_m": 51028.9,
+        "min_distance_to_origin_m": 51988.3,
+        "closest_approach_time_utc": "2024-04-09T15:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T15:01:16.595745+00:00",
+        "temporal_offset_seconds": 76.6,
+        "closest_hypothesis_particle_id": "00007_01339_persistent_0003_p005_w010",
+        "closest_hypothesis_step": 45,
+        "closest_hypothesis_windage": 0.01,
+        "is_position_inferred": false,
+        "interpolation_gap_seconds": 0.0,
+        "inside_candidate_origin": false,
+        "inside_trajectory_envelope": false,
+        "coverage_status": "OBSERVED_IN_WINDOW",
+        "track_continuity_ratio": 1.0,
+        "identity_provenance": {
+          "mmsi": "367111220",
+          "imo": "IMO9333444",
+          "vessel_name": "OCEAN_TUG_TITAN",
+          "vessel_type": "Tug / Supply",
+          "source_identifiers": [
+            "DEMO_STATION_GULF"
+          ],
+          "identity_resolution_status": "SINGLE_MMSI_UNRESOLVED_TEMPORAL_IDENTITY"
+        },
+        "provenance": "SYNTHETIC_DEMO_FEED",
+        "data_limitations": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_367111220_closest_approach",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          29.98836,
+          32.03086
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_closest_approach_point",
+        "mmsi": "367111220",
+        "vessel_name": "OCEAN_TUG_TITAN",
+        "imo": "IMO9333444",
+        "vessel_type": "Tug / Supply",
+        "timestamp_utc": "2024-04-09T15:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T15:01:16.595745+00:00",
+        "min_distance_to_trajectory_m": 51028.9,
+        "min_distance_to_origin_m": 51988.3,
+        "evidence_compatibility_score": 0.2937,
+        "is_position_inferred": false,
+        "coverage_status": "OBSERVED_IN_WINDOW",
+        "provenance": "SYNTHETIC_DEMO_FEED"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_366333440_track",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            30.513359656222438,
+            31.905860083269154
+          ],
+          [
+            30.673359656222434,
+            32.06586008326915
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_track_linestring",
+        "mmsi": "366333440",
+        "vessel_name": "SEA_PROWLER",
+        "imo": null,
+        "vessel_type": "Fishing Vessel",
+        "evidence_compatibility_score": 0.2087,
+        "score_breakdown": {
+          "primary_spatial_trajectory_component": 0.36961040930693734,
+          "primary_temporal_proximity_component": 0.20275748265790128,
+          "secondary_origin_endpoint_component": 0.0,
+          "secondary_origin_polygon_component": 0.0,
+          "tertiary_envelope_containment": false,
+          "spatial_trajectory_proximity_component": 0.36961040930693734,
+          "temporal_proximity_component": 0.20275748265790128,
+          "origin_endpoint_proximity_component": 0.0,
+          "origin_polygon_coincidence": 0.0,
+          "track_quality_factor": 1.0,
+          "score_weights_version": "1.1.0"
+        },
+        "score_version": "1.1.0",
+        "min_distance_to_trajectory_m": 4976.5,
+        "min_distance_to_origin_m": 8113.4,
+        "closest_approach_time_utc": "2024-04-09T17:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T18:35:44.680851+00:00",
+        "temporal_offset_seconds": 5744.7,
+        "closest_hypothesis_particle_id": "00007_01339_persistent_0003_p019_w030",
+        "closest_hypothesis_step": 38,
+        "closest_hypothesis_windage": 0.03,
+        "is_position_inferred": false,
+        "interpolation_gap_seconds": 0.0,
+        "inside_candidate_origin": false,
+        "inside_trajectory_envelope": false,
+        "coverage_status": "TELEMETRY_GAP_ACROSS_WINDOW",
+        "track_continuity_ratio": 1.0,
+        "identity_provenance": {
+          "mmsi": "366333440",
+          "imo": null,
+          "vessel_name": "SEA_PROWLER",
+          "vessel_type": "Fishing Vessel",
+          "source_identifiers": [
+            "unknown_source"
+          ],
+          "identity_resolution_status": "SINGLE_MMSI_UNRESOLVED_TEMPORAL_IDENTITY"
+        },
+        "provenance": "SYNTHETIC_DEMO_FEED",
+        "data_limitations": [
+          "Track has large telemetry gap (8.0h); positions were not interpolated across gap."
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_366333440_closest_approach",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.67336,
+          32.06586
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_closest_approach_point",
+        "mmsi": "366333440",
+        "vessel_name": "SEA_PROWLER",
+        "imo": null,
+        "vessel_type": "Fishing Vessel",
+        "timestamp_utc": "2024-04-09T17:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-09T18:35:44.680851+00:00",
+        "min_distance_to_trajectory_m": 4976.5,
+        "min_distance_to_origin_m": 8113.4,
+        "evidence_compatibility_score": 0.2087,
+        "is_position_inferred": false,
+        "coverage_status": "TELEMETRY_GAP_ACROSS_WINDOW",
+        "provenance": "SYNTHETIC_DEMO_FEED"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_368987650_track",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            30.473359656222435,
+            31.86586008326915
+          ],
+          [
+            30.500026322889102,
+            31.89252674993582
+          ],
+          [
+            30.52669298955577,
+            31.919193416602486
+          ],
+          [
+            30.553359656222433,
+            31.94586008326915
+          ],
+          [
+            30.5800263228891,
+            31.972526749935817
+          ],
+          [
+            30.606692989555768,
+            31.999193416602484
+          ],
+          [
+            30.633359656222435,
+            32.02586008326915
+          ],
+          [
+            30.660026322889102,
+            32.052526749935815
+          ],
+          [
+            30.68669298955577,
+            32.079193416602486
+          ],
+          [
+            30.713359656222433,
+            32.10586008326915
+          ]
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_track_linestring",
+        "mmsi": "368987650",
+        "vessel_name": "MV_PACIFIC_CARRIER",
+        "imo": "IMO9876543",
+        "vessel_type": "Container Ship",
+        "evidence_compatibility_score": 0.0,
+        "score_breakdown": {
+          "primary_spatial_trajectory_component": 0.0,
+          "primary_temporal_proximity_component": 0.0,
+          "secondary_origin_endpoint_component": 0.0,
+          "secondary_origin_polygon_component": 1.2280690546562632e-15,
+          "tertiary_envelope_containment": false,
+          "spatial_trajectory_proximity_component": 0.0,
+          "temporal_proximity_component": 0.0,
+          "origin_endpoint_proximity_component": 0.0,
+          "origin_polygon_coincidence": 1.2280690546562632e-15,
+          "track_quality_factor": 1.0,
+          "score_weights_version": "1.1.0"
+        },
+        "score_version": "1.1.0",
+        "min_distance_to_trajectory_m": 13665.5,
+        "min_distance_to_origin_m": 13669.3,
+        "closest_approach_time_utc": "2024-04-08T02:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-10T14:00:00+00:00",
+        "temporal_offset_seconds": 118800.0,
+        "closest_hypothesis_particle_id": "00007_01339_persistent_0003_p001_w010",
+        "closest_hypothesis_step": 0,
+        "closest_hypothesis_windage": 0.01,
+        "is_position_inferred": false,
+        "interpolation_gap_seconds": 0.0,
+        "inside_candidate_origin": false,
+        "inside_trajectory_envelope": false,
+        "coverage_status": "OUTSIDE_WINDOW",
+        "track_continuity_ratio": 1.0,
+        "identity_provenance": {
+          "mmsi": "368987650",
+          "imo": "IMO9876543",
+          "vessel_name": "MV_PACIFIC_CARRIER",
+          "vessel_type": "Container Ship",
+          "source_identifiers": [
+            "DEMO_STATION_GULF"
+          ],
+          "identity_resolution_status": "SINGLE_MMSI_UNRESOLVED_TEMPORAL_IDENTITY"
+        },
+        "provenance": "SYNTHETIC_DEMO_FEED",
+        "data_limitations": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "vessel_368987650_closest_approach",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.47336,
+          31.86586
+        ]
+      },
+      "properties": {
+        "feature_type": "vessel_closest_approach_point",
+        "mmsi": "368987650",
+        "vessel_name": "MV_PACIFIC_CARRIER",
+        "imo": "IMO9876543",
+        "vessel_type": "Container Ship",
+        "timestamp_utc": "2024-04-08T02:00:00+00:00",
+        "closest_hypothesis_time_utc": "2024-04-10T14:00:00+00:00",
+        "min_distance_to_trajectory_m": 13665.5,
+        "min_distance_to_origin_m": 13669.3,
+        "evidence_compatibility_score": 0.0,
+        "is_position_inferred": false,
+        "coverage_status": "OUTSIDE_WINDOW",
+        "provenance": "SYNTHETIC_DEMO_FEED"
+      }
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "task_id": "OCEAN-SENTINEL-REPORT-RECONCILIATION-LEARNING-HARDENING-V1-CLOSURE",
+  "timestamp_utc": "2026-09-21T05:16:07.566812+00:00",
+  "purpose": "Baseline SHA-256 integrity hashes for legacy outputs material to duplicate-pair history",
+  "total_legacy_artifacts": 14,
+  "artifacts": [
+    {
+      "path": "outputs/temporal/00007_to_01339_temporal_events.geojson",
+      "filename": "00007_to_01339_temporal_events.geojson",
+      "size_bytes": 404593,
+      "sha256": "317b9d410d4a9d4ef339fe8028e61e3e1f7e12c29f44305f5e5bfbd224d126b5",
+      "label": "LEGACY_INVALID_TEMPORAL_PAIR",
+      "validity_status": "INVALID",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/temporal/00007_to_01339_temporal_summary.json",
+      "filename": "00007_to_01339_temporal_summary.json",
+      "size_bytes": 405365,
+      "sha256": "52adaebb62141908fbe9e119aedf3b64e6421b71608917f75803aeb5367ae50a",
+      "label": "LEGACY_INVALID_TEMPORAL_PAIR",
+      "validity_status": "INVALID",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/temporal/00260_to_00608_temporal_events.geojson",
+      "filename": "00260_to_00608_temporal_events.geojson",
+      "size_bytes": 585276,
+      "sha256": "95ceaa1cd77f7c7d1eb78f3e6b5be85193df2849c06fdfc8e1968f39d12d0c62",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/temporal/00260_to_00608_temporal_summary.json",
+      "filename": "00260_to_00608_temporal_summary.json",
+      "size_bytes": 584016,
+      "sha256": "4bb59ad24aa88dc305ab9c7b7e8733236d3af2163807b60d64ee61fa9b67e2c1",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/origin_drift/trujillo_00007_01339.geojson",
+      "filename": "trujillo_00007_01339.geojson",
+      "size_bytes": 284621,
+      "sha256": "4befe0b52a3f5aa13d54f270e25ca72e0dc403420c2f42d52ac7006ebb828d04",
+      "label": "SYNTHETIC_DEMO (DERIVED FROM INVALID PAIR)",
+      "validity_status": "SYNTHETIC_DEMO_NON_EVENT",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/origin_drift/trujillo_00007_01339_summary.json",
+      "filename": "trujillo_00007_01339_summary.json",
+      "size_bytes": 2550,
+      "sha256": "a034f215f93d81b465e2e10bd5b3f45c7acf14fee7768c5c7fd8f0f4b1b4e93f",
+      "label": "SYNTHETIC_DEMO (DERIVED FROM INVALID PAIR)",
+      "validity_status": "SYNTHETIC_DEMO_NON_EVENT",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/drift/00260_00608_new_0010_backward_drift.geojson",
+      "filename": "00260_00608_new_0010_backward_drift.geojson",
+      "size_bytes": 273517,
+      "sha256": "0766eae1cd2f77f68049ff2a689012837c5fb3aca796ded7ef379f188a477e44",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/drift/00260_00608_new_0010_backward_drift_summary.json",
+      "filename": "00260_00608_new_0010_backward_drift_summary.json",
+      "size_bytes": 2539,
+      "sha256": "4405baff70c99fe724aa36fc5d7350d7df2f4e691d4eac4711b37408a3b75b42",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/drift/00260_00608_new_0010_forward_drift.geojson",
+      "filename": "00260_00608_new_0010_forward_drift.geojson",
+      "size_bytes": 282677,
+      "sha256": "e256f7e54dcf44bc3a3ed3d3dca5d4aaa756142c14f00ce5aabdb03d21b11809",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/drift/00260_00608_new_0010_forward_drift_summary.json",
+      "filename": "00260_00608_new_0010_forward_drift_summary.json",
+      "size_bytes": 2267,
+      "sha256": "5ce655d4be0ef1330bb3b0239f5e48b85e218e126b27612eae141f57efb86d63",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/ais/trujillo_00007_01339.geojson",
+      "filename": "trujillo_00007_01339.geojson",
+      "size_bytes": 24504,
+      "sha256": "d24b12922790aba0c378933b04c10379fae1984819b32d46e1e4b4c6f5ade811",
+      "label": "SYNTHETIC_DEMO (NON-EVENT CORRELATION)",
+      "validity_status": "SYNTHETIC_DEMO_NON_EVENT",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/ais/trujillo_00007_01339_summary.json",
+      "filename": "trujillo_00007_01339_summary.json",
+      "size_bytes": 12819,
+      "sha256": "1f78baeb8d19ececf5d21dad02515f17e8872aa5a20d34e16911c806150132b1",
+      "label": "SYNTHETIC_DEMO (NON-EVENT CORRELATION)",
+      "validity_status": "SYNTHETIC_DEMO_NON_EVENT",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/ais/00260_00608_new_0010_ais_correlation.geojson",
+      "filename": "00260_00608_new_0010_ais_correlation.geojson",
+      "size_bytes": 22815,
+      "sha256": "a9ccd128de0d080ecc1d206313f35309671edf1a31158a0a6d66d222ca1b2ecf",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    },
+    {
+      "path": "outputs/ais/00260_00608_new_0010_ais_correlation_summary.json",
+      "filename": "00260_00608_new_0010_ais_correlation_summary.json",
+      "size_bytes": 11164,
+      "sha256": "2c1f01d6a2a3f32cc0e9cd5b70d7b3ac515b140894451690d6871f0a9a0ad8bc",
+      "label": "HISTORICAL_REANALYSIS_CANDIDATE",
+      "validity_status": "PROVENANCE_LIMITED_AWAITING_TIMESTAMPS",
+      "cannot_claim_valid_real_evidence": true
+    }
+  ],
+  "rules": {
+    "preservation_vs_validity": "Preserved on disk for historical auditability; rejected at orchestration boundary from claiming valid current real evidence.",
+    "temporal_duplicate_label": "LEGACY_INVALID",
+    "drift_ais_forcing_label": "SYNTHETIC_DEMO"
+  },
+  "status": "EVIDENCE_CLOSED_VERIFIED"
+}
