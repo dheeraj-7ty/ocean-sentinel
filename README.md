@@ -1,158 +1,259 @@
 # Ocean Sentinel
 
-Satellite-based oil-spill investigation and vessel-attribution system.
+> **Earth-Observation Maritime Investigation & SAR Anomaly Platform**
+> Operational real-data Sentinel-1 acquisition, cryptographic provenance, fail-closed SAR validation, and REST API evidence orchestration.
 
-## Overview
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Governance: V2](https://img.shields.io/badge/Governance-V2%20Active-brightgreen.svg)](docs/governance/)
+[![Tests: 201 Passing](https://img.shields.io/badge/Tests-201%20In--Scope%20Pass-success.svg)](tests/)
+[![Scientific Execution: Gated](https://img.shields.io/badge/Scientific%20Execution-Gated-orange.svg)](docs/CURRENT_STATUS.md)
 
-Ocean Sentinel processes real satellite observations to detect potential oil spills,
-analyze their temporal evolution, correlate incidents with vessel trajectories,
-estimate probable sources, and provide explainable investigation results.
+---
 
-## Architecture
+## 1. Mission
+
+Ocean Sentinel is an Earth-observation maritime investigation platform engineered to process real synthetic aperture radar (SAR) observations from the European Space Agency's Copernicus constellation.
+
+The system provides an end-to-end, fail-closed operational bridge from user-defined spatio-temporal requests to validated, cryptographically bound satellite evidence:
+- **Discovers** Sentinel-1 GRD observations matching user Areas of Interest (AOI).
+- **Retrieves** real dual-polarization (`[VV, VH]`) radar rasters from the Copernicus Data Space Ecosystem (CDSE).
+- **Persists** acquired imagery atomically with cryptographic SHA-256 digests and structured metadata sidecars.
+- **Validates** radiometric properties, geospatial coordinate reference systems, and polarization channel contracts (`Ch0 = VH`, `Ch1 = VV`).
+- **Orchestrates** investigation jobs through a deterministic lifecycle into a sealed evidence state (`READY_FOR_DETECTION`).
+
+For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md).
+
+---
+
+## 2. Current Verified State
+
+| Status Dimension | Verified Reality | Evidence Authority |
+| :--- | :--- | :--- |
+| **Current Milestone** | **Phase 6C Closure & Operational Contract Hardening** | PR #11 (`3c5ca81`), PR #10 (`12d7be6`) |
+| **Operational Pipeline** | **Production-grade synchronous workflow operational** | Proven via live CDSE & live REST API smoke tests |
+| **Scientific Safety** | **Strictly Gated (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` fail-closed firewall |
+| **Protected Baseline** | **8/8 Canonical baseline files bitwise intact (100%)** | `test_all_eight_protected_baseline_hashes_match` |
+| **Automated Tests** | **201/201 In-scope tests passing (100%)** | 9 governed operational and guardrail suites |
+| **Git Working Tree** | **Clean (0 staged, 0 modified, 0 untracked)** | Synchronized with `origin/master` |
+| **Next Milestone** | **Phase 7: 3D Operational Globe Interface** | Interactive Web Visualizer for Evidence |
+
+---
+
+## 3. Operational Pipeline Architecture
+
+The Phase 6 operational chain transforms raw satellite data into validated, audit-ready operational evidence:
 
 ```
-AOI + Time Range
-       ↓
-Request Validation
-       ↓
-Sentinel Discovery Service
-       ↓
-Copernicus STAC API
-       ↓
-Sentinel-1 GRD Acquisition Metadata
-       ↓
-Sentinel Imagery Service
-       ↓
-Copernicus Sentinel Hub Process API
-       ↓
-Processed Sentinel-1 Raster (GeoTIFF / FLOAT32)
-       ↓
-Raster / Geospatial Validation
-       ↓
-Future ML Pipeline
+[ Operator / API Request ]
+            │  (AOI Polygon + Datetime Window + Polarization [VV, VH])
+            ▼
+    [ SUBMITTED ] ─────────── (Job Manifest Initialized in outputs/jobs/)
+            │
+            ▼
+   [ DISCOVERING ] ────────── (Copernicus CDSE STAC Search: sentinel-1-grd)
+            │
+            ▼
+    [ ACQUIRING ] ─────────── (Copernicus Sentinel Hub Process API: Multi-Band Float32 GeoTIFF)
+            │
+            ▼
+   [ PERSISTING ] ─────────── (Atomic Storage to data/raw/acquisitions/ + Metadata Sidecar)
+            │
+            ▼
+    [ VALIDATING ] ────────── (SHA-256 Hash Binding + SAR Preflight + Mapping A Channel Order)
+            │
+            ▼
+[ READY_FOR_DETECTION ] ───── (Evidence Object Sealed: execution_authorized=False, has_prediction=False)
 ```
 
-## Current Phase: 1C — Scientific Data Pipeline & Dataset Construction
+### Core Operational Invariants
+1. **Synchronous REST Lifecycle**: `POST /api/v1/acquisitions` executes synchronously, running discovery, materialization, persistence, and preflight validation, returning only after reaching a terminal state.
+2. **Collision-Resistant Job Identifiers**: Job IDs are generated as `acq_{timestamp}_{token_hex(4)}`—unique, collision-resistant operational tokens.
+3. **Canonical Persistence Namespace**: Materialized rasters and sidecars persist under `data/raw/acquisitions/{product_id}/`.
+4. **Host Path Sanitization**: API responses sanitize host filesystem paths into relative references, preventing local machine environment leakage.
+5. **Channel Order Determinism**: Dual-polarization rasters are validated and stacked so that Channel 0 is always VH and Channel 1 is always VV (Mapping A contract), invariant to provider band response order.
+6. **Empirical Raster Format**: Observations are materialized as multi-band, strip-organized GeoTIFFs (`driver: GTiff`, `dtype: float32`, `tiled: False`), bound by SHA-256 digests.
 
-- Phase 1A ✅: Project foundation, configuration, models, errors
-- Phase 1B.1 ✅: Copernicus OAuth2 authentication
-- Phase 1B.2 ✅: Sentinel-1 STAC discovery
-- Phase 1B.3.1 ✅: Sentinel-1 Process API request construction
-- Phase 1B.3.2 ✅: Sentinel-1 Imagery retrieval (Process API download & raster validation)
-- Phase 1C.1 ✅: SAR Preprocessing & Scientific Data Pipeline (dB conversion, invalid masking, per-band normalization)
-- Phase 1C.2 ⏳: Dataset Construction
+---
 
-### Running Tests
+## 4. Scientific Safety & Gating
 
-```bash
-# Run all unit tests
-pytest -v
+Ocean Sentinel enforces a strict architectural firewall between operational data acquisition and scientific inference:
 
-# Verify real Copernicus authentication (requires .env credentials)
-python scripts/verify_auth.py
-
-# Verify real STAC discovery (requires .env credentials)
-python scripts/verify_stac.py
-
-# Verify real Process API imagery retrieval (requires .env credentials)
-python scripts/verify_imagery.py
-
-# Verify real SAR preprocessing pipeline (requires .env credentials)
-python scripts/verify_preprocessing.py
+```yaml
+SCIENTIFIC_SAFETY_STATE:
+  EXECUTION_AUTHORIZED: false
+  MODEL_INFERENCE: 0 (Zero forward passes executed)
+  MODEL_TRAINING: 0 (Zero parameter weight updates)
+  HOLDOUT_EVALUATION: 0 (Zero holdout dataset access)
+  TRUJILLO_PART_III_ACCESS: 0 (Quarantined)
+  THRESHOLD_TUNING: 0 (Zero threshold adjustment)
+  SCIENTIFIC_DETECTION_CLAIMS: 0 (Zero candidate slicks claimed)
+  VESSEL_ATTRIBUTION: 0 (Zero causal blame assigned)
 ```
 
-### Prerequisites
+The canonical trained model checkpoint [`experiments/performance/exp06_positive_bce_weight/best_model.pt`](file:///d:/Projects/ocean-sentinel/experiments/performance/exp06_positive_bce_weight/best_model.pt) is verified against the canonical SHA-256 digest (`B5FFCCA3...E8DF`) derived dynamically from [`experiments/ARTIFACT_REGISTRY.md`](experiments/ARTIFACT_REGISTRY.md) Section 7.1.
 
-- CPython >= 3.10 (from [python.org](https://www.python.org/downloads/))
-  - MSYS2 Python is **not** supported (lacks pre-built wheel compatibility)
-- A Copernicus Data Space Ecosystem account
-- Sentinel Hub OAuth2 client credentials
+---
 
-### Setup
+## 5. Verified Capabilities vs. Gated Boundaries
 
-```bash
-# Clone repository
-git clone <repo-url> ocean-sentinel
-cd ocean-sentinel
+| Capability Category | Verified Operational Capabilities | Gated / Future Capabilities |
+| :--- | :--- | :--- |
+| **Satellite Access** | Real Copernicus CDSE OAuth2 token management, STAC catalog search, and Sentinel Hub Process API multi-band retrieval. | Automatic multi-scene batch scheduling across distributed clusters. |
+| **Persistence & Provenance** | Atomic GeoTIFF file writes, SHA-256 hash verification, JSON metadata sidecars, and manifest logging. | Cloud object store (S3/GCS) direct streaming adapters. |
+| **SAR Validation** | Dimensions, float32 dtype, EPSG:4326 CRS, non-empty raster checks, and Mapping A channel ordering (`Ch0=VH, Ch1=VV`). | On-the-fly Doppler centroid correction or terrain correction. |
+| **API Surface** | FastAPI endpoints (`/api/v1/acquisitions`, `/api/v1/acquisitions/{job_id}`, `/api/v1/acquisitions/{job_id}/result`, `/api/v1/health`). | Asynchronous background task workers (Celery/Redis/arq). |
+| **Scientific Inference** | Operational SAR preflight checks and dynamic canonical checkpoint hash derivation. | **GATED**: Model forward passes, segmentation masks, and slick candidate extraction. |
+| **Vessel Attribution** | Spatio-temporal heuristic alignment demonstration (`AIS_ABSENCE_IS_NOT_VESSEL_ABSENCE`). | **GATED**: Legal or causal blame attribution. |
 
-# Create virtual environment (use python.org CPython, not MSYS2)
-# Windows example with explicit path:
-"C:\Users\<you>\AppData\Local\Programs\Python\Python310\python.exe" -m venv venv
-venv\Scripts\activate
+---
 
-# Linux/macOS:
-# python3 -m venv venv
-# source venv/bin/activate
+## 6. Project History & Reconciled Taxonomy
 
-# Install dependencies (includes rasterio with GDAL)
-pip install -e ".[dev]"
+The repository history comprises four distinct engineering tracks:
 
-# Configure credentials
-copy .env.example .env
-# Edit .env with your Copernicus credentials
-```
+1. **Track 1: Foundation & Data Access Prototype (Phases 1A – 1C)**: Initial package layout, Copernicus OAuth2 authentication, STAC discovery, and exploratory preprocessing. *(Historical / Superseded)*
+2. **Track 2: Scientific Research & ML Training (Phases 2 – 8, EXP-01 – EXP-08)**: Baseline model exploration, hard negative training (EXP-03–EXP-06), Part III external evaluation, and OPS-01/OPS-02 dataset split freezes. *(Historical Research Baseline)*
+3. **Track 3: Governance V2 & Repository Integration**: 8 protected baseline files, machine-verifiable rule/lesson/incident catalogs, 10-commit-group integration, and surgical artifact accounting. *(Governed / Active)*
+4. **Track 4: Operational Production Pipeline (Phases 6A – 6C)**: Fail-closed operational SAR pipeline, live CDSE acquisition proof, persistent GeoTIFF storage, and FastAPI REST endpoints. *(Current Verified Milestone)*
 
-### Running Tests
+For the complete evidence-backed timeline, see [**`docs/PROJECT_PHASE_HISTORY.md`**](docs/PROJECT_PHASE_HISTORY.md).
+For the complete claim-to-proof mapping, see [**`docs/EVIDENCE_MATRIX.md`**](docs/EVIDENCE_MATRIX.md).
 
-```bash
-pytest -v
-```
+---
 
-## Project Structure
+## 7. Evidence & Governance Integrity
+
+### 7.1 Protected Baseline (8/8 Match)
+Under strict CAO repository policy, the following 8 canonical files are frozen:
+1. `data/metadata/governance_v2/rules.json`
+2. `data/metadata/governance_v2/lessons.json`
+3. `data/metadata/governance_v2/incidents.json`
+4. `src/ocean_sentinel/governance/runner.py`
+5. `src/ocean_sentinel/ingestion/dataset.py`
+6. `src/ocean_sentinel/temporal.py`
+7. `experiments/performance/exp06_positive_bce_weight/best_model.pt`
+8. `docs/exp08_corrected_protocol.md`
+
+### 7.2 Cross-AI Evidence Inventory
+- **Total Declared Sources**: 17
+- **Accessible & Evaluated**: 13 (AI-SRC-001 through AI-SRC-013; AI-SRC-008 is formally superseded)
+- **Unavailable / Unverified**: 4 (AI-SRC-014 Claude, AI-SRC-015 Perplexity, AI-SRC-016 ChatGPT/Codex, AI-SRC-017 OpenCode)
+
+---
+
+## 8. Repository Structure
 
 ```
 ocean-sentinel/
-├── src/
-│   └── ocean_sentinel/
-│       ├── __init__.py          # Package metadata
-│       ├── config.py            # Configuration management
-│       ├── models.py            # Data models (AOI, acquisitions)
-│       ├── errors.py            # Error taxonomy
-│       ├── satellite/           # Satellite data access subsystem
-│       │   ├── __init__.py      # Satellite subsystem boundary
-│       │   ├── auth.py          # OAuth2 token management
-│       │   ├── discovery.py     # STAC-based product discovery
-│       │   └── imagery.py       # Sentinel Hub Process API
-│       └── processing/          # SAR & raster processing subsystem
-│           ├── __init__.py      # Processing subsystem exports
-│           ├── models.py        # Preprocessing configuration and data structures
-│           └── sar.py           # SAR backscatter, dB conversion & normalization
-├── tests/
-│   ├── conftest.py              # Shared fixtures
-│   ├── test_auth.py             # Authentication tests
-│   ├── test_discovery.py        # STAC discovery tests
-│   ├── test_config.py           # Configuration tests
-│   ├── test_models.py           # Data model tests
-│   ├── test_imagery_request.py  # Process API request construction tests
-│   ├── test_imagery_service.py  # Process API imagery retrieval tests
-│   ├── test_preprocessing.py    # SAR preprocessing & scientific tests
-│   ├── test_errors.py           # Error model tests
-│   └── test_raster_env.py       # Raster environment validation
-├── scripts/
-│   ├── verify_auth.py           # Real Copernicus auth verification
-│   ├── verify_stac.py           # Real STAC discovery verification
-│   ├── verify_imagery.py        # Real Process API imagery retrieval verification
-│   └── verify_preprocessing.py  # Real SAR preprocessing pipeline verification
-├── docs/
-│   ├── architecture.md          # Architecture documentation
-│   ├── copernicus-integration.md # Copernicus API details
-│   ├── sar-preprocessing.md     # SAR preprocessing & radiometric documentation
-│   ├── configuration.md         # Configuration guide
-│   └── adr/
-│       └── 001-copernicus-stac-sentinelhub.md  # ADR
-├── .env.example                 # Configuration template
-├── .gitignore                   # Git exclusions
-├── pyproject.toml               # Project metadata & dependencies
-└── README.md                    # This file
+├── src/ocean_sentinel/          # Core Python package
+│   ├── api/                     # FastAPI backend application, routes, and Pydantic schemas
+│   ├── satellite/               # Copernicus CDSE OAuth2, STAC discovery, imagery, persistence
+│   ├── orchestration/           # Acquisition job orchestrator, state machine, job store
+│   ├── processing/              # SAR backscatter, dB conversion, and normalization
+│   ├── ingestion/               # Dataset ingestion schemas and spatial contracts
+│   ├── governance/              # Governed preflight runner and integrity checkers
+│   ├── operational_pipeline.py  # Phase 6 operational SAR pipeline & detection boundary
+│   ├── temporal.py              # Temporal change analysis & timeline geometry
+│   ├── drift.py                 # Particle drift simulation & windage models
+│   ├── ais.py                   # Vessel AIS trajectory ingestion & correlation
+│   └── fusion.py                # Multi-source evidence fusion & scoring
+├── tests/                       # Automated test battery (142 files; 201 in-scope tests)
+├── scripts/                     # Operational runners (run_backend.py, verify_auth.py, etc.)
+├── docs/                        # Architecture, reports, status, and governance contracts
+│   ├── CURRENT_STATUS.md        # Single authoritative current-state document
+│   ├── PROJECT_PHASE_HISTORY.md # Complete chronological phase evolution
+│   └── EVIDENCE_MATRIX.md       # Traceable claim-to-proof verification matrix
+├── experiments/                 # ML research artifacts, experiment logs, ARTIFACT_REGISTRY.md
+├── frontend/                    # Vite + React 19 + TypeScript + Three.js web UI console
+├── data/                        # Governed metadata catalogs & raw acquisition storage
+└── outputs/                     # Investigation evidence payloads and job execution logs
 ```
 
-## Security
+---
 
-- Credentials are loaded from environment variables / `.env` file
-- `.env` is excluded from Git via `.gitignore`
-- Secrets are wrapped in `SecretStr` to prevent accidental logging
-- No credentials are ever committed, logged, or serialized
+## 9. Development & Testing Quickstart
 
-## License
+### Prerequisites
+- **Python**: CPython >= 3.10 (managed with `uv` or `venv`)
+- **Node.js**: >= 18.x (for frontend web console)
+- **Copernicus CDSE Account**: (Optional for unit tests; required for live Earth-observation acquisitions)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/dheeraj-7ty/ocean-sentinel.git
+cd ocean-sentinel
+
+# Create and activate virtual environment (using uv)
+uv venv .venv
+source .venv/bin/activate       # Linux/macOS
+# .venv\Scripts\activate        # Windows
+
+# Install package with development dependencies
+uv pip install -e ".[dev]"
+```
+
+### Running In-Scope Automated Tests
+
+The authoritative in-scope Phase 6 test suite comprises 201 tests across 9 operational and policy suites:
+
+```bash
+# Run the 201 in-scope operational & guardrail tests
+pytest \
+  tests/test_acquisition_job.py \
+  tests/test_backend_api.py \
+  tests/test_acquisition_persistence.py \
+  tests/test_operational_pipeline.py \
+  tests/test_imagery_service.py \
+  tests/test_discovery.py \
+  tests/test_pipeline_orchestration.py \
+  tests/test_source_control_policy_and_reporting_guardrails.py \
+  tests/test_artifact_policy.py
+```
+
+### Running the Backend API Server
+
+```bash
+# Launch the FastAPI operational backend (port 8000)
+python scripts/run_backend.py --host 127.0.0.1 --port 8000 --reload
+```
+- API Base: `http://127.0.0.1:8000`
+- Interactive OpenAPI Docs: `http://127.0.0.1:8000/docs`
+- Health Check: `http://127.0.0.1:8000/api/v1/health`
+
+### Running the Frontend Console
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+- Web Console: `http://localhost:5173` (proxies `/api` to `http://127.0.0.1:8000`)
+
+---
+
+## 10. Roadmap & Next Milestone
+
+- **Phase 7: 3D Operational Globe & Geospatial Investigation Interface**:
+  - Connect the Three.js interactive globe directly to the Phase 6C REST API.
+  - Visualize Sentinel-1 observation footprints, AOI bounding boxes, and persisted GeoTIFF metadata.
+  - Stream real-time acquisition state transitions (`SUBMITTED` → `READY_FOR_DETECTION`).
+  - Maintain the scientific safety firewall (`EXECUTION_AUTHORIZED = False`).
+
+---
+
+## 11. Security
+
+- Credentials are loaded exclusively via environment variables or a local `.env` file (excluded from Git).
+- Secrets are wrapped in Pydantic `SecretStr` to prevent accidental serialization, logging, or API exposure.
+- All API responses sanitize server host filesystem paths to safe relative references.
+- No secrets or credentials are ever committed to version control.
+
+---
+
+## 12. License
 
 MIT
