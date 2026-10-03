@@ -576,6 +576,14 @@ class TestAcquisitionAPIEndpoints:
         assert data["execution_authorized"] is False
         assert data["has_prediction"] is False
 
+        # Path safety verification (Section VI.I: No absolute drive/filesystem path leakage)
+        assert data["geotiff_path"] is not None
+        assert not Path(data["geotiff_path"]).is_absolute()
+        assert not (":\\" in data["geotiff_path"] or ":/" in data["geotiff_path"])
+        assert data["metadata_path"] is not None
+        assert not Path(data["metadata_path"]).is_absolute()
+        assert not (":\\" in data["metadata_path"] or ":/" in data["metadata_path"])
+
         # Links verification
         links = data["links"]
         assert f"/api/v1/acquisitions/{data['job_id']}" in links["self"]

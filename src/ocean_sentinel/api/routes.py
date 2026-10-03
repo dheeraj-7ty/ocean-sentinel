@@ -345,6 +345,22 @@ def get_job_result(
 # ---------------------------------------------------------------------------
 
 
+def _safe_relative_path(p: Optional[str]) -> Optional[str]:
+    """Sanitize local absolute filesystem paths to safe relative logical paths for API output."""
+    if not p:
+        return None
+    try:
+        path_obj = Path(p)
+        if path_obj.is_absolute():
+            try:
+                return path_obj.relative_to(REPO_ROOT).as_posix()
+            except ValueError:
+                return path_obj.name
+        return path_obj.as_posix()
+    except Exception:
+        return str(p)
+
+
 def _build_acquisition_job_links(request: Request, job_id: str) -> AcquisitionJobLinks:
     """Build hypermedia links for an operational acquisition job."""
     base_url = str(request.base_url).rstrip("/")
@@ -372,8 +388,8 @@ def _acquisition_manifest_to_response(
         acquisition_id=manifest.acquisition_id,
         provider=manifest.provider,
         source_reference=manifest.source_reference,
-        geotiff_path=manifest.geotiff_path,
-        metadata_path=manifest.metadata_path,
+        geotiff_path=_safe_relative_path(manifest.geotiff_path),
+        metadata_path=_safe_relative_path(manifest.metadata_path),
         content_sha256=manifest.content_sha256,
         sar_validation=manifest.sar_validation,
         evidence_id=manifest.evidence_id,
@@ -389,7 +405,7 @@ def _acquisition_manifest_to_response(
     "/acquisitions",
     response_model=AcquisitionJobResponse,
     status_code=status.HTTP_201_CREATED,
-    summary="Initialize and execute an operational Earth-observation acquisition job",
+    summary="Initialize and synchronously execute an operational Earth-observation acquisition job",
     responses={
         400: {"model": ErrorResponse, "description": "Invalid input parameters or rejected provider"},
         500: {"model": ErrorResponse, "description": "Acquisition workflow failure"},
@@ -400,7 +416,7 @@ async def create_acquisition_job(
     request: Request,
     orchestrator: AcquisitionJobOrchestrator = Depends(get_acquisition_orchestrator),
 ) -> AcquisitionJobResponse:
-    """Execute an operational Earth observation acquisition workflow.
+    """Synchronously execute an operational Earth observation acquisition workflow.
 
     Workflow:
         REQUEST -> DISCOVER -> ACQUIRE -> PERSIST -> VALIDATE -> READY_FOR_DETECTION
