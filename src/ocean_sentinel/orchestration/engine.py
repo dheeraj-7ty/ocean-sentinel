@@ -125,6 +125,11 @@ class InvestigationEngine:
                 self.store.save_run(run)
                 raise ScientificGateViolationError(reason)
             else:
+                run.set_stage_status(
+                    stage_id,
+                    StageExecutionStatus.FAILED,
+                    message=f"Cannot execute stage '{stage_id}': {reason}",
+                )
                 raise InvestigationEngineError(f"Cannot execute stage '{stage_id}': {reason}")
 
         # 3. Gather input hashes from dependent stages
@@ -288,7 +293,12 @@ class InvestigationEngine:
                     self.store.save_run(run)
                     return run
                 else:
-                    logger.warning("No handler registered for un-gated stage '%s'; skipping.", stage_id)
+                    logger.warning("No handler registered for un-gated stage '%s'; marking SKIPPED.", stage_id)
+                    run.set_stage_status(
+                        stage_id,
+                        StageExecutionStatus.SKIPPED,
+                        message=f"No handler registered for un-gated stage '{stage_id}'.",
+                    )
                     continue
 
             # 4. Execute stage handler
@@ -301,9 +311,26 @@ class InvestigationEngine:
                 run.finished_at = datetime.now(timezone.utc).isoformat()
                 self.store.save_run(run)
                 return run
+            except Exception as err:
+                run.overall_status = InvestigationRunStatus.FAILED.value
+                run.error = {
+                    "code": "STAGE_EXECUTION_FAILED",
+                    "stage": stage_id,
+                    "message": str(err),
+                }
+                run.finished_at = datetime.now(timezone.utc).isoformat()
+                self.store.save_run(run)
+                raise
 
         # All eligible stages finished
-        run.overall_status = InvestigationRunStatus.SUCCEEDED.value
+        has_failed_or_skipped = any(
+            st.status in [StageExecutionStatus.FAILED.value, StageExecutionStatus.SKIPPED.value]
+            for st in run.stages.values()
+        )
+        if has_failed_or_skipped:
+            run.overall_status = InvestigationRunStatus.FAILED.value
+        else:
+            run.overall_status = InvestigationRunStatus.SUCCEEDED.value
         run.finished_at = datetime.now(timezone.utc).isoformat()
         self.store.save_run(run)
         return run

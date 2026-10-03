@@ -91,12 +91,26 @@ TRACK 5: PLANNED OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [PLANNED NEXT ENGIN
 
 ---
 
-## 6. Track 5: Next Engineering Milestone (Phase 7)
+## 6. Track 5: Investigation Spine & Presentation Layer (Phase 7)
 
-*Status*: **PLANNED / NEXT ACTIVE ENGINEERING MILESTONE**
+### Phase 7A: Investigation Run Kernel & Durable Scientific Execution Spine
+*Status*: **CURRENT VERIFIED MILESTONE (COMPLETE)**
 
-- **Milestone Name**: **Phase 7 — 3D Operational Globe & Geospatial Investigation Interface**
-- **Objective**: Connect the existing React/Three.js frontend dashboard (`frontend/`) directly to the Phase 6C REST API surface (`/api/v1/acquisitions`).
+| Sub-Phase | Focus Area | Technical Scope | Empirical Proof / Tests |
+| :--- | :--- | :--- | :--- |
+| **Phase 7A** | Investigation Spine & Crash Recovery | `InvestigationRun` domain root, `InvestigationContext`, 10-stage `ScientificDAG`, `ArtifactRef` SHA-256 integrity binding, stage attempt idempotency, process restart crash recovery, fail-closed missing-handler semantics, and Phase 6C manifest backward compatibility. | `src/ocean_sentinel/orchestration/` (`investigation_run.py`, `investigation_context.py`, `dag.py`, `engine.py`, `investigation_store.py`), `tests/test_investigation_spine.py` (15 tests passing, 216 total in-scope tests passing) |
+
+### Phase 7B: Event Spine & Stream Telemetry
+*Status*: **PLANNED / DEFERRED TO PHASE 7B**
+
+- **Milestone Name**: **Phase 7B — Event Spine & Real-Time Telemetry**
+- **Objective**: Introduce structured event emission and server-sent event (SSE) streaming for real-time stage progress reporting.
+
+### Phase 7C: 3D Operational Globe & Geospatial Investigation Interface
+*Status*: **PLANNED / NEXT ACTIVE PRESENTATION MILESTONE**
+
+- **Milestone Name**: **Phase 7C — 3D Operational Globe & Geospatial Investigation Interface**
+- **Objective**: Connect the existing React/Three.js frontend dashboard (`frontend/`) directly to the investigation API and evidence surface.
 - **Target Capabilities**:
   - Interactive 3D globe visualization of user AOI polygons and Sentinel-1 observation footprints.
   - Real-time job lifecycle tracking via HTTP polling against `/api/v1/acquisitions/{job_id}`.

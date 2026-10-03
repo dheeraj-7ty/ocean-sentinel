@@ -633,3 +633,193 @@ def test_phase6c_acquisition_manifest_backward_compatibility():
     meta_art = inv_run.get_artifact("art_metadata_acq_20261003_120000_abcd")
     assert meta_art is not None
     assert meta_art.type == ArtifactType.JSON_METADATA.value
+
+
+# ===========================================================================
+# 11. Security Guardrail: Raw Secrets Prohibited from Durable State
+# ===========================================================================
+
+
+def test_investigation_security_strictly_prohibits_raw_secrets():
+    """Verify raw bearer tokens, passwords, and API keys are strictly rejected from durable state."""
+    # 1. Clean context and run must serialize with zero credential fields
+    ctx = InvestigationContext(run_id="sec_test_01")
+    serialized_ctx = ctx.to_dict()
+    assert "access_token" not in serialized_ctx
+    assert "password" not in serialized_ctx
+    assert "client_secret" not in serialized_ctx
+
+    run = InvestigationRun(run_id="sec_test_01")
+    serialized_run = run.to_dict()
+    assert "access_token" not in serialized_run
+    assert "secret" not in serialized_run
+
+    # 2. Injecting raw secret keys into context request dictionary must be rejected
+    ctx_adversarial = InvestigationContext(
+        run_id="sec_test_bad",
+        request={"client_secret": "raw_oauth_secret_value_12345"},
+    )
+    with pytest.raises(ValueError, match="Security violation: Raw credential field 'client_secret'"):
+        ctx_adversarial.to_dict()
+
+    # 3. Injecting raw bearer token into run evidence_state must be rejected
+    run_adversarial = InvestigationRun(
+        run_id="sec_test_bad_run",
+        evidence_state={"bearer_token": "eyJh...sensitive...jwt"},
+    )
+    with pytest.raises(ValueError, match="Security violation: Raw credential field 'bearer_token'"):
+        run_adversarial.to_dict()
+
+    # 4. Deserialization must also reject raw secrets
+    with pytest.raises(ValueError, match="Security violation"):
+        InvestigationRun.from_dict({
+            "run_id": "sec_test_bad_import",
+            "request": {"api_key": "secret_api_key_xyz"},
+        })
+
+
+# ===========================================================================
+# 12. Tampered Artifact Idempotency Rejection
+# ===========================================================================
+
+
+def test_stage_idempotency_detects_tampered_artifact_and_refuses_skip(tmp_path: Path):
+    """Verify that tampering with a completed stage artifact on disk forces re-execution."""
+    store = InvestigationRunStore(base_dir=tmp_path / "investigations", repo_root=tmp_path)
+    engine = InvestigationEngine(store=store, repo_root=tmp_path)
+
+    run = InvestigationRun(
+        run_id="inv_tamper_test",
+        request=InvestigationRunRequest(analysis_mode="DEMO"),
+    )
+    context = InvestigationContext(run_id=run.run_id)
+
+    call_count = 0
+    art_path = tmp_path / "outputs/investigations/inv_tamper_test/artifacts/validate_result.json"
+
+    def mock_validate_handler(ctx: InvestigationContext, r: InvestigationRun) -> list[ArtifactRef]:
+        nonlocal call_count
+        call_count += 1
+        art_path.parent.mkdir(parents=True, exist_ok=True)
+        content = f'{{"validation": "call_{call_count}"}}'.encode("utf-8")
+        art_path.write_bytes(content)
+        digest = hashlib.sha256(content).hexdigest()
+
+        return [
+            ArtifactRef(
+                artifact_id=f"art_val_{r.run_id}",
+                type=ArtifactType.JSON_METADATA.value,
+                format="application/json",
+                path=f"outputs/investigations/{r.run_id}/artifacts/validate_result.json",
+                size_bytes=len(content),
+                sha256=digest,
+                producer_stage="VALIDATE",
+            )
+        ]
+
+    # First execution: handler invoked
+    att1 = engine.execute_stage(run, context, "VALIDATE", mock_validate_handler)
+    assert call_count == 1
+    assert att1.status == StageExecutionStatus.COMPLETED.value
+
+    # Tamper with the artifact content on disk (modify bytes)
+    tampered_content = b'{"validation": "tampered_bytes"}'
+    art_path.write_bytes(tampered_content)
+
+    # Second execution: engine must detect SHA-256 mismatch and refuse to skip
+    att2 = engine.execute_stage(run, context, "VALIDATE", mock_validate_handler)
+    assert call_count == 2  # Re-executed due to tampered artifact!
+    assert att2.status == StageExecutionStatus.COMPLETED.value
+    # Artifact on disk must now be restored to fresh valid content
+    assert run.artifacts[0].verify_integrity(tmp_path) is True
+
+
+# ===========================================================================
+# 13. Tampered Artifact Crash Recovery Fail-Closed
+# ===========================================================================
+
+
+def test_recovery_detects_tampered_artifact_and_fails_closed(tmp_path: Path):
+    """Verify that crash recovery detects corrupted/tampered artifacts and fails closed."""
+    store = InvestigationRunStore(base_dir=tmp_path / "investigations", repo_root=tmp_path)
+
+    run = InvestigationRun(
+        run_id="inv_recovery_tamper_001",
+        request=InvestigationRunRequest(analysis_mode="DEMO"),
+    )
+
+    # Persist completed stage and valid artifact
+    out_rel = "outputs/investigations/inv_recovery_tamper_001/artifacts/validate_out.json"
+    out_full = tmp_path / out_rel
+    out_full.parent.mkdir(parents=True, exist_ok=True)
+    payload = b'{"stage": "VALIDATE"}'
+    out_full.write_bytes(payload)
+    digest = hashlib.sha256(payload).hexdigest()
+
+    art = ArtifactRef(
+        artifact_id="art_val_001",
+        type=ArtifactType.JSON_METADATA.value,
+        format="application/json",
+        path=out_rel,
+        size_bytes=len(payload),
+        sha256=digest,
+        producer_stage="VALIDATE",
+    )
+    run.add_artifact(art)
+    run.set_stage_status("VALIDATE", StageExecutionStatus.COMPLETED)
+    store.save_run(run)
+
+    # Verify recovery initially reports can_resume = True
+    rec_clean = store.determine_recovery_state(run)
+    assert rec_clean.can_resume is True
+
+    # Tamper with artifact on disk
+    out_full.write_bytes(b'{"corrupted": true}')
+
+    # Store must detect corrupted artifact
+    rec_tampered = store.determine_recovery_state(run)
+    assert rec_tampered.can_resume is False
+    assert "art_val_001" in rec_tampered.corrupted_artifacts
+
+    # prepare_resume must fail closed
+    resumed_run, next_stage = store.prepare_resume(run)
+    assert next_stage is None
+    assert resumed_run.overall_status == InvestigationRunStatus.FAILED.value
+    assert resumed_run.error["code"] == "CANNOT_RESUME"
+
+
+# ===========================================================================
+# 14. Missing Required Handler Semantics
+# ===========================================================================
+
+
+def test_missing_required_handler_fails_closed_and_prevents_false_success(tmp_path: Path):
+    """Verify that omitting a handler for a required stage prevents false success."""
+    store = InvestigationRunStore(base_dir=tmp_path / "investigations", repo_root=tmp_path)
+    engine = InvestigationEngine(store=store, repo_root=tmp_path)
+
+    run = InvestigationRun(
+        run_id="inv_missing_handler_test",
+        request=InvestigationRunRequest(analysis_mode="DEMO"),
+    )
+    ctx = InvestigationContext(run_id=run.run_id)
+
+    # Provide VALIDATE and PREPROCESS, but omit INGEST
+    def mock_validate(c: InvestigationContext, r: InvestigationRun) -> list[ArtifactRef]:
+        return []
+
+    def mock_preprocess(c: InvestigationContext, r: InvestigationRun) -> list[ArtifactRef]:
+        return []
+
+    handlers = {
+        "VALIDATE": mock_validate,
+        # INGEST is intentionally omitted!
+        "PREPROCESS": mock_preprocess,
+    }
+
+    # Executing the pipeline must fail closed when PREPROCESS cannot run due to unmet INGEST dependency
+    with pytest.raises(InvestigationEngineError, match="Unmet dependencies for 'PREPROCESS'"):
+        engine.run_pipeline(run, ctx, handlers)
+
+    assert run.overall_status == InvestigationRunStatus.FAILED.value
+    assert run.stages["PREPROCESS"].status == StageExecutionStatus.FAILED.value

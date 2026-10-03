@@ -180,7 +180,13 @@ class InvestigationRunStore:
         corrupted_artifacts: List[str] = []
         interrupted_stage: Optional[str] = None
 
-        # 1. Verify artifact integrity for completed stages
+        # 1. Audit all registered artifacts for integrity
+        for art in run.artifacts:
+            if not art.verify_integrity(self.repo_root):
+                if art.artifact_id not in corrupted_artifacts:
+                    corrupted_artifacts.append(art.artifact_id)
+
+        # 2. Verify artifact integrity for completed stages
         for stage_id in topo_order:
             st = run.stages.get(stage_id)
             if st is None:
@@ -189,22 +195,15 @@ class InvestigationRunStore:
             if st.status == StageExecutionStatus.RUNNING.value:
                 interrupted_stage = stage_id
             elif st.status == StageExecutionStatus.COMPLETED.value:
-                # Check output artifacts registered for this stage
                 stage_artifacts = [a for a in run.artifacts if a.producer_stage == stage_id]
-                all_valid = True
-                for art in stage_artifacts:
-                    if not art.verify_integrity(self.repo_root):
-                        all_valid = False
-                        corrupted_artifacts.append(art.artifact_id)
-
-                if all_valid:
+                has_corrupted = any(a.artifact_id in corrupted_artifacts for a in stage_artifacts)
+                if not has_corrupted:
                     completed_stages.append(stage_id)
                 else:
-                    # Output missing/corrupted: stage cannot be considered completed
                     st.status = StageExecutionStatus.FAILED.value
-                    st.message = f"Output artifact verification failed: {corrupted_artifacts}"
+                    st.message = f"Output artifact verification failed: {[a.artifact_id for a in stage_artifacts if a.artifact_id in corrupted_artifacts]}"
 
-        # 2. Determine earliest safely resumable stage
+        # 3. Determine earliest safely resumable stage
         completed_set = set(completed_stages)
         ready_stages = active_dag.get_ready_stages(completed_set)
         if interrupted_stage and interrupted_stage in ready_stages:
@@ -212,14 +211,17 @@ class InvestigationRunStore:
         else:
             next_resumable = ready_stages[0] if ready_stages else None
 
-        # 3. Pending stages
-        pending_stages = [
-            s for s in topo_order if s not in completed_set and s != next_resumable
-        ]
-
         can_resume = len(corrupted_artifacts) == 0 and (
             next_resumable is not None or len(completed_stages) == len(topo_order)
         )
+
+        if not can_resume and len(corrupted_artifacts) > 0:
+            next_resumable = None
+
+        # 4. Pending stages
+        pending_stages = [
+            s for s in topo_order if s not in completed_set and s != next_resumable
+        ]
 
         recovery = InvestigationRunRecoveryState(
             can_resume=can_resume,

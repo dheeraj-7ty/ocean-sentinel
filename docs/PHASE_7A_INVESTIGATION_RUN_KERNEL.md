@@ -37,8 +37,8 @@ outputs/
       logs/               # Run-specific execution telemetry and logs
 ```
 
-### Atomic Persistence Guarantee
-All state files (`manifest.json`, `stages.json`, etc.) are written via atomic replacement: data is written to a temporary sibling file (`.<filename>.<pid>.tmp`) and atomically renamed into place. This guarantees that process termination or crash mid-write never leaves a corrupted authoritative record.
+### Atomic Persistence Semantics & Concurrency Scope
+All state files (`manifest.json`, `stages.json`, etc.) are written via atomic replacement: data is written to a temporary sibling file (`.<filename>.<pid>.tmp`) and atomically renamed into place using `os.replace`. Atomic replacement (`replace()`) prevents partial target-file replacement under supported filesystem replacement semantics. This design has been verified for sequential execution and process-restart recovery; concurrent multi-process worker locking is out of scope for Phase 7A and deferred by design.
 
 ---
 
