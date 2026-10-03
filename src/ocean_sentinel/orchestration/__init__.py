@@ -1,5 +1,34 @@
 """Ocean Sentinel Pipeline Orchestration Subsystem."""
 
+from ocean_sentinel.orchestration.dag import (
+    DAGNode,
+    DAGValidationError,
+    ScientificDAG,
+    create_canonical_scientific_dag,
+)
+from ocean_sentinel.orchestration.engine import (
+    InvestigationEngine,
+    InvestigationEngineError,
+    ScientificGateViolationError,
+)
+from ocean_sentinel.orchestration.investigation_context import (
+    AuthorizationState,
+    InvestigationContext,
+)
+from ocean_sentinel.orchestration.investigation_run import (
+    ArtifactRef,
+    ArtifactType,
+    ContentStatus,
+    InvestigationRun,
+    InvestigationRunRecoveryState,
+    InvestigationRunRequest,
+    InvestigationRunStatus,
+    InvestigationStageState,
+    ProvenanceClass,
+    StageAttempt,
+    StageRetryPolicy,
+)
+from ocean_sentinel.orchestration.investigation_store import InvestigationRunStore
 from ocean_sentinel.orchestration.jobs import (
     ArtifactRecord,
     JobErrorRecord,
@@ -15,6 +44,29 @@ from ocean_sentinel.orchestration.jobs import (
 from ocean_sentinel.orchestration.pipeline import PipelineOrchestrator
 
 __all__ = [
+    # Phase 7A Investigation Run Kernel
+    "ArtifactRef",
+    "ArtifactType",
+    "AuthorizationState",
+    "ContentStatus",
+    "DAGNode",
+    "DAGValidationError",
+    "InvestigationContext",
+    "InvestigationEngine",
+    "InvestigationEngineError",
+    "InvestigationRun",
+    "InvestigationRunRecoveryState",
+    "InvestigationRunRequest",
+    "InvestigationRunStatus",
+    "InvestigationRunStore",
+    "InvestigationStageState",
+    "ProvenanceClass",
+    "ScientificDAG",
+    "ScientificGateViolationError",
+    "StageAttempt",
+    "StageRetryPolicy",
+    "create_canonical_scientific_dag",
+    # Legacy / Phase 6 Orchestration
     "ArtifactRecord",
     "JobErrorRecord",
     "JobManifest",

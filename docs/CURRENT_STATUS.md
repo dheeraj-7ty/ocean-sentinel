@@ -14,12 +14,12 @@ Ocean Sentinel is an Earth-observation maritime investigation platform combining
 
 | Status Dimension | Current State | Verification Authority |
 | :--- | :--- | :--- |
-| **Current Verified Milestone** | **Phase 6C Closure & Operational Hardening** | PR #11 (`3c5ca81`), PR #12 (`f776c90`) |
-| **Operational Pipeline Status** | **Operational Synchronous Workflow Verified for Phase 6C Scope** | End-to-End Live CDSE & API Smoke Tests |
-| **Scientific Safety Status** | **STRICTLY GATED (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` Firewall |
+| **Current Verified Milestone** | **Phase 7A: Investigation Run Kernel & Durable Execution Spine** | `InvestigationRun`, `ScientificDAG`, Dynamic Recovery Proof |
+| **Operational Pipeline Status** | **Operational Synchronous Workflow & Durable Execution Spine Verified** | End-to-End Live CDSE, API & Recovery Smoke Tests |
+| **Scientific Safety Status** | **STRICTLY GATED (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` & Scientific Gate Firewall |
 | **Protected Baseline Integrity** | **8/8 Canonical Hashes Intact (100% Match)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Test Battery** | **201/201 In-Scope Tests Passing (100%)** | 9 Governed Operational & Policy Suites |
-| **Next Engineering Milestone** | **Phase 7: 3D Operational Globe Interface** | Interactive Web Visualizer for Evidence |
+| **Automated Test Battery** | **212/212 In-Scope Tests Passing (100%)** | 10 Governed Operational, Spine & Policy Suites |
+| **Next Engineering Milestone** | **Phase 7B: Event Spine & Stream Telemetry** | Structured Event Stream & Durable Logging |
 
 ---
 
@@ -125,12 +125,12 @@ The 8 canonical baseline authorities remain strictly frozen and bitwise verified
 
 ---
 
-## 6. Automated Test Battery (201 In-Scope Tests)
+## 6. Automated Test Battery (212 In-Scope Tests)
 
-Deterministic collection and execution across the 9 governed operational and guardrail suites:
+Deterministic collection and execution across the 10 governed operational, spine, and guardrail suites:
 
 ```
-Domain Suites (7 files, 159 tests):
+Domain & Investigation Spine Suites (8 files, 170 tests):
   tests/test_acquisition_job.py                             22 passed
   tests/test_backend_api.py                                20 passed
   tests/test_acquisition_persistence.py                     11 passed
@@ -138,12 +138,13 @@ Domain Suites (7 files, 159 tests):
   tests/test_imagery_service.py                             32 passed
   tests/test_discovery.py                                   37 passed
   tests/test_pipeline_orchestration.py                      12 passed
+  tests/test_investigation_spine.py                         11 passed
 
 Policy & Guardrail Suites (2 files, 42 tests):
   tests/test_source_control_policy_and_reporting_guardrails.py  35 passed
   tests/test_artifact_policy.py                              7 passed
 
-Total In-Scope Suite:                                      201 passed (100%)
+Total In-Scope Suite:                                      212 passed (100%)
 Total Failures:                                              0
 Total Errors:                                                0
 ```
