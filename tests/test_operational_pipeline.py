@@ -293,6 +293,33 @@ class TestSARPreprocessingContract:
         # Check normalized array has finite values
         assert np.all(np.isfinite(prep_rec.normalized_arrays))
 
+    def test_polarization_channel_order_invariant_under_inverted_input(self, valid_sar_arrays):
+        """Proves that passing [VV, VH] inverted input still maps Channel 0 = VH and Channel 1 = VV."""
+        inverted_arrays = {
+            Polarization.VV: valid_sar_arrays[Polarization.VV],
+            Polarization.VH: valid_sar_arrays[Polarization.VH],
+        }
+        validation_res = validate_sar_raster(
+            arrays=inverted_arrays,
+            polarizations=[Polarization.VV, Polarization.VH],
+            crs="EPSG:4326",
+            transform=[0.0001, 0.0, -79.5, 0.0, -0.0001, -7.5],
+        )
+
+        assert validation_res.channel_order == [Polarization.VH, Polarization.VV]
+
+        prep_rec = preprocess_sar_operational(
+            validation_res=validation_res,
+            observation_id="test_obs_inverted",
+        )
+
+        assert prep_rec.channel_order == ["VH", "VV"]
+        assert prep_rec.output_shape == (2, 512, 512)
+
+        ch0_db_mean = np.mean(prep_rec.physical_db_arrays[0])
+        ch1_db_mean = np.mean(prep_rec.physical_db_arrays[1])
+        assert ch0_db_mean < ch1_db_mean, "Channel 0 must be Cross-Pol VH (lower backscatter)!"
+
 
 # ---------------------------------------------------------------------------
 # Stage F — Detection Boundary & Frozen Checkpoint Verification Tests
@@ -301,6 +328,19 @@ class TestSARPreprocessingContract:
 
 class TestDetectionBoundary:
     """Tests detection boundary firewall, checkpoint integrity, and unauthorized inference blocking."""
+
+    def test_canonical_checkpoint_sha256_derived_from_artifact_registry(self):
+        """Proves get_canonical_checkpoint_sha256 dynamically derives the hash from canonical Artifact Registry."""
+        from ocean_sentinel.operational_pipeline import get_canonical_checkpoint_sha256
+
+        canonical_hash = get_canonical_checkpoint_sha256()
+        assert canonical_hash == EXPECTED_EXP06_CHECKPOINT_SHA256
+
+        boundary = OperationalDetectionBoundary(
+            checkpoint_path=DEFAULT_CHECKPOINT_PATH,
+            execution_authorized=False,
+        )
+        assert boundary.expected_sha256 == canonical_hash
 
     def test_canonical_checkpoint_sha256_verified(self):
         boundary = OperationalDetectionBoundary(

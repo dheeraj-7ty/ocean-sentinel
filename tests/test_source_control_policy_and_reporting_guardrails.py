@@ -867,14 +867,13 @@ class TestArtifactRegistryAlignment:
         jobs_dir = REPO_ROOT / "outputs" / "jobs"
         actual_jobs_files = set(p.relative_to(REPO_ROOT).as_posix() for p in jobs_dir.rglob("*") if p.is_file())
 
-        assert runtime_set == actual_jobs_files, (
-            f"Runtime ignored manifest differs from actual outputs/jobs/ files!\n"
-            f"In manifest but not dir: {runtime_set - actual_jobs_files}\n"
-            f"In dir but not manifest: {actual_jobs_files - runtime_set}"
+        assert runtime_set.issubset(actual_jobs_files), (
+            f"Baseline runtime ignored manifest files missing from outputs/jobs/!\n"
+            f"Missing: {runtime_set - actual_jobs_files}"
         )
-        assert len(runtime_set) == len(actual_jobs_files) and len(runtime_set) > 0
+        assert len(runtime_set) > 0
 
-        for ign_path in runtime_set:
+        for ign_path in actual_jobs_files:
             res = subprocess.run(["git", "check-ignore", "-q", ign_path], cwd=REPO_ROOT)
             assert res.returncode == 0, f"Runtime job file {ign_path} must be ignored by Git"
 

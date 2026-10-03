@@ -71,7 +71,7 @@ from ocean_sentinel.operational_pipeline import (
 logger = logging.getLogger(__name__)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-DEFAULT_ACQUISITIONS_DIR = REPO_ROOT / "data" / "acquisitions"
+DEFAULT_ACQUISITIONS_DIR = REPO_ROOT / "data" / "raw" / "acquisitions"
 
 RECOGNIZED_REAL_DATA_PROVIDERS = {
     "copernicus_cdse",

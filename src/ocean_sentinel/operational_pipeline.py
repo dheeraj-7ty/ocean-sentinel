@@ -73,6 +73,30 @@ EXPECTED_EXP06_CHECKPOINT_SHA256 = (
     "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF"
 )
 
+
+def get_canonical_checkpoint_sha256(
+    checkpoint_rel_path: str = "experiments/performance/exp06_positive_bce_weight/best_model.pt",
+) -> str:
+    """Derives the expected model checkpoint SHA-256 digest directly from the canonical Artifact Registry.
+
+    Enforces Candidate Lesson CL-003/CL-004:
+    DUPLICATED_MANUAL_HASH_CONSTANTS != SINGLE_AUTHORITATIVE_HASH_ORACLE
+    """
+    registry_path = REPO_ROOT / "experiments" / "ARTIFACT_REGISTRY.md"
+    if registry_path.is_file():
+        try:
+            text = registry_path.read_text(encoding="utf-8")
+            for line in text.splitlines():
+                if checkpoint_rel_path in line and "|" in line:
+                    cols = [c.strip() for c in line.split("|")]
+                    for col in cols[1:]:
+                        clean = col.replace("`", "").strip().upper()
+                        if len(clean) == 64 and all(c in "0123456789ABCDEF" for c in clean):
+                            return clean
+        except Exception as e:
+            logger.warning("Could not read canonical Artifact Registry at %s: %e", registry_path, e)
+    return EXPECTED_EXP06_CHECKPOINT_SHA256
+
 # Canonical Mapping A constants (Cross-Pol VH, Co-Pol VV in dB)
 DEFAULT_NORM_MEAN = [-33.2323, -19.9405]
 DEFAULT_NORM_STD = [6.4912, 4.5308]
@@ -904,12 +928,15 @@ class OperationalDetectionBoundary:
     def __init__(
         self,
         checkpoint_path: Union[str, Path] = DEFAULT_CHECKPOINT_PATH,
-        expected_sha256: str = EXPECTED_EXP06_CHECKPOINT_SHA256,
+        expected_sha256: Optional[str] = None,
         threshold: float = DEFAULT_DECISION_THRESHOLD,
         execution_authorized: bool = False,
     ) -> None:
         self.checkpoint_path = Path(checkpoint_path)
-        self.expected_sha256 = expected_sha256.upper().strip()
+        if expected_sha256 is None:
+            self.expected_sha256 = get_canonical_checkpoint_sha256().upper().strip()
+        else:
+            self.expected_sha256 = expected_sha256.upper().strip()
         self.threshold = float(threshold)
         self.execution_authorized = bool(execution_authorized)
 
@@ -1125,7 +1152,7 @@ class OperationalSARPipeline:
         self,
         execution_authorized: bool = False,
         checkpoint_path: Union[str, Path] = DEFAULT_CHECKPOINT_PATH,
-        expected_checkpoint_sha256: str = EXPECTED_EXP06_CHECKPOINT_SHA256,
+        expected_checkpoint_sha256: Optional[str] = None,
         threshold: float = DEFAULT_DECISION_THRESHOLD,
     ) -> None:
         self.execution_authorized = execution_authorized

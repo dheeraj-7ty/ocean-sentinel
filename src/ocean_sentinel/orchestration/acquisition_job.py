@@ -333,7 +333,7 @@ class AcquisitionJobOrchestrator:
         )
 
     def generate_job_id(self) -> str:
-        """Produce deterministic, collision-resistant job identity."""
+        """Produce a unique, collision-resistant operational job identifier."""
         ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         token = secrets.token_hex(4)
         return f"acq_{ts}_{token}"
