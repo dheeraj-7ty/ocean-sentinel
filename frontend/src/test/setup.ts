@@ -1,0 +1,64 @@
+import '@testing-library/jest-dom'
+import { vi } from 'vitest'
+
+// Mock HTMLCanvasElement.getContext for Three.js in JSDOM
+HTMLCanvasElement.prototype.getContext = vi.fn((type: string) => {
+  if (type === 'webgl' || type === 'webgl2' || type === 'experimental-webgl') {
+    return {
+      getExtension: vi.fn(),
+      getParameter: vi.fn(() => 2048),
+      createTexture: vi.fn(),
+      bindTexture: vi.fn(),
+      texParameteri: vi.fn(),
+      texImage2D: vi.fn(),
+      clearColor: vi.fn(),
+      clearDepth: vi.fn(),
+      clear: vi.fn(),
+      enable: vi.fn(),
+      disable: vi.fn(),
+      depthFunc: vi.fn(),
+      frontFace: vi.fn(),
+      cullFace: vi.fn(),
+      viewport: vi.fn(),
+      scissor: vi.fn(),
+      createShader: vi.fn(),
+      shaderSource: vi.fn(),
+      compileShader: vi.fn(),
+      getShaderParameter: vi.fn(() => true),
+      getShaderInfoLog: vi.fn(() => ''),
+      createProgram: vi.fn(),
+      attachShader: vi.fn(),
+      linkProgram: vi.fn(),
+      getProgramParameter: vi.fn(() => true),
+      getProgramInfoLog: vi.fn(() => ''),
+      useProgram: vi.fn(),
+      createBuffer: vi.fn(),
+      bindBuffer: vi.fn(),
+      bufferData: vi.fn(),
+      enableVertexAttribArray: vi.fn(),
+      vertexAttribPointer: vi.fn(),
+      drawArrays: vi.fn(),
+      drawElements: vi.fn(),
+      createFramebuffer: vi.fn(),
+      bindFramebuffer: vi.fn(),
+      framebufferTexture2D: vi.fn(),
+      createRenderbuffer: vi.fn(),
+      bindRenderbuffer: vi.fn(),
+      renderbufferStorage: vi.fn(),
+      framebufferRenderbuffer: vi.fn(),
+      checkFramebufferStatus: vi.fn(() => 36053), // gl.FRAMEBUFFER_COMPLETE
+    }
+  }
+  return null
+}) as any
+
+// Mock window.requestAnimationFrame and cancelAnimationFrame
+window.requestAnimationFrame = vi.fn((cb) => setTimeout(cb, 16) as any)
+window.cancelAnimationFrame = vi.fn((id) => clearTimeout(id))
+
+// Mock ResizeObserver
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+} as any
