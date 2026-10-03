@@ -1,0 +1,56 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "EXP-07 Cross-Domain Evaluation Epistemic Interpretation and Diagnostic Design Repair",
+  "audited_at_utc": "2026-09-14T05:46:00Z",
+  "tier_1_epistemic_downgrade": {
+    "c18_overclaim": "C18 stated that Tier 1 cross-evaluation would 'directly separate H1/H9 (dataset difficulty / domain shift) from H4/H7 (training optimization / class weights)'.",
+    "c19_corrected_interpretation": "Cross-domain evaluation is observational domain-transfer evidence, NOT causal identification. C8/C10 and C16 differ simultaneously in training dataset, sample count, cluster diversity, geographic distribution, and class weighting. Observing lower or higher cross-inference scores cannot mathematically isolate individual causal mechanisms.",
+    "evidence_level": "OBSERVED / DESCRIPTIVE_ONLY",
+    "valid_inferences": [
+      "Inference 1: Does C16 generalize to OPS01 DEV tiles? (Measures reverse domain transfer)",
+      "Inference 2: Does C8/C10 generalize to OPS02 DEV tiles? (Measures forward domain transfer)"
+    ],
+    "invalid_inferences": [
+      "Claiming a low score on OPS02 DEV proves OPS02 is inherently unlearnable (confounded by capacity, architecture, and feature divergence)",
+      "Claiming a low score on OPS01 DEV proves C16 had optimization failure (confounded by feature suppression from extreme weighting)"
+    ]
+  },
+  "repaired_two_tier_diagnostic_framework": {
+    "tier_1": {
+      "name": "Zero-Compute Cross-Domain Evaluation",
+      "compute_cost": "0 GPU training hours (< 2 minutes pure inference)",
+      "holdout_access": "STRICTLY PROHIBITED (0 access)",
+      "data_evaluated": "OPS-01 DEV (39 samples) and OPS-02 DEV (40 samples in OPS02_v1.0.1_FROZEN)",
+      "models_evaluated": [
+        "experiments/EXP-07/runs/EXP07_RUN001_SEED42/best_model.pt (C8 OPS-01 baseline)",
+        "experiments/EXP-07/runs/EXP07_RUN002_SEED101/best_model.pt (C10 OPS-01 replicate)",
+        "experiments/EXP-07/runs/EXP07_RUN003_SEED42/best_model.pt (C16 OPS-02 replicate)"
+      ],
+      "metrics_reported": [
+        "Primary: dev_mIoU_phenomena (classes 1..11)",
+        "Secondary: 12x12 confusion matrix, per-class IoU, tiered subgroup mIoUs"
+      ],
+      "epistemic_role": "Provides exploratory transfer diagnostics to inform whether Tier 2 ablation is warranted."
+    },
+    "tier_2": {
+      "name": "EXP07_DIAGNOSTIC_001 (Single-Variable Loss-Weighting Controlled Training)",
+      "prerequisite": "Execution conditional on explicit user approval and Tier 1 diagnostic results.",
+      "independent_variable": "Loss Weighting Scheme (Control: Sqrt-Median Frequency [0.403935 ... 18.243211] vs Treatment: Uniform Unweighted w_c = 1.0 for c >= 1, w_0 = 0.2)",
+      "constant_variables_locked_to_canonical_protocol": {
+        "dataset": "OPS02_v1.0.1_FROZEN (132 TRAIN, 40 DEV, 40 HOLDOUT quarantined)",
+        "model": "ResNet18-UNet (14,310,860 parameters, ImageNet pretrained encoder)",
+        "input_dimensions": [1, 256, 256],
+        "normalization": "mu = 4.424158, sigma = 0.469261",
+        "optimizer": "AdamW (lr = 5e-4, weight_decay_2d = 0.01, grad_clip = 1.0)",
+        "scheduler": "LinearWarmupCosineAnnealingLR (3 warmup, 27 decay, total 30 epochs, min_lr = 1e-6)",
+        "batch_dynamics": "minibatch = 8, accumulation = 2, effective_batch = 16, BN_batch = 8",
+        "sampler": "Candidate F Hybrid (70/30, 72 draws/epoch, replacement=True, seed_formula = base_seed + epoch * 1000)",
+        "seed": 42,
+        "hardware": "Single Tesla T4 GPU (cuda:0)"
+      },
+      "explicit_purging_of_c18_errors": "The C18 table values (lr=3e-4, wd=1e-4, 20 epochs, accumulation=1, effective_bs=8) are PERMANENTLY PURGED. Any Tier 2 run must adhere 100% to the verified C15 canonical training protocol."
+    }
+  },
+  "verdict": "DIAGNOSTIC_DESIGN_REPAIRED_AND_EPISTEMIC_STANDARDS_ENFORCED"
+}

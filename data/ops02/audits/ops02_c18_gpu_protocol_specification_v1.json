@@ -1,0 +1,29 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "OPS-02 C18 GPU Infrastructure and Execution Protocol Specification",
+  "audited_at_utc": "2026-09-14T05:00:00Z",
+  "authoritative_execution_policy": {
+    "default_execution_mode": "SINGLE_GPU_DETERMINISTIC",
+    "rationale": "Single-device execution eliminates inter-GPU gradient reduction latency, avoids non-deterministic multi-GPU batch scattering, simplifies BatchNorm synchronization, and preserves cloud quota. Provisioning dual GPUs when PyTorch code only targets cuda:0 wastes cloud quota and misrepresents compute efficiency (GOV-RULE-087).",
+    "future_kernel_provisioning_rule": "Future Kaggle kernels must specify single accelerator provisioning or explicitly implement DistributedDataParallel (DDP) if multi-GPU training is intended."
+  },
+  "runtime_telemetry_requirements": {
+    "mandatory_logged_fields": [
+      "gpu_model (e.g. NVIDIA Tesla T4)",
+      "provisioned_gpu_count (e.g. 1)",
+      "active_compute_device_ordinal (e.g. cuda:0)",
+      "cuda_version (e.g. 12.8)",
+      "cudnn_version",
+      "driver_version",
+      "pytorch_version",
+      "peak_training_vram_mb (measured via torch.cuda.max_memory_allocated() during training, NOT eval warmup)",
+      "training_throughput_samples_per_sec (measured over full training epochs)"
+    ]
+  },
+  "c16_remediation_summary": {
+    "hardware_observed": "Kaggle VM had 2x Tesla T4 14.56GB",
+    "hardware_utilized": "1x Tesla T4 (cuda:0)",
+    "remedial_classification": "C16 Replicate 003 is recognized as a valid single-GPU run. Future run reports must explicitly declare 'Single GPU on Kaggle Runtime' rather than 'Dual T4 Execution'."
+  }
+}

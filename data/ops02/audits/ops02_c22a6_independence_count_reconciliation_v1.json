@@ -1,0 +1,75 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A6_INDEPENDENCE_COUNT_RECONCILIATION_v1",
+    "task_id": "EXP-07-P0-C22-A.6",
+    "executed_at_utc": "2026-09-14T07:15:00Z",
+    "status": "MANIFEST_COUNT_FORENSICALLY_DERIVED_AND_RECONCILED",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "authoritative_dataset_counts": {
+    "total_physical_samples": 212,
+    "partition_tile_breakdown": {
+      "TRAIN": 132,
+      "DEV": 40,
+      "HOLDOUT": 40
+    },
+    "total_parent_clusters": 64,
+    "partition_cluster_breakdown": {
+      "TRAIN": 40,
+      "DEV": 12,
+      "HOLDOUT": 12
+    }
+  },
+  "candidate_independence_fields_evaluation": {
+    "field_1_mission_data_take_id": {
+      "field_name": "mission_data_take_id",
+      "train_unique_count": 40,
+      "dev_unique_count": 12,
+      "holdout_unique_count": 12,
+      "total_unique_count": 64,
+      "cross_partition_leakage": 0,
+      "rationale": "Represents the satellite continuous data acquisition pass. Exactly 40 unique datatakes exist in the TRAIN split."
+    },
+    "field_2_cluster_id": {
+      "field_name": "cluster_id",
+      "train_unique_count": 40,
+      "dev_unique_count": 12,
+      "holdout_unique_count": 12,
+      "total_unique_count": 64,
+      "cross_partition_leakage": 0,
+      "rationale": "Represents the formal spatiotemporal cluster defined under GOV-RULE-077. Exactly 40 unique clusters exist in the TRAIN split."
+    },
+    "field_3_parent_scene_id": {
+      "field_name": "parent_scene_id",
+      "train_unique_count": 40,
+      "dev_unique_count": 12,
+      "holdout_unique_count": 12,
+      "total_unique_count": 64,
+      "cross_partition_leakage": 0,
+      "rationale": "Represents the Sentinel-1 Level-1 GRD parent product. Exactly 40 unique parent scenes exist in the TRAIN split."
+    }
+  },
+  "forensic_reconciliation_analysis": {
+    "claimed_value_in_prompt": "23 TRAIN independent parent datatakes",
+    "machine_truth_derived_from_manifests": "40 TRAIN independent parent datatakes",
+    "mathematical_consistency_check": {
+      "total_clusters_in_freeze_spec": 64,
+      "dev_clusters": 12,
+      "holdout_clusters": 12,
+      "derived_train_clusters": 40,
+      "sum_check": "40 + 12 + 12 = 64 (100.0% consistent)",
+      "hypothetical_23_sum_check": "23 + 12 + 12 = 47 != 64 (17 clusters missing / mathematically impossible under 64-cluster specification)"
+    },
+    "provenance_of_23_claim": "Narrative typographical error introduced in early draft of LL-EXP07-019 ('132 TRAIN tiles originate from 23 parent datatakes') and echoed in EXP07_P0_C22A report line 137. The underlying physical manifest and automated test (test_lesson_019_parent_datatake_accounting in test_ocean_sentinel_agent_learning_framework.py) have always derived and asserted 40 datatakes."
+  },
+  "governance_protocol_evaluation": {
+    "part_b_rule": "Expected authoritative TRAIN independent parent datatake count: 23. If manifest-derived count != 23: STOP and BLOCK. Do not force the expected value.",
+    "part_m_rule": "If manifest-derived TRAIN independence count is not 23: BLOCK.",
+    "critical_scientific_rule": "Do NOT 'make the numbers line up.' Do NOT force a state.",
+    "governance_decision": "In strict adherence to Level-5 scientific integrity and the explicit mandate of Part B and Part M, the task declares BLOCKED rather than forcing or falsifying the manifest count to 23."
+  },
+  "readiness_decision": {
+    "verdict": "BLOCKED",
+    "justification": "Manifest-derived TRAIN independence count across all candidate fields (mission_data_take_id, cluster_id, parent_scene_id) is strictly 40, which contradicts the prompt's specified expectation of 23. Per task instructions ('If manifest-derived count != 23: STOP and BLOCK'), training authorization is blocked pending formal user reconciliation of the 40 vs 23 independence-count specification."
+  }
+}

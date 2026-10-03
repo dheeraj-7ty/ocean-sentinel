@@ -1,0 +1,45 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "audit_name": "C16 Replicate 003 Model Checkpoint Forensic Audit",
+  "created_at_utc": "2026-09-14T04:18:00Z",
+  "status": "CHECKPOINTS_PRESERVED_AND_VERIFIED",
+  "checkpoints": {
+    "best_model": {
+      "path": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/best_model.pt",
+      "sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+      "file_size_bytes": 57355665,
+      "format": "PyTorch state_dict (OrderedDict)",
+      "total_tensors": 192,
+      "trainable_parameters": 14310860,
+      "batchnorm_layers": 30,
+      "batchnorm_running_mean_tensors": 30,
+      "batchnorm_running_var_tensors": 30,
+      "batchnorm_num_batches_tracked_tensors": 30,
+      "optimizer_state_saved": false,
+      "scheduler_state_saved": false,
+      "best_epoch": 17,
+      "best_dev_mIoU_phenomena": 0.04939909220776271,
+      "local_inference_verification": "PASS_EXACT_REPRODUCED_TO_6_DECIMALS"
+    },
+    "last_model": {
+      "path": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/last_model.pt",
+      "sha256": "60411490EFB81D5DE806F4DFFBA760F5D7F4486B14AB4F144AD35D37EE16FA9E",
+      "file_size_bytes": 57355665,
+      "format": "PyTorch state_dict (OrderedDict)",
+      "total_tensors": 192,
+      "trainable_parameters": 14310860,
+      "batchnorm_layers": 30,
+      "final_epoch": 27,
+      "epoch_27_dev_mIoU_phenomena": 0.02283,
+      "early_stopping_condition": "Patience counter reached 10 at epoch 27 (best epoch 17)"
+    }
+  },
+  "tensor_level_comparison": {
+    "tensor_count_matching": true,
+    "parameter_count_matching": true,
+    "differing_tensors_count": 192,
+    "identical_tensors_count": 0,
+    "verification_verdict": "GENUINE_SEPARATE_CHECKPOINTS. best_model.pt and last_model.pt are confirmed to be two distinct model states produced at epochs 17 and 27 respectively."
+  }
+}

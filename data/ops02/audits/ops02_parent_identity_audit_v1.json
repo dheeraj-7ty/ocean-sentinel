@@ -1,0 +1,606 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "audited_at_utc": "2026-09-13T21:10:25.286809+00:00",
+  "total_parent_clusters": 64,
+  "independence_hierarchy_applied": "INDEPENDENT_PARENT_CLUSTER (GOV-RULE-077)",
+  "clusters": [
+    {
+      "cluster_id": "ops02_cluster_001_00BDE6",
+      "datatake_id": "00BDE6",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001",
+        "s1a-iw-grd-vv-20151031t215635-20151031t215700-008402-00bde6-001"
+      ],
+      "sample_count": 4,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_002_00D645",
+      "datatake_id": "00D645",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20151230t215628-20151230t215642-009277-00d645-001"
+      ],
+      "sample_count": 4,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_003_00E063",
+      "datatake_id": "00E063",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20160123t215602-20160123t215627-009627-00e063-001",
+        "s1a-iw-grd-vv-20160123t215627-20160123t215641-009627-00e063-001"
+      ],
+      "sample_count": 4,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_004_00E369",
+      "datatake_id": "00E369",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20160130t232734-20160130t232804-009730-00e369-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_005_00E710",
+      "datatake_id": "00E710",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20160208t212539-20160208t212604-009860-00e710-001"
+      ],
+      "sample_count": 4,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_006_00ED9B",
+      "datatake_id": "00ED9B",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20160223t232734-20160223t232804-010080-00ed9b-001"
+      ],
+      "sample_count": 2,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_007_00FD5B",
+      "datatake_id": "00FD5B",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20160401t231046-20160401t231110-010634-00fd5b-001"
+      ],
+      "sample_count": 2,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_008_00FF7D",
+      "datatake_id": "00FF7D",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20160406t231810-20160406t231837-010707-00ff7d-001"
+      ],
+      "sample_count": 4,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_009_01690A",
+      "datatake_id": "01690A",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20161118t215611-20161118t215636-014002-01690a-001"
+      ],
+      "sample_count": 3,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_010_016E6A",
+      "datatake_id": "016E6A",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20161130t215610-20161130t215635-014177-016e6a-001"
+      ],
+      "sample_count": 2,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_011_019228",
+      "datatake_id": "019228",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170217t214813-20170217t214838-015329-019228-001",
+        "s1a-iw-grd-vv-20170217t214838-20170217t214903-015329-019228-001"
+      ],
+      "sample_count": 4,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_012_019780",
+      "datatake_id": "019780",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170301t214813-20170301t214838-015504-019780-001",
+        "s1a-iw-grd-vv-20170301t214838-20170301t214903-015504-019780-001"
+      ],
+      "sample_count": 4,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_013_0199B9",
+      "datatake_id": "0199B9",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170306t215613-20170306t215638-015577-0199b9-001"
+      ],
+      "sample_count": 2,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_014_019CCC",
+      "datatake_id": "019CCC",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170313t214813-20170313t214838-015679-019ccc-001",
+        "s1a-iw-grd-vv-20170313t214838-20170313t214903-015679-019ccc-001"
+      ],
+      "sample_count": 4,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_015_01A005",
+      "datatake_id": "01A005",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170321t114316-20170321t114341-015790-01a005-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_016_01A1FC",
+      "datatake_id": "01A1FC",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170325t214838-20170325t214903-015854-01a1fc-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_017_01A460",
+      "datatake_id": "01A460",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170331t120007-20170331t120032-015936-01a460-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_018_01A9AD",
+      "datatake_id": "01A9AD",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170412t115938-20170412t120007-016111-01a9ad-001",
+        "s1a-iw-grd-vv-20170412t120007-20170412t120032-016111-01a9ad-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_019_01C47C",
+      "datatake_id": "01C47C",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170611t120011-20170611t120036-016986-01c47c-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_020_01DF17",
+      "datatake_id": "01DF17",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170810t102457-20170810t102526-017860-01df17-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_021_01DF20",
+      "datatake_id": "01DF20",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170810t120014-20170810t120039-017861-01df20-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_022_01E471",
+      "datatake_id": "01E471",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170822t120015-20170822t120040-018036-01e471-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_023_01E515",
+      "datatake_id": "01E515",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20170823t214126-20170823t214151-018056-01e515-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_024_01F9D5",
+      "datatake_id": "01F9D5",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20171009t120016-20171009t120041-018736-01f9d5-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_025_02056E",
+      "datatake_id": "02056E",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20171104t114300-20171104t114325-019115-02056e-001",
+        "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001"
+      ],
+      "sample_count": 4,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_026_0214B7",
+      "datatake_id": "0214B7",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20171207t215622-20171207t215647-019602-0214b7-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_027_021B44",
+      "datatake_id": "021B44",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20171222t114323-20171222t114348-019815-021b44-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_028_0220C9",
+      "datatake_id": "0220C9",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180103t114348-20180103t114412-019990-0220c9-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_029_0222C6",
+      "datatake_id": "0222C6",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180107t214846-20180107t214911-020054-0222c6-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_030_022AB3",
+      "datatake_id": "022AB3",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180124t215621-20180124t215646-020302-022ab3-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_031_022DE3",
+      "datatake_id": "022DE3",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180131t214845-20180131t214910-020404-022de3-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_032_022E25",
+      "datatake_id": "022E25",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180201t115101-20180201t115129-020413-022e25-001"
+      ],
+      "sample_count": 3,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_033_023047",
+      "datatake_id": "023047",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180205t215620-20180205t215645-020477-023047-001",
+        "s1a-iw-grd-vv-20180205t215645-20180205t215710-020477-023047-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_034_023178",
+      "datatake_id": "023178",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180208t114322-20180208t114347-020515-023178-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_035_0235DF",
+      "datatake_id": "0235DF",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180217t215620-20180217t215645-020652-0235df-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_036_023709",
+      "datatake_id": "023709",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180220t114257-20180220t114322-020690-023709-001",
+        "s1a-iw-grd-vv-20180220t114322-20180220t114347-020690-023709-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_037_023B6B",
+      "datatake_id": "023B6B",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180301t215620-20180301t215645-020827-023b6b-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_038_023C56",
+      "datatake_id": "023C56",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180303t214149-20180303t214214-020856-023c56-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_039_023C93",
+      "datatake_id": "023C93",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180304t114322-20180304t114347-020865-023c93-001",
+        "s1a-iw-grd-vv-20180304t114347-20180304t114411-020865-023c93-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_040_024220",
+      "datatake_id": "024220",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180316t114322-20180316t114347-021040-024220-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_041_02442B",
+      "datatake_id": "02442B",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180320t214820-20180320t214845-021104-02442b-001",
+        "s1a-iw-grd-vv-20180320t214845-20180320t214910-021104-02442b-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_042_02446F",
+      "datatake_id": "02446F",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180321t115101-20180321t115129-021113-02446f-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_043_0249B3",
+      "datatake_id": "0249B3",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180401t214820-20180401t214845-021279-0249b3-001",
+        "s1a-iw-grd-vv-20180401t214845-20180401t214910-021279-0249b3-001"
+      ],
+      "sample_count": 4,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_044_028DBA",
+      "datatake_id": "028DBA",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20180829t102505-20180829t102534-023460-028dba-001"
+      ],
+      "sample_count": 3,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_045_02C2B0",
+      "datatake_id": "02C2B0",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20181214t215629-20181214t215654-025027-02c2b0-001"
+      ],
+      "sample_count": 2,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_046_02D966",
+      "datatake_id": "02D966",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20190126t214852-20190126t214917-025654-02d966-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_047_037FDE",
+      "datatake_id": "037FDE",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20191228t214859-20191228t214924-030554-037fde-001"
+      ],
+      "sample_count": 3,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_048_03AD13",
+      "datatake_id": "03AD13",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20200326t215633-20200326t215658-031852-03ad13-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_049_047BB3",
+      "datatake_id": "047BB3",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20210521t102517-20210521t102546-037985-047bb3-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_050_04EB11",
+      "datatake_id": "04EB11",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220108t082103-20220108t082128-041367-04eb11-001"
+      ],
+      "sample_count": 2,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_051_04EFFF",
+      "datatake_id": "04EFFF",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220118t182621-20220118t182646-041519-04efff-001"
+      ],
+      "sample_count": 4,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_052_04F287",
+      "datatake_id": "04F287",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220123t204050-20220123t204115-041593-04f287-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_053_04F330",
+      "datatake_id": "04F330",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220125t053650-20220125t053715-041613-04f330-001"
+      ],
+      "sample_count": 2,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_054_04F3FE",
+      "datatake_id": "04F3FE",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220126t172109-20220126t172134-041635-04f3fe-001"
+      ],
+      "sample_count": 3,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_055_04F49C",
+      "datatake_id": "04F49C",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220128t021526-20220128t021555-041655-04f49c-001",
+        "s1a-iw-grd-vv-20220128t021710-20220128t021735-041655-04f49c-001"
+      ],
+      "sample_count": 4,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_056_04F4B1",
+      "datatake_id": "04F4B1",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220128t060156-20220128t060221-041657-04f4b1-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_057_04F573",
+      "datatake_id": "04F573",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220129t174639-20220129t174704-041679-04f573-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_058_04F609",
+      "datatake_id": "04F609",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220130t222312-20220130t222341-041696-04f609-001",
+        "s1a-iw-grd-vv-20220130t222521-20220130t222546-041696-04f609-001",
+        "s1a-iw-grd-vv-20220130t222611-20220130t222638-041696-04f609-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_059_04F685",
+      "datatake_id": "04F685",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220131t195030-20220131t195055-041709-04f685-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_060_04F6A8",
+      "datatake_id": "04F6A8",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220201t034912-20220201t034937-041714-04f6a8-001",
+        "s1a-iw-grd-vv-20220201t035142-20220201t035207-041714-04f6a8-001"
+      ],
+      "sample_count": 4,
+      "partition": "DEV"
+    },
+    {
+      "cluster_id": "ops02_cluster_061_04F6BA",
+      "datatake_id": "04F6BA",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220201t070855-20220201t070920-041716-04f6ba-001",
+        "s1a-iw-grd-vv-20220201t071100-20220201t071125-041716-04f6ba-001",
+        "s1a-iw-grd-vv-20220201t071150-20220201t071215-041716-04f6ba-001"
+      ],
+      "sample_count": 4,
+      "partition": "HOLDOUT"
+    },
+    {
+      "cluster_id": "ops02_cluster_062_05028E",
+      "datatake_id": "05028E",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220224t153901-20220224t153930-042056-05028e-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_063_05028F",
+      "datatake_id": "05028F",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220224t154918-20220224t154943-042057-05028f-001",
+        "s1a-iw-grd-vv-20220224t155148-20220224t155213-042057-05028f-001",
+        "s1a-iw-grd-vv-20220224t155213-20220224t155238-042057-05028f-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    },
+    {
+      "cluster_id": "ops02_cluster_064_0502B7",
+      "datatake_id": "0502B7",
+      "constituent_scenes": [
+        "s1a-iw-grd-vv-20220224t222505-20220224t222534-042061-0502b7-001",
+        "s1a-iw-grd-vv-20220224t222559-20220224t222624-042061-0502b7-001"
+      ],
+      "sample_count": 4,
+      "partition": "TRAIN"
+    }
+  ]
+}

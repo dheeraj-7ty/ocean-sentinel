@@ -1,0 +1,49 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "OPS-02 Dataset Freeze Identity Repair and Canonical Specification Audit",
+  "audited_at_utc": "2026-09-14T04:46:00Z",
+  "authoritative_canonical_specification": {
+    "file_path": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+    "specification_version": "1.0.1",
+    "dataset_version": "OPS02_v1.0.1_FROZEN",
+    "sha256": "3B362DECD210679DCC7BF5EB6879A020416E4A8BB780845F3FCC59A4DFBF3B35",
+    "status": "CANONICAL_AUTHORITATIVE_FREEZE_SPECIFICATION"
+  },
+  "superseded_historical_specification": {
+    "file_path": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.json",
+    "specification_version": "1.0.0",
+    "dataset_version": "OPS02_v1.0.0_FROZEN",
+    "sha256": "AF406D5F4E4092D8ECE240220FB97FF6B28C393D0D37D878898B26D0C6A4A57E",
+    "status": "SUPERSEDED_HISTORICAL_RECORD",
+    "reason_for_supersession": "Contained typographical narrative discrepancy in initial C15 text (41 DEV / 39 HOLDOUT) and suffered in-place mutation during C16 pre-transfer verification without cryptographic manifest binding."
+  },
+  "cryptographic_manifest_bindings": {
+    "physical_dataset_manifest": {
+      "path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+      "total_samples": 212
+    },
+    "partition_manifest": {
+      "path": "data/ops02/manifests/ops02_partition_manifest_v1.json",
+      "sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+      "train_samples": 132,
+      "dev_samples": 40,
+      "holdout_samples": 40
+    },
+    "parent_cluster_manifest": {
+      "path": "data/ops02/manifests/ops02_parent_cluster_manifest_v1.json",
+      "sha256": "08ED21FBB492363E1D05040020F73177BFD4DC84F1A39E2D9C5C9B38BC97D10B",
+      "train_clusters": 40,
+      "dev_clusters": 12,
+      "holdout_clusters": 12,
+      "total_clusters": 64
+    }
+  },
+  "epistemic_reconciliation_verdict": {
+    "question": "Which exact specification should every future training run use?",
+    "authoritative_answer": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json (OPS02_v1.0.1_FROZEN). This is the sole authoritative specification for all future experiments.",
+    "scientific_identity": "Zero scientific content change. The physical imagery, ground-truth masks, parent clusters, and partition memberships are identical to those assembled in C14 and trained on in C16.",
+    "future_invariance_mandate": "Under GOV-RULE-085, no future agent or script may edit OPS02_DATASET_FREEZE_SPEC_v1.0.1.json. Any future changes must follow a formal semver increment (v1.0.2 or v1.1.0) with an accompanying audit."
+  }
+}

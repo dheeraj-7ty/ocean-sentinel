@@ -1,0 +1,113 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "EXP-07 Authoritative Canonical Training Protocol Reconciliation",
+  "audited_at_utc": "2026-09-14T05:28:00Z",
+  "source_hierarchy_reference": {
+    "level_1_physical_manifest": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "level_2_freeze_spec": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+    "level_3_reference_code": "src/ocean_sentinel/ml/exp07_reference.py",
+    "level_4_frozen_protocol": "experiments/EXP-07/EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+    "level_5_execution_records": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/training_environment.json"
+  },
+  "canonical_protocol_parameters": {
+    "dataset_version": {
+      "canonical_value": "OPS02_v1.0.1_FROZEN",
+      "status": "VERIFIED",
+      "authority": "OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+      "c18_reported_status": "SUPERSEDED_HISTORICAL_v1.0.0"
+    },
+    "model_architecture": {
+      "canonical_value": "ResNet18-UNet",
+      "status": "VERIFIED",
+      "authority": "src/ocean_sentinel/ml/exp07_reference.py::ResNet18UNet"
+    },
+    "trainable_parameters": {
+      "canonical_value": 14310860,
+      "status": "VERIFIED",
+      "authority": "Direct model instantiation audit (Level 3 & Level 5)"
+    },
+    "batch_norm_layers": {
+      "canonical_value": "30 BatchNorm2d layers (momentum=0.05)",
+      "status": "VERIFIED",
+      "authority": "Direct model inspection"
+    },
+    "input_dimensions": {
+      "canonical_value": [1, 256, 256],
+      "status": "VERIFIED",
+      "authority": "Physical GeoTIFF dimensions across all 212 samples in Level 1 manifest",
+      "c18_discrepancy": "[1, 512, 512] in C18 report was INCORRECT (formatting/documentation typo)"
+    },
+    "pretrained_encoder": {
+      "canonical_value": "ImageNet-1K pretrained weights (ResNet18_Weights.IMAGENET1K_V1)",
+      "status": "VERIFIED",
+      "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md and C16 execution log"
+    },
+    "normalization_constants": {
+      "canonical_value": {"mean": 4.424158, "std": 0.469261},
+      "status": "VERIFIED",
+      "authority": "OPS02 TRAIN valid pixels log1p standardization"
+    },
+    "optimizer": {
+      "canonical_value": "AdamW (lr=0.0005, weight_decay_2d=0.01, weight_decay_1d_bias=0.0, betas=(0.9, 0.999), eps=1e-8)",
+      "status": "VERIFIED",
+      "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md and exp07_p0_c16_training_environment_v1.json",
+      "c18_discrepancy": "lr=3e-4, wd=1e-4 in C18 table was INCORRECT"
+    },
+    "gradient_clipping": {
+      "canonical_value": "max_norm=1.0, norm_type=2.0 via torch.nn.utils.clip_grad_norm_",
+      "status": "VERIFIED",
+      "authority": "C15 Protocol & C16 execution"
+    },
+    "lr_scheduler": {
+      "canonical_value": "LinearWarmupCosineAnnealingLR (3 warmup epochs, 27 decay epochs, total_epochs=30, eta_min=1e-6)",
+      "status": "VERIFIED",
+      "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md and C16 logs",
+      "c18_discrepancy": "20 epochs / CosineAnnealingLR in C18 table was INCORRECT"
+    },
+    "batch_dynamics": {
+      "canonical_value": {
+        "minibatch_size": 8,
+        "gradient_accumulation_steps": 2,
+        "effective_optimizer_batch_size": 16,
+        "batch_norm_statistical_batch_size": 8
+      },
+      "status": "VERIFIED",
+      "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md and C16 execution environment",
+      "c18_discrepancy": "accumulation=1, effective_batch=8 in C18 table was INCORRECT"
+    },
+    "sampler_strategy": {
+      "canonical_value": {
+        "type": "Candidate F Hybrid Sampler",
+        "mixture": "70% Parent Balanced + 30% Phenomenon Presence",
+        "draws_per_epoch": 72,
+        "replacement": true,
+        "seed_formula": "base_seed + epoch * 1000"
+      },
+      "status": "VERIFIED",
+      "authority": "src/ocean_sentinel/ml/exp07_reference.py, C15 Protocol, and C16 environment",
+      "c18_discrepancy": "seed + epoch in C18 report narrative was INCORRECT"
+    },
+    "loss_function": {
+      "canonical_value": "CrossEntropyLoss with OPS02 TRAIN square-root median-frequency weights and ignore_index=-100",
+      "status": "VERIFIED",
+      "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md and ops02_c18_class_weights_audit_v1.json"
+    },
+    "early_stopping_policy": {
+      "canonical_value": "min_epochs=15, patience=10, min_delta=0.005, monitoring dev_mIoU_phenomena",
+      "status": "VERIFIED",
+      "authority": "C15 Protocol & C16 actual execution (stopped at epoch 27, best epoch 17)"
+    },
+    "primary_metric": {
+      "canonical_value": "dev_mIoU_phenomena (mean IoU across classes 1..11, background Class 0 excluded, absent classes excluded)",
+      "status": "VERIFIED",
+      "authority": "EXP-07 Core Protocol, frozen across all replicates"
+    },
+    "accelerator_policy": {
+      "canonical_value": "Single GPU (cuda:0) default; separate accounting of provisioned vs allocated devices",
+      "status": "VERIFIED",
+      "authority": "GOV-RULE-093 and ops02_c18_gpu_protocol_specification_v1.json"
+    }
+  },
+  "overall_verdict": "CANONICAL_PROTOCOL_AUTHORITY_RESTORED"
+}

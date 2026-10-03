@@ -1,0 +1,12 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "audited_at_utc": "2026-09-13T21:10:25.287817+00:00",
+  "holdout_cluster_count": 12,
+  "holdout_sample_count": 40,
+  "holdout_access_status": "READ_ONLY_CRYPTOGRAPHICALLY_LOCKED",
+  "model_selection_access_count": 0,
+  "hyperparameter_tuning_access_count": 0,
+  "training_access_count": 0,
+  "holdout_integrity_verdict": "PRISTINE_AND_UNTOUCHED"
+}

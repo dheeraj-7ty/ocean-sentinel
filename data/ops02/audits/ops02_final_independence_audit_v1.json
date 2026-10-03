@@ -1,0 +1,63 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C15",
+  "title": "OPS-02 Final Independence, Clustering, and Multiplicity Audit",
+  "created_at_utc": "2026-09-14T01:05:00Z",
+  "status": "INDEPENDENCE_VERIFIED",
+  "authoritative_terminology": {
+    "mandate": "C15 MUST NOT claim '212 independent physical samples'. The mandatory scientific phrasing is: '212 physical sample pairs derived from 64 independent parent/datatake acquisitions.'",
+    "rationale": "Slices extracted from the same parent acquisition share sensor calibration, sea state, and atmospheric conditions, causing along-track pseudo-replication if counted as independent."
+  },
+  "metrics": {
+    "total_physical_sample_pairs": 212,
+    "total_independent_parent_clusters": 64,
+    "total_mission_datatakes": 64,
+    "total_constituent_level1_scenes": 85,
+    "samples_per_cluster": {
+      "mean": 3.3125,
+      "min": 1,
+      "max": 4,
+      "distribution": {
+        "1_sample": 2,
+        "2_samples": 4,
+        "3_samples": 30,
+        "4_samples": 28
+      }
+    }
+  },
+  "partition_breakdown": {
+    "TRAIN": {
+      "clusters": 40,
+      "datatakes": 40,
+      "constituent_scenes": 54,
+      "samples": 132,
+      "mean_samples_per_cluster": 3.30
+    },
+    "DEV": {
+      "clusters": 12,
+      "datatakes": 12,
+      "constituent_scenes": 15,
+      "samples": 41,
+      "mean_samples_per_cluster": 3.42
+    },
+    "HOLDOUT": {
+      "clusters": 12,
+      "datatakes": 12,
+      "constituent_scenes": 16,
+      "samples": 39,
+      "mean_samples_per_cluster": 3.25
+    }
+  },
+  "along_track_clustering_verification": {
+    "rule": "GOV-RULE-077",
+    "evaluation": "All scenes sharing mission_data_take_id, platform, and orbit are collapsed into single parent clusters prior to partition assignment.",
+    "constituent_scene_compression": "85 scenes collapsed into 64 clusters (21 along-track adjacent scenes unified with primary parent)."
+  },
+  "leakage_verification": {
+    "cross_partition_cluster_leakage": 0,
+    "cross_partition_datatake_leakage": 0,
+    "cross_partition_scene_leakage": 0,
+    "cross_partition_product_leakage": 0,
+    "ops01_vs_ops02_datatake_overlap": 0
+  }
+}

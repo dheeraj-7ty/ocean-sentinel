@@ -1,0 +1,116 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "C16 Actual Execution Reconstruction from Machine Evidence",
+  "audited_at_utc": "2026-09-14T05:32:00Z",
+  "evidence_sources": [
+    "experiments/EXP-07/runs/EXP07_RUN003_SEED42/metrics.json",
+    "experiments/EXP-07/runs/EXP07_RUN003_SEED42/epoch_history.json",
+    "experiments/EXP-07/runs/EXP07_RUN003_SEED42/ocean-sentinel-exp07-c16-replicate-003.txt",
+    "experiments/EXP-07/runs/EXP07_RUN003_SEED42/training_environment.json",
+    "data/metadata/exp07_p0_c16_training_environment_v1.json"
+  ],
+  "reconstructed_parameters": {
+    "run_id": "EXP07_RUN003_SEED42",
+    "replicate_id": "REPLICATE_003",
+    "seed": 42,
+    "execution_platform": "KAGGLE_GPU",
+    "kernel_slug": "dheeraj12237/ocean-sentinel-exp07-c16-replicate-003",
+    "kernel_version": 4,
+    "best_epoch": 17,
+    "total_epochs_trained": 27,
+    "early_stopping": {
+      "min_epochs": 15,
+      "patience": 10,
+      "min_delta": 0.005,
+      "triggered_at_epoch": 27,
+      "trigger_basis": "No improvement over best_epoch 17 (0.0494) for 10 consecutive epochs"
+    },
+    "best_dev_mIoU_phenomena": 0.04939909220776271,
+    "best_epoch_class_ious": {
+      "0_BG": 0.026582773050047134,
+      "1_AF": 0.0,
+      "2_BS": 0.10258497040429665,
+      "3_LWA": 0.02938535747678501,
+      "4_MCC": 0.2285722476858737,
+      "5_OF": 0.0005095355947008298,
+      "6_POW": 0.04297172990468008,
+      "7_RF": 0.0,
+      "8_WS": 0.02237772992925254,
+      "9_Eddy": 0.01312667812646503,
+      "10_IWs": 0.10386176516333606,
+      "11_HM": 0.0
+    },
+    "dataset_ingested": {
+      "version": "OPS02_v1.0.0_FROZEN",
+      "samples_loaded_train": 132,
+      "samples_loaded_dev": 40,
+      "holdout_access_count": 0,
+      "holdout_firewall_status": "STRICTLY_PRESERVED"
+    },
+    "model_configuration": {
+      "architecture": "ResNet18-UNet",
+      "trainable_parameters": 14310860,
+      "batch_norm_2d_layers": 30,
+      "encoder_initialization": "ImageNet pretrained (resnet18-f37072fd.pth)",
+      "input_tensor_shape": [8, 1, 256, 256],
+      "output_tensor_shape": [8, 12, 256, 256]
+    },
+    "optimization": {
+      "optimizer": "AdamW",
+      "learning_rate": 0.0005,
+      "weight_decay_2d": 0.01,
+      "weight_decay_1d_bias": 0.0,
+      "betas": [0.9, 0.999],
+      "eps": 1e-8,
+      "gradient_clipping_norm": 1.0
+    },
+    "scheduler": {
+      "name": "LinearWarmupCosineAnnealingLR",
+      "total_budget_epochs": 30,
+      "warmup_epochs": 3,
+      "min_lr": 1e-6
+    },
+    "batch_dynamics": {
+      "minibatch_size": 8,
+      "gradient_accumulation_steps": 2,
+      "effective_optimizer_batch_size": 16,
+      "batch_norm_statistical_batch_size": 8
+    },
+    "sampler": {
+      "name": "Candidate F Hybrid Sampler",
+      "mixture": "70% parent balanced + 30% phenomenon presence",
+      "draws_per_epoch": 72,
+      "replacement": true,
+      "seed_formula": "seed + epoch * 1000"
+    },
+    "hardware_execution": {
+      "gpus_provisioned": 2,
+      "gpus_allocated_to_trainer": 1,
+      "training_device": "cuda:0",
+      "gpu_model": "Tesla T4 (14.56 GB VRAM)"
+    },
+    "checkpoints": {
+      "best_model_sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+      "last_model_sha256": "60411490EFB81D5DE806F4DFFBA760F5D7F4486B14AB4F144AD35D37EE16FA9E"
+    }
+  },
+  "c18_contradictions_reconciled": [
+    {
+      "claim": "C18 stated best epoch was 4",
+      "actual_machine_truth": "Best epoch was 17 (mIoU = 0.049399). Epoch 4 had mIoU = 0.0272.",
+      "resolution": "Corrected to 17 based on metrics.json line 7, epoch_history.json, and Kaggle stdout."
+    },
+    {
+      "claim": "C18 table stated lr=3e-4, wd=1e-4, 20 epochs, accumulation=1, effective_bs=8",
+      "actual_machine_truth": "Executed values were lr=5e-4, wd=0.01, 30 epochs budget, accumulation=2, effective_bs=16.",
+      "resolution": "C18 table declared an erroneous transcription defect; actual C16 execution parameters confirmed from exp07_p0_c16_training_environment_v1.json."
+    },
+    {
+      "claim": "C18 stated sampler seed was seed + epoch",
+      "actual_machine_truth": "Executed formula was seed + epoch * 1000.",
+      "resolution": "Confirmed from exp07_p0_c16_training_environment_v1.json line 87."
+    }
+  ],
+  "verdict": "C16_EXECUTION_RECONSTRUCTED_100_PERCENT_CONSISTENT"
+}

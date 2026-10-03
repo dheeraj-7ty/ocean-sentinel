@@ -1,0 +1,12 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "audited_at_utc": "2026-09-13T21:10:25.285809+00:00",
+  "satellite_platform_distribution": {
+    "S1A": 64
+  },
+  "sensor_mode": "IW",
+  "polarization": "VV",
+  "resolution": "100m (10x10 block-mean of 10m native Level-1 GRD)",
+  "acquisition_diversity_verdict": "STANDARDIZED_IW_VV_VERIFIED"
+}

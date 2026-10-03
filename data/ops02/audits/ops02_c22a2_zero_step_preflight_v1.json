@@ -1,0 +1,99 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A2_ZERO_STEP_PREFLIGHT_v1",
+    "task_id": "EXP-07-P0-C22-A.2",
+    "executed_at_utc": "2026-09-14T05:43:44Z",
+    "status": "PREFLIGHT_PASSED_ZERO_STEP_VERIFIED",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "authoritative_experiment_structure": {
+    "total_controlled_dimensions": 20,
+    "independent_variable": {
+      "name": "CLASS_LOSS_WEIGHT_VECTOR",
+      "control_vector_compact_json_sha256": "48B6F027519588324F2FE061BA6B8931B71339CDC410BF0FE19EF6A34AEF6039",
+      "treatment_vector_compact_json_sha256": "42F09924BFFA5FC46DAF7E8E0FC36E08CFDC9900EF1447846F2C795105B9AF06",
+      "control_vector_formatted_json_sha256": "DBCDF612A4B0FB711CFE9EDB6127674570D4D99364B4484EBEDEC4331C320A62",
+      "treatment_vector_formatted_json_sha256": "5587B0DF2316422CE6C65D5ABC2A48B0435B524EE92BEB8509AFD9A96C4C38B9",
+      "control_vector_sha256": "48B6F027519588324F2FE061BA6B8931B71339CDC410BF0FE19EF6A34AEF6039",
+      "treatment_vector_sha256": "42F09924BFFA5FC46DAF7E8E0FC36E08CFDC9900EF1447846F2C795105B9AF06",
+      "vector_length": 12
+    },
+    "scientific_experimental_invariants": [
+      "INV-01: Dataset Specification (OPS02_v1.0.1_FROZEN)",
+      "INV-02: Partition Allocation (132 TRAIN / 40 DEV / 40 HOLDOUT)",
+      "INV-04: Physical Image Representation (GeoTIFF float32 single-band VV SAR, 256x256)",
+      "INV-05: Preprocessing Transformation (np.log1p, valid DN > 0, nodata = 0.0)",
+      "INV-06: Radiometric Normalization (mu=4.424158, sigma=0.469261)",
+      "INV-07: Taxonomy & Index Ordering (12 dense classes 0..11)",
+      "INV-08: Excluded Source Labels (3, 9, 14 mapped to ignore_index=-100)",
+      "INV-09: Neural Network Architecture (ResNet18-UNet, 14,310,860 parameters, 30 BN layers)",
+      "INV-10: Pretrained Backbone Identity (ResNet18_Weights.IMAGENET1K_V1)",
+      "INV-11: Optimization Algorithm (AdamW, beta1=0.9, beta2=0.999, eps=1e-8)",
+      "INV-12: Base Learning Rate (0.0005)",
+      "INV-13: Weight Decay (0.01 applied to 2D conv/linear weights only)",
+      "INV-14: Learning Rate Schedule (LinearWarmupCosineAnnealingLR, T_max=30, T_warmup=3, eta_min=1e-6)",
+      "INV-15: Batch Dynamics & Accumulation (physical batch=8, accumulation=2, effective batch=16)",
+      "INV-16: Sampler Strategy (Candidate F Hybrid, 72 draws per epoch)",
+      "INV-17: Random Seed Configuration (Base seed 42, epoch formula 42 + epoch * 1000)",
+      "INV-18: Data Augmentation (Disabled / deterministic loaders)",
+      "INV-19: Benchmark Metric & Stopping Rule (dev_mIoU_phenomena, patience=10, min_epoch=15)"
+    ],
+    "execution_governance_invariants": [
+      "INV-03: Partition Firewall Boundaries (Zero HOLDOUT / Zero Part-III access)"
+    ]
+  },
+  "dependency_lineage_hashes": {
+    "freeze_spec": "3B362DECD210679DCC7BF5EB6879A020416E4A8BB780845F3FCC59A4DFBF3B35",
+    "physical_manifest": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "partition_manifest": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+    "parent_cluster_manifest": "08ED21FBB492363E1D05040020F73177BFD4DC84F1A39E2D9C5C9B38BC97D10B",
+    "taxonomy_spec": "182722015335317286CDAF43F2F73353CDB9B302C91F377FE0A16E5DFE508B85"
+  },
+  "initial_model_identity": {
+    "initial_model_state_path": "data/ops02/initial_model_state.pt",
+    "initial_model_state_sha256": "4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C",
+    "trainable_parameters": 14310860,
+    "buffer_count": 11806,
+    "total_state_elements": 14322666,
+    "batchnorm_2d_layers": 30,
+    "strict_load_verified": true,
+    "pretrained_backbone_file_hash": "NOT_LOCALLY_VERIFIED",
+    "pretrained_backbone_reason": "resnet18-f37072fd.pth not in local torch hub cache; zero network downloads permitted under governance"
+  },
+  "parity_fingerprints": {
+    "control_model_state_sha256": "E9343B5DE995D2DD0985C62FC57FC9B154974732F48BF6CCA81F62CAA8C1FA7D",
+    "treatment_model_state_sha256": "E9343B5DE995D2DD0985C62FC57FC9B154974732F48BF6CCA81F62CAA8C1FA7D",
+    "sampler_schedule_72_draws_sha256": "6462A1ED44D93FAC2603EEC0DFF1C05D25F03586AA2732B84E359823782F3C95",
+    "first_batch_sample_ids": [
+      "s1a-iw-grd-vv-20170325t214838-20170325t214903-015854-01a1fc-001-38",
+      "s1a-iw-grd-vv-20170331t120007-20170331t120032-015936-01a460-001-2",
+      "s1a-iw-grd-vv-20170611t120011-20170611t120036-016986-01c47c-001-3",
+      "s1a-iw-grd-vv-20170325t214838-20170325t214903-015854-01a1fc-001-37",
+      "s1a-iw-grd-vv-20180304t114322-20180304t114347-020865-023c93-001-6",
+      "s1a-iw-grd-vv-20180301t215620-20180301t215645-020827-023b6b-001-23",
+      "s1a-iw-grd-vv-20220224t155148-20220224t155213-042057-05028f-001-33",
+      "s1a-iw-grd-vv-20220224t154918-20220224t154943-042057-05028f-001-29"
+    ],
+    "first_batch_input_tensor_checksum": "5119CC6280FDE65702DC58D2856E6E472A4A8C9AAE13F866F5E34C526EFCB9A6",
+    "first_batch_target_tensor_checksum": "BA88C7851EF76FEB1035E9A33CFB2CCF696489FCDF8C032D2E854CB4BA52582C",
+    "first_batch_validity_mask_checksum": "33A150BCEB13C1A992231E65B4FAD16815212FC06CDB408996D32EEB2CEF9EBB",
+    "first_batch_logits_checksum": "BD4E29343D7F0EC9E7B9AAFBD591BA016FF43D397D3797F07B3E69BEB3F3AB9E",
+    "batchnorm_pre_forward_equality": true,
+    "logits_bitwise_equality": true
+  },
+  "first_forward_loss_results": {
+    "control_loss_batch_0": 2.593478202819824,
+    "treatment_loss_batch_0": 2.6334774494171143,
+    "delta_loss_batch_0": 0.03999924659729004,
+    "finite_loss_verified": true,
+    "backward_executed": false,
+    "optimizer_step_executed": false,
+    "scheduler_step_executed": false
+  },
+  "firewall_compliance": {
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "quarantine_firewall_verified": true
+  },
+  "readiness_verdict": "READY_FOR_USER_AUTHORIZATION"
+}

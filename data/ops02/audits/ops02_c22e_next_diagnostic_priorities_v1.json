@@ -1,0 +1,78 @@
+{
+  "audit_version": "1.0.0",
+  "audit_date": "2026-09-14T15:11:35+05:30",
+  "task_id": "EXP-07-P0-C22-E",
+  "experiment_id": "EXP07_DIAG01_DIAGNOSTICS",
+  "status": "COMPLETED_VALID",
+  "selection_criterion": "MAXIMUM_INFORMATION_GAIN_PER_UNIT_OF_COMPUTE",
+  "prioritized_investigations": [
+    {
+      "rank": 1,
+      "investigation_id": "DIAG-01-CLASS-SUPPORT-METRIC-SENSITIVITY",
+      "title": "Class-Support Stratification and Primary Metric Sensitivity Diagnostic",
+      "diagnostic_question": "Does DEV class-support imbalance make the primary macro-mIoU estimate disproportionately sensitive to a small number of physical acquisitions, and how much does the interpretation change when results are stratified by class support?",
+      "target_failure": "Disproportionate sensitivity of unweighted macro mIoU to sparse-support classes in DEV (e.g. classes with 1-3 scenes), where individual acquisitions have high leverage on class-level estimates.",
+      "existing_evidence": [
+        "In OPS-02 DEV, Class 5 (OF) appears in exactly 1 sample (0.067% pixels), Class 7 (RF) in 2 samples (0.372% pixels), and Class 11 (HM) in 3 samples (0.005% pixels).",
+        "Sparse class support in the DEV partition may reduce the reliability and stability of class-level IoU estimates, because individual scenes contribute disproportionately to the metric. This is a measurement-support concern, not a mathematical upper bound on macro mIoU.",
+        "Major classes (MCC, IWs) achieve consistently nonzero performance with observed class IoU means of 0.21-0.26 (MCC) and 0.10-0.23 (IWs), though between-seed variability remains present."
+      ],
+      "why_it_resolves_uncertainty": "Evaluates whether DEV class-support imbalance makes the primary macro-mIoU estimate disproportionately sensitive to a small number of physical acquisitions, and quantifies how interpretation changes when results are stratified by class support (using support-stratified summaries as descriptive secondary diagnostics without altering the frozen primary metric).",
+      "scientific_cost": "Very Low (purely post-hoc statistical re-analysis of existing evaluation tensors).",
+      "compute_cost": "ZERO GPU compute (CPU-only analysis of existing checkpoint prediction masks).",
+      "risk_of_confounding": "Minimal (no retraining, no dataset mutation, primary metric unchanged).",
+      "expected_information_value": "Extremely High (clarifies whether the observed ~0.05 mIoU reflects broad model behavior or sparse-support estimator variance).",
+      "required_control": "Existing evaluated DEV confusion matrices and per-scene IoU breakdowns across Seeds 42, 101, 202, 303, 404.",
+      "required_data": "Existing OPS-02 DEV split and stored run predictions.",
+      "holdout_necessary": false
+    },
+    {
+      "rank": 2,
+      "investigation_id": "DIAG-02-SAMPLER-EXPOSURE-SCHEDULE-AUDIT",
+      "title": "Candidate F Hybrid Sampler Schedule Exposure and Seed-Variance Audit",
+      "diagnostic_question": "Does the realized Candidate F sampling schedule produce materially different class/parent exposure patterns across seeds that are associated with the observed performance variance?",
+      "target_failure": "High between-seed performance volatility on moderately rare classes (BS, POW, Eddy).",
+      "existing_evidence": [
+        "BS IoU spans 0.018 to 0.158 across seeds in Control (8.6x variance).",
+        "POW IoU spans 0.003 to 0.102 across seeds in Control (34x variance).",
+        "Eddy IoU spans 0.000 to 0.102 across seeds in Control.",
+        "The model and dataset are 100% bitwise identical; only the random seed driving the Candidate F schedule (72 draws/epoch with replacement from 132 samples) differs."
+      ],
+      "why_it_resolves_uncertainty": "Directly measures the empirical distribution of per-class and per-parent tile exposures across epochs for each random seed, testing whether realized Candidate F sampling draw schedules correlate descriptively with between-seed performance variance, without assuming a causal starvation mechanism or modifying the sampler.",
+      "scientific_cost": "Very Low (purely combinatorial schedule accounting).",
+      "compute_cost": "ZERO GPU compute (analyzes precomputed Candidate F index schedules and manifest sample labels).",
+      "risk_of_confounding": "Zero (purely deterministic static audit).",
+      "expected_information_value": "High (identifies whether realized sampler schedule variance correlates with validation performance differences without changing architecture or data).",
+      "required_control": "Precomputed Candidate F sampler draw schedules for Seeds 42, 101, 202, 303, 404.",
+      "required_data": "OPS-02 physical manifest sample annotations.",
+      "holdout_necessary": false
+    },
+    {
+      "rank": 3,
+      "investigation_id": "DIAG-03-RADIOMETRIC-INPUT-DISCRIMINABILITY",
+      "title": "Single-Band VV SAR Radiometric Contrast and Distributional Overlap Audit",
+      "diagnostic_question": "Assess whether class-conditional backscatter distributions in the available single-band VV input exhibit substantial overlap that could plausibly limit discriminability.",
+      "target_failure": "Persistent zero-IoU on RF (0.00000 across all 10 runs), HM (0.00000 across 9/10 runs), and lower observed performance on dark-slick classes (WS, LWA) under uniform loss.",
+      "existing_evidence": [
+        "Single-band VV SAR input provides scalar backscatter without polarization ratio (VH/VV) or multi-spectral contrast.",
+        "Wind streaks, biological slicks, and low wind areas share dark-backscatter characteristics in VV imagery.",
+        "Rain cells (RF) and point targets (HM) may exhibit low backscatter contrast against surrounding ocean background under standard log1p normalization."
+      ],
+      "why_it_resolves_uncertainty": "Quantifies empirical backscatter distributions (mean, variance, signal-to-clutter ratio, histogram overlap) within ground-truth mask polygons for all classes, measuring whether class-conditional backscatter distributions in single-channel VV SAR exhibit substantial overlap that could plausibly limit discriminability, without presuming an information bottleneck.",
+      "scientific_cost": "Low (raster pixel statistical profiling).",
+      "compute_cost": "Negligible CPU compute (NumPy statistical extraction on existing training GeoTIFFs).",
+      "risk_of_confounding": "Minimal (characterizes data properties directly).",
+      "expected_information_value": "High (evaluates distributional overlap directly from pixel evidence without speculative bottleneck assumptions).",
+      "required_control": "OPS-02 TRAIN and DEV raw rasters and ground-truth masks.",
+      "required_data": "Frozen OPS-02 derived images and masks.",
+      "holdout_necessary": false
+    }
+  ],
+  "prohibited_actions": [
+    "Do NOT launch new GPU training runs before completing diagnostic audits.",
+    "Do NOT access HOLDOUT partition.",
+    "Do NOT access Part III benchmark.",
+    "Do NOT adopt uniform weighting as canonical.",
+    "Do NOT conduct opportunistic hyperparameter searches."
+  ]
+}

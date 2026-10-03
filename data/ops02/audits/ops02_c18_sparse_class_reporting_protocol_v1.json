@@ -1,0 +1,50 @@
+{
+  "protocol_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "protocol_name": "OPS-02 Dual-Tier Multiclass Perception Reporting Protocol",
+  "created_at_utc": "2026-09-14T05:06:00Z",
+  "status": "RATIFIED_ACTIVE",
+  "primary_metric_invariance_mandate": {
+    "metric_name": "dev_mIoU_phenomena",
+    "definition": "Unweighted arithmetic macro-average of per-class IoU across phenomena classes 1..11 where GT_c > 0 (excluding Background class 0).",
+    "policy": "IMMUTABLE AND FROZEN. This metric will NEVER be discarded, filtered, or redefined retroactively. It serves as the primary cross-replicate benchmark for historical comparability."
+  },
+  "secondary_partitioned_reporting_specification": {
+    "rationale": "To prevent extreme minority classes (e.g. HM with 117 pixels on DEV) from completely obscuring model perception of major oceanographic structures, all future evaluation artifacts must provide a structured 3-tier report (GOV-RULE-089 / GOV-RULE-094).",
+    "tier_1_primary_benchmark": {
+      "metric": "dev_mIoU_phenomena (Full 11-Class Macro Mean)",
+      "classes": ["AF", "BS", "LWA", "MCC", "OF", "POW", "RF", "WS", "Eddy", "IWs", "HM"],
+      "c16_baseline_value": 0.049399
+    },
+    "tier_2_dominant_phenomena_subgroup": {
+      "metric": "dev_mIoU_dominant_phenomena",
+      "definition": "Macro mean of IoU over phenomena with > 100,000 ground-truth pixels and robust parent cluster presence on DEV.",
+      "qualifying_classes": ["MCC (853.3k px)", "IWs (579.5k px)", "BS (123.8k px)"],
+      "c16_baseline_value": 0.145006
+    },
+    "tier_3_intermediate_and_sparse_phenomena_subgroups": {
+      "intermediate_classes": {
+        "definition": "Phenomena with 10k - 100k pixels on DEV",
+        "qualifying_classes": ["WS (131.0k px)", "POW (78.4k px)", "LWA (58.6k px)", "Eddy (45.3k px)", "AF (39.4k px)"],
+        "c16_mean_iou": 0.021571
+      },
+      "ultra_sparse_classes": {
+        "definition": "Phenomena with < 10k pixels on DEV or zero true positives",
+        "qualifying_classes": ["RF (9.5k px, IoU=0.0)", "OF (1.7k px, IoU=0.0005)", "HM (117 px, IoU=0.0)"],
+        "c16_mean_iou": 0.000170
+      }
+    }
+  },
+  "reporting_template": {
+    "required_columns_in_evaluation_tables": [
+      "Class Name",
+      "Dense Index",
+      "Parent Cluster Support",
+      "Ground Truth Pixel Count",
+      "Predicted Pixel Count",
+      "True Positive Pixels",
+      "IoU Score",
+      "Subgroup Classification (Dominant / Intermediate / Ultra-Sparse)"
+    ]
+  }
+}

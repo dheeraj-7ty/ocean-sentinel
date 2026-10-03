@@ -1,0 +1,28 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "OPS-02 C18 Class Weighting and Loss Protocol Audit",
+  "audited_at_utc": "2026-09-14T04:52:00Z",
+  "formula": "w_c = sqrt(median(f_valid) / f_c)",
+  "source_data": "132 TRAIN partition sample pairs in ops02_physical_dataset_manifest_v1.json",
+  "pixel_filtering_rules": {
+    "valid_pixels_only": "raw_image > 0 (invalid border padding excluded)",
+    "ignore_index_pixels": "Source labels 3 (Iceberg), 9 (Sea Ice), 14 (Mineral Oil Spill) mapped to -100 and excluded from frequency counts",
+    "median_frequency": 399710.5
+  },
+  "weights_comparison_matrix": {
+    "0_BG": {"train_valid_pixels": 2449755, "c15_prescribed": 0.403935, "c16_actual": 0.403935, "c18_canonical": 0.403935, "status": "EXACT_MATCH"},
+    "1_AF": {"train_valid_pixels": 66561, "c15_prescribed": 2.450546, "c16_actual": 2.450546, "c18_canonical": 2.450546, "status": "EXACT_MATCH"},
+    "2_BS": {"train_valid_pixels": 520058, "c15_prescribed": 0.876692, "c16_actual": 0.876692, "c18_canonical": 0.876692, "status": "EXACT_MATCH"},
+    "3_LWA": {"train_valid_pixels": 446698, "c15_prescribed": 0.945945, "c16_actual": 0.945945, "c18_canonical": 0.945945, "status": "EXACT_MATCH"},
+    "4_MCC": {"train_valid_pixels": 951354, "c15_prescribed": 0.648189, "c16_actual": 0.648189, "c18_canonical": 0.648189, "status": "EXACT_MATCH"},
+    "5_OF": {"train_valid_pixels": 22536, "c15_prescribed": 4.211476, "c16_actual": 4.211476, "c18_canonical": 4.211476, "status": "EXACT_MATCH"},
+    "6_POW": {"train_valid_pixels": 771817, "c15_prescribed": 0.719641, "c16_actual": 0.719641, "c18_canonical": 0.719641, "status": "EXACT_MATCH"},
+    "7_RF": {"train_valid_pixels": 45738, "c15_prescribed": 2.956203, "c16_actual": 2.956203, "c18_canonical": 2.956203, "status": "EXACT_MATCH"},
+    "8_WS": {"train_valid_pixels": 352723, "c15_prescribed": 1.064525, "c16_actual": 1.064525, "c18_canonical": 1.064525, "status": "EXACT_MATCH"},
+    "9_Eddy": {"train_valid_pixels": 112747, "c15_prescribed": 1.882870, "c16_actual": 1.882870, "c18_canonical": 1.882870, "status": "EXACT_MATCH"},
+    "10_IWs": {"train_valid_pixels": 2659872, "c15_prescribed": 0.387652, "c16_actual": 0.387652, "c18_canonical": 0.387652, "status": "EXACT_MATCH"},
+    "11_HM": {"train_valid_pixels": 1201, "c15_prescribed": 18.243211, "c16_actual": 18.243211, "c18_canonical": 18.243211, "status": "EXACT_MATCH"}
+  },
+  "overall_verdict": "CONFORMANCE_100_PERCENT. C15 prescribed weights, C16 executed weights, and C18 recomputed canonical weights match exactly across all 12 classes to 6 decimal places."
+}

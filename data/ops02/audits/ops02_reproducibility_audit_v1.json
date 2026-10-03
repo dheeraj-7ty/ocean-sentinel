@@ -1,0 +1,36 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C15",
+  "title": "OPS-02 Dataset Reproducibility, Regeneration, and Epistemic Boundary Audit",
+  "created_at_utc": "2026-09-14T01:10:00Z",
+  "status": "REPRODUCIBILITY_CLASSIFIED_WITH_BOUNDARIES",
+  "epistemic_decomposition": {
+    "artifact_integrity": {
+      "level": "OBSERVED_COMPLETE",
+      "evidence": "All 212 GeoTIFF images and 212 PNG masks physically exist on disk, are readable without error, have expected shapes (256, 256) and dtypes (float32, uint8), and have SHA-256 checksums matching the authoritative manifest with 0 mismatches."
+    },
+    "regeneration_reproducibility": {
+      "level": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+      "evidence": "Code in scripts/assemble_ops02_c14_dataset.py deterministically specifies the source product URL resolution on AWS Open Data S3 (sentinel-s1-l1c), the 2560x2560 window crop geometry, 10x10 block-mean aggregation, and mask remapping. Regeneration from remote S3 requires network reachability and stable AWS Open Data URLs."
+    },
+    "scientific_reproducibility": {
+      "level": "TIER_A_EXTERNAL_DEPENDENCY",
+      "evidence": "Semantic phenomenon boundaries originate from Li et al. (2020) manual expert annotations. The annotations are treated as authoritative Tier-A labels but have not been independently re-annotated from scratch or co-registered with high-resolution optical / AIS ship tracking."
+    }
+  },
+  "deterministic_parameters": {
+    "source_archive": "Li et al. (2020), Zenodo 10.5281/zenodo.14279466",
+    "raw_measurement_source": "Copernicus Sentinel-1 Level-1 GRD IW mode (AWS Open Data sentinel-s1-l1c)",
+    "crop_window_size": [2560, 2560],
+    "crop_stride": [2560, 2560],
+    "crop_offset": [50, 50],
+    "aggregation_operator": "10x10 spatial block arithmetic mean",
+    "output_image_format": "GeoTIFF float32 [256, 256, 1]",
+    "output_mask_format": "PNG uint8 [256, 256]",
+    "canonical_remapping": "remap_source_mask_to_dense (0..11 valid, -100 ignored)"
+  },
+  "limitations": {
+    "georeferencing_status": "Relative pixel grid alignment is strongly supported; absolute georeferencing in the GeoTIFF headers is an engineering placeholder transform and should not be used for precision geographic GIS overlay without applying native Sentinel-1 GCP / orbit geocoding.",
+    "single_archive_grounding": "OPS-02 is an expansion of independent acquisitions within the Li IW archive; it does NOT constitute an independent multi-source benchmark."
+  }
+}

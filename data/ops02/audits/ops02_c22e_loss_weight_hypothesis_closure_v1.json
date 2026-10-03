@@ -1,0 +1,73 @@
+{
+  "audit_version": "1.0.0",
+  "audit_date": "2026-09-14T15:11:15+05:30",
+  "task_id": "EXP-07-P0-C22-E",
+  "experiment_id": "EXP07_DIAG01_CLOSURE",
+  "status": "COMPLETED_VALID",
+  "scientific_status": "LOSS_WEIGHT_INTERVENTION = CLOSED_NOT_SUPPORTED_FOR_CANONICAL_REPLACEMENT",
+  "tested_hypothesis": {
+    "statement": "Changing from canonical sqrt-median-frequency class weighting to uniform weighting improves DEV performance under the OPS-02 protocol.",
+    "status": "NOT_SUPPORTED_AS_A_ROBUST_ADVANTAGE",
+    "question_answered": "Does uniform weighting demonstrate a stable DEV advantage over the canonical weighting policy under this frozen OPS-02 setup?",
+    "answer": "NO",
+    "questions_not_answered": [
+      "Which neural architecture is optimal for ocean phenomena segmentation",
+      "Which representation or feature extractor is optimal",
+      "Whether the dataset size or diversity is sufficient",
+      "Whether the 12-class taxonomy is optimal",
+      "Whether single-channel VV SAR preprocessing is optimal",
+      "Whether Candidate F hybrid sampling is optimal",
+      "Whether the model generalizes to HOLDOUT",
+      "Whether another loss intervention (e.g. Focal, Dice) would improve performance"
+    ]
+  },
+  "evidence_summary": {
+    "discovery_seed_42": {
+      "control_best_dev_mIoU": 0.04147,
+      "treatment_best_dev_mIoU": 0.05318,
+      "delta": 0.01171,
+      "winner": "TREATMENT"
+    },
+    "prospective_replications": {
+      "seed_101": {"control": 0.05886, "treatment": 0.04481, "delta": -0.01405, "winner": "CONTROL"},
+      "seed_202": {"control": 0.04358, "treatment": 0.04741, "delta": 0.00383, "winner": "TREATMENT"},
+      "seed_303": {"control": 0.05191, "treatment": 0.04605, "delta": -0.00586, "winner": "CONTROL"},
+      "seed_404": {"control": 0.04940, "treatment": 0.05398, "delta": 0.00458, "winner": "TREATMENT"}
+    },
+    "prospective_summary": {
+      "n_prospective_seeds": 4,
+      "treatment_wins": 2,
+      "control_wins": 2,
+      "mean_delta": -0.00288,
+      "conclusion": "Prospective replication showed mixed outcomes with a slightly negative mean delta in favor of Control."
+    },
+    "all_five_pairs_summary": {
+      "n_total_seeds": 5,
+      "treatment_wins": 3,
+      "control_wins": 2,
+      "mean_delta": 0.00004,
+      "median_delta": 0.00383,
+      "sd_delta": 0.01006,
+      "min_delta": -0.01405,
+      "max_delta": 0.01171,
+      "conclusion": "Across all five seeds, the mean paired delta is essentially zero (+0.00004) with substantial between-seed variability."
+    }
+  },
+  "canonical_policy_verdict": {
+    "action": "RETAIN_CANONICAL_POLICY",
+    "canonical_weighting_vector": [
+      0.403935, 2.450546, 0.876692, 0.945945,
+      0.648189, 4.211476, 0.719641, 2.956203,
+      1.064525, 1.882870, 0.387652, 18.243211
+    ],
+    "uniform_weighting_action": "DO_NOT_ADOPT",
+    "further_loss_weight_replications_recommended": false,
+    "scientific_qualification": "The available five-pair evidence does not support replacing the canonical weighting policy. The null is not mathematically proven, equivalence is not claimed, and uniform weighting is not claimed to be harmful in general; rather, it fails to demonstrate a robust development advantage."
+  },
+  "firewall_compliance": {
+    "holdout_access_count": 0,
+    "holdout_status": "QUARANTINED_ZERO_ACCESS",
+    "part_iii_access_count": 0,
+    "part_iii_status": "FIREWALLED_ZERO_ACCESS"
+  }
+}

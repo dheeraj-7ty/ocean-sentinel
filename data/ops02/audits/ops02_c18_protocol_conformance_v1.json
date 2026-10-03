@@ -1,0 +1,183 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "C16 Protocol Conformance and C18 Canonical Harmonization Matrix",
+  "audited_at_utc": "2026-09-14T04:58:00Z",
+  "conformance_matrix": [
+    {
+      "parameter": "dataset_version",
+      "c15_frozen_protocol": "OPS02_v1.0.0_FROZEN",
+      "c16_actually_executed": "OPS02_v1.0.0_FROZEN (mutated spec in place)",
+      "c18_canonical_protocol": "OPS02_v1.0.1_FROZEN (cryptographically bound)",
+      "status": "DOCUMENTATION_ONLY"
+    },
+    {
+      "parameter": "train_sample_count",
+      "c15_frozen_protocol": "132 samples (40 clusters)",
+      "c15_actually_executed": "132 samples (40 clusters)",
+      "c18_canonical_protocol": "132 samples (40 clusters)",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "dev_sample_count",
+      "c15_frozen_protocol": "41 samples claimed in text / 40 in manifest",
+      "c16_actually_executed": "40 samples loaded from manifest",
+      "c18_canonical_protocol": "40 samples (12 clusters)",
+      "status": "DOCUMENTATION_ONLY"
+    },
+    {
+      "parameter": "holdout_sample_count",
+      "c15_frozen_protocol": "39 samples claimed in text / 40 in manifest",
+      "c16_actually_executed": "0 loaded (quarantined)",
+      "c18_canonical_protocol": "40 samples (12 clusters, quarantined)",
+      "status": "DOCUMENTATION_ONLY"
+    },
+    {
+      "parameter": "model_architecture",
+      "c15_frozen_protocol": "ResNet18-UNet (Option B, BN momentum 0.05)",
+      "c16_actually_executed": "ResNet18-UNet (Option B, BN momentum 0.05)",
+      "c18_canonical_protocol": "ResNet18-UNet (Option B, BN momentum 0.05)",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "parameter_count",
+      "c15_frozen_protocol": "14,310,860 trainable parameters",
+      "c16_actually_executed": "14,310,860 trainable parameters",
+      "c18_canonical_protocol": "14,310,860 trainable parameters",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "batchnorm_layers",
+      "c15_frozen_protocol": "30 BatchNorm2d layers",
+      "c16_actually_executed": "30 BatchNorm2d layers",
+      "c18_canonical_protocol": "30 BatchNorm2d layers",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "pretrained_initialization",
+      "c15_frozen_protocol": "ImageNet pretrained encoder (Seed 42 contract)",
+      "c16_actually_executed": "ResNet18_Weights.DEFAULT (ImageNet-1K)",
+      "c18_canonical_protocol": "ResNet18_Weights.DEFAULT (ImageNet-1K)",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "normalization",
+      "c15_frozen_protocol": "log1p(raw_dn) standardized, mu=4.424158, sigma=0.469261",
+      "c16_actually_executed": "log1p(raw_dn) standardized, mu=4.424158, sigma=0.469261",
+      "c18_canonical_protocol": "log1p(raw_dn) standardized, mu=4.424158, sigma=0.469261",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "loss_function",
+      "c15_frozen_protocol": "CrossEntropyLoss with sqrt-median freq weights, ignore_index=-100",
+      "c16_actually_executed": "CrossEntropyLoss with sqrt-median freq weights, ignore_index=-100",
+      "c18_canonical_protocol": "CrossEntropyLoss with sqrt-median freq weights, ignore_index=-100",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "class_weights",
+      "c15_frozen_protocol": "TRAIN sqrt-median frequency [0.403935 ... 18.243211]",
+      "c16_actually_executed": "TRAIN sqrt-median frequency [0.403935 ... 18.243211]",
+      "c18_canonical_protocol": "TRAIN sqrt-median frequency [0.403935 ... 18.243211]",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "sampler",
+      "c15_frozen_protocol": "Candidate F Hybrid (70% parent, 30% presence, 72 draws/ep)",
+      "c16_actually_executed": "Candidate F Hybrid (70% parent, 30% presence, 72 draws/ep)",
+      "c18_canonical_protocol": "Candidate F Hybrid (70% parent, 30% presence, 72 draws/ep)",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "optimizer",
+      "c15_frozen_protocol": "AdamW (lr=5e-4, weight_decay=0.01 on 2D weights)",
+      "c16_actually_executed": "AdamW (lr=5e-4, weight_decay=0.01 on 2D weights)",
+      "c18_canonical_protocol": "AdamW (lr=5e-4, weight_decay=0.01 on 2D weights)",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "lr_scheduler",
+      "c15_frozen_protocol": "LinearWarmupCosineAnnealingLR (3 warmup, 27 cosine decay)",
+      "c16_actually_executed": "LinearWarmupCosineAnnealingLR (3 warmup, 27 cosine decay)",
+      "c18_canonical_protocol": "LinearWarmupCosineAnnealingLR (3 warmup, 27 cosine decay)",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "batch_dynamics",
+      "c15_frozen_protocol": "minibatch=8, grad_accum=2, virtual_batch=16, BN_batch=8",
+      "c16_actually_executed": "minibatch=8, grad_accum=2, virtual_batch=16, BN_batch=8",
+      "c18_canonical_protocol": "minibatch=8, grad_accum=2, virtual_batch=16, BN_batch=8",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "gradient_clipping",
+      "c15_frozen_protocol": "max_norm=1.0 via clip_grad_norm_",
+      "c16_actually_executed": "max_norm=1.0 via clip_grad_norm_",
+      "c18_canonical_protocol": "max_norm=1.0 via clip_grad_norm_",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "training_epochs",
+      "c15_frozen_protocol": "30 epochs maximum",
+      "c16_actually_executed": "27 epochs trained (early stopped at 27)",
+      "c18_canonical_protocol": "30 epochs maximum",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "early_stopping",
+      "c15_frozen_protocol": "min_epochs=15, patience=10, min_delta=0.005 on DEV mIoU",
+      "c16_actually_executed": "Triggered at epoch 27 (best epoch 17 + 10 patience)",
+      "c18_canonical_protocol": "min_epochs=15, patience=10, min_delta=0.005 on DEV mIoU",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "random_seed",
+      "c15_frozen_protocol": "Seed 42 (sampler seed: 42 + epoch * 1000)",
+      "c16_actually_executed": "Seed 42 (sampler seed: 42 + epoch * 1000)",
+      "c18_canonical_protocol": "Seed 42 (sampler seed: 42 + epoch * 1000)",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "dataloader_workers",
+      "c15_frozen_protocol": "num_workers=2, pin_memory=True",
+      "c16_actually_executed": "num_workers=2, pin_memory=True",
+      "c18_canonical_protocol": "num_workers=2, pin_memory=True",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "deterministic_settings",
+      "c15_frozen_protocol": "cudnn.deterministic=True, cudnn.benchmark=False",
+      "c16_actually_executed": "cudnn.deterministic=True, cudnn.benchmark=False",
+      "c18_canonical_protocol": "cudnn.deterministic=True, cudnn.benchmark=False",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "device_handling",
+      "c15_frozen_protocol": "Kaggle GPU runtime",
+      "c16_actually_executed": "Single Tesla T4 (cuda:0); reported dual T4 environment",
+      "c18_canonical_protocol": "Single Tesla T4 explicitly declared (cuda:0)",
+      "status": "PROTOCOL_DEVIATION"
+    },
+    {
+      "parameter": "metric_definition",
+      "c15_frozen_protocol": "Macro mIoU over phenomena classes 1..11 (excluding BG)",
+      "c16_actually_executed": "Macro mIoU over phenomena classes 1..11 (excluding BG)",
+      "c18_canonical_protocol": "Macro mIoU over phenomena classes 1..11 (excluding BG) + partitioned reporting",
+      "status": "MATCH"
+    },
+    {
+      "parameter": "checkpoint_selection",
+      "c15_frozen_protocol": "Peak dev_mIoU_phenomena",
+      "c16_actually_executed": "Peak dev_mIoU_phenomena (Epoch 17 saved as best_model.pt)",
+      "c18_canonical_protocol": "Peak dev_mIoU_phenomena",
+      "status": "MATCH"
+    }
+  ],
+  "summary_counts": {
+    "total_parameters_audited": 24,
+    "match_count": 20,
+    "documentation_only_count": 3,
+    "protocol_deviation_count": 1,
+    "unknown_count": 0
+  }
+}

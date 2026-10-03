@@ -1,0 +1,58 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "audited_at_utc": "2026-09-13T21:10:25.287817+00:00",
+  "overall_verdict": "READY_FOR_DATASET_FREEZE_REVIEW",
+  "model_training_verdict": "NOT_AUTHORIZED_IN_C14",
+  "criteria": [
+    {
+      "criterion": "Total independent parent clusters",
+      "target": ">= 60",
+      "achieved": 64,
+      "status": "PASS",
+      "evidence": "Assembled 64 distinct datatake-clustered acquisitions."
+    },
+    {
+      "criterion": "DEV partition parent clusters",
+      "target": ">= 10",
+      "achieved": 12,
+      "status": "PASS",
+      "evidence": "DEV partition contains 12 independent datatake clusters."
+    },
+    {
+      "criterion": "HOLDOUT partition parent clusters",
+      "target": ">= 10",
+      "achieved": 12,
+      "status": "PASS",
+      "evidence": "HOLDOUT partition contains 12 independent datatake clusters."
+    },
+    {
+      "criterion": "HM (Artificial Objects) parent representation",
+      "target": ">= 8 total parents with representation in DEV and HOLDOUT",
+      "achieved": 14,
+      "status": "PASS",
+      "evidence": "HM represented in 14 parents across TRAIN, DEV, and HOLDOUT."
+    },
+    {
+      "criterion": "OF (Ocean Front) parent representation",
+      "target": ">= 6 total parents with representation in DEV and HOLDOUT",
+      "achieved": 7,
+      "status": "PASS",
+      "evidence": "OF represented in 7 parents across TRAIN, DEV, and HOLDOUT."
+    },
+    {
+      "criterion": "Inter-partition leakage",
+      "target": "0%",
+      "achieved": "0%",
+      "status": "PASS",
+      "evidence": "Zero datatake or parent overlap across TRAIN, DEV, and HOLDOUT."
+    },
+    {
+      "criterion": "Technical QC pass rate",
+      "target": "100%",
+      "achieved": "100.0%",
+      "status": "PASS",
+      "evidence": "All materialized samples passed all 4 distinct QC layers."
+    }
+  ]
+}

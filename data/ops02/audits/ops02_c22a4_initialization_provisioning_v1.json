@@ -1,0 +1,73 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A4_INITIALIZATION_PROVISIONING_v1",
+    "task_id": "EXP-07-P0-C22-A.4",
+    "executed_at_utc": "2026-09-14T06:50:00Z",
+    "status": "CANONICAL_PRETRAINED_INITIALIZATION_PROVISIONED_AND_VERIFIED",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "official_pretrained_dependency": {
+    "torchvision_enum": "torchvision.models.ResNet18_Weights.IMAGENET1K_V1",
+    "official_url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+    "filename": "resnet18-f37072fd.pth",
+    "cache_location": "C:\\Users\\Dheeraj\\.cache\\torch\\hub\\checkpoints\\resnet18-f37072fd.pth",
+    "complete_sha256": "F37072FD47E89C5E827621C5BAFFA7500819F7896BBACEC160B1A16C560E07EC",
+    "file_size_bytes": 46830571,
+    "sha256_prefix_match": "f37072fd (TorchVision filename suffix matches first 8 characters of complete digest)",
+    "environment": {
+      "python_version": "3.10.9",
+      "pytorch_version": "2.1.1+cpu",
+      "torchvision_version": "0.16.1+cpu"
+    }
+  },
+  "canonical_initial_state_artifact": {
+    "artifact_path": "data/ops02/initial_model_state_canonical.pt",
+    "artifact_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "state_dict_tensor_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "file_size_bytes": 57356426,
+    "model_architecture": "ResNet18UNet",
+    "in_channels": 1,
+    "num_classes": 12,
+    "bn_momentum": 0.05,
+    "trainable_parameters": 14310860,
+    "buffers_count": 11806,
+    "total_state_elements": 14322666,
+    "state_dict_tensor_count": 192,
+    "batchnorm_2d_layers": 30,
+    "strict_load_verified": true
+  },
+  "reconstruction_provenance_and_order": {
+    "step_1_seed": "Base seed 42 set for random, numpy, torch CPU",
+    "step_2_backbone": "resnet18(weights=ResNet18_Weights.IMAGENET1K_V1) loaded from local cache",
+    "step_3_conv1_adaptation": "nn.Conv2d(1, 64, 7, stride=2, padding=3, bias=False) adapted via self.conv1.weight.copy_(base_resnet.conv1.weight.mean(dim=1, keepdim=True))",
+    "step_4_encoder_binding": "bn1, relu, maxpool, layer1..4 bound directly from base_resnet",
+    "step_5_decoders": "dec4, dec3, dec2, dec1, final_up, final_conv instantiated sequentially under active seed 42 RNG stream",
+    "step_6_head": "nn.Conv2d(32, 12, kernel_size=1) instantiated under active seed 42 RNG stream",
+    "step_7_bn_momentum": "momentum=0.05 set across all 30 BatchNorm2d layers"
+  },
+  "determinism_verification": {
+    "runs_executed": 2,
+    "run_a_file_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "run_b_file_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "file_byte_equality": true,
+    "tensor_by_tensor_equality": "192 / 192 tensors bitwise identical across independent clean-process builds"
+  },
+  "historical_preservation_and_classification": {
+    "preserved_non_canonical_artifact": {
+      "path": "data/ops02/initial_model_state.pt",
+      "sha256": "4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C",
+      "tensor_fingerprint": "E9343B5DE995D2DD0985C62FC57FC9B154974732F48BF6CCA81F62CAA8C1FA7D",
+      "classification": "NON_CANONICAL_INITIALIZATION_ARTIFACT",
+      "preservation_status": "PRESERVED_AS_FORENSIC_EVIDENCE (NOT OVERWRITTEN)"
+    },
+    "historical_c16_replicate003": {
+      "pretrained_protocol": "Confirmed (downloaded on Kaggle VM)",
+      "initial_state_persisted": false,
+      "relationship_to_future_state": "Independent canonical reconstruction from identical protocol and weights; no unseen epoch-0 byte identity claimed"
+    }
+  },
+  "readiness_decision": {
+    "verdict": "READY_FOR_NEXT_PREFLIGHT",
+    "justification": "All scientific and implementation requirements for canonical initialization are proven, verified, and deterministically reconstructed. Initial model state provenance is 100% resolved. Training authorization is withheld until the subsequent preflight rehearsal executes against the canonical state."
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "EXP-07 Input Shape and Preprocessing Forensics Audit",
+  "audited_at_utc": "2026-09-14T05:35:00Z",
+  "findings": {
+    "physical_tile_dimensions": {
+      "examined_samples": 212,
+      "unique_dimensions_found": [[256, 256]],
+      "authority": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "status": "PASS_UNIFORM_256x256"
+    },
+    "freeze_specification_contract": {
+      "native_resolution": "2560x2560 native Level-1 GRD pixels",
+      "spatial_aggregation": "10x10 arithmetic block-mean to 256x256 pixel grid",
+      "authority": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+      "status": "PASS_EXPLICIT_256x256"
+    },
+    "model_architecture_contract": {
+      "input_channels": 1,
+      "spatial_height": 256,
+      "spatial_width": 256,
+      "input_tensor_contract": "[B, 1, 256, 256] float32",
+      "output_tensor_contract": "[B, 12, 256, 256] float32 logits",
+      "authority": "src/ocean_sentinel/ml/exp07_reference.py::ResNet18UNet",
+      "status": "PASS_VERIFIED"
+    },
+    "c18_discrepancy_investigation": {
+      "c18_statement": "output tensor shape [1, 512, 512] in Section 7 of EXP07_P0_C18 report",
+      "investigation_result": "DOCUMENTATION_TYPO",
+      "evidence": [
+        "Zero images or masks in data/ops02/ have 512x512 dimensions (all 212 are 256x256).",
+        "Zero resizing transforms exist in scripts/train_exp07.py or src/ocean_sentinel/ml/exp07_reference.py.",
+        "C16 Kaggle training logs show 17.35 samples/sec throughput and 55.5 MB VRAM, which matches 256x256 batch processing exactly (512x512 with ResNet18-UNet requires ~4x memory and yields ~4-5 samples/sec)."
+      ],
+      "classification": "DOCUMENTATION_ONLY_ERROR",
+      "corrective_action": "Locked canonical input specification to [B, 1, 256, 256]. C18 report typo formally logged and repudiated."
+    }
+  },
+  "canonical_tensor_contract": {
+    "image_tensor": {
+      "shape": "[B, 1, 256, 256]",
+      "dtype": "torch.float32",
+      "value_range": "standardized log1p (mean=4.424158, std=0.469261), invalid borders=0.0"
+    },
+    "target_mask_tensor": {
+      "shape": "[B, 256, 256]",
+      "dtype": "torch.int64",
+      "value_range": "dense class indices 0..11, invalid/quarantined pixels=-100"
+    }
+  },
+  "verdict": "INPUT_SHAPE_256x256_LOCKED_AND_VERIFIED"
+}

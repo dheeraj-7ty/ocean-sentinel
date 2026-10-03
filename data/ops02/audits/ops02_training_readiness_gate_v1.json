@@ -1,0 +1,83 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C15",
+  "gate_title": "OPS-02 Dataset Freeze and Future Training Authorization Gate",
+  "created_at_utc": "2026-09-14T01:25:00Z",
+  "final_status": "TRAINING_AUTHORIZED_WITH_EXPLICIT_LIMITATIONS",
+  "gate_questions": {
+    "1_is_ops02_frozen": {
+      "verdict": "YES",
+      "evidence": "OPS02_v1.0.0_FROZEN established in data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.json with cryptographic hashes and explicit sample counts."
+    },
+    "2_are_all_selected_samples_physically_present": {
+      "verdict": "YES",
+      "evidence": "All 212 GeoTIFF imagery files and 212 PNG mask files physically verified on disk with 0 missing files."
+    },
+    "3_is_provenance_complete": {
+      "verdict": "YES",
+      "evidence": "Every sample resolves to exact Level-1 GRD parent scene, mission datatake ID, satellite, orbit, timestamp, and SHA-256 hash."
+    },
+    "4_is_geometry_verified": {
+      "verdict": "YES_WITH_CONDITIONAL_LIMITATIONS",
+      "evidence": "Relative pixel grid alignment is strongly supported (2560x2560 Level-1 crop downsampled by 10x10 block-mean matching 256x256 label grid). Absolute geocoding in GeoTIFF headers is an engineering placeholder transform."
+    },
+    "5_is_semantic_label_evidence_adequate": {
+      "verdict": "YES_TIER_A_AUTHORITATIVE",
+      "evidence": "Semantic masks are authoritative Tier-A manual expert annotations from Li et al. (2020). Encoding integrity is 100% verified across all 212 masks."
+    },
+    "6_is_independence_verified": {
+      "verdict": "YES",
+      "evidence": "Along-track scenes clustered by mission datatake ID into 64 disjunct parent clusters. 0 overlap with OPS-01 parents."
+    },
+    "7_is_partition_leakage_absent": {
+      "verdict": "YES",
+      "evidence": "0 parent clusters, 0 datatakes, 0 scenes, and 0 products span multiple partitions across TRAIN, DEV, and HOLDOUT."
+    },
+    "8_is_holdout_pristine": {
+      "verdict": "YES",
+      "evidence": "HOLDOUT partition (12 clusters, 39 samples) has experienced zero model loading, zero inference, zero threshold calibration, and zero training use."
+    },
+    "9_is_taxonomy_frozen": {
+      "verdict": "YES",
+      "evidence": "Canonical 12-class dense taxonomy [0..11] frozen in data/ops02/audits/ops02_taxonomy_freeze_v1.json. Class 14 (Mineral Oil Spill) strictly quarantined."
+    },
+    "10_are_source_licensing_issues_acceptable": {
+      "verdict": "YES",
+      "evidence": "Li et al. (Zenodo 14279466) is licensed under CC-BY 4.0; Sentinel-1 imagery is governed by Copernicus Open Access terms. Redistribution of derived research patches with attribution is permitted."
+    },
+    "11_is_reproducibility_sufficiently_specified": {
+      "verdict": "YES",
+      "evidence": "Documented in data/ops02/audits/ops02_reproducibility_audit_v1.json with explicit crop bounds, strides, offsets, and aggregation formulas."
+    },
+    "12_are_class_limitations_explicitly_understood": {
+      "verdict": "YES",
+      "evidence": "HM has 14 parent clusters but only 1,847 pixels (minimally usable; inadequate for strong generalization). OF has only 7 parent clusters (4 TRAIN, 1 DEV, 2 HOLDOUT; scientifically weak)."
+    },
+    "13_is_the_future_training_protocol_frozen": {
+      "verdict": "YES",
+      "evidence": "Authoritative protocol frozen in experiments/EXP-07/EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md."
+    },
+    "14_is_the_gpu_execution_strategy_defined": {
+      "verdict": "YES",
+      "evidence": "Kaggle GPU designated as default training execution platform to preserve host hardware; runtime accelerator selection and profiling specified."
+    },
+    "15_are_there_any_blocking_issues": {
+      "verdict": "NO",
+      "evidence": "Zero fatal technical, provenance, or leakage blockers remain. The dataset is ready for authorized training under documented limitations."
+    }
+  },
+  "explicit_scientific_limitations": [
+    "OPS-02 remains single-archive grounded in the Li IW dataset; it expands physical acquisitions from 27 to 91 datatakes, but is not an external multi-source benchmark.",
+    "HM representation is pixel-sparse (1,847 pixels, mean 97 px/sample); models must not claim robust vessel detection generalization.",
+    "OF representation has only 4 TRAIN and 1 DEV parent cluster; boundary validation is sensitive to single-scene variance.",
+    "GeoTIFF affine headers use an engineering coordinate frame; precision geospatial GIS overlay requires native Sentinel-1 GCP geocoding."
+  ],
+  "authorized_next_actions": [
+    "EXP-07-P0-C16 may be authorized to execute the first training run on frozen OPS-02 (Seed 42) using Kaggle GPU environment."
+  ],
+  "prohibited_actions": [
+    "No model training within C15.",
+    "No Seed 2024 execution.",
+    "No evaluation on HOLDOUT during model selection."
+  ]
+}

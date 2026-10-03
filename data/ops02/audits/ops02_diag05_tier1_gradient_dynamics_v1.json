@@ -1,0 +1,237 @@
+{
+  "protocol": "DIAG-05",
+  "tier": "TIER_1_STATIC_GRADIENT_PROFILING",
+  "status": "COMPLETED",
+  "execution_timestamp": "2026-09-16T18:06:55.892107+00:00",
+  "runtime_seconds": 48.32507634162903,
+  "checkpoint_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+  "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+  "counters": {
+    "backward_passes": 178,
+    "optimizer_steps": 0,
+    "scheduler_steps": 0,
+    "parameter_updates": 0,
+    "training_steps": 0,
+    "gpu_seconds": 0.0,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0
+  },
+  "h1_summary": {
+    "interpretation": "Spatial cross-batch heterogeneity of within-batch gradient norms at Step 0",
+    "batches_evaluated": 33,
+    "batch_size_physical": 4,
+    "canonical_dispersion": {
+      "iqr": 0.14571374654769897,
+      "median": 0.6516966223716736,
+      "max": 0.908066987991333,
+      "min": 0.39630335569381714,
+      "tail_ratio": 1.3933891274235377
+    },
+    "uniform_dispersion": {
+      "iqr": 0.17628014087677002,
+      "median": 0.7177499532699585,
+      "max": 0.9233310222625732,
+      "min": 0.40660542249679565,
+      "tail_ratio": 1.2864243571957323
+    },
+    "comparative_metrics": {
+      "global_iqr_ratio": 0.8266033021244366,
+      "global_delta_log10_iqr": -0.08270286412622341,
+      "tail_ratio_contrast": 1.0831488999951595
+    },
+    "per_layer_dispersion": {
+      "conv1": {
+        "canonical": {
+          "iqr": 0.0007291031652130187,
+          "median": 0.0013035628944635391,
+          "max": 0.0039107538759708405,
+          "min": 0.00024160731118172407,
+          "tail_ratio": 3.000050011073881
+        },
+        "uniform": {
+          "iqr": 0.0008668772061355412,
+          "median": 0.0013941703364253044,
+          "max": 0.004170849919319153,
+          "min": 0.00029246180201880634,
+          "tail_ratio": 2.991635821210585
+        },
+        "iqr_ratio": 0.841068562020789
+      },
+      "layer1.0.conv1": {
+        "canonical": {
+          "iqr": 6.554638093803078e-05,
+          "median": 0.00017352402210235596,
+          "max": 0.00034866572241298854,
+          "min": 9.610101551515982e-05,
+          "tail_ratio": 2.009322502951911
+        },
+        "uniform": {
+          "iqr": 4.440076008904725e-05,
+          "median": 0.0001690317440079525,
+          "max": 0.00037052968400530517,
+          "min": 0.00010584593837847933,
+          "tail_ratio": 2.1920715909307114
+        },
+        "iqr_ratio": 1.4762445689347492
+      },
+      "layer2.0.conv1": {
+        "canonical": {
+          "iqr": 2.8078159175493056e-07,
+          "median": 1.1735584166672197e-06,
+          "max": 2.1722462406614795e-06,
+          "min": 7.89438843185053e-07,
+          "tail_ratio": 1.850991147786598
+        },
+        "uniform": {
+          "iqr": 3.8037319427530747e-07,
+          "median": 1.2446314485714538e-06,
+          "max": 2.0163083718216512e-06,
+          "min": 9.156817100119952e-07,
+          "tail_ratio": 1.620004358829196
+        },
+        "iqr_ratio": 0.7381739722481752
+      },
+      "layer3.0.conv1": {
+        "canonical": {
+          "iqr": 9.430404901422662e-09,
+          "median": 2.5865782404821402e-08,
+          "max": 5.972216143845799e-08,
+          "min": 1.8080504204931458e-08,
+          "tail_ratio": 2.3089253788559563
+        },
+        "uniform": {
+          "iqr": 7.562922732518018e-09,
+          "median": 2.5841734085929602e-08,
+          "max": 5.986359497001104e-08,
+          "min": 1.805935312404472e-08,
+          "tail_ratio": 2.3165471315102564
+        },
+        "iqr_ratio": 1.2469259881335426
+      },
+      "layer4.0.conv1": {
+        "canonical": {
+          "iqr": 1.2716020236780423e-08,
+          "median": 2.918253372286017e-08,
+          "max": 5.8071922381941476e-08,
+          "min": 2.2684917055926235e-08,
+          "tail_ratio": 1.9899547768345682
+        },
+        "uniform": {
+          "iqr": 9.474902640249638e-09,
+          "median": 2.842946145165115e-08,
+          "max": 6.40996589140741e-08,
+          "min": 2.1461115551346666e-08,
+          "tail_ratio": 2.2546912829525745
+        },
+        "iqr_ratio": 1.3420739736957752
+      },
+      "dec4.conv.conv.0": {
+        "canonical": {
+          "iqr": 5.1527763389458414e-08,
+          "median": 1.7359315052090096e-07,
+          "max": 2.8525769835141546e-07,
+          "min": 1.3887770933251886e-07,
+          "tail_ratio": 1.6432543420949657
+        },
+        "uniform": {
+          "iqr": 5.2966001362619863e-08,
+          "median": 1.8731645923253382e-07,
+          "max": 2.715528921726218e-07,
+          "min": 1.2225413570376986e-07,
+          "tail_ratio": 1.4497011810132352
+        },
+        "iqr_ratio": 0.9728460156296324
+      },
+      "dec3.conv.conv.0": {
+        "canonical": {
+          "iqr": 1.7899642443808261e-06,
+          "median": 5.605495971394703e-06,
+          "max": 1.029760005621938e-05,
+          "min": 4.302271008782554e-06,
+          "tail_ratio": 1.8370542247766946
+        },
+        "uniform": {
+          "iqr": 1.3585231499746442e-06,
+          "median": 5.944854819972534e-06,
+          "max": 9.894447430269793e-06,
+          "min": 3.7658244309568545e-06,
+          "tail_ratio": 1.6643715834788892
+        },
+        "iqr_ratio": 1.3175809660764592
+      },
+      "dec2.conv.conv.0": {
+        "canonical": {
+          "iqr": 0.000329815607983619,
+          "median": 0.0007887526298873127,
+          "max": 0.0014529182808473706,
+          "min": 0.0004980711382813752,
+          "tail_ratio": 1.8420455612996762
+        },
+        "uniform": {
+          "iqr": 0.0003014787216670811,
+          "median": 0.0008491854532621801,
+          "max": 0.0013095702743157744,
+          "min": 0.0005166876362636685,
+          "tail_ratio": 1.5421487371044893
+        },
+        "iqr_ratio": 1.0939929894880935
+      },
+      "dec1.conv.conv.0": {
+        "canonical": {
+          "iqr": 0.00829755887389183,
+          "median": 0.023911308497190475,
+          "max": 0.03710727393627167,
+          "min": 0.017771290615200996,
+          "tail_ratio": 1.55187132233402
+        },
+        "uniform": {
+          "iqr": 0.007224339991807938,
+          "median": 0.02762000635266304,
+          "max": 0.03695229813456535,
+          "min": 0.018254775553941727,
+          "tail_ratio": 1.337881594332165
+        },
+        "iqr_ratio": 1.1485559765045488
+      },
+      "head": {
+        "canonical": {
+          "iqr": 0.1308135986328125,
+          "median": 0.5855687260627747,
+          "max": 0.7937998175621033,
+          "min": 0.35260340571403503,
+          "tail_ratio": 1.3556048713520361
+        },
+        "uniform": {
+          "iqr": 0.16405445337295532,
+          "median": 0.6399205923080444,
+          "max": 0.8100438714027405,
+          "min": 0.36870571970939636,
+          "tail_ratio": 1.2658506088717993
+        },
+        "iqr_ratio": 0.7973791381049907
+      }
+    }
+  },
+  "h2_paired_inference": {
+    "primary_contrast": "global_full_network",
+    "n_paired": 15,
+    "n_zero": 0,
+    "n_effective": 15,
+    "statistic": 34.0,
+    "p_value": 0.15142822265625,
+    "method": "Wilcoxon signed-rank test (asymptotic with continuity correction)",
+    "alternative": "two-sided",
+    "correction": true,
+    "zero_method": "wilcox",
+    "tie_handling": "average_ranks",
+    "cluster_level_canonical_median_mean": -0.071964698129644,
+    "cluster_level_uniform_median_mean": -0.06754838538666566,
+    "cluster_level_delta_median_mean": -0.004416312742978335
+  },
+  "population_counts": {
+    "h1_train_tiles": 132,
+    "h1_physical_batches": 33,
+    "h2_eligible_tiles": 28,
+    "h2_parent_clusters": 15
+  }
+}

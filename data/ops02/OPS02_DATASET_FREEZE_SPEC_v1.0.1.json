@@ -1,0 +1,123 @@
+{
+  "specification_version": "1.0.1",
+  "task_id": "EXP-07-P0-C18",
+  "dataset_identifier": "OPS-02",
+  "dataset_version": "OPS02_v1.0.1_FROZEN",
+  "superseded_specification": {
+    "version": "1.0.0",
+    "filename": "OPS02_DATASET_FREEZE_SPEC_v1.json",
+    "superseded_at_utc": "2026-09-14T04:45:00Z",
+    "supersession_reason": "Corrects C15 narrative typographical defect (which claimed 41 DEV / 39 HOLDOUT while manifests had 40/40), remedies C16 in-place mutation, and introduces cryptographic manifest hash binding under GOV-RULE-085."
+  },
+  "scientific_content_change": false,
+  "scientific_invariance_declaration": "Zero bytes of Level-1 GRD imagery, segmentation masks, cluster identities, or partition assignments have changed. The physical dataset is 100% byte-identical to C14 initial assembly.",
+  "freeze_status": "FROZEN_CRYPTOGRAPHICALLY_BOUND",
+  "frozen_at_utc": "2026-09-14T04:45:00Z",
+  "summary": {
+    "total_physical_sample_pairs": 212,
+    "total_independent_parent_clusters": 64,
+    "total_mission_datatakes": 64,
+    "total_constituent_level1_scenes": 85,
+    "partition_breakdown": {
+      "TRAIN": {
+        "parent_clusters": 40,
+        "datatakes": 40,
+        "constituent_scenes": 54,
+        "sample_pairs": 132,
+        "cluster_percentage": 62.5
+      },
+      "DEV": {
+        "parent_clusters": 12,
+        "datatakes": 12,
+        "constituent_scenes": 15,
+        "sample_pairs": 40,
+        "cluster_percentage": 18.75
+      },
+      "HOLDOUT": {
+        "parent_clusters": 12,
+        "datatakes": 12,
+        "constituent_scenes": 16,
+        "sample_pairs": 40,
+        "cluster_percentage": 18.75
+      }
+    }
+  },
+  "manifest_cryptographic_bindings": {
+    "physical_dataset_manifest": {
+      "path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+      "sample_count": 212
+    },
+    "partition_manifest": {
+      "path": "data/ops02/manifests/ops02_partition_manifest_v1.json",
+      "sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+      "partition_counts": {
+        "TRAIN": 132,
+        "DEV": 40,
+        "HOLDOUT": 40
+      }
+    },
+    "parent_cluster_manifest": {
+      "path": "data/ops02/manifests/ops02_parent_cluster_manifest_v1.json",
+      "sha256": "08ED21FBB492363E1D05040020F73177BFD4DC84F1A39E2D9C5C9B38BC97D10B",
+      "cluster_counts": {
+        "TRAIN": 40,
+        "DEV": 12,
+        "HOLDOUT": 12
+      }
+    }
+  },
+  "taxonomy": {
+    "version": "CANONICAL_DENSE_12_CLASS_V1",
+    "classes": [
+      "0: BG (Background Seawater)",
+      "1: AF (Atmospheric Front)",
+      "2: BS (Biological Slicks)",
+      "3: LWA (Low Wind Area)",
+      "4: MCC (Mesoscale Cellular Convection)",
+      "5: OF (Ocean Front - NOT Oil Film/Spill)",
+      "6: POW (Pure Ocean Wave)",
+      "7: RF (Rain Cell / Rain Footprint)",
+      "8: WS (Wind Streak)",
+      "9: Eddy (Oceanic Eddy)",
+      "10: IWs (Internal Waves)",
+      "11: HM (Artificial / Anthropogenic Objects - NOT vessel-only)"
+    ],
+    "firewall_exclusions": [
+      "Source 14: Mineral Oil Spill (GOV-RULE-060 Quarantine)",
+      "Source 3: Iceberg (Excluded)",
+      "Source 9: Sea Ice (Excluded)"
+    ]
+  },
+  "preprocessing_specification": {
+    "input_contract": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+    "native_resolution": "2560x2560 native Level-1 GRD pixels",
+    "spatial_aggregation": "10x10 arithmetic block-mean to 256x256 pixel grid",
+    "radiometric_transformation": "log1p(raw_dn)",
+    "normalization": "Standardization strictly using TRAIN split valid pixels (DN > 0)",
+    "normalization_constants": {
+      "mean": 4.424158,
+      "std": 0.469261
+    },
+    "calibration_status": "EXPLICITLY_UNCALIBRATED (detected DN, NOT physical sigma0/gamma0)"
+  },
+  "governance_and_firewall_rules": {
+    "clustering": "GOV-RULE-077 (Mission datatake clustering to prevent along-track pseudo-replication)",
+    "partitioning": "GOV-RULE-075 (Pre-slice parent clustering before spatial slicing)",
+    "deduplication": "GOV-RULE-078 (Cross-source deduplication and disjoint sets)",
+    "qc_standard": "GOV-RULE-079 (Four distinct QC layers: Technical, Provenance, Semantic, Independence)",
+    "holdout_firewall": "HOLDOUT is strictly quarantined from development, training, tuning, and threshold selection.",
+    "freeze_immutability": "GOV-RULE-085 (Cryptographically locked freeze specification; in-place mutations prohibited)",
+    "runtime_assertion": "GOV-RULE-086 (Runtime assertion of exact sample IDs and partition counts against frozen manifest)"
+  },
+  "known_scientific_limitations": {
+    "single_archive_grounding": "100% of samples are derived from the Li IW archive; this provides independent acquisitions but not multi-source benchmark diversity (GOV-RULE-084).",
+    "sparse_classes": {
+      "HM": "14 parent clusters (8 TRAIN, 3 DEV, 3 HOLDOUT), 1,847 total valid pixels across full dataset (117 px on DEV). Inadequate for unweighted macro generalization claims.",
+      "OF": "7 parent clusters (4 TRAIN, 1 DEV, 2 HOLDOUT), 33,706 valid pixels (1,709 px on DEV).",
+      "RF": "13 parent clusters (7 TRAIN, 2 DEV, 4 HOLDOUT), 9,550 px on DEV.",
+      "AF": "10 parent clusters (5 TRAIN, 3 DEV, 2 HOLDOUT), 39,385 px on DEV."
+    },
+    "georeferencing": "Relative pixel grid alignment is verified; absolute geocoding in GeoTIFF headers is an engineering placeholder transform (GOV-RULE-083)."
+  }
+}

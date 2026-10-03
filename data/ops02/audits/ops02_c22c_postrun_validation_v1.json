@@ -1,0 +1,126 @@
+{
+  "audit_metadata": {
+    "task_id": "EXP-07-P0-C22-C",
+    "experiment_id": "EXP07_DIAG01",
+    "parent_task_id": "EXP-07-P0-C22-B",
+    "created_at_utc": "2026-09-14T08:38:00Z",
+    "audit_type": "POST_RUN_FORENSIC_VALIDATION_AND_INTERPRETATION_REPAIR",
+    "authoritative_status": "COMPLETED_VALID",
+    "final_classification": "VALID_SINGLE_RUN_OBSERVATION"
+  },
+  "dataset_identity": {
+    "specification": "OPS02_v1.0.1_FROZEN",
+    "manifest_relative_path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "sample_counts": {
+      "train_physical_pairs": 132,
+      "dev_physical_pairs": 40,
+      "holdout_physical_pairs": 40,
+      "total_physical_pairs": 212
+    },
+    "cluster_counts": {
+      "train_clusters": 40,
+      "dev_clusters": 12,
+      "holdout_clusters": 12,
+      "total_clusters": 64
+    },
+    "cross_partition_leakage": 0
+  },
+  "experimental_configuration": {
+    "control_loss_vector": [
+      0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476,
+      0.719641, 2.956203, 1.064525, 1.88287, 0.387652, 18.243211
+    ],
+    "treatment_loss_vector": [
+      1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+    ],
+    "canonical_initial_state_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "initial_tensor_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "sampler_strategy": "Candidate F Hybrid (70% parent, 30% class, 72 draws/epoch, seed=42)",
+    "sampler_schedule_sha256": "2B1562E33FF32F73A8BF373D24951AF220E423FF74F12F7B589CEDA426A6834B",
+    "artifact_manifest_sha256": "20E6CFBCD2CA2799F990CE818DF9DCBB646CBA870C74688864B9A213ACBA93F2",
+    "primary_metric": "dev_mIoU_phenomena"
+  },
+  "numerical_reconciliation": {
+    "control_best_dev_mIoU": 0.04147,
+    "treatment_best_dev_mIoU": 0.05318,
+    "absolute_delta": 0.01171,
+    "relative_percent": 28.24,
+    "relative_formula": "((treatment - control) / control) * 100",
+    "best_epochs": {
+      "control_best_epoch": 10,
+      "treatment_best_epoch": 5
+    },
+    "total_epochs_trained": {
+      "control_total_epochs": 20,
+      "treatment_total_epochs": 15
+    },
+    "early_stopping_parameters": {
+      "max_epochs": 30,
+      "min_epochs": 15,
+      "patience": 10
+    },
+    "per_class_reconciliation_status": "VERIFIED_EXACT",
+    "per_class_ious": {
+      "BG": {"control": 0.01198, "treatment": 0.00502, "delta": -0.00696, "flag": "EXCLUDED_FROM_PRIMARY"},
+      "AF": {"control": 0.00005, "treatment": 0.00000, "delta": -0.00005, "flag": "NEAR_ZERO_BASELINE"},
+      "BS": {"control": 0.04431, "treatment": 0.09515, "delta": 0.05084, "flag": "STABLE"},
+      "LWA": {"control": 0.00068, "treatment": 0.00549, "delta": 0.00481, "flag": "NEAR_ZERO_BASELINE"},
+      "MCC": {"control": 0.26843, "treatment": 0.21160, "delta": -0.05683, "flag": "STABLE"},
+      "OF": {"control": 0.00043, "treatment": 0.00011, "delta": -0.00032, "flag": "NEAR_ZERO_BASELINE"},
+      "POW": {"control": 0.02849, "treatment": 0.00295, "delta": -0.02554, "flag": "STABLE"},
+      "RF": {"control": 0.00000, "treatment": 0.00000, "delta": 0.00000, "flag": "ZERO_BASELINE_UNDEFINED_PCT"},
+      "WS": {"control": 0.01544, "treatment": 0.00000, "delta": -0.01544, "flag": "STABLE"},
+      "Eddy": {"control": 0.00201, "treatment": 0.00639, "delta": 0.00438, "flag": "SMALL_BASELINE_ELEVATED_PCT"},
+      "IWs": {"control": 0.09634, "treatment": 0.26326, "delta": 0.16692, "flag": "STABLE"},
+      "HM": {"control": 0.00000, "treatment": 0.00000, "delta": 0.00000, "flag": "ZERO_BASELINE_UNDEFINED_PCT"}
+    }
+  },
+  "pair_integrity_audit": {
+    "status": "VERIFIED_STRICT_SINGLE_VARIABLE",
+    "differing_parameters_count": 1,
+    "differing_parameter_name": "Loss Weight Vector",
+    "verified_matching_invariants_count": 14,
+    "bitwise_initial_equality": true
+  },
+  "terminology_and_claims_audit": {
+    "taxonomy_audit_status": "PASSED_CLEAN",
+    "class_11_canonical_name": "Artificial / Anthropogenic Objects (HM)",
+    "class_11_forbidden_aliases_purged": ["Heavy Metal", "Marine Vessel", "Vessel", "Ship"],
+    "class_5_canonical_name": "Oceanic Front (OF)",
+    "class_5_forbidden_aliases_purged": ["Oil Spill", "Oil Film"],
+    "unsupported_claims_audit_status": "REPAIRED_AND_EXCISED",
+    "excised_claims": [
+      "Heavy inverse-frequency weighting penalizes prevalent phenomena, degrading boundary resolution and retarding convergence.",
+      "Treatment experienced higher penalty on background."
+    ]
+  },
+  "governance_and_quarantine": {
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "unrelated_source_modifications_count": 0,
+    "preserved_tracked_modifications": [
+      ".gitignore",
+      "src/ocean_sentinel/ingestion/dataset.py"
+    ]
+  },
+  "durable_agent_learning": {
+    "lessons_added": [
+      "LL-C22B-001",
+      "LL-C22B-002",
+      "LL-C22B-003",
+      "LL-C22B-004",
+      "LL-C22B-005",
+      "LL-C22B-006"
+    ],
+    "regression_guard_file": "tests/test_exp07_p0_c22c_postrun_guardrails.py",
+    "regression_status": "PASSED"
+  },
+  "replication_requirement": {
+    "recommended_design": "Paired 3-Seed Replication Protocol",
+    "recommended_seeds": [42, 101, 202],
+    "hardware_constraint": "Fixed NVIDIA Tesla T4 GPU",
+    "evaluation_standard": "Mean +/- Standard Deviation of dev_mIoU_phenomena across paired runs",
+    "holdout_gate": "Quarantined until multi-seed development replication passes formal sign-off"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A3_INITIALIZATION_LINEAGE_GATE_v1",
+    "task_id": "EXP-07-P0-C22-A.3",
+    "executed_at_utc": "2026-09-14T06:42:00Z",
+    "status": "FORENSIC_GATE_COMPLETED_CANONICAL_INIT_BLOCKED",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "protocol_requirements_audit": {
+    "protocol_document": "data/ops02/audits/ops02_c21_single_variable_diagnostic_protocol_v1.json",
+    "inv_10_pretrained_backbone_identity": "torchvision.models.ResNet18_Weights.IMAGENET1K_V1 (resnet18-f37072fd.pth)",
+    "requirements_evaluation": {
+      "1_imagenet_pretrained_backbone": {
+        "status": "VERIFIED",
+        "evidence": "INV-10 explicitly specifies torchvision.models.ResNet18_Weights.IMAGENET1K_V1 in C21 protocol and C15 pre-training protocol."
+      },
+      "2_one_input_channel_adaptation": {
+        "status": "VERIFIED",
+        "evidence": "INV-04 and Section 10 specify in_channels=1, conv1 shape [64, 1, 7, 7]."
+      },
+      "3_exact_conv1_adaptation_method": {
+        "status": "VERIFIED",
+        "evidence": "Section 10 explicitly specifies: Mean across the 3 RGB channels of pretrained weights (base_resnet.conv1.weight.mean(dim=1, keepdim=True))."
+      },
+      "4_decoder_head_initialization": {
+        "status": "VERIFIED",
+        "evidence": "Section 10 specifies PyTorch default module initialization for newly introduced decoder and head layers."
+      },
+      "5_exact_random_seed_for_non_pretrained_portions": {
+        "status": "VERIFIED",
+        "evidence": "Section 10 and INV-17 explicitly specify base seed 42 active during decoder/head initialization."
+      },
+      "6_order_of_model_construction_and_loading": {
+        "status": "VERIFIED",
+        "evidence": "Seeding with 42, loading pretrained ResNet18 backbone, copying channel-mean into conv1, instantiating decoder/head blocks sequentially, saving full state to initial_model_state.pt."
+      }
+    }
+  },
+  "forensic_audit_current_initial_model_state": {
+    "artifact_path": "data/ops02/initial_model_state.pt",
+    "artifact_sha256": "4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C",
+    "creation_call": "ResNet18UNet(in_channels=1, num_classes=12, pretrained=False, bn_momentum=0.05)",
+    "creation_seed": 42,
+    "contains_imagenet_pretrained_weights": false,
+    "generated_with_pretrained_true": false,
+    "conv1_adapted_from_pretrained": false,
+    "backbone_initialization": "RANDOM_KAIMING_UNIFORM",
+    "decoder_head_initialization": "RANDOM_KAIMING_UNIFORM",
+    "bitwise_match_with_deterministic_random_model_seed_42": true,
+    "classification": "NON_CANONICAL_INITIALIZATION_ARTIFACT",
+    "classification_rationale": "All 192 tensors bitwise match an un-pretrained (pretrained=False) ResNet18UNet initialized under seed 42. It contains zero ImageNet-pretrained weights and violates INV-10."
+  },
+  "lineage_table": [
+    {
+      "artifact": "data/ops02/initial_model_state.pt",
+      "creation_method": "ResNet18UNet(pretrained=False) in scripts/rehearse_exp07_diag01_zero_step.py",
+      "pretrained_backbone": false,
+      "random_initialized_components": "ALL (backbone, conv1, decoders, head)",
+      "seed_rng": "PyTorch CPU seed 42",
+      "sha256": "4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C",
+      "evidence_source": "scripts/rehearse_exp07_diag01_zero_step.py and tensor-level bitwise verification",
+      "status": "NON_CANONICAL_INITIALIZATION_ARTIFACT"
+    },
+    {
+      "artifact": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/best_model.pt",
+      "creation_method": "Trained on Kaggle GPU for 17 epochs (scratch/kaggle_replicate003_kernel/train_replicate003.py)",
+      "pretrained_backbone": true,
+      "random_initialized_components": "None (fully fine-tuned model checkpoint)",
+      "seed_rng": "Trained under seed 42",
+      "sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+      "evidence_source": "metrics.json and ocean-sentinel-exp07-c16-replicate-003.txt",
+      "status": "HISTORICAL_TRAINED_CHECKPOINT_NOT_INITIAL_STATE"
+    }
+  ],
+  "pairwise_vs_canonical_parity_analysis": {
+    "pairwise_parity_status": "VERIFIED_IN_C22A2",
+    "pairwise_parity_description": "Control initial state == Treatment initial state (both bitwise identical to 4BB233DB...).",
+    "canonical_parity_status": "CONTRADICTED",
+    "canonical_parity_description": "Starting state != Canonical protocol initialization (INV-10 required ImageNet-1k weights).",
+    "governance_rule": "Pairwise parity is a necessary but strictly insufficient condition for scientific validity. Equalizing an incorrect random initialization between conditions does NOT satisfy the frozen scientific protocol."
+  },
+  "historical_c16_lineage": {
+    "source_file": "scratch/kaggle_replicate003_kernel/train_replicate003.py",
+    "was_c16_imagenet_pretrained": true,
+    "pretrained_loading_mechanism": "resnet18(weights=ResNet18_Weights.DEFAULT) downloaded dynamically on Kaggle VM",
+    "download_url_observed_in_log": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+    "conv1_handling": "self.conv1.weight.copy_(base_resnet.conv1.weight.mean(dim=1, keepdim=True))",
+    "initial_state_persisted": false,
+    "initial_state_hash_available": false,
+    "checkpoints_saved": ["best_model.pt", "last_model.pt"]
+  },
+  "pretrained_file_availability_and_recovery": {
+    "torch_hub_cache_checked": "C:\\Users\\Dheeraj\\.cache\\torch\\hub\\checkpoints",
+    "torch_hub_cache_result": "resnet18-f37072fd.pth NOT FOUND (only resnet34-b627a593.pth exists)",
+    "local_repo_checked": "d:\\Projects\\ocean-sentinel",
+    "local_repo_result": "resnet18-f37072fd.pth NOT FOUND",
+    "network_download_status": "PROHIBITED_UNDER_GOVERNANCE",
+    "deterministic_reconstructability": "IMPOSSIBLE (ImageNet weights are empirical parameters from 1.28M natural images, not reproducible from a random seed)",
+    "recovery_outcome": "CANONICAL_INIT_STATE_NOT_RECOVERABLE"
+  },
+  "model_structure_audit": {
+    "trainable_parameters": 14310860,
+    "floating_buffers": 11776,
+    "integer_buffers": 30,
+    "total_buffers": 11806,
+    "total_state_elements": 14322666,
+    "state_dict_tensors": 192,
+    "batchnorm_2d_layers": 30,
+    "structure_match": true,
+    "provenance_match": false
+  },
+  "readiness_decision": {
+    "verdict": "BLOCKED",
+    "supersedes_c22a2_verdict": "BLOCKED supersedes READY_FOR_USER_AUTHORIZATION",
+    "reason": "Canonical initialization provenance cannot be established locally without the required ResNet18_Weights.IMAGENET1K_V1 backbone file (resnet18-f37072fd.pth). The current data/ops02/initial_model_state.pt is purely random-initialized (pretrained=False), violating INV-10. Under strict governance, zero network downloads are permitted. Training EXP07_DIAG01 is hard blocked until canonical pretrained weights are properly provisioned under authorized protocol."
+  }
+}

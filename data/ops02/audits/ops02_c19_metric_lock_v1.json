@@ -1,0 +1,42 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "EXP-07 Primary Metric Lock and Mathematical Specification",
+  "audited_at_utc": "2026-09-14T05:38:00Z",
+  "primary_metric_specification": {
+    "metric_name": "dev_mIoU_phenomena",
+    "evaluation_split": "DEV (40 frozen samples in OPS02_v1.0.1_FROZEN)",
+    "mathematical_formula": "mIoU_phenomena = (1 / |C_eval|) * sum_{c in C_eval} IoU_c",
+    "evaluated_classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    "excluded_classes": [0],
+    "class_iou_formula": "IoU_c = TP_c / (TP_c + FP_c + FN_c)",
+    "absent_class_handling": "Classes where TP_c + FP_c + FN_c == 0 are omitted from C_eval. If all 11 classes have non-zero union, |C_eval| == 11.",
+    "ignore_index_handling": "Pixels with label -100 (border padding, Iceberg, Sea Ice, Mineral Oil Spill) are excluded from confusion matrix accumulation.",
+    "freeze_status": "FROZEN_AND_IMMUTABLE",
+    "governance_mandate": "GOV-RULE-094. The primary benchmark metric will NEVER be discarded, filtered, or redefined retroactively."
+  },
+  "secondary_diagnostic_tier_specifications": {
+    "tier_2_dominant_subgroup": {
+      "classes": [3, 4, 6],
+      "names": ["LWA", "MCC", "POW"],
+      "criteria": "DEV pixel support > 5%",
+      "c16_baseline": 0.100310,
+      "status": "SECONDARY_DIAGNOSTIC_ONLY"
+    },
+    "tier_3_intermediate_subgroup": {
+      "classes": [1, 2, 8, 9, 10],
+      "names": ["AF", "BS", "WS", "Eddy", "IWs"],
+      "criteria": "DEV pixel support 0.5% - 5%",
+      "c16_baseline": 0.048390,
+      "status": "SECONDARY_DIAGNOSTIC_ONLY"
+    },
+    "tier_4_ultra_sparse_subgroup": {
+      "classes": [5, 7, 11],
+      "names": ["OF", "RF", "HM"],
+      "criteria": "DEV pixel support < 0.5%",
+      "c16_baseline": 0.000170,
+      "status": "SECONDARY_DIAGNOSTIC_ONLY"
+    }
+  },
+  "verdict": "PRIMARY_METRIC_LOCKED_AND_SECONDARIES_DESIGNATED"
+}

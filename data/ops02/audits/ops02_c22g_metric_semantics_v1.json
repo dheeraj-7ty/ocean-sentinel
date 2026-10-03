@@ -1,0 +1,75 @@
+{
+  "audit_version": "1.0.0",
+  "audit_date": "2026-09-14T15:42:45+05:30",
+  "task_id": "EXP-07-P0-C22-G",
+  "investigation_id": "DIAG-01-CLASS-SUPPORT-METRIC-SENSITIVITY",
+  "status": "COMPLETED_VALID",
+  "metric_name": "dev_mIoU_phenomena",
+  "implementation_reference": {
+    "module_path": "src/ocean_sentinel/ml/exp07_reference.py",
+    "eval_harness_path": "scripts/train_exp07.py",
+    "primary_eval_function": "evaluate_dev(model, dev_loader, criterion, device)",
+    "metrics_calculation_function": "compute_metrics_from_confusion_matrix(cm, class_names=DENSE_CLASSES)"
+  },
+  "complete_calculation_trace": [
+    {
+      "step": 1,
+      "name": "INPUT_PREDICTION_DECISION_RULE",
+      "semantics": "preds = torch.argmax(logits, dim=1).cpu().numpy()",
+      "description": "Standard deterministic pixel-wise multiclass argmax across all 12 channels (0..11) at each pixel."
+    },
+    {
+      "step": 2,
+      "name": "TARGET_FILTERING_AND_IGNORING",
+      "semantics": "valid_mask = tgts != IGNORE_INDEX (-100)",
+      "description": "Pixels marked with ignore_index=-100 (left-swath border padding where validity_mask==False and excluded source classes 3, 9, 14) are excluded prior to confusion matrix accumulation."
+    },
+    {
+      "step": 3,
+      "name": "12x12_CONFUSION_MATRIX_ACCUMULATION",
+      "semantics": "bincount = np.bincount(tgts[valid_mask] * 12 + preds[valid_mask], minlength=144).reshape((12, 12))",
+      "description": "True classes form rows (0..11), predicted classes form columns (0..11). Accumulated across all 40 DEV batches."
+    },
+    {
+      "step": 4,
+      "name": "TRUE_POSITIVE_AND_UNION_EXTRACTION",
+      "semantics": "tp = diag(cm); fp = col_sum - tp; fn = row_sum - tp; gt = tp + fn; union = gt + fp",
+      "description": "Per-class ground truth count is gt[c] = tp[c] + fn[c]. Per-class predicted count is pred[c] = tp[c] + fp[c]. Union is union[c] = gt[c] + pred[c] - tp[c]."
+    },
+    {
+      "step": 5,
+      "name": "ABSENT_CLASS_AND_ZERO_UNION_DISPATCH",
+      "semantics": "if gt[c] > 0: iou = tp[c] / union[c] if union[c] > 0 else 0.0; else: iou = None",
+      "description": "If a class has gt[c] == 0 (zero ground truth pixels on DEV), it is assigned iou = None. If gt[c] > 0 and union[c] > 0, iou = tp[c] / union[c]. If gt[c] > 0 and union[c] == 0 (degenerate), iou = 0.0."
+    },
+    {
+      "step": 6,
+      "name": "PHENOMENA_FILTERING_AND_MACRO_AVERAGE",
+      "semantics": "if c > 0 and gt[c] > 0: present_classes_phenomena.append(iou); miou_phenomena = np.mean(present_classes_phenomena)",
+      "description": "Background class 0 is excluded from phenomena metric (c > 0). Classes with gt[c] == 0 are omitted from the list. The macro mean averages strictly over present phenomenon classes."
+    }
+  ],
+  "exact_semantic_behaviors": {
+    "included_classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    "excluded_classes": [0],
+    "background_handling": "Dense class 0 (BG) is accumulated in confusion matrix and evaluated for mIoU_all, but strictly excluded from dev_mIoU_phenomena denominator and numerator.",
+    "ignore_index_behavior": "Pixels with target == -100 are filtered out completely; they contribute zero to TP, FP, FN, or union for any class.",
+    "absent_class_behavior": {
+      "case_a_absent_gt_absent_pred": "gt[c] == 0, pred[c] == 0 -> iou[c] = None, excluded from macro denominator.",
+      "case_b_absent_gt_present_pred": "gt[c] == 0, pred[c] > 0 -> iou[c] = None, excluded from macro denominator (false positives are not penalized in class c IoU, though they hurt precision of true classes).",
+      "case_c_present_gt_absent_pred": "gt[c] > 0, pred[c] == 0 -> tp[c] = 0, union[c] = gt[c] -> iou[c] = 0.0, included in macro denominator (penalized as 0.0).",
+      "case_d_present_gt_present_pred": "gt[c] > 0, pred[c] > 0 -> iou[c] = tp[c] / union[c], included in macro denominator."
+    },
+    "zero_union_behavior": "If union[c] == 0, if gt[c] == 0 returns None; if gt[c] > 0 returns 0.0.",
+    "nan_behavior": "No NaNs are propagated; absent classes evaluate to None and are excluded from the array passed to np.mean().",
+    "macro_average_denominator_rule": "Denominator equals count of phenomenon classes (1..11) where gt[c] > 0 on DEV."
+  },
+  "ops02_dev_reality_verdict": {
+    "num_phenomenon_classes": 11,
+    "num_classes_with_gt_greater_than_zero_on_dev": 11,
+    "num_absent_phenomenon_classes_on_dev": 0,
+    "effective_macro_denominator_on_ops02_dev": 11,
+    "do_all_11_classes_contribute_a_numeric_value": true,
+    "finding": "Auditing both the dataset manifest and the physical GeoTIFF ground truth masks confirms that all 11 phenomenon classes have positive ground-truth support in OPS-02 DEV (gt[c] > 0). Consequently, no phenomenon class is dropped by the absent-class filter on OPS-02 DEV. All 11 classes produce numeric values (between 0.0 and 1.0) and the macro average denominator is exactly 11 in every evaluated run."
+  }
+}

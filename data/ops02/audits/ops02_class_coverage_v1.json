@@ -1,0 +1,141 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "audited_at_utc": "2026-09-13T21:10:25.283811+00:00",
+  "total_parent_clusters": 64,
+  "total_samples": 212,
+  "classes": {
+    "BG": {
+      "dense_index": 0,
+      "train_parent_count": 28,
+      "dev_parent_count": 10,
+      "holdout_parent_count": 11,
+      "total_parent_count": 49,
+      "train_sample_count": 66,
+      "dev_sample_count": 28,
+      "holdout_sample_count": 30,
+      "total_sample_count": 124
+    },
+    "AF": {
+      "dense_index": 1,
+      "train_parent_count": 5,
+      "dev_parent_count": 3,
+      "holdout_parent_count": 2,
+      "total_parent_count": 10,
+      "train_sample_count": 15,
+      "dev_sample_count": 6,
+      "holdout_sample_count": 3,
+      "total_sample_count": 24
+    },
+    "POW": {
+      "dense_index": 6,
+      "train_parent_count": 11,
+      "dev_parent_count": 3,
+      "holdout_parent_count": 3,
+      "total_parent_count": 17,
+      "train_sample_count": 25,
+      "dev_sample_count": 3,
+      "holdout_sample_count": 6,
+      "total_sample_count": 34
+    },
+    "RF": {
+      "dense_index": 7,
+      "train_parent_count": 7,
+      "dev_parent_count": 1,
+      "holdout_parent_count": 4,
+      "total_parent_count": 12,
+      "train_sample_count": 13,
+      "dev_sample_count": 2,
+      "holdout_sample_count": 6,
+      "total_sample_count": 21
+    },
+    "IWs": {
+      "dense_index": 10,
+      "train_parent_count": 31,
+      "dev_parent_count": 9,
+      "holdout_parent_count": 9,
+      "total_parent_count": 49,
+      "train_sample_count": 97,
+      "dev_sample_count": 31,
+      "holdout_sample_count": 28,
+      "total_sample_count": 156
+    },
+    "WS": {
+      "dense_index": 8,
+      "train_parent_count": 5,
+      "dev_parent_count": 2,
+      "holdout_parent_count": 1,
+      "total_parent_count": 8,
+      "train_sample_count": 9,
+      "dev_sample_count": 3,
+      "holdout_sample_count": 1,
+      "total_sample_count": 13
+    },
+    "OF": {
+      "dense_index": 5,
+      "train_parent_count": 4,
+      "dev_parent_count": 1,
+      "holdout_parent_count": 2,
+      "total_parent_count": 7,
+      "train_sample_count": 9,
+      "dev_sample_count": 1,
+      "holdout_sample_count": 3,
+      "total_sample_count": 13
+    },
+    "MCC": {
+      "dense_index": 4,
+      "train_parent_count": 13,
+      "dev_parent_count": 7,
+      "holdout_parent_count": 2,
+      "total_parent_count": 22,
+      "train_sample_count": 27,
+      "dev_sample_count": 17,
+      "holdout_sample_count": 5,
+      "total_sample_count": 49
+    },
+    "BS": {
+      "dense_index": 2,
+      "train_parent_count": 6,
+      "dev_parent_count": 2,
+      "holdout_parent_count": 3,
+      "total_parent_count": 11,
+      "train_sample_count": 17,
+      "dev_sample_count": 4,
+      "holdout_sample_count": 9,
+      "total_sample_count": 30
+    },
+    "LWA": {
+      "dense_index": 3,
+      "train_parent_count": 10,
+      "dev_parent_count": 3,
+      "holdout_parent_count": 2,
+      "total_parent_count": 15,
+      "train_sample_count": 21,
+      "dev_sample_count": 4,
+      "holdout_sample_count": 4,
+      "total_sample_count": 29
+    },
+    "HM": {
+      "dense_index": 11,
+      "train_parent_count": 8,
+      "dev_parent_count": 3,
+      "holdout_parent_count": 3,
+      "total_parent_count": 14,
+      "train_sample_count": 12,
+      "dev_sample_count": 3,
+      "holdout_sample_count": 5,
+      "total_sample_count": 20
+    },
+    "Eddy": {
+      "dense_index": 9,
+      "train_parent_count": 5,
+      "dev_parent_count": 2,
+      "holdout_parent_count": 2,
+      "total_parent_count": 9,
+      "train_sample_count": 14,
+      "dev_sample_count": 5,
+      "holdout_sample_count": 6,
+      "total_sample_count": 25
+    }
+  }
+}

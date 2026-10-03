@@ -1,0 +1,87 @@
+{
+  "evaluation_metadata": {
+    "evaluation_id": "OPS02_C21_HYPOTHESIS_INFORMATION_VALUE_v1",
+    "task_id": "EXP-07-P0-C21",
+    "evaluated_at_utc": "2026-09-14T10:43:00Z",
+    "methodology": "COMPARATIVE_INFORMATION_THEORETIC_AND_EXPERIMENTAL_ISOLATION_EVALUATION",
+    "selected_hypothesis": "H7"
+  },
+  "hypothesis_evaluation_matrix": [
+    {
+      "hypothesis_id": "H1",
+      "name": "Parent / Datatake Diversity",
+      "statement": "OPS-02 development performance is constrained by limited independent datatake/scene diversity (40 TRAIN datatakes across 132 tiles, 64 total datatakes across 212 tiles; note: earlier draft mention of 23 was a narrative typographical error reconciled in EXP-07-P0-C22-A.7).",
+      "clean_manipulability": "IMPOSSIBLE_UNDER_FREEZE",
+      "confounding_risk": "CRITICAL",
+      "compute_efficiency": "LOW",
+      "information_value": "LOW_UNDER_CURRENT_PROTOCOL",
+      "exclusion_rationale": "Testing H1 requires altering the dataset curation, acquiring additional Sentinel-1 scenes, or sub-sampling datatakes, which directly violates the dataset freeze immutability contract (INV-01, INV-02)."
+    },
+    {
+      "hypothesis_id": "H2",
+      "name": "Geographic & Acquisition Distribution Shift",
+      "statement": "OPS-02 performance degradation is driven by spatial clustering and geographic distribution shift relative to OPS-01.",
+      "clean_manipulability": "IMPOSSIBLE_UNDER_FREEZE",
+      "confounding_risk": "CRITICAL",
+      "compute_efficiency": "LOW",
+      "information_value": "LOW_UNDER_CURRENT_PROTOCOL",
+      "exclusion_rationale": "Geographic locations are intrinsic observational properties of physical Earth observation imagery. Manipulating geographic distribution requires dataset re-partitioning or re-curation, confounding the intervention with partition allocation and data identity."
+    },
+    {
+      "hypothesis_id": "H3",
+      "name": "Class Imbalance & Multi-Label Co-occurrence",
+      "statement": "Extreme pixel frequency skew (HM at 0.014% vs IWs at 31.7%) and complex multi-phenomena co-occurrence prevent effective multi-class boundary learning.",
+      "clean_manipulability": "INDIRECT_ONLY",
+      "confounding_risk": "HIGH",
+      "compute_efficiency": "MEDIUM",
+      "information_value": "MODERATE",
+      "exclusion_rationale": "Class imbalance is an inherent observational property of marine SAR phenomena. It cannot be altered without synthetic data generation or mask alteration. However, the model's loss response to class imbalance CAN be cleanly manipulated via the loss weighting scheme (which is precisely H7)."
+    },
+    {
+      "hypothesis_id": "H4",
+      "name": "Spatial & Semantic Structure Complexity",
+      "statement": "Fine-scale spatial structure (e.g., thin slicks, localized atmospheric fronts) cannot be resolved by standard UNet receptive fields at 256x256 resolution.",
+      "clean_manipulability": "REQUIRES_ARCHITECTURE_INTERVENTION",
+      "confounding_risk": "HIGH",
+      "compute_efficiency": "LOW",
+      "information_value": "MODERATE",
+      "exclusion_rationale": "Testing H4 requires architectural changes (e.g. Swin, SegFormer, higher resolution, multi-scale decoders), which alters millions of parameters, optimizer dynamics, and memory footprints simultaneously, confounding the experimental contrast."
+    },
+    {
+      "hypothesis_id": "H5",
+      "name": "Radiometric Normalization Sensitivity",
+      "statement": "Suboptimal input normalization constants (mean/std) constrain gradient propagation and transfer fidelity.",
+      "clean_manipulability": "HIGH",
+      "confounding_risk": "LOW",
+      "compute_efficiency": "HIGH",
+      "information_value": "SUPERSEDED_BY_C20_EVIDENCE",
+      "exclusion_rationale": "C20 Tier-1 cross-evaluation directly evaluated target-native vs model-declared normalization across three domain transfers. The empirical finding showed evaluation-dependent shifts but confirmed that normalization constants alone did not prevent cross-domain performance degradation."
+    },
+    {
+      "hypothesis_id": "H6",
+      "name": "Optimization Instability & Seed Stochasticity",
+      "statement": "Performance differences across runs are dominated by initialization seed stochasticity and optimization path divergence.",
+      "clean_manipulability": "HIGH",
+      "confounding_risk": "LOW",
+      "compute_efficiency": "LOW",
+      "information_value": "LOW",
+      "exclusion_rationale": "Replicating runs across different seeds tests variance rather than an underlying mechanistic hypothesis. Seed replication does not provide mechanistic guidance for protocol remediation. Furthermore, historical runs C8/C10 contained additional execution differences."
+    },
+    {
+      "hypothesis_id": "H7",
+      "name": "Class Loss Weighting Scheme",
+      "statement": "The canonical class-loss weighting scheme changes optimization behavior and development performance on OPS-02.",
+      "clean_manipulability": "PERFECT_SINGLE_VARIABLE",
+      "confounding_risk": "MINIMAL_WHEN_ALL_19_DIMENSIONS_LOCKED",
+      "compute_efficiency": "MAXIMAL",
+      "information_value": "HIGHEST",
+      "selection_rationale": "H7 is currently the highest-information hypothesis that can be tested cleanly under the frozen OPS-02 dataset and protocol. It modifies exactly 1 tensor in memory (the 12-element class weight vector) while locking all 19 other experimental/protocol dimensions identically, providing a definitive single-variable test of whether heavy differential class weighting helps or hinders development performance."
+    }
+  ],
+  "selection_verdict": {
+    "selected_hypothesis": "H7",
+    "formal_wording": "H7 — The canonical class-loss weighting scheme changes optimization behavior and development performance on OPS-02.",
+    "investigation_scope": "The experiment tests the effect of the complete 12-element CLASS_LOSS_WEIGHT_VECTOR as one object. It does NOT independently isolate HM, background, rare classes individually, a particular weight ratio, or gradient competition.",
+    "epistemic_qualification": "H7 is NOT claimed to be proven or the most likely true cause; it is strictly selected as the highest-information hypothesis that can be tested cleanly without confounding under the frozen protocol."
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "design_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "design_name": "EXP-07 Controlled Scientific Diagnostic Experiment Specification",
+  "created_at_utc": "2026-09-14T05:04:00Z",
+  "status": "SPECIFIED_PENDING_USER_AUTHORIZATION",
+  "diagnostic_strategy": {
+    "two_tier_architecture": {
+      "tier_1_zero_compute_cross_inference": "Evaluate existing historical checkpoints across datasets without any retraining (0 cloud cost, 0 training risk).",
+      "tier_2_single_variable_controlled_training": "If Tier 1 proves insufficient, execute a single-variable controlled training experiment to isolate loss weighting from dataset distribution shift."
+    }
+  },
+  "tier_1_cross_evaluation_specification": {
+    "objective": "Disentangle whether OPS-02 DEV is universally out-of-distribution for any Sentinel-1 model vs whether C16 suffered an optimization defect.",
+    "protocol": {
+      "step_1": "Load historical C8/C10 model weights (trained on OPS-01) and run read-only inference on the 40 frozen OPS-02 DEV samples.",
+      "step_2": "Load C16 best_model.pt (trained on OPS-02) and run read-only inference on historical OPS-01 DEV samples.",
+      "step_3": "Compute 12-class confusion matrix, per-class IoU, and macro phenomena mIoU for both.",
+      "holdout_status": "STRICTLY UNTOUCHED (0 access)"
+    },
+    "interpretation_criteria": {
+      "supports_distribution_shift": "If C8/C10 model also achieves < 10% on OPS-02 DEV, the collapse is conclusively driven by out-of-distribution parent cluster diversity (H1/H2).",
+      "supports_c16_training_defect": "If C8/C10 model achieves > 25% on OPS-02 DEV, C16 optimization or loss weighting suffered a specific defect (H7)."
+    }
+  },
+  "tier_2_controlled_training_specification": {
+    "experiment_identifier": "EXP07_DIAGNOSTIC_001",
+    "research_question": "Does square-root median-frequency weighting (with 18.2x weight on HM) cause background seawater under-prediction and overall mIoU collapse compared to unweighted/moderated loss?",
+    "variables": {
+      "independent_variable": "Loss weighting scheme: Control (C16 Sqrt-Median Weights) vs Treatment (Uniform Unweighted CrossEntropyLoss w_c = 1.0)",
+      "dependent_variables": [
+        "dev_mIoU_phenomena (primary frozen metric)",
+        "dev_mIoU_well_supported (MCC, IWs, BS)",
+        "background_seawater_iou (Class 0)",
+        "true_positive_rate_sparse_classes (HM, OF, RF, AF)"
+      ],
+      "constant_variables": [
+        "Dataset: OPS02_v1.0.1_FROZEN (132 TRAIN, 40 DEV, 0 HOLDOUT)",
+        "Model: ResNet18-UNet (14,310,860 parameters, ImageNet pretrained encoder)",
+        "Optimizer: AdamW (lr=5e-4, weight_decay=0.01)",
+        "Scheduler: LinearWarmupCosineAnnealingLR (3 warmup, 27 decay)",
+        "Batch dynamics: minibatch=8, accumulation=2, virtual_batch=16",
+        "Sampler: Candidate F Hybrid (70% parent, 30% presence, 72 draws/epoch)",
+        "Hardware: Single Tesla T4 GPU (cuda:0)",
+        "Random Seed: Exactly 42"
+      ]
+    },
+    "success_and_failure_criteria": {
+      "loss_weighting_causality_supported": "Treatment achieves Background IoU > 0.30 (vs 0.026) and overall phenomena mIoU > 0.08.",
+      "loss_weighting_causality_falsified": "Treatment shows identical background collapse (BG IoU < 0.05) and phenomena mIoU <= 0.05."
+    },
+    "execution_gate": "DO NOT EXECUTE IN C18. Requires explicit user review and authorization under Phase 15."
+  }
+}

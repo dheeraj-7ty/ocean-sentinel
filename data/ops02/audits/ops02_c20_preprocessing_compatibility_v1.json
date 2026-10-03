@@ -1,0 +1,54 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C20",
+  "audit_name": "EXP-07 Preprocessing and Radiometric Contract Compatibility Audit",
+  "audited_at_utc": "2026-09-14T06:15:00Z",
+  "physical_image_contract": {
+    "ops01": {
+      "format": "GeoTIFF float32 single-band VV",
+      "spatial_dimensions": [256, 256],
+      "radiometric_domain": "10x10 block-averaged raw DN (uncalibrated)",
+      "valid_pixel_definition": "raw_dn > 0",
+      "native_train_norm": {"mean": 4.2756, "std": 0.3866}
+    },
+    "ops02": {
+      "format": "GeoTIFF float32 single-band VV",
+      "spatial_dimensions": [256, 256],
+      "radiometric_domain": "10x10 block-averaged raw DN (uncalibrated)",
+      "valid_pixel_definition": "raw_dn > 0",
+      "native_train_norm": {"mean": 4.424158, "std": 0.469261}
+    }
+  },
+  "cross_evaluation_radiometric_contracts": {
+    "eval_a_c16_on_ops01_dev": {
+      "primary_contract": "MODEL_DECLARED_NORMALIZATION",
+      "mean_used": 4.424158,
+      "std_used": 0.469261,
+      "rationale": "C16 model weights were trained under features scaled by mu=4.424158, sigma=0.469261. Preserving model integrity requires feeding inputs transformed by the model's expected weights.",
+      "secondary_sensitivity_contract": "DATASET_NATIVE_NORMALIZATION (mean=4.2756, std=0.3866)"
+    },
+    "eval_b_c8_on_ops02_dev": {
+      "primary_contract": "MODEL_DECLARED_NORMALIZATION",
+      "mean_used": 4.2756,
+      "std_used": 0.3866,
+      "rationale": "C8 model weights were trained under features scaled by mu=4.2756, sigma=0.3866.",
+      "secondary_sensitivity_contract": "DATASET_NATIVE_NORMALIZATION (mean=4.424158, std=0.469261)"
+    },
+    "eval_c_c10_on_ops02_dev": {
+      "primary_contract": "MODEL_DECLARED_NORMALIZATION",
+      "mean_used": 4.2756,
+      "std_used": 0.3866,
+      "rationale": "C10 model weights were trained under features scaled by mu=4.2756, sigma=0.3866.",
+      "secondary_sensitivity_contract": "DATASET_NATIVE_NORMALIZATION (mean=4.424158, std=0.469261)"
+    }
+  },
+  "mathematical_transformation_pipeline": {
+    "step_1": "Load raw GeoTIFF float32 array: raw_dn",
+    "step_2": "Compute validity mask: valid_mask = (raw_dn > 0.0)",
+    "step_3": "Compute radiometric log1p: x_log = ln(1.0 + max(raw_dn, 0.0))",
+    "step_4": "Standardize: x_norm = (x_log - mean) / std",
+    "step_5": "Zero border padding: x_norm[~valid_mask] = 0.0",
+    "step_6": "Format tensor: torch.from_numpy(x_norm).unsqueeze(0).unsqueeze(0).float() [1, 1, 256, 256]"
+  },
+  "overall_verdict": "PREPROCESSING_COMPATIBILITY_VERIFIED_AND_DUAL_NORM_SPECIFIED"
+}

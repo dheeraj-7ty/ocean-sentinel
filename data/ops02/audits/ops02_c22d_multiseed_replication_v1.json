@@ -1,0 +1,209 @@
+{
+  "audit_version": "1.0.0",
+  "audit_date": "2026-09-14T14:38:00+05:30",
+  "task_id": "EXP-07-P0-C22-D",
+  "experiment_id": "EXP07_DIAG01_REPLICATION",
+  "status": "COMPLETED_VALID",
+  "scientific_classification": "CASE_B_SEED_SENSITIVE_UNJUSTIFIED_FOR_CANONICAL_ADOPTION",
+  "predeclared_protocol": {
+    "study_type": "Small-sample robustness and effect-consistency study",
+    "confirmatory_hypothesis_testing": false,
+    "p_value_threshold_mandatory": false,
+    "primary_metric": "dev_mIoU_phenomena",
+    "primary_classes": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    "background_excluded": true,
+    "frozen_dataset": "OPS02_v1.0.1_FROZEN",
+    "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "train_dev_holdout_pairs": [132, 40, 40],
+    "independent_clusters": [40, 12, 12],
+    "canonical_initial_state_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "model_architecture": "ResNet18-UNet (Option B, 14,310,860 trainable parameters, 30 BatchNorm2d layers, momentum=0.05)",
+    "optimizer": "AdamW (lr=5e-4, weight_decay=0.01 on 2D weights only, betas=(0.9, 0.999), eps=1e-8)",
+    "scheduler": "LinearWarmupCosineAnnealingLR (Tmax=30, warmup=3, eta_min=1e-6)",
+    "batch_dynamics": "physical=8, BN_statistical=8, accumulation=2, effective_optimizer_batch=16, grad_clip=1.0",
+    "sampler": "Candidate F Hybrid (70% parent-balanced, 30% class-balanced, 72 draws/epoch, replacement=True)",
+    "stopping_rule": "MAX_EPOCHS=30, MIN_EPOCHS=15, PATIENCE=10",
+    "loss_intervention_only": {
+      "control": [0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.88287, 0.387652, 18.243211],
+      "treatment": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    }
+  },
+  "environment": {
+    "execution_target": "Kaggle GPU Worker",
+    "gpu_model": "NVIDIA Tesla T4",
+    "vram_total_bytes": 15636037632,
+    "cuda_version": "12.8",
+    "pytorch_version": "2.10.0+cu128",
+    "cudnn_version": "91002",
+    "os": "Linux 6.6.137+ (Kaggle Container)"
+  },
+  "firewall_verification": {
+    "holdout_access_count": 0,
+    "holdout_status": "QUARANTINED_ZERO_ACCESS",
+    "part_iii_access_count": 0,
+    "part_iii_status": "FIREWALLED_ZERO_ACCESS"
+  },
+  "results": {
+    "seed_42_historical_discovery": {
+      "seed": 42,
+      "seed_type": "HISTORICAL_DISCOVERY_OBSERVATION",
+      "status": "VALID_SINGLE_RUN_OBSERVATION",
+      "control": {
+        "best_epoch": 10,
+        "best_dev_mIoU_phenomena": 0.04147,
+        "total_epochs": 20,
+        "duration_sec": 42.1,
+        "best_model_sha256": "FF98D4A93660BC70016FEEAF2F04450B7AC1110226DECBAE027F71FF286633FA"
+      },
+      "treatment": {
+        "best_epoch": 5,
+        "best_dev_mIoU_phenomena": 0.05318,
+        "total_epochs": 15,
+        "duration_sec": 31.4,
+        "best_model_sha256": "0B7F51B1E902AAC9DF839D2864F1E9658F3B0631813FC47D8ADA1738FFC47745"
+      },
+      "delta_dev_mIoU_phenomena": 0.01171,
+      "relative_percent": 28.24,
+      "winner": "TREATMENT"
+    },
+    "prospective_replications": [
+      {
+        "seed": 101,
+        "seed_type": "PROSPECTIVE_REPLICATION",
+        "schedule_sha256": "6EB40F9BE51C70A5C53EB387CADA259CF3CD8FE8AEA458A0E0220509A8A9E6EA",
+        "initial_state_bitwise_equal": true,
+        "control": {
+          "best_epoch": 15,
+          "best_dev_mIoU_phenomena": 0.05886,
+          "total_epochs": 25,
+          "duration_sec": 44.01,
+          "best_model_sha256": "86F1AF99128797DCD9024117B8BF9051FD2AD7575DFC2AD0BA4BCC87A6218F97",
+          "last_model_sha256": "03F33B5FC6C6462D32B5F0D89454A364597D48A8FEE581193A11F5172A4EE0A6"
+        },
+        "treatment": {
+          "best_epoch": 5,
+          "best_dev_mIoU_phenomena": 0.04481,
+          "total_epochs": 15,
+          "duration_sec": 26.29,
+          "best_model_sha256": "CDBA3618FE4A7BECA0D82B11E8E57BE9DD82DA31360C85A523A96577866B74FC",
+          "last_model_sha256": "EF4CC726EBEC00DEA1FB7A0F59FD2E02B00C569EA733ED4F6D6251F1740BC74B"
+        },
+        "delta_dev_mIoU_phenomena": -0.01405,
+        "relative_percent": -23.87,
+        "winner": "CONTROL"
+      },
+      {
+        "seed": 202,
+        "seed_type": "PROSPECTIVE_REPLICATION",
+        "schedule_sha256": "6703D054BF12EB33E512CE2F75EC7A32F092B085A65E1ED3E93C55BAECDBBF8F",
+        "initial_state_bitwise_equal": true,
+        "control": {
+          "best_epoch": 27,
+          "best_dev_mIoU_phenomena": 0.04358,
+          "total_epochs": 30,
+          "duration_sec": 54.49,
+          "best_model_sha256": "23DEFB142B43375F2E93A5E16590AE8843A87311A6221786FC43D539C5156E63",
+          "last_model_sha256": "EB111C06D59436C0C054964D6E9613D8A7714FA910CFC6041957C633EE97DA32"
+        },
+        "treatment": {
+          "best_epoch": 6,
+          "best_dev_mIoU_phenomena": 0.04741,
+          "total_epochs": 16,
+          "duration_sec": 28.61,
+          "best_model_sha256": "000D4E7E0D37CB6A6D562C7B81B8AD2CAE85483BE6BCE07706AD97F709EA1CDD",
+          "last_model_sha256": "D79B6F75EA48EE89DDD62092D2983F884958A9234B79530F7D6596650D892A73"
+        },
+        "delta_dev_mIoU_phenomena": 0.00383,
+        "relative_percent": 8.79,
+        "winner": "TREATMENT"
+      },
+      {
+        "seed": 303,
+        "seed_type": "PROSPECTIVE_REPLICATION",
+        "schedule_sha256": "90F93C6261AE20FE0BD6365F38E221774EB95CE2921D387AE0C6A0FD17548A5A",
+        "initial_state_bitwise_equal": true,
+        "control": {
+          "best_epoch": 19,
+          "best_dev_mIoU_phenomena": 0.05191,
+          "total_epochs": 29,
+          "duration_sec": 52.47,
+          "best_model_sha256": "1E5D948B323AA97AD1A0B381128C2697806E23973D30E31BD25313DA68E723DB",
+          "last_model_sha256": "8581F9E5F683CD113634D03FEADED2FE9F069C1F5B3B2F5C0C3E384CE6B1A0C9"
+        },
+        "treatment": {
+          "best_epoch": 5,
+          "best_dev_mIoU_phenomena": 0.04605,
+          "total_epochs": 15,
+          "duration_sec": 27.12,
+          "best_model_sha256": "837068454D10BF82B8AE85A52D618CD99B7AED4F1E0371B034B73C763663FF8B",
+          "last_model_sha256": "D917796974DBBE2B0D940C6B109E8B054FA424128DBDB4CC131C9F58ACDC82A0"
+        },
+        "delta_dev_mIoU_phenomena": -0.00586,
+        "relative_percent": -11.29,
+        "winner": "CONTROL"
+      },
+      {
+        "seed": 404,
+        "seed_type": "PROSPECTIVE_REPLICATION",
+        "schedule_sha256": "CD995CDEBBF69EA7B97EB1B029C8E75C417A1689258B93649557D4876BD6DDE2",
+        "initial_state_bitwise_equal": true,
+        "control": {
+          "best_epoch": 21,
+          "best_dev_mIoU_phenomena": 0.0494,
+          "total_epochs": 30,
+          "duration_sec": 54.56,
+          "best_model_sha256": "E2F180A0439C75588EDCDFE27D72A4B5FCCF08C4EB5BB3AB8B50CA5E4217B3A3",
+          "last_model_sha256": "73315143D2D542454E4C46FCFAD7236DB6056B2B5427497847C1F8F521F35802"
+        },
+        "treatment": {
+          "best_epoch": 7,
+          "best_dev_mIoU_phenomena": 0.05398,
+          "total_epochs": 17,
+          "duration_sec": 30.87,
+          "best_model_sha256": "B8286A1CD00EF5D1CA1E00BCC4A8211BEBF751A96832D91E1439F1061C3D1D79",
+          "last_model_sha256": "4863142510DA450850DEF4E01BF087F91FD0CE40C8091F756E85FE60930B7910"
+        },
+        "delta_dev_mIoU_phenomena": 0.00458,
+        "relative_percent": 9.27,
+        "winner": "TREATMENT"
+      }
+    ],
+    "prospective_replications_summary": {
+      "n_prospective_seeds": 4,
+      "treatment_wins": 2,
+      "control_wins": 2,
+      "ties": 0,
+      "control_mean_dev_mIoU": 0.05094,
+      "treatment_mean_dev_mIoU": 0.04806,
+      "delta_mean": -0.00288,
+      "delta_std": 0.00877,
+      "delta_median": -0.00102,
+      "delta_range": [-0.01405, 0.00458]
+    },
+    "all_five_pairs_summary": {
+      "n_total_seeds": 5,
+      "treatment_wins": 3,
+      "control_wins": 2,
+      "ties": 0,
+      "proportion_treatment_superior": 0.6,
+      "control_mean_dev_mIoU": 0.04904,
+      "control_std_dev_mIoU": 0.00693,
+      "treatment_mean_dev_mIoU": 0.04909,
+      "treatment_std_dev_mIoU": 0.00421,
+      "delta_mean": 0.00004,
+      "delta_std": 0.01006,
+      "delta_median": 0.00383,
+      "delta_min": -0.01405,
+      "delta_max": 0.01171,
+      "ci_95_student_t_delta": [-0.01244, 0.01253],
+      "statistical_limitation_statement": "Sample size is small (n=5). The 95% Student-t confidence interval [-0.01244, +0.01253] spans zero and is presented solely as a descriptive dispersion metric. No confirmatory hypothesis claim or binary p < 0.05 test is claimed or warranted."
+    }
+  },
+  "scientific_interpretation": {
+    "case": "CASE_B",
+    "finding": "Results are mixed with small and unstable deltas across independent seeds. Treatment won 2 prospective seeds and lost 2 prospective seeds. Across all 5 seeds, the mean delta is essentially zero (+0.00004).",
+    "epoch_dynamics": "Descriptively, Treatment reached its best DEV checkpoint earlier (epochs 5-7, total 15-17 epochs) while Control reached its best DEV checkpoint at later epochs (epochs 10-27, total 20-30 epochs). However, this timing difference does not establish a causal mechanism of faster convergence, overfitting, or regularization; it demonstrates variability in training trajectory behavior across seeds without a robust performance advantage.",
+    "conclusion": "The C22-B single-seed observation (+0.01171 at Seed 42) appears seed-sensitive and does NOT replicate as a systematic development-set advantage under the frozen OPS-02 protocol. It does NOT justify replacing the canonical sqrt-median-frequency class weighting policy.",
+    "recommendation": "Maintain canonical C16 sqrt-median-frequency class weighting as the official training policy. Do NOT adopt uniform weighting as canonical."
+  }
+}

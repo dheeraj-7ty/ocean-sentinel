@@ -1,0 +1,68 @@
+{
+  "audit_metadata": {
+    "protocol_version": "v1.9.0-hardened-corrective",
+    "task_id": "DIAG05-TIER1-CORRECTIVE-CLOSURE-AND-GOVERNANCE-HARDENING",
+    "timestamp_utc": "2026-09-17T00:35:00Z",
+    "source_provenance": {
+      "original_raw_observations_sha256": "A5A384D25CFF22B9BF724493ACFEC4EAD163E77E3253ED773C83FB6EE7D2B586",
+      "original_paired_inference_sha256": "8BF6C9B3396D21306B666F9B16DB5F9C5716FF126370B7940783D044393D94AB",
+      "excluded_tile_id": "s1a-iw-grd-vv-20220129t174639-20220129t174704-041679-04f573-001-22",
+      "exclusion_reason": "F-DIAG05-001: Zero post-validity rare support (INELIGIBLE_ABSENT_MASK)"
+    }
+  },
+  "population_dimensions": {
+    "raw_observations_retained_n": 27,
+    "raw_observations_excluded_n": 1,
+    "inferential_paired_clusters_n": 15,
+    "zero_difference_clusters_n": 0,
+    "effective_rankable_clusters_n": 15,
+    "positive_difference_clusters_n": 4,
+    "negative_difference_clusters_n": 11
+  },
+  "descriptive_distribution_of_deltas": {
+    "mean": -0.004485750664025545,
+    "median": -1.5795230865478516e-06,
+    "q25": -0.0010471236892044544,
+    "q75": 1.6391277313232422e-06,
+    "iqr": 0.0010487628169357777,
+    "min": -0.040942735970020294,
+    "max": 0.0012266039848327637,
+    "cluster_concentration_notes": "Negative difference is driven by 2 multi-tile clusters (cluster 15: -0.0409, cluster 12: -0.0191); 11 of 15 clusters have |delta| < 0.001"
+  },
+  "corrected_registered_result": {
+    "test_name": "Paired Wilcoxon Signed-Rank Test",
+    "method": "asymptotic_with_continuity_correction",
+    "method_argument": "asymptotic",
+    "correction": true,
+    "alternative": "two-sided",
+    "zero_method": "wilcox",
+    "tie_handling": "average_ranks",
+    "statistic": 32.0,
+    "p_value": 0.11831271616460728,
+    "significance_verdict_alpha_0_05": "NON_SIGNIFICANT",
+    "scientific_interpretation": "Under the registered design across 15 parent clusters, the test did not detect a statistically distinguishable paired difference in directional alignment between canonical and uniform weighting."
+  },
+  "corrected_exact_permutation_result": {
+    "test_name": "Paired Wilcoxon Signed-Rank Test",
+    "method": "exact_permutation",
+    "method_argument": "exact",
+    "correction": true,
+    "alternative": "two-sided",
+    "zero_method": "wilcox",
+    "tie_handling": "average_ranks",
+    "statistic": 32.0,
+    "p_value": 0.12054443359375,
+    "significance_verdict_alpha_0_05": "NON_SIGNIFICANT"
+  },
+  "original_executed_result_provenance": {
+    "source_artifact": "diag05_tier1_h2_paired_inference_v1.json",
+    "tiles_evaluated": 28,
+    "clusters_evaluated": 15,
+    "statistic": 34.0,
+    "p_value": 0.15142822265625,
+    "method_label_in_v1": "Wilcoxon signed-rank test (asymptotic with continuity correction)",
+    "true_distribution_of_v1_p_value": "exact_permutation",
+    "delta_statistic_due_to_correction": -2.0,
+    "decision_invariance": "Both original and corrected analyses yield p > 0.05 (non-significant); scientific decision is 100% invariant."
+  }
+}

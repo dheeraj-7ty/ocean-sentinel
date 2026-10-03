@@ -1,0 +1,85 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "audit_name": "OPS-02 C15 vs C16 Frozen Dataset Reconciliation Audit",
+  "created_at_utc": "2026-09-14T04:10:00Z",
+  "status": "RECONCILED_WITH_DOCUMENTATION_DEFECT",
+  "summary": {
+    "verdict": "PHYSICAL_DATASET_IDENTICAL_C15_DOCUMENTATION_DEFECT",
+    "core_finding": "The physical samples, cluster assignments, and partition manifests have remained 100% identical since C14 creation (2026-09-13T21:10:25Z). The discrepancy of 41 vs 40 DEV samples and 39 vs 40 HOLDOUT samples was an unverified typographical error in the C14 report and C15 audit narratives, which was manually corrected in the freeze specification during C16 pre-transfer verification without modifying any physical data or partition memberships."
+  },
+  "reconciliation_matrix": [
+    {
+      "metric": "total_physical_samples",
+      "c15_report_stated_value": 212,
+      "c15_freeze_spec_value": 212,
+      "c16_report_stated_value": 212,
+      "current_filesystem_value": 212,
+      "target_artifact": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+      "timestamp_utc": "2026-09-13T21:10:25Z",
+      "discrepancy": "NONE",
+      "interpretation": "Total physical sample count of 212 has been immutable and consistent across all phases."
+    },
+    {
+      "metric": "total_independent_parent_clusters",
+      "c15_report_stated_value": 64,
+      "c15_freeze_spec_value": 64,
+      "c16_report_stated_value": 64,
+      "current_filesystem_value": 64,
+      "target_artifact": "data/ops02/manifests/ops02_parent_cluster_manifest_v1.json",
+      "sha256": "08ED21FBB492363E1D05040020F73177BFD4DC84F1A39E2D9C5C9B38BC97D10B",
+      "timestamp_utc": "2026-09-13T21:10:25Z",
+      "discrepancy": "NONE",
+      "interpretation": "Total parent cluster count of 64 has remained strictly consistent."
+    },
+    {
+      "metric": "train_sample_count",
+      "c15_report_stated_value": 132,
+      "c15_freeze_spec_value": 132,
+      "c16_report_stated_value": 132,
+      "current_filesystem_value": 132,
+      "target_artifact": "data/ops02/manifests/ops02_partition_manifest_v1.json",
+      "sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+      "timestamp_utc": "2026-09-13T21:10:25Z",
+      "discrepancy": "NONE",
+      "interpretation": "TRAIN partition sample count of 132 (40 clusters) is fully congruent."
+    },
+    {
+      "metric": "dev_sample_count",
+      "c15_report_stated_value": 41,
+      "c15_freeze_spec_value": 40,
+      "c16_report_stated_value": 40,
+      "current_filesystem_value": 40,
+      "target_artifact": "data/ops02/manifests/ops02_partition_manifest_v1.json",
+      "sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+      "timestamp_utc": "2026-09-13T21:10:25Z",
+      "discrepancy": "C15 report stated 41; actual manifest contained 40.",
+      "interpretation": "DOCUMENTATION DEFECT: The physical manifest and partition manifest assembled in C14 have always contained exactly 40 DEV sample pairs across 12 clusters (sum of cluster slices: 4+4+2+2+4+4+4+4+3+2+3+4=40). The number 41 was an arithmetic transcription error introduced in C14 report markdown and propagated into C15 audit narratives without checking len(sample_ids)."
+    },
+    {
+      "metric": "holdout_sample_count",
+      "c15_report_stated_value": 39,
+      "c15_freeze_spec_value": 40,
+      "c16_report_stated_value": 40,
+      "current_filesystem_value": 40,
+      "target_artifact": "data/ops02/manifests/ops02_partition_manifest_v1.json",
+      "sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+      "timestamp_utc": "2026-09-13T21:10:25Z",
+      "discrepancy": "C15 report stated 39; actual manifest contained 40.",
+      "interpretation": "DOCUMENTATION DEFECT: Symmetrically paired with the DEV error. The C14 assembly script explicitly recorded 40 samples in data/ops02/audits/ops02_holdout_integrity_v1.json at creation (2026-09-13T21:10:25Z). Sum of HOLDOUT cluster slices: 4+4+3+2+4+2+3+4+2+4+4+4=40. C14/C15 reports incorrectly reported 39."
+    },
+    {
+      "metric": "dataset_freeze_spec_file",
+      "c15_report_stated_value": "41 DEV / 39 HOLDOUT in spec JSON",
+      "c15_freeze_spec_value": "Mutated in C16 to 40 DEV / 40 HOLDOUT",
+      "c16_report_stated_value": "40 DEV / 40 HOLDOUT",
+      "current_filesystem_value": "40 DEV / 40 HOLDOUT",
+      "target_artifact": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.json",
+      "sha256": "AF406D5F4E4092D8ECE240220FB97FF6B28C393D0D37D878898B26D0C6A4A57E",
+      "timestamp_utc": "2026-09-14T02:37:00Z",
+      "discrepancy": "Metadata modified in C16 prior to Kaggle upload.",
+      "interpretation": "C16 pre-transfer verification detected that OPS02_DATASET_FREEZE_SPEC_v1.json had 41/39 while the physical manifest had 40/40. C16 aligned the spec with the underlying manifests, but failed to record this modification as a formal incident in exp07_p0_c16_incident_register_v1.json."
+    }
+  ]
+}

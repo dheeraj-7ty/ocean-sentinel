@@ -1,0 +1,53 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "EXP-07 Canonical Taxonomy Forensics and Reconciliation Audit",
+  "audited_at_utc": "2026-09-14T05:25:00Z",
+  "canonical_authority": {
+    "level_1_manifest": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "level_2_freeze_spec": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+    "level_3_implementation": "src/ocean_sentinel/ml/exp07_reference.py::DENSE_CLASSES",
+    "level_4_frozen_protocol": "experiments/EXP-07/EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"
+  },
+  "canonical_taxonomy_12_class": [
+    {"index": 0, "code": "BG", "name": "Background Seawater", "source_label": 0, "status": "CANONICAL"},
+    {"index": 1, "code": "AF", "name": "Atmospheric Front", "source_label": 1, "status": "CANONICAL"},
+    {"index": 2, "code": "BS", "name": "Biological Slicks", "source_label": 2, "status": "CANONICAL"},
+    {"index": 3, "code": "LWA", "name": "Low Wind Area", "source_label": 4, "status": "CANONICAL"},
+    {"index": 4, "code": "MCC", "name": "Mesoscale Cellular Convection", "source_label": 5, "status": "CANONICAL"},
+    {"index": 5, "code": "OF", "name": "Ocean Front", "source_label": 6, "status": "CANONICAL"},
+    {"index": 6, "code": "POW", "name": "Pure Ocean Wave", "source_label": 7, "status": "CANONICAL"},
+    {"index": 7, "code": "RF", "name": "Rain Cell / Rain Footprint", "source_label": 8, "status": "CANONICAL"},
+    {"index": 8, "code": "WS", "name": "Wind Streak", "source_label": 10, "status": "CANONICAL"},
+    {"index": 9, "code": "Eddy", "name": "Oceanic Eddy", "source_label": 11, "status": "CANONICAL"},
+    {"index": 10, "code": "IWs", "name": "Internal Waves", "source_label": 12, "status": "CANONICAL"},
+    {"index": 11, "code": "HM", "name": "Artificial / Anthropogenic Objects", "source_label": 13, "status": "CANONICAL"}
+  ],
+  "quarantined_and_excluded_source_labels": [
+    {"source_label": 14, "name": "Mineral Oil Spill", "status": "QUARANTINED_GOV_RULE_060", "mapped_to": -100},
+    {"source_label": 3, "name": "Iceberg", "status": "EXCLUDED_EXP07_SCOPE", "mapped_to": -100},
+    {"source_label": 9, "name": "Sea Ice", "status": "EXCLUDED_EXP07_SCOPE", "mapped_to": -100}
+  ],
+  "discrepancy_forensics": {
+    "c18_narrative_corruptions": [
+      {
+        "artifact": "experiments/EXP-07/EXP07_P0_C18_PROTOCOL_REMEDIATION_AND_CONTROLLED_DIAGNOSTIC_DESIGN_20260914.md",
+        "section": "Section 4, 6, 8, 14, 15",
+        "erroneous_tokens": ["AS", "Thermal"],
+        "erroneous_taxonomy_text": "MCC, IWs, BS, LWA, POW, OF, WS, AS, Eddy, HM, Thermal",
+        "root_cause": "Transcription and narrative drift in markdown report synthesis. The underlying machine-readable JSON audits (ops02_c18_class_weights_audit_v1.json, ops02_c18_sampler_protocol_audit_v1.json) correctly contained the canonical class names (0_BG through 11_HM, AF, RF), but the markdown report text incorrectly mapped class 8 to 'AS' and class 11 to 'Thermal'.",
+        "corrective_action": "Formal repudiation of erroneous taxonomy tokens. Canonical taxonomy reaffirmed across all C19 and future specifications. Historical report preserved unedited under immutability rules."
+      }
+    ]
+  },
+  "semantic_clarifications": {
+    "HM": "HM stands for Artificial / Anthropogenic Objects (Human-Made objects, including maritime vessels, offshore platforms, infrastructure). It is NOT vessel-only.",
+    "OF": "OF stands strictly for Ocean Front (thermal/salinity/dynamic oceanographic front). It is NOT oil film or oil spill.",
+    "RF": "RF stands for Rain Cell / Rain Footprint.",
+    "WS": "WS stands for Wind Streak.",
+    "IWs": "IWs stands for Internal Waves.",
+    "AF": "AF stands for Atmospheric Front.",
+    "POW": "POW stands for Pure Ocean Wave."
+  },
+  "verdict": "CANONICAL_TAXONOMY_RECONCILED_AND_LOCKED"
+}

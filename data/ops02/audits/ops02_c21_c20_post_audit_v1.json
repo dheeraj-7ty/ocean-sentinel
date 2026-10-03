@@ -1,0 +1,89 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C21_C20_POST_AUDIT_v1",
+    "task_id": "EXP-07-P0-C21",
+    "audited_task_id": "EXP-07-P0-C20",
+    "audited_at_utc": "2026-09-14T10:42:00Z",
+    "auditor": "Antigravity IDE / AG 2.0 (Gemini 3.8 Flash High)",
+    "epistemic_standard": "LEVEL_1_TO_5_MACHINE_TRUTH",
+    "governance_status": "APPROVED_POST_AUDIT"
+  },
+  "executive_summary": {
+    "verdict": "C20_RESULTS_VALID_WITH_NARRATIVE_CORRECTIONS",
+    "description": "Phase C20 successfully executed the authorized Tier-1 zero-compute cross-domain evaluation with zero training, zero Kaggle execution, and zero HOLDOUT access. However, forensic post-audit reveals three epistemic overclaims in the narrative report: (1) an overgeneralized input normalization superiority claim refuted by EVAL-A machine data; (2) an unsupported causal claim attributing OPS-02 performance bounds to domain properties rather than optimization; and (3) an overextended '100% bug-free' claim. All three claims are formally rectified herein against Level 5 machine truth."
+  },
+  "forensic_corrections": [
+    {
+      "correction_id": "CORR-C20-001",
+      "category": "SCIENTIFIC_VALIDITY",
+      "target_claim": "Model-declared normalization yielded consistently superior transfer fidelity across all evaluated models.",
+      "level_5_machine_truth": {
+        "eval_a_c16_to_ops01_dev": {
+          "target_native_normalization_mIoU": 0.028818,
+          "model_declared_normalization_mIoU": 0.027285,
+          "higher_performing_normalization": "TARGET_NATIVE",
+          "delta": 0.001533
+        },
+        "eval_b_c8_to_ops02_dev": {
+          "model_declared_normalization_mIoU": 0.035332,
+          "target_native_normalization_mIoU": 0.019896,
+          "higher_performing_normalization": "MODEL_DECLARED",
+          "delta": 0.015436
+        },
+        "eval_c_c10_to_ops02_dev": {
+          "model_declared_normalization_mIoU": 0.029223,
+          "target_native_normalization_mIoU": 0.019455,
+          "higher_performing_normalization": "MODEL_DECLARED",
+          "delta": 0.009768
+        }
+      },
+      "corrected_epistemic_position": "Input normalization transfer sensitivity is EVALUATION-DEPENDENT. In EVAL-A, target-native normalization outperformed model-declared normalization (0.028818 vs 0.027285). In EVAL-B and EVAL-C, model-declared normalization outperformed target-native normalization. Normalization cannot be claimed to be universally superior across domain transfers.",
+      "incident_id": "INC-C20-004"
+    },
+    {
+      "correction_id": "CORR-C20-002",
+      "category": "SCIENTIFIC_VALIDITY",
+      "target_claim": "OPS-02 performance is fundamentally bounded by dataset domain properties rather than an optimization failure.",
+      "level_5_machine_truth": "Cross-domain evaluation provides observational transfer degradation data only. It does not manipulate or isolate optimization mechanisms (such as class-loss weighting, gradient competition, or capacity).",
+      "corrected_epistemic_position": "Tier-1 cross-domain evaluation demonstrates substantial transfer degradation and heterogeneous class-level behavior across domains. It provides descriptive evidence regarding cross-domain generalization, but does NOT identify the causal source of the OPS-02 development performance limitation.",
+      "incident_id": "INC-C20-005"
+    },
+    {
+      "correction_id": "CORR-C20-003",
+      "category": "EPISTEMIC_HYGIENE",
+      "target_claim": "The OPS-02 inference and evaluation pipeline is 100% bug-free and robust.",
+      "level_5_machine_truth": "Phase C20 passed 72 automated guardrails testing specific audited invariants and protocol checks.",
+      "corrected_epistemic_position": "The evaluation pipeline is 'verified against the implemented C20 guardrail suite and audited invariants.' Automated tests verify that checked properties hold; they do not establish universal absence of defects or universal robustness across untested scenarios.",
+      "incident_id": "INC-C20-006"
+    },
+    {
+      "correction_id": "CORR-C20-004",
+      "category": "DATA_INTEGRITY",
+      "target_claim": "Ambiguity regarding whether historical C16 ran on an obsolete or unpatched dataset compared to canonical v1.0.1.",
+      "level_5_machine_truth": {
+        "physical_tiles_sha256": "BITWISE_IDENTICAL across 212 GeoTIFF rasters",
+        "ground_truth_masks_sha256": "BITWISE_IDENTICAL across 212 PNG masks",
+        "split_allocations": "132 TRAIN / 40 DEV / 40 HOLDOUT identical across both",
+        "documentation_patch": "v1.0.1 corrected a textual transcription typo (from 41/39 to 40/40 DEV/HOLDOUT) without altering a single byte of dataset files."
+      },
+      "corrected_epistemic_position": "Historical C16 data identity was OPS02_v1.0.0_FROZEN, and its physical raster and mask contents are bitwise identical to OPS02_v1.0.1_FROZEN. We preserve C16's historical provenance while establishing v1.0.1 as the canonical specification identity. Do not retroactively rewrite historical execution records.",
+      "incident_id": "INC-C20-002"
+    },
+    {
+      "correction_id": "CORR-C20-005",
+      "category": "REPRODUCIBILITY",
+      "target_claim": "C8 and C10 historical runs provide an isolated measurement of random seed variance on OPS-01.",
+      "level_5_machine_truth": "While C8 used seed 42 and C10 used seed 101, historical run logs indicate that C8 and C10 executions may contain additional environmental and execution differences.",
+      "corrected_epistemic_position": "Existing C8/C10 historical runs do not provide a clean isolated estimate of seed variance unless machine evidence proves that all other execution and environmental conditions were strictly identical. Seed variance on OPS-01 remains an unisolated observation.",
+      "incident_id": "INC-C20-007"
+    }
+  ],
+  "firewall_and_governance_verification": {
+    "zero_training_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_verified": false,
+    "historical_reports_mutated": false,
+    "checkpoints_mutated": false
+  }
+}

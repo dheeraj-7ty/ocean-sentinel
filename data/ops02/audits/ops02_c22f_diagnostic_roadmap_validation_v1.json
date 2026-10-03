@@ -1,0 +1,327 @@
+{
+  "audit_version": "1.0.0",
+  "audit_date": "2026-09-14T15:26:00+05:30",
+  "task_id": "EXP-07-P0-C22-F",
+  "parent_task": "EXP-07-P0-C22-E",
+  "status": "COMPLETED_VALID",
+  "terminal_status": "C22E_ANALYTICAL_CORRECTION = COMPLETED_VALID",
+  "next_authorized_stage": "EXECUTE ONLY THE HIGHEST-RANKED ZERO-COMPUTE DIAGNOSTIC",
+  "execution_constraints_compliance": {
+    "training_executed": false,
+    "training_step_count": 0,
+    "gpu_compute_used": false,
+    "gpu_seconds": 0.0,
+    "holdout_access_count": 0,
+    "holdout_status": "QUARANTINED_ZERO_ACCESS",
+    "part_iii_access_count": 0,
+    "part_iii_status": "FIREWALLED_ZERO_ACCESS",
+    "primary_metric_altered": false,
+    "new_ml_intervention_created": false
+  },
+  "analytical_errors_identified": [
+    {
+      "error_id": "ERR-C22F-001",
+      "claim": "Macro mIoU masking and artificial compression caused by single-scene rare classes in DEV ... mathematically capping macro mIoU at ~0.05.",
+      "error_classification": "MATHEMATICAL_OVERSTATEMENT_AND_ESTIMATOR_CONFLATION",
+      "scientific_rebuttal": "The primary metric is the arithmetic macro mean of class IoUs over classes 1..11. Sparse class support (1, 2, or 3 DEV scenes) does not mathematically cap a class IoU at any fixed value, nor does it mathematically cap macro mIoU at ~0.05. Rare support creates high estimator variance, instability, and extreme sensitivity to individual scenes, which is a measurement-support concern, not a deterministic arithmetic upper bound.",
+      "affected_artifacts": [
+        "data/ops02/audits/ops02_c22e_next_diagnostic_priorities_v1.json",
+        "experiments/EXP-07/EXP07_P0_C22E_LOSS_WEIGHT_HYPOTHESIS_CLOSURE_20260914.md"
+      ]
+    },
+    {
+      "error_id": "ERR-C22F-002",
+      "claim": "Labeling MCC and IWs as 'Stable Strength'.",
+      "error_classification": "UNWARRANTED_STABILITY_LABELING",
+      "scientific_rebuttal": "Calling a class 'stable' conflates high observed mean IoU with low between-seed variability. MCC has high observed mean (0.257 C, 0.212 T) and high DEV support (17 scenes, 33.35% pixels), but seed variability is present (SD 0.028 C, 0.047 T). IWs has observed mean 0.104 C vs 0.229 T with SD 0.052 C. High mean performance must be distinguished from between-seed stability.",
+      "affected_artifacts": [
+        "experiments/EXP-07/EXP07_P0_C22E_LOSS_WEIGHT_HYPOTHESIS_CLOSURE_20260914.md"
+      ]
+    },
+    {
+      "error_id": "ERR-C22F-003",
+      "claim": "Causal phrasing: 'Why the Loss-Weight Intervention Yielded Net Zero' and 'Uniform weighting did not improve representation learning.'",
+      "error_classification": "CAUSAL_AND_REPRESENTATION_OVERCLAIM",
+      "scientific_rebuttal": "The experiment evaluated task segmentation performance (dev_mIoU_phenomena and class IoUs) under a locked protocol, not internal representations directly. The phrase must be calibrated to observed trade-offs: 'Observed Class-Level Trade-Off Associated With the Loss-Weight Intervention' and 'Uniform weighting did not produce a robust aggregate DEV advantage in the five-pair study.'",
+      "affected_artifacts": [
+        "experiments/EXP-07/EXP07_P0_C22E_LOSS_WEIGHT_HYPOTHESIS_CLOSURE_20260914.md"
+      ]
+    },
+    {
+      "error_id": "ERR-C22F-004",
+      "claim": "Assuming a 'Single-Channel Information Bottleneck' in Rank 3 and 'stochastic starvation' causality in Rank 2.",
+      "error_classification": "PREMATURE_MECHANISTIC_SPECULATION",
+      "scientific_rebuttal": "Modality limitations and sampler effects must be framed as testable diagnostic hypotheses. Rank 3 must assess whether class-conditional backscatter distributions exhibit substantial overlap that could plausibly limit discriminability. Rank 2 must evaluate whether realized sampling schedules produce materially different class/parent exposures across seeds associated with observed variance, without asserting causal starvation.",
+      "affected_artifacts": [
+        "data/ops02/audits/ops02_c22e_next_diagnostic_priorities_v1.json",
+        "experiments/EXP-07/EXP07_P0_C22E_LOSS_WEIGHT_HYPOTHESIS_CLOSURE_20260914.md"
+      ]
+    }
+  ],
+  "exact_corrections_executed": [
+    {
+      "artifact": "data/ops02/audits/ops02_c22e_next_diagnostic_priorities_v1.json",
+      "change": "Replaced 'mathematically capping aggregate mIoU near ~0.05' with calibrated measurement-support wording; replaced speculative bottleneck and causal sampler phrasing with testable diagnostic questions."
+    },
+    {
+      "artifact": "experiments/EXP-07/EXP07_P0_C22E_LOSS_WEIGHT_HYPOTHESIS_CLOSURE_20260914.md",
+      "change": "Section 4: Replaced 'Stable Strength' with 'High Observed Mean, Consistently Nonzero, Between-Seed Variability Present'; calibrated section heading to 'Observed Class-Level Trade-Off Associated With the Loss-Weight Intervention'; calibrated representation claim to aggregate DEV advantage; Section 5: Replaced 'Primary Metric Masking & Compression' with 'Primary Metric Sensitivity to Sparse-Support Classes'; Section 6: Replaced 'mathematically capping' claim in Row H; Section 8: Formulated explicit diagnostic questions and calibrated rationales for Ranks 1, 2, and 3."
+    }
+  ],
+  "verified_five_seed_class_support_evidence": [
+    {
+      "dense_index": 0,
+      "class_name": "BG",
+      "train_sample_count": 132,
+      "train_pixel_pct": 55.938,
+      "dev_sample_count": 40,
+      "dev_pixel_pct": 43.608,
+      "control_mean_iou": 0.07014,
+      "treatment_mean_iou": 0.06190,
+      "mean_paired_delta": -0.00824,
+      "nonzero_seeds_c": "5/5",
+      "nonzero_seeds_t": "5/5",
+      "support_classification": "HIGH_SUPPORT_BACKGROUND",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 1,
+      "class_name": "AF",
+      "train_sample_count": 3,
+      "train_pixel_pct": 0.037,
+      "dev_sample_count": 0,
+      "dev_pixel_pct": 0.000,
+      "control_mean_iou": 0.00001,
+      "treatment_mean_iou": 0.00401,
+      "mean_paired_delta": 0.00400,
+      "nonzero_seeds_c": "0/5",
+      "nonzero_seeds_t": "3/5",
+      "support_classification": "ZERO_DEV_GROUND_TRUTH_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 2,
+      "class_name": "BS",
+      "train_sample_count": 1,
+      "train_pixel_pct": 0.210,
+      "dev_sample_count": 0,
+      "dev_pixel_pct": 0.000,
+      "control_mean_iou": 0.07849,
+      "treatment_mean_iou": 0.05931,
+      "mean_paired_delta": -0.01919,
+      "nonzero_seeds_c": "5/5",
+      "nonzero_seeds_t": "5/5",
+      "support_classification": "ZERO_DEV_GROUND_TRUTH_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 3,
+      "class_name": "LWA",
+      "train_sample_count": 0,
+      "train_pixel_pct": 0.000,
+      "dev_sample_count": 0,
+      "dev_pixel_pct": 0.000,
+      "control_mean_iou": 0.00014,
+      "treatment_mean_iou": 0.01150,
+      "mean_paired_delta": 0.01136,
+      "nonzero_seeds_c": "1/5",
+      "nonzero_seeds_t": "4/5",
+      "support_classification": "ZERO_DEV_GROUND_TRUTH_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 4,
+      "class_name": "MCC",
+      "train_sample_count": 27,
+      "train_pixel_pct": 11.334,
+      "dev_sample_count": 17,
+      "dev_pixel_pct": 33.353,
+      "control_mean_iou": 0.25749,
+      "treatment_mean_iou": 0.21218,
+      "mean_paired_delta": -0.04530,
+      "nonzero_seeds_c": "5/5",
+      "nonzero_seeds_t": "5/5",
+      "support_classification": "HIGH_DEV_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 5,
+      "class_name": "OF",
+      "train_sample_count": 9,
+      "train_pixel_pct": 0.266,
+      "dev_sample_count": 1,
+      "dev_pixel_pct": 0.067,
+      "control_mean_iou": 0.00099,
+      "treatment_mean_iou": 0.00036,
+      "mean_paired_delta": -0.00062,
+      "nonzero_seeds_c": "2/5",
+      "nonzero_seeds_t": "2/5",
+      "support_classification": "SPARSE_DEV_SUPPORT_SINGLE_SCENE",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 6,
+      "class_name": "POW",
+      "train_sample_count": 2,
+      "train_pixel_pct": 0.070,
+      "dev_sample_count": 0,
+      "dev_pixel_pct": 0.000,
+      "control_mean_iou": 0.06292,
+      "treatment_mean_iou": 0.00774,
+      "mean_paired_delta": -0.05517,
+      "nonzero_seeds_c": "5/5",
+      "nonzero_seeds_t": "5/5",
+      "support_classification": "ZERO_DEV_GROUND_TRUTH_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 7,
+      "class_name": "RF",
+      "train_sample_count": 13,
+      "train_pixel_pct": 0.542,
+      "dev_sample_count": 2,
+      "dev_pixel_pct": 0.368,
+      "control_mean_iou": 0.00000,
+      "treatment_mean_iou": 0.00000,
+      "mean_paired_delta": 0.00000,
+      "nonzero_seeds_c": "0/5",
+      "nonzero_seeds_t": "0/5",
+      "support_classification": "SPARSE_DEV_SUPPORT_TWO_SCENES",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 8,
+      "class_name": "WS",
+      "train_sample_count": 3,
+      "train_pixel_pct": 0.018,
+      "dev_sample_count": 0,
+      "dev_pixel_pct": 0.000,
+      "control_mean_iou": 0.01202,
+      "treatment_mean_iou": 0.00000,
+      "mean_paired_delta": -0.01202,
+      "nonzero_seeds_c": "4/5",
+      "nonzero_seeds_t": "0/5",
+      "support_classification": "ZERO_DEV_GROUND_TRUTH_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 9,
+      "class_name": "Eddy",
+      "train_sample_count": 1,
+      "train_pixel_pct": 0.103,
+      "dev_sample_count": 0,
+      "dev_pixel_pct": 0.000,
+      "control_mean_iou": 0.02362,
+      "treatment_mean_iou": 0.01530,
+      "mean_paired_delta": -0.00832,
+      "nonzero_seeds_c": "4/5",
+      "nonzero_seeds_t": "3/5",
+      "support_classification": "ZERO_DEV_GROUND_TRUTH_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 10,
+      "class_name": "IWs",
+      "train_sample_count": 97,
+      "train_pixel_pct": 31.465,
+      "dev_sample_count": 31,
+      "dev_pixel_pct": 22.601,
+      "control_mean_iou": 0.10380,
+      "treatment_mean_iou": 0.22949,
+      "mean_paired_delta": 0.12569,
+      "nonzero_seeds_c": "5/5",
+      "nonzero_seeds_t": "5/5",
+      "support_classification": "HIGH_DEV_SUPPORT",
+      "diagnostic_evidence_tag": "OBSERVED"
+    },
+    {
+      "dense_index": 11,
+      "class_name": "HM",
+      "train_sample_count": 12,
+      "train_pixel_pct": 0.016,
+      "dev_sample_count": 3,
+      "dev_pixel_pct": 0.005,
+      "control_mean_iou": 0.00000,
+      "treatment_mean_iou": 0.00002,
+      "mean_paired_delta": 0.00002,
+      "nonzero_seeds_c": "0/5",
+      "nonzero_seeds_t": "1/5",
+      "support_classification": "SPARSE_DEV_SUPPORT_THREE_SCENES",
+      "diagnostic_evidence_tag": "OBSERVED"
+    }
+  ],
+  "validated_prioritized_diagnostic_roadmap": [
+    {
+      "rank": 1,
+      "investigation_id": "DIAG-01-CLASS-SUPPORT-METRIC-SENSITIVITY",
+      "title": "Class-Support Stratification and Primary Metric Sensitivity Diagnostic",
+      "diagnostic_question": "Does DEV class-support imbalance make the primary macro-mIoU estimate disproportionately sensitive to a small number of physical acquisitions, and how much does the interpretation change when results are stratified by class support?",
+      "target_failure": "Disproportionate sensitivity of unweighted macro mIoU to sparse-support classes in DEV (e.g. OF in 1 sample, RF in 2 samples, HM in 3 samples), where individual acquisitions have high leverage on class-level estimates.",
+      "evidence_strength": "HIGH",
+      "expected_information_gain": "VERY_HIGH",
+      "compute_cost": "ZERO_GPU_COMPUTE",
+      "confounding_risk": "LOW",
+      "done_without_training": true,
+      "requires_only_existing_train_dev_artifacts": true,
+      "scientific_justification": "Directly addresses evaluation-level uncertainty on existing predictions without retraining or modifying benchmarks. Disentangles broad model behavior from single-scene estimator volatility while maintaining the frozen primary metric authoritative.",
+      "candidate_analyses": [
+        "Macro mIoU by support strata (high-support vs sparse-support vs zero-support DEV classes)",
+        "Per-class IoU vs number of DEV parent acquisitions",
+        "Leave-one-parent-out sensitivity where valid",
+        "Per-parent acquisition contribution to class support",
+        "Support-weighted descriptive summaries as secondary diagnostics (never replacing primary metric)"
+      ]
+    },
+    {
+      "rank": 2,
+      "investigation_id": "DIAG-02-SAMPLER-EXPOSURE-SCHEDULE-AUDIT",
+      "title": "Candidate F Sampler Schedule Exposure and Seed-Variance Audit",
+      "diagnostic_question": "Does the realized Candidate F sampling schedule produce materially different class/parent exposure patterns across seeds that are associated with the observed performance variance?",
+      "target_failure": "High between-seed performance volatility on moderately rare classes (BS spans 0.018 to 0.158; POW spans 0.003 to 0.102 across identical seeds).",
+      "evidence_strength": "MODERATE_HIGH",
+      "expected_information_gain": "HIGH",
+      "compute_cost": "ZERO_GPU_COMPUTE",
+      "confounding_risk": "LOW",
+      "done_without_training": true,
+      "requires_only_existing_train_dev_artifacts": true,
+      "scientific_justification": "Analyzes offline combinatorial draw realizations across seeds to assess whether realized draw differences correlate descriptively with validation variance, without altering the sampler or claiming causal starvation.",
+      "candidate_analyses": [
+        "Cumulative per-class tile draw counts across 30 epochs for Seeds 42, 101, 202, 303, 404",
+        "Per-parent cluster exposure counts across epochs",
+        "Correlation between realized draw count and best-epoch class IoU"
+      ]
+    },
+    {
+      "rank": 3,
+      "investigation_id": "DIAG-03-RADIOMETRIC-INPUT-DISCRIMINABILITY",
+      "title": "Single-Band VV SAR Radiometric Contrast and Distributional Overlap Diagnostic",
+      "diagnostic_question": "Assess whether class-conditional backscatter distributions in the available single-band VV input exhibit substantial overlap that could plausibly limit discriminability.",
+      "target_failure": "Persistent near-zero IoU on RF, HM, and lower observed performance on dark-slick classes (WS, LWA) under uniform loss.",
+      "evidence_strength": "MODERATE",
+      "expected_information_gain": "MODERATE_HIGH",
+      "compute_cost": "NEGLIGIBLE_CPU_COMPUTE",
+      "confounding_risk": "LOW",
+      "done_without_training": true,
+      "requires_only_existing_train_dev_artifacts": true,
+      "scientific_justification": "Tests physical hypothesis of backscatter distribution overlap from existing GeoTIFFs without assuming an 'information bottleneck' prior to empirical measurement.",
+      "candidate_analyses": [
+        "Class-conditional DN and log1p backscatter histograms inside mask polygons",
+        "Signal-to-clutter ratio (SCR) for point/boundary targets (HM, RF)",
+        "Pairwise Bhattacharyya distance / histogram overlap between dark-slick classes (WS, BS, LWA)"
+      ]
+    }
+  ],
+  "primary_metric_contract_confirmation": {
+    "metric_name": "dev_mIoU_phenomena",
+    "classes_evaluated": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    "background_class_0_excluded": true,
+    "status": "FROZEN_UNCHANGED_AUTHORITATIVE",
+    "strict_governance_mandate": "The primary benchmark metric remains strictly unchanged. Support-stratified or support-weighted summaries are authorized exclusively as secondary descriptive sensitivity diagnostics. They must NOT redefine the benchmark, alter the stopping rule, or serve as a new training target."
+  },
+  "durable_lessons_registered": [
+    "LL-C22F-001",
+    "LL-C22F-002",
+    "LL-C22F-003",
+    "LL-C22F-004"
+  ]
+}

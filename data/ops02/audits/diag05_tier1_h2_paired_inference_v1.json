@@ -1,0 +1,16 @@
+{
+  "primary_contrast": "global_full_network",
+  "n_paired": 15,
+  "n_zero": 0,
+  "n_effective": 15,
+  "statistic": 34.0,
+  "p_value": 0.15142822265625,
+  "method": "Wilcoxon signed-rank test (asymptotic with continuity correction)",
+  "alternative": "two-sided",
+  "correction": true,
+  "zero_method": "wilcox",
+  "tie_handling": "average_ranks",
+  "cluster_level_canonical_median_mean": -0.071964698129644,
+  "cluster_level_uniform_median_mean": -0.06754838538666566,
+  "cluster_level_delta_median_mean": -0.004416312742978335
+}

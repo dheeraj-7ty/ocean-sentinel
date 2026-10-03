@@ -1,0 +1,49 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C20",
+  "audit_name": "EXP-07 Metric Verification and Mathematical Specification Audit",
+  "audited_at_utc": "2026-09-14T06:21:00Z",
+  "primary_metric_contract": {
+    "metric_name": "dev_mIoU_phenomena",
+    "classes_evaluated": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    "classes_excluded": [0],
+    "formula": "mean over c in {1..11} of (TP_c / (TP_c + FP_c + FN_c))",
+    "zero_union_rule": "If TP_c + FP_c + FN_c == 0, class c is omitted from denominator.",
+    "ground_truth_verification": {
+      "ops01_dev": {
+        "sample_count": 39,
+        "all_11_classes_present": true,
+        "class_support_pixels": {
+          "0_BG": 625269, "1_AF": 29646, "2_BS": 129965, "3_LWA": 66134,
+          "4_MCC": 402041, "5_OF": 31800, "6_POW": 613904, "7_RF": 8897,
+          "8_WS": 104315, "9_Eddy": 9514, "10_IWs": 261247, "11_HM": 1300
+        },
+        "minimum_class_support": "HM with 1,300 pixels (0.06% of DEV)",
+        "denominator_count": 11
+      },
+      "ops02_dev": {
+        "sample_count": 40,
+        "all_11_classes_present": true,
+        "class_support_pixels": {
+          "0_BG": 643805, "1_AF": 39385, "2_BS": 123771, "3_LWA": 58567,
+          "4_MCC": 853315, "5_OF": 1709, "6_POW": 78415, "7_RF": 9550,
+          "8_WS": 131037, "9_Eddy": 45322, "10_IWs": 579526, "11_HM": 117
+        },
+        "minimum_class_support": "HM with 117 pixels (0.005% of DEV)",
+        "denominator_count": 11
+      }
+    }
+  },
+  "secondary_metrics_contract": {
+    "confusion_matrices": {
+      "full_12x12": "Accumulates all predictions and targets for classes 0..11, ignore_index=-100 excluded",
+      "phenomena_11x11": "Submatrix for classes 1..11, representing phenomena-to-phenomena reallocations"
+    },
+    "subgroups": {
+      "tier_2_dominant": {"classes": [3, 4, 6], "names": ["LWA", "MCC", "POW"]},
+      "tier_3_intermediate": {"classes": [1, 2, 8, 9, 10], "names": ["AF", "BS", "WS", "Eddy", "IWs"]},
+      "tier_4_ultra_sparse": {"classes": [5, 7, 11], "names": ["OF", "RF", "HM"]}
+    }
+  },
+  "overall_verdict": "METRIC_IMPLEMENTATION_VERIFIED_AND_LOCKED"
+}

@@ -1,0 +1,29 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "audit_name": "C16 Metric Implementation and Mathematical Definition Audit",
+  "created_at_utc": "2026-09-14T04:14:00Z",
+  "status": "MATHEMATICALLY_VERIFIED_EXACT_HARMONIZATION",
+  "metric_under_audit": "dev_mIoU_phenomena",
+  "audit_findings": {
+    "classes_included": "Classes 1..11 (AF, BS, LWA, MCC, OF, POW, RF, WS, Eddy, IWs, HM). Class 0 (BG) is excluded from the phenomena macro-average.",
+    "background_exclusion": "CONFIRMED_EXCLUDED. In both C16 train_replicate003.py and reference exp07_reference.py, Class 0 (BG) is explicitly excluded via `if c > 0:` before appending to valid_ious.",
+    "ignore_index_handling": "CONFIRMED_CORRECT. Pixels with target == -100 (due to invalid border padding or excluded classes 3, 9, 14) are filtered out prior to confusion matrix accumulation: `if t != IGNORE_INDEX and 0 <= t < 12 and 0 <= p < 12:`.",
+    "validity_masks_applied": "CONFIRMED_APPLIED. raw_image > 0 validity mask is applied to zero-out border pixels in the input tensor and set dense target to -100 in target mask.",
+    "absent_class_handling": {
+      "c16_implementation": "In train_replicate003.py, `denom[c] = tp + fp + fn`. If `denom[c] > 0`, IoU is calculated and added to valid_ious. If a class had 0 GT and 0 predictions, denom=0 and class is excluded from macro average.",
+      "reference_implementation": "In exp07_reference.py, `if gt[c] > 0` condition is used.",
+      "reconciliation": "Because ALL 11 phenomenon classes are physically present in the 40 DEV ground truth samples (AF=39,385, BS=123,771, LWA=58,567, MCC=853,315, OF=1,709, POW=78,415, RF=9,550, WS=131,037, Eddy=45,322, IWs=579,526, HM=117 pixels), `gt[c] > 0` holds for all 11 classes. Therefore, denominator is exactly 11 in both implementations.",
+      "numerical_equivalence": "CONFIRMED_IDENTICAL. When evaluated on the 40 DEV samples using DataLoader, C16 compute_metrics yields 0.049399 and exp07_reference.py compute_metrics_from_confusion_matrix yields 0.049399."
+    },
+    "denominator_calculation": "CONFIRMED_EXACT. Macro-average sums valid IoUs and divides by len(valid_ious) = 11.",
+    "logit_class_alignment": "CONFIRMED_ALIGNED. Argmax over dimension 1 directly produces class indices 0..11 matching DENSE_CLASSES ordering.",
+    "label_remapping": "CONFIRMED_EXACT. remap_source_mask_to_dense converts 15-class source labels to canonical 12 dense indices once during __getitem__.",
+    "class_11_hm_inclusion": "CONFIRMED_INCLUDED. Class 11 (HM) is included as the 11th phenomenon class. Due to 0 true positive predictions, its IoU is 0.0, contributing 0 to numerator and +1 to denominator.",
+    "canonical_class_order": "Canonical 12-class order [BG, AF, BS, LWA, MCC, OF, POW, RF, WS, Eddy, IWs, HM] matches across C8, C10, C15, and C16."
+  },
+  "comparative_audit_vs_c8_c10": {
+    "c8_c10_ops01_metric_implementation": "Used the exact same 12-class confusion matrix formula and macro-averaging over phenomena classes 1..11.",
+    "performance_difference_explanation": "The drop from ~0.4072 in C8 to 0.0494 in C16 is NOT an artifact of metric calculation. It reflects true out-of-distribution generalization failure when moving from random slice splitting (OPS-01) to cluster-level disjoint parent datatake partitioning (OPS-02), exacerbated by extreme class sparsity on DEV."
+  }
+}

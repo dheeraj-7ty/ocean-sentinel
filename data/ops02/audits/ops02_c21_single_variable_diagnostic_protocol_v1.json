@@ -1,0 +1,235 @@
+{
+  "protocol_metadata": {
+    "protocol_id": "OPS02_C21_SINGLE_VARIABLE_DIAGNOSTIC_PROTOCOL_v1",
+    "task_id": "EXP-07-P0-C21",
+    "experiment_id": "EXP07_DIAG01",
+    "created_at_utc": "2026-09-14T10:44:00Z",
+    "hypothesis_tested": "H7 — The canonical class-loss weighting scheme changes optimization behavior and development performance on OPS-02.",
+    "protocol_status": "FROZEN_AWAITING_AUTHORIZATION",
+    "training_execution_authorized": false
+  },
+  "scientific_question": "Does changing only the class-loss-weight vector change development performance under the frozen OPS-02 protocol?",
+  "single_independent_variable": {
+    "variable_identifier": "CLASS_LOSS_WEIGHT_VECTOR",
+    "description": "The 12-element 1D float32 tensor passed to nn.CrossEntropyLoss(weight=...). Tests the complete class-loss-weighting scheme as a single object.",
+    "control_condition": {
+      "condition_id": "EXP07_DIAG01_CONTROL",
+      "name": "Canonical C16 Sqrt-Median-Frequency Class Weights",
+      "formula": "w_c = sqrt(median(f_valid) / f_c)",
+      "derivation_source": "OPS-02 TRAIN partition valid pixels (8,401,060 valid pixels across 132 tiles)",
+      "historical_reference_run": "C16 (EXP07_RUN003_SEED42)",
+      "precision_audit_verdict": "C16 executed the exact 6-decimal literal vector converted to torch.float32. Historical executed vector matches future control vector exactly.",
+      "weight_vector_float32": [
+        0.403935,
+        2.450546,
+        0.876692,
+        0.945945,
+        0.648189,
+        4.211476,
+        0.719641,
+        2.956203,
+        1.064525,
+        1.882870,
+        0.387652,
+        18.243211
+      ],
+      "dynamic_range": "47.06 : 1"
+    },
+    "treatment_condition": {
+      "condition_id": "EXP07_DIAG01_TREATMENT",
+      "name": "Uniform Unweighted Class Weights",
+      "formula": "w_c = 1.0 for all c in {0..11}",
+      "rationale": "Produces exact unweighted cross-entropy loss without introducing background weight penalties (e.g. BG=0.2) or multi-variable confounding.",
+      "weight_vector_float32": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dynamic_range": "1.00 : 1"
+    }
+  },
+  "locked_experimental_dimensions": {
+    "dimension_count": 19,
+    "description": "19 independently machine-locked experimental/protocol dimensions holding all non-weight factors identical between control and treatment.",
+    "invariants": [
+      {"id": "INV-01", "dimension": "Dataset Specification", "value": "OPS02_v1.0.1_FROZEN", "authority": "OPS02_DATASET_FREEZE_SPEC_v1.0.1.json"},
+      {"id": "INV-02", "dimension": "Partition Allocation", "value": "132 TRAIN / 40 DEV / 40 HOLDOUT", "authority": "ops02_physical_dataset_manifest_v1.json (SHA256: F5480EA2...)"},
+      {"id": "INV-03", "dimension": "Partition Firewall Boundaries", "value": "Zero HOLDOUT / Zero Part-III access", "authority": "ops02_c20_dataset_firewall_v1.json"},
+      {"id": "INV-04", "dimension": "Physical Image Representation", "value": "GeoTIFF float32 single-band VV SAR, 256x256, 10x10 block raw DN", "authority": "ops02_c20_preprocessing_compatibility_v1.json"},
+      {"id": "INV-05", "dimension": "Preprocessing Transformation", "value": "np.log1p(raw_image), valid DN > 0, nodata = 0.0", "authority": "src/ocean_sentinel/ml/exp07_reference.py"},
+      {"id": "INV-06", "dimension": "Radiometric Normalization", "value": "TRAIN mu=4.424158, sigma=0.469261", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"},
+      {"id": "INV-07", "dimension": "Taxonomy & Index Ordering", "value": "12 dense classes (0: BG ... 11: HM; Dense 3=LWA, Dense 9=Eddy)", "authority": "ops02_c19_taxonomy_canonicalization_v1.json"},
+      {"id": "INV-08", "dimension": "Excluded Source Labels", "value": "SOURCE LABELS 3 (Iceberg), 9 (Sea Ice), 14 (Mineral Oil Spill) mapped to ignore_index=-100", "authority": "ops02_c20_taxonomy_compatibility_v1.json"},
+      {"id": "INV-09", "dimension": "Neural Network Architecture", "value": "ResNet18-UNet (14,310,860 parameters, 30 BatchNorm layers)", "authority": "src/ocean_sentinel/ml/exp07_reference.py"},
+      {"id": "INV-10", "dimension": "Pretrained Backbone Identity", "value": "torchvision.models.ResNet18_Weights.IMAGENET1K_V1 (resnet18-f37072fd.pth, filename identifier suffix)", "authority": "ops02_c19_canonical_protocol_v1.json"},
+      {"id": "INV-11", "dimension": "Optimization Algorithm", "value": "AdamW (beta1=0.9, beta2=0.999, eps=1e-8)", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"},
+      {"id": "INV-12", "dimension": "Base Learning Rate", "value": "0.0005 (5e-4)", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"},
+      {"id": "INV-13", "dimension": "Weight Decay", "value": "0.01 (applied to 2D conv/linear weights only; bias and 1D BN excluded)", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"},
+      {"id": "INV-14", "dimension": "Learning Rate Schedule", "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warmup=3, eta_min=1e-6)", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"},
+      {"id": "INV-15", "dimension": "Batch Dynamics & Accumulation", "value": "Physical batch = 8, accumulation steps = 2, effective batch = 16", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"},
+      {"id": "INV-16", "dimension": "Sampler Strategy", "value": "Candidate F Hybrid (70% parent-balanced, 30% class-balanced, 72 draws per epoch)", "authority": "ops02_c19_canonical_protocol_v1.json"},
+      {"id": "INV-17", "dimension": "Random Seed Configuration", "value": "Base seed 42, epoch seed formula: 42 + epoch * 1000", "authority": "ops02_c19_canonical_protocol_v1.json"},
+      {"id": "INV-18", "dimension": "Data Augmentation", "value": "Disabled (deterministic loaders, zero stochastic spatial/radiometric transforms)", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"},
+      {"id": "INV-19", "dimension": "Benchmark Metric & Stopping Rule", "value": "dev_mIoU_phenomena (classes 1..11, BG excluded), early stopping patience=10, min_epoch=15", "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md"}
+    ]
+  },
+  "loss_implementation_semantics": {
+    "pytorch_call": "nn.CrossEntropyLoss(weight=weight_tensor, ignore_index=-100, reduction='mean')",
+    "reduction_formula": "Loss = sum_{i: y_i != -100} w_{y_i} * ell_i / sum_{i: y_i != -100} w_{y_i}",
+    "parity_properties": {
+      "same_logits": true,
+      "same_targets": true,
+      "same_ignore_index": true,
+      "same_reduction": true,
+      "same_valid_pixel_handling": true,
+      "only_differing_element": "weight_tensor"
+    }
+  },
+  "reproducibility_and_parity_contracts": {
+    "model_initialization_contract": {
+      "pretrained_backbone_identity": "torchvision.models.ResNet18_Weights.IMAGENET1K_V1",
+      "backbone_source_artifact": "resnet18-f37072fd.pth (f37072fd is filename suffix)",
+      "full_initial_model_state_identity": "initial_model_state.pt",
+      "conv1_adaptation": "Mean of 3 RGB pretrained channels across dim=1",
+      "decoder_head_initialization": "Seeded with canonical base seed 42",
+      "pre_epoch_0_parity_assertion": "SHA256(control_initial_state) == SHA256(treatment_initial_state)"
+    },
+    "rng_parity_contract": {
+      "components_captured": [
+        "python_random_state",
+        "numpy_rng_state",
+        "pytorch_cpu_rng_state",
+        "pytorch_cuda_rng_state_all",
+        "dataloader_worker_seed_config",
+        "sampler_generator_state"
+      ],
+      "persistence": "initial_rng_state.pt persisted to disk before training",
+      "restoration": "Restored identically and independently before epoch 0 for both conditions",
+      "assertion": "Pre-epoch 0 machine equality check",
+      "boundary_disclaimer": "Universal bitwise reproducibility is not claimed beyond what the verified execution environment supports."
+    },
+    "sample_schedule_reuse_contract": {
+      "policy": "PRECOMPUTED_CANONICAL_SCHEDULE",
+      "generation": "Generated once under canonical RNG rules, saved to disk, and hashed",
+      "execution": "Fed identically to control and treatment DataLoaders to eliminate independent sampler divergence",
+      "batch_id_assertion": "control_batch_ids[step] == treatment_batch_ids[step] for every step"
+    },
+    "input_target_integrity_contract": {
+      "method": "Per-sample deterministic checksums (SHA256 of transformed input tensor, target tensor, and validity mask)",
+      "assertion": "control_checksum[s] == treatment_checksum[s] for all 132 training samples",
+      "storage_efficiency": "Integrity contract uses cryptographic checksums; does not duplicate large raster files"
+    },
+    "optimizer_scheduler_parity_contract": {
+      "pre_step_1_verification": [
+        "optimizer_class == torch.optim.AdamW",
+        "parameter_groups_and_tensor_ordering",
+        "learning_rate == 0.0005",
+        "weight_decay == 0.01",
+        "betas == (0.9, 0.999)",
+        "eps == 1e-8",
+        "scheduler_class == LinearWarmupCosineAnnealingLR",
+        "scheduler_config == (30, 3, 1e-6)",
+        "scheduler_state_dict_equality",
+        "optimizer_state_tensors_empty"
+      ]
+    },
+    "batchnorm_parity_contract": {
+      "mode": "model.train() active for both conditions",
+      "batchnorm_layers": 30,
+      "physical_batch_size": 8,
+      "running_mean_initial": "Identical zeros",
+      "running_var_initial": "Identical ones",
+      "num_batches_tracked_initial": 0,
+      "momentum": 0.05,
+      "eps": 1e-5,
+      "nondeterminism_caveat": "The only intentional experimental difference is the class-loss-weight vector; any incidental numerical nondeterminism must be monitored and documented."
+    },
+    "step_1_divergence_contract": {
+      "pre_step_1_assertion": "control_model_state == treatment_model_state byte-identically",
+      "post_step_1_expectation": "Divergence is expected due to differing loss vectors",
+      "logging": "Record pre-step hash, post-step-1 control hash, post-step-1 treatment hash",
+      "epistemic_rule": "Divergence itself is an execution parity sanity check, NOT evidence for H7."
+    }
+  },
+  "invalidation_criteria": {
+    "policy": "NO_ARBITRARY_THRESHOLDS",
+    "invalid_conditions": [
+      "NaN or Inf encountered in loss, logits, or gradient tensors",
+      "Corrupted input or target tensors",
+      "Initial model state SHA256 mismatch between control and treatment",
+      "RNG state mismatch before epoch 0",
+      "Batch schedule or sample sequence mismatch",
+      "Per-sample input/target checksum mismatch",
+      "Optimizer or scheduler state mismatch before step 1",
+      "BatchNorm configuration or initial running stats mismatch",
+      "Firewall breach: any access to HOLDOUT partition (count > 0) or Part-III directory",
+      "Unhandled runtime exceptions, OOM, or premature process crash"
+    ],
+    "model_collapse_policy": "Degenerate or poor model outputs (including complete background-collapse or zero foreground predictions) are RECORDED and investigated as observed model behavior under the test protocol. They do NOT automatically invalidate the run unless accompanied by an implementation, numerical, or protocol integrity failure.",
+    "gradient_norm_policy": "Large but finite gradient norms are RECORDED and tracked, not automatically invalidated. Zero gradients are RECORDED and investigated."
+  },
+  "evaluation_and_metrics": {
+    "primary_metric": "dev_mIoU_phenomena (macro unweighted mean of IoU across classes 1 through 11, background excluded)",
+    "primary_comparison": "delta_mIoU = treatment_mIoU - control_mIoU",
+    "reporting_rule": "Always report exact control_mIoU, treatment_mIoU, and delta_mIoU. No arbitrary threshold.",
+    "secondary_metrics": [
+      "Per-class delta_IoU and support",
+      "Full 12-class confusion matrix",
+      "Subgroup metrics (Dominant: MCC/POW/IWs, Intermediate: BS/WS/Eddy, Ultra-Sparse: AF/OF/RF/LWA/HM)",
+      "Background IoU and prediction distribution",
+      "Observational training diagnostics (gradient norms, loss curves, lr trajectory)"
+    ]
+  },
+  "scientific_interpretation_framework": {
+    "positive_observed_difference": {
+      "criterion": "delta_mIoU > 0",
+      "meaning": "Supports a contribution from the class-loss-weighting scheme to development performance under the frozen protocol.",
+      "bounds": "Does NOT prove gradient competition, optimization instability, sole causality, or global optimality of uniform weighting."
+    },
+    "negative_observed_difference": {
+      "criterion": "delta_mIoU < 0",
+      "meaning": "Provides empirical evidence that uniform weighting did not improve development performance under the frozen protocol.",
+      "bounds": "Does NOT prove that canonical weighting is globally optimal."
+    },
+    "near_zero_observed_difference": {
+      "criterion": "delta_mIoU approximately 0",
+      "meaning": "Weakens the hypothesis that class-loss weighting is a major contributor to the observed limitation under this protocol.",
+      "bounds": "Only used where justified by explicitly reported post hoc descriptive context. Does not eliminate all possible weighting effects."
+    },
+    "invalid_inconclusive": {
+      "criterion": "Triggered by any invalidation condition",
+      "meaning": "Zero scientific conclusions drawn."
+    }
+  },
+  "paired_experiment_package_manifest": {
+    "concept": "PAIRED_EXPERIMENT_PACKAGE",
+    "components": [
+      {"index": 1, "name": "dataset_identity", "value": "OPS02_v1.0.1_FROZEN"},
+      {"index": 2, "name": "partition_manifest_identity", "value": "ops02_physical_dataset_manifest_v1.json (SHA-256: F5480EA2...)"},
+      {"index": 3, "name": "preprocessing_spec_identity", "value": "ops02_c20_preprocessing_compatibility_v1.json"},
+      {"index": 4, "name": "taxonomy_identity", "value": "ops02_c19_taxonomy_canonicalization_v1.json"},
+      {"index": 5, "name": "canonical_input_target_representation", "value": "[B, 1, 256, 256] float32 log1p standardized, target [B, 256, 256] int64"},
+      {"index": 6, "name": "full_initial_model_state", "value": "initial_model_state.pt (SHA-256 hash locked)"},
+      {"index": 7, "name": "initial_rng_snapshot", "value": "initial_rng_state.pt (Complete multi-engine snapshot)"},
+      {"index": 8, "name": "sampler_sequence_specification", "value": "canonical_sample_schedule.json (Precomputed)"},
+      {"index": 9, "name": "dataloader_ordering_specification", "value": "canonical_batch_schedule.json (Precomputed)"},
+      {"index": 10, "name": "optimizer_initial_state", "value": "AdamW initial state dictionary"},
+      {"index": 11, "name": "scheduler_initial_state", "value": "LinearWarmupCosineAnnealingLR initial state dictionary"},
+      {"index": 12, "name": "control_loss_vector", "value": "Canonical Sqrt-Median-Frequency vector [0.403935 ... 18.243211]"},
+      {"index": 13, "name": "treatment_loss_vector", "value": "Uniform unweighted vector [1.0 ... 1.0]"},
+      {"index": 14, "name": "software_environment_identity", "value": "Python, PyTorch, torchvision, CUDA, cuDNN versions"},
+      {"index": 15, "name": "hardware_identity", "value": "GPU model (Tesla T4) and VRAM configuration"},
+      {"index": 16, "name": "source_code_hashes", "value": "SHA-256 digests of train_exp07.py and exp07_reference.py"}
+    ],
+    "manifest_requirement": "Machine-verifiable JSON manifest created in future training phase. Git commit NOT required."
+  }
+}

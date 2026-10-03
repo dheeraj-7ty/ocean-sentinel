@@ -1,0 +1,44 @@
+{
+  "gate_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "gate_name": "C16 Forensic Validity Audit and Next-Replicate Gate",
+  "evaluated_at_utc": "2026-09-14T04:20:00Z",
+  "c16_scientific_validity_classification": "B_VALID_BUT_PROTOCOL_LIMITED",
+  "classification_justification": {
+    "technical_execution": "VALID. The training job executed to completion on a genuine Kaggle GPU runtime. The ResNet18-UNet architecture (14,310,860 parameters), AdamW optimizer, Candidate F sampler, and data preprocessing were executed deterministically and reproduced bit-for-bit locally.",
+    "dataset_integrity": "VALID. 100% of the 212 image and mask SHA-256 hashes were verified prior to training. Zero partition leakage occurred. HOLDOUT was strictly quarantined (access count = 0).",
+    "protocol_limitations": [
+      "The C15 freeze specification contained a documentation defect (41 DEV / 39 HOLDOUT) which was manually corrected to (40 DEV / 40 HOLDOUT) during C16 pre-transfer verification without a formal incident log or amendment task.",
+      "C16 reported execution on a 'dual-T4 environment' but training executed on a single GPU (cuda:0); multi-GPU parallelism was not implemented.",
+      "The reported 55.5 MB VRAM was warmup eval memory, not peak training VRAM.",
+      "The 4.94% DEV mIoU is a genuine mathematical result on the OPS-02 dataset, but is non-comparable to the ~40.6% C8/C10 baselines due to complete datatake/scene independence and extreme DEV class sparsity."
+    ]
+  },
+  "next_replicate_decision": "TRAINING_PAUSED_PENDING_PROTOCOL_REMEDIATION",
+  "authorization_status": {
+    "next_replicate_authorized": false,
+    "training_started": false,
+    "holdout_access": false,
+    "seed2024_started": false
+  },
+  "blocking_issues_for_future_replicates": [
+    {
+      "issue_id": "BLK-C17-001",
+      "category": "DATASET_FREEZE_GOVERNANCE",
+      "description": "Formalize the C15->C16 freeze specification correction via an authoritative amendment artifact cryptographically binding all 3 manifests.",
+      "remediation": "Embed the SHA-256 hashes of physical, partition, and parent manifests directly into the freeze spec."
+    },
+    {
+      "issue_id": "BLK-C17-002",
+      "category": "HARDWARE_REPORTING_STANDARDS",
+      "description": "Enforce strict single-GPU vs multi-GPU reporting accuracy and peak training memory measurement.",
+      "remediation": "Record torch.cuda.max_memory_allocated() during training epoch rather than eval warmup."
+    },
+    {
+      "issue_id": "BLK-C17-003",
+      "category": "SPARSE_CLASS_EVALUATION_PROTOCOL",
+      "description": "Macro mIoU is collapsed by zero-support and ultra-sparse phenomena (HM has 117 pixels on DEV; AF and RF have zero detected TP).",
+      "remediation": "Formulate a partitioned reporting protocol separating well-supported oceanic phenomena (MCC, IWs, BS) from sparse classes (HM, OF, RF)."
+    }
+  ]
+}

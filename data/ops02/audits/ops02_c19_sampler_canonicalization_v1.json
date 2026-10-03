@@ -1,0 +1,41 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "EXP-07 Candidate F Hybrid Sampler Canonicalization Audit",
+  "audited_at_utc": "2026-09-14T05:40:00Z",
+  "canonical_sampler_specification": {
+    "sampler_name": "Candidate F Hybrid Sampler",
+    "implementation": "src/ocean_sentinel/ml/exp07_reference.py::compute_candidate_f_hybrid_weights",
+    "mixture_ratio": {
+      "parent_cluster_balanced": 0.70,
+      "phenomenon_presence_balanced": 0.30
+    },
+    "budget_draws_per_epoch": 72,
+    "replacement": true,
+    "eligible_partition": "TRAIN (132 samples strictly, 0 DEV/HOLDOUT leakage)",
+    "generator_seed_formula": "base_seed + epoch * 1000",
+    "authority": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md Section 7"
+  },
+  "historical_execution_verification": {
+    "c16_replicate_003_actual": {
+      "seed_formula_used": "seed + epoch * 1000",
+      "evidence": "data/metadata/exp07_p0_c16_training_environment_v1.json line 87",
+      "status": "CONFORMS_TO_PROTOCOL"
+    },
+    "c18_narrative_discrepancy": {
+      "text_in_c18_report": "seed + epoch in Section 9 of EXP07_P0_C18 report",
+      "investigation_result": "DOCUMENTATION_TYPO",
+      "evidence": "ops02_c18_sampler_protocol_audit_v1.json line 12 correctly recorded 'base_seed + epoch * 1000' and verified seed 1042 for epoch 1; the markdown narrative omitted the '* 1000' multiplier.",
+      "status": "DISCREPANCY_RESOLVED"
+    }
+  },
+  "deterministic_reproducibility_contract": {
+    "epoch_1_seed": 1042,
+    "epoch_2_seed": 2042,
+    "epoch_3_seed": 3042,
+    "epoch_4_seed": 4042,
+    "epoch_5_seed": 5042,
+    "rule": "Every future training run or diagnostic run MUST construct the epoch generator via torch.Generator().manual_seed(base_seed + epoch * 1000)."
+  },
+  "verdict": "SAMPLER_SPECIFICATION_CANONICALIZED_AND_LOCKED"
+}

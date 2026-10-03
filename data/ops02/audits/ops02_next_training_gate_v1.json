@@ -1,0 +1,72 @@
+{
+  "gate_id": "OPS02_NEXT_TRAINING_GATE_v1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "generated_at": "2026-09-14T09:48:00+05:30",
+  "verdict": "TRAINING_AUTHORIZED_FOR_CONTROLLED_EXPERIMENT",
+  "verdict_summary": "Protocol remediation, cryptographic freeze-ID binding, metric validation, input pipeline verification, sampler audit, model identity verification, and GPU specification are 100% complete and passed. Blind replicate training (Replicate 004 / Seed 101 / Seed 2024) remains STRICTLY PROHIBITED (next_replicate_authorized = false). Training is conditionally authorized EXCLUSIVELY for the single-variable controlled diagnostic experiment EXP07_DIAGNOSTIC_001 (Loss Weighting Ablation) following Tier 1 zero-compute cross-evaluation and explicit user sign-off.",
+  "flags": {
+    "training_started": false,
+    "next_replicate_authorized": false,
+    "holdout_access": false,
+    "seed2024_started": false,
+    "tier1_cross_eval_pending": true
+  },
+  "gate_evaluations": {
+    "q1_dataset_specification_immutable": {
+      "question": "Is the dataset specification immutable and cryptographically bound?",
+      "status": "PASS",
+      "evidence": "OPS02_DATASET_FREEZE_SPEC_v1.0.1.json released with explicit SHA-256 bindings to ops02_physical_dataset_manifest_v1.json (F5480EA2...), ops02_partition_manifest_v1.json (757DEAF7...), and ops02_parent_cluster_manifest_v1.json (08ED21FB...). Bound by GOV-RULE-090."
+    },
+    "q2_exact_sample_ids_verified": {
+      "question": "Are exact sample IDs verified?",
+      "status": "PASS",
+      "evidence": "Runtime validator src/ocean_sentinel/ingestion/freeze_validator.py implements exact sample-ID set equality (132 TRAIN, 40 DEV, 40 HOLDOUT), partition-ID checks, and cluster-ID validation. Tested and verified in test_exact_partition_sample_id_set_equality. Bound by GOV-RULE-091."
+    },
+    "q3_metric_definition_frozen_and_tested": {
+      "question": "Is the metric definition frozen and tested?",
+      "status": "PASS",
+      "evidence": "Audited in ops02_c18_metric_protocol_audit_v1.json. Verified that DEV partition exhibits non-zero ground truth for all 11 phenomena classes, standardizing the denominator to 11. Implemented deterministic unit tests covering perfect prediction, zero TP, absent class, sparse classes, and all-background predictions."
+    },
+    "q4_preprocessing_verified": {
+      "question": "Is preprocessing verified?",
+      "status": "PASS",
+      "evidence": "Audited in ops02_c18_input_pipeline_audit_v1.json. Verified exact mathematical pipeline (raw DN -> validity mask -> log1p -> z-score normalization with mu=4.424158, sigma=0.469261 -> invalid border masking to 0.0) across 9 representative phenomenon tiles."
+    },
+    "q5_sampler_behavior_verified": {
+      "question": "Is sampler behavior verified?",
+      "status": "PASS",
+      "evidence": "Audited in ops02_c18_sampler_protocol_audit_v1.json. Candidate F hybrid sampler deterministic reproduction confirmed across epochs 1..5: exact 72 draws/epoch, 70% parent / 30% phenomenon draws, 30-35 parent clusters drawn, 0 DEV/HOLDOUT leakage."
+    },
+    "q6_model_identity_verified": {
+      "question": "Is model identity verified?",
+      "status": "PASS",
+      "evidence": "Audited in ops02_c18_model_identity_audit_v1.json. ResNet18-UNet architecture confirmed: 14,310,860 trainable parameters, 30 BatchNorm2d layers (momentum 0.05), ImageNet pretrained encoder, custom UNet decoder with transposed convolutions and skip connections."
+    },
+    "q7_gpu_execution_defined_honestly": {
+      "question": "Is GPU execution defined honestly?",
+      "status": "PASS",
+      "evidence": "Audited in ops02_c18_gpu_protocol_specification_v1.json. Mandated single-GPU execution (cuda:0) by default to prevent resource waste and false concurrency claims. Bound by GOV-RULE-093 requiring separate tracking of provisioned vs allocated devices."
+    },
+    "q8_causes_of_4_94_narrowed": {
+      "question": "Are the causes of the 4.94% result sufficiently narrowed?",
+      "status": "PASS",
+      "evidence": "Audited in ops02_c18_failure_diagnostic_matrix_v1.json. Corrected C17 epistemic overclaim to OBSERVED; established 10 distinct competing hypotheses (H1–H10) with explicit supporting evidence, missing evidence, cheapest diagnostics, and falsification criteria."
+    },
+    "q9_scientifically_meaningful_controlled_experiment": {
+      "question": "Is there a scientifically meaningful controlled experiment?",
+      "status": "PASS",
+      "evidence": "Designed in ops02_c18_controlled_diagnostic_design_v1.json. Formulated a 2-tier diagnostic framework: Tier 1 (Zero-compute cross-evaluation using existing checkpoints) and Tier 2 (EXP07_DIAGNOSTIC_001 single-variable loss weighting ablation: Sqrt-Median Control vs Uniform Unweighted Treatment on OPS02_v1.0.1_FROZEN)."
+    },
+    "q10_clear_information_value": {
+      "question": "Would another training run produce new information rather than merely another number?",
+      "status": "PASS",
+      "evidence": "Yes. A blind Replicate 004 would merely produce an uninformative stochastic sample, whereas EXP07_DIAGNOSTIC_001 isolates the exact causal impact of extreme loss weighting on rare class prediction collapses."
+    }
+  },
+  "authorized_actions_summary": [
+    "Execute Tier 1 zero-compute cross-evaluation of existing C8/C10 and C16 checkpoints against cross-split DEV sets (zero training, pure inference).",
+    "Prepare training environment configuration for EXP07_DIAGNOSTIC_001 single-variable ablation (pending user approval).",
+    "Maintain strict freeze on HOLDOUT partition.",
+    "Prohibit any execution of Replicate 004, Seed 101, or Seed 2024 until diagnostic phase concludes."
+  ]
+}

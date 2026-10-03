@@ -1,0 +1,36 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "OPS-02 C18 Model Architecture Identity and Configuration Audit",
+  "audited_at_utc": "2026-09-14T04:56:00Z",
+  "architecture_specification": {
+    "model_name": "ResNet18UNet",
+    "reference_implementation": "src/ocean_sentinel/ml/exp07_reference.py::ResNet18UNet",
+    "input_channels": 1,
+    "num_classes": 12,
+    "trainable_parameters": 14310860,
+    "total_state_dict_keys": 192,
+    "batchnorm2d_layers": 30,
+    "batchnorm_momentum": 0.05,
+    "encoder_backbone": "ResNet-18 (ImageNet-1K pretrained weights ResNet18_Weights.DEFAULT)",
+    "first_conv_adapter": "Single-channel conversion via channel-mean across RGB: conv1.weight.copy_(base_resnet.conv1.weight.mean(dim=1, keepdim=True))",
+    "decoder_architecture": {
+      "dec4": "DecoderBlock(512, 256, 256) with ConvTranspose2d(512->256) + skip(256) + DoubleConv(512->256)",
+      "dec3": "DecoderBlock(256, 128, 128) with ConvTranspose2d(256->128) + skip(128) + DoubleConv(256->128)",
+      "dec2": "DecoderBlock(128, 64, 64) with ConvTranspose2d(128->64) + skip(64) + DoubleConv(128->64)",
+      "dec1": "DecoderBlock(64, 64, 64) with ConvTranspose2d(64->64) + skip(64) + DoubleConv(128->64)",
+      "final_up": "ConvTranspose2d(64->32, kernel_size=2, stride=2)",
+      "final_conv": "DoubleConv(32->32, kernel_size=3, padding=1)",
+      "head": "Conv2d(32->12, kernel_size=1, stride=1, bias=True)"
+    }
+  },
+  "initialization_policy_audit": {
+    "pretrained_setting": "pretrained=True (ImageNet pretrained encoder)",
+    "historical_contract_check": "C15 protocol section 5 specifically authorized ImageNet pretrained encoder for Seed 42 replicate 003. Future ablation experiments investigating random initialization (scratch training) must explicitly declare pretrained=False as an experimental variable."
+  },
+  "conformance_verdict": {
+    "c15_protocol": "MATCH",
+    "c16_executed": "MATCH (verified locally from best_model.pt and Kaggle console download log)",
+    "c18_canonical": "MATCH"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C20",
+  "audit_name": "EXP-07 Dataset Partition and Part-III Firewall Specification",
+  "audited_at_utc": "2026-09-14T06:18:00Z",
+  "partition_quarantine_invariants": {
+    "ops01_dev": {
+      "sample_count": 39,
+      "manifest_path": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+      "manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+      "access_status": "PERMITTED_READ_ONLY_FOR_EVAL_A"
+    },
+    "ops02_dev": {
+      "sample_count": 40,
+      "manifest_path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "manifest_sha256": "F5480EA22D305A064B447A5A0A477B7DE05553AE1EC9D206CF8B0BEA3BFDFF1B",
+      "access_status": "PERMITTED_READ_ONLY_FOR_EVAL_B_AND_C"
+    },
+    "ops01_train": {
+      "sample_count": 72,
+      "access_status": "PROHIBITED_IN_C20"
+    },
+    "ops02_train": {
+      "sample_count": 132,
+      "access_status": "PROHIBITED_IN_C20"
+    },
+    "ops01_holdout": {
+      "sample_count": 36,
+      "access_status": "STRICTLY_QUARANTINED_ZERO_ACCESS"
+    },
+    "ops02_holdout": {
+      "sample_count": 40,
+      "access_status": "STRICTLY_QUARANTINED_ZERO_ACCESS"
+    }
+  },
+  "holdout_protection_controls": {
+    "discovery_prohibited": true,
+    "enumeration_prohibited": true,
+    "hash_computation_prohibited": true,
+    "image_read_prohibited": true,
+    "mask_read_prohibited": true,
+    "inference_prohibited": true,
+    "metric_computation_prohibited": true,
+    "enforcement_mechanism": "Explicit path whitelist: only samples with sample['partition'] == 'DEV' are loaded into evaluation tensors."
+  },
+  "part_iii_firewall_verification": {
+    "part_iii_paths_checked": 0,
+    "part_iii_identifiers_queried": 0,
+    "status": "PASS_UNTOUCHED"
+  },
+  "overall_verdict": "PARTITION_FIREWALL_VERIFIED_AND_ACTIVE"
+}

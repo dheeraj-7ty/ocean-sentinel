@@ -1,0 +1,139 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C20",
+  "audit_name": "EXP-07 Taxonomy and Dense Label Index Compatibility Audit",
+  "audited_at_utc": "2026-09-14T06:12:00Z",
+  "taxonomy_authorities": {
+    "ops01": "data/metadata/ops01_taxonomy_v1.json",
+    "ops02": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+    "reference_implementation": "src/ocean_sentinel/ml/exp07_reference.py::DENSE_CLASSES"
+  },
+  "index_compatibility_matrix": [
+    {
+      "index": 0,
+      "canonical_code": "BG",
+      "c8_checkpoint_meaning": "Background Seawater (source 0)",
+      "c10_checkpoint_meaning": "Background Seawater (source 0)",
+      "c16_checkpoint_meaning": "Background Seawater (source 0)",
+      "ops01_dev_meaning": "Background Seawater (source 0)",
+      "ops02_dev_meaning": "Background Seawater (source 0)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 1,
+      "canonical_code": "AF",
+      "c8_checkpoint_meaning": "Atmospheric Front (source 1)",
+      "c10_checkpoint_meaning": "Atmospheric Front (source 1)",
+      "c16_checkpoint_meaning": "Atmospheric Front (source 1)",
+      "ops01_dev_meaning": "Atmospheric Front (source 1)",
+      "ops02_dev_meaning": "Atmospheric Front (source 1)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 2,
+      "canonical_code": "BS",
+      "c8_checkpoint_meaning": "Biological Slicks (source 2)",
+      "c10_checkpoint_meaning": "Biological Slicks (source 2)",
+      "c16_checkpoint_meaning": "Biological Slicks (source 2)",
+      "ops01_dev_meaning": "Biological Slicks (source 2)",
+      "ops02_dev_meaning": "Biological Slicks (source 2)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 3,
+      "canonical_code": "LWA",
+      "c8_checkpoint_meaning": "Low Wind Area (source 4)",
+      "c10_checkpoint_meaning": "Low Wind Area (source 4)",
+      "c16_checkpoint_meaning": "Low Wind Area (source 4)",
+      "ops01_dev_meaning": "Low Wind Area (source 4)",
+      "ops02_dev_meaning": "Low Wind Area (source 4)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 4,
+      "canonical_code": "MCC",
+      "c8_checkpoint_meaning": "Mesoscale Cellular Convection (source 5)",
+      "c10_checkpoint_meaning": "Mesoscale Cellular Convection (source 5)",
+      "c16_checkpoint_meaning": "Mesoscale Cellular Convection (source 5)",
+      "ops01_dev_meaning": "Mesoscale Cellular Convection (source 5)",
+      "ops02_dev_meaning": "Mesoscale Cellular Convection (source 5)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 5,
+      "canonical_code": "OF",
+      "c8_checkpoint_meaning": "Ocean Front (source 6)",
+      "c10_checkpoint_meaning": "Ocean Front (source 6)",
+      "c16_checkpoint_meaning": "Ocean Front (source 6)",
+      "ops01_dev_meaning": "Ocean Front (source 6)",
+      "ops02_dev_meaning": "Ocean Front (source 6)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 6,
+      "canonical_code": "POW",
+      "c8_checkpoint_meaning": "Pure Ocean Wave (source 7)",
+      "c10_checkpoint_meaning": "Pure Ocean Wave (source 7)",
+      "c16_checkpoint_meaning": "Pure Ocean Wave (source 7)",
+      "ops01_dev_meaning": "Pure Ocean Wave (source 7)",
+      "ops02_dev_meaning": "Pure Ocean Wave (source 7)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 7,
+      "canonical_code": "RF",
+      "c8_checkpoint_meaning": "Rain Cell / Rain Footprint (source 8)",
+      "c10_checkpoint_meaning": "Rain Cell / Rain Footprint (source 8)",
+      "c16_checkpoint_meaning": "Rain Cell / Rain Footprint (source 8)",
+      "ops01_dev_meaning": "Rain Cell / Rain Footprint (source 8)",
+      "ops02_dev_meaning": "Rain Cell / Rain Footprint (source 8)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 8,
+      "canonical_code": "WS",
+      "c8_checkpoint_meaning": "Wind Streak (source 10)",
+      "c10_checkpoint_meaning": "Wind Streak (source 10)",
+      "c16_checkpoint_meaning": "Wind Streak (source 10)",
+      "ops01_dev_meaning": "Wind Streak (source 10)",
+      "ops02_dev_meaning": "Wind Streak (source 10)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 9,
+      "canonical_code": "Eddy",
+      "c8_checkpoint_meaning": "Oceanic Eddy (source 11)",
+      "c10_checkpoint_meaning": "Oceanic Eddy (source 11)",
+      "c16_checkpoint_meaning": "Oceanic Eddy (source 11)",
+      "ops01_dev_meaning": "Oceanic Eddy (source 11)",
+      "ops02_dev_meaning": "Oceanic Eddy (source 11)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 10,
+      "canonical_code": "IWs",
+      "c8_checkpoint_meaning": "Internal Waves (source 12)",
+      "c10_checkpoint_meaning": "Internal Waves (source 12)",
+      "c16_checkpoint_meaning": "Internal Waves (source 12)",
+      "ops01_dev_meaning": "Internal Waves (source 12)",
+      "ops02_dev_meaning": "Internal Waves (source 12)",
+      "compatibility_status": "EXACT_MATCH"
+    },
+    {
+      "index": 11,
+      "canonical_code": "HM",
+      "c8_checkpoint_meaning": "Artificial / Anthropogenic Objects (source 13)",
+      "c10_checkpoint_meaning": "Artificial / Anthropogenic Objects (source 13)",
+      "c16_checkpoint_meaning": "Artificial / Anthropogenic Objects (source 13)",
+      "ops01_dev_meaning": "Artificial / Anthropogenic Objects (source 13)",
+      "ops02_dev_meaning": "Artificial / Anthropogenic Objects (source 13)",
+      "compatibility_status": "EXACT_MATCH"
+    }
+  ],
+  "quarantined_exclusions_handling": {
+    "source_labels": [3, 9, 14],
+    "target_dense_index": -100,
+    "handling": "Excluded from confusion matrix and IoU evaluation across all models and datasets."
+  },
+  "overall_verdict": "TAXONOMY_100_PERCENT_COMPATIBLE_ZERO_PERMUTATION_REQUIRED"
+}

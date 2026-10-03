@@ -1,0 +1,87 @@
+{
+  "specification_version": "1.0.0",
+  "task_id": "EXP-07-P0-C15",
+  "dataset_identifier": "OPS-02",
+  "dataset_version": "OPS02_v1.0.0_FROZEN",
+  "freeze_status": "FROZEN",
+  "frozen_at_utc": "2026-09-14T01:15:00Z",
+  "summary": {
+    "total_physical_sample_pairs": 212,
+    "total_independent_parent_clusters": 64,
+    "total_mission_datatakes": 64,
+    "total_constituent_level1_scenes": 85,
+    "partition_breakdown": {
+      "TRAIN": {
+        "parent_clusters": 40,
+        "datatakes": 40,
+        "constituent_scenes": 54,
+        "sample_pairs": 132,
+        "cluster_percentage": 62.5
+      },
+      "DEV": {
+        "parent_clusters": 12,
+        "datatakes": 12,
+        "constituent_scenes": 15,
+        "sample_pairs": 40,
+        "cluster_percentage": 18.75
+      },
+      "HOLDOUT": {
+        "parent_clusters": 12,
+        "datatakes": 12,
+        "constituent_scenes": 16,
+        "sample_pairs": 40,
+        "cluster_percentage": 18.75
+      }
+    }
+  },
+  "taxonomy": {
+    "version": "CANONICAL_DENSE_12_CLASS_V1",
+    "classes": [
+      "0: BG (Background Seawater)",
+      "1: AF (Atmospheric Front)",
+      "2: BS (Biological Slicks)",
+      "3: LWA (Low Wind Area)",
+      "4: MCC (Mesoscale Cellular Convection)",
+      "5: OF (Ocean Front - NOT Oil Film/Spill)",
+      "6: POW (Pure Ocean Wave)",
+      "7: RF (Rain Cell / Rain Footprint)",
+      "8: WS (Wind Streak)",
+      "9: Eddy (Oceanic Eddy)",
+      "10: IWs (Internal Waves)",
+      "11: HM (Artificial / Anthropogenic Objects - NOT vessel-only)"
+    ],
+    "firewall_exclusions": [
+      "Source 14: Mineral Oil Spill (GOV-RULE-060 Quarantine)",
+      "Source 3: Iceberg (Excluded)",
+      "Source 9: Sea Ice (Excluded)"
+    ]
+  },
+  "preprocessing_specification": {
+    "input_contract": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+    "native_resolution": "2560x2560 native Level-1 GRD pixels",
+    "spatial_aggregation": "10x10 arithmetic block-mean to 256x256 pixel grid",
+    "radiometric_transformation": "log1p(raw_dn)",
+    "normalization": "Standardization strictly using TRAIN split valid pixels (DN > 0)",
+    "calibration_status": "EXPLICITLY_UNCALIBRATED (detected DN, NOT physical sigma0/gamma0)"
+  },
+  "governance_and_firewall_rules": {
+    "clustering": "GOV-RULE-077 (Mission datatake clustering to prevent along-track pseudo-replication)",
+    "partitioning": "GOV-RULE-075 (Pre-slice parent clustering before spatial slicing)",
+    "deduplication": "GOV-RULE-078 (Cross-source deduplication and disjoint sets)",
+    "qc_standard": "GOV-RULE-079 (Four distinct QC layers: Technical, Provenance, Semantic, Independence)",
+    "holdout_firewall": "HOLDOUT is strictly quarantined from development, training, tuning, and threshold selection."
+  },
+  "authoritative_manifest_references": {
+    "physical_dataset_manifest": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "parent_cluster_manifest": "data/ops02/manifests/ops02_parent_cluster_manifest_v1.json",
+    "partition_manifest": "data/ops02/manifests/ops02_partition_manifest_v1.json"
+  },
+  "known_scientific_limitations": {
+    "single_archive_grounding": "100% of samples are derived from the Li IW archive; this provides independent acquisitions but not multi-source benchmark diversity.",
+    "sparse_classes": {
+      "HM": "14 parent clusters (8 TRAIN, 3 DEV, 3 HOLDOUT), 1,847 total valid pixels. Minimally usable for representation; inadequate for strong generalization claims.",
+      "OF": "7 parent clusters (4 TRAIN, 1 DEV, 2 HOLDOUT), 33,706 valid pixels. Scientifically weak for robust boundary generalization."
+    },
+    "georeferencing": "Relative pixel grid alignment is strongly supported; absolute geocoding in GeoTIFF headers is an engineering placeholder transform."
+  }
+}

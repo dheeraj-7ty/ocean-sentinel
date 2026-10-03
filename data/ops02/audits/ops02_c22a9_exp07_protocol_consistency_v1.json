@@ -1,0 +1,244 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A9_EXP07_PROTOCOL_CONSISTENCY_v1",
+    "task_id": "EXP-07-P0-C22-A.9",
+    "evaluated_at_utc": "2026-09-14T08:00:00Z",
+    "target_experiment": "EXP07_DIAG01 (Control vs Treatment Paired Diagnostic Training)",
+    "dataset_scope": "OPS02_v1.0.1_FROZEN",
+    "status": "PROTOCOL_PARAMETERS_100_PERCENT_CONSISTENT",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "executive_finding": {
+    "discrepancy_classification": "DOCUMENTATION_ONLY_IN_C22A8_COMPLETION_REPORT",
+    "executable_configuration_status": "COMPLETELY_CONSISTENT_WITH_FROZEN_PROTOCOL",
+    "protocol_drift_detected": false,
+    "scientific_experiment_altered": false,
+    "remediation_applied": "C22-A.8 completion report narrative prose corrected with formal erratum lineage; automated regression guardrails installed."
+  },
+  "twenty_two_parameter_consistency_matrix": [
+    {
+      "parameter_id": "PARAM-01",
+      "parameter_name": "DATASET_SPECIFICATION",
+      "frozen_value": "OPS02_v1.0.1_FROZEN",
+      "executable_value": "OPS02_v1.0.1_FROZEN",
+      "report_value": "OPS02_v1.0.1_FROZEN",
+      "match_status": "MATCH",
+      "source": "OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-02",
+      "parameter_name": "PARTITION_ALLOCATION",
+      "frozen_value": "132 TRAIN / 40 DEV / 40 HOLDOUT (212 physical sample pairs)",
+      "executable_value": "132 TRAIN / 40 DEV / 40 HOLDOUT (212 physical sample pairs)",
+      "report_value": "132 TRAIN / 40 DEV / 40 HOLDOUT (212 physical sample pairs)",
+      "match_status": "MATCH",
+      "source": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-03",
+      "parameter_name": "INPUT_MODALITY",
+      "frozen_value": "Single-band VV SAR (1 channel, 256x256 float32 GeoTIFF)",
+      "executable_value": "Single-band VV SAR (1 channel, 256x256 float32 GeoTIFF)",
+      "report_value": "Previously stated 'SAR VV/VH Tiles' in C22-A.8 Q4; corrected to 'SAR Single-Band VV Tiles'",
+      "match_status": "MATCH_REPAIRED",
+      "source": "ops02_c20_preprocessing_compatibility_v1.json / exp07_reference.py",
+      "action": "REPAIRED_IN_C22A8_REPORT"
+    },
+    {
+      "parameter_id": "PARAM-04",
+      "parameter_name": "PREPROCESSING_TRANSFORMATION",
+      "frozen_value": "np.log1p(np.maximum(raw_image, 0.0)), valid DN > 0, nodata = 0.0",
+      "executable_value": "np.log1p(np.maximum(raw_image, 0.0)), valid DN > 0, nodata = 0.0",
+      "report_value": "Log1p raw DN with validity mask and zeroed invalid border pixels",
+      "match_status": "MATCH",
+      "source": "src/ocean_sentinel/ml/exp07_reference.py::preprocess_sar_image",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-05",
+      "parameter_name": "RADIOMETRIC_NORMALIZATION",
+      "frozen_value": "TRAIN-derived standardization: mu=4.424158, sigma=0.469261",
+      "executable_value": "mu=4.424158, sigma=0.469261",
+      "report_value": "mu=4.424158, sigma=0.469261",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-06",
+      "parameter_name": "TAXONOMY_AND_ORDERING",
+      "frozen_value": "12 dense classes (0: BG, 1: AF, 2: BS, 3: LWA, 4: MCC, 5: OF, 6: POW, 7: RF, 8: WS, 9: Eddy, 10: IWs, 11: HM); Source labels 3, 9, 14 mapped to ignore_index=-100",
+      "executable_value": "12 dense classes, source labels 3, 9, 14 mapped to -100",
+      "report_value": "12 dense classes, source labels 3, 9, 14 mapped to -100",
+      "match_status": "MATCH",
+      "source": "ops02_c19_taxonomy_canonicalization_v1.json",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-07",
+      "parameter_name": "NEURAL_NETWORK_ARCHITECTURE",
+      "frozen_value": "ResNet18-UNet (14,310,860 parameters, 30 BatchNorm2d layers)",
+      "executable_value": "ResNet18-UNet (14,310,860 parameters, 30 BatchNorm2d layers)",
+      "report_value": "ResNet18-UNet (14,310,860 parameters, 30 BatchNorm2d layers)",
+      "match_status": "MATCH",
+      "source": "src/ocean_sentinel/ml/exp07_reference.py::ResNet18UNet",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-08",
+      "parameter_name": "PRETRAINED_INITIALIZATION",
+      "frozen_value": "torchvision.models.ResNet18_Weights.IMAGENET1K_V1 (resnet18-f37072fd.pth), canonical initial state initial_model_state_canonical.pt (SHA256: 67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D)",
+      "executable_value": "initial_model_state_canonical.pt (SHA256: 67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D)",
+      "report_value": "Canonical initial model state initial_model_state_canonical.pt",
+      "match_status": "MATCH",
+      "source": "data/ops02/initial_model_state_canonical.pt",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-09",
+      "parameter_name": "LOSS_FUNCTION_SEMANTICS",
+      "frozen_value": "nn.CrossEntropyLoss(weight=weight_tensor, ignore_index=-100, reduction='mean')",
+      "executable_value": "nn.CrossEntropyLoss(weight=weight_tensor, ignore_index=-100, reduction='mean')",
+      "report_value": "nn.CrossEntropyLoss(weight=weight_tensor, ignore_index=-100, reduction='mean')",
+      "match_status": "MATCH",
+      "source": "ops02_c21_single_variable_diagnostic_protocol_v1.json",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-10",
+      "parameter_name": "CANONICAL_CONTROL_VECTOR",
+      "frozen_value": "[0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.882870, 0.387652, 18.243211]",
+      "executable_value": "[0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.882870, 0.387652, 18.243211]",
+      "report_value": "Previously reported incorrect 3-element vector [0.0898, 0.9069, 1.0033] in C22-A.8 Q10; repaired to exact 12-element canonical control vector",
+      "match_status": "MATCH_REPAIRED",
+      "source": "src/ocean_sentinel/ml/exp07_fingerprint.py::CANONICAL_HISTORICAL_C16_LITERALS",
+      "action": "REPAIRED_IN_C22A8_REPORT"
+    },
+    {
+      "parameter_id": "PARAM-11",
+      "parameter_name": "TREATMENT_VECTOR",
+      "frozen_value": "[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]",
+      "executable_value": "[1.0] * 12",
+      "report_value": "[1.0] * 12 (Uniform unweighted vector)",
+      "match_status": "MATCH",
+      "source": "src/ocean_sentinel/ml/exp07_fingerprint.py::UNIFORM_TREATMENT_LITERALS",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-12",
+      "parameter_name": "OPTIMIZER",
+      "frozen_value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+      "executable_value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+      "report_value": "AdamW (betas=(0.9, 0.999), eps=1e-8)",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-13",
+      "parameter_name": "BASE_LEARNING_RATE",
+      "frozen_value": "0.0005 (5e-4)",
+      "executable_value": "0.0005 (5e-4)",
+      "report_value": "0.0005 (5e-4)",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-14",
+      "parameter_name": "WEIGHT_DECAY",
+      "frozen_value": "0.01 (applied only to 2D conv/linear weights; bias and 1D BN affine parameters excluded)",
+      "executable_value": "0.01 (applied only to 2D conv/linear weights; bias and 1D BN affine parameters excluded)",
+      "report_value": "0.01 (applied only to 2D conv/linear weights; bias and 1D BN affine parameters excluded)",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-15",
+      "parameter_name": "LEARNING_RATE_SCHEDULER",
+      "frozen_value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warmup=3, eta_min=1e-6)",
+      "executable_value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warmup=3, eta_min=1e-6)",
+      "report_value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warmup=3, eta_min=1e-6)",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-16",
+      "parameter_name": "PHYSICAL_BATCH_SIZE",
+      "frozen_value": "8 (BatchNorm physical statistical batch = 8)",
+      "executable_value": "8 (BatchNorm physical statistical batch = 8)",
+      "report_value": "8 (minibatch = 8)",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-17",
+      "parameter_name": "GRADIENT_ACCUMULATION",
+      "frozen_value": "2 steps (effective virtual optimizer batch = 16)",
+      "executable_value": "2 steps (effective virtual optimizer batch = 16)",
+      "report_value": "2 steps (effective virtual optimizer batch = 16)",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-18",
+      "parameter_name": "SAMPLER_STRATEGY",
+      "frozen_value": "Candidate F Hybrid (70% parent-balanced, 30% class-balanced, 72 draws/epoch, replacement=True, base seed 42)",
+      "executable_value": "Candidate F Hybrid (70% parent-balanced, 30% class-balanced, 72 draws/epoch, replacement=True, base seed 42)",
+      "report_value": "Candidate F Hybrid (72 draws/epoch, replacement=True, seed 42)",
+      "match_status": "MATCH",
+      "source": "src/ocean_sentinel/ml/exp07_reference.py::compute_candidate_f_hybrid_weights",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-19",
+      "parameter_name": "EPOCH_SCHEDULE",
+      "frozen_value": "MAX_EPOCHS = 30, MIN_EPOCHS = 15",
+      "executable_value": "MAX_EPOCHS = 30, MIN_EPOCHS = 15",
+      "report_value": "Previously reported 'epochs (15)' in C22-A.8 Q10; clarified to MAX_EPOCHS = 30, MIN_EPOCHS = 15, PATIENCE = 10",
+      "match_status": "MATCH_REPAIRED",
+      "source": "ops02_c21_single_variable_diagnostic_protocol_v1.json::INV-19",
+      "action": "REPAIRED_IN_C22A8_REPORT"
+    },
+    {
+      "parameter_id": "PARAM-20",
+      "parameter_name": "STOPPING_RULE",
+      "frozen_value": "Early stopping on dev_mIoU_phenomena with patience = 10, evaluated after min_epoch = 15",
+      "executable_value": "Early stopping on dev_mIoU_phenomena with patience = 10, evaluated after min_epoch = 15",
+      "report_value": "Patience = 10, min_epoch = 15",
+      "match_status": "MATCH",
+      "source": "ops02_c21_single_variable_diagnostic_protocol_v1.json::INV-19",
+      "action": "PRESERVED"
+    },
+    {
+      "parameter_id": "PARAM-21",
+      "parameter_name": "PRIMARY_BENCHMARK_METRIC",
+      "frozen_value": "dev_mIoU_phenomena (macro unweighted mean across classes 1..11, background Class 0 excluded)",
+      "executable_value": "dev_mIoU_phenomena (classes 1..11, background excluded)",
+      "report_value": "Previously presented secondary metrics (macro F1, boundary distance) in C22-A.8 Q11 without declaring primary contract; clarified PRIMARY_METRIC = dev_mIoU_phenomena",
+      "match_status": "MATCH_REPAIRED",
+      "source": "ops02_c21_single_variable_diagnostic_protocol_v1.json::evaluation_and_metrics",
+      "action": "REPAIRED_IN_C22A8_REPORT"
+    },
+    {
+      "parameter_id": "PARAM-22",
+      "parameter_name": "DATA_AUGMENTATION",
+      "frozen_value": "Disabled (deterministic loaders, zero stochastic spatial or radiometric transforms)",
+      "executable_value": "Disabled",
+      "report_value": "Disabled",
+      "match_status": "MATCH",
+      "source": "EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md::INV-18",
+      "action": "PRESERVED"
+    }
+  ],
+  "readiness_decision": {
+    "verdict": "READY_FOR_USER_AUTHORIZATION",
+    "justification": "All 22 critical protocol parameters are 100% matched between the frozen protocol specification and the actual executable configuration. The discrepancies in the C22-A.8 completion report narrative were documentation-only drafting errors and have been repaired with documented erratum lineage. Zero protocol drift occurred."
+  }
+}

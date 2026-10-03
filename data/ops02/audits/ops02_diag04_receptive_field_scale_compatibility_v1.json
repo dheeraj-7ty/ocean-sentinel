@@ -1,0 +1,4022 @@
+{
+  "metadata": {
+    "task_id": "EXP-07-P0-DIAG-04-EXECUTION",
+    "investigation_id": "DIAG-04-RECEPTIVE-FIELD-SCALE-COMPATIBILITY",
+    "execution_authorization": "AUTHORIZED_AND_EXECUTED",
+    "run_date": "2026-09-14",
+    "iso_timestamp": "20260914_210341Z",
+    "elapsed_seconds": 11.67,
+    "python_version": "3.10.9 (tags/v3.10.9:1dd9be6, Dec  6 2022, 20:01:21) [MSC v.1934 64 bit (AMD64)]",
+    "numpy_version": "1.26.4"
+  },
+  "dataset_contract": {
+    "dataset_id": "OPS-02",
+    "freeze_spec": "OPS02_v1.0.1_FROZEN",
+    "manifest_path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "train_tile_count": 132,
+    "dev_tile_count": 40,
+    "holdout_tile_count": 40,
+    "development_tile_count": 172,
+    "development_cluster_count": 52,
+    "pixel_spacing_m": 100.0,
+    "km_per_pixel": 0.1,
+    "grid_shape": [
+      256,
+      256
+    ]
+  },
+  "architecture_contract": {
+    "architecture_name": "ResNet18-UNet",
+    "total_trainable_parameters": 14310860,
+    "grid_shape": [
+      256,
+      256
+    ],
+    "crop_aperture_km": 25.6,
+    "bottleneck_sampling_interval_px": 32,
+    "bottleneck_sampling_interval_km": 3.2,
+    "encoder_theoretical_receptive_fields": {
+      "conv1": {
+        "kernel": 7,
+        "stride": 2,
+        "padding": 3,
+        "trf_px": 7,
+        "cumulative_stride": 2
+      },
+      "maxpool": {
+        "kernel": 3,
+        "stride": 2,
+        "padding": 1,
+        "trf_px": 11,
+        "cumulative_stride": 4
+      },
+      "layer1": {
+        "trf_px": 43,
+        "cumulative_stride": 4
+      },
+      "layer2": {
+        "trf_px": 99,
+        "cumulative_stride": 8
+      },
+      "layer3": {
+        "trf_px": 211,
+        "cumulative_stride": 16
+      },
+      "layer4": {
+        "trf_px": 435,
+        "cumulative_stride": 32
+      }
+    },
+    "multipath_receptive_fields": {
+      "path_A_skip_x0": {
+        "source_stage": "conv1",
+        "phase_dependence": "PHASE_INVARIANT",
+        "trf_range_px": [
+          19
+        ],
+        "trf_nominal_km": [
+          1.9
+        ],
+        "description": "Shallowest skip connection fusing conv1 directly into decoder output."
+      },
+      "path_B_skip_x1": {
+        "source_stage": "layer1",
+        "phase_dependence": "PHASE_INVARIANT",
+        "trf_range_px": [
+          71
+        ],
+        "trf_nominal_km": [
+          7.1
+        ],
+        "description": "High-resolution skip connection from ResNet Layer 1."
+      },
+      "path_C_skip_x2": {
+        "source_stage": "layer2",
+        "phase_dependence": "PHASE_DEPENDENT",
+        "trf_range_px": [
+          155,
+          163
+        ],
+        "trf_nominal_km": [
+          15.5,
+          16.3
+        ],
+        "description": "Intermediate skip connection from ResNet Layer 2."
+      },
+      "path_D_skip_x3": {
+        "source_stage": "layer3",
+        "phase_dependence": "PHASE_DEPENDENT",
+        "trf_range_px": [
+          323,
+          339
+        ],
+        "trf_nominal_km": [
+          32.3,
+          33.9
+        ],
+        "description": "Mid-level skip connection from ResNet Layer 3."
+      },
+      "path_E_bottleneck_x4": {
+        "source_stage": "layer4",
+        "phase_dependence": "PHASE_DEPENDENT",
+        "trf_range_px": [
+          531,
+          563
+        ],
+        "trf_nominal_km": [
+          53.1,
+          56.3
+        ],
+        "description": "Deepest bottleneck path through Layer 4 and UNet center."
+      }
+    },
+    "crop_clipping_policy": {
+      "tile_boundary_px": 256,
+      "tile_boundary_km": 25.6,
+      "usable_context_limit": "Physical context is strictly clipped by the 256x256 crop aperture; theoretical computational reach beyond the crop is padded or zeroed."
+    },
+    "erf_evaluation_mode": {
+      "empirical_erf_measured": false,
+      "backward_passes": 0,
+      "reason": "Learned-weight empirical ERF requires gradient backward passes, violating diagnostic BLOCK-006 (backward_passes == 0).",
+      "idealized_analytical_proxy": {
+        "label": "IDEALIZED_ANALYTICAL_PROXY",
+        "formulation": "Luo et al. (2016) Gaussian support under uniform random i.i.d. weights",
+        "gaussian_sigma_px": 54.42,
+        "four_sigma_diameter_px": 217.67,
+        "four_sigma_diameter_km": 21.77,
+        "disclaimer": "This is an idealized analytical model of structural central tendency, NOT an empirical learned-weight measurement."
+      }
+    }
+  },
+  "coverage": {
+    "total_tiles_analyzed": 172,
+    "train_tiles": 132,
+    "dev_tiles": 40,
+    "holdout_tiles_quarantined": 40,
+    "total_components_extracted": 1072
+  },
+  "component_statistics": {
+    "BG": {
+      "class_id": 0,
+      "class_name": "BG",
+      "all": {
+        "count": 363,
+        "area_px": {
+          "count": 363,
+          "mean": 8522.2039,
+          "median": 1488.0,
+          "std": 12721.2668,
+          "iqr": 13622.0,
+          "min": 1.0,
+          "p10": 1.0,
+          "p25": 5.0,
+          "p75": 13627.0,
+          "p90": 26169.4,
+          "max": 64163.0
+        },
+        "equivalent_diameter_px": {
+          "count": 363,
+          "mean": 71.5224,
+          "median": 43.5268,
+          "std": 75.7321,
+          "iqr": 129.1979,
+          "min": 1.1284,
+          "p10": 1.1284,
+          "p25": 2.5231,
+          "p75": 131.721,
+          "p90": 182.5355,
+          "max": 285.8231
+        },
+        "equivalent_diameter_km": {
+          "count": 363,
+          "mean": 7.1522,
+          "median": 4.3527,
+          "std": 7.5732,
+          "iqr": 12.9198,
+          "min": 0.1128,
+          "p10": 0.1128,
+          "p25": 0.2523,
+          "p75": 13.1721,
+          "p90": 18.2535,
+          "max": 28.5823
+        },
+        "bbox_width_km": {
+          "count": 363,
+          "mean": 9.3573,
+          "median": 6.6,
+          "std": 9.4214,
+          "iqr": 17.3,
+          "min": 0.1,
+          "p10": 0.1,
+          "p25": 0.1,
+          "p75": 17.4,
+          "p90": 25.58,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 363,
+          "mean": 11.357,
+          "median": 9.8,
+          "std": 10.6344,
+          "iqr": 23.75,
+          "min": 0.1,
+          "p10": 0.1,
+          "p25": 0.2,
+          "p75": 23.95,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 363,
+          "mean": 14.8401,
+          "median": 13.0476,
+          "std": 13.0017,
+          "iqr": 28.3331,
+          "min": 0.1,
+          "p10": 0.1,
+          "p25": 0.5323,
+          "p75": 28.8654,
+          "p90": 31.5943,
+          "max": 40.9476
+        },
+        "aspect_ratio": {
+          "count": 363,
+          "mean": 13979.4897,
+          "median": 2.6387,
+          "std": 50927.134,
+          "iqr": 7.5498,
+          "min": 1.0,
+          "p10": 1.0,
+          "p25": 1.7407,
+          "p75": 9.2904,
+          "p90": 12417.1135,
+          "max": 295601.0825
+        }
+      },
+      "uncensored": {
+        "count": 104,
+        "area_px": {
+          "count": 104,
+          "mean": 13.0192,
+          "median": 1.0,
+          "std": 64.7405,
+          "iqr": 1.0,
+          "min": 1.0,
+          "p10": 1.0,
+          "p25": 1.0,
+          "p75": 2.0,
+          "p90": 9.7,
+          "max": 612.0
+        },
+        "equivalent_diameter_km": {
+          "count": 104,
+          "mean": 0.2286,
+          "median": 0.1128,
+          "std": 0.3369,
+          "iqr": 0.0468,
+          "min": 0.1128,
+          "p10": 0.1128,
+          "p25": 0.1128,
+          "p75": 0.1596,
+          "p90": 0.3513,
+          "max": 2.7915
+        },
+        "major_axis_km": {
+          "count": 104,
+          "mean": 0.5962,
+          "median": 0.1,
+          "std": 1.4439,
+          "iqr": 0.1828,
+          "min": 0.1,
+          "p10": 0.1,
+          "p25": 0.1,
+          "p75": 0.2828,
+          "p90": 1.0731,
+          "max": 9.9509
+        }
+      },
+      "edge_censored": {
+        "count": 259,
+        "area_px": {
+          "count": 259,
+          "mean": 11939.0193,
+          "median": 7684.0,
+          "std": 13640.4614,
+          "iqr": 17538.0,
+          "min": 1.0,
+          "p10": 47.0,
+          "p25": 393.5,
+          "p75": 17931.5,
+          "p90": 32853.0,
+          "max": 64163.0
+        },
+        "equivalent_diameter_km": {
+          "count": 259,
+          "mean": 9.9324,
+          "median": 9.8912,
+          "std": 7.3048,
+          "iqr": 12.8715,
+          "min": 0.1128,
+          "p10": 0.7734,
+          "p25": 2.238,
+          "p75": 15.1095,
+          "p90": 20.4523,
+          "max": 28.5823
+        },
+        "major_axis_km": {
+          "count": 259,
+          "mean": 20.5597,
+          "median": 23.0937,
+          "std": 11.0409,
+          "iqr": 19.1676,
+          "min": 0.1,
+          "p10": 3.9214,
+          "p25": 10.7775,
+          "p75": 29.9451,
+          "p90": 32.6198,
+          "max": 40.9476
+        }
+      }
+    },
+    "AF": {
+      "class_id": 1,
+      "class_name": "AF",
+      "all": {
+        "count": 24,
+        "area_px": {
+          "count": 24,
+          "mean": 4414.4167,
+          "median": 3463.0,
+          "std": 2876.0881,
+          "iqr": 3261.75,
+          "min": 992.0,
+          "p10": 1861.6,
+          "p25": 2246.25,
+          "p75": 5508.0,
+          "p90": 7796.5,
+          "max": 13227.0
+        },
+        "equivalent_diameter_px": {
+          "count": 24,
+          "mean": 71.4594,
+          "median": 66.3697,
+          "std": 22.675,
+          "iqr": 30.265,
+          "min": 35.5395,
+          "p10": 48.6839,
+          "p25": 53.4777,
+          "p75": 83.7427,
+          "p90": 99.633,
+          "max": 129.7734
+        },
+        "equivalent_diameter_km": {
+          "count": 24,
+          "mean": 7.1459,
+          "median": 6.637,
+          "std": 2.2675,
+          "iqr": 3.0265,
+          "min": 3.5539,
+          "p10": 4.8684,
+          "p25": 5.3478,
+          "p75": 8.3743,
+          "p90": 9.9633,
+          "max": 12.9773
+        },
+        "bbox_width_km": {
+          "count": 24,
+          "mean": 14.3708,
+          "median": 14.05,
+          "std": 8.3759,
+          "iqr": 17.675,
+          "min": 3.1,
+          "p10": 4.53,
+          "p25": 7.1,
+          "p75": 24.775,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 24,
+          "mean": 12.7125,
+          "median": 12.3,
+          "std": 6.7333,
+          "iqr": 9.475,
+          "min": 2.7,
+          "p10": 3.98,
+          "p25": 7.45,
+          "p75": 16.925,
+          "p90": 23.56,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 24,
+          "mean": 21.7297,
+          "median": 21.6807,
+          "std": 8.777,
+          "iqr": 13.4728,
+          "min": 5.548,
+          "p10": 11.8682,
+          "p25": 15.6744,
+          "p75": 29.1472,
+          "p90": 30.836,
+          "max": 38.0804
+        },
+        "aspect_ratio": {
+          "count": 24,
+          "mean": 7.0403,
+          "median": 6.667,
+          "std": 3.3769,
+          "iqr": 3.798,
+          "min": 2.0652,
+          "p10": 2.4528,
+          "p25": 4.6007,
+          "p75": 8.3987,
+          "p90": 10.9617,
+          "max": 16.2131
+        }
+      },
+      "uncensored": {
+        "count": 1,
+        "area_px": {
+          "count": 1,
+          "mean": 3114.0,
+          "median": 3114.0,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 3114.0,
+          "p10": 3114.0,
+          "p25": 3114.0,
+          "p75": 3114.0,
+          "p90": 3114.0,
+          "max": 3114.0
+        },
+        "equivalent_diameter_km": {
+          "count": 1,
+          "mean": 6.2967,
+          "median": 6.2967,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 6.2967,
+          "p10": 6.2967,
+          "p25": 6.2967,
+          "p75": 6.2967,
+          "p90": 6.2967,
+          "max": 6.2967
+        },
+        "major_axis_km": {
+          "count": 1,
+          "mean": 18.2165,
+          "median": 18.2165,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 18.2165,
+          "p10": 18.2165,
+          "p25": 18.2165,
+          "p75": 18.2165,
+          "p90": 18.2165,
+          "max": 18.2165
+        }
+      },
+      "edge_censored": {
+        "count": 23,
+        "area_px": {
+          "count": 23,
+          "mean": 4470.9565,
+          "median": 3679.0,
+          "std": 2924.8603,
+          "iqr": 3311.5,
+          "min": 992.0,
+          "p10": 1855.4,
+          "p25": 2227.5,
+          "p75": 5539.0,
+          "p90": 7806.0,
+          "max": 13227.0
+        },
+        "equivalent_diameter_km": {
+          "count": 23,
+          "mean": 7.1829,
+          "median": 6.8442,
+          "std": 2.3092,
+          "iqr": 3.0724,
+          "min": 3.5539,
+          "p10": 4.8604,
+          "p25": 5.3254,
+          "p75": 8.3978,
+          "p90": 9.9694,
+          "max": 12.9773
+        },
+        "major_axis_km": {
+          "count": 23,
+          "mean": 21.8825,
+          "median": 23.375,
+          "std": 8.9345,
+          "iqr": 14.097,
+          "min": 5.548,
+          "p10": 11.6928,
+          "p25": 15.197,
+          "p75": 29.294,
+          "p90": 30.9065,
+          "max": 38.0804
+        }
+      }
+    },
+    "BS": {
+      "class_id": 2,
+      "class_name": "BS",
+      "all": {
+        "count": 42,
+        "area_px": {
+          "count": 42,
+          "mean": 15329.2619,
+          "median": 6298.0,
+          "std": 17286.9323,
+          "iqr": 24722.75,
+          "min": 2.0,
+          "p10": 474.6,
+          "p25": 2378.0,
+          "p75": 27100.75,
+          "p90": 40392.9,
+          "max": 59979.0
+        },
+        "equivalent_diameter_px": {
+          "count": 42,
+          "mean": 114.7207,
+          "median": 89.4244,
+          "std": 79.7306,
+          "iqr": 130.711,
+          "min": 1.5958,
+          "p10": 24.5818,
+          "p25": 55.0242,
+          "p75": 185.7352,
+          "p90": 226.76,
+          "max": 276.3469
+        },
+        "equivalent_diameter_km": {
+          "count": 42,
+          "mean": 11.4721,
+          "median": 8.9425,
+          "std": 7.9731,
+          "iqr": 13.0711,
+          "min": 0.1596,
+          "p10": 2.4582,
+          "p25": 5.5024,
+          "p75": 18.5736,
+          "p90": 22.676,
+          "max": 27.6347
+        },
+        "bbox_width_km": {
+          "count": 42,
+          "mean": 14.619,
+          "median": 14.25,
+          "std": 9.0133,
+          "iqr": 18.4,
+          "min": 0.2,
+          "p10": 3.43,
+          "p25": 7.2,
+          "p75": 25.6,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 42,
+          "mean": 12.6238,
+          "median": 9.55,
+          "std": 8.3801,
+          "iqr": 14.5,
+          "min": 0.2,
+          "p10": 2.82,
+          "p25": 6.15,
+          "p75": 20.65,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 42,
+          "mean": 17.4601,
+          "median": 15.8205,
+          "std": 10.6944,
+          "iqr": 19.4113,
+          "min": 0.2828,
+          "p10": 3.5784,
+          "p25": 8.5837,
+          "p75": 27.995,
+          "p90": 31.218,
+          "max": 34.8198
+        },
+        "aspect_ratio": {
+          "count": 42,
+          "mean": 69.2495,
+          "median": 1.7667,
+          "std": 430.912,
+          "iqr": 0.7581,
+          "min": 1.0107,
+          "p10": 1.2112,
+          "p25": 1.4353,
+          "p75": 2.1935,
+          "p90": 2.8578,
+          "max": 2828.4271
+        }
+      },
+      "uncensored": {
+        "count": 7,
+        "area_px": {
+          "count": 7,
+          "mean": 2304.5714,
+          "median": 2362.0,
+          "std": 2125.5999,
+          "iqr": 3609.5,
+          "min": 2.0,
+          "p10": 2.6,
+          "p25": 228.0,
+          "p75": 3837.5,
+          "p90": 5125.2,
+          "max": 5637.0
+        },
+        "equivalent_diameter_km": {
+          "count": 7,
+          "mean": 4.3692,
+          "median": 5.484,
+          "std": 3.2021,
+          "iqr": 5.6374,
+          "min": 0.1596,
+          "p10": 0.1811,
+          "p25": 1.2985,
+          "p75": 6.9359,
+          "p90": 8.0715,
+          "max": 8.4719
+        },
+        "major_axis_km": {
+          "count": 7,
+          "mean": 7.5951,
+          "median": 7.7621,
+          "std": 5.8843,
+          "iqr": 10.4765,
+          "min": 0.2828,
+          "p10": 0.3337,
+          "p25": 2.1883,
+          "p75": 12.6648,
+          "p90": 15.187,
+          "max": 15.4144
+        }
+      },
+      "edge_censored": {
+        "count": 35,
+        "area_px": {
+          "count": 35,
+          "mean": 17934.2,
+          "median": 11651.0,
+          "std": 17804.1508,
+          "iqr": 26809.0,
+          "min": 236.0,
+          "p10": 920.8,
+          "p25": 2958.0,
+          "p75": 29767.0,
+          "p90": 46715.0,
+          "max": 59979.0
+        },
+        "equivalent_diameter_km": {
+          "count": 35,
+          "mean": 12.8927,
+          "median": 12.1797,
+          "std": 7.8819,
+          "iqr": 13.331,
+          "min": 1.7334,
+          "p10": 3.4207,
+          "p25": 6.1369,
+          "p75": 19.4678,
+          "p90": 24.3545,
+          "max": 27.6347
+        },
+        "major_axis_km": {
+          "count": 35,
+          "mean": 19.4331,
+          "median": 20.497,
+          "std": 10.3423,
+          "iqr": 18.8998,
+          "min": 2.1571,
+          "p10": 4.6559,
+          "p25": 10.2317,
+          "p75": 29.1316,
+          "p90": 31.5274,
+          "max": 34.8198
+        }
+      }
+    },
+    "LWA": {
+      "class_id": 3,
+      "class_name": "LWA",
+      "all": {
+        "count": 65,
+        "area_px": {
+          "count": 65,
+          "mean": 7773.3077,
+          "median": 4236.0,
+          "std": 10659.4435,
+          "iqr": 6612.0,
+          "min": 1.0,
+          "p10": 395.8,
+          "p25": 2133.0,
+          "p75": 8745.0,
+          "p90": 14742.6,
+          "max": 53101.0
+        },
+        "equivalent_diameter_px": {
+          "count": 65,
+          "mean": 82.7948,
+          "median": 73.4401,
+          "std": 55.157,
+          "iqr": 53.4065,
+          "min": 1.1284,
+          "p10": 22.4467,
+          "p25": 52.1135,
+          "p75": 105.52,
+          "p90": 136.9764,
+          "max": 260.0198
+        },
+        "equivalent_diameter_km": {
+          "count": 65,
+          "mean": 8.2795,
+          "median": 7.344,
+          "std": 5.5157,
+          "iqr": 5.3406,
+          "min": 0.1128,
+          "p10": 2.2447,
+          "p25": 5.2114,
+          "p75": 10.552,
+          "p90": 13.6977,
+          "max": 26.002
+        },
+        "bbox_width_km": {
+          "count": 65,
+          "mean": 9.5477,
+          "median": 9.3,
+          "std": 6.505,
+          "iqr": 8.3,
+          "min": 0.1,
+          "p10": 2.18,
+          "p25": 4.7,
+          "p75": 13.0,
+          "p90": 19.4,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 65,
+          "mean": 12.28,
+          "median": 11.2,
+          "std": 8.2108,
+          "iqr": 10.8,
+          "min": 0.1,
+          "p10": 3.24,
+          "p25": 5.3,
+          "p75": 16.1,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 65,
+          "mean": 15.2621,
+          "median": 14.3483,
+          "std": 9.5402,
+          "iqr": 13.3893,
+          "min": 0.1,
+          "p10": 3.6202,
+          "p25": 8.5944,
+          "p75": 21.9837,
+          "p90": 30.279,
+          "max": 31.9186
+        },
+        "aspect_ratio": {
+          "count": 65,
+          "mean": 158.5108,
+          "median": 2.4241,
+          "std": 925.7118,
+          "iqr": 2.113,
+          "min": 1.0,
+          "p10": 1.3923,
+          "p25": 1.7126,
+          "p75": 3.8256,
+          "p90": 7.831,
+          "max": 6831.3005
+        }
+      },
+      "uncensored": {
+        "count": 3,
+        "area_px": {
+          "count": 3,
+          "mean": 4.0,
+          "median": 1.0,
+          "std": 4.2426,
+          "iqr": 4.5,
+          "min": 1.0,
+          "p10": 1.0,
+          "p25": 1.0,
+          "p75": 5.5,
+          "p90": 8.2,
+          "max": 10.0
+        },
+        "equivalent_diameter_km": {
+          "count": 3,
+          "mean": 0.1941,
+          "median": 0.1128,
+          "std": 0.115,
+          "iqr": 0.122,
+          "min": 0.1128,
+          "p10": 0.1128,
+          "p25": 0.1128,
+          "p75": 0.2348,
+          "p90": 0.308,
+          "max": 0.3568
+        },
+        "major_axis_km": {
+          "count": 3,
+          "mean": 0.3061,
+          "median": 0.1,
+          "std": 0.2915,
+          "iqr": 0.3092,
+          "min": 0.1,
+          "p10": 0.1,
+          "p25": 0.1,
+          "p75": 0.4092,
+          "p90": 0.5946,
+          "max": 0.7183
+        }
+      },
+      "edge_censored": {
+        "count": 62,
+        "area_px": {
+          "count": 62,
+          "mean": 8149.2419,
+          "median": 4368.0,
+          "std": 10773.0953,
+          "iqr": 6323.5,
+          "min": 3.0,
+          "p10": 573.5,
+          "p25": 2559.5,
+          "p75": 8883.0,
+          "p90": 15120.9,
+          "max": 53101.0
+        },
+        "equivalent_diameter_km": {
+          "count": 62,
+          "mean": 8.6707,
+          "median": 7.4576,
+          "std": 5.3459,
+          "iqr": 4.929,
+          "min": 0.1954,
+          "p10": 2.7021,
+          "p25": 5.7058,
+          "p75": 10.6348,
+          "p90": 13.8742,
+          "max": 26.002
+        },
+        "major_axis_km": {
+          "count": 62,
+          "mean": 15.9858,
+          "median": 14.7129,
+          "std": 9.1689,
+          "iqr": 14.1907,
+          "min": 0.3266,
+          "p10": 4.6125,
+          "p25": 9.0265,
+          "p75": 23.2172,
+          "p90": 30.5981,
+          "max": 31.9186
+        }
+      }
+    },
+    "MCC": {
+      "class_id": 4,
+      "class_name": "MCC",
+      "all": {
+        "count": 117,
+        "area_px": {
+          "count": 117,
+          "mean": 15424.5214,
+          "median": 9112.0,
+          "std": 17186.1273,
+          "iqr": 19688.0,
+          "min": 1.0,
+          "p10": 70.0,
+          "p25": 2482.0,
+          "p75": 22170.0,
+          "p90": 44649.2,
+          "max": 65536.0
+        },
+        "equivalent_diameter_px": {
+          "count": 117,
+          "mean": 114.309,
+          "median": 107.7115,
+          "std": 81.0714,
+          "iqr": 111.7956,
+          "min": 1.1284,
+          "p10": 9.4274,
+          "p25": 56.2155,
+          "p75": 168.0111,
+          "p90": 238.3844,
+          "max": 288.8651
+        },
+        "equivalent_diameter_km": {
+          "count": 117,
+          "mean": 11.4309,
+          "median": 10.7711,
+          "std": 8.1071,
+          "iqr": 11.1796,
+          "min": 0.1128,
+          "p10": 0.9427,
+          "p25": 5.6215,
+          "p75": 16.8011,
+          "p90": 23.8384,
+          "max": 28.8865
+        },
+        "bbox_width_km": {
+          "count": 117,
+          "mean": 12.5658,
+          "median": 10.6,
+          "std": 8.9661,
+          "iqr": 17.5,
+          "min": 0.1,
+          "p10": 1.1,
+          "p25": 4.7,
+          "p75": 22.2,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 117,
+          "mean": 15.9658,
+          "median": 18.1,
+          "std": 9.4304,
+          "iqr": 19.0,
+          "min": 0.1,
+          "p10": 1.14,
+          "p25": 6.6,
+          "p75": 25.6,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 117,
+          "mean": 19.4168,
+          "median": 21.9545,
+          "std": 11.0329,
+          "iqr": 21.0954,
+          "min": 0.1,
+          "p10": 2.8074,
+          "p25": 8.511,
+          "p75": 29.6064,
+          "p90": 31.4366,
+          "max": 34.4039
+        },
+        "aspect_ratio": {
+          "count": 117,
+          "mean": 201.3414,
+          "median": 2.4967,
+          "std": 1265.1143,
+          "iqr": 3.67,
+          "min": 1.0,
+          "p10": 1.326,
+          "p25": 1.6852,
+          "p75": 5.3552,
+          "p90": 10.2056,
+          "max": 12649.1106
+        }
+      },
+      "uncensored": {
+        "count": 8,
+        "area_px": {
+          "count": 8,
+          "mean": 107.375,
+          "median": 3.0,
+          "std": 197.22,
+          "iqr": 82.25,
+          "min": 1.0,
+          "p10": 1.0,
+          "p25": 1.0,
+          "p75": 83.25,
+          "p90": 328.2,
+          "max": 597.0
+        },
+        "equivalent_diameter_km": {
+          "count": 8,
+          "mean": 0.7301,
+          "median": 0.1926,
+          "std": 0.9132,
+          "iqr": 0.8341,
+          "min": 0.1128,
+          "p10": 0.1128,
+          "p25": 0.1128,
+          "p75": 0.9469,
+          "p90": 1.9799,
+          "max": 2.757
+        },
+        "major_axis_km": {
+          "count": 8,
+          "mean": 1.9066,
+          "median": 0.3236,
+          "std": 2.524,
+          "iqr": 2.8328,
+          "min": 0.1,
+          "p10": 0.1,
+          "p25": 0.1,
+          "p75": 2.9328,
+          "p90": 5.7711,
+          "max": 6.8588
+        }
+      },
+      "edge_censored": {
+        "count": 109,
+        "area_px": {
+          "count": 109,
+          "mean": 16548.7156,
+          "median": 9773.0,
+          "std": 17278.7405,
+          "iqr": 22171.0,
+          "min": 2.0,
+          "p10": 218.2,
+          "p25": 3395.0,
+          "p75": 25566.0,
+          "p90": 46822.0,
+          "max": 65536.0
+        },
+        "equivalent_diameter_km": {
+          "count": 109,
+          "mean": 12.2163,
+          "median": 11.155,
+          "std": 7.8401,
+          "iqr": 11.4674,
+          "min": 0.1596,
+          "p10": 1.6654,
+          "p25": 6.5747,
+          "p75": 18.0421,
+          "p90": 24.4163,
+          "max": 28.8865
+        },
+        "major_axis_km": {
+          "count": 109,
+          "mean": 20.702,
+          "median": 24.3159,
+          "std": 10.2974,
+          "iqr": 17.2829,
+          "min": 0.2,
+          "p10": 5.211,
+          "p25": 12.4244,
+          "p75": 29.7073,
+          "p90": 31.5446,
+          "max": 34.4039
+        }
+      }
+    },
+    "OF": {
+      "class_id": 5,
+      "class_name": "OF",
+      "all": {
+        "count": 11,
+        "area_px": {
+          "count": 11,
+          "mean": 2204.0909,
+          "median": 1709.0,
+          "std": 1243.7963,
+          "iqr": 2025.5,
+          "min": 712.0,
+          "p10": 808.0,
+          "p25": 1138.0,
+          "p75": 3163.5,
+          "p90": 3532.0,
+          "max": 4524.0
+        },
+        "equivalent_diameter_px": {
+          "count": 11,
+          "mean": 50.7444,
+          "median": 46.6473,
+          "std": 15.21,
+          "iqr": 25.4467,
+          "min": 30.1089,
+          "p10": 32.0746,
+          "p25": 38.0145,
+          "p75": 63.4613,
+          "p90": 67.0603,
+          "max": 75.8956
+        },
+        "equivalent_diameter_km": {
+          "count": 11,
+          "mean": 5.0744,
+          "median": 4.6647,
+          "std": 1.521,
+          "iqr": 2.5447,
+          "min": 3.0109,
+          "p10": 3.2075,
+          "p25": 3.8014,
+          "p75": 6.3461,
+          "p90": 6.706,
+          "max": 7.5896
+        },
+        "bbox_width_km": {
+          "count": 11,
+          "mean": 10.3818,
+          "median": 9.4,
+          "std": 5.7012,
+          "iqr": 5.75,
+          "min": 3.9,
+          "p10": 4.7,
+          "p25": 6.55,
+          "p75": 12.3,
+          "p90": 12.7,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 11,
+          "mean": 13.5364,
+          "median": 12.1,
+          "std": 6.1884,
+          "iqr": 10.05,
+          "min": 2.8,
+          "p10": 7.2,
+          "p25": 8.9,
+          "p75": 18.95,
+          "p90": 19.8,
+          "max": 23.9
+        },
+        "major_axis_km": {
+          "count": 11,
+          "mean": 18.6961,
+          "median": 15.4584,
+          "std": 8.7794,
+          "iqr": 12.051,
+          "min": 6.438,
+          "p10": 10.9399,
+          "p25": 12.2083,
+          "p75": 24.2593,
+          "p90": 31.2278,
+          "max": 35.7454
+        },
+        "aspect_ratio": {
+          "count": 11,
+          "mean": 7.2468,
+          "median": 7.1151,
+          "std": 3.9153,
+          "iqr": 4.1723,
+          "min": 2.7532,
+          "p10": 3.1793,
+          "p25": 4.4716,
+          "p75": 8.6439,
+          "p90": 10.4938,
+          "max": 17.1356
+        }
+      },
+      "uncensored": {
+        "count": 1,
+        "area_px": {
+          "count": 1,
+          "mean": 808.0,
+          "median": 808.0,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 808.0,
+          "p10": 808.0,
+          "p25": 808.0,
+          "p75": 808.0,
+          "p90": 808.0,
+          "max": 808.0
+        },
+        "equivalent_diameter_km": {
+          "count": 1,
+          "mean": 3.2075,
+          "median": 3.2075,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 3.2075,
+          "p10": 3.2075,
+          "p25": 3.2075,
+          "p75": 3.2075,
+          "p90": 3.2075,
+          "max": 3.2075
+        },
+        "major_axis_km": {
+          "count": 1,
+          "mean": 10.9399,
+          "median": 10.9399,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 10.9399,
+          "p10": 10.9399,
+          "p25": 10.9399,
+          "p75": 10.9399,
+          "p90": 10.9399,
+          "max": 10.9399
+        }
+      },
+      "edge_censored": {
+        "count": 10,
+        "area_px": {
+          "count": 10,
+          "mean": 2343.7,
+          "median": 2346.5,
+          "std": 1219.5632,
+          "iqr": 1916.25,
+          "min": 712.0,
+          "p10": 990.1,
+          "p25": 1284.5,
+          "p75": 3200.75,
+          "p90": 3631.2,
+          "max": 4524.0
+        },
+        "equivalent_diameter_km": {
+          "count": 10,
+          "mean": 5.2611,
+          "median": 5.4143,
+          "std": 1.4702,
+          "iqr": 2.3402,
+          "min": 3.0109,
+          "p10": 3.546,
+          "p25": 4.0433,
+          "p75": 6.3835,
+          "p90": 6.7944,
+          "max": 7.5896
+        },
+        "major_axis_km": {
+          "count": 10,
+          "mean": 19.4717,
+          "median": 17.6188,
+          "std": 8.8413,
+          "iqr": 12.0177,
+          "min": 6.438,
+          "p10": 11.4542,
+          "p25": 12.587,
+          "p75": 24.6047,
+          "p90": 31.6796,
+          "max": 35.7454
+        }
+      }
+    },
+    "POW": {
+      "class_id": 6,
+      "class_name": "POW",
+      "all": {
+        "count": 57,
+        "area_px": {
+          "count": 57,
+          "mean": 14916.3509,
+          "median": 9496.0,
+          "std": 14500.9117,
+          "iqr": 17366.0,
+          "min": 10.0,
+          "p10": 1879.6,
+          "p25": 4303.0,
+          "p75": 21669.0,
+          "p90": 36705.6,
+          "max": 57061.0
+        },
+        "equivalent_diameter_px": {
+          "count": 57,
+          "mean": 121.5744,
+          "median": 109.9576,
+          "std": 64.8979,
+          "iqr": 92.0833,
+          "min": 3.5682,
+          "p10": 48.6519,
+          "p25": 74.0186,
+          "p75": 166.1019,
+          "p90": 216.1635,
+          "max": 269.5409
+        },
+        "equivalent_diameter_km": {
+          "count": 57,
+          "mean": 12.1574,
+          "median": 10.9958,
+          "std": 6.4898,
+          "iqr": 9.2083,
+          "min": 0.3568,
+          "p10": 4.8652,
+          "p25": 7.4019,
+          "p75": 16.6102,
+          "p90": 21.6163,
+          "max": 26.9541
+        },
+        "bbox_width_km": {
+          "count": 57,
+          "mean": 13.3526,
+          "median": 11.1,
+          "std": 8.0221,
+          "iqr": 14.9,
+          "min": 0.5,
+          "p10": 4.84,
+          "p25": 6.9,
+          "p75": 21.8,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 57,
+          "mean": 17.5719,
+          "median": 21.1,
+          "std": 8.5879,
+          "iqr": 14.8,
+          "min": 0.3,
+          "p10": 4.82,
+          "p25": 10.8,
+          "p75": 25.6,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 57,
+          "mean": 22.7593,
+          "median": 25.2833,
+          "std": 9.8684,
+          "iqr": 14.9815,
+          "min": 0.541,
+          "p10": 8.7053,
+          "p25": 15.1255,
+          "p75": 30.107,
+          "p90": 31.7576,
+          "max": 45.4975
+        },
+        "aspect_ratio": {
+          "count": 57,
+          "mean": 3.7399,
+          "median": 2.4574,
+          "std": 2.9479,
+          "iqr": 3.1393,
+          "min": 1.0744,
+          "p10": 1.2902,
+          "p25": 1.7374,
+          "p75": 4.8767,
+          "p90": 7.9321,
+          "max": 14.9545
+        }
+      },
+      "uncensored": {
+        "count": 4,
+        "area_px": {
+          "count": 4,
+          "mean": 4436.5,
+          "median": 3802.5,
+          "std": 3858.4944,
+          "iqr": 6059.5,
+          "min": 273.0,
+          "p10": 599.7,
+          "p25": 1089.75,
+          "p75": 7149.25,
+          "p90": 8780.5,
+          "max": 9868.0
+        },
+        "equivalent_diameter_km": {
+          "count": 4,
+          "mean": 6.5383,
+          "median": 6.5399,
+          "std": 3.7064,
+          "iqr": 5.8997,
+          "min": 1.8644,
+          "p10": 2.5544,
+          "p25": 3.5893,
+          "p75": 9.489,
+          "p90": 10.521,
+          "max": 11.2091
+        },
+        "major_axis_km": {
+          "count": 4,
+          "mean": 11.8227,
+          "median": 10.3838,
+          "std": 7.8841,
+          "iqr": 9.3502,
+          "min": 2.6346,
+          "p10": 4.152,
+          "p25": 6.4282,
+          "p75": 15.7784,
+          "p90": 20.6446,
+          "max": 23.8887
+        }
+      },
+      "edge_censored": {
+        "count": 53,
+        "area_px": {
+          "count": 53,
+          "mean": 15707.283,
+          "median": 9762.0,
+          "std": 14700.623,
+          "iqr": 20630.0,
+          "min": 10.0,
+          "p10": 2596.8,
+          "p25": 5036.0,
+          "p75": 25666.0,
+          "p90": 37509.2,
+          "max": 57061.0
+        },
+        "equivalent_diameter_km": {
+          "count": 53,
+          "mean": 12.5815,
+          "median": 11.1487,
+          "std": 6.4573,
+          "iqr": 10.0698,
+          "min": 0.3568,
+          "p10": 5.7486,
+          "p25": 8.0075,
+          "p75": 18.0773,
+          "p90": 21.8524,
+          "max": 26.9541
+        },
+        "major_axis_km": {
+          "count": 53,
+          "mean": 23.5847,
+          "median": 27.8415,
+          "std": 9.5046,
+          "iqr": 14.3947,
+          "min": 0.541,
+          "p10": 9.9877,
+          "p25": 16.0234,
+          "p75": 30.4181,
+          "p90": 31.8259,
+          "max": 45.4975
+        }
+      }
+    },
+    "RF": {
+      "class_id": 7,
+      "class_name": "RF",
+      "all": {
+        "count": 21,
+        "area_px": {
+          "count": 21,
+          "mean": 2632.7619,
+          "median": 982.0,
+          "std": 2979.993,
+          "iqr": 3092.0,
+          "min": 220.0,
+          "p10": 280.0,
+          "p25": 571.0,
+          "p75": 3663.0,
+          "p90": 6748.0,
+          "max": 11109.0
+        },
+        "equivalent_diameter_px": {
+          "count": 21,
+          "mean": 49.2693,
+          "median": 35.3599,
+          "std": 30.4085,
+          "iqr": 41.3293,
+          "min": 16.7366,
+          "p10": 18.8814,
+          "p25": 26.9633,
+          "p75": 68.2926,
+          "p90": 92.6921,
+          "max": 118.9303
+        },
+        "equivalent_diameter_km": {
+          "count": 21,
+          "mean": 4.9269,
+          "median": 3.536,
+          "std": 3.0408,
+          "iqr": 4.133,
+          "min": 1.6737,
+          "p10": 1.8881,
+          "p25": 2.6963,
+          "p75": 6.8293,
+          "p90": 9.2692,
+          "max": 11.893
+        },
+        "bbox_width_km": {
+          "count": 21,
+          "mean": 5.3048,
+          "median": 4.4,
+          "std": 3.7139,
+          "iqr": 3.1,
+          "min": 1.7,
+          "p10": 2.0,
+          "p25": 3.0,
+          "p75": 6.1,
+          "p90": 9.0,
+          "max": 17.5
+        },
+        "bbox_height_km": {
+          "count": 21,
+          "mean": 6.1095,
+          "median": 3.6,
+          "std": 5.7187,
+          "iqr": 4.3,
+          "min": 1.8,
+          "p10": 2.0,
+          "p25": 2.5,
+          "p75": 6.8,
+          "p90": 10.1,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 21,
+          "mean": 7.1755,
+          "median": 4.922,
+          "std": 5.9573,
+          "iqr": 6.0766,
+          "min": 1.9182,
+          "p10": 2.1754,
+          "p25": 3.0869,
+          "p75": 9.1635,
+          "p90": 16.2039,
+          "max": 25.5654
+        },
+        "aspect_ratio": {
+          "count": 21,
+          "mean": 1.7953,
+          "median": 1.5411,
+          "std": 1.0778,
+          "iqr": 0.6186,
+          "min": 1.0103,
+          "p10": 1.1483,
+          "p25": 1.2518,
+          "p75": 1.8704,
+          "p90": 2.0972,
+          "max": 6.2854
+        }
+      },
+      "uncensored": {
+        "count": 10,
+        "area_px": {
+          "count": 10,
+          "mean": 2197.4,
+          "median": 653.5,
+          "std": 3439.402,
+          "iqr": 581.0,
+          "min": 220.0,
+          "p10": 262.3,
+          "p25": 372.5,
+          "p75": 953.5,
+          "p90": 6805.2,
+          "max": 11109.0
+        },
+        "equivalent_diameter_km": {
+          "count": 10,
+          "mean": 4.1715,
+          "median": 2.8828,
+          "std": 3.2522,
+          "iqr": 1.3335,
+          "min": 1.6737,
+          "p10": 1.8268,
+          "p25": 2.1496,
+          "p75": 3.4831,
+          "p90": 9.2672,
+          "max": 11.893
+        },
+        "major_axis_km": {
+          "count": 10,
+          "mean": 5.7839,
+          "median": 4.1334,
+          "std": 4.6123,
+          "iqr": 2.4239,
+          "min": 1.9182,
+          "p10": 2.1497,
+          "p25": 2.8994,
+          "p75": 5.3233,
+          "p90": 12.8622,
+          "max": 16.679
+        }
+      },
+      "edge_censored": {
+        "count": 11,
+        "area_px": {
+          "count": 11,
+          "mean": 3028.5455,
+          "median": 2420.0,
+          "std": 2422.8866,
+          "iqr": 3620.0,
+          "min": 280.0,
+          "p10": 350.0,
+          "p25": 995.0,
+          "p75": 4615.0,
+          "p90": 6748.0,
+          "max": 7261.0
+        },
+        "equivalent_diameter_km": {
+          "count": 11,
+          "mean": 5.6137,
+          "median": 5.5509,
+          "std": 2.6546,
+          "iqr": 4.1508,
+          "min": 1.8881,
+          "p10": 2.111,
+          "p25": 3.4735,
+          "p75": 7.6242,
+          "p90": 9.2692,
+          "max": 9.6151
+        },
+        "major_axis_km": {
+          "count": 11,
+          "mean": 8.4406,
+          "median": 6.3166,
+          "std": 6.712,
+          "iqr": 5.889,
+          "min": 1.9421,
+          "p10": 2.2554,
+          "p25": 4.0045,
+          "p75": 9.8935,
+          "p90": 16.2039,
+          "max": 25.5654
+        }
+      }
+    },
+    "WS": {
+      "class_id": 8,
+      "class_name": "WS",
+      "all": {
+        "count": 26,
+        "area_px": {
+          "count": 26,
+          "mean": 18606.1538,
+          "median": 13858.5,
+          "std": 15582.6325,
+          "iqr": 18759.25,
+          "min": 1.0,
+          "p10": 1700.5,
+          "p25": 7235.5,
+          "p75": 25994.75,
+          "p90": 40676.5,
+          "max": 60505.0
+        },
+        "equivalent_diameter_px": {
+          "count": 26,
+          "mean": 137.5826,
+          "median": 132.8328,
+          "std": 69.0008,
+          "iqr": 85.9716,
+          "min": 1.1284,
+          "p10": 45.8667,
+          "p25": 95.915,
+          "p75": 181.8866,
+          "p90": 227.0981,
+          "max": 277.556
+        },
+        "equivalent_diameter_km": {
+          "count": 26,
+          "mean": 13.7583,
+          "median": 13.2833,
+          "std": 6.9001,
+          "iqr": 8.5971,
+          "min": 0.1128,
+          "p10": 4.5867,
+          "p25": 9.5915,
+          "p75": 18.1887,
+          "p90": 22.7098,
+          "max": 27.7556
+        },
+        "bbox_width_km": {
+          "count": 26,
+          "mean": 16.4769,
+          "median": 18.3,
+          "std": 8.1312,
+          "iqr": 15.75,
+          "min": 0.1,
+          "p10": 5.45,
+          "p25": 9.675,
+          "p75": 25.425,
+          "p90": 25.55,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 26,
+          "mean": 17.6462,
+          "median": 18.8,
+          "std": 8.1887,
+          "iqr": 13.975,
+          "min": 0.1,
+          "p10": 6.05,
+          "p25": 11.525,
+          "p75": 25.5,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 26,
+          "mean": 22.6928,
+          "median": 27.5915,
+          "std": 10.2685,
+          "iqr": 13.476,
+          "min": 0.1,
+          "p10": 6.0676,
+          "p25": 16.9718,
+          "p75": 30.4477,
+          "p90": 33.0029,
+          "max": 33.6473
+        },
+        "aspect_ratio": {
+          "count": 26,
+          "mean": 2.6665,
+          "median": 1.8019,
+          "std": 2.1975,
+          "iqr": 1.2424,
+          "min": 1.0,
+          "p10": 1.2677,
+          "p25": 1.5082,
+          "p75": 2.7506,
+          "p90": 5.3528,
+          "max": 11.1984
+        }
+      },
+      "uncensored": {
+        "count": 2,
+        "area_px": {
+          "count": 2,
+          "mean": 9097.5,
+          "median": 9097.5,
+          "std": 2180.5,
+          "iqr": 2180.5,
+          "min": 6917.0,
+          "p10": 7353.1,
+          "p25": 8007.25,
+          "p75": 10187.75,
+          "p90": 10841.9,
+          "max": 11278.0
+        },
+        "equivalent_diameter_km": {
+          "count": 2,
+          "mean": 10.6839,
+          "median": 10.6839,
+          "std": 1.2993,
+          "iqr": 1.2993,
+          "min": 9.3846,
+          "p10": 9.6445,
+          "p25": 10.0343,
+          "p75": 11.3336,
+          "p90": 11.7233,
+          "max": 11.9832
+        },
+        "major_axis_km": {
+          "count": 2,
+          "mean": 26.5165,
+          "median": 26.5165,
+          "std": 7.1077,
+          "iqr": 7.1078,
+          "min": 19.4088,
+          "p10": 20.8303,
+          "p25": 22.9627,
+          "p75": 30.0704,
+          "p90": 32.2028,
+          "max": 33.6243
+        }
+      },
+      "edge_censored": {
+        "count": 24,
+        "area_px": {
+          "count": 24,
+          "mean": 19398.5417,
+          "median": 14919.5,
+          "std": 15952.8891,
+          "iqr": 19086.0,
+          "min": 1.0,
+          "p10": 1474.7,
+          "p25": 7795.5,
+          "p75": 26881.5,
+          "p90": 42780.3,
+          "max": 60505.0
+        },
+        "equivalent_diameter_km": {
+          "count": 24,
+          "mean": 14.0145,
+          "median": 13.7765,
+          "std": 7.1123,
+          "iqr": 8.5472,
+          "min": 0.1128,
+          "p10": 4.2733,
+          "p25": 9.9525,
+          "p75": 18.4998,
+          "p90": 23.2996,
+          "max": 27.7556
+        },
+        "major_axis_km": {
+          "count": 24,
+          "mean": 22.3741,
+          "median": 27.5915,
+          "std": 10.4258,
+          "iqr": 14.6823,
+          "min": 0.1,
+          "p10": 5.8983,
+          "p25": 15.4931,
+          "p75": 30.1754,
+          "p90": 32.4239,
+          "max": 33.6473
+        }
+      }
+    },
+    "Eddy": {
+      "class_id": 9,
+      "class_name": "Eddy",
+      "all": {
+        "count": 24,
+        "area_px": {
+          "count": 24,
+          "mean": 6586.2083,
+          "median": 3032.5,
+          "std": 6959.0135,
+          "iqr": 8776.25,
+          "min": 997.0,
+          "p10": 1598.3,
+          "p25": 2073.25,
+          "p75": 10849.5,
+          "p90": 14303.1,
+          "max": 27654.0
+        },
+        "equivalent_diameter_px": {
+          "count": 24,
+          "mean": 81.5939,
+          "median": 62.1375,
+          "std": 41.5723,
+          "iqr": 66.1614,
+          "min": 35.6289,
+          "p10": 45.1021,
+          "p25": 51.3705,
+          "p75": 117.5319,
+          "p90": 134.9187,
+          "max": 187.6437
+        },
+        "equivalent_diameter_km": {
+          "count": 24,
+          "mean": 8.1594,
+          "median": 6.2138,
+          "std": 4.1572,
+          "iqr": 6.6162,
+          "min": 3.5629,
+          "p10": 4.5102,
+          "p25": 5.137,
+          "p75": 11.7532,
+          "p90": 13.4919,
+          "max": 18.7644
+        },
+        "bbox_width_km": {
+          "count": 24,
+          "mean": 8.7917,
+          "median": 6.75,
+          "std": 4.8659,
+          "iqr": 7.075,
+          "min": 3.6,
+          "p10": 4.33,
+          "p25": 5.225,
+          "p75": 12.3,
+          "p90": 16.86,
+          "max": 19.4
+        },
+        "bbox_height_km": {
+          "count": 24,
+          "mean": 8.0917,
+          "median": 6.2,
+          "std": 3.9721,
+          "iqr": 4.575,
+          "min": 3.9,
+          "p10": 4.7,
+          "p25": 5.575,
+          "p75": 10.15,
+          "p90": 13.78,
+          "max": 18.7
+        },
+        "major_axis_km": {
+          "count": 24,
+          "mean": 9.3979,
+          "median": 7.0865,
+          "std": 4.8481,
+          "iqr": 7.6974,
+          "min": 3.9397,
+          "p10": 4.8552,
+          "p25": 5.7873,
+          "p75": 13.4847,
+          "p90": 17.1101,
+          "max": 19.5503
+        },
+        "aspect_ratio": {
+          "count": 24,
+          "mean": 1.3005,
+          "median": 1.2225,
+          "std": 0.2383,
+          "iqr": 0.1762,
+          "min": 1.0352,
+          "p10": 1.0792,
+          "p25": 1.1641,
+          "p75": 1.3404,
+          "p90": 1.5706,
+          "max": 2.0672
+        }
+      },
+      "uncensored": {
+        "count": 19,
+        "area_px": {
+          "count": 19,
+          "mean": 6071.7895,
+          "median": 3001.0,
+          "std": 7292.8492,
+          "iqr": 3054.0,
+          "min": 997.0,
+          "p10": 1521.4,
+          "p25": 2016.5,
+          "p75": 5070.5,
+          "p90": 15242.4,
+          "max": 27654.0
+        },
+        "equivalent_diameter_km": {
+          "count": 19,
+          "mean": 7.7195,
+          "median": 6.1814,
+          "std": 4.2093,
+          "iqr": 2.9596,
+          "min": 3.5629,
+          "p10": 4.4001,
+          "p25": 5.0655,
+          "p75": 8.0252,
+          "p90": 13.8416,
+          "max": 18.7644
+        },
+        "major_axis_km": {
+          "count": 19,
+          "mean": 8.808,
+          "median": 6.5127,
+          "std": 4.8831,
+          "iqr": 4.3493,
+          "min": 3.9397,
+          "p10": 4.6597,
+          "p25": 5.7581,
+          "p75": 10.1074,
+          "p90": 18.1869,
+          "max": 19.5503
+        }
+      },
+      "edge_censored": {
+        "count": 5,
+        "area_px": {
+          "count": 5,
+          "mean": 8541.0,
+          "median": 10793.0,
+          "std": 5051.8817,
+          "iqr": 8891.0,
+          "min": 1948.0,
+          "p10": 2444.0,
+          "p25": 3188.0,
+          "p75": 12079.0,
+          "p90": 13649.8,
+          "max": 14697.0
+        },
+        "equivalent_diameter_km": {
+          "count": 5,
+          "mean": 9.831,
+          "median": 11.7227,
+          "std": 3.4784,
+          "iqr": 6.0303,
+          "min": 4.9802,
+          "p10": 5.5366,
+          "p25": 6.3711,
+          "p75": 12.4014,
+          "p90": 13.1683,
+          "max": 13.6795
+        },
+        "major_axis_km": {
+          "count": 5,
+          "mean": 11.6395,
+          "median": 14.4645,
+          "std": 3.9829,
+          "iqr": 5.9602,
+          "min": 5.2571,
+          "p10": 6.6129,
+          "p25": 8.6466,
+          "p75": 14.6068,
+          "p90": 14.9762,
+          "max": 15.2225
+        }
+      }
+    },
+    "IWs": {
+      "class_id": 10,
+      "class_name": "IWs",
+      "all": {
+        "count": 299,
+        "area_px": {
+          "count": 299,
+          "mean": 10834.107,
+          "median": 5065.0,
+          "std": 16411.5859,
+          "iqr": 5563.5,
+          "min": 122.0,
+          "p10": 1176.0,
+          "p25": 2905.0,
+          "p75": 8468.5,
+          "p90": 32260.4,
+          "max": 65536.0
+        },
+        "equivalent_diameter_px": {
+          "count": 299,
+          "mean": 97.4645,
+          "median": 80.3054,
+          "std": 65.5369,
+          "iqr": 43.0213,
+          "min": 12.4634,
+          "p10": 38.6942,
+          "p25": 60.8171,
+          "p75": 103.8384,
+          "p90": 202.6583,
+          "max": 288.8651
+        },
+        "equivalent_diameter_km": {
+          "count": 299,
+          "mean": 9.7465,
+          "median": 8.0305,
+          "std": 6.5537,
+          "iqr": 4.3021,
+          "min": 1.2463,
+          "p10": 3.8694,
+          "p25": 6.0817,
+          "p75": 10.3838,
+          "p90": 20.2658,
+          "max": 28.8865
+        },
+        "bbox_width_km": {
+          "count": 299,
+          "mean": 12.8806,
+          "median": 12.0,
+          "std": 7.768,
+          "iqr": 12.3,
+          "min": 0.9,
+          "p10": 3.28,
+          "p25": 6.2,
+          "p75": 18.5,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "bbox_height_km": {
+          "count": 299,
+          "mean": 18.7886,
+          "median": 21.7,
+          "std": 7.4871,
+          "iqr": 13.2,
+          "min": 1.7,
+          "p10": 7.6,
+          "p25": 12.4,
+          "p75": 25.6,
+          "p90": 25.6,
+          "max": 25.6
+        },
+        "major_axis_km": {
+          "count": 299,
+          "mean": 23.9523,
+          "median": 28.1433,
+          "std": 9.5038,
+          "iqr": 13.1584,
+          "min": 1.9261,
+          "p10": 8.6009,
+          "p25": 17.1238,
+          "p75": 30.2822,
+          "p90": 33.2807,
+          "max": 41.4294
+        },
+        "aspect_ratio": {
+          "count": 299,
+          "mean": 7.6305,
+          "median": 7.1258,
+          "std": 4.996,
+          "iqr": 8.0001,
+          "min": 1.0,
+          "p10": 1.4468,
+          "p25": 3.0713,
+          "p75": 11.0714,
+          "p90": 14.2451,
+          "max": 22.5949
+        }
+      },
+      "uncensored": {
+        "count": 5,
+        "area_px": {
+          "count": 5,
+          "mean": 925.8,
+          "median": 732.0,
+          "std": 430.6337,
+          "iqr": 429.0,
+          "min": 399.0,
+          "p10": 523.8,
+          "p25": 711.0,
+          "p75": 1140.0,
+          "p90": 1444.2,
+          "max": 1647.0
+        },
+        "equivalent_diameter_km": {
+          "count": 5,
+          "mean": 3.3409,
+          "median": 3.0529,
+          "std": 0.791,
+          "iqr": 0.801,
+          "min": 2.2539,
+          "p10": 2.5559,
+          "p25": 3.0088,
+          "p75": 3.8098,
+          "p90": 4.2715,
+          "max": 4.5793
+        },
+        "major_axis_km": {
+          "count": 5,
+          "mean": 10.2211,
+          "median": 9.0535,
+          "std": 4.815,
+          "iqr": 7.1662,
+          "min": 3.939,
+          "p10": 5.1039,
+          "p25": 6.8512,
+          "p75": 14.0174,
+          "p90": 15.9536,
+          "max": 17.2444
+        }
+      },
+      "edge_censored": {
+        "count": 294,
+        "area_px": {
+          "count": 294,
+          "mean": 11002.6156,
+          "median": 5108.0,
+          "std": 16499.0782,
+          "iqr": 5476.75,
+          "min": 122.0,
+          "p10": 1515.5,
+          "p25": 3037.25,
+          "p75": 8514.0,
+          "p90": 33143.9,
+          "max": 65536.0
+        },
+        "equivalent_diameter_km": {
+          "count": 294,
+          "mean": 9.8554,
+          "median": 8.0645,
+          "std": 6.5545,
+          "iqr": 4.1931,
+          "min": 1.2463,
+          "p10": 4.3926,
+          "p25": 6.2186,
+          "p75": 10.4117,
+          "p90": 20.5411,
+          "max": 28.8865
+        },
+        "major_axis_km": {
+          "count": 294,
+          "mean": 24.1858,
+          "median": 28.241,
+          "std": 9.3916,
+          "iqr": 12.6044,
+          "min": 1.9261,
+          "p10": 9.0152,
+          "p25": 17.7149,
+          "p75": 30.3193,
+          "p90": 33.3624,
+          "max": 41.4294
+        }
+      }
+    },
+    "HM": {
+      "class_id": 11,
+      "class_name": "HM",
+      "all": {
+        "count": 23,
+        "area_px": {
+          "count": 23,
+          "mean": 57.3043,
+          "median": 52.0,
+          "std": 32.9049,
+          "iqr": 30.0,
+          "min": 20.0,
+          "p10": 24.2,
+          "p25": 32.5,
+          "p75": 62.5,
+          "p90": 114.2,
+          "max": 134.0
+        },
+        "equivalent_diameter_px": {
+          "count": 23,
+          "mean": 8.2265,
+          "median": 8.1369,
+          "std": 2.2992,
+          "iqr": 2.4878,
+          "min": 5.0463,
+          "p10": 5.5507,
+          "p25": 6.431,
+          "p75": 8.9188,
+          "p90": 12.0347,
+          "max": 13.0619
+        },
+        "equivalent_diameter_km": {
+          "count": 23,
+          "mean": 0.8227,
+          "median": 0.8137,
+          "std": 0.2299,
+          "iqr": 0.2487,
+          "min": 0.5046,
+          "p10": 0.5551,
+          "p25": 0.6431,
+          "p75": 0.8919,
+          "p90": 1.2035,
+          "max": 1.3062
+        },
+        "bbox_width_km": {
+          "count": 23,
+          "mean": 0.8609,
+          "median": 0.8,
+          "std": 0.3584,
+          "iqr": 0.3,
+          "min": 0.4,
+          "p10": 0.5,
+          "p25": 0.65,
+          "p75": 0.95,
+          "p90": 1.42,
+          "max": 1.8
+        },
+        "bbox_height_km": {
+          "count": 23,
+          "mean": 1.013,
+          "median": 1.0,
+          "std": 0.2455,
+          "iqr": 0.35,
+          "min": 0.6,
+          "p10": 0.7,
+          "p25": 0.85,
+          "p75": 1.2,
+          "p90": 1.38,
+          "max": 1.4
+        },
+        "major_axis_km": {
+          "count": 23,
+          "mean": 1.0397,
+          "median": 1.0144,
+          "std": 0.2896,
+          "iqr": 0.2779,
+          "min": 0.5653,
+          "p10": 0.7213,
+          "p25": 0.8622,
+          "p75": 1.1401,
+          "p90": 1.4596,
+          "max": 1.8254
+        },
+        "aspect_ratio": {
+          "count": 23,
+          "mean": 1.5202,
+          "median": 1.4582,
+          "std": 0.2691,
+          "iqr": 0.464,
+          "min": 1.0942,
+          "p10": 1.2228,
+          "p25": 1.2839,
+          "p75": 1.7479,
+          "p90": 1.8115,
+          "max": 2.2175
+        }
+      },
+      "uncensored": {
+        "count": 20,
+        "area_px": {
+          "count": 20,
+          "mean": 56.55,
+          "median": 52.0,
+          "std": 33.579,
+          "iqr": 25.25,
+          "min": 20.0,
+          "p10": 24.7,
+          "p25": 33.25,
+          "p75": 58.5,
+          "p90": 122.3,
+          "max": 134.0
+        },
+        "equivalent_diameter_km": {
+          "count": 20,
+          "mean": 0.8166,
+          "median": 0.8137,
+          "std": 0.2306,
+          "iqr": 0.2124,
+          "min": 0.5046,
+          "p10": 0.5607,
+          "p25": 0.6506,
+          "p75": 0.863,
+          "p90": 1.2477,
+          "max": 1.3062
+        },
+        "major_axis_km": {
+          "count": 20,
+          "mean": 1.0244,
+          "median": 0.9975,
+          "std": 0.2923,
+          "iqr": 0.225,
+          "min": 0.5653,
+          "p10": 0.7077,
+          "p25": 0.8621,
+          "p75": 1.0871,
+          "p90": 1.467,
+          "max": 1.8254
+        }
+      },
+      "edge_censored": {
+        "count": 3,
+        "area_px": {
+          "count": 3,
+          "mean": 62.3333,
+          "median": 76.0,
+          "std": 27.4752,
+          "iqr": 31.5,
+          "min": 24.0,
+          "p10": 34.4,
+          "p25": 50.0,
+          "p75": 81.5,
+          "p90": 84.8,
+          "max": 87.0
+        },
+        "equivalent_diameter_km": {
+          "count": 3,
+          "mean": 0.863,
+          "median": 0.9837,
+          "std": 0.2211,
+          "iqr": 0.2499,
+          "min": 0.5528,
+          "p10": 0.639,
+          "p25": 0.7682,
+          "p75": 1.0181,
+          "p90": 1.0387,
+          "max": 1.0525
+        },
+        "major_axis_km": {
+          "count": 3,
+          "mean": 1.1421,
+          "median": 1.1288,
+          "std": 0.2475,
+          "iqr": 0.3029,
+          "min": 0.8459,
+          "p10": 0.9025,
+          "p25": 0.9873,
+          "p75": 1.2902,
+          "p90": 1.3871,
+          "max": 1.4517
+        }
+      }
+    }
+  },
+  "edge_censoring": {
+    "BG": {
+      "total_components": 363,
+      "uncensored_components": 104,
+      "edge_censored_components": 259,
+      "edge_censored_ratio": 0.7135,
+      "touches_top_count": 141,
+      "touches_bottom_count": 178,
+      "touches_left_count": 152,
+      "touches_right_count": 110,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "AF": {
+      "total_components": 24,
+      "uncensored_components": 1,
+      "edge_censored_components": 23,
+      "edge_censored_ratio": 0.9583,
+      "touches_top_count": 7,
+      "touches_bottom_count": 13,
+      "touches_left_count": 12,
+      "touches_right_count": 12,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "BS": {
+      "total_components": 42,
+      "uncensored_components": 7,
+      "edge_censored_components": 35,
+      "edge_censored_ratio": 0.8333,
+      "touches_top_count": 20,
+      "touches_bottom_count": 16,
+      "touches_left_count": 19,
+      "touches_right_count": 23,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "LWA": {
+      "total_components": 65,
+      "uncensored_components": 3,
+      "edge_censored_components": 62,
+      "edge_censored_ratio": 0.9538,
+      "touches_top_count": 30,
+      "touches_bottom_count": 33,
+      "touches_left_count": 27,
+      "touches_right_count": 21,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "MCC": {
+      "total_components": 117,
+      "uncensored_components": 8,
+      "edge_censored_components": 109,
+      "edge_censored_ratio": 0.9316,
+      "touches_top_count": 72,
+      "touches_bottom_count": 58,
+      "touches_left_count": 41,
+      "touches_right_count": 56,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "OF": {
+      "total_components": 11,
+      "uncensored_components": 1,
+      "edge_censored_components": 10,
+      "edge_censored_ratio": 0.9091,
+      "touches_top_count": 5,
+      "touches_bottom_count": 3,
+      "touches_left_count": 5,
+      "touches_right_count": 3,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "POW": {
+      "total_components": 57,
+      "uncensored_components": 4,
+      "edge_censored_components": 53,
+      "edge_censored_ratio": 0.9298,
+      "touches_top_count": 41,
+      "touches_bottom_count": 34,
+      "touches_left_count": 23,
+      "touches_right_count": 27,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "RF": {
+      "total_components": 21,
+      "uncensored_components": 10,
+      "edge_censored_components": 11,
+      "edge_censored_ratio": 0.5238,
+      "touches_top_count": 2,
+      "touches_bottom_count": 5,
+      "touches_left_count": 4,
+      "touches_right_count": 6,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "WS": {
+      "total_components": 26,
+      "uncensored_components": 2,
+      "edge_censored_components": 24,
+      "edge_censored_ratio": 0.9231,
+      "touches_top_count": 13,
+      "touches_bottom_count": 15,
+      "touches_left_count": 10,
+      "touches_right_count": 13,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "Eddy": {
+      "total_components": 24,
+      "uncensored_components": 19,
+      "edge_censored_components": 5,
+      "edge_censored_ratio": 0.2083,
+      "touches_top_count": 2,
+      "touches_bottom_count": 2,
+      "touches_left_count": 0,
+      "touches_right_count": 2,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "IWs": {
+      "total_components": 299,
+      "uncensored_components": 5,
+      "edge_censored_components": 294,
+      "edge_censored_ratio": 0.9833,
+      "touches_top_count": 186,
+      "touches_bottom_count": 200,
+      "touches_left_count": 137,
+      "touches_right_count": 109,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    },
+    "HM": {
+      "total_components": 23,
+      "uncensored_components": 20,
+      "edge_censored_components": 3,
+      "edge_censored_ratio": 0.1304,
+      "touches_top_count": 0,
+      "touches_bottom_count": 1,
+      "touches_left_count": 2,
+      "touches_right_count": 0,
+      "censorship_interpretation": "EDGE_CENSORED_OBSERVATION: Observed annotation reaches crop boundary. Does NOT prove physical truncation."
+    }
+  },
+  "train_dev_summary": {
+    "TRAIN": {
+      "BG": {
+        "total_components": 263,
+        "area_px": {
+          "count": 263,
+          "mean": 9314.6578,
+          "median": 3882.0,
+          "std": 12698.6518,
+          "iqr": 14571.5,
+          "min": 1.0,
+          "p10": 1.0,
+          "p25": 6.5,
+          "p75": 14578.0,
+          "p90": 26155.0,
+          "max": 64163.0
+        },
+        "equivalent_diameter_km": {
+          "count": 263,
+          "mean": 7.8621,
+          "median": 7.0304,
+          "std": 7.5356,
+          "iqr": 13.3348,
+          "min": 0.1128,
+          "p10": 0.1128,
+          "p25": 0.2874,
+          "p75": 13.6223,
+          "p90": 18.2485,
+          "max": 28.5823
+        },
+        "edge_censored_ratio": 0.73
+      },
+      "AF": {
+        "total_components": 18,
+        "area_px": {
+          "count": 18,
+          "mean": 3697.8333,
+          "median": 3088.5,
+          "std": 2306.7516,
+          "iqr": 2772.25,
+          "min": 992.0,
+          "p10": 1681.3,
+          "p25": 1995.75,
+          "p75": 4768.0,
+          "p90": 6358.5,
+          "max": 10051.0
+        },
+        "equivalent_diameter_km": {
+          "count": 18,
+          "mean": 6.5677,
+          "median": 6.2708,
+          "std": 1.9867,
+          "iqr": 2.7367,
+          "min": 3.5539,
+          "p10": 4.6133,
+          "p25": 5.039,
+          "p75": 7.7757,
+          "p90": 8.9735,
+          "max": 11.3125
+        },
+        "edge_censored_ratio": 0.9444
+      },
+      "BS": {
+        "total_components": 37,
+        "area_px": {
+          "count": 37,
+          "mean": 14055.6216,
+          "median": 4784.0,
+          "std": 16981.4253,
+          "iqr": 22544.0,
+          "min": 2.0,
+          "p10": 465.0,
+          "p25": 2362.0,
+          "p75": 24906.0,
+          "p90": 38572.4,
+          "max": 59979.0
+        },
+        "equivalent_diameter_km": {
+          "count": 37,
+          "mean": 10.8582,
+          "median": 7.8046,
+          "std": 7.8142,
+          "iqr": 12.3237,
+          "min": 0.1596,
+          "p10": 2.4331,
+          "p25": 5.484,
+          "p75": 17.8077,
+          "p90": 22.1553,
+          "max": 27.6347
+        },
+        "edge_censored_ratio": 0.8108
+      },
+      "LWA": {
+        "total_components": 57,
+        "area_px": {
+          "count": 57,
+          "mean": 7836.807,
+          "median": 4016.0,
+          "std": 11354.5329,
+          "iqr": 6892.0,
+          "min": 1.0,
+          "p10": 385.4,
+          "p25": 1305.0,
+          "p75": 8197.0,
+          "p90": 15933.0,
+          "max": 53101.0
+        },
+        "equivalent_diameter_km": {
+          "count": 57,
+          "mean": 8.1016,
+          "median": 7.1508,
+          "std": 5.8435,
+          "iqr": 6.1398,
+          "min": 0.1128,
+          "p10": 2.2152,
+          "p25": 4.0762,
+          "p75": 10.216,
+          "p90": 14.2382,
+          "max": 26.002
+        },
+        "edge_censored_ratio": 0.9474
+      },
+      "MCC": {
+        "total_components": 68,
+        "area_px": {
+          "count": 68,
+          "mean": 13990.5,
+          "median": 5083.5,
+          "std": 16648.4771,
+          "iqr": 21900.75,
+          "min": 1.0,
+          "p10": 8.9,
+          "p25": 511.25,
+          "p75": 22412.0,
+          "p90": 39697.9,
+          "max": 65536.0
+        },
+        "equivalent_diameter_km": {
+          "count": 68,
+          "mean": 10.4383,
+          "median": 8.0443,
+          "std": 8.3171,
+          "iqr": 14.3507,
+          "min": 0.1128,
+          "p10": 0.3296,
+          "p25": 2.5412,
+          "p75": 16.8918,
+          "p90": 22.4786,
+          "max": 28.8865
+        },
+        "edge_censored_ratio": 0.8824
+      },
+      "OF": {
+        "total_components": 10,
+        "area_px": {
+          "count": 10,
+          "mean": 2253.6,
+          "median": 2178.5,
+          "std": 1294.1288,
+          "iqr": 2121.25,
+          "min": 712.0,
+          "p10": 798.4,
+          "p25": 1079.5,
+          "p75": 3200.75,
+          "p90": 3631.2,
+          "max": 4524.0
+        },
+        "equivalent_diameter_km": {
+          "count": 10,
+          "mean": 5.1154,
+          "median": 5.1725,
+          "std": 1.5894,
+          "iqr": 2.68,
+          "min": 3.0109,
+          "p10": 3.1878,
+          "p25": 3.7035,
+          "p75": 6.3835,
+          "p90": 6.7944,
+          "max": 7.5896
+        },
+        "edge_censored_ratio": 0.9
+      },
+      "POW": {
+        "total_components": 50,
+        "area_px": {
+          "count": 50,
+          "mean": 15436.34,
+          "median": 9629.0,
+          "std": 14819.2533,
+          "iqr": 20180.5,
+          "min": 10.0,
+          "p10": 2113.9,
+          "p25": 4486.25,
+          "p75": 24666.75,
+          "p90": 36289.3,
+          "max": 57061.0
+        },
+        "equivalent_diameter_km": {
+          "count": 50,
+          "mean": 12.3518,
+          "median": 11.0723,
+          "std": 6.6313,
+          "iqr": 10.1572,
+          "min": 0.3568,
+          "p10": 5.1785,
+          "p25": 7.5533,
+          "p75": 17.7105,
+          "p90": 21.4927,
+          "max": 26.9541
+        },
+        "edge_censored_ratio": 0.98
+      },
+      "RF": {
+        "total_components": 17,
+        "area_px": {
+          "count": 17,
+          "mean": 2690.4706,
+          "median": 1419.0,
+          "std": 3014.1452,
+          "iqr": 3313.0,
+          "min": 220.0,
+          "p10": 274.8,
+          "p25": 350.0,
+          "p75": 3663.0,
+          "p90": 6495.4,
+          "max": 11109.0
+        },
+        "equivalent_diameter_km": {
+          "count": 17,
+          "mean": 4.9735,
+          "median": 4.2506,
+          "std": 3.0856,
+          "iqr": 4.7183,
+          "min": 1.6737,
+          "p10": 1.8704,
+          "p25": 2.111,
+          "p75": 6.8293,
+          "p90": 9.0929,
+          "max": 11.893
+        },
+        "edge_censored_ratio": 0.5882
+      },
+      "WS": {
+        "total_components": 14,
+        "area_px": {
+          "count": 14,
+          "mean": 25194.5,
+          "median": 23081.5,
+          "std": 17424.6718,
+          "iqr": 21395.75,
+          "min": 1.0,
+          "p10": 4042.8,
+          "p25": 13774.25,
+          "p75": 35170.0,
+          "p90": 47819.7,
+          "max": 60505.0
+        },
+        "equivalent_diameter_km": {
+          "count": 14,
+          "mean": 16.314,
+          "median": 17.0922,
+          "std": 7.3918,
+          "iqr": 7.9179,
+          "min": 0.1128,
+          "p10": 6.8228,
+          "p25": 13.2429,
+          "p75": 21.1608,
+          "p90": 24.673,
+          "max": 27.7556
+        },
+        "edge_censored_ratio": 1.0
+      },
+      "Eddy": {
+        "total_components": 19,
+        "area_px": {
+          "count": 19,
+          "mean": 5934.0526,
+          "median": 3001.0,
+          "std": 6609.7352,
+          "iqr": 5666.0,
+          "min": 997.0,
+          "p10": 1521.4,
+          "p25": 2016.5,
+          "p75": 7682.5,
+          "p90": 13646.6,
+          "max": 27654.0
+        },
+        "equivalent_diameter_km": {
+          "count": 19,
+          "mean": 7.7263,
+          "median": 6.1814,
+          "std": 3.9823,
+          "iqr": 4.6107,
+          "min": 3.5629,
+          "p10": 4.4001,
+          "p25": 5.0655,
+          "p75": 9.6762,
+          "p90": 13.1792,
+          "max": 18.7644
+        },
+        "edge_censored_ratio": 0.1579
+      },
+      "IWs": {
+        "total_components": 225,
+        "area_px": {
+          "count": 225,
+          "mean": 11821.6533,
+          "median": 5023.0,
+          "std": 17620.2544,
+          "iqr": 6598.0,
+          "min": 122.0,
+          "p10": 1125.6,
+          "p25": 2652.0,
+          "p75": 9250.0,
+          "p90": 36873.6,
+          "max": 65536.0
+        },
+        "equivalent_diameter_km": {
+          "count": 225,
+          "mean": 10.0459,
+          "median": 7.9972,
+          "std": 7.0426,
+          "iqr": 5.0415,
+          "min": 1.2463,
+          "p10": 3.7856,
+          "p25": 5.8109,
+          "p75": 10.8524,
+          "p90": 21.6654,
+          "max": 28.8865
+        },
+        "edge_censored_ratio": 0.9778
+      },
+      "HM": {
+        "total_components": 20,
+        "area_px": {
+          "count": 20,
+          "mean": 60.05,
+          "median": 54.0,
+          "std": 34.033,
+          "iqr": 32.25,
+          "min": 20.0,
+          "p10": 23.8,
+          "p25": 35.5,
+          "p75": 67.75,
+          "p90": 122.3,
+          "max": 134.0
+        },
+        "equivalent_diameter_km": {
+          "count": 20,
+          "mean": 0.842,
+          "median": 0.8291,
+          "std": 0.2359,
+          "iqr": 0.2563,
+          "min": 0.5046,
+          "p10": 0.5504,
+          "p25": 0.6719,
+          "p75": 0.9282,
+          "p90": 1.2477,
+          "max": 1.3062
+        },
+        "edge_censored_ratio": 0.15
+      }
+    },
+    "DEV": {
+      "BG": {
+        "total_components": 100,
+        "area_px": {
+          "count": 100,
+          "mean": 6438.05,
+          "median": 110.5,
+          "std": 12543.813,
+          "iqr": 6746.0,
+          "min": 1.0,
+          "p10": 1.0,
+          "p25": 2.75,
+          "p75": 6748.75,
+          "p90": 25933.8,
+          "max": 58969.0
+        },
+        "equivalent_diameter_km": {
+          "count": 100,
+          "mean": 5.2853,
+          "median": 1.1861,
+          "std": 7.351,
+          "iqr": 9.0832,
+          "min": 0.1128,
+          "p10": 0.1128,
+          "p25": 0.1865,
+          "p75": 9.2697,
+          "p90": 18.1696,
+          "max": 27.401
+        },
+        "edge_censored_ratio": 0.67
+      },
+      "AF": {
+        "total_components": 6,
+        "area_px": {
+          "count": 6,
+          "mean": 6564.1667,
+          "median": 5333.5,
+          "std": 3310.9399,
+          "iqr": 2112.5,
+          "min": 2752.0,
+          "p10": 3880.5,
+          "p25": 5054.25,
+          "p75": 7166.75,
+          "p90": 10478.5,
+          "max": 13227.0
+        },
+        "equivalent_diameter_km": {
+          "count": 6,
+          "mean": 8.8805,
+          "median": 8.2399,
+          "std": 2.171,
+          "iqr": 1.5066,
+          "min": 5.9194,
+          "p10": 6.9527,
+          "p25": 8.0217,
+          "p75": 9.5283,
+          "p90": 11.449,
+          "max": 12.9773
+        },
+        "edge_censored_ratio": 1.0
+      },
+      "BS": {
+        "total_components": 5,
+        "area_px": {
+          "count": 5,
+          "mean": 24754.2,
+          "median": 27578.0,
+          "std": 16597.4952,
+          "iqr": 14001.0,
+          "min": 489.0,
+          "p10": 6496.6,
+          "p25": 15508.0,
+          "p75": 29509.0,
+          "p90": 42215.8,
+          "max": 50687.0
+        },
+        "equivalent_diameter_km": {
+          "count": 5,
+          "mean": 16.0146,
+          "median": 18.7386,
+          "std": 7.6624,
+          "iqr": 5.3317,
+          "min": 2.4952,
+          "p10": 7.1178,
+          "p25": 14.0518,
+          "p75": 19.3835,
+          "p90": 22.9959,
+          "max": 25.4041
+        },
+        "edge_censored_ratio": 1.0
+      },
+      "LWA": {
+        "total_components": 8,
+        "area_px": {
+          "count": 8,
+          "mean": 7320.875,
+          "median": 7496.5,
+          "std": 2089.4577,
+          "iqr": 2633.75,
+          "min": 4128.0,
+          "p10": 4302.3,
+          "p25": 6186.75,
+          "p75": 8820.5,
+          "p90": 9479.0,
+          "max": 10487.0
+        },
+        "equivalent_diameter_km": {
+          "count": 8,
+          "mean": 9.5472,
+          "median": 9.7622,
+          "std": 1.4365,
+          "iqr": 1.7574,
+          "min": 7.2498,
+          "p10": 7.4006,
+          "p25": 8.8398,
+          "p75": 10.5972,
+          "p90": 10.9795,
+          "max": 11.5553
+        },
+        "edge_censored_ratio": 1.0
+      },
+      "MCC": {
+        "total_components": 49,
+        "area_px": {
+          "count": 49,
+          "mean": 17414.5918,
+          "median": 9899.0,
+          "std": 17714.2229,
+          "iqr": 17784.0,
+          "min": 8.0,
+          "p10": 756.8,
+          "p25": 3992.0,
+          "p75": 21776.0,
+          "p90": 50922.4,
+          "max": 58407.0
+        },
+        "equivalent_diameter_km": {
+          "count": 49,
+          "mean": 12.8083,
+          "median": 11.2267,
+          "std": 7.5945,
+          "iqr": 9.5217,
+          "min": 0.3192,
+          "p10": 3.0528,
+          "p25": 7.1294,
+          "p75": 16.6511,
+          "p90": 25.463,
+          "max": 27.2701
+        },
+        "edge_censored_ratio": 1.0
+      },
+      "OF": {
+        "total_components": 1,
+        "area_px": {
+          "count": 1,
+          "mean": 1709.0,
+          "median": 1709.0,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 1709.0,
+          "p10": 1709.0,
+          "p25": 1709.0,
+          "p75": 1709.0,
+          "p90": 1709.0,
+          "max": 1709.0
+        },
+        "equivalent_diameter_km": {
+          "count": 1,
+          "mean": 4.6647,
+          "median": 4.6647,
+          "std": 0.0,
+          "iqr": 0.0,
+          "min": 4.6647,
+          "p10": 4.6647,
+          "p25": 4.6647,
+          "p75": 4.6647,
+          "p90": 4.6647,
+          "max": 4.6647
+        },
+        "edge_censored_ratio": 1.0
+      },
+      "POW": {
+        "total_components": 7,
+        "area_px": {
+          "count": 7,
+          "mean": 11202.1429,
+          "median": 9280.0,
+          "std": 11308.3847,
+          "iqr": 4767.0,
+          "min": 1362.0,
+          "p10": 2897.4,
+          "p25": 5082.0,
+          "p75": 9849.0,
+          "p90": 21085.2,
+          "max": 37911.0
+        },
+        "equivalent_diameter_km": {
+          "count": 7,
+          "mean": 10.7689,
+          "median": 10.87,
+          "std": 5.1634,
+          "iqr": 3.2077,
+          "min": 4.1643,
+          "p10": 5.9051,
+          "p25": 7.9906,
+          "p75": 11.1983,
+          "p90": 15.5136,
+          "max": 21.9704
+        },
+        "edge_censored_ratio": 0.5714
+      },
+      "RF": {
+        "total_components": 4,
+        "area_px": {
+          "count": 4,
+          "mean": 2387.5,
+          "median": 840.5,
+          "std": 2817.0945,
+          "iqr": 1875.5,
+          "min": 608.0,
+          "p10": 635.3,
+          "p25": 676.25,
+          "p75": 2551.75,
+          "p90": 5377.3,
+          "max": 7261.0
+        },
+        "equivalent_diameter_km": {
+          "count": 4,
+          "mean": 4.7292,
+          "median": 3.2596,
+          "std": 2.8344,
+          "iqr": 2.1227,
+          "min": 2.7823,
+          "p10": 2.8426,
+          "p25": 2.933,
+          "p75": 5.0558,
+          "p90": 7.7914,
+          "max": 9.6151
+        },
+        "edge_censored_ratio": 0.25
+      },
+      "WS": {
+        "total_components": 12,
+        "area_px": {
+          "count": 12,
+          "mean": 10919.75,
+          "median": 9804.5,
+          "std": 7884.3348,
+          "iqr": 8848.25,
+          "min": 272.0,
+          "p10": 1384.8,
+          "p25": 5862.75,
+          "p75": 14711.0,
+          "p90": 23522.9,
+          "max": 24113.0
+        },
+        "equivalent_diameter_km": {
+          "count": 12,
+          "mean": 10.7766,
+          "median": 11.1723,
+          "std": 4.7855,
+          "iqr": 5.0118,
+          "min": 1.861,
+          "p10": 4.1022,
+          "p25": 8.5781,
+          "p75": 13.5899,
+          "p90": 17.3035,
+          "max": 17.5219
+        },
+        "edge_censored_ratio": 0.8333
+      },
+      "Eddy": {
+        "total_components": 5,
+        "area_px": {
+          "count": 5,
+          "mean": 9064.4,
+          "median": 5569.0,
+          "std": 7660.2538,
+          "iqr": 9029.0,
+          "min": 1948.0,
+          "p10": 2388.8,
+          "p25": 3050.0,
+          "p75": 12079.0,
+          "p90": 18437.2,
+          "max": 22676.0
+        },
+        "equivalent_diameter_km": {
+          "count": 5,
+          "mean": 9.8051,
+          "median": 8.4206,
+          "std": 4.3899,
+          "iqr": 6.1697,
+          "min": 4.9802,
+          "p10": 5.4808,
+          "p25": 6.2317,
+          "p75": 12.4014,
+          "p90": 15.1556,
+          "max": 16.9918
+        },
+        "edge_censored_ratio": 0.4
+      },
+      "IWs": {
+        "total_components": 74,
+        "area_px": {
+          "count": 74,
+          "mean": 7831.4324,
+          "median": 5340.5,
+          "std": 11501.8089,
+          "iqr": 3995.25,
+          "min": 490.0,
+          "p10": 2455.0,
+          "p25": 3318.5,
+          "p75": 7313.75,
+          "p90": 10029.5,
+          "max": 65280.0
+        },
+        "equivalent_diameter_km": {
+          "count": 74,
+          "mean": 8.836,
+          "median": 8.2458,
+          "std": 4.6516,
+          "iqr": 3.1495,
+          "min": 2.4978,
+          "p10": 5.5903,
+          "p25": 6.5002,
+          "p75": 9.6497,
+          "p90": 11.3003,
+          "max": 28.83
+        },
+        "edge_censored_ratio": 1.0
+      },
+      "HM": {
+        "total_components": 3,
+        "area_px": {
+          "count": 3,
+          "mean": 39.0,
+          "median": 34.0,
+          "std": 13.9284,
+          "iqr": 16.5,
+          "min": 25.0,
+          "p10": 26.8,
+          "p25": 29.5,
+          "p75": 46.0,
+          "p90": 53.2,
+          "max": 58.0
+        },
+        "equivalent_diameter_km": {
+          "count": 3,
+          "mean": 0.6938,
+          "median": 0.658,
+          "std": 0.1231,
+          "iqr": 0.1476,
+          "min": 0.5642,
+          "p10": 0.583,
+          "p25": 0.6111,
+          "p75": 0.7587,
+          "p90": 0.819,
+          "max": 0.8593
+        },
+        "edge_censored_ratio": 0.0
+      }
+    }
+  },
+  "periodicity_results": {
+    "BG": {
+      "class_id": 0,
+      "class_name": "BG",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 93,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "AF": {
+      "class_id": 1,
+      "class_name": "AF",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 21,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "BS": {
+      "class_id": 2,
+      "class_name": "BS",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 21,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "LWA": {
+      "class_id": 3,
+      "class_name": "LWA",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 25,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "MCC": {
+      "class_id": 4,
+      "class_name": "MCC",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 44,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "OF": {
+      "class_id": 5,
+      "class_name": "OF",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 10,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "POW": {
+      "class_id": 6,
+      "class_name": "POW",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 28,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "RF": {
+      "class_id": 7,
+      "class_name": "RF",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 15,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "WS": {
+      "class_id": 8,
+      "class_name": "WS",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 12,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "Eddy": {
+      "class_id": 9,
+      "class_name": "Eddy",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 19,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "IWs": {
+      "class_id": 10,
+      "class_name": "IWs",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 128,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    },
+    "HM": {
+      "class_id": 11,
+      "class_name": "HM",
+      "scientific_interpretation": "ANNOTATION_MORPHOLOGY_LAYOUT_PERIODICITY (NOT physical radar backscatter wavelength)",
+      "tiles_analyzed": 14,
+      "stability_status": "BROADBAND_NONPERIODIC",
+      "criterion": "DESCRIPTIVE_PREDECLARED_STABILITY_CRITERION (<15% wavenumber shift across Hann, Hamming, Blackman)",
+      "max_taper_shift_ratio": null,
+      "peak_wavenumbers_cyc_px": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "peak_wavelengths_nominal_km": {
+        "hann": null,
+        "hamming": null,
+        "blackman": null
+      },
+      "finding": "Radial power spectrum decays monotonically without stable local spectral prominence."
+    }
+  },
+  "uncertainty": {
+    "unit_of_independence": "Parent acquisition mission datatake cluster (K)",
+    "resampling_method": "Parent-cluster block bootstrap (B=1000, seed=42)",
+    "bootstrap_results": {
+      "BG": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 38,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 4.3527,
+        "median_95_ci_km": [
+          0.7136,
+          9.3212
+        ],
+        "sample_mean_km": 7.1522,
+        "mean_95_ci_km": [
+          5.2692,
+          9.5231
+        ]
+      },
+      "AF": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 8,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 6.637,
+        "median_95_ci_km": [
+          5.2805,
+          8.3508
+        ],
+        "sample_mean_km": 7.1459,
+        "mean_95_ci_km": [
+          5.8159,
+          8.5188
+        ]
+      },
+      "BS": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 8,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 8.9425,
+        "median_95_ci_km": [
+          6.8994,
+          17.8111
+        ],
+        "sample_mean_km": 11.4721,
+        "mean_95_ci_km": [
+          9.1171,
+          14.9433
+        ]
+      },
+      "LWA": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 13,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 7.344,
+        "median_95_ci_km": [
+          6.2102,
+          10.7327
+        ],
+        "sample_mean_km": 8.2795,
+        "mean_95_ci_km": [
+          6.2245,
+          12.5126
+        ]
+      },
+      "MCC": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 20,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 10.7711,
+        "median_95_ci_km": [
+          7.6153,
+          13.6504
+        ],
+        "sample_mean_km": 11.4309,
+        "mean_95_ci_km": [
+          9.4621,
+          14.2213
+        ]
+      },
+      "OF": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 5,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 4.6647,
+        "median_95_ci_km": [
+          3.4065,
+          6.2714
+        ],
+        "sample_mean_km": 5.0744,
+        "mean_95_ci_km": [
+          3.6581,
+          5.4684
+        ]
+      },
+      "POW": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 14,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 10.9958,
+        "median_95_ci_km": [
+          8.9529,
+          11.619
+        ],
+        "sample_mean_km": 12.1574,
+        "mean_95_ci_km": [
+          10.6238,
+          13.9856
+        ]
+      },
+      "RF": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 8,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 3.536,
+        "median_95_ci_km": [
+          2.111,
+          6.6248
+        ],
+        "sample_mean_km": 4.9269,
+        "mean_95_ci_km": [
+          3.5984,
+          6.4574
+        ]
+      },
+      "WS": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 7,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 13.2833,
+        "median_95_ci_km": [
+          11.1723,
+          18.4109
+        ],
+        "sample_mean_km": 13.7583,
+        "mean_95_ci_km": [
+          11.138,
+          16.4791
+        ]
+      },
+      "Eddy": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 7,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 6.2138,
+        "median_95_ci_km": [
+          5.9261,
+          11.7227
+        ],
+        "sample_mean_km": 8.1594,
+        "mean_95_ci_km": [
+          6.6486,
+          10.3669
+        ]
+      },
+      "IWs": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 40,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 8.0305,
+        "median_95_ci_km": [
+          7.216,
+          8.7455
+        ],
+        "sample_mean_km": 9.7465,
+        "mean_95_ci_km": [
+          8.5072,
+          11.346
+        ]
+      },
+      "HM": {
+        "status": "VALID_BLOCK_BOOTSTRAP",
+        "ci_suppressed": false,
+        "k": 11,
+        "num_bootstraps": 1000,
+        "seed": 42,
+        "sample_median_km": 0.8137,
+        "median_95_ci_km": [
+          0.6864,
+          0.8593
+        ],
+        "sample_mean_km": 0.8227,
+        "mean_95_ci_km": [
+          0.7606,
+          0.8909
+        ]
+      }
+    }
+  },
+  "compatibility_synthesis": {
+    "BG": {
+      "class_id": 0,
+      "class_name": "BG",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 363,
+        "uncensored_components": 104,
+        "edge_censored_components": 259,
+        "edge_censored_ratio": 0.7135,
+        "median_equivalent_diameter_px": 43.5268,
+        "median_equivalent_diameter_km": 4.3527,
+        "median_major_axis_km": 13.0476
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": true,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 38,
+      "rationale": "High edge-contact rate (71.4%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "AF": {
+      "class_id": 1,
+      "class_name": "AF",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 24,
+        "uncensored_components": 1,
+        "edge_censored_components": 23,
+        "edge_censored_ratio": 0.9583,
+        "median_equivalent_diameter_px": 66.3697,
+        "median_equivalent_diameter_km": 6.637,
+        "median_major_axis_km": 21.6807
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": true,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 8,
+      "rationale": "High edge-contact rate (95.8%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "BS": {
+      "class_id": 2,
+      "class_name": "BS",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 42,
+        "uncensored_components": 7,
+        "edge_censored_components": 35,
+        "edge_censored_ratio": 0.8333,
+        "median_equivalent_diameter_px": 89.4244,
+        "median_equivalent_diameter_km": 8.9425,
+        "median_major_axis_km": 15.8205
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": false,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 8,
+      "rationale": "High edge-contact rate (83.3%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "LWA": {
+      "class_id": 3,
+      "class_name": "LWA",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 65,
+        "uncensored_components": 3,
+        "edge_censored_components": 62,
+        "edge_censored_ratio": 0.9538,
+        "median_equivalent_diameter_px": 73.4401,
+        "median_equivalent_diameter_km": 7.344,
+        "median_major_axis_km": 14.3483
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": false,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 13,
+      "rationale": "High edge-contact rate (95.4%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "MCC": {
+      "class_id": 4,
+      "class_name": "MCC",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 117,
+        "uncensored_components": 8,
+        "edge_censored_components": 109,
+        "edge_censored_ratio": 0.9316,
+        "median_equivalent_diameter_px": 107.7115,
+        "median_equivalent_diameter_km": 10.7711,
+        "median_major_axis_km": 21.9545
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": false,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 20,
+      "rationale": "High edge-contact rate (93.2%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "OF": {
+      "class_id": 5,
+      "class_name": "OF",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 11,
+        "uncensored_components": 1,
+        "edge_censored_components": 10,
+        "edge_censored_ratio": 0.9091,
+        "median_equivalent_diameter_px": 46.6473,
+        "median_equivalent_diameter_km": 4.6647,
+        "median_major_axis_km": 15.4584
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": true,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 5,
+      "rationale": "High edge-contact rate (90.9%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "POW": {
+      "class_id": 6,
+      "class_name": "POW",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 57,
+        "uncensored_components": 4,
+        "edge_censored_components": 53,
+        "edge_censored_ratio": 0.9298,
+        "median_equivalent_diameter_px": 109.9576,
+        "median_equivalent_diameter_km": 10.9958,
+        "median_major_axis_km": 25.2833
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": false,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 14,
+      "rationale": "High edge-contact rate (93.0%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "RF": {
+      "class_id": 7,
+      "class_name": "RF",
+      "classification": "WITHIN_MULTI_PATH_SCALE",
+      "evidence_level": "SUPPORTED",
+      "observed_annotation_geometry": {
+        "total_components": 21,
+        "uncensored_components": 10,
+        "edge_censored_components": 11,
+        "edge_censored_ratio": 0.5238,
+        "median_equivalent_diameter_px": 35.3599,
+        "median_equivalent_diameter_km": 3.536,
+        "median_major_axis_km": 4.922
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": true,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 8,
+      "rationale": "Observed component scale (median 35.4 px / 3.54 km) aligns with intermediate skip connections (Path B/C: 71\u2013163 px)."
+    },
+    "WS": {
+      "class_id": 8,
+      "class_name": "WS",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 26,
+        "uncensored_components": 2,
+        "edge_censored_components": 24,
+        "edge_censored_ratio": 0.9231,
+        "median_equivalent_diameter_px": 132.8328,
+        "median_equivalent_diameter_km": 13.2833,
+        "median_major_axis_km": 27.5915
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": false,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 7,
+      "rationale": "High edge-contact rate (92.3%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "Eddy": {
+      "class_id": 9,
+      "class_name": "Eddy",
+      "classification": "WITHIN_MULTI_PATH_SCALE",
+      "evidence_level": "SUPPORTED",
+      "observed_annotation_geometry": {
+        "total_components": 24,
+        "uncensored_components": 19,
+        "edge_censored_components": 5,
+        "edge_censored_ratio": 0.2083,
+        "median_equivalent_diameter_px": 62.1375,
+        "median_equivalent_diameter_km": 6.2138,
+        "median_major_axis_km": 7.0865
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": true,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": false
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 7,
+      "rationale": "Observed component scale (median 62.1 px / 6.21 km) aligns with intermediate skip connections (Path B/C: 71\u2013163 px)."
+    },
+    "IWs": {
+      "class_id": 10,
+      "class_name": "IWs",
+      "classification": "BOUNDARY_CENSORED",
+      "evidence_level": "OBSERVED",
+      "observed_annotation_geometry": {
+        "total_components": 299,
+        "uncensored_components": 5,
+        "edge_censored_components": 294,
+        "edge_censored_ratio": 0.9833,
+        "median_equivalent_diameter_px": 80.3054,
+        "median_equivalent_diameter_km": 8.0305,
+        "median_major_axis_km": 28.1433
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": false,
+        "within_shallow_skip_path_A_19px": false,
+        "within_skip_path_B_71px": false,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": true
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 40,
+      "rationale": "High edge-contact rate (98.3%). Annotated components frequently intersect the 25.6 km crop boundary; observable spatial extents are edge-censored."
+    },
+    "HM": {
+      "class_id": 11,
+      "class_name": "HM",
+      "classification": "SMALL_RELATIVE_TO_ARCHITECTURAL_SCALE",
+      "evidence_level": "SUPPORTED",
+      "observed_annotation_geometry": {
+        "total_components": 23,
+        "uncensored_components": 20,
+        "edge_censored_components": 3,
+        "edge_censored_ratio": 0.1304,
+        "median_equivalent_diameter_px": 8.1369,
+        "median_equivalent_diameter_km": 0.8137,
+        "median_major_axis_km": 1.0144
+      },
+      "architectural_scale_correspondence": {
+        "sub_bottleneck_sampling_scale": true,
+        "within_shallow_skip_path_A_19px": true,
+        "within_skip_path_B_71px": true,
+        "within_skip_path_C_163px": true,
+        "within_deep_path_E_envelope_563px": true,
+        "crop_boundary_constrained": false
+      },
+      "periodicity_status": "BROADBAND_NONPERIODIC",
+      "parent_cluster_support_k": 11,
+      "rationale": "Components are compact (median 8.1 px / 0.81 km). Sub-scale relative to the 32-pixel bottleneck sampling interval, but fully covered by the 19-pixel shallow skip path."
+    }
+  },
+  "result_classification": {
+    "architectural_scale_compatibility": "SUPPORTED",
+    "model_performance_implication": "NOT_ESTABLISHED",
+    "definition": "A descriptive condition in which an observed annotation scale falls within or overlaps one or more theoretical architectural dependency scales; this does not establish learned representational adequacy or segmentation success."
+  },
+  "authoritative_class_support": {
+    "0": {"class_name": "BG", "dev_k": 10, "train_k": 28, "dev_pool_k": 38, "dev_tiles": 28, "train_tiles": 65, "dev_valid_pixels": 643805},
+    "1": {"class_name": "AF", "dev_k": 3, "train_k": 5, "dev_pool_k": 8, "dev_tiles": 6, "train_tiles": 15, "dev_valid_pixels": 39385},
+    "2": {"class_name": "BS", "dev_k": 2, "train_k": 6, "dev_pool_k": 8, "dev_tiles": 4, "train_tiles": 17, "dev_valid_pixels": 123771},
+    "3": {"class_name": "LWA", "dev_k": 3, "train_k": 10, "dev_pool_k": 13, "dev_tiles": 4, "train_tiles": 21, "dev_valid_pixels": 58567},
+    "4": {"class_name": "MCC", "dev_k": 7, "train_k": 13, "dev_pool_k": 20, "dev_tiles": 17, "train_tiles": 27, "dev_valid_pixels": 853315},
+    "5": {"class_name": "OF", "dev_k": 1, "train_k": 4, "dev_pool_k": 5, "dev_tiles": 1, "train_tiles": 9, "dev_valid_pixels": 1709},
+    "6": {"class_name": "POW", "dev_k": 3, "train_k": 11, "dev_pool_k": 14, "dev_tiles": 3, "train_tiles": 25, "dev_valid_pixels": 78415},
+    "7": {"class_name": "RF", "dev_k": 1, "train_k": 7, "dev_pool_k": 8, "dev_tiles": 2, "train_tiles": 13, "dev_valid_pixels": 9550},
+    "8": {"class_name": "WS", "dev_k": 2, "train_k": 5, "dev_pool_k": 7, "dev_tiles": 3, "train_tiles": 9, "dev_valid_pixels": 131037},
+    "9": {"class_name": "Eddy", "dev_k": 2, "train_k": 5, "dev_pool_k": 7, "dev_tiles": 5, "train_tiles": 14, "dev_valid_pixels": 45322},
+    "10": {"class_name": "IWs", "dev_k": 9, "train_k": 31, "dev_pool_k": 40, "dev_tiles": 31, "train_tiles": 97, "dev_valid_pixels": 579526},
+    "11": {"class_name": "HM", "dev_k": 3, "train_k": 8, "dev_pool_k": 11, "dev_tiles": 3, "train_tiles": 11, "dev_valid_pixels": 117}
+  },
+  "evidence_levels": {
+    "OBSERVED": "Direct empirical or geometric measurement (annotation geometry, edge-contact frequency, component distributions, theoretical RF recurrence calculations, mask PSD behavior).",
+    "SUPPORTED": "Exact architecture-derived dependency ranges and structural overlap between observed annotation sizes and theoretical dependency envelopes, when the comparison itself is mathematically correct.",
+    "PLAUSIBLE": "Hypotheses about whether spatial context may matter to future model behavior.",
+    "NOT_ESTABLISHED": "Model representational adequacy, model performance explanation, learned ERF, causal mechanism.",
+    "CAUSAL_ESTABLISHED": "STRICTLY PROHIBITED in DIAG-04 (observational/architectural design cannot establish performance causation)."
+  },
+  "governance": {
+    "training_steps": 0,
+    "backward_passes": 0,
+    "optimizer_steps": 0,
+    "scheduler_steps": 0,
+    "parameter_updates": 0,
+    "gpu_seconds": 0.0,
+    "holdout_access": 0,
+    "part_iii_access": 0,
+    "diag04_executed": true,
+    "diag05_executed": false
+  },
+  "limitations": [
+    "DIAG-04 is observational and architectural; it does NOT establish whether receptive field scale caused low baseline mIoU.",
+    "Connected components are ANNOTATED_CONNECTED_COMPONENTS, not physical phenomenon instances.",
+    "Edge contact designates EDGE_CENSORED_OBSERVATION and does not measure true physical truncation beyond the crop aperture.",
+    "Many extended annotations contact the crop boundary, so their full spatial extent cannot be inferred from the isolated 256x256 observation window.",
+    "Mask PSD reflects ANNOTATION_MORPHOLOGY / SPATIAL_LAYOUT_PERIODICITY, not physical SAR radar backscatter wavelength.",
+    "Learned-weight empirical ERF is UNMEASURED; analytical Gaussian proxy reflects idealized random-weight structural support.",
+    "Classes with K <= 2 parent clusters in DEV (OF, RF, BS, WS, Eddy) have severe statistical support limitations; bootstrap resampling (B=1000) does not increase independent cluster count.",
+    "ARCHITECTURAL_SCALE_COMPATIBILITY designates structural scale overlap only, not learned representational adequacy, feature quality, or segmentation success.",
+    "Theoretical dependency extent is mathematically distinct from spatial resolution/sampling stride and learned representational capacity.",
+    "Skip connections provide higher-resolution encoder activations to the decoder, but direct semantic information preservation is not measured."
+  ]
+}

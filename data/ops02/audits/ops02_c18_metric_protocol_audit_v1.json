@@ -1,0 +1,46 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "OPS-02 C18 Metric Implementation, Absent-Class Logic, and Macro-Average Behavior Audit",
+  "audited_at_utc": "2026-09-14T04:48:00Z",
+  "status": "MATHEMATICALLY_AUDITED_AND_RECONCILED",
+  "mathematical_definitions": {
+    "confusion_matrix": "12x12 integer matrix M where row index r is ground truth class, column index c is predicted class. Invalid pixels (target == -100) are strictly excluded from accumulation.",
+    "per_class_tp": "TP_c = M[c, c]",
+    "per_class_fp": "FP_c = sum(M[:, c]) - TP_c",
+    "per_class_fn": "FN_c = sum(M[c, :]) - TP_c",
+    "per_class_union": "Union_c = TP_c + FP_c + FN_c = GT_c + Pred_c - TP_c",
+    "per_class_iou": "IoU_c = TP_c / Union_c if Union_c > 0 else None",
+    "macro_miou_phenomena": "Mean of IoU_c for all phenomenon classes (c in 1..11) where class is eligible under absent-class rules."
+  },
+  "absent_class_handling_comparison": {
+    "c8_c10_ops01_implementation": "In historical reference (exp07_reference.py), condition `if gt[c] > 0:` was used. Classes with GT == 0 were assigned None and excluded from macro average denominator.",
+    "c16_replicate003_implementation": "In train_replicate003.py, condition `if denom[c] > 0:` was used. If GT == 0 but Pred > 0 (false positives), IoU was calculated as 0.0 and added to denominator.",
+    "ops02_dev_empirical_reconciliation": {
+      "finding": "MATHEMATICALLY IDENTICAL ON OPS-02 DEV",
+      "evidence": "In the 40 DEV samples, every single one of the 11 phenomenon classes has GT > 0 (AF=39,385, BS=123,771, LWA=58,567, MCC=853,315, OF=1,709, POW=78,415, RF=9,550, WS=131,037, Eddy=45,322, IWs=579,526, HM=117 pixels). Therefore, gt[c] > 0 holds for all 11 classes, denom[c] > 0 holds for all 11 classes, and denominator is exactly 11 in both implementations.",
+      "numerical_reproduction": "Re-evaluating best_model.pt under both implementations produces identical 0.049399 DEV mIoU."
+    },
+    "canonical_c18_rule": "Under GOV-RULE-094, the authoritative rule for future training is: A class is eligible for macro-averaging if and only if GT_c > 0. If GT_c == 0 and Pred_c > 0, IoU is None (excluded from macro denominator to prevent false-alarm penalization of absent target domains). If GT_c > 0 and TP_c == 0, IoU is 0.0 (included in macro denominator as legitimate perception failure)."
+  },
+  "sparse_class_behavior_analysis": {
+    "ultra_sparse_class_impact": "HM has 117 ground-truth pixels across the 40 DEV samples (0.0045% of total pixels). The model predicted 0 true positives for HM, resulting in IoU_HM = 0.0. Because the macro average is unweighted across classes, HM carries exactly 1/11th (9.09%) of the total score, equal to MCC which has 853,315 pixels (32.5% of dataset).",
+    "zero_tp_classes": "Three classes had exactly zero true positives: AF (39.4k px), RF (9.6k px), and HM (117 px). These three 0.0 scores alone pull the 11-class average down by 3/11 = 27.3% of the scale.",
+    "subgroup_decomposition": {
+      "all_11_phenomena_miou": 0.049399,
+      "well_supported_phenomena_miou": 0.145006,
+      "well_supported_classes": ["MCC (0.2286)", "IWs (0.1039)", "BS (0.1026)"],
+      "sparse_or_zero_tp_classes": ["AF (0.0)", "RF (0.0)", "HM (0.0)", "OF (0.0005)"]
+    }
+  },
+  "synthetic_validation_test_suite": {
+    "test_cases": [
+      "perfect_prediction (all diagonal -> IoU 1.0)",
+      "zero_tp (off-diagonal predictions -> IoU 0.0)",
+      "absent_class_gt_zero (excluded from denominator)",
+      "one_pixel_class (single pixel TP=1 -> IoU 1.0; TP=0 -> IoU 0.0)",
+      "all_background_prediction (phenomena TP=0 -> mIoU 0.0)",
+      "ignore_index_isolation (pixels with -100 never enter confusion matrix)"
+    ]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "OPS-02 C18 Performance Collapse Causal Hypothesis and Diagnostic Matrix",
+  "audited_at_utc": "2026-09-14T05:02:00Z",
+  "observed_facts": {
+    "c16_dev_phenomena_miou": 0.049399,
+    "historical_ops01_dev_phenomena_miou": 0.4072,
+    "epistemic_standard": "PLAUSIBLE_HYPOTHESIS_SET (NOT CAUSALLY ESTABLISHED)"
+  },
+  "hypotheses": [
+    {
+      "id": "H1",
+      "name": "True Distribution Shift (OPS01 vs OPS02)",
+      "description": "OPS-01 was derived from 27 parent scenes; OPS-02 expanded to 64 parent datatakes encompassing broader environmental and geographic conditions, introducing genuine out-of-distribution difficulty.",
+      "evidence_available": "OPS-02 spans 5 marginal seas and multiple ocean basins not in OPS-01; parent clusters are strictly disjoint across partitions.",
+      "evidence_missing": "Direct zero-shot evaluation of C8/C10 model weights on the frozen OPS-02 DEV set.",
+      "cheapest_valid_diagnostic": "Run read-only inference of C8/C10 checkpoint on the 40 OPS-02 DEV samples (0 training, < 1 minute compute).",
+      "supports_if": "C8/C10 achieves similarly low mIoU (< 10%) on OPS-02 DEV.",
+      "falsifies_if": "C8/C10 achieves ~40% on OPS-02 DEV."
+    },
+    {
+      "id": "H2",
+      "name": "Geographic / Temporal Disconnect Across Partitions",
+      "description": "DEV clusters are concentrated in specific geographic regions or seasons that differ systematically from TRAIN clusters.",
+      "evidence_available": "ops02_geographic_coverage_v1.json and ops02_temporal_coverage_v1.json show multi-basin spread, but DEV has specific marginal sea clusters.",
+      "evidence_missing": "Cluster-by-cluster DEV error analysis correlating geographic basin with IoU.",
+      "cheapest_valid_diagnostic": "Tabulate per-cluster confusion and mIoU across the 12 DEV clusters from existing predictions.",
+      "supports_if": "Certain DEV clusters perform at > 25% while others perform at ~0%.",
+      "falsifies_if": "All 12 DEV clusters perform uniformly poorly regardless of basin or season."
+    },
+    {
+      "id": "H3",
+      "name": "Class Support and Sparsity Sensitivity",
+      "description": "Macro-averaging over 11 classes is severely depressed by ultra-sparse lookalikes (HM has 117 px, OF has 1.7k px, RF has 9.5k px) and classes with 0 TP.",
+      "evidence_available": "AF (39k px), RF (9.6k px), and HM (117 px) have IoU=0.0 on DEV. Removing them raises dominant phenomena average to 14.50%.",
+      "evidence_missing": "Comparison of class pixel ratios in OPS-01 DEV vs OPS-02 DEV.",
+      "cheapest_valid_diagnostic": "Compute exact class pixel frequencies in historical OPS-01 DEV.",
+      "supports_if": "OPS-01 DEV had substantially higher minority-class presence or fewer zero-TP classes.",
+      "falsifies_if": "OPS-01 DEV had identical ultra-sparse support but achieved > 30% on all sparse classes."
+    },
+    {
+      "id": "H4",
+      "name": "Input Domain / Preprocessing Discrepancy",
+      "description": "Subtle discrepancies in log1p, standardization, or dtype between OPS-01 training and OPS-02 training degraded representation learning.",
+      "evidence_available": "Phase 4 verified standardization mu=4.424158 and sigma=0.469261 match C15 protocol exactly. Pixel values are centered around 0.",
+      "evidence_missing": "Comparison of exact pixel distribution statistics between OPS-01 raw images and OPS-02 raw images.",
+      "cheapest_valid_diagnostic": "Compute Kolmogorov-Smirnov distribution test between OPS-01 and OPS-02 TRAIN pixel intensities.",
+      "supports_if": "Significant radiometric distribution shift (e.g. median shift > 1.0) is detected.",
+      "falsifies_if": "Pixel distributions match closely under two-sample KS test."
+    },
+    {
+      "id": "H5",
+      "name": "Metric Implementation Discrepancy",
+      "description": "The formula used to compute DEV mIoU in C16 differed from C8/C10, causing an artificial score drop.",
+      "evidence_available": "Phase 3 audited compute_metrics vs exp07_reference.py; both yield 0.049399 on DEV predictions.",
+      "evidence_missing": "None. Forensic audit confirmed metric formula is mathematically identical on the 40 DEV samples.",
+      "cheapest_valid_diagnostic": "Completed in Phase 3.",
+      "supports_if": "N/A (Falsified by C17 and C18 audits).",
+      "falsifies_if": "CONFIRMED_FALSIFIED: Metric code is mathematically harmonized; the 4.94% is not a metric artifact."
+    },
+    {
+      "id": "H6",
+      "name": "Sampler Implementation Discrepancy (Candidate F)",
+      "description": "Candidate F hybrid sampling starved certain classes or clusters during training epochs.",
+      "evidence_available": "Phase 6 proved all 12 classes are drawn in every epoch (72 draws), and 30-35 parent clusters are exposed per epoch.",
+      "evidence_missing": "Empirical comparison of training loss curves under uniform random sampling vs Candidate F.",
+      "cheapest_valid_diagnostic": "Simulate batch-level class exposure statistics across 30 epochs.",
+      "supports_if": "Minority classes are shown to have high variance or multi-epoch starvation.",
+      "falsifies_if": "Class exposure is smooth and well-distributed across epochs."
+    },
+    {
+      "id": "H7",
+      "name": "Optimization Instability or Over-Weighting",
+      "description": "Extremely high loss weights (HM=18.24, OF=4.21, RF=2.96) destabilized gradients or caused the network to aggressively over-predict foreground onto open seawater.",
+      "evidence_available": "Confusion matrix shows massive under-prediction of Background (only 62.9k predicted out of 643.8k true BG pixels; 72% misclassified as MCC and IWs).",
+      "evidence_missing": "Gradient norm logs across training epochs for high-weight vs low-weight classes.",
+      "cheapest_valid_diagnostic": "Controlled diagnostic comparing unweighted CrossEntropyLoss vs square-root median weighted loss on a fixed slice subset.",
+      "supports_if": "Unweighted or moderated weighting restores background detection and stabilizes IoU.",
+      "falsifies_if": "Unweighted loss produces identical background collapse."
+    },
+    {
+      "id": "H8",
+      "name": "Label Ambiguity / Domain Mismatch",
+      "description": "Natural SAR phenomena (e.g. low wind areas vs biological slicks, or pure ocean waves vs internal waves) share similar dark/bright backscatter signatures, causing inter-class confusion under out-of-distribution conditions.",
+      "evidence_available": "Confusion matrix reveals that 29.6k BS pixels were predicted as IWs, and 160.4k IWs pixels were predicted as LWA.",
+      "evidence_missing": "Visual inspection of prediction overlays on high-confusion DEV tiles.",
+      "cheapest_valid_diagnostic": "Render prediction masks vs ground truth masks for the top 5 high-confusion DEV tiles (no training).",
+      "supports_if": "Model predictions correspond to plausible physical signatures that human annotators marked under alternative lookalike categories.",
+      "falsifies_if": "Predictions are chaotic noise with no relation to oceanographic signatures."
+    },
+    {
+      "id": "H9",
+      "name": "Historical OPS01 Result Was Artificially Optimistic (Pseudo-Replication)",
+      "description": "OPS-01's ~40% mIoU was inflated because train and dev slices were randomly extracted from the same 27 parent scenes, allowing the network to memorize scene-specific radar characteristics.",
+      "evidence_available": "OPS-01 design permitted spatial and temporal overlap between slices of the same scene.",
+      "evidence_missing": "Evaluating an OPS-01 trained model on an along-track held-out scene from the same acquisition.",
+      "cheapest_valid_diagnostic": "Examine historical C11/C12 parent accounting overlap tables.",
+      "supports_if": "Historical cross-scene evaluation on OPS-01 dropped substantially when disjoint scenes were tested.",
+      "falsifies_if": "OPS-01 models generalized well to genuinely disjoint datatakes."
+    },
+    {
+      "id": "H10",
+      "name": "Model Capacity / Inductive Bias Inadequacy",
+      "description": "ResNet18-UNet (14.3M parameters) operating on uncalibrated 10x10 block-mean SAR DN lacks the capacity to disentangle 12 complex oceanic phenomena across global acquisitions without incidence angle conditioning.",
+      "evidence_available": "10x10 block averaging discards fine wave textural details (e.g. high-frequency pure ocean waves and ship point targets).",
+      "evidence_missing": "Comparison against higher-capacity or multi-scale architectures on the same data.",
+      "cheapest_valid_diagnostic": "Analyze feature map activations in the bottleneck decoder layers.",
+      "supports_if": "Bottleneck features show class clustering collapse.",
+      "falsifies_if": "Bottleneck features remain linearly separable."
+    }
+  ]
+}

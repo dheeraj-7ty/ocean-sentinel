@@ -1,0 +1,31 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C20",
+  "timestamp_utc": "2026-09-14T06:30:00Z",
+  "checkpoint_immutability_verified": true,
+  "checkpoints_verified": {
+    "C8": {
+      "sha256": "FF30EDCFEFBDF3C321F2D531BF3A8031ABB6F8481FC4F89D3DD8E2781ACAD9D7",
+      "status": "BYTE_IDENTICAL"
+    },
+    "C10": {
+      "sha256": "D64FE6197B73F47A1B97D2881E273441C61F6562D0B68B4B3C1A9322E6C2190E",
+      "status": "BYTE_IDENTICAL"
+    },
+    "C16": {
+      "sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+      "status": "BYTE_IDENTICAL"
+    }
+  },
+  "holdout_access_count": 0,
+  "holdout_firewall_status": "PASS_STRICTLY_ISOLATED",
+  "part_iii_firewall_status": "PASS_STRICTLY_ISOLATED",
+  "sanity_checks": {
+    "prediction_count_equals_gt_count": true,
+    "prediction_dimensions_256x256": true,
+    "no_nan_or_inf_in_predictions": true,
+    "confusion_matrix_arithmetic_valid": true,
+    "iou_math_consistent": true
+  },
+  "overall_verdict": "TIER_1_CROSS_EVALUATION_INTEGRITY_VERIFIED"
+}

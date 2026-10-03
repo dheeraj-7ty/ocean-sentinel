@@ -1,0 +1,28 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C19",
+  "audit_name": "EXP-07 Loss Weighting and Class Mapping Canonicalization Audit",
+  "audited_at_utc": "2026-09-14T05:43:00Z",
+  "mathematical_formula": "w_c = sqrt(median(f_valid) / f_c)",
+  "dataset_basis": "132 OPS02 TRAIN sample pairs (8,595,330 valid pixels)",
+  "canonical_class_weights": [
+    {"class_index": 0, "code": "BG", "name": "Background Seawater", "train_valid_pixels": 2449755, "weight": 0.403935, "status": "LOCKED"},
+    {"class_index": 1, "code": "AF", "name": "Atmospheric Front", "train_valid_pixels": 66561, "weight": 2.450546, "status": "LOCKED"},
+    {"class_index": 2, "code": "BS", "name": "Biological Slicks", "train_valid_pixels": 520058, "weight": 0.876692, "status": "LOCKED"},
+    {"class_index": 3, "code": "LWA", "name": "Low Wind Area", "train_valid_pixels": 446698, "weight": 0.945945, "status": "LOCKED"},
+    {"class_index": 4, "code": "MCC", "name": "Mesoscale Cellular Convection", "train_valid_pixels": 951354, "weight": 0.648189, "status": "LOCKED"},
+    {"class_index": 5, "code": "OF", "name": "Ocean Front", "train_valid_pixels": 22536, "weight": 4.211476, "status": "LOCKED"},
+    {"class_index": 6, "code": "POW", "name": "Pure Ocean Wave", "train_valid_pixels": 771817, "weight": 0.719641, "status": "LOCKED"},
+    {"class_index": 7, "code": "RF", "name": "Rain Cell / Rain Footprint", "train_valid_pixels": 45738, "weight": 2.956203, "status": "LOCKED"},
+    {"class_index": 8, "code": "WS", "name": "Wind Streak", "train_valid_pixels": 352723, "weight": 1.064525, "status": "LOCKED"},
+    {"class_index": 9, "code": "Eddy", "name": "Oceanic Eddy", "train_valid_pixels": 112747, "weight": 1.882870, "status": "LOCKED"},
+    {"class_index": 10, "code": "IWs", "name": "Internal Waves", "train_valid_pixels": 2659872, "weight": 0.387652, "status": "LOCKED"},
+    {"class_index": 11, "code": "HM", "name": "Artificial / Anthropogenic Objects", "train_valid_pixels": 1201, "weight": 18.243211, "status": "LOCKED"}
+  ],
+  "c18_discrepancy_forensics": {
+    "c18_markdown_error": "Section 8 of EXP07_P0_C18 report presented normalized weights with incorrect class labels ('MCC=1.13, WS=1.19, AS=1.58, HM=0.32, Thermal=0.28').",
+    "root_cause": "A post-processing script during C18 report compilation computed normalized sum-to-12 weights using an altered taxonomy ordering and wrote those into the markdown report text.",
+    "resolution": "Confirmed that the machine-readable audit ops02_c18_class_weights_audit_v1.json contains the exact unnormalized sqrt-median weights [0.403935 ... 18.243211] matching C15 and C16 exactly. The markdown table is declared a reporting error and superseded by this canonical audit."
+  },
+  "verdict": "LOSS_WEIGHTS_LOCKED_AND_TAXONOMY_BOUND"
+}

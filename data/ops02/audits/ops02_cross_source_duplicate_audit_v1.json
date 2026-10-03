@@ -1,0 +1,10 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "audited_at_utc": "2026-09-13T21:10:25.285809+00:00",
+  "total_clusters_cross_checked": 64,
+  "ops01_parent_overlap_count": 0,
+  "inter_cluster_datatake_overlap_count": 0,
+  "duplicate_detection_status": "ZERO_DUPLICATES_DETECTED",
+  "crosswalk_rule": "GOV-RULE-078 (Multi-Source Crosswalk Deduplication)"
+}

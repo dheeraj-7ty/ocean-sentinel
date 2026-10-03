@@ -1,0 +1,70 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C15",
+  "audit_title": "OPS-01 vs OPS-02 Authoritative Parent Scene and Datatake Reconciliation Audit",
+  "created_at_utc": "2026-09-14T00:55:00Z",
+  "status": "VERIFIED_DISJOINT_AND_EXACT",
+  "accounting_summary": {
+    "ops01_unique_parent_scenes": 27,
+    "ops01_unique_datatakes": 27,
+    "ops01_total_samples": 147,
+    "ops02_unique_parent_clusters": 64,
+    "ops02_unique_datatakes": 64,
+    "ops02_constituent_level1_scenes": 85,
+    "ops02_total_materialized_samples": 212,
+    "direct_scene_overlap_ops01_vs_ops02": 0,
+    "datatake_overlap_ops01_vs_ops02": 0,
+    "combined_unique_independent_datatakes": 91,
+    "combined_unique_level1_scenes": 112,
+    "combined_total_physical_samples": 359
+  },
+  "reconciliation_analysis": {
+    "question": "Does 64 new + 27 old = 91 represent an exact set union or an unverified additive claim?",
+    "finding": "EXACT_SET_UNION_VERIFIED",
+    "evidence": {
+      "ops01_datatake_set_size": 27,
+      "ops02_datatake_set_size": 64,
+      "set_intersection": [],
+      "set_intersection_cardinality": 0,
+      "set_union_cardinality": 91,
+      "mathematical_relation": "len(OPS01_DTK union OPS02_DTK) == len(OPS01_DTK) + len(OPS02_DTK) == 91"
+    },
+    "level1_scene_distinction": {
+      "ops01_level1_scenes": 27,
+      "ops02_constituent_level1_scenes": 85,
+      "scene_intersection_cardinality": 0,
+      "scene_union_cardinality": 112,
+      "explanation": "Because GOV-RULE-077 clusters along-track Sentinel-1 acquisitions sharing a mission datatake ID into single parent clusters, the 64 OPS-02 parent clusters encompass 85 physical Level-1 GRD scenes. Across both OPS-01 and OPS-02, there are 112 unique Level-1 parent scenes forming 91 independent mission datatake clusters."
+    }
+  },
+  "partition_distribution_ops02": {
+    "TRAIN": {
+      "parent_clusters": 40,
+      "datatakes": 40,
+      "constituent_scenes": 54,
+      "samples": 132,
+      "cluster_percentage": 62.5
+    },
+    "DEV": {
+      "parent_clusters": 12,
+      "datatakes": 12,
+      "constituent_scenes": 15,
+      "samples": 41,
+      "cluster_percentage": 18.75
+    },
+    "HOLDOUT": {
+      "parent_clusters": 12,
+      "datatakes": 12,
+      "constituent_scenes": 16,
+      "samples": 39,
+      "cluster_percentage": 18.75
+    }
+  },
+  "invariants_confirmed": {
+    "gov_rule_075_preslice_partitioning": true,
+    "gov_rule_077_along_track_datatake_clustering": true,
+    "gov_rule_078_cross_source_dedup": true,
+    "zero_leakage_between_ops01_and_ops02": true,
+    "zero_leakage_across_ops02_partitions": true
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "manifest_id": "EXP07_DIAG01_INITIALIZATION_LINEAGE_v1",
+  "task_id": "EXP-07-P0-C22-A.4",
+  "created_at_utc": "2026-09-14T06:52:00Z",
+  "architecture_identity": {
+    "model_name": "ResNet18UNet",
+    "module_path": "src/ocean_sentinel/ml/exp07_reference.py",
+    "in_channels": 1,
+    "num_classes": 12,
+    "bn_momentum": 0.05,
+    "trainable_parameters": 14310860,
+    "buffers_count": 11806,
+    "total_state_elements": 14322666,
+    "state_dict_tensors": 192,
+    "batchnorm_2d_layers": 30
+  },
+  "pretrained_dependency": {
+    "torchvision_enum": "torchvision.models.ResNet18_Weights.IMAGENET1K_V1",
+    "pretrained_filename": "resnet18-f37072fd.pth",
+    "official_url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+    "complete_pretrained_sha256": "F37072FD47E89C5E827621C5BAFFA7500819F7896BBACEC160B1A16C560E07EC",
+    "file_size_bytes": 46830571,
+    "filename_hash_prefix": "f37072fd"
+  },
+  "environment_provenance": {
+    "torchvision_version": "0.16.1+cpu",
+    "pytorch_version": "2.1.1+cpu",
+    "python_version": "3.10.9"
+  },
+  "canonical_transformation_rules": {
+    "conv1_adaptation_method": "Channel-wise arithmetic mean across dimension 1 of pretrained 3-channel RGB kernels: self.conv1.weight.copy_(base_resnet.conv1.weight.mean(dim=1, keepdim=True))",
+    "decoder_head_initialization_method": "PyTorch default module initialization (Kaiming uniform for Conv2d/ConvTranspose2d) instantiated sequentially under active PyTorch CPU seed 42 stream",
+    "base_seed": 42,
+    "initialization_order": [
+      "1. random.seed(42), np.random.seed(42), torch.manual_seed(42)",
+      "2. Instantiate base_resnet via resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)",
+      "3. Instantiate self.conv1 = nn.Conv2d(1, 64, 7, stride=2, padding=3, bias=False)",
+      "4. Overwrite self.conv1.weight with channel-mean of base_resnet.conv1.weight",
+      "5. Bind base_resnet.bn1, relu, maxpool, layer1, layer2, layer3, layer4",
+      "6. Instantiate dec4, dec3, dec2, dec1, final_up, final_conv, head sequentially",
+      "7. Apply momentum=0.05 across all 30 BatchNorm2d layers"
+    ]
+  },
+  "initial_state_hashes": {
+    "canonical_initial_state_path": "data/ops02/initial_model_state_canonical.pt",
+    "canonical_initial_state_file_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "canonical_initial_state_tensor_fingerprint": "B472DBA86C0AA9CB1821B6C6CB172D8DCD93CE556AA256BDE931558D965F749C",
+    "canonical_initial_state_size_bytes": 57356426,
+    "previous_non_canonical_state_path": "data/ops02/initial_model_state.pt",
+    "previous_non_canonical_state_file_sha256": "4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C",
+    "previous_non_canonical_state_tensor_fingerprint": "E9343B5DE995D2DD0985C62FC57FC9B154974732F48BF6CCA81F62CAA8C1FA7D"
+  },
+  "historical_c16_vs_future_initialization": {
+    "historical_c16_replicate003": "Executed with pretrained=True on Kaggle using resnet18-f37072fd.pth downloaded dynamically to remote VM. Saved only epoch 17 (best_model.pt) and epoch 27 (last_model.pt). Epoch 0 initial state was not persisted to disk.",
+    "future_exp07_diag01": "Independently reconstructed from identical frozen protocol rules and official pretrained weights file. Canonical starting state is serialized to initial_model_state_canonical.pt and locked by SHA256 before any future training or evaluation.",
+    "byte_identity_claim_boundary": "No claim of unseen historical C16 epoch-0 byte identity is made. Future canonical state is scientifically equivalent and independently verified against the canonical protocol specification."
+  }
+}

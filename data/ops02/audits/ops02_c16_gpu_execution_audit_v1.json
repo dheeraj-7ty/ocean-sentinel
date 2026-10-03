@@ -1,0 +1,37 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "audit_name": "C16 Kaggle GPU Runtime Execution Forensics Audit",
+  "created_at_utc": "2026-09-14T04:16:00Z",
+  "status": "HARDWARE_QUALIFIED_DISCREPANCIES_CLASSIFIED",
+  "hardware_environment_findings": {
+    "kaggle_provisioned_gpus": {
+      "model": "NVIDIA Tesla T4",
+      "count_detected": 2,
+      "memory_per_gpu_gb": 14.56,
+      "cuda_capability": [7, 5],
+      "driver_and_cuda": "CUDA 12.8, PyTorch 2.10.0+cu128",
+      "verdict": "CONFIRMED_REMOTE_HARDWARE. Dual Tesla T4 accelerators were provisioned in the Kaggle VM."
+    },
+    "parallelism_and_device_utilization": {
+      "parallelism_mechanism": "NONE_SINGLE_DEVICE",
+      "device_placement": "model = ResNet18UNet(...).to(device) where device = torch.device('cuda') -> cuda:0",
+      "dataparallel_used": false,
+      "distributed_dataparallel_used": false,
+      "multi_gpu_utilization_finding": "DISCREPANCY IN REPORTING. Although C16 reported execution on a 'dual-T4 environment', the actual code in train_replicate003.py executed strictly on a SINGLE GPU (cuda:0). The second GPU (cuda:1) was never initialized or utilized by PyTorch. The C16 report's statement implying dual-GPU acceleration was technically inaccurate.",
+      "scientific_impact": "BENIGN_FOR_REPRODUCIBILITY. Training on a single GPU avoided any potential multi-GPU non-determinism or gradient synchronization discrepancies. Batch statistics (BN batch=8, opt batch=16) strictly matched the protocol."
+    },
+    "memory_allocation_forensics": {
+      "reported_value": "55.5 MB",
+      "metric_source": "torch.cuda.memory_allocated(0) / (1024**2)",
+      "measurement_context": "Warmup benchmark (5 forward-only batches under torch.no_grad() in model.eval() mode)",
+      "technical_classification": "BENCHMARK_EVAL_TENSOR_RESIDENCE (NOT PEAK TRAINING VRAM)",
+      "root_cause_analysis": "The ResNet18-UNet model has 14,310,860 float32 weights, requiring exactly 57,243,440 bytes (54.59 MB). During the warmup eval loop without autograd graph creation, torch.cuda.memory_allocated(0) reported 55.5 MB (model weights + one batch input/activation buffer). During actual training with AdamW optimizer states (114.5 MB for fp32 momentum + variance buffers), backward activations, and gradient tensors, actual training VRAM usage was substantially higher (~500 MB to 1.0 GB). The C16 report committed an interpretive error by presenting the warmup eval footprint as 'peak VRAM consumption'."
+    },
+    "training_throughput": {
+      "warmup_eval_throughput": "17.35 samples/sec (5 batches * 8 samples in 2.30s)",
+      "actual_training_throughput": "17.61 samples/sec average (72 draws / ~4.09s per epoch)",
+      "total_training_duration": "120.63 seconds across 27 epochs (2.01 minutes)"
+    }
+  }
+}

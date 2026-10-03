@@ -1,0 +1,165 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A7_INDEPENDENCE_DEFINITION_AND_IMPACT_v1",
+    "task_id": "EXP-07-P0-C22-A.7",
+    "evaluated_at_utc": "2026-09-14T07:30:00Z",
+    "status": "INDEPENDENCE_UNIT_ESTABLISHED_AND_IMPACT_ANALYZED",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "authoritative_independence_contract": {
+    "primary_unit": "PARENT_ACQUISITION_CLUSTER",
+    "primary_field": "cluster_id",
+    "coincident_physical_field": "mission_data_take_id",
+    "governing_rule": "GOV-RULE-077 (Mission Datatake and Orbital Clustering Invariant)",
+    "definition": "Any candidate scenes sharing a Sentinel-1 mission datatake identifier or adjacent along-track zero-Doppler time range (Delta t < 10 minutes) are unified into a single parent acquisition cluster. Treating individual along-track slices from the same datatake as independent parent scenes is strictly prohibited as pseudo-replication.",
+    "scientific_rationale": "Sentinel-1 continuously acquires data along an orbital pass during a single mission datatake. Slices along the same pass share identical orbit, look angle, calibration state, and regional weather. Grouping by datatake cluster guarantees physical independence across partition boundaries.",
+    "partition_derivation_method": "Unique set of cluster_id / mission_data_take_id grouped by partition in ops02_physical_dataset_manifest_v1.json and ops02_parent_cluster_manifest_v1.json."
+  },
+  "authoritative_dataset_counts": {
+    "total_physical_samples": 212,
+    "partition_tile_breakdown": {
+      "TRAIN": 132,
+      "DEV": 40,
+      "HOLDOUT": 40
+    },
+    "total_parent_clusters": 64,
+    "partition_cluster_breakdown": {
+      "TRAIN": 40,
+      "DEV": 12,
+      "HOLDOUT": 12
+    },
+    "total_mission_datatakes": 64,
+    "partition_datatake_breakdown": {
+      "TRAIN": 40,
+      "DEV": 12,
+      "HOLDOUT": 12
+    },
+    "constituent_scenes_in_cluster_manifest": {
+      "TRAIN": 54,
+      "DEV": 15,
+      "HOLDOUT": 16,
+      "TOTAL": 85
+    },
+    "materialized_parent_scenes_in_physical_manifest": {
+      "TRAIN": 40,
+      "DEV": 12,
+      "HOLDOUT": 12,
+      "TOTAL": 64
+    },
+    "cross_partition_leakage": {
+      "cluster_id_leakage": 0,
+      "mission_data_take_id_leakage": 0,
+      "parent_scene_id_leakage": 0
+    }
+  },
+  "terminology_specification": {
+    "PHYSICAL_SAMPLE_PAIR": {
+      "definition": "A single 256x256 float32 SAR patch paired with a 256x256 uint8 mask.",
+      "count": 212,
+      "field": "sample_id",
+      "used_for_independence": false,
+      "used_for_dataset_cardinality": true,
+      "used_for_statistical_replication": false
+    },
+    "LEVEL_1_SCENE": {
+      "definition": "Constituent Sentinel-1 Level-1 GRD product from which tiles were extracted.",
+      "count_constituent": 85,
+      "count_materialized": 64,
+      "field": "parent_scene_id",
+      "used_for_independence": false,
+      "used_for_dataset_cardinality": false,
+      "used_for_statistical_replication": false
+    },
+    "MISSION_DATA_TAKE": {
+      "definition": "Continuous Sentinel-1 radar transmission and acquisition pass along an orbital track.",
+      "count": 64,
+      "field": "mission_data_take_id",
+      "used_for_independence": true,
+      "used_for_dataset_cardinality": false,
+      "used_for_statistical_replication": true
+    },
+    "PARENT_CLUSTER": {
+      "definition": "Spatiotemporal clustering entity under GOV-RULE-077 unifying along-track scenes sharing mission_data_take_id.",
+      "count": 64,
+      "field": "cluster_id",
+      "used_for_independence": true,
+      "used_for_dataset_cardinality": false,
+      "used_for_statistical_replication": true
+    },
+    "INDEPENDENT_EVIDENCE_UNIT": {
+      "definition": "The authoritative unit for scientific statistical replication and hypothesis testing (Parent Cluster / Mission Datatake).",
+      "count_train": 40,
+      "count_dev": 12,
+      "count_holdout": 12,
+      "count_total": 64,
+      "field": "cluster_id / mission_data_take_id",
+      "used_for_independence": true,
+      "used_for_dataset_cardinality": false,
+      "used_for_statistical_replication": true
+    }
+  },
+  "provenance_of_23": {
+    "verifiable_origin": "Typographical error in initial draft of narrative text for LL-EXP07-019 in ocean_sentinel_lessons_learned_v1.json.",
+    "why_automated_tests_did_not_catch_it": "The accompanying automated test test_lesson_019_parent_datatake_accounting derived len(datatakes) from the manifest and correctly asserted == 40. The narrative text field was unvetted prose and was not machine-bound to the test assertion until C22-A.7.",
+    "echoes_in_codebase": [
+      "docs/OCEAN_SENTINEL_AGENT_LEARNING_FRAMEWORK.md (line 102 summary)",
+      "data/ops02/audits/ops02_c21_hypothesis_information_value_v1.json (line 13 narrative hypothesis statement)",
+      "experiments/EXP-07/EXP07_P0_C22A_FINAL_LOSS_WEIGHT_RECONCILIATION_AND_TRAINING_READINESS_20260914.md (line 137 retrospective narrative)"
+    ]
+  },
+  "historical_impact_analysis": {
+    "1_dataset_candidate_selection": {
+      "status": "NO_IMPACT",
+      "evidence": "assemble_ops02_c14_dataset.py lines 268-274 explicitly targeted and selected while len(train_dtks) < 40, while len(dev_dtks) < 12, while len(holdout_dtks) < 12. 23 was never an input or target."
+    },
+    "2_parent_clustering": {
+      "status": "NO_IMPACT",
+      "evidence": "Clustering was purely algorithmic under GOV-RULE-077, collapsing 85 constituent scenes into 64 datatake clusters."
+    },
+    "3_partition_construction": {
+      "status": "NO_IMPACT",
+      "evidence": "Partition manifests allocated 40 clusters to TRAIN, 12 to DEV, 12 to HOLDOUT. 23 was never used."
+    },
+    "4_deduplication": {
+      "status": "NO_IMPACT",
+      "evidence": "Deduplication was governed by GOV-RULE-077/078 without numeric hard-coding."
+    },
+    "5_sample_quotas": {
+      "status": "NO_IMPACT",
+      "evidence": "Quotas allowed up to 4 representative slices per cluster, producing 132 TRAIN, 40 DEV, 40 HOLDOUT (212 total)."
+    },
+    "6_sampler_generation": {
+      "status": "NO_IMPACT",
+      "evidence": "Candidate F hybrid sampler uses 72 draws/epoch with replacement over 132 TRAIN tiles. 23 is absent from sampler code."
+    },
+    "7_training_schedules": {
+      "status": "NO_IMPACT",
+      "evidence": "Optimizer/scheduler parameters (lr=0.0005, T_max=30, T_warmup=3) contain zero references to 23."
+    },
+    "8_experiment_metrics": {
+      "status": "NO_IMPACT",
+      "evidence": "Evaluation mIoU was calculated over 40 DEV tiles; 23 was never a denominator."
+    },
+    "9_historical_scientific_conclusions": {
+      "status": "NO_IMPACT",
+      "evidence": "Zero scientific conclusions in C16-C22 depended on TRAIN having 23 datatakes. C21 evaluated loss weights and C22-A evaluated initialization lineages."
+    },
+    "10_readiness_gates": {
+      "status": "DOCUMENTATION_ONLY",
+      "evidence": "Only affected C22-A.6 prompt expectation and narrative audits, which were appropriately BLOCKED until this formal reconciliation."
+    },
+    "summary_classification": "DOCUMENTATION_ONLY",
+    "dataset_membership_impact": "NONE",
+    "computational_pipeline_impact": "NONE"
+  },
+  "protocol_remediation_actions": {
+    "ocean_sentinel_lessons_learned_v1.json": "Repaired LL-EXP07-019 description and notes to state 40 TRAIN parent datatakes / clusters (64 total).",
+    "OCEAN_SENTINEL_AGENT_LEARNING_FRAMEWORK.md": "Repaired LL-EXP07-019 markdown summary to state 40 TRAIN parent datatakes / 64 total.",
+    "ops02_c21_hypothesis_information_value_v1.json": "Repaired line 13 statement to state 40 TRAIN datatakes across 132 tiles.",
+    "tests_updated": "Enhanced test_lesson_019_parent_datatake_accounting to assert that LL-EXP07-019 text matches the 40 datatake manifest reality and rejects 23."
+  },
+  "readiness_decision": {
+    "verdict": "READY_FOR_PROTOCOL_REPAIR_COMPLETE",
+    "justification": "The authoritative independence unit (Parent Acquisition Cluster under GOV-RULE-077, 1:1 with mission_data_take_id) and counts (40 TRAIN, 12 DEV, 12 HOLDOUT, 64 total) are fully derived from physical manifests and freeze specs. The '23' figure was definitively proven to be an unvetted draft narrative typographical error with zero computational or data-construction impact. All source-of-truth documentation has been repaired, historical integrity preserved, and regression guardrails established."
+  }
+}

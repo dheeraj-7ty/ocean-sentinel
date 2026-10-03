@@ -1,0 +1,199 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A_LOSS_WEIGHT_RECONCILIATION_v1",
+    "task_id": "EXP-07-P0-C22-A",
+    "created_at_utc": "2026-09-14T10:53:00Z",
+    "auditor": "Antigravity IDE / AG 2.0 (Gemini 3.8 Flash High)",
+    "epistemic_standard": "LEVEL_1_TO_5_FIRST_PRINCIPLES_PHYSICAL_RECOMPUTATION",
+    "status": "RECONCILED_AND_VERIFIED"
+  },
+  "executive_summary": {
+    "verdict": "NUMERICAL_DISCREPANCY_FULLY_RESOLVED",
+    "core_finding": "The apparent conflict between C21 (8,401,060 pixels) and C16/C19 (8,595,330 pixels) arises from a failure in earlier reporting to distinguish total radiometric valid pixels from total training class pixels. Independent first-principles raster and mask computation across all 132 physical TRAIN tiles proves: (1) Total raw pixels = 8,650,752; (2) Border padding nodata zeros = 55,422; (3) Total radiometric valid DN pixels (raw_img > 0) = 8,595,330; (4) Excluded source label pixels (Source Label 9 Sea Ice, mapped to ignore_index=-100) = 194,270; (5) Total valid canonical dense training pixels (classes 0..11) = 8,401,060. The equation 8,595,330 - 194,270 = 8,401,060 holds exactly. The canonical class weights were derived from the 8,401,060 training pixels, and the C16 executed literals match the formula-derived values to 6 decimal places."
+  },
+  "physical_pixel_decomposition": {
+    "dataset_partition": "OPS-02 TRAIN",
+    "tiles_count": 132,
+    "tile_dimensions": [256, 256],
+    "total_raw_raster_pixels": 8650752,
+    "border_padding_nodata_pixels": 55422,
+    "total_radiometric_valid_pixels": 8595330,
+    "excluded_source_label_valid_pixels": {
+      "source_label_3_iceberg": 0,
+      "source_label_9_sea_ice": 194270,
+      "source_label_14_mineral_oil_spill": 0,
+      "total_excluded_pixels": 194270
+    },
+    "total_canonical_dense_training_pixels": 8401060,
+    "exact_mathematical_identity": "8,595,330 (radiometric valid) - 194,270 (excluded source labels) = 8,401,060 (dense training pixels)"
+  },
+  "per_class_pixel_frequencies_and_weight_derivation": {
+    "median_frequency": 399710.5,
+    "median_frequency_derivation": "(sorted_frequencies[5] + sorted_frequencies[6]) / 2.0 = (352,723 [WS] + 446,698 [LWA]) / 2.0 = 399,710.5",
+    "formula": "w_c = sqrt(median(f_valid) / f_c)",
+    "classes": [
+      {
+        "dense_id": 0,
+        "name": "BG",
+        "description": "Background Seawater",
+        "source_label": 0,
+        "valid_pixel_frequency": 2449755,
+        "formula_result_float64": 0.4039349689885834,
+        "formula_result_float32": 0.40393495559692383,
+        "rounded_6_decimals": 0.403935,
+        "c16_executed_literal": 0.403935,
+        "absolute_difference": 3.10e-8,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 1,
+        "name": "AF",
+        "description": "Atmospheric Front",
+        "source_label": 1,
+        "valid_pixel_frequency": 66561,
+        "formula_result_float64": 2.450546001140994,
+        "formula_result_float32": 2.4505460262298584,
+        "rounded_6_decimals": 2.450546,
+        "c16_executed_literal": 2.450546,
+        "absolute_difference": 1.10e-9,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 2,
+        "name": "BS",
+        "description": "Biological Slicks",
+        "source_label": 2,
+        "valid_pixel_frequency": 520058,
+        "formula_result_float64": 0.8766916853874971,
+        "formula_result_float32": 0.8766916990280151,
+        "rounded_6_decimals": 0.876692,
+        "c16_executed_literal": 0.876692,
+        "absolute_difference": 3.15e-7,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 3,
+        "name": "LWA",
+        "description": "Low Wind Area",
+        "source_label": 4,
+        "valid_pixel_frequency": 446698,
+        "formula_result_float64": 0.9459447570414902,
+        "formula_result_float32": 0.9459447860717773,
+        "rounded_6_decimals": 0.945945,
+        "c16_executed_literal": 0.945945,
+        "absolute_difference": 2.43e-7,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 4,
+        "name": "MCC",
+        "description": "Mesoscale Cellular Convection",
+        "source_label": 5,
+        "valid_pixel_frequency": 951354,
+        "formula_result_float64": 0.648189071018596,
+        "formula_result_float32": 0.6481890678405762,
+        "rounded_6_decimals": 0.648189,
+        "c16_executed_literal": 0.648189,
+        "absolute_difference": 7.10e-8,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 5,
+        "name": "OF",
+        "description": "Oceanic Front",
+        "source_label": 6,
+        "valid_pixel_frequency": 22536,
+        "formula_result_float64": 4.211476303977797,
+        "formula_result_float32": 4.2114763259887695,
+        "rounded_6_decimals": 4.211476,
+        "c16_executed_literal": 4.211476,
+        "absolute_difference": 3.04e-7,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 6,
+        "name": "POW",
+        "description": "Pure Ocean Waves",
+        "source_label": 7,
+        "valid_pixel_frequency": 771817,
+        "formula_result_float64": 0.7196405195431604,
+        "formula_result_float32": 0.7196404933929443,
+        "rounded_6_decimals": 0.719641,
+        "c16_executed_literal": 0.719641,
+        "absolute_difference": 4.80e-7,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 7,
+        "name": "RF",
+        "description": "Rain Cells / Rain Footprints",
+        "source_label": 8,
+        "valid_pixel_frequency": 45738,
+        "formula_result_float64": 2.956202591469532,
+        "formula_result_float32": 2.956202507019043,
+        "rounded_6_decimals": 2.956203,
+        "c16_executed_literal": 2.956203,
+        "absolute_difference": 4.09e-7,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 8,
+        "name": "WS",
+        "description": "Wind Streaks",
+        "source_label": 10,
+        "valid_pixel_frequency": 352723,
+        "formula_result_float64": 1.0645250576396825,
+        "formula_result_float32": 1.0645250082015991,
+        "rounded_6_decimals": 1.064525,
+        "c16_executed_literal": 1.064525,
+        "absolute_difference": 5.76e-8,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 9,
+        "name": "Eddy",
+        "description": "Oceanic Eddy",
+        "source_label": 11,
+        "valid_pixel_frequency": 112747,
+        "formula_result_float64": 1.8828697622616238,
+        "formula_result_float32": 1.8828697204589844,
+        "rounded_6_decimals": 1.882870,
+        "c16_executed_literal": 1.882870,
+        "absolute_difference": 2.38e-7,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 10,
+        "name": "IWs",
+        "description": "Internal Waves",
+        "source_label": 12,
+        "valid_pixel_frequency": 2659872,
+        "formula_result_float64": 0.3876523397357497,
+        "formula_result_float32": 0.38765233755111694,
+        "rounded_6_decimals": 0.387652,
+        "c16_executed_literal": 0.387652,
+        "absolute_difference": 3.40e-7,
+        "status": "EXACT_MATCH"
+      },
+      {
+        "dense_id": 11,
+        "name": "HM",
+        "description": "Human-Made / Anthropogenic Objects",
+        "source_label": 13,
+        "valid_pixel_frequency": 1201,
+        "formula_result_float64": 18.243210729393166,
+        "formula_result_float32": 18.243209838867188,
+        "rounded_6_decimals": 18.243211,
+        "c16_executed_literal": 18.243211,
+        "absolute_difference": 2.71e-7,
+        "status": "EXACT_MATCH"
+      }
+    ]
+  },
+  "vector_comparison_verdict": {
+    "historical_c16_vector": [0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.882870, 0.387652, 18.243211],
+    "future_exp07_diag01_control_vector": [0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.882870, 0.387652, 18.243211],
+    "equality_status": "EXACT_MATCH_TO_6_DECIMAL_PLACES",
+    "float32_conversion_equality": "EXACT_BITWISE_TENSOR_MATCH"
+  }
+}

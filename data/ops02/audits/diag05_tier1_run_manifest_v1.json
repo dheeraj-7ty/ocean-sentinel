@@ -1,0 +1,28 @@
+{
+  "protocol_version": "v1.9.0-hardened",
+  "task_id": "EXP-07-P0-DIAG-05-TIER1-STATIC-GRADIENT-PROFILING",
+  "execution_authorized": true,
+  "start_time_utc": "2026-09-16T18:06:55.892107+00:00",
+  "end_time_utc": "2026-09-16T18:07:44.217183+00:00",
+  "wallclock_elapsed_seconds": 48.32507634162903,
+  "checkpoint_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+  "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+  "counters": {
+    "backward_passes": 178,
+    "optimizer_steps": 0,
+    "scheduler_steps": 0,
+    "parameter_updates": 0,
+    "training_steps": 0,
+    "gpu_seconds": 0.0,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0
+  },
+  "artifact_hashes": {
+    "diag05_tier1_h1_raw_metrics_v1.json": "5962B1C3A360AADC0B6F5DEA6E9A10545370D06E9A47CD449DA592C38E30D072",
+    "diag05_tier1_h1_summary_v1.json": "6FCADA5DADCB5091E4EAB9260CFE758CA37125F11B3AB62A10072FA5FC565768",
+    "diag05_tier1_h2_raw_tile_observations_v1.json": "A5A384D25CFF22B9BF724493ACFEC4EAD163E77E3253ED773C83FB6EE7D2B586",
+    "diag05_tier1_h2_cluster_summaries_v1.json": "A7D2FC0618CB3CC823D3971045580650DC9B025E91274BF12AFACADD0FACDDD3",
+    "diag05_tier1_h2_paired_inference_v1.json": "8BF6C9B3396D21306B666F9B16DB5F9C5716FF126370B7940783D044393D94AB",
+    "ops02_diag05_tier1_gradient_dynamics_v1.json": "8DE5FF5383A2C36927673D977C062063FD4D9F144C42351D7E4E302CC2487250"
+  }
+}

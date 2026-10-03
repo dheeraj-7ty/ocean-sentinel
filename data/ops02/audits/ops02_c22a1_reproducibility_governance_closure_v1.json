@@ -1,0 +1,123 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A1_REPRODUCIBILITY_GOVERNANCE_CLOSURE_v1",
+    "task_id": "EXP-07-P0-C22-A.1",
+    "audited_at_utc": "2026-09-14T11:04:00Z",
+    "auditor": "Antigravity IDE / AG 2.0 (Gemini 3.8 Flash High)",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE",
+    "governance_rule": "GOV-RULE-086_EXP07_FINAL_CLOSURE_GATE"
+  },
+  "executive_summary": {
+    "readiness_verdict": "READY_FOR_USER_AUTHORIZATION",
+    "authority_boundary": "EXP-07-P0-C22-A.1 has NO authority to authorize training. Training remains strictly prohibited until explicit USER instruction is provided.",
+    "blocking_issues_count": 0,
+    "blocking_issues": [],
+    "core_finding": "All three ambiguities identified in C22-A have been resolved from physical evidence and machine contracts. Floating-point precision claims now rigorously separate decimal rounding residuals from binary representation limits; pixel-count evidence explicitly separates byte identity, decoded-array identity, and arithmetic count equality; experimental dimensions are unified to exactly 19 locked invariants and 1 independent variable; pre-training fingerprinting and firewall contracts are formalized in src/ocean_sentinel/ml/exp07_fingerprint.py."
+  },
+  "float32_precision_audit": {
+    "status": "RECONCILED_AND_PRECISE",
+    "corrected_claim": "The difference between formula-derived float64 values and the historical six-decimal literals is the base-10 rounding residual (bounded by 0.5 * 10^-6 = 5e-7), NOT float32 machine epsilon (2^-23 ≈ 1.192e-7). Formula float64 values agree with historical literals after 6-decimal rounding (round(val, 6) == literal).",
+    "bitwise_tensor_parity": "When the identical 6-decimal literals are converted to PyTorch float32, historical C16 executed weights and future EXP07_DIAG01 control weights produce bitwise identical tensors (torch.equal == True).",
+    "max_observed_decimal_residual": 4.80e-7,
+    "rounding_bound": 5.0e-7
+  },
+  "pixel_count_evidence_decomposition": {
+    "source_artifact_cryptographic_identity": {
+      "physical_dataset_manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+      "partition_manifest_sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+      "status": "BITWISE_SOURCE_FILE_IDENTITY"
+    },
+    "decoded_array_identity": {
+      "dimensions": [132, 256, 256],
+      "status": "BITWISE_DECODED_ARRAY_IDENTITY"
+    },
+    "arithmetic_count_equality": {
+      "total_grid_pixels": 8650752,
+      "border_padding_nodata_pixels": 55422,
+      "radiometric_valid_pixels": 8595330,
+      "excluded_sea_ice_pixels": 194270,
+      "canonical_dense_training_pixels": 8401060,
+      "derivation_equation_1": "8,650,752 - 55,422 = 8,595,330 (exact arithmetic equality)",
+      "derivation_equation_2": "8,595,330 - 194,270 = 8,401,060 (exact arithmetic equality)",
+      "class_counts_sum": 8401060,
+      "median_frequency": 399710.5
+    }
+  },
+  "canonical_experiment_dimension_specification": {
+    "independent_variable": {
+      "name": "CLASS_LOSS_WEIGHT_VECTOR",
+      "count": 1,
+      "definition": "The entire 12-element class loss weight vector",
+      "control_vector": [0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.882870, 0.387652, 18.243211],
+      "treatment_vector": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    },
+    "locked_invariant_dimensions": {
+      "count": 19,
+      "invariants": [
+        {"id": "INV-01", "dimension": "Dataset Specification", "value": "OPS02_v1.0.1_FROZEN"},
+        {"id": "INV-02", "dimension": "Partition Allocation", "value": "132 TRAIN / 40 DEV / 40 HOLDOUT"},
+        {"id": "INV-03", "dimension": "Partition Firewall Boundaries", "value": "Zero HOLDOUT / Zero Part-III access"},
+        {"id": "INV-04", "dimension": "Physical Image Representation", "value": "GeoTIFF float32 single-band VV SAR, 256x256"},
+        {"id": "INV-05", "dimension": "Preprocessing Transformation", "value": "np.log1p(raw_image), valid DN > 0, nodata = 0.0"},
+        {"id": "INV-06", "dimension": "Radiometric Normalization", "value": "TRAIN mu=4.424158, sigma=0.469261"},
+        {"id": "INV-07", "dimension": "Taxonomy & Index Ordering", "value": "12 dense classes (0: BG ... 11: HM)"},
+        {"id": "INV-08", "dimension": "Excluded Source Labels", "value": "SOURCE LABELS 3, 9, 14 mapped to ignore_index=-100"},
+        {"id": "INV-09", "dimension": "Neural Network Architecture", "value": "ResNet18-UNet (14,310,860 parameters, 30 BN layers)"},
+        {"id": "INV-10", "dimension": "Pretrained Backbone Identity", "value": "torchvision.models.ResNet18_Weights.IMAGENET1K_V1 (resnet18-f37072fd.pth)"},
+        {"id": "INV-11", "dimension": "Optimization Algorithm", "value": "AdamW (beta1=0.9, beta2=0.999, eps=1e-8)"},
+        {"id": "INV-12", "dimension": "Base Learning Rate", "value": "0.0005 (5e-4)"},
+        {"id": "INV-13", "dimension": "Weight Decay", "value": "0.01 (applied to 2D conv/linear weights only)"},
+        {"id": "INV-14", "dimension": "Learning Rate Schedule", "value": "LinearWarmupCosineAnnealingLR (T_max=30, T_warmup=3, eta_min=1e-6)"},
+        {"id": "INV-15", "dimension": "Batch Dynamics & Accumulation", "value": "Physical batch = 8, accumulation = 2, effective batch = 16"},
+        {"id": "INV-16", "dimension": "Sampler Strategy", "value": "Candidate F Hybrid (72 draws per epoch)"},
+        {"id": "INV-17", "dimension": "Random Seed Configuration", "value": "Base seed 42, epoch formula 42 + epoch * 1000"},
+        {"id": "INV-18", "dimension": "Data Augmentation", "value": "Disabled (deterministic loaders)"},
+        {"id": "INV-19", "dimension": "Benchmark Metric & Stopping Rule", "value": "dev_mIoU_phenomena (classes 1..11, BG excluded), early stopping patience=10, min_epoch=15"}
+      ]
+    },
+    "total_controlled_dimensions": 20
+  },
+  "runtime_initialization_and_fingerprint_contract": {
+    "tooling_module": "src/ocean_sentinel/ml/exp07_fingerprint.py",
+    "capabilities_verified": [
+      "capture_rng_snapshot (Python, NumPy, PyTorch CPU, CUDA)",
+      "restore_rng_snapshot",
+      "fingerprint_model_state_dict (SHA-256 digest of full model state dict)",
+      "assert_quarantine_firewall",
+      "assert_dataset_lineage_hashes",
+      "assert_loss_weight_vector_contract",
+      "verify_runtime_initialization_parity"
+    ],
+    "invalidation_policy_status": "Execution/numerical/protocol failures only. Model background-collapse is an empirical observation, NOT an invalidation condition."
+  },
+  "dataset_lineage_and_hash_bindings": {
+    "freeze_spec_sha256": "3B362DECD210679DCC7BF5EB6879A020416E4A8BB780845F3FCC59A4DFBF3B35",
+    "physical_manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "partition_manifest_sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+    "parent_cluster_manifest_sha256": "08ED21FBB492363E1D05040020F73177BFD4DC84F1A39E2D9C5C9B38BC97D10B",
+    "taxonomy_spec_sha256": "182722015335317286CDAF43F2F73353CDB9B302C91F377FE0A16E5DFE508B85",
+    "weight_provenance_sha256": "C3B8DB7D971A22BC45D29AF4F49F3D6C4EC3549E1B13BAAB998DBA36006F858B",
+    "control_weight_vector_json_sha256": "DBCDF612A4B0FB711CFE9EDB6127674570D4D99364B4484EBEDEC4331C320A62",
+    "treatment_weight_vector_json_sha256": "5587B0DF2316422CE6C65D5ABC2A48B0435B524EE92BEB8509AFD9A96C4C38B9"
+  },
+  "firewall_hardening_status": {
+    "ops02_holdout_access": 0,
+    "trujillo_part_iii_access": 0,
+    "phase6_part_iii_access": 0,
+    "enforcement_mechanism": "Automated path blocking via assert_quarantine_firewall and test_part_iii_firewall.py"
+  },
+  "agent_learning_framework_maturity": {
+    "registry_path": "data/metadata/ocean_sentinel_lessons_learned_v1.json",
+    "lessons_total": 23,
+    "lessons_proven_stable_count": 0,
+    "c22_lessons": [
+      {"id": "LL-EXP07-021", "status": "REGRESSION_PROTECTED"},
+      {"id": "LL-EXP07-022", "status": "REGRESSION_PROTECTED"},
+      {"id": "LL-EXP07-023", "status": "REGRESSION_PROTECTED"}
+    ]
+  },
+  "historical_c16_lineage_posture": {
+    "role": "HISTORICAL_REFERENCE_CONTROL",
+    "relationship_to_future_experiment": "Historical C16 provides historical reference evidence from Replicate 003. The future EXP07_DIAG01 experiment will execute a concurrent control run that originates from the frozen initial-state contract (initial_model_state.pt) to provide a valid concurrent randomized baseline."
+  }
+}

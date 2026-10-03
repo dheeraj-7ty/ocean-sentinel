@@ -1,0 +1,173 @@
+{
+  "audit_metadata": {
+    "audit_id": "OPS02_C22A8_FINAL_INDEPENDENCE_SOURCE_OF_TRUTH_v1",
+    "task_id": "EXP-07-P0-C22-A.8",
+    "evaluated_at_utc": "2026-09-14T07:45:00Z",
+    "dataset_scope": "OPS02_v1.0.1_FROZEN (Specific to the frozen OPS-02 dataset; not a generalized identity for future datasets)",
+    "status": "SOURCE_OF_TRUTH_MATHEMATICALLY_PROVEN_AND_RECONCILED",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "authoritative_independence_contract": {
+    "authoritative_unit": "PARENT_ACQUISITION_CLUSTER",
+    "authoritative_id": "cluster_id",
+    "canonical_physical_equivalent": "mission_data_take_id",
+    "governing_rule": "GOV-RULE-077 (Mission Datatake and Orbital Clustering Invariant)",
+    "formal_statement": "Independence is defined by the parent acquisition cluster (cluster_id). In the frozen OPS-02 dataset, cluster_id is bijectively mapped to mission_data_take_id, so the two identifiers represent the exact same 64 parent acquisition units.",
+    "scientific_rationale": "Sentinel-1 continuously acquires data along an orbital pass during a single mission datatake. Slices along the same pass share orbit, look angle geometry, calibration state, and regional weather. Grouping by datatake cluster guarantees physical independence across partition boundaries."
+  },
+  "bijection_mathematical_proof": {
+    "scope": "All 212 samples in ops02_physical_dataset_manifest_v1.json and 64 clusters in ops02_parent_cluster_manifest_v1.json",
+    "cluster_to_datatake_is_function": true,
+    "datatake_to_cluster_is_function": true,
+    "are_exact_inverses": true,
+    "unique_cluster_ids": 64,
+    "unique_datatake_ids": 64,
+    "partition_breakdown": {
+      "TRAIN": {
+        "cluster_ids": 40,
+        "datatake_ids": 40,
+        "is_bijective": true
+      },
+      "DEV": {
+        "cluster_ids": 12,
+        "datatake_ids": 12,
+        "is_bijective": true
+      },
+      "HOLDOUT": {
+        "cluster_ids": 12,
+        "datatake_ids": 12,
+        "is_bijective": true
+      }
+    },
+    "cross_manifest_consistency": "100% agreement between physical manifest and cluster manifest",
+    "conflicts_observed": 0
+  },
+  "dataset_partition_and_sample_counts": {
+    "total_physical_samples": 212,
+    "sample_counts_by_partition": {
+      "TRAIN": 132,
+      "DEV": 40,
+      "HOLDOUT": 40
+    },
+    "total_parent_clusters": 64,
+    "cluster_counts_by_partition": {
+      "TRAIN": 40,
+      "DEV": 12,
+      "HOLDOUT": 12
+    },
+    "cross_partition_leakage": {
+      "cluster_id_leakage": 0,
+      "mission_data_take_id_leakage": 0,
+      "parent_scene_id_leakage": 0
+    }
+  },
+  "c22b_computational_dependency_audit": {
+    "target_experiment": "EXP07_DIAG01 (Control vs Treatment Paired Training)",
+    "execution_script_audited": "scripts/rehearse_exp07_diag01_canonical_zero_step.py / scripts/train_exp07.py",
+    "dataset_loader_source": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "parent_cluster_accounting": "Dynamic evaluation from manifest s['cluster_id'] over 40 TRAIN clusters",
+    "sampler_strategy": "Candidate F Hybrid (72 draws/epoch, replacement=True, seed=42)",
+    "presence_of_stale_23_in_code": false,
+    "presence_of_stale_23_in_configs": false,
+    "loss_weight_vectors_status": "LOCKED (Canonical C16 Sqrt-Median vs Uniform 1.0)",
+    "initial_model_state_path": "data/ops02/initial_model_state_canonical.pt",
+    "initial_model_state_sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+    "pretrained_backbone_path": "~/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth",
+    "pretrained_backbone_sha256": "F37072FD47E89C5E827621C5BAFFA7500819F7896BBACEC160B1A16C560E07EC",
+    "preserved_historical_random_state": "data/ops02/initial_model_state.pt",
+    "preserved_historical_random_sha256": "4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C",
+    "c22b_readiness": "100% VERIFIED_FOR_FUTURE_EXECUTION"
+  },
+  "historical_impact_and_provenance_audit": {
+    "former_23_figure_provenance": "Typographical error in initial narrative text draft of LL-EXP07-019 in ocean_sentinel_lessons_learned_v1.json. Automated test test_lesson_019_parent_datatake_accounting always derived and asserted 40 datatakes.",
+    "historical_impact_summary": "DOCUMENTATION_ONLY",
+    "calibrated_impact_statement": "The physical dataset membership, partition membership, pixel/mask content, canonical loss-weight vector, and relevant computational configurations were not changed by the correction of the erroneous '23' narrative figure. No historical computational path using the value 23 was identified.",
+    "distinction_between_historical_and_current": "Historical documents retain their original text with documented errata; current source-of-truth protocols and learning registers are repaired to reflect the authoritative 40 TRAIN clusters (64 total)."
+  },
+  "source_of_truth_reconciliation_matrix": [
+    {
+      "artifact_path": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "PARENT_ACQUISITION_CLUSTER",
+      "train_count": 40,
+      "dev_count": 12,
+      "holdout_count": 12,
+      "total_count": 64,
+      "status": "100% CONSISTENT"
+    },
+    {
+      "artifact_path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "PARENT_ACQUISITION_CLUSTER",
+      "train_count": 40,
+      "dev_count": 12,
+      "holdout_count": 12,
+      "total_count": 64,
+      "status": "100% CONSISTENT"
+    },
+    {
+      "artifact_path": "data/ops02/manifests/ops02_parent_cluster_manifest_v1.json",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "PARENT_ACQUISITION_CLUSTER",
+      "train_count": 40,
+      "dev_count": 12,
+      "holdout_count": 12,
+      "total_count": 64,
+      "status": "100% CONSISTENT"
+    },
+    {
+      "artifact_path": "data/ops02/manifests/ops02_partition_manifest_v1.json",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "PARTITION_MEMBERSHIP",
+      "train_count": 132,
+      "dev_count": 40,
+      "holdout_count": 40,
+      "total_count": 212,
+      "status": "100% CONSISTENT"
+    },
+    {
+      "artifact_path": "experiments/EXP-07/EXP07_P0_C15_PRETRAINING_PROTOCOL_V1.md",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "PARENT_ACQUISITION_CLUSTER",
+      "train_count": 40,
+      "dev_count": 12,
+      "holdout_count": 12,
+      "total_count": 64,
+      "status": "100% CONSISTENT"
+    },
+    {
+      "artifact_path": "data/ops02/audits/ops02_c21_single_variable_diagnostic_protocol_v1.json",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "FROZEN_DATASET_INV_01_INV_02",
+      "train_count": 132,
+      "dev_count": 40,
+      "holdout_count": 40,
+      "total_count": 212,
+      "status": "100% CONSISTENT"
+    },
+    {
+      "artifact_path": "data/ops02/audits/ops02_c21_hypothesis_information_value_v1.json",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "PARENT_DATATAKES",
+      "train_count": 40,
+      "dev_count": 12,
+      "holdout_count": 12,
+      "total_count": 64,
+      "status": "100% CONSISTENT"
+    },
+    {
+      "artifact_path": "data/metadata/ocean_sentinel_lessons_learned_v1.json",
+      "category": "CURRENT_SOURCE_OF_TRUTH",
+      "independence_unit": "PARENT_DATATAKES_CLUSTERS",
+      "train_count": 40,
+      "dev_count": 12,
+      "holdout_count": 12,
+      "total_count": 64,
+      "status": "100% CONSISTENT"
+    }
+  ],
+  "readiness_decision": {
+    "verdict": "READY_FOR_USER_AUTHORIZATION",
+    "justification": "All small uncertainties are resolved: cluster_id <-> mission_data_take_id is mathematically proven bijective across all partitions of the frozen OPS-02 dataset; actual C22-B computational dependencies contain zero stale independence parameters; all current source-of-truth documents agree on 40 TRAIN clusters (64 total); model initial states match bitwise; and all safety quarantine boundaries remain 100% intact."
+  }
+}

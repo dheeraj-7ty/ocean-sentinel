@@ -1,0 +1,58 @@
+{
+  "audit_id": "OPS02-C22I-SAMPLER-SEMANTICS-V1",
+  "task_id": "EXP-07-P0-C22-I",
+  "investigation_id": "DIAG-02-SAMPLER-EXPOSURE-SCHEDULE-DYNAMICS",
+  "created_at_utc": "2026-09-14T17:15:00Z",
+  "governance": {
+    "status": "VALIDATED",
+    "training_steps": 0,
+    "gpu_seconds": 0.0,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0
+  },
+  "specification": {
+    "name": "Candidate F Hybrid Sampler",
+    "intended_mixture": "70% Parent Acquisition Balanced, 30% Class Presence Balanced",
+    "draws_per_epoch": 72,
+    "replacement": true,
+    "generator_reseeding_rule": "seed + epoch * 1000",
+    "batch_size": 8,
+    "batches_per_epoch": 9,
+    "gradient_accumulation_steps": 2
+  },
+  "implementations_audited": {
+    "c22b_seed42": {
+      "script": "scratch/kaggle_c22b_kernel/run_exp07_diag01_paired.py",
+      "schedule_sha256": "2B1562E33FF32F73A8BF373D24951AF220E423FF74F12F7B589CEDA426A6834B",
+      "parent_weight_formula": "1.0 / parent_counts[s['cluster_id']], normalized to sum to 1.0",
+      "class_presence_formula": "sum(1.0 / sqrt(len(samples_with_class))) for class in fg_classes (c > 0), floored at 0.1, normalized to sum to 1.0",
+      "manifest_key_read": "canonical_dense_class_ids_present",
+      "effective_parent_weight_fraction": 0.7,
+      "effective_class_weight_fraction": 0.3,
+      "status": "CORRECT_INTENDED_IMPLEMENTATION"
+    },
+    "c22d_replication": {
+      "script": "scratch/kaggle_c22d_kernel/run_exp07_diag01_multiseed_replication.py",
+      "schedules_sha256": {
+        "seed_101": "6EB40F9BE51C70A5C53EB387CADA259CF3CD8FE8AEA458A0E0220509A8A9E6EA",
+        "seed_202": "6703D054BF12EB33E4E2AB25B702ADB12C82F15668FBDAABDAD0CC19D3AC798E",
+        "seed_303": "90F93C6261AE20FEF174CEC7A488EC01BEE76B8417C36ED9F756C2B319353CEE",
+        "seed_404": "CD995CDEBBF69EA743B2F6F7CFF48F7714AC7FA3658FE9E9B4814373F67A6ADB"
+      },
+      "manifest_key_read": "labels_present",
+      "anomaly_detected": "SILENT_KEY_LOOKUP_FAILURE",
+      "anomaly_detail": "The dictionary key 'labels_present' does not exist in OPS02 physical dataset manifest samples. s.get('labels_present', []) returned an empty list for all 132 training samples, causing c_weight to fallback to 0.001 constant across all tiles.",
+      "unnormalized_parent_weight_sum": 40.0,
+      "unnormalized_class_weight_sum": 0.132,
+      "effective_parent_weight_fraction": 0.99859,
+      "effective_class_weight_fraction": 0.00141,
+      "behavioral_consequence": "C22-D sampler behaved as a 99.86% pure parent-balanced sampler with zero within-cluster rare class discrimination.",
+      "status": "IMPLEMENTATION_DEFECT_DETECTED"
+    }
+  },
+  "correlation_between_c22b_and_c22d_weights": {
+    "pearson_r": 0.5614,
+    "spearman_r": 0.494,
+    "max_abs_tile_weight_diff": 0.005602
+  }
+}

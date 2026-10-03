@@ -1,0 +1,51 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C15",
+  "title": "OPS-02 Canonical Multiclass Taxonomy Freeze and Firewall Audit",
+  "created_at_utc": "2026-09-14T01:00:00Z",
+  "taxonomy_version": "CANONICAL_DENSE_12_CLASS_V1",
+  "status": "FROZEN_AND_VERIFIED",
+  "dense_classes": {
+    "0": {"name": "BG", "description": "Background Seawater", "source_class_id": 0, "verified_pixels": 4002097},
+    "1": {"name": "AF", "description": "Atmospheric Front", "source_class_id": 1, "verified_pixels": 121154},
+    "2": {"name": "BS", "description": "Biological Slicks", "source_class_id": 2, "verified_pixels": 1064310},
+    "3": {"name": "LWA", "description": "Low Wind Area", "source_class_id": 4, "verified_pixels": 551293},
+    "4": {"name": "MCC", "description": "Mesoscale Cellular Convection", "source_class_id": 5, "verified_pixels": 1993828},
+    "5": {"name": "OF", "description": "Ocean Front (NOT Oil Film/Spill)", "source_class_id": 6, "verified_pixels": 33706},
+    "6": {"name": "POW", "description": "Pure Ocean Wave", "source_class_id": 7, "verified_pixels": 945218},
+    "7": {"name": "RF", "description": "Rain Cell / Rain Footprint", "source_class_id": 8, "verified_pixels": 96801},
+    "8": {"name": "WS", "description": "Wind Streak", "source_class_id": 10, "verified_pixels": 539703},
+    "9": {"name": "Eddy", "description": "Oceanic Eddy", "source_class_id": 11, "verified_pixels": 197152},
+    "10": {"name": "IWs", "description": "Internal Waves", "source_class_id": 12, "verified_pixels": 4027366},
+    "11": {"name": "HM", "description": "Human-Made / Anthropogenic Objects (NOT vessel-only)", "source_class_id": 13, "verified_pixels": 1847}
+  },
+  "quarantined_and_excluded_classes": {
+    "source_class_14": {
+      "name": "Mineral Oil Spill",
+      "firewall_rule": "GOV-RULE-060",
+      "status": "STRICTLY_QUARANTINED",
+      "verified_pixels_in_ops02": 0,
+      "admitted_samples": 0
+    },
+    "source_class_3": {
+      "name": "Iceberg",
+      "firewall_rule": "TAXONOMY_FIREWALL_CRYOSPHERE",
+      "status": "EXCLUDED",
+      "verified_pixels_in_ops02": 0,
+      "admitted_samples": 0
+    },
+    "source_class_9": {
+      "name": "Sea Ice",
+      "firewall_rule": "TAXONOMY_FIREWALL_CRYOSPHERE",
+      "status": "EXCLUDED",
+      "verified_pixels_in_ops02": 0,
+      "admitted_samples": 0
+    }
+  },
+  "remapping_contract": {
+    "reference_implementation": "src/ocean_sentinel/ml/exp07_reference.py::remap_source_mask_to_dense",
+    "ignore_index": -100,
+    "border_padding_behavior": "Masked to -100 based on compute_validity_mask (raw DN == 0)",
+    "verification_result": "100% of 212 samples conform to remapping contract with zero unhandled or leaking labels."
+  }
+}

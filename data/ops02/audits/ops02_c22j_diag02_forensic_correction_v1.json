@@ -1,0 +1,181 @@
+{
+  "audit_version": "1.0.0",
+  "audit_date": "2026-09-14T23:35:00+05:30",
+  "task_id": "EXP-07-P0-C22-J",
+  "investigation_id": "DIAG-02-FORENSIC-CORRECTION-AND-ROADMAP-GATE",
+  "parent_tasks": ["EXP-07-P0-C22-H", "EXP-07-P0-C22-I"],
+  "status": "COMPLETED_VALID",
+  "governance_guarantees": {
+    "training_steps": 0,
+    "backward_passes": 0,
+    "optimizer_steps": 0,
+    "scheduler_steps": 0,
+    "parameter_updates": 0,
+    "gpu_training_compute_seconds": 0.0,
+    "holdout_payload_access_count": 0,
+    "part_iii_benchmark_access_count": 0,
+    "diag05_executed": false,
+    "analytical_compute_mode": "CPU_ONLY"
+  },
+  "audit_provenance_decision": {
+    "decision": "MUTABLE_WITH_EXPLICIT_FORENSIC_HISTORY",
+    "precedent": "EXP-07-P0-C22-H in-place calibration of ops02_c22g_class_support_metric_sensitivity_v1.json with reclassification_history",
+    "rationale": "Directly harmonizes the active evidence base to eliminate unmeasured gradient assertions while preserving the exact historical C22-I claims inside the embedded forensic_correction_history block in ops02_c22i_sampler_exposure_audit_v1.json.",
+    "historical_integrity_guarantee": "Original C22-I assertions and raw data tables remain permanently preserved in scratch/generate_c22i_audits.py and the embedded forensic_correction_history object."
+  },
+  "forensic_reconciliation": {
+    "target_rare_classes": {
+      "OF": {
+        "class_id": 5,
+        "canonical_name": "Ocean Front",
+        "physical_train_samples": 9,
+        "physical_parent_clusters": 4,
+        "forbidden_aliases_checked_absent": ["oil spill"]
+      },
+      "RF": {
+        "class_id": 7,
+        "canonical_name": "Rain / precipitation-related phenomenon",
+        "physical_train_samples": 13,
+        "physical_parent_clusters": 7,
+        "forbidden_aliases_checked_absent": []
+      },
+      "HM": {
+        "class_id": 11,
+        "canonical_name": "Artificial / Anthropogenic Objects",
+        "physical_train_samples": 12,
+        "physical_parent_clusters": 8,
+        "forbidden_aliases_checked_absent": ["vessel", "ship", "Heavy Metal"]
+      }
+    },
+    "physical_vs_sampled_cluster_accounting": {
+      "OF": {
+        "physical_train_samples": 9,
+        "physical_parent_clusters": 4,
+        "sampled_clusters_epochs_1_7": "4/4 (100% across all 5 seeds)",
+        "sampled_clusters_all_30": "4/4 (100% across all 5 seeds)"
+      },
+      "RF": {
+        "physical_train_samples": 13,
+        "physical_parent_clusters": 7,
+        "sampled_clusters_epochs_1_7": "7/7 (100% across all 5 seeds)",
+        "sampled_clusters_all_30": "7/7 (100% across all 5 seeds)"
+      },
+      "HM": {
+        "physical_train_samples": 12,
+        "physical_parent_clusters": 8,
+        "sampled_clusters_epochs_1_7": "7-8/8 (Seeds 42, 202, 303, 404: 8/8; Seed 101: 7/8; mean = 7.8/8)",
+        "sampled_clusters_all_30": "8/8 (100% across all 5 seeds)"
+      }
+    },
+    "five_seed_vectors": {
+      "seeds": [42, 101, 202, 303, 404],
+      "X_early_rare_class_draws_ep1_7": [170, 97, 135, 126, 124],
+      "Y1_control_best_dev_mIoU": [0.04147, 0.05886, 0.04358, 0.05191, 0.04940],
+      "Y2_treatment_best_dev_mIoU": [0.05318, 0.04481, 0.04741, 0.04605, 0.05398],
+      "Y3_paired_delta_treatment_minus_control": [0.01171, -0.01405, 0.00383, -0.00586, 0.00458]
+    },
+    "statistical_correlations": {
+      "sample_size": 5,
+      "interpretation_constraint": "DESCRIPTIVE_ASSOCIATION_ONLY_NO_CAUSAL_OR_GRADIENT_CLAIMS",
+      "X_vs_Y1_control": {
+        "pearson_r": -0.9167,
+        "pearson_p": 0.0285,
+        "spearman_rho": -0.9000,
+        "spearman_p": 0.0374,
+        "classification": "DESCRIPTIVE_ASSOCIATION"
+      },
+      "X_vs_Y2_treatment": {
+        "pearson_r": 0.6302,
+        "pearson_p": 0.2545,
+        "spearman_rho": 0.4000,
+        "spearman_p": 0.5046,
+        "classification": "DESCRIPTIVE_ASSOCIATION"
+      },
+      "X_vs_Y3_paired_delta": {
+        "pearson_r": 0.8955,
+        "pearson_p": 0.0399,
+        "spearman_rho": 0.7000,
+        "spearman_p": 0.1881,
+        "classification": "DESCRIPTIVE_ASSOCIATION"
+      }
+    },
+    "concept_separation": {
+      "rule": "Physical Class Availability != Sampler Allocation != Demonstrated Learning Effect",
+      "physical_dataset_availability": "Finite physical scenes in OPS-02 TRAIN partition (OF: 9 samples across 4 clusters; RF: 13 samples across 7 clusters; HM: 12 samples across 8 clusters).",
+      "sampler_allocation_policy": "Candidate F pseudo-random schedule draws (72 draws/epoch, 100% of available rare-class parent clusters represented in Ep 1-7 for OF and RF, and 7-8/8 for HM, >= 21 draws per class).",
+      "demonstrated_learning_effect": "Validation mIoU on DEV set. Non-zero sampler allocation does not demonstrate learning sufficiency."
+    },
+    "starvation_finding": {
+      "verdict": "NOT_SUPPORTED",
+      "calibrated_statement": "Complete exposure absence was not observed under Candidate F; whether exposure was quantitatively sufficient, optimally distributed, or temporally appropriate for learning remains unresolved.",
+      "unqualified_starvation_refutation_forbidden": true
+    },
+    "mechanism_claim_audit": {
+      "sampler_audit_measures_gradients": false,
+      "unsupported_gradient_claims_removed": true,
+      "forbidden_terms_purged": [
+        "gradient shock",
+        "violent gradient shocks",
+        "stable gradient updates",
+        "unstable gradients",
+        "gradient variance",
+        "regularization",
+        "convergence mechanism"
+      ]
+    }
+  },
+  "authoritative_diagnostic_roadmap": [
+    {
+      "rank": 1,
+      "investigation_id": "DIAG-01-CLASS-SUPPORT-METRIC-SENSITIVITY",
+      "title": "Class-Support, Absent-Class & Primary-Metric Sensitivity Diagnostic",
+      "status": "COMPLETED_VALID",
+      "classification": "CASE B"
+    },
+    {
+      "rank": 2,
+      "investigation_id": "DIAG-02-SAMPLER-EXPOSURE-SCHEDULE-AUDIT",
+      "title": "Sampler Exposure & Batch Schedule Audit",
+      "status": "COMPLETED_FORENSICALLY_REPAIRED",
+      "classification": "CASE C & D (CALIBRATED)"
+    },
+    {
+      "rank": 3,
+      "investigation_id": "DIAG-03-RADIOMETRIC-FEATURE-DISCRIMINABILITY",
+      "title": "Radiometric Feature Discriminability Diagnostic",
+      "status": "UNCHANGED_PENDING_USER_AUTHORIZATION",
+      "classification": "PENDING"
+    },
+    {
+      "rank": 4,
+      "investigation_id": "DIAG-04-RECEPTIVE-FIELD-SCALE-COMPATIBILITY",
+      "title": "Receptive Field & Spatial Scale Compatibility Diagnostic",
+      "status": "UNCHANGED_PENDING_USER_AUTHORIZATION",
+      "classification": "PENDING"
+    },
+    {
+      "rank": 5,
+      "investigation_id": "DIAG-05-LOSS-LANDSCAPE-GRADIENT-DYNAMICS",
+      "title": "Loss Landscape & Gradient Dynamics Diagnostic",
+      "status": "DESIGN_ONLY_NOT_EXECUTED",
+      "classification": "FUTURE_SPECIFICATION"
+    }
+  ],
+  "diag05_specification": {
+    "status": "DESIGN_ONLY_NOT_EXECUTED",
+    "investigation_id": "DIAG-05-LOSS-LANDSCAPE-GRADIENT-DYNAMICS",
+    "purpose": "Empirically evaluate per-layer gradient norm distributions, batch-level gradient variance, and rare-class weight gradient interaction under identical batch controls without speculative attribution.",
+    "execution_prohibition": "Strictly zero backward passes, zero parameter updates, and zero gradient calculations were performed during C22-J. Execution requires future explicit authorization."
+  },
+  "registered_lessons": [
+    "LL-C22I-001",
+    "LL-C22I-002",
+    "LL-C22I-003",
+    "LL-C22I-004",
+    "LL-C22J-001",
+    "LL-C22J-002",
+    "LL-C22J-003",
+    "LL-C22J-004",
+    "LL-C22J-005"
+  ]
+}

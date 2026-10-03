@@ -1,0 +1,58 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "audit_name": "C16 OPS02 Dataset Freeze Specification Mutation Audit",
+  "created_at_utc": "2026-09-14T04:12:00Z",
+  "status": "MUTATION_IDENTIFIED_NON_SCIENTIFIC_METADATA_CORRECTION",
+  "mutation_forensics": {
+    "target_file": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.json",
+    "edit_timestamp_approx_utc": "2026-09-14T02:37:00Z",
+    "pre_edit_state": {
+      "summary.partition_breakdown.DEV.sample_pairs": 41,
+      "summary.partition_breakdown.HOLDOUT.sample_pairs": 39
+    },
+    "post_edit_state": {
+      "summary.partition_breakdown.DEV.sample_pairs": 40,
+      "summary.partition_breakdown.HOLDOUT.sample_pairs": 40
+    },
+    "fields_changed": [
+      "summary.partition_breakdown.DEV.sample_pairs",
+      "summary.partition_breakdown.HOLDOUT.sample_pairs"
+    ],
+    "fields_unchanged": [
+      "specification_version",
+      "dataset_identifier",
+      "dataset_version",
+      "freeze_status",
+      "frozen_at_utc",
+      "summary.total_physical_sample_pairs",
+      "summary.total_independent_parent_clusters",
+      "summary.total_mission_datatakes",
+      "summary.total_constituent_level1_scenes",
+      "summary.partition_breakdown.TRAIN",
+      "summary.partition_breakdown.DEV.parent_clusters",
+      "summary.partition_breakdown.DEV.datatakes",
+      "summary.partition_breakdown.DEV.constituent_scenes",
+      "summary.partition_breakdown.DEV.cluster_percentage",
+      "summary.partition_breakdown.HOLDOUT.parent_clusters",
+      "summary.partition_breakdown.HOLDOUT.datatakes",
+      "summary.partition_breakdown.HOLDOUT.constituent_scenes",
+      "summary.partition_breakdown.HOLDOUT.cluster_percentage",
+      "taxonomy",
+      "preprocessing_specification",
+      "governance_and_firewall_rules",
+      "authoritative_manifest_references",
+      "known_scientific_limitations"
+    ]
+  },
+  "audit_findings": {
+    "why_changed": "During C16 Phase 4 pre-transfer verification (scripts/verify_ops02_freeze_pre_transfer.py), automated validation against data/ops02/manifests/ops02_physical_dataset_manifest_v1.json and ops02_partition_manifest_v1.json revealed that the manifests contained 40 DEV samples and 40 HOLDOUT samples. The freeze spec JSON was edited to eliminate the discrepancy before building the Kaggle dataset staging package.",
+    "authorization_status": "INFORMAL_OPERATIONAL_CORRECTION",
+    "authorization_evaluation": "The edit was scientifically correct in that it brought the metadata into alignment with the immutable ground-truth physical manifests established in C14. However, it was procedurally defective because it occurred during training task execution rather than via a formal freeze amendment task, and it was not logged in the C16 incident register.",
+    "dataset_versioning_impact": {
+      "dataset_version": "OPS02_v1.0.0_FROZEN",
+      "evaluation": "Retaining 'v1.0.0' was technically permissible because the underlying physical images, masks, cluster identities, and partition assignments were never modified (0 byte delta). However, modifying a frozen spec in-place violates strict governance (GOV-RULE-081). Future freeze specs must embed the cryptographic SHA-256 of all underlying manifests and be immutable."
+    },
+    "scientific_identity_impact": "ZERO_SCIENTIFIC_DRIFT. The 212 image files, 212 mask files, 40 DEV samples, 40 HOLDOUT samples, and 132 TRAIN samples trained on in C16 are byte-for-byte identical to those assembled in C14. No sample was added, deleted, or transferred across partitions."
+  }
+}

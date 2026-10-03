@@ -1,0 +1,101 @@
+{
+  "audit_version": "1.0.0",
+  "task_id": "EXP-07-P0-C18",
+  "audit_name": "OPS-02 C18 Input Pipeline and Preprocessing Integrity Audit",
+  "audited_at_utc": "2026-09-14T04:50:00Z",
+  "status": "INPUT_PIPELINE_VERIFIED_CORRECT",
+  "contract_spec": {
+    "contract_name": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+    "normalization_constants": {
+      "mean": 4.424158,
+      "std": 0.469261
+    },
+    "ignore_index": -100,
+    "input_tensor_shape": [1, 256, 256],
+    "target_tensor_shape": [256, 256],
+    "dtype_input": "torch.float32",
+    "dtype_target": "torch.int64"
+  },
+  "verification_checklist": {
+    "no_double_log1p": "VERIFIED. log1p is executed exactly once on raw detected DN arrays.",
+    "no_missing_log1p": "VERIFIED. np.log1p(np.maximum(raw_image, 0.0)) is strictly executed before standardization.",
+    "no_accidental_calibration": "VERIFIED. Values are raw detected Level-1 GRD digital numbers, NOT backscatter sigma0/gamma0 in dB.",
+    "no_normalization_leakage": "VERIFIED. Standardization parameters mu and sigma are fixed constants derived strictly from TRAIN partition.",
+    "correct_constants": "VERIFIED. mu=4.424158 and sigma=0.469261 used in all scripts.",
+    "border_padding_masking": "VERIFIED. Non-positive pixels (DN <= 0) are zeroed in input tensors and assigned -100 in target masks."
+  },
+  "representative_phenomena_audit": {
+    "MCC": {
+      "sample_id": "s1a-iw-grd-vv-20160223t232734-20160223t232804-010080-00ed9b-001-15",
+      "cluster_id": "ops02_cluster_006_00ED9B",
+      "raw_dn_range": [36.83, 793.44],
+      "log1p_mean": 4.2457,
+      "standardized_mean": -0.3803,
+      "target_pixels": 43636
+    },
+    "IWs": {
+      "sample_id": "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001-16",
+      "cluster_id": "ops02_cluster_001_00BDE6",
+      "raw_dn_range": [75.44, 175.39],
+      "log1p_mean": 4.7074,
+      "standardized_mean": 0.6037,
+      "target_pixels": 4926
+    },
+    "BS": {
+      "sample_id": "s1a-iw-grd-vv-20170313t214813-20170313t214838-015679-019ccc-001-46",
+      "cluster_id": "ops02_cluster_014_019CCC",
+      "raw_dn_range": [14.21, 61.41],
+      "log1p_mean": 3.5437,
+      "standardized_mean": -1.8762,
+      "target_pixels": 27578
+    },
+    "LWA": {
+      "sample_id": "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001-1",
+      "cluster_id": "ops02_cluster_025_02056E",
+      "raw_dn_range": [51.07, 1218.11],
+      "log1p_mean": 5.4150,
+      "standardized_mean": 2.1115,
+      "target_pixels": 34656
+    },
+    "POW": {
+      "sample_id": "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001-16",
+      "cluster_id": "ops02_cluster_001_00BDE6",
+      "raw_dn_range": [75.44, 175.39],
+      "log1p_mean": 4.7074,
+      "standardized_mean": 0.6037,
+      "target_pixels": 53984
+    },
+    "OF": {
+      "sample_id": "s1a-iw-grd-vv-20160123t215627-20160123t215641-009627-00e063-001-7",
+      "cluster_id": "ops02_cluster_003_00E063",
+      "raw_dn_range": [39.15, 867.74],
+      "log1p_mean": 5.5278,
+      "standardized_mean": 2.3518,
+      "target_pixels": 1709
+    },
+    "WS": {
+      "sample_id": "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001-18",
+      "cluster_id": "ops02_cluster_001_00BDE6",
+      "raw_dn_range": [88.72, 165.61],
+      "log1p_mean": 4.7984,
+      "standardized_mean": 0.7975,
+      "target_pixels": 44386
+    },
+    "Eddy": {
+      "sample_id": "s1a-iw-grd-vv-20220108t082103-20220108t082128-041367-04eb11-001-45",
+      "cluster_id": "ops02_cluster_050_04EB11",
+      "raw_dn_range": [23.48, 473.71],
+      "log1p_mean": 4.0340,
+      "standardized_mean": -0.8313,
+      "target_pixels": 22676
+    },
+    "HM": {
+      "sample_id": "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001-23",
+      "cluster_id": "ops02_cluster_025_02056E",
+      "raw_dn_range": [44.82, 1899.43],
+      "log1p_mean": 4.5638,
+      "standardized_mean": 0.2975,
+      "target_pixels": 58
+    }
+  }
+}

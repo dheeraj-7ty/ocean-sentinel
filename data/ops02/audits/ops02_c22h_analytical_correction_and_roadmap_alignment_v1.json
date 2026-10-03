@@ -1,0 +1,99 @@
+{
+  "audit_version": "1.0.0",
+  "audit_date": "2026-09-14T17:00:00+05:30",
+  "task_id": "EXP-07-P0-C22-H",
+  "investigation_id": "C22H-ANALYTICAL-CORRECTION-ROADMAP-ALIGNMENT",
+  "parent_tasks": ["EXP-07-P0-C22-E", "EXP-07-P0-C22-F", "EXP-07-P0-C22-G"],
+  "status": "COMPLETED_VALID",
+  "governance_guarantees": {
+    "training_steps": 0,
+    "backward_passes": 0,
+    "optimizer_steps": 0,
+    "scheduler_steps": 0,
+    "gpu_training_compute_seconds": 0.0,
+    "holdout_payload_access_count": 0,
+    "part_iii_benchmark_access_count": 0,
+    "analytical_compute_mode": "CPU_ONLY"
+  },
+  "analytical_corrections": {
+    "correction_1_decision_logic_reclassification": {
+      "topic": "Reclassification of Decision Logic Case from CASE C to CASE B",
+      "previous_status": "CASE C (Primary metric interpretation is materially distorted by rare-support structure and single-parent vulnerability)",
+      "corrected_status": "CASE B (The frozen primary metric remains valid for its intended macro-class objective, but its estimate is materially sensitive to uneven physical support and sparse class representation in the current DEV partition)",
+      "normative_calibration_rationale": "Equal class weighting is an intentional, standard property of macro arithmetic mIoU. When rare classes score low, the headline macro score is naturally lower than a pixel-weighted descriptive summary. Without an external normative requirement specifying that macro mIoU must mirror pixel-weighted prevalence, the metric is support-sensitive, not mathematically invalid or distorted."
+    },
+    "correction_2_evaluation_subset_sensitivity": {
+      "topic": "Descriptive Evaluation-Subset Sensitivity vs Artificial Mathematical Boost",
+      "previous_phrasing": "Single-parent classes produce an artificial mathematical boost (+0.004 to +0.0105) and acute instability",
+      "corrected_phrasing": "Descriptive evaluation-subset sensitivity: when the sole parent containing a class is omitted, that class has 0 GT pixels in the remaining subset. Under the frozen metric rules, classes with 0 GT pixels are legitimately excluded from the macro denominator (reducing it from 11 to 10), resulting in a subset score that is higher (+0.004 to +0.0105) over fewer classes. This is not an artificial boost or defect in the full-DEV benchmark."
+    },
+    "correction_3_equal_class_weighting": {
+      "topic": "Equal Class-Weighting vs Mechanical Compression",
+      "previous_phrasing": "Ultra-sparse and intermediate classes mechanically compress the apparent macro performance from 0.119 to 0.049",
+      "corrected_phrasing": "Equal class-weighting and support sensitivity: each class contributes equally (1/11th) regardless of pixel footprint. Low-IoU classes contribute equally at the class level despite smaller pixel support, so the headline macro score is lower than a pixel-weighted summary. The ~0.049 score is a valid macro-class performance measure with substantial support sensitivity."
+    },
+    "correction_4_roadmap_identity_restoration": {
+      "topic": "Diagnostic Roadmap Identity Reconciliation",
+      "drift_detected": "C22-G Section 12 Line 311 referred to Rank 2 as DIAG-02: Receptive Field & Scale Compatibility Diagnostic",
+      "authoritative_identity_restored": "DIAG-02-SAMPLER-EXPOSURE-SCHEDULE-AUDIT (Audits whether pseudo-random batch sampling schedules under-exposed sparse classes during initial epochs prior to early stopping)",
+      "receptive_field_identity": "Designated as future diagnostic candidate DIAG-04-RECEPTIVE-FIELD-SCALE-COMPATIBILITY to prevent identity collision and roadmap divergence."
+    }
+  },
+  "authoritative_diagnostic_roadmap": [
+    {
+      "rank": 1,
+      "investigation_id": "DIAG-01-CLASS-SUPPORT-METRIC-SENSITIVITY",
+      "title": "Class-Support, Absent-Class & Primary-Metric Sensitivity Diagnostic",
+      "status": "COMPLETED_VALID",
+      "classification": "CASE B",
+      "deliverables": [
+        "data/ops02/audits/ops02_c22g_metric_semantics_v1.json",
+        "data/ops02/audits/ops02_c22g_class_support_metric_sensitivity_v1.json",
+        "experiments/EXP-07/EXP07_P0_C22G_CLASS_SUPPORT_METRIC_SENSITIVITY_20260914.md"
+      ]
+    },
+    {
+      "rank": 2,
+      "investigation_id": "DIAG-02-SAMPLER-EXPOSURE-SCHEDULE-AUDIT",
+      "title": "Sampler Exposure & Batch Schedule Audit",
+      "status": "NEXT_PENDING_USER_AUTHORIZATION",
+      "core_question": "Did pseudo-random batch sampling schedules starve rare classes of gradient exposure during the critical initial epochs (Epochs 1-7) prior to early stopping?",
+      "planned_deliverables": [
+        "data/ops02/audits/ops02_c22_diag02_sampler_schedule_audit_v1.json",
+        "experiments/EXP-07/EXP07_P0_C22_DIAG02_SAMPLER_SCHEDULE_AUDIT_20260914.md"
+      ]
+    },
+    {
+      "rank": 3,
+      "investigation_id": "DIAG-03-RADIOMETRIC-FEATURE-DISCRIMINABILITY",
+      "title": "Radiometric Contrast & Spectral Separability Diagnostic",
+      "status": "QUEUED_PENDING_PRIOR_PHASE",
+      "core_question": "Are rare oceanic phenomenon classes physically separable in raw dual-pol Sentinel-1 SAR backscatter distributions?"
+    },
+    {
+      "rank": 4,
+      "investigation_id": "DIAG-04-RECEPTIVE-FIELD-SCALE-COMPATIBILITY",
+      "title": "Receptive Field & Spatial Scale Compatibility Diagnostic",
+      "status": "QUEUED_PENDING_PRIOR_PHASE",
+      "core_question": "Does the 512x512 tile crop size or ResNet18 encoder receptive field truncate multiscale oceanic phenomena (such as large eddies or expansive atmospheric fronts)?"
+    }
+  ],
+  "lessons_learned_registered": [
+    {
+      "lesson_id": "LL-C22H-001",
+      "failure_pattern": "Conflating support sensitivity with metric invalidity",
+      "status": "REGRESSION_PROTECTED"
+    },
+    {
+      "lesson_id": "LL-C22H-002",
+      "failure_pattern": "Misinterpreting leave-one-subset analyses as replacement benchmark scores",
+      "status": "REGRESSION_PROTECTED"
+    },
+    {
+      "lesson_id": "LL-C22H-003",
+      "failure_pattern": "Investigation ID and roadmap identity drift across diagnostic iterations",
+      "status": "REGRESSION_PROTECTED"
+    }
+  ],
+  "frozen_primary_benchmark_integrity": "STRICTLY_PRESERVED"
+}

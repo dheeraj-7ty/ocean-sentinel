@@ -1,0 +1,1766 @@
+{
+  "manifest_version": "1.0.0",
+  "dataset_name": "OPS-02 Parent Cluster Manifest",
+  "phase": "EXP-07-P0-C14",
+  "created_at_utc": "2026-09-13T21:10:25.268280+00:00",
+  "total_independent_parent_clusters": 64,
+  "train_clusters": 40,
+  "dev_clusters": 12,
+  "holdout_clusters": 12,
+  "clustering_invariant": "GOV-RULE-077 (Datatake & Orbital Track Clustering Invariant)",
+  "clusters": [
+    {
+      "cluster_id": "ops02_cluster_001_00BDE6",
+      "mission_data_take_id": "00BDE6",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 8402,
+      "start_time_utc": "2015-10-31T21:56:10Z",
+      "year": "2015",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "East China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001",
+        "s1a-iw-grd-vv-20151031t215635-20151031t215700-008402-00bde6-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001-16",
+        "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001-18",
+        "s1a-iw-grd-vv-20151031t215635-20151031t215700-008402-00bde6-001-13",
+        "s1a-iw-grd-vv-20151031t215610-20151031t215635-008402-00bde6-001-10"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        7,
+        8,
+        10,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_002_00D645",
+      "mission_data_take_id": "00D645",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 9277,
+      "start_time_utc": "2015-12-30T21:56:28Z",
+      "year": "2015",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "South China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20151230t215628-20151230t215642-009277-00d645-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20151230t215628-20151230t215642-009277-00d645-001-8",
+        "s1a-iw-grd-vv-20151230t215628-20151230t215642-009277-00d645-001-4",
+        "s1a-iw-grd-vv-20151230t215628-20151230t215642-009277-00d645-001-5",
+        "s1a-iw-grd-vv-20151230t215628-20151230t215642-009277-00d645-001-1"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        10,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_003_00E063",
+      "mission_data_take_id": "00E063",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 9627,
+      "start_time_utc": "2016-01-23T21:56:02Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "South China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20160123t215602-20160123t215627-009627-00e063-001",
+        "s1a-iw-grd-vv-20160123t215627-20160123t215641-009627-00e063-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20160123t215627-20160123t215641-009627-00e063-001-7",
+        "s1a-iw-grd-vv-20160123t215627-20160123t215641-009627-00e063-001-8",
+        "s1a-iw-grd-vv-20160123t215602-20160123t215627-009627-00e063-001-5",
+        "s1a-iw-grd-vv-20160123t215602-20160123t215627-009627-00e063-001-11"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        6,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_004_00E369",
+      "mission_data_take_id": "00E369",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 9730,
+      "start_time_utc": "2016-01-30T23:27:34Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "East China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20160130t232734-20160130t232804-009730-00e369-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20160130t232734-20160130t232804-009730-00e369-001-8",
+        "s1a-iw-grd-vv-20160130t232734-20160130t232804-009730-00e369-001-15"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        7,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_005_00E710",
+      "mission_data_take_id": "00E710",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 9860,
+      "start_time_utc": "2016-02-08T21:25:39Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "East China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20160208t212539-20160208t212604-009860-00e710-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20160208t212539-20160208t212604-009860-00e710-001-8",
+        "s1a-iw-grd-vv-20160208t212539-20160208t212604-009860-00e710-001-2",
+        "s1a-iw-grd-vv-20160208t212539-20160208t212604-009860-00e710-001-9",
+        "s1a-iw-grd-vv-20160208t212539-20160208t212604-009860-00e710-001-1"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        8,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_006_00ED9B",
+      "mission_data_take_id": "00ED9B",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 10080,
+      "start_time_utc": "2016-02-23T23:27:34Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "East China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20160223t232734-20160223t232804-010080-00ed9b-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20160223t232734-20160223t232804-010080-00ed9b-001-15",
+        "s1a-iw-grd-vv-20160223t232734-20160223t232804-010080-00ed9b-001-30"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        5,
+        7,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_007_00FD5B",
+      "mission_data_take_id": "00FD5B",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 10634,
+      "start_time_utc": "2016-04-01T23:10:46Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "East China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20160401t231046-20160401t231110-010634-00fd5b-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20160401t231046-20160401t231110-010634-00fd5b-001-51",
+        "s1a-iw-grd-vv-20160401t231046-20160401t231110-010634-00fd5b-001-52"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_008_00FF7D",
+      "mission_data_take_id": "00FF7D",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 10707,
+      "start_time_utc": "2016-04-06T23:18:10Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "South China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20160406t231810-20160406t231837-010707-00ff7d-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20160406t231810-20160406t231837-010707-00ff7d-001-53",
+        "s1a-iw-grd-vv-20160406t231810-20160406t231837-010707-00ff7d-001-54",
+        "s1a-iw-grd-vv-20160406t231810-20160406t231837-010707-00ff7d-001-58",
+        "s1a-iw-grd-vv-20160406t231810-20160406t231837-010707-00ff7d-001-59"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_009_01690A",
+      "mission_data_take_id": "01690A",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 14002,
+      "start_time_utc": "2016-11-18T21:56:11Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "East China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20161118t215611-20161118t215636-014002-01690a-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20161118t215611-20161118t215636-014002-01690a-001-11",
+        "s1a-iw-grd-vv-20161118t215611-20161118t215636-014002-01690a-001-4",
+        "s1a-iw-grd-vv-20161118t215611-20161118t215636-014002-01690a-001-18"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        8,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_010_016E6A",
+      "mission_data_take_id": "016E6A",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 14177,
+      "start_time_utc": "2016-11-30T21:56:10Z",
+      "year": "2016",
+      "ocean_basin": "North Pacific Ocean",
+      "marginal_sea": "South China Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20161130t215610-20161130t215635-014177-016e6a-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20161130t215610-20161130t215635-014177-016e6a-001-18",
+        "s1a-iw-grd-vv-20161130t215610-20161130t215635-014177-016e6a-001-17"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        8,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_011_019228",
+      "mission_data_take_id": "019228",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 15329,
+      "start_time_utc": "2017-02-17T21:48:13Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Norwegian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170217t214813-20170217t214838-015329-019228-001",
+        "s1a-iw-grd-vv-20170217t214838-20170217t214903-015329-019228-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170217t214838-20170217t214903-015329-019228-001-32",
+        "s1a-iw-grd-vv-20170217t214813-20170217t214838-015329-019228-001-48",
+        "s1a-iw-grd-vv-20170217t214813-20170217t214838-015329-019228-001-47",
+        "s1a-iw-grd-vv-20170217t214838-20170217t214903-015329-019228-001-25"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        10,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_012_019780",
+      "mission_data_take_id": "019780",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 15504,
+      "start_time_utc": "2017-03-01T21:48:13Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170301t214813-20170301t214838-015504-019780-001",
+        "s1a-iw-grd-vv-20170301t214838-20170301t214903-015504-019780-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170301t214838-20170301t214903-015504-019780-001-34",
+        "s1a-iw-grd-vv-20170301t214838-20170301t214903-015504-019780-001-35",
+        "s1a-iw-grd-vv-20170301t214838-20170301t214903-015504-019780-001-36",
+        "s1a-iw-grd-vv-20170301t214838-20170301t214903-015504-019780-001-47"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_013_0199B9",
+      "mission_data_take_id": "0199B9",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 15577,
+      "start_time_utc": "2017-03-06T21:56:13Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Norwegian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170306t215613-20170306t215638-015577-0199b9-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170306t215613-20170306t215638-015577-0199b9-001-12",
+        "s1a-iw-grd-vv-20170306t215613-20170306t215638-015577-0199b9-001-11"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_014_019CCC",
+      "mission_data_take_id": "019CCC",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 15679,
+      "start_time_utc": "2017-03-13T21:48:13Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Norwegian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170313t214813-20170313t214838-015679-019ccc-001",
+        "s1a-iw-grd-vv-20170313t214838-20170313t214903-015679-019ccc-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170313t214838-20170313t214903-015679-019ccc-001-36",
+        "s1a-iw-grd-vv-20170313t214813-20170313t214838-015679-019ccc-001-46",
+        "s1a-iw-grd-vv-20170313t214813-20170313t214838-015679-019ccc-001-53",
+        "s1a-iw-grd-vv-20170313t214838-20170313t214903-015679-019ccc-001-38"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        2,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_015_01A005",
+      "mission_data_take_id": "01A005",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 15790,
+      "start_time_utc": "2017-03-21T11:43:16Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170321t114316-20170321t114341-015790-01a005-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170321t114316-20170321t114341-015790-01a005-001-9",
+        "s1a-iw-grd-vv-20170321t114316-20170321t114341-015790-01a005-001-10",
+        "s1a-iw-grd-vv-20170321t114316-20170321t114341-015790-01a005-001-11",
+        "s1a-iw-grd-vv-20170321t114316-20170321t114341-015790-01a005-001-14"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_016_01A1FC",
+      "mission_data_take_id": "01A1FC",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 15854,
+      "start_time_utc": "2017-03-25T21:48:38Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170325t214838-20170325t214903-015854-01a1fc-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170325t214838-20170325t214903-015854-01a1fc-001-44",
+        "s1a-iw-grd-vv-20170325t214838-20170325t214903-015854-01a1fc-001-37",
+        "s1a-iw-grd-vv-20170325t214838-20170325t214903-015854-01a1fc-001-38"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        4,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_017_01A460",
+      "mission_data_take_id": "01A460",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 15936,
+      "start_time_utc": "2017-03-31T12:00:07Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170331t120007-20170331t120032-015936-01a460-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170331t120007-20170331t120032-015936-01a460-001-2",
+        "s1a-iw-grd-vv-20170331t120007-20170331t120032-015936-01a460-001-3",
+        "s1a-iw-grd-vv-20170331t120007-20170331t120032-015936-01a460-001-4",
+        "s1a-iw-grd-vv-20170331t120007-20170331t120032-015936-01a460-001-40"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_018_01A9AD",
+      "mission_data_take_id": "01A9AD",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 16111,
+      "start_time_utc": "2017-04-12T11:59:38Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Norwegian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170412t115938-20170412t120007-016111-01a9ad-001",
+        "s1a-iw-grd-vv-20170412t120007-20170412t120032-016111-01a9ad-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170412t115938-20170412t120007-016111-01a9ad-001-18",
+        "s1a-iw-grd-vv-20170412t120007-20170412t120032-016111-01a9ad-001-1",
+        "s1a-iw-grd-vv-20170412t120007-20170412t120032-016111-01a9ad-001-4",
+        "s1a-iw-grd-vv-20170412t120007-20170412t120032-016111-01a9ad-001-47"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        7,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_019_01C47C",
+      "mission_data_take_id": "01C47C",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 16986,
+      "start_time_utc": "2017-06-11T12:00:11Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170611t120011-20170611t120036-016986-01c47c-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170611t120011-20170611t120036-016986-01c47c-001-2",
+        "s1a-iw-grd-vv-20170611t120011-20170611t120036-016986-01c47c-001-3",
+        "s1a-iw-grd-vv-20170611t120011-20170611t120036-016986-01c47c-001-4"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        7,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_020_01DF17",
+      "mission_data_take_id": "01DF17",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 17860,
+      "start_time_utc": "2017-08-10T10:24:57Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170810t102457-20170810t102526-017860-01df17-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170810t102457-20170810t102526-017860-01df17-001-44",
+        "s1a-iw-grd-vv-20170810t102457-20170810t102526-017860-01df17-001-45"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_021_01DF20",
+      "mission_data_take_id": "01DF20",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 17861,
+      "start_time_utc": "2017-08-10T12:00:14Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Norwegian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170810t120014-20170810t120039-017861-01df20-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170810t120014-20170810t120039-017861-01df20-001-2",
+        "s1a-iw-grd-vv-20170810t120014-20170810t120039-017861-01df20-001-3",
+        "s1a-iw-grd-vv-20170810t120014-20170810t120039-017861-01df20-001-4",
+        "s1a-iw-grd-vv-20170810t120014-20170810t120039-017861-01df20-001-5"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        7,
+        8,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_022_01E471",
+      "mission_data_take_id": "01E471",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 18036,
+      "start_time_utc": "2017-08-22T12:00:15Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170822t120015-20170822t120040-018036-01e471-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170822t120015-20170822t120040-018036-01e471-001-2",
+        "s1a-iw-grd-vv-20170822t120015-20170822t120040-018036-01e471-001-4",
+        "s1a-iw-grd-vv-20170822t120015-20170822t120040-018036-01e471-001-3"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        7,
+        10,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_023_01E515",
+      "mission_data_take_id": "01E515",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 18056,
+      "start_time_utc": "2017-08-23T21:41:26Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20170823t214126-20170823t214151-018056-01e515-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170823t214126-20170823t214151-018056-01e515-001-34",
+        "s1a-iw-grd-vv-20170823t214126-20170823t214151-018056-01e515-001-27"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_024_01F9D5",
+      "mission_data_take_id": "01F9D5",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 18736,
+      "start_time_utc": "2017-10-09T12:00:16Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20171009t120016-20171009t120041-018736-01f9d5-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20171009t120016-20171009t120041-018736-01f9d5-001-4",
+        "s1a-iw-grd-vv-20171009t120016-20171009t120041-018736-01f9d5-001-3",
+        "s1a-iw-grd-vv-20171009t120016-20171009t120041-018736-01f9d5-001-6"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        4,
+        7,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_025_02056E",
+      "mission_data_take_id": "02056E",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 19115,
+      "start_time_utc": "2017-11-04T11:43:00Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Norwegian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20171104t114300-20171104t114325-019115-02056e-001",
+        "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001-23",
+        "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001-1",
+        "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001-2",
+        "s1a-iw-grd-vv-20171104t114325-20171104t114350-019115-02056e-001-3"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        4,
+        5,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_026_0214B7",
+      "mission_data_take_id": "0214B7",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 19602,
+      "start_time_utc": "2017-12-07T21:56:22Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "North Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20171207t215622-20171207t215647-019602-0214b7-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20171207t215622-20171207t215647-019602-0214b7-001-17",
+        "s1a-iw-grd-vv-20171207t215622-20171207t215647-019602-0214b7-001-23",
+        "s1a-iw-grd-vv-20171207t215622-20171207t215647-019602-0214b7-001-16"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        4,
+        8,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_027_021B44",
+      "mission_data_take_id": "021B44",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 19815,
+      "start_time_utc": "2017-12-22T11:43:23Z",
+      "year": "2017",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Norwegian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20171222t114323-20171222t114348-019815-021b44-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20171222t114323-20171222t114348-019815-021b44-001-1",
+        "s1a-iw-grd-vv-20171222t114323-20171222t114348-019815-021b44-001-25",
+        "s1a-iw-grd-vv-20171222t114323-20171222t114348-019815-021b44-001-26",
+        "s1a-iw-grd-vv-20171222t114323-20171222t114348-019815-021b44-001-2"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_028_0220C9",
+      "mission_data_take_id": "0220C9",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 19990,
+      "start_time_utc": "2018-01-03T11:43:48Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180103t114348-20180103t114412-019990-0220c9-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180103t114348-20180103t114412-019990-0220c9-001-7",
+        "s1a-iw-grd-vv-20180103t114348-20180103t114412-019990-0220c9-001-13",
+        "s1a-iw-grd-vv-20180103t114348-20180103t114412-019990-0220c9-001-8",
+        "s1a-iw-grd-vv-20180103t114348-20180103t114412-019990-0220c9-001-17"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        4,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_029_0222C6",
+      "mission_data_take_id": "0222C6",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20054,
+      "start_time_utc": "2018-01-07T21:48:46Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180107t214846-20180107t214911-020054-0222c6-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180107t214846-20180107t214911-020054-0222c6-001-32",
+        "s1a-iw-grd-vv-20180107t214846-20180107t214911-020054-0222c6-001-39"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        8,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_030_022AB3",
+      "mission_data_take_id": "022AB3",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20302,
+      "start_time_utc": "2018-01-24T21:56:21Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180124t215621-20180124t215646-020302-022ab3-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180124t215621-20180124t215646-020302-022ab3-001-12",
+        "s1a-iw-grd-vv-20180124t215621-20180124t215646-020302-022ab3-001-11",
+        "s1a-iw-grd-vv-20180124t215621-20180124t215646-020302-022ab3-001-18"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_031_022DE3",
+      "mission_data_take_id": "022DE3",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20404,
+      "start_time_utc": "2018-01-31T21:48:45Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180131t214845-20180131t214910-020404-022de3-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180131t214845-20180131t214910-020404-022de3-001-45",
+        "s1a-iw-grd-vv-20180131t214845-20180131t214910-020404-022de3-001-35",
+        "s1a-iw-grd-vv-20180131t214845-20180131t214910-020404-022de3-001-34",
+        "s1a-iw-grd-vv-20180131t214845-20180131t214910-020404-022de3-001-38"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_032_022E25",
+      "mission_data_take_id": "022E25",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 20413,
+      "start_time_utc": "2018-02-01T11:51:01Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180201t115101-20180201t115129-020413-022e25-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180201t115101-20180201t115129-020413-022e25-001-35",
+        "s1a-iw-grd-vv-20180201t115101-20180201t115129-020413-022e25-001-28",
+        "s1a-iw-grd-vv-20180201t115101-20180201t115129-020413-022e25-001-7"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_033_023047",
+      "mission_data_take_id": "023047",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20477,
+      "start_time_utc": "2018-02-05T21:56:20Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180205t215620-20180205t215645-020477-023047-001",
+        "s1a-iw-grd-vv-20180205t215645-20180205t215710-020477-023047-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180205t215620-20180205t215645-020477-023047-001-18",
+        "s1a-iw-grd-vv-20180205t215645-20180205t215710-020477-023047-001-13",
+        "s1a-iw-grd-vv-20180205t215620-20180205t215645-020477-023047-001-17"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_034_023178",
+      "mission_data_take_id": "023178",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20515,
+      "start_time_utc": "2018-02-08T11:43:22Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180208t114322-20180208t114347-020515-023178-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180208t114322-20180208t114347-020515-023178-001-31",
+        "s1a-iw-grd-vv-20180208t114322-20180208t114347-020515-023178-001-32"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_035_0235DF",
+      "mission_data_take_id": "0235DF",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20652,
+      "start_time_utc": "2018-02-17T21:56:20Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180217t215620-20180217t215645-020652-0235df-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180217t215620-20180217t215645-020652-0235df-001-16",
+        "s1a-iw-grd-vv-20180217t215620-20180217t215645-020652-0235df-001-17"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_036_023709",
+      "mission_data_take_id": "023709",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20690,
+      "start_time_utc": "2018-02-20T11:42:57Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180220t114257-20180220t114322-020690-023709-001",
+        "s1a-iw-grd-vv-20180220t114322-20180220t114347-020690-023709-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180220t114322-20180220t114347-020690-023709-001-31",
+        "s1a-iw-grd-vv-20180220t114322-20180220t114347-020690-023709-001-29",
+        "s1a-iw-grd-vv-20180220t114322-20180220t114347-020690-023709-001-34",
+        "s1a-iw-grd-vv-20180220t114322-20180220t114347-020690-023709-001-15"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        4,
+        5,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_037_023B6B",
+      "mission_data_take_id": "023B6B",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20827,
+      "start_time_utc": "2018-03-01T21:56:20Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180301t215620-20180301t215645-020827-023b6b-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180301t215620-20180301t215645-020827-023b6b-001-9",
+        "s1a-iw-grd-vv-20180301t215620-20180301t215645-020827-023b6b-001-23",
+        "s1a-iw-grd-vv-20180301t215620-20180301t215645-020827-023b6b-001-16",
+        "s1a-iw-grd-vv-20180301t215620-20180301t215645-020827-023b6b-001-24"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        2,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_038_023C56",
+      "mission_data_take_id": "023C56",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20856,
+      "start_time_utc": "2018-03-03T21:41:49Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180303t214149-20180303t214214-020856-023c56-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180303t214149-20180303t214214-020856-023c56-001-27",
+        "s1a-iw-grd-vv-20180303t214149-20180303t214214-020856-023c56-001-28",
+        "s1a-iw-grd-vv-20180303t214149-20180303t214214-020856-023c56-001-34",
+        "s1a-iw-grd-vv-20180303t214149-20180303t214214-020856-023c56-001-35"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        2,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_039_023C93",
+      "mission_data_take_id": "023C93",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 20865,
+      "start_time_utc": "2018-03-04T11:43:22Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180304t114322-20180304t114347-020865-023c93-001",
+        "s1a-iw-grd-vv-20180304t114347-20180304t114411-020865-023c93-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180304t114322-20180304t114347-020865-023c93-001-5",
+        "s1a-iw-grd-vv-20180304t114322-20180304t114347-020865-023c93-001-6",
+        "s1a-iw-grd-vv-20180304t114322-20180304t114347-020865-023c93-001-7",
+        "s1a-iw-grd-vv-20180304t114322-20180304t114347-020865-023c93-001-8"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_040_024220",
+      "mission_data_take_id": "024220",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 21040,
+      "start_time_utc": "2018-03-16T11:43:22Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180316t114322-20180316t114347-021040-024220-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180316t114322-20180316t114347-021040-024220-001-20",
+        "s1a-iw-grd-vv-20180316t114322-20180316t114347-021040-024220-001-21",
+        "s1a-iw-grd-vv-20180316t114322-20180316t114347-021040-024220-001-22",
+        "s1a-iw-grd-vv-20180316t114322-20180316t114347-021040-024220-001-15"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        4,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_041_02442B",
+      "mission_data_take_id": "02442B",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 21104,
+      "start_time_utc": "2018-03-20T21:48:20Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180320t214820-20180320t214845-021104-02442b-001",
+        "s1a-iw-grd-vv-20180320t214845-20180320t214910-021104-02442b-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180320t214845-20180320t214910-021104-02442b-001-45",
+        "s1a-iw-grd-vv-20180320t214820-20180320t214845-021104-02442b-001-54",
+        "s1a-iw-grd-vv-20180320t214845-20180320t214910-021104-02442b-001-38",
+        "s1a-iw-grd-vv-20180320t214820-20180320t214845-021104-02442b-001-40"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        8,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_042_02446F",
+      "mission_data_take_id": "02446F",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 21113,
+      "start_time_utc": "2018-03-21T11:51:01Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180321t115101-20180321t115129-021113-02446f-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180321t115101-20180321t115129-021113-02446f-001-62",
+        "s1a-iw-grd-vv-20180321t115101-20180321t115129-021113-02446f-001-54",
+        "s1a-iw-grd-vv-20180321t115101-20180321t115129-021113-02446f-001-55",
+        "s1a-iw-grd-vv-20180321t115101-20180321t115129-021113-02446f-001-63"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_043_0249B3",
+      "mission_data_take_id": "0249B3",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 21279,
+      "start_time_utc": "2018-04-01T21:48:20Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180401t214820-20180401t214845-021279-0249b3-001",
+        "s1a-iw-grd-vv-20180401t214845-20180401t214910-021279-0249b3-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180401t214845-20180401t214910-021279-0249b3-001-37",
+        "s1a-iw-grd-vv-20180401t214845-20180401t214910-021279-0249b3-001-38",
+        "s1a-iw-grd-vv-20180401t214845-20180401t214910-021279-0249b3-001-44",
+        "s1a-iw-grd-vv-20180401t214820-20180401t214845-021279-0249b3-001-52"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        5,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_044_028DBA",
+      "mission_data_take_id": "028DBA",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 23460,
+      "start_time_utc": "2018-08-29T10:25:05Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Arabian Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20180829t102505-20180829t102534-023460-028dba-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180829t102505-20180829t102534-023460-028dba-001-44",
+        "s1a-iw-grd-vv-20180829t102505-20180829t102534-023460-028dba-001-45",
+        "s1a-iw-grd-vv-20180829t102505-20180829t102534-023460-028dba-001-59"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_045_02C2B0",
+      "mission_data_take_id": "02C2B0",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 25027,
+      "start_time_utc": "2018-12-14T21:56:29Z",
+      "year": "2018",
+      "ocean_basin": "Indian Ocean",
+      "marginal_sea": "Bay of Bengal",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20181214t215629-20181214t215654-025027-02c2b0-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20181214t215629-20181214t215654-025027-02c2b0-001-11",
+        "s1a-iw-grd-vv-20181214t215629-20181214t215654-025027-02c2b0-001-18"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        6,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_046_02D966",
+      "mission_data_take_id": "02D966",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 25654,
+      "start_time_utc": "2019-01-26T21:48:52Z",
+      "year": "2019",
+      "ocean_basin": "Mediterranean Sea",
+      "marginal_sea": "Levantine Basin",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20190126t214852-20190126t214917-025654-02d966-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20190126t214852-20190126t214917-025654-02d966-001-32",
+        "s1a-iw-grd-vv-20190126t214852-20190126t214917-025654-02d966-001-39"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        10,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_047_037FDE",
+      "mission_data_take_id": "037FDE",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 30554,
+      "start_time_utc": "2019-12-28T21:48:59Z",
+      "year": "2019",
+      "ocean_basin": "Mediterranean Sea",
+      "marginal_sea": "Levantine Basin",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20191228t214859-20191228t214924-030554-037fde-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20191228t214859-20191228t214924-030554-037fde-001-38",
+        "s1a-iw-grd-vv-20191228t214859-20191228t214924-030554-037fde-001-31",
+        "s1a-iw-grd-vv-20191228t214859-20191228t214924-030554-037fde-001-45"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_048_03AD13",
+      "mission_data_take_id": "03AD13",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 31852,
+      "start_time_utc": "2020-03-26T21:56:33Z",
+      "year": "2020",
+      "ocean_basin": "Mediterranean Sea",
+      "marginal_sea": "Levantine Basin",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20200326t215633-20200326t215658-031852-03ad13-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20200326t215633-20200326t215658-031852-03ad13-001-16",
+        "s1a-iw-grd-vv-20200326t215633-20200326t215658-031852-03ad13-001-2"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_049_047BB3",
+      "mission_data_take_id": "047BB3",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 37985,
+      "start_time_utc": "2021-05-21T10:25:17Z",
+      "year": "2021",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20210521t102517-20210521t102546-037985-047bb3-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20210521t102517-20210521t102546-037985-047bb3-001-52",
+        "s1a-iw-grd-vv-20210521t102517-20210521t102546-037985-047bb3-001-51"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        12,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_050_04EB11",
+      "mission_data_take_id": "04EB11",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 41367,
+      "start_time_utc": "2022-01-08T08:21:03Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220108t082103-20220108t082128-041367-04eb11-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220108t082103-20220108t082128-041367-04eb11-001-45",
+        "s1a-iw-grd-vv-20220108t082103-20220108t082128-041367-04eb11-001-52"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        4,
+        5,
+        9,
+        11
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_051_04EFFF",
+      "mission_data_take_id": "04EFFF",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 41519,
+      "start_time_utc": "2022-01-18T18:26:21Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220118t182621-20220118t182646-041519-04efff-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220118t182621-20220118t182646-041519-04efff-001-7",
+        "s1a-iw-grd-vv-20220118t182621-20220118t182646-041519-04efff-001-9",
+        "s1a-iw-grd-vv-20220118t182621-20220118t182646-041519-04efff-001-10",
+        "s1a-iw-grd-vv-20220118t182621-20220118t182646-041519-04efff-001-3"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        2,
+        4,
+        7,
+        11,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_052_04F287",
+      "mission_data_take_id": "04F287",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 41593,
+      "start_time_utc": "2022-01-23T20:40:50Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220123t204050-20220123t204115-041593-04f287-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220123t204050-20220123t204115-041593-04f287-001-12",
+        "s1a-iw-grd-vv-20220123t204050-20220123t204115-041593-04f287-001-5",
+        "s1a-iw-grd-vv-20220123t204050-20220123t204115-041593-04f287-001-17",
+        "s1a-iw-grd-vv-20220123t204050-20220123t204115-041593-04f287-001-11"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        9,
+        11
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_053_04F330",
+      "mission_data_take_id": "04F330",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 41613,
+      "start_time_utc": "2022-01-25T05:36:50Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220125t053650-20220125t053715-041613-04f330-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220125t053650-20220125t053715-041613-04f330-001-49",
+        "s1a-iw-grd-vv-20220125t053650-20220125t053715-041613-04f330-001-8"
+      ],
+      "sample_count": 2,
+      "classes_present": [
+        0,
+        2,
+        4,
+        11
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_054_04F3FE",
+      "mission_data_take_id": "04F3FE",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 41635,
+      "start_time_utc": "2022-01-26T17:21:09Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220126t172109-20220126t172134-041635-04f3fe-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220126t172109-20220126t172134-041635-04f3fe-001-16",
+        "s1a-iw-grd-vv-20220126t172109-20220126t172134-041635-04f3fe-001-10",
+        "s1a-iw-grd-vv-20220126t172109-20220126t172134-041635-04f3fe-001-5"
+      ],
+      "sample_count": 3,
+      "classes_present": [
+        0,
+        2,
+        7,
+        11
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_055_04F49C",
+      "mission_data_take_id": "04F49C",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 41655,
+      "start_time_utc": "2022-01-28T02:15:26Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220128t021526-20220128t021555-041655-04f49c-001",
+        "s1a-iw-grd-vv-20220128t021710-20220128t021735-041655-04f49c-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220128t021526-20220128t021555-041655-04f49c-001-3",
+        "s1a-iw-grd-vv-20220128t021526-20220128t021555-041655-04f49c-001-8",
+        "s1a-iw-grd-vv-20220128t021526-20220128t021555-041655-04f49c-001-13",
+        "s1a-iw-grd-vv-20220128t021526-20220128t021555-041655-04f49c-001-18"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        2,
+        4,
+        5,
+        7,
+        11,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_056_04F4B1",
+      "mission_data_take_id": "04F4B1",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 41657,
+      "start_time_utc": "2022-01-28T06:01:56Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220128t060156-20220128t060221-041657-04f4b1-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220128t060156-20220128t060221-041657-04f4b1-001-18",
+        "s1a-iw-grd-vv-20220128t060156-20220128t060221-041657-04f4b1-001-23",
+        "s1a-iw-grd-vv-20220128t060156-20220128t060221-041657-04f4b1-001-29",
+        "s1a-iw-grd-vv-20220128t060156-20220128t060221-041657-04f4b1-001-11"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        2,
+        5,
+        7,
+        11,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_057_04F573",
+      "mission_data_take_id": "04F573",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 41679,
+      "start_time_utc": "2022-01-29T17:46:39Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220129t174639-20220129t174704-041679-04f573-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220129t174639-20220129t174704-041679-04f573-001-11",
+        "s1a-iw-grd-vv-20220129t174639-20220129t174704-041679-04f573-001-21",
+        "s1a-iw-grd-vv-20220129t174639-20220129t174704-041679-04f573-001-22",
+        "s1a-iw-grd-vv-20220129t174639-20220129t174704-041679-04f573-001-41"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        2,
+        7,
+        11,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_058_04F609",
+      "mission_data_take_id": "04F609",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 41696,
+      "start_time_utc": "2022-01-30T22:23:12Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Gulf of Mexico",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220130t222312-20220130t222341-041696-04f609-001",
+        "s1a-iw-grd-vv-20220130t222521-20220130t222546-041696-04f609-001",
+        "s1a-iw-grd-vv-20220130t222611-20220130t222638-041696-04f609-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220130t222611-20220130t222638-041696-04f609-001-10",
+        "s1a-iw-grd-vv-20220130t222521-20220130t222546-041696-04f609-001-50",
+        "s1a-iw-grd-vv-20220130t222611-20220130t222638-041696-04f609-001-17",
+        "s1a-iw-grd-vv-20220130t222611-20220130t222638-041696-04f609-001-24"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        5,
+        6,
+        7,
+        8,
+        10,
+        12
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_059_04F685",
+      "mission_data_take_id": "04F685",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 41709,
+      "start_time_utc": "2022-01-31T19:50:30Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220131t195030-20220131t195055-041709-04f685-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220131t195030-20220131t195055-041709-04f685-001-51",
+        "s1a-iw-grd-vv-20220131t195030-20220131t195055-041709-04f685-001-9",
+        "s1a-iw-grd-vv-20220131t195030-20220131t195055-041709-04f685-001-14",
+        "s1a-iw-grd-vv-20220131t195030-20220131t195055-041709-04f685-001-13"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        4,
+        6,
+        8,
+        10
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_060_04F6A8",
+      "mission_data_take_id": "04F6A8",
+      "partition": "DEV",
+      "satellite": "S1A",
+      "absolute_orbit": 41714,
+      "start_time_utc": "2022-02-01T03:49:12Z",
+      "year": "2022",
+      "ocean_basin": "Mediterranean Sea",
+      "marginal_sea": "Levantine Basin",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220201t034912-20220201t034937-041714-04f6a8-001",
+        "s1a-iw-grd-vv-20220201t035142-20220201t035207-041714-04f6a8-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220201t035142-20220201t035207-041714-04f6a8-001-46",
+        "s1a-iw-grd-vv-20220201t035142-20220201t035207-041714-04f6a8-001-47",
+        "s1a-iw-grd-vv-20220201t035142-20220201t035207-041714-04f6a8-001-52",
+        "s1a-iw-grd-vv-20220201t035142-20220201t035207-041714-04f6a8-001-36"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_061_04F6BA",
+      "mission_data_take_id": "04F6BA",
+      "partition": "HOLDOUT",
+      "satellite": "S1A",
+      "absolute_orbit": 41716,
+      "start_time_utc": "2022-02-01T07:08:55Z",
+      "year": "2022",
+      "ocean_basin": "Mediterranean Sea",
+      "marginal_sea": "Levantine Basin",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220201t070855-20220201t070920-041716-04f6ba-001",
+        "s1a-iw-grd-vv-20220201t071100-20220201t071125-041716-04f6ba-001",
+        "s1a-iw-grd-vv-20220201t071150-20220201t071215-041716-04f6ba-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220201t071100-20220201t071125-041716-04f6ba-001-11",
+        "s1a-iw-grd-vv-20220201t071100-20220201t071125-041716-04f6ba-001-5",
+        "s1a-iw-grd-vv-20220201t071150-20220201t071215-041716-04f6ba-001-30",
+        "s1a-iw-grd-vv-20220201t071150-20220201t071215-041716-04f6ba-001-5"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        7,
+        8,
+        10
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_062_05028E",
+      "mission_data_take_id": "05028E",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 42056,
+      "start_time_utc": "2022-02-24T15:39:01Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Gulf of Mexico",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220224t153901-20220224t153930-042056-05028e-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220224t153901-20220224t153930-042056-05028e-001-59",
+        "s1a-iw-grd-vv-20220224t153901-20220224t153930-042056-05028e-001-53",
+        "s1a-iw-grd-vv-20220224t153901-20220224t153930-042056-05028e-001-46",
+        "s1a-iw-grd-vv-20220224t153901-20220224t153930-042056-05028e-001-52"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        5,
+        6
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_063_05028F",
+      "mission_data_take_id": "05028F",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 42057,
+      "start_time_utc": "2022-02-24T15:49:18Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220224t154918-20220224t154943-042057-05028f-001",
+        "s1a-iw-grd-vv-20220224t155148-20220224t155213-042057-05028f-001",
+        "s1a-iw-grd-vv-20220224t155213-20220224t155238-042057-05028f-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220224t154918-20220224t154943-042057-05028f-001-29",
+        "s1a-iw-grd-vv-20220224t154918-20220224t154943-042057-05028f-001-16",
+        "s1a-iw-grd-vv-20220224t154918-20220224t154943-042057-05028f-001-34",
+        "s1a-iw-grd-vv-20220224t155148-20220224t155213-042057-05028f-001-33"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        13
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    },
+    {
+      "cluster_id": "ops02_cluster_064_0502B7",
+      "mission_data_take_id": "0502B7",
+      "partition": "TRAIN",
+      "satellite": "S1A",
+      "absolute_orbit": 42061,
+      "start_time_utc": "2022-02-24T22:25:05Z",
+      "year": "2022",
+      "ocean_basin": "North Atlantic Ocean",
+      "marginal_sea": "Caribbean Sea",
+      "constituent_scene_ids": [
+        "s1a-iw-grd-vv-20220224t222505-20220224t222534-042061-0502b7-001",
+        "s1a-iw-grd-vv-20220224t222559-20220224t222624-042061-0502b7-001"
+      ],
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220224t222505-20220224t222534-042061-0502b7-001-11",
+        "s1a-iw-grd-vv-20220224t222505-20220224t222534-042061-0502b7-001-47",
+        "s1a-iw-grd-vv-20220224t222505-20220224t222534-042061-0502b7-001-51",
+        "s1a-iw-grd-vv-20220224t222505-20220224t222534-042061-0502b7-001-5"
+      ],
+      "sample_count": 4,
+      "classes_present": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6,
+        7,
+        11
+      ],
+      "independence_classification": "INDEPENDENT_PARENT_CLUSTER"
+    }
+  ]
+}
