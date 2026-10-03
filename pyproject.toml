@@ -31,6 +31,10 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+filterwarnings = [
+    "ignore::rasterio.errors.NotGeoreferencedWarning",
+    "ignore:Use `@` matmul instead of `\\*` mul operator for matrix multiplication:PendingDeprecationWarning:rasterio.windows",
+]
 markers = [
     "unit: Fast, isolated in-memory unit tests with no external dependencies or real data.",
     "integration: Integration tests exercising multiple components, services, or file I/O.",

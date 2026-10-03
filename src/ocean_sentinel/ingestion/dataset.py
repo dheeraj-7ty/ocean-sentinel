@@ -56,6 +56,10 @@ from rasterio.errors import NotGeoreferencedWarning
 from rasterio.windows import Window
 
 from ocean_sentinel.ingestion.split import DatasetManifest, SplitName, TileManifestEntry
+from ocean_sentinel.ingestion.firewall import (
+    assert_no_part_iii_leakage,
+    validate_manifest_against_firewall,
+)
 
 
 def _require_torch() -> None:
@@ -109,6 +113,11 @@ class TrujilloTileDataset:
         self.normalize = normalize
         self.transform = transform
         self.data_root = Path(data_root) if data_root is not None else None
+
+        # Absolute Scientific Firewall: Trujillo Part III isolation
+        if self.data_root is not None:
+            assert_no_part_iii_leakage([self.data_root], context="TrujilloTileDataset(data_root)")
+        validate_manifest_against_firewall(manifest, context=f"TrujilloTileDataset({split})")
 
         self._tiles: list[TileManifestEntry] = manifest.tiles_for_split(split)
 
