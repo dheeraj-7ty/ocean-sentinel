@@ -1,0 +1,309 @@
+{
+  "results_version": "1.1.0-reconciled",
+  "phase": "PHASE_7C_R1",
+  "audit_date": "2026-09-13",
+  "pilot_scope": "12_CONTROL_PRODUCTS",
+  "total_control_products": 12,
+  "total_li_slices_evaluated": 47,
+  "creation_timestamp_utc": "2026-09-13T06:50:00.000000+00:00",
+  "evaluation_parameters": {
+    "candidate_boundary_tolerance_m": 50.0,
+    "candidate_boundary_tolerance_native_pixels": 5.0,
+    "candidate_boundary_tolerance_li_pixels": 0.5,
+    "governance_status": "SUPPORTED_ONLY_CONDITIONAL_ON_CROP_PIXEL_CONVENTION_ASSUMPTION"
+  },
+  "pixel_convention_audit": {
+    "SOURCE_CELL_COUNT": 2560,
+    "SOURCE_INDEX_SPAN": 2550.0,
+    "TARGET_CELL_COUNT": 256,
+    "TARGET_INDEX_SPAN": 255.0,
+    "DOWNSAMPLE_FACTOR": 10,
+    "PIXEL_CENTER_CONVENTION": "Raster cell centers indexed 0 to 255, center-to-center span = 255 * 10 = 2,550.0 m",
+    "PIXEL_EDGE_CONVENTION": "Raster cell outer edges indexed 0.0 to 256.0, outer edge span = 256 * 10 = 2,560.0 m",
+    "arithmetic_reconciliation_verdict": "RECONCILED: Li corner GCPs were sampled at corner block pixel centers (native lines/pixels 5174.5 to 7724.5, span 2550.0), but recorded in GeoTIFF Tag 33922 with outer edge indices 0.0 and 256.0. The 2550 native span corresponds to 255 index intervals of 10.0m."
+  },
+  "source_crop_evidence": {
+    "classification": "INFERRED",
+    "directly_verified": false,
+    "details": "Native Level-1 extraction bounding boxes were numerically inverted from Tag 33922 corner GCPs; no native extraction offsets or generation scripts are published in the source dataset release."
+  },
+  "independence_audit": {
+    "correspondence_status": "NOT_DIRECTLY_ESTABLISHED_ASSUMED_CORRESPONDENCE",
+    "residual_classification": "CONDITIONAL_ON_ASSUMED_CROP_MAPPING",
+    "circularity_finding": "Interior tiepoint validation coordinates (slice_row, slice_col) were constructed from the same inverted corner bounds used to fit the bilinear transformation; the test proves internal bilinear approximation consistency of the Level-1 grid, not independent physical alignment of the Li raster."
+  },
+  "tested_models_summary": {
+    "model_a_raw_geotiff_bilinear": {
+      "formulation": "Bilinear interpolation over raw GeoTIFF Tag 33922 GCP coordinates",
+      "findings": "Exhibits severe artificial diagonal shear distortion (mean error 3.6 - 9.7 km, max error up to 22.2 km) due to raw perimeter-ordered GCP row/col assignment in Li GeoTIFF metadata.",
+      "verdict": "FAILED_FOR_INTERIOR_ALIGNMENT_WHEN_UNCORRECTED"
+    },
+    "model_b_corrected_bilinear": {
+      "formulation": "Bilinear corner interpolation over corrected Cartesian corner coordinates",
+      "findings": "Reconstructs slice interior with mean residual of 1.2 - 15.5 m and maximum residual of 15.79 m across all evaluated interior Level-1 controls. Consistently satisfies candidate 50m tolerance conditionally.",
+      "verdict": "CONDITIONALLY_SUPPORTED_FOR_12_CONTROLS"
+    },
+    "model_c_direct_l1_grid": {
+      "formulation": "Bivariate piecewise bilinear interpolation using Sentinel-1 Level-1 XML Geolocation Grid Points",
+      "findings": "Exact reproduction (0.00 m residual) of Sentinel-1 Level-1 range-Doppler orbit model tiepoints under its interpolation rule.",
+      "verdict": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+    },
+    "model_d_2d_affine": {
+      "formulation": "Standard 2D 6-DOF Affine transformation",
+      "findings": "Imposes rigid parallelogram constraint; acceptable locally over 25 km (mean error 1.5 - 15.4 m) but mathematically invalid across orbital swaths and fails at range/azimuth edges.",
+      "verdict": "SCIENTIFICALLY_INVALID_FOR_RADAR_GEOMETRY"
+    }
+  },
+  "slice_level_evaluations": [
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10.tiff",
+      "slice_index": "10",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 4368.17,
+        "max_m": 7939.95,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 15.5,
+        "rms_m": 15.5,
+        "max_m": 15.79,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 15.4,
+        "max_m": 15.81,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7.tiff",
+      "slice_index": "7",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 3677.5,
+        "max_m": 6934.09,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 8.92,
+        "rms_m": 8.92,
+        "max_m": 9.08,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 8.85,
+        "max_m": 9.1,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8.tiff",
+      "slice_index": "8",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 9695.81,
+        "max_m": 17671.67,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 12.94,
+        "rms_m": 12.94,
+        "max_m": 13.03,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 12.76,
+        "max_m": 12.88,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9.tiff",
+      "slice_index": "9",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 7031.63,
+        "max_m": 12811.21,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 4.47,
+        "rms_m": 4.47,
+        "max_m": 4.68,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 4.44,
+        "max_m": 4.69,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1.tiff",
+      "slice_index": "1",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 9742.57,
+        "max_m": 18507.23,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.31,
+        "rms_m": 1.56,
+        "max_m": 2.15,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 2.29,
+        "max_m": 2.52,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2.tiff",
+      "slice_index": "2",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 7058.86,
+        "max_m": 13408.97,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.33,
+        "rms_m": 1.56,
+        "max_m": 2.14,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 1.54,
+        "max_m": 2.12,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4.tiff",
+      "slice_index": "4",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 4,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 6700.45,
+        "max_m": 22240.42,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.16,
+        "rms_m": 1.4,
+        "max_m": 1.97,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 2.39,
+        "max_m": 3.38,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7.tiff",
+      "slice_index": "7",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 9742.56,
+        "max_m": 18076.18,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.41,
+        "rms_m": 1.63,
+        "max_m": 2.22,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 2.37,
+        "max_m": 2.64,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8.tiff",
+      "slice_index": "8",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 7058.84,
+        "max_m": 13096.6,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.45,
+        "rms_m": 1.64,
+        "max_m": 2.21,
+        "status": "CONDITIONALLY_SUPPORTED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 1.65,
+        "max_m": 2.19,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    }
+  ],
+  "generalization_limits": {
+    "evaluated_control_products": 12,
+    "evaluated_slices": 47,
+    "untested_scenes_count": 472,
+    "dataset_wide_validation_status": "NOT_VALIDATED_REMAINS_RESTRICTED_TO_PILOT"
+  },
+  "final_phase_verdict": "B. PHASE 7C METHOD CONDITIONALLY SUPPORTED \u2014 LIMITATIONS"
+}

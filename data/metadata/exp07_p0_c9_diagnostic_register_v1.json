@@ -1,0 +1,63 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C9",
+  "title": "EXP-07 Post-Training Diagnostic and Failure Analysis Register",
+  "experiment_id": "EXP-07",
+  "run_id": "EXP07_RUN001_SEED42",
+  "seed": 42,
+  "eval_checkpoint": "experiments/EXP-07/runs/EXP07_RUN001_SEED42/best_model.pt",
+  "checkpoint_sha256": "FF30EDCFEFBDF3C321F2D531BF3A8031ABB6F8481FC4F89D3DD8E2781ACAD9D7",
+  "scientific_validity_classification": "A. VALID BASELINE OBSERVATION",
+  "verifications": {
+    "sampler_protocol_reconciliation": "CONFIRMED_FROZEN_70_30_EXECUTED",
+    "normalization_recomputation": "CONFIRMED_EXACT_TRAIN_VALUES",
+    "taxonomy_and_label_remapping": "CONFIRMED_ZERO_COLLISION_ZERO_LEAKAGE",
+    "loss_weights_independent_calc": "CONFIRMED_EXACT_MATCH",
+    "model_architecture_and_bn": "CONFIRMED_STABLE_RUNNING_STATS",
+    "independent_metric_recomputation": "CONFIRMED_BITWISE_AGREEMENT_0.00e+00",
+    "holdout_quarantine": "CONFIRMED_ZERO_ACCESS"
+  },
+  "failure_hypotheses_ranked": [
+    {
+      "rank": 1,
+      "hypothesis": "Severe Parent-Scene Scarcity & Dataset Insufficiency for Tail Classes",
+      "confidence": "HIGH",
+      "status": "STRONG_SUPPORT",
+      "summary": "Classes AF, OF, RF, Eddy, and HM appear in very few parent scenes (1 to 4 parents in TRAIN). Without spatial or acoustic diversity, features cannot generalize to unobserved scenes."
+    },
+    {
+      "rank": 2,
+      "hypothesis": "Parent-Scene Domain Shift on DEV",
+      "confidence": "HIGH",
+      "status": "STRONG_SUPPORT",
+      "summary": "Parent scene s1a-iw-grd-vv-20220201... (9 tiles) suffered complete confusion of MCC and POW into BG and WS, dropping its mIoU to 0.0069 and heavily skewing the DEV macro-average."
+    },
+    {
+      "rank": 3,
+      "hypothesis": "Severe Visual & Semantic Class Ambiguity Between Lookalikes",
+      "confidence": "HIGH",
+      "status": "STRONG_SUPPORT",
+      "summary": "95.4% of Eddy pixels were classified as other dark slick phenomena (BS and LWA), reflecting identical SAR dampening signatures without auxiliary context."
+    },
+    {
+      "rank": 4,
+      "hypothesis": "Extreme Scale Imbalance for Anthropogenic Point Targets (HM)",
+      "confidence": "HIGH",
+      "status": "STRONG_SUPPORT",
+      "summary": "HM accounts for only 0.021% of TRAIN pixels (985 pixels total). A 4-stage UNet without point-target attention dilutes isolated targets at the bottleneck."
+    },
+    {
+      "rank": 5,
+      "hypothesis": "Sampler Replacement Redundancy vs Diversity Gap",
+      "confidence": "MEDIUM",
+      "status": "STRONG_SUPPORT",
+      "summary": "Candidate F achieved sufficient sample draw frequency, but drawing the same 2-3 tiles repeatedly led to memorization rather than generalizable representation."
+    }
+  ],
+  "replicate_authorization": {
+    "status": "AUTHORIZE_SEED101",
+    "rationality": "Seed 42 protocol is validated and reproducible. Replicate Seed 101 is authorized under Phase C10 to empirically measure seed-to-seed stochastic sampling variance, strictly NOT as an unprincipled rescue run.",
+    "prohibitions": "Do NOT modify hyperparameters, do NOT evaluate holdout, do NOT run hyperparameter sweep."
+  },
+  "final_decision": "DECISION A: PASS \u2014 Seed42 is protocol-valid and scientifically interpretable; next replicate experiment authorized"
+}

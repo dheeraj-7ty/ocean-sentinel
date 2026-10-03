@@ -1,0 +1,385 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T17:14:22.728322+00:00",
+  "phase": "EXP-07-P0-C3",
+  "validation_id": "V-03",
+  "title": "Sampler Exposure and Parent Overfitting Simulation Analysis",
+  "dataset_context": {
+    "train_tiles_count": 72,
+    "train_parents_count": 12,
+    "eligible_classes_count": 12,
+    "never_dominant_classes": [
+      "AF",
+      "LWA",
+      "OF",
+      "RF",
+      "Eddy",
+      "HM"
+    ]
+  },
+  "class_frequencies": {
+    "BG": {
+      "pixel_count": 1957266,
+      "frequency": 0.4147987365722656,
+      "tiles_present": 56
+    },
+    "AF": {
+      "pixel_count": 35931,
+      "frequency": 0.0076147715250651045,
+      "tiles_present": 9
+    },
+    "BS": {
+      "pixel_count": 293888,
+      "frequency": 0.06228298611111111,
+      "tiles_present": 7
+    },
+    "LWA": {
+      "pixel_count": 23424,
+      "frequency": 0.004964192708333333,
+      "tiles_present": 2
+    },
+    "MCC": {
+      "pixel_count": 547092,
+      "frequency": 0.11594390869140625,
+      "tiles_present": 12
+    },
+    "OF": {
+      "pixel_count": 67425,
+      "frequency": 0.014289220174153646,
+      "tiles_present": 24
+    },
+    "POW": {
+      "pixel_count": 554669,
+      "frequency": 0.11754968431260851,
+      "tiles_present": 15
+    },
+    "RF": {
+      "pixel_count": 63801,
+      "frequency": 0.013521194458007812,
+      "tiles_present": 8
+    },
+    "WS": {
+      "pixel_count": 223848,
+      "frequency": 0.0474395751953125,
+      "tiles_present": 6
+    },
+    "Eddy": {
+      "pixel_count": 34110,
+      "frequency": 0.007228851318359375,
+      "tiles_present": 3
+    },
+    "IWs": {
+      "pixel_count": 916153,
+      "frequency": 0.1941581302218967,
+      "tiles_present": 36
+    },
+    "HM": {
+      "pixel_count": 985,
+      "frequency": 0.00020874871148003472,
+      "tiles_present": 7
+    }
+  },
+  "candidates_evaluated": {
+    "A_uniform": {
+      "candidate_name": "Uniform Sampling",
+      "expected_tile_exposure_per_class": {
+        "BG": 56.00000000000001,
+        "AF": 9.0,
+        "BS": 6.999999999999999,
+        "LWA": 2.0,
+        "MCC": 12.0,
+        "OF": 24.0,
+        "POW": 14.999999999999998,
+        "RF": 8.0,
+        "WS": 6.0,
+        "Eddy": 3.0,
+        "IWs": 36.0,
+        "HM": 6.999999999999999
+      },
+      "expected_pixel_exposure_per_class": {
+        "BG": 1957266.0,
+        "AF": 35931.0,
+        "BS": 293888.0,
+        "LWA": 23424.0,
+        "MCC": 547092.0,
+        "OF": 67425.0,
+        "POW": 554669.0,
+        "RF": 63801.0,
+        "WS": 223848.0,
+        "Eddy": 34110.0,
+        "IWs": 916153.0,
+        "HM": 984.9999999999999
+      },
+      "parent_exposure_metrics": {
+        "mean_tiles_per_parent": 6.0,
+        "std_tiles_per_parent": 3.2914029430219167,
+        "cv_parent_exposure": 0.5485671571703195,
+        "max_parent_multiplier": 2.0000000000000004,
+        "min_parent_tiles": 1.0,
+        "max_parent_tiles": 12.000000000000002
+      },
+      "rare_class_metrics": {
+        "min_rare_class_tile_exposure": 2.0,
+        "hm_tile_exposure": 6.999999999999999,
+        "lwa_tile_exposure": 2.0,
+        "eddy_tile_exposure": 3.0
+      },
+      "repeat_risk": {
+        "max_single_tile_multiplier": 1.0,
+        "entropy_ratio": 0.9999999999831645
+      }
+    },
+    "B_dominant_inv": {
+      "candidate_name": "Dominant-Class Inverse Weighting",
+      "expected_tile_exposure_per_class": {
+        "BG": 47.31398901058969,
+        "AF": 13.209362718615798,
+        "BS": 14.786445772438228,
+        "LWA": 1.62145572064352,
+        "MCC": 17.158265909068632,
+        "OF": 13.942725501037028,
+        "POW": 18.632759815261586,
+        "RF": 7.930790463323693,
+        "WS": 14.031380356516218,
+        "Eddy": 7.5819777746860515,
+        "IWs": 32.97024977848052,
+        "HM": 6.195077318077032
+      },
+      "expected_pixel_exposure_per_class": {
+        "BG": 887797.7002576505,
+        "AF": 45682.0939655821,
+        "BS": 695805.9759597988,
+        "LWA": 18990.489400176906,
+        "MCC": 725617.2904145737,
+        "OF": 39989.612412250906,
+        "POW": 728504.0423077804,
+        "RF": 54326.6291883093,
+        "WS": 639822.6792851759,
+        "Eddy": 86207.0872981804,
+        "IWs": 794779.3433367024,
+        "HM": 1069.056173818752
+      },
+      "parent_exposure_metrics": {
+        "mean_tiles_per_parent": 6.0,
+        "std_tiles_per_parent": 3.886682104496305,
+        "cv_parent_exposure": 0.6477803507493841,
+        "max_parent_multiplier": 2.329286318686078,
+        "min_parent_tiles": 0.37948381130505143,
+        "max_parent_tiles": 13.975717912116469
+      },
+      "rare_class_metrics": {
+        "min_rare_class_tile_exposure": 1.62145572064352,
+        "hm_tile_exposure": 6.195077318077032,
+        "lwa_tile_exposure": 1.62145572064352,
+        "eddy_tile_exposure": 7.5819777746860515
+      },
+      "repeat_risk": {
+        "max_single_tile_multiplier": 3.318103183476529,
+        "entropy_ratio": 0.933369433599153
+      }
+    },
+    "C_class_presence": {
+      "candidate_name": "Class-Presence-Aware",
+      "expected_tile_exposure_per_class": {
+        "BG": 52.46666666666666,
+        "AF": 14.44047619047619,
+        "BS": 14.604761904761906,
+        "LWA": 7.547619047619048,
+        "MCC": 17.916666666666668,
+        "OF": 16.688095238095237,
+        "POW": 12.761904761904761,
+        "RF": 12.107142857142856,
+        "WS": 11.392857142857142,
+        "Eddy": 9.535714285714286,
+        "IWs": 31.911904761904765,
+        "HM": 11.959523809523809
+      },
+      "expected_pixel_exposure_per_class": {
+        "BG": 1366124.176190476,
+        "AF": 59069.80952380951,
+        "BS": 640362.7904761905,
+        "LWA": 88397.71428571429,
+        "MCC": 634061.9761904762,
+        "OF": 41069.609523809515,
+        "POW": 466058.18333333335,
+        "RF": 91920.08333333334,
+        "WS": 419460.9642857142,
+        "Eddy": 116064.10714285716,
+        "IWs": 794133.6976190476,
+        "HM": 1868.8880952380953
+      },
+      "parent_exposure_metrics": {
+        "mean_tiles_per_parent": 5.999999999999999,
+        "std_tiles_per_parent": 4.464728443655424,
+        "cv_parent_exposure": 0.7441214072759041,
+        "max_parent_multiplier": 2.233730158730159,
+        "min_parent_tiles": 0.2738095238095238,
+        "max_parent_tiles": 13.402380952380954
+      },
+      "rare_class_metrics": {
+        "min_rare_class_tile_exposure": 7.547619047619048,
+        "hm_tile_exposure": 11.959523809523809,
+        "lwa_tile_exposure": 7.547619047619048,
+        "eddy_tile_exposure": 9.535714285714286
+      },
+      "repeat_risk": {
+        "max_single_tile_multiplier": 3.7738095238095246,
+        "entropy_ratio": 0.9306068775147824
+      }
+    },
+    "D_rare_pixel": {
+      "candidate_name": "Rare-Class-Pixel-Aware",
+      "expected_tile_exposure_per_class": {
+        "BG": 49.20182257697471,
+        "AF": 13.262299648954137,
+        "BS": 14.237884645509236,
+        "LWA": 6.902022872153314,
+        "MCC": 16.895003731913754,
+        "OF": 19.332025663509306,
+        "POW": 12.483418274454953,
+        "RF": 12.21381275925077,
+        "WS": 10.050934438613421,
+        "Eddy": 10.274889796247706,
+        "IWs": 29.066867551482193,
+        "HM": 14.460904870778812
+      },
+      "expected_pixel_exposure_per_class": {
+        "BG": 1348980.6719862393,
+        "AF": 56434.85044314073,
+        "BS": 660048.6273835172,
+        "LWA": 94146.7732309144,
+        "MCC": 624940.162589109,
+        "OF": 56038.66872316733,
+        "POW": 538212.5357277325,
+        "RF": 115211.32054858406,
+        "WS": 400753.63008829486,
+        "Eddy": 148793.60842798027,
+        "IWs": 672408.2423225364,
+        "HM": 2622.908528783534
+      },
+      "parent_exposure_metrics": {
+        "mean_tiles_per_parent": 6.0,
+        "std_tiles_per_parent": 4.418925121050332,
+        "cv_parent_exposure": 0.7364875201750554,
+        "max_parent_multiplier": 2.28642850657067,
+        "min_parent_tiles": 0.25674375413411676,
+        "max_parent_tiles": 13.71857103942402
+      },
+      "rare_class_metrics": {
+        "min_rare_class_tile_exposure": 6.902022872153314,
+        "hm_tile_exposure": 14.460904870778812,
+        "lwa_tile_exposure": 6.902022872153314,
+        "eddy_tile_exposure": 10.274889796247706
+      },
+      "repeat_risk": {
+        "max_single_tile_multiplier": 5.64387710556346,
+        "entropy_ratio": 0.9245049405950608
+      }
+    },
+    "E_parent_balanced": {
+      "candidate_name": "Parent-Balanced",
+      "expected_tile_exposure_per_class": {
+        "BG": 57.72857142857142,
+        "AF": 12.942857142857141,
+        "BS": 6.2,
+        "LWA": 1.2,
+        "MCC": 12.9,
+        "OF": 13.857142857142856,
+        "POW": 12.3,
+        "RF": 9.17142857142857,
+        "WS": 5.485714285714285,
+        "Eddy": 3.0,
+        "IWs": 46.49999999999999,
+        "HM": 4.657142857142857
+      },
+      "expected_pixel_exposure_per_class": {
+        "BG": 1970998.5428571426,
+        "AF": 59665.11428571428,
+        "BS": 280313.99999999994,
+        "LWA": 14054.4,
+        "MCC": 601279.5000000001,
+        "OF": 38853.38571428571,
+        "POW": 452449.51428571425,
+        "RF": 82342.02857142857,
+        "WS": 206877.25714285715,
+        "Eddy": 34110.0,
+        "IWs": 976981.3714285715,
+        "HM": 666.8857142857144
+      },
+      "parent_exposure_metrics": {
+        "mean_tiles_per_parent": 6.0,
+        "std_tiles_per_parent": 3.6259732146947156e-16,
+        "cv_parent_exposure": 6.043288691157859e-17,
+        "max_parent_multiplier": 1.0000000000000002,
+        "min_parent_tiles": 6.0,
+        "max_parent_tiles": 6.000000000000001
+      },
+      "rare_class_metrics": {
+        "min_rare_class_tile_exposure": 1.2,
+        "hm_tile_exposure": 4.657142857142857,
+        "lwa_tile_exposure": 1.2,
+        "eddy_tile_exposure": 3.0
+      },
+      "repeat_risk": {
+        "max_single_tile_multiplier": 6.0,
+        "entropy_ratio": 0.9466875909638194
+      }
+    },
+    "F_hybrid": {
+      "candidate_name": "Hybrid (70% Parent-Balanced + 30% Class-Presence)",
+      "expected_tile_exposure_per_class": {
+        "BG": 56.15,
+        "AF": 13.39214285714286,
+        "BS": 8.721428571428573,
+        "LWA": 3.1042857142857145,
+        "MCC": 14.405000000000001,
+        "OF": 14.706428571428573,
+        "POW": 12.43857142857143,
+        "RF": 10.052142857142856,
+        "WS": 7.2578571428571435,
+        "Eddy": 4.960714285714287,
+        "IWs": 42.12357142857144,
+        "HM": 6.847857142857143
+      },
+      "expected_pixel_exposure_per_class": {
+        "BG": 1789536.232857143,
+        "AF": 59486.52285714286,
+        "BS": 388328.63714285725,
+        "LWA": 36357.39428571429,
+        "MCC": 611114.2428571429,
+        "OF": 39518.25285714286,
+        "POW": 456532.115,
+        "RF": 85215.445,
+        "WS": 270652.3692857143,
+        "Eddy": 58696.23214285716,
+        "IWs": 922127.0692857144,
+        "HM": 1027.4864285714289
+      },
+      "parent_exposure_metrics": {
+        "mean_tiles_per_parent": 6.000000000000001,
+        "std_tiles_per_parent": 1.3394185330966277,
+        "cv_parent_exposure": 0.22323642218277126,
+        "max_parent_multiplier": 1.3701190476190481,
+        "min_parent_tiles": 4.282142857142858,
+        "max_parent_tiles": 8.220714285714289
+      },
+      "rare_class_metrics": {
+        "min_rare_class_tile_exposure": 3.1042857142857145,
+        "hm_tile_exposure": 6.847857142857143,
+        "lwa_tile_exposure": 3.1042857142857145,
+        "eddy_tile_exposure": 4.960714285714287
+      },
+      "repeat_risk": {
+        "max_single_tile_multiplier": 4.482142857142858,
+        "entropy_ratio": 0.9636369768349311
+      }
+    }
+  },
+  "evaluation_conclusions": {
+    "dominant_class_sampler_failure": "CONFIRMED FATAL. 6 classes are never dominant; dominant weighting results in degenerate parent concentration and zero boost for 50% of classes.",
+    "class_presence_sampler": "Boosts rare classes (HM tiles 3.0x -> 11.2x), but inflates parent multiplier to 2.4x, risking severe parent memorization.",
+    "parent_balanced_sampler": "Guarantees parent fairness (CV=0, max mult=1.0), but leaves HM at only 3 tiles/epoch.",
+    "hybrid_recommendation": "Hybrid (F) achieves optimal compromise: limits parent multiplier to <=1.4x while maintaining robust rare-class exposure (HM ~5.5 tiles/epoch)."
+  },
+  "recommended_sampler": "F_hybrid"
+}

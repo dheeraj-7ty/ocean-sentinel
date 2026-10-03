@@ -1,0 +1,300 @@
+{
+  "results_version": "1.0.0",
+  "phase": "PHASE_7C",
+  "pilot_scope": "12_CONTROL_PRODUCTS",
+  "creation_timestamp_utc": "2026-09-13T06:32:37.403518+00:00",
+  "evaluation_parameters": {
+    "candidate_boundary_tolerance_m": 50.0,
+    "candidate_boundary_tolerance_native_pixels": 5.0,
+    "candidate_boundary_tolerance_li_pixels": 0.5,
+    "governance_status": "SUPPORTED_FOR_PILOT"
+  },
+  "tested_models_summary": {
+    "model_a_raw_geotiff_bilinear": {
+      "formulation": "Bilinear interpolation over raw GeoTIFF Tag 33922 GCP coordinates",
+      "findings": "Exhibits severe artificial diagonal shear distortion (mean error 3.6 - 9.7 km, max error up to 22.2 km) due to raw perimeter-ordered GCP row/col assignment in Li GeoTIFF metadata.",
+      "verdict": "FAILED_FOR_INTERIOR_ALIGNMENT_WHEN_UNCORRECTED"
+    },
+    "model_b_corrected_bilinear": {
+      "formulation": "Bilinear corner interpolation over corrected Cartesian corner coordinates",
+      "findings": "Reconstructs slice interior with mean residual of 1.2 - 15.5 m and maximum residual of 15.8 m across all evaluated interior Level-1 controls. Consistently satisfies the candidate 50m tolerance.",
+      "verdict": "VALIDATED_WITHIN_50M_TOLERANCE_FOR_PILOT"
+    },
+    "model_c_direct_l1_grid": {
+      "formulation": "Bivariate piecewise bilinear interpolation using Sentinel-1 Level-1 XML Geolocation Grid Points",
+      "findings": "Exact reproduction (0.00 m residual) of Sentinel-1 Level-1 range-Doppler orbit model tiepoints.",
+      "verdict": "AUTHORITATIVE_PHYSICAL_GROUND_CONTROL_MODEL"
+    },
+    "model_d_2d_affine": {
+      "formulation": "Standard 2D 6-DOF Affine transformation",
+      "findings": "Imposes rigid parallelogram constraint; acceptable locally over 25 km (mean error 1.5 - 15.4 m) but mathematically invalid across orbital swaths and fails at range/azimuth edges.",
+      "verdict": "SCIENTIFICALLY_INVALID_FOR_RADAR_GEOMETRY"
+    }
+  },
+  "slice_level_evaluations": [
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10.tiff",
+      "slice_index": "10",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 4368.17,
+        "max_m": 7939.95,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 15.5,
+        "rms_m": 15.5,
+        "max_m": 15.79,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 15.4,
+        "max_m": 15.81,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7.tiff",
+      "slice_index": "7",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 3677.5,
+        "max_m": 6934.09,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 8.92,
+        "rms_m": 8.92,
+        "max_m": 9.08,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 8.85,
+        "max_m": 9.1,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8.tiff",
+      "slice_index": "8",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 9695.81,
+        "max_m": 17671.67,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 12.94,
+        "rms_m": 12.94,
+        "max_m": 13.03,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 12.76,
+        "max_m": 12.88,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9.tiff",
+      "slice_index": "9",
+      "parent_scene_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 7031.63,
+        "max_m": 12811.21,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 4.47,
+        "rms_m": 4.47,
+        "max_m": 4.68,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 4.44,
+        "max_m": 4.69,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1.tiff",
+      "slice_index": "1",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 9742.57,
+        "max_m": 18507.23,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.31,
+        "rms_m": 1.56,
+        "max_m": 2.15,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 2.29,
+        "max_m": 2.52,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2.tiff",
+      "slice_index": "2",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 7058.86,
+        "max_m": 13408.97,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.33,
+        "rms_m": 1.56,
+        "max_m": 2.14,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 1.54,
+        "max_m": 2.12,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4.tiff",
+      "slice_index": "4",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 4,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 6700.45,
+        "max_m": 22240.42,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.16,
+        "rms_m": 1.4,
+        "max_m": 1.97,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 2.39,
+        "max_m": 3.38,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7.tiff",
+      "slice_index": "7",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 9742.56,
+        "max_m": 18076.18,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.41,
+        "rms_m": 1.63,
+        "max_m": 2.22,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 2.37,
+        "max_m": 2.64,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    },
+    {
+      "filename": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8.tiff",
+      "slice_index": "8",
+      "parent_scene_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "n_interior_points": 2,
+      "model_a_raw_geotiff_bilinear": {
+        "mean_m": 7058.84,
+        "max_m": 13096.6,
+        "status": "FAILED_DIAGONAL_SHEAR_DISTORTION"
+      },
+      "model_b_corrected_bilinear": {
+        "mean_m": 1.45,
+        "rms_m": 1.64,
+        "max_m": 2.21,
+        "status": "VALIDATED_WITHIN_50M_TOLERANCE"
+      },
+      "model_c_direct_l1_grid": {
+        "mean_m": 0.0,
+        "max_m": 0.0,
+        "status": "EXACT_PHYSICAL_GROUND_CONTROL_REPRODUCTION"
+      },
+      "model_d_2d_affine": {
+        "mean_m": 1.65,
+        "max_m": 2.19,
+        "status": "SCIENTIFICALLY_INVALID_PARALLELOGRAM_CONSTRAINT"
+      }
+    }
+  ],
+  "spatial_heterogeneity_findings": {
+    "azimuth_dependence": "Residuals vary systematically with azimuth line position along the satellite track (~1.2m near mid-scene to 15.8m near scene edges).",
+    "range_dependence": "Range-dependent curvature across near-range to far-range incidence angles introduces 8-15m non-linear deviations from planar coordinates.",
+    "orbit_direction_invariance": "Geometric model behavior is consistent across descending and ascending passes once platform heading is accounted for."
+  },
+  "label_to_operational_10m_grid_contract": {
+    "status": "VALIDATED_FOR_12_CONTROL_PRODUCTS",
+    "mask_classification": "DERIVED_HIGH_RESOLUTION_MASK",
+    "strictly_forbidden_classifications": [
+      "NATIVE_10M_GROUND_TRUTH",
+      "native 10m ground truth",
+      "10m pixel-level ground truth"
+    ],
+    "resampling_rule": "Nearest-Neighbor categorical assignment (10x10 block expansion from 100m to 10m native grid)",
+    "tolerance_protocol": "Apply 50m buffer / boundary tolerance during evaluation to account for discretization and registration uncertainty."
+  },
+  "generalization_limits": {
+    "authorized_scope": "PILOT_SCOPE = 12 CONTROL PRODUCTS",
+    "untested_scenes_count": 472,
+    "dataset_wide_validation_status": "NOT_VALIDATED_REMAINS_RESTRICTED_TO_PILOT"
+  }
+}

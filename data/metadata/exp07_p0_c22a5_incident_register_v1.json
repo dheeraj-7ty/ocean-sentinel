@@ -1,0 +1,31 @@
+{
+  "incident_register_id": "EXP07_P0_C22A5_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.5",
+  "created_at_utc": "2026-09-14T07:05:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A5-001",
+      "severity": "LOW",
+      "category": "METHODOLOGICAL_PRECISION",
+      "title": "Verification of Canonical State vs Historical Random Preflight Discrepancy",
+      "location": "data/ops02/initial_model_state_canonical.pt in zero-step preflight rehearsal",
+      "claimed_value": "C22-A.2 previously verified zero-step preflight using data/ops02/initial_model_state.pt, which C22-A.3 proved to be non-canonical random initialization.",
+      "machine_truth": "C22-A.5 successfully repeated the full zero-step end-to-end rehearsal against the newly provisioned and reconstructed canonical state (data/ops02/initial_model_state_canonical.pt). Perfect pre-forward parity, bitwise first-batch logits equality, and expected finite loss calculation were confirmed on the canonical ImageNet-pretrained state.",
+      "root_cause": "Rehearsal in C22-A.2 was executed before the ImageNet backbone dependency was locally provisioned in C22-A.4.",
+      "remediation": "Authoritative zero-step audit ops02_c22a5_canonical_zero_step_preflight_v1.json produced and verified. Readiness decision safely advanced to READY_FOR_USER_AUTHORIZATION.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "Zero blocking issues. All zero-step preflight execution steps succeeded with bitwise and numerical parity using the authoritative canonical initial model state. Zero training updates, zero backward passes, zero optimizer steps, zero scheduler steps, zero HOLDOUT access, zero Part-III access."
+}

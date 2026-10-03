@@ -1,0 +1,22 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C11",
+  "title": "EXP-07 Two-Seed Forensic Review and Next-Experiment Authorization Register",
+  "completed_at": "2026-09-14T01:34:00Z",
+  "evaluated_runs": [
+    "EXP07_RUN001_SEED42",
+    "EXP07_RUN002_SEED101"
+  ],
+  "governance_status": "CORRECTED_AND_HARDENED",
+  "discrepancies_identified": [
+    "INC-P0-C11-001: Model parameter count reported as 14,328,268 instead of authoritative 14,310,860.",
+    "INC-P0-C11-002: Class 6 (Ocean Front) mislabeled as 'Oil Film' in violation of GOV-RULE-011.",
+    "INC-P0-C11-003: Radar electromagnetic backscatter described as 'acoustic' (sensor modality hallucination).",
+    "INC-P0-C11-004: Class 13 (Artificial / Anthropogenic Objects) renamed to 'Ship' in violation of taxonomy invariant.",
+    "INC-P0-C11-005: Causality claimed for hypotheses without interventional experiment isolation.",
+    "INC-P0-C11-006: Inaccurate narrative that BS turned into LWA, when confusion matrix proves BS was cannibalized by Eddy (63.75%)."
+  ],
+  "final_decision": "A = PASS (Forensic reconciliation complete; scientific record corrected and verified)",
+  "next_experiment_gate": "AUTHORIZE_DATASET_EXPANSION",
+  "next_experiment_justification": "Two-seed evidence establishes that tail-class failure (AF, OF, RF, HM) and parent collapse (Scene 01) are reproducible structural consequences of parent-scene scarcity (1-4 parent scenes per class). Running Seed 2024 without dataset expansion is prohibited under GOV-RULE-068. The primary priority is OPS-02 multi-scene dataset expansion."
+}

@@ -1,0 +1,62 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C13",
+  "title": "OPS-02 C12 Target Feasibility and Sufficiency Reassessment",
+  "audited_at": "2026-09-14T01:50:40Z",
+  "auditor_role": "Adversarial Data Architecture Reviewer",
+  "overall_feasibility_verdict": "ATTAINABLE_WITH_TARGETED_RARE_CLASS_ACQUISITION",
+  "target_audits": [
+    {
+      "dimension": "TOTAL_INDEPENDENT_PARENT_SCENES",
+      "c12_target": "60 (minimum) to 120 (preferred)",
+      "scientific_rationale": "Overcoming parent-level memorization requires enough degrees of freedom to allocate >= 35 TRAIN, >= 12 DEV, and >= 13 HOLDOUT scenes.",
+      "source_availability": "Li et al. IW catalog alone contains 484 parent scenes. 27 were used in OPS-01; 457 remain uningested and documented in li_iw_source_scene_manifest.json.",
+      "likely_attainability": "HIGH",
+      "risk_of_bias": "Low; large parent pool allows balanced sampling.",
+      "dependency_risk": "Low; scenes can be selected with disjoint spatial footprints (> 50 km).",
+      "status": "FROZEN_VALIDATED"
+    },
+    {
+      "dimension": "RARE_CLASS_PARENT_DIVERSITY",
+      "c12_target": ">= 8 independent parent scenes per priority class (AF, OF, RF, HM, IWs, Eddy)",
+      "scientific_rationale": "A class present in <= 2 scenes measures scene-specific texture matching rather than generalized phenomenon segmentation.",
+      "source_availability": "Natural phenomena (AF, OF, RF, IWs, Eddy) have substantial representation across the 484 Li scenes. HM (Artificial / Anthropogenic Objects) is extremely sparse in open-ocean imagery (only 985 pixels across 2 scenes in OPS-01).",
+      "likely_attainability": "MODERATE_FOR_PHENOMENA_DIFFICULT_FOR_HM",
+      "risk_of_bias": "High risk of failing HM target if relying exclusively on natural ocean scene archives without targeted offshore infrastructure sampling (e.g. North Sea wind farms, Gulf of Mexico rigs).",
+      "dependency_risk": "High for fixed offshore platforms (stationary target repeat-pass leakage).",
+      "status": "PROVISIONAL_REQUIRES_TARGETED_OFFSHORE_SAMPLING",
+      "corrective_action": "For natural phenomena, retain target >= 8 parents. For HM, authorize targeted ingestion of verified offshore infrastructure scenes with strict spatial separation."
+    },
+    {
+      "dimension": "EVALUATION_SPLIT_CLASS_PRESENCE",
+      "c12_target": "100% of the 12 canonical classes present with >= 1,000 GT pixels in DEV and HOLDOUT",
+      "scientific_rationale": "Evaluating IoU on an empty class yields 0/0, distorting macro-mIoU and masking model capabilities (the primary evaluation failure of EXP-07).",
+      "source_availability": "Requires deliberate stratified assignment of multi-class parent scenes into DEV and HOLDOUT prior to slicing.",
+      "likely_attainability": "HIGH_IF_STRATIFIED",
+      "risk_of_bias": "None; ensuring non-empty evaluation splits is a mathematical prerequisite for valid evaluation.",
+      "dependency_risk": "None.",
+      "status": "FROZEN_MANDATORY_INVARIANT"
+    },
+    {
+      "dimension": "GEOGRAPHIC_BASIN_DIVERSITY",
+      "c12_target": ">= 4 distinct major ocean basins; no single region > 50% of parent scenes",
+      "scientific_rationale": "Prevents the model from learning localized bathymetric or regional current signatures.",
+      "source_availability": "Sentinel-1 global archive covers global coastal and shelf waters.",
+      "likely_attainability": "HIGH",
+      "risk_of_bias": "Moderate; coastal traffic and SAR coverage are denser in European and East Asian waters.",
+      "dependency_risk": "Low with stratified geographic quota enforcement.",
+      "status": "FROZEN_VALIDATED"
+    },
+    {
+      "dimension": "TEMPORAL_ACQUISITION_BREADTH",
+      "c12_target": ">= 3 calendar years represented, distributed across >= 8 calendar months",
+      "scientific_rationale": "Prevents seasonal bias in prevailing wind systems and biogenic surfactant production cycles.",
+      "source_availability": "Sentinel-1 archive spans 2014 to present (> 10 years of operational data).",
+      "likely_attainability": "HIGH",
+      "risk_of_bias": "Low.",
+      "dependency_risk": "Low.",
+      "status": "FROZEN_VALIDATED"
+    }
+  ],
+  "epistemic_conclusion": "The C12 targets are scientifically justified and achievable. The only critical bottleneck is HM (Artificial Objects), which requires targeted sampling of offshore energy infrastructure or vessel density zones rather than blind random sampling of open-ocean swaths."
+}

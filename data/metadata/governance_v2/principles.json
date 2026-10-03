@@ -1,0 +1,112 @@
+{
+  "principles": [
+    {
+      "principle_id": "PRIN-001",
+      "title": "Machine Truth Governs",
+      "statement": "Quantitative conclusions and reported values must derive directly from verified machine JSON artifacts, never manual markdown transcription or narrative assumption.",
+      "rationale": "Eliminates narrative inflation, transcription errors, and human confirmation bias across agent generations.",
+      "scope": "GLOBAL",
+      "domain": "scientific_integrity",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-002",
+      "title": "Post-Transformation Support Invariance",
+      "statement": "Any sample support eligibility criterion involving class presence must be evaluated strictly after all preprocessing transformations that affect validity (validity masking, nodata exclusion, and cropping).",
+      "rationale": "Raw disk masks contain invalid border coordinates that produce empty tensors and zero gradients upon masking.",
+      "scope": "PROJECT",
+      "domain": "data_integrity",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-003",
+      "title": "Explicit Statistical Method Binding",
+      "statement": "Statistical and numerical calls must explicitly pass method and distribution parameters in code, and artifact schemas must derive method metadata directly from the executed routine.",
+      "rationale": "Prevents default parameter drift (e.g. exact vs asymptotic Wilcoxon) between runtime libraries and written documentation.",
+      "scope": "GLOBAL",
+      "domain": "statistics",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-004",
+      "title": "Bounded Epistemic Status",
+      "statement": "Observational metrics cannot be asserted as causal mechanisms without controlled intervention, and non-significant test results (p > 0.05) cannot be asserted as proof of zero effect or stability.",
+      "rationale": "Maintains scientific rigor and prevents false confidence in unproven training dynamics or architectural invariance.",
+      "scope": "GLOBAL",
+      "domain": "epistemics",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-005",
+      "title": "Parent-Cluster Inferential Independence",
+      "statement": "Spatial autocorrelation within Sentinel-1 SAR scenes requires that the parent acquisition cluster be the independent unit of analysis for inferential statistics and uncertainty estimation.",
+      "rationale": "Unclustered pixel evaluations artificially inflate degrees of freedom by factors of 10^6, generating spuriously small p-values.",
+      "scope": "PROJECT",
+      "domain": "statistics",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-006",
+      "title": "Diagnostic Zero-Training Invariant",
+      "statement": "Scientific diagnostic investigations permit strictly zero model training steps, zero backward passes, zero optimizer steps, and zero GPU allocations unless explicitly authorized for a static gradient protocol.",
+      "rationale": "Protects diagnostic purity and prevents accidental model weights mutation during measurement.",
+      "scope": "PROJECT",
+      "domain": "operational_safety",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-007",
+      "title": "Protected Evaluation Firewalls",
+      "statement": "HOLDOUT and Part III evaluation partitions are strictly quarantined and firewalled from development, training, and diagnostic access.",
+      "rationale": "Preserves uncontaminated external benchmark validity and prevents test-set leakage.",
+      "scope": "GLOBAL",
+      "domain": "data_governance",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-008",
+      "title": "Canonical Taxonomy and Terminology Invariance",
+      "statement": "The 12-class dense SAR taxonomy dictionary and official class nomenclatures are immutable across all Ocean Sentinel research tasks.",
+      "rationale": "Prevents domain confusion (e.g. conflating Ocean Front with Oil Spill, or Anthropogenic Objects with Vessels).",
+      "scope": "PROJECT",
+      "domain": "taxonomy",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-009",
+      "title": "Faithful Denominator Estimands",
+      "statement": "Gradient, loss, and metric calculations must normalize by the literal contractual denominator defined in the registered protocol rather than convenience sub-batch normalizations.",
+      "rationale": "Subgradient norm distortion occurs when masked losses renormalize by subset pixel counts rather than full-batch support.",
+      "scope": "PROJECT",
+      "domain": "autograd",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-010",
+      "title": "Model State Purity During Diagnostics",
+      "statement": "Static diagnostic evaluations must execute in explicit model.eval() mode with frozen BatchNorm buffers to prevent running statistic contamination.",
+      "rationale": "Batch normalization updates during single-tile passes distort feature representations and alter evaluation metrics.",
+      "scope": "PROJECT",
+      "domain": "ml_models",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-011",
+      "title": "Fail-Closed Telemetry and State Accounting",
+      "statement": "Telemetry must faithfully record execution authorization and task phase; analysis tasks must never claim execution authorization, and completion requires verified passing gates.",
+      "rationale": "Ensures agent execution state is transparent, deterministic, and verifiable in real time.",
+      "scope": "GLOBAL",
+      "domain": "governance",
+      "metadata": {}
+    },
+    {
+      "principle_id": "PRIN-012",
+      "title": "Evidence-Based Lifecycle Promotion",
+      "statement": "Rules and lessons cannot be promoted to PROVEN_STABLE without verifiable, documented survival across multiple subsequent independent task executions with zero regressions.",
+      "rationale": "Prevents premature declaration of stability and ensures institutional memory is hardened by real operational experience.",
+      "scope": "GLOBAL",
+      "domain": "lifecycle",
+      "metadata": {}
+    }
+  ]
+}

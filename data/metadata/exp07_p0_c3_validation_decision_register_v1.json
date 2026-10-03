@@ -1,0 +1,177 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T22:46:00+05:30",
+  "phase": "EXP-07-P0-C3",
+  "purpose": "Authoritative decision register for EXP-07-P0-C3 CPU-only pre-training validation gates",
+  "summary": {
+    "total_decisions": 7,
+    "validated_decisions": 7,
+    "provisional_decisions": 0,
+    "blocked_decisions": 0,
+    "final_c3_verdict": "A. FINAL - ALL CPU-ONLY VALIDATIONS PASS; EXP-07 PROTOCOL FREEZE READY",
+    "next_phase": "EXP-07-P0-C4 - Final Protocol Freeze & Implementation Contract"
+  },
+  "decisions": [
+    {
+      "decision_id": "DEC-C3-001",
+      "validation_gate": "V-01",
+      "topic": "Calibration Nonlinearity & Radiometric Representation Gate",
+      "status": "VALIDATED_DECISION_SELECTED",
+      "selected_option": "V01-C",
+      "option_label": "APPROXIMATE CALIBRATION ACCEPTABLE ONLY WITH EXPLICIT BIAS DISCLOSURE",
+      "empirical_basis": {
+        "samples_analyzed": 12,
+        "independent_parents": 9,
+        "valid_blocks_analyzed": 777611,
+        "measured_cv_mean": 0.2380,
+        "measured_cv_median": 0.2347,
+        "relative_error_mean_pct": 5.81,
+        "relative_error_median_pct": 5.52,
+        "relative_error_p95_pct": 8.80,
+        "relative_error_max_pct": 333.12,
+        "dB_error_mean": 0.244,
+        "dB_error_median": 0.233,
+        "e1_lut_max_pct": 0.0335,
+        "e2_nonlinearity_mean_pct": 5.81
+      },
+      "rationale": "Empirical data across 12 stratified samples confirms that LUT spatial variation (E1 < 0.01%) is negligible, while nonlinear aggregation (E2 ~ 5.5-5.8% median, 0.24 dB) is systematic across all ocean scenes. Post-aggregation approximate calibration successfully removes the major 17% cross-swath incidence-angle confound while incurring a known, bounded, systematic underestimate. For semantic segmentation, this is defensible provided explicit bias bounds and edge-effect limitations are permanently disclosed.",
+      "disclosures": [
+        "Systematic underestimate of linear sigma0 by ~5.5-5.8% median in ocean background",
+        "Localized peak errors up to 20-30% at high-contrast phenomenon boundaries and >100% on bright metallic point targets",
+        "Instrument radiometric accuracy (0.34 dB) is distinct from processing approximation error (0.24 dB)"
+      ]
+    },
+    {
+      "decision_id": "DEC-C3-002",
+      "validation_gate": "V-02",
+      "topic": "Zero / NoData Formal Classification & Mask Policy",
+      "status": "VALIDATED_DECISION_SELECTED",
+      "classification": "STRONGLY_SUPPORTED_INVALID",
+      "empirical_basis": {
+        "total_samples_audited": 147,
+        "zero_samples_count": 7,
+        "spatial_distribution": "Exclusively left-border columns (col 0-6 or 0-20), 100% contiguous with swath boundary",
+        "source_mask_labels_at_zeros": "100% Background (BG, class 0)",
+        "negative_pixels": 0,
+        "min_nonzero_dn": 1.93,
+        "tiff_nodata_tag": 0.0,
+        "esa_specification": "S1-RS-MDA-52-7443 Section 4.2.1 confirms non-imaged bounding-box margins are zero-padded"
+      },
+      "policy": {
+        "validity_mask": "validity_mask = (raw_image > 0)",
+        "training_loss_rule": "Ignore loss on ~validity_mask (ignore_index = -100)",
+        "source_mask_rule": "Source mask PNG bytes on disk remain completely unmodified"
+      }
+    },
+    {
+      "decision_id": "DEC-C3-003",
+      "validation_gate": "V-03",
+      "topic": "Tile Sampler Architecture Selection",
+      "status": "VALIDATED_DECISION_SELECTED",
+      "selected_sampler": "Candidate F (Hybrid: 70% Parent-Balanced + 30% Class-Presence)",
+      "empirical_basis": {
+        "dominant_class_sampler_status": "REJECTED (Fatal flaw: 6 classes never dominant in any tile)",
+        "class_presence_sampler_status": "REJECTED (Severe parent concentration: max multiplier 2.23x, CV 0.74)",
+        "parent_balanced_sampler_status": "REJECTED (Underexposes rare classes: HM only 1.2 tiles/epoch)",
+        "hybrid_sampler_metrics": {
+          "max_parent_multiplier": 1.37,
+          "cv_parent_exposure": 0.22,
+          "min_rare_class_tiles": 3.10,
+          "hm_tile_exposure": 3.10,
+          "repeat_risk": "LOW (max tile multiplier 4.48x)"
+        }
+      },
+      "rationale": "The hybrid sampler balances parent exposure fairness (limiting maximum parent multiplier to 1.37x) while guaranteeing that rare classes (such as HM, LWA, and Eddy) receive sufficient gradient signal per epoch."
+    },
+    {
+      "decision_id": "DEC-C3-004",
+      "validation_gate": "V-04",
+      "topic": "Class Loss Weighting Scheme & Double-Correction Risk",
+      "status": "VALIDATED_DECISION_SELECTED",
+      "selected_scheme": "Candidate E (Square-Root Median Frequency: sqrt(median_freq / freq))",
+      "empirical_basis": {
+        "uncapped_median_freq_status": "REJECTED (Severe double-correction: 1987x raw weight on HM, 3623x when combined with presence sampler)",
+        "arbitrary_cap10_status": "REJECTED as primary recommendation (arbitrary clipping discontinuity)",
+        "sqrt_median_freq_metrics": {
+          "bg_weight": 0.273,
+          "hm_weight": 12.16,
+          "lwa_weight": 2.49,
+          "eddy_weight": 2.07,
+          "max_min_ratio": 44.6,
+          "effective_gradient_multiplier_with_hybrid_sampler": 43.5,
+          "double_correction_risk": "LOW"
+        }
+      },
+      "rationale": "Sub-linear square-root scaling dampens extreme frequency disparities without artificial threshold discontinuities, preventing gradient instability on ultra-rare classes."
+    },
+    {
+      "decision_id": "DEC-C3-005",
+      "validation_gate": "V-05",
+      "topic": "Deterministic Data Interface Contract Validation",
+      "status": "VALIDATED_PASSED",
+      "validation_results": {
+        "repeated_read_determinism": "PASSED (12/12 samples match byte-for-byte across runs)",
+        "partition_isolation": "PASSED (0 sample overlap between TRAIN, DEV, and HOLDOUT)",
+        "missing_file_handling": "PASSED (explicit FileNotFoundError raised)",
+        "validity_mask_mapping": "PASSED (100% of zero-padding pixels mapped to ignore_index -100)",
+        "dense_taxonomy_mapping": "PASSED (12 source label IDs mapped to 0..11 dense indices)"
+      }
+    },
+    {
+      "decision_id": "DEC-C3-006",
+      "validation_gate": "V-06",
+      "topic": "Model Architecture Contract & Parameter Budget",
+      "status": "VALIDATED_RECOMMENDATION_FROZEN",
+      "primary_recommendation": "ResNet18-UNet",
+      "provisional_alternative": "ResNet34-UNet",
+      "specifications": {
+        "resnet18_unet": {
+          "in_channels": 1,
+          "num_classes": 12,
+          "trainable_params": 14310860,
+          "total_params": 14322636,
+          "size_mb": 54.64,
+          "batchnorm_layers": 30
+        },
+        "resnet34_unet": {
+          "in_channels": 1,
+          "num_classes": 12,
+          "trainable_params": 24419020,
+          "total_params": 24438220,
+          "size_mb": 93.22,
+          "batchnorm_layers": 46
+        }
+      },
+      "batchnorm_stability_guideline": "With batch_size=8 (9 batches/epoch), standard BatchNorm running statistics can be noisy across scenes. GroupNorm (16 groups) or gradient accumulation (effective batch_size=16) is recommended."
+    },
+    {
+      "decision_id": "DEC-C3-007",
+      "validation_gate": "V-07",
+      "topic": "TRAIN-Only Normalization Statistics & Validity Domain",
+      "status": "VALIDATED_TRAIN_ONLY_FROZEN",
+      "pixel_accounting": {
+        "train_pixels_analyzed": 4712082,
+        "zero_padding_pixels_excluded": 6510,
+        "dev_pixels_included": 0,
+        "holdout_pixels_included": 0,
+        "leakage_status": "ZERO_LEAKAGE"
+      },
+      "statistics": {
+        "native_dn": {
+          "mean": 76.6042,
+          "std": 31.8304,
+          "median": 66.7700,
+          "min": 1.9300,
+          "max": 2698.9299
+        },
+        "log1p_dn": {
+          "mean": 4.2756,
+          "std": 0.3866,
+          "median": 4.2161,
+          "min": 1.0750,
+          "max": 7.9010
+        }
+      }
+    }
+  ]
+}

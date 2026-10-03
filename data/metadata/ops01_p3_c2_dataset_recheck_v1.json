@@ -1,0 +1,35 @@
+{
+  "sample_count": 147,
+  "parent_count": 27,
+  "partition_counts": {
+    "TRAIN": 72,
+    "DEV": 39,
+    "HOLDOUT": 36
+  },
+  "partition_parent_counts": {
+    "TRAIN": 12,
+    "DEV": 7,
+    "HOLDOUT": 8
+  },
+  "parent_leakage": 0,
+  "duplicate_images": 0,
+  "dominant_parent": "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+  "dominant_parent_count": 12,
+  "dominant_parent_concentration": 0.08163265306122448,
+  "core_lookalike_parents": {
+    "AF": 7,
+    "BS": 6,
+    "LWA": 3,
+    "OF": 9,
+    "MCC": 11,
+    "POW": 8,
+    "RF": 5,
+    "WS": 3,
+    "Eddy": 3,
+    "IWs": 12
+  },
+  "os_parent_count": 0,
+  "status": "ALL_RECHECK_ITEMS_MATCH_EXACTLY",
+  "phase": "PHASE_8_P3_C2",
+  "metadata_version": "1.0.0"
+}

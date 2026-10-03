@@ -1,0 +1,398 @@
+{
+  "metadata": {
+    "task": "OCEAN-SENTINEL-PHASE11-R4-EXP08-PREREQUISITE-CLOSURE",
+    "stage": "STAGE_4_SPATIAL_FOOTPRINT_OVERLAP_RECOMPUTATION",
+    "computation_date": "2026-09-27",
+    "crs": "EPSG:4326 (WGS84 degrees for both datasets)",
+    "axis_order": "longitude,latitude (verified from data_matrix.tab column labels)",
+    "geometry_library": "shapely",
+    "dartis_source": "D:\\Projects\\ocean-sentinel\\data\\metadata\\yang_singha_2025\\data_matrix.tab",
+    "trujillo_source": "D:\\Projects\\ocean-sentinel\\data\\raw\\trujillo_2024\\images\\Oil",
+    "supersedes": "Prior 2468/3047 result from EXTERNAL_VALIDATION_READINESS.md (invalid denominator: 5515)",
+    "note": "Denominator correction: Using 2,290 unique no-oil patches and 1,365 unique oil patches as denominators, NOT 5,515 annotation records. Polygon intersection is necessary but not sufficient for statistical dependence."
+  },
+  "trujillo_footprints_count": 1200,
+  "nooil_result": {
+    "population": "dartis_nooil_2290_vs_trujillo_1200",
+    "total_patches": 2290,
+    "overlap_with_trujillo": 789,
+    "no_overlap_with_trujillo": 1501,
+    "overlap_pct": 34.45,
+    "no_overlap_pct": 65.55,
+    "denominator_entity": "unique_patch_jpg_file",
+    "crs": "EPSG:4326",
+    "geometry_method": "shapely Polygon from 4 DARTIS patch corner coordinates (UL, UR, LR, LL)",
+    "trujillo_geometry_method": "shapely box from rasterio bounds (left, bottom, right, top)",
+    "overlap_sample": [
+      {
+        "jpg_file": "nw-0004-00-000004.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 5,
+        "sample_trujillo": [
+          "00237.tif",
+          "00371.tif",
+          "00008.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0011-00-000011.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00863.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0012-00-000012.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00660.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0014-00-000014.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00309.tif",
+          "00308.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0015-00-000015.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00764.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0019-00-000019.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 4,
+        "sample_trujillo": [
+          "00902.tif",
+          "00901.tif",
+          "00903.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0021-00-000021.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 5,
+        "sample_trujillo": [
+          "01171.tif",
+          "00507.tif",
+          "00509.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0022-00-000022.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 4,
+        "sample_trujillo": [
+          "00418.tif",
+          "00417.tif",
+          "00391.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0023-00-000023.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00430.tif",
+          "00429.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0026-00-000026.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00492.tif",
+          "00490.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0027-00-000027.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "01042.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0031-00-000031.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "01077.tif",
+          "01078.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0034-00-000034.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 4,
+        "sample_trujillo": [
+          "01171.tif",
+          "00507.tif",
+          "00508.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0035-00-000035.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00660.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0037-00-000037.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00253.tif",
+          "00254.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0041-00-000041.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00134.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0043-00-000043.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00900.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0044-00-000044.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00244.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0046-00-000046.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 4,
+        "sample_trujillo": [
+          "00867.tif",
+          "00866.tif",
+          "00865.tif"
+        ]
+      },
+      {
+        "jpg_file": "nw-0049-00-000049.jpg",
+        "subset": "nw",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00664.tif",
+          "00663.tif"
+        ]
+      }
+    ]
+  },
+  "oil_result": {
+    "population": "dartis_oil_1365_vs_trujillo_1200",
+    "total_patches": 1365,
+    "overlap_with_trujillo": 712,
+    "no_overlap_with_trujillo": 653,
+    "overlap_pct": 52.16,
+    "no_overlap_pct": 47.84,
+    "denominator_entity": "unique_patch_jpg_file",
+    "crs": "EPSG:4326",
+    "geometry_method": "shapely Polygon from 4 DARTIS patch corner coordinates (UL, UR, LR, LL)",
+    "trujillo_geometry_method": "shapely box from rasterio bounds (left, bottom, right, top)",
+    "overlap_sample": [
+      {
+        "jpg_file": "ow-0001.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00162.tif",
+          "00160.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0003.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00612.tif",
+          "00613.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0004.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 3,
+        "sample_trujillo": [
+          "00228.tif",
+          "00213.tif",
+          "00214.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0005.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00211.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0007.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 3,
+        "sample_trujillo": [
+          "00228.tif",
+          "00213.tif",
+          "00214.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0009.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 3,
+        "sample_trujillo": [
+          "00731.tif",
+          "00665.tif",
+          "00494.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0012.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00112.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0013.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00126.tif",
+          "00366.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0014.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00112.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0015.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00206.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0017.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00879.tif",
+          "00167.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0021.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 4,
+        "sample_trujillo": [
+          "00886.tif",
+          "00885.tif",
+          "00884.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0022.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00370.tif",
+          "00266.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0023.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00238.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0024.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 5,
+        "sample_trujillo": [
+          "00216.tif",
+          "00217.tif",
+          "00215.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0025.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 2,
+        "sample_trujillo": [
+          "00612.tif",
+          "00613.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0026.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00112.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0027.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00112.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0028.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00365.tif"
+        ]
+      },
+      {
+        "jpg_file": "ow-0029.jpg",
+        "subset": "ow",
+        "intersecting_trujillo_count": 1,
+        "sample_trujillo": [
+          "00211.tif"
+        ]
+      }
+    ]
+  },
+  "independence_caveat": "Polygon intersection != statistical dependence. Geographic co-location of raster footprints means some training and evaluation patches are drawn from the same geographic region but NOT necessarily from the same Sentinel-1 acquisitions (Trujillo and DARTIS have different acquisition times: Trujillo 2020-2023, DARTIS 2019). Temporal independence (different years) is established; spatial/acquisition-level independence is not determinable without Trujillo scene IDs."
+}

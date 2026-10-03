@@ -1,0 +1,41 @@
+{
+  "incident_register_id": "EXP07_P0_C22A_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A",
+  "created_at_utc": "2026-09-14T10:54:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_verified": false,
+    "epistemic_standard": "LEVEL_1_TO_5_FIRST_PRINCIPLES_PROOF"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A-001",
+      "severity": "HIGH",
+      "category": "DATA_INTEGRITY",
+      "title": "TRAIN Valid-Pixel Count Discrepancy & Semantic Ambiguity",
+      "location": "C21 completion report (8,401,060 pixels) vs earlier canonical C16/C19 evidence (8,595,330 pixels)",
+      "claimed_value": "C21 stated 8,401,060 TRAIN valid pixels; C16/C19 stated 8,595,330 TRAIN valid pixels.",
+      "machine_truth": "Direct first-principles recomputation of all 132 TRAIN rasters and masks proves that both numbers are exact physical realities under different definitions: (1) Total raw pixels = 8,650,752 (132 * 256 * 256); (2) Border padding nodata zeros = 55,422; (3) Total radiometric valid DN pixels (raw_img > 0) = 8,595,330; (4) Excluded source label pixels (Source Label 9 Sea Ice, mapped to ignore_index=-100) = 194,270; (5) Total valid canonical dense training pixels (classes 0..11) = 8,401,060. The equation 8,595,330 - 194,270 = 8,401,060 holds exactly. The canonical class weights were derived from the 8,401,060 training pixels.",
+      "root_cause": "Semantic ambiguity in documentation failing to distinguish TOTAL_RADIOMETRIC_VALID_PIXELS (8,595,330) from TOTAL_TRAINING_CLASS_PIXELS (8,401,060).",
+      "remediation": "Established exact mathematical decomposition in ops02_c22a_loss_weight_reconciliation_v1.json and formulated Lesson LL-EXP07-021.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    },
+    {
+      "incident_id": "INC-C22A-002",
+      "severity": "MEDIUM",
+      "category": "SCIENTIFIC_VALIDITY",
+      "title": "Background-Collapse Incorrectly Classified as Automatic Invalid Run",
+      "location": "data/ops02/audits/ops02_c21_single_variable_diagnostic_protocol_v1.json (invalidation_criteria)",
+      "claimed_value": "Zero foreground predictions across all validation batches (collapse to background) listed as an automatic invalidation condition.",
+      "machine_truth": "Model prediction collapse to background is an observed optimization and generalization failure mode of the neural network under extreme class imbalance or uniform loss weighting, not an execution integrity failure of the training pipeline.",
+      "root_cause": "Conflating model performance failure with software/pipeline implementation failure.",
+      "remediation": "Removed zero foreground predictions from invalid_conditions in protocol JSON; established model_collapse_policy where background collapse is recorded and investigated as an empirical result. Formulated Lesson LL-EXP07-022.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "Both C22-A incidents are resolved, mathematically reconciled, and regression-protected. Zero blocking issues remain."
+}

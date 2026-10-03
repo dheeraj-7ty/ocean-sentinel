@@ -1,0 +1,105 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "phase": "EXP-07-P0-C5",
+  "title": "EXP-07 Reproducibility Contract and Environment Specification",
+  "experiment_id": "EXP-07-P0-C5-OPS01-V1",
+  "protocol_version": "EXP-07-P0-C4-OPS01-V1",
+  "git_branch": "master",
+  "git_state": {
+    "staged": 0,
+    "tracked_modified": 2,
+    "untracked": 319,
+    "total_porcelain": 321
+  },
+  "dataset_manifest": {
+    "path": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+    "sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+    "total_tiles": 147,
+    "total_parents": 27,
+    "train_tiles": 72,
+    "dev_tiles": 39,
+    "holdout_tiles": 36
+  },
+  "taxonomy": {
+    "path": "data/metadata/ops01_taxonomy_v1.json",
+    "sha256": "86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD",
+    "total_source_classes": 15,
+    "training_eligible_classes": 12,
+    "dense_indices": "0..11",
+    "excluded_classes": [
+      3,
+      9,
+      14
+    ]
+  },
+  "environment": {
+    "os": "Windows-10-10.0.26200-SP0",
+    "python_version": "3.10.9",
+    "python_compiler": "MSC v.1934 64 bit (AMD64)",
+    "pytorch_version": "2.1.1+cpu",
+    "torchvision_version": "0.16.1+cpu",
+    "numpy_version": "1.26.4",
+    "rasterio_version": "1.4.4"
+  },
+  "reproducibility_contract": {
+    "base_seed": 42,
+    "dataloader_worker_count": 0,
+    "worker_seed_behavior": "deterministic worker_init_fn: (base_seed + worker_id) % (2**32)",
+    "torch_deterministic_algorithms": true,
+    "torch_benchmark": false,
+    "reproducibility_scope": "DETERMINISTIC_ALGORITHMIC_REPLAY",
+    "bitwise_cross_platform_disclaimer": "Bitwise cross-platform identity is not guaranteed across differing OS kernels, AVX/NEON CPU microarchitectures, or varying BLAS/LAPACK implementations. Deterministic algorithmic replay guarantees identical sampling sequence and identical floating-point operations within the specified software environment."
+  },
+  "pipeline_contracts": {
+    "input_dtype": "torch.float32",
+    "target_dtype": "torch.int64",
+    "device": "cpu",
+    "model_architecture_identity": {
+      "model_name": "ResNet18-UNet",
+      "trainable_parameters": 14310860,
+      "total_parameters": 14322636,
+      "batchnorm_layers": 30,
+      "normalization_option": "OPTION_B_BATCHNORM_BASELINE",
+      "batchnorm_momentum": 0.05,
+      "physical_minibatch_size": 8,
+      "batchnorm_statistical_batch_size": 8,
+      "gradient_accumulation_steps": 2,
+      "effective_optimization_batch_size": 16
+    },
+    "normalization_identity": {
+      "pipeline": "raw uint16 DN -> validity mask (raw > 0) -> log1p(raw) -> standardize -> mask invalid to 0.0",
+      "train_log1p_mean": 4.2756,
+      "train_log1p_std": 0.3866,
+      "zero_leakage_guarantee": "Strictly 0 DEV/HOLDOUT pixel contribution"
+    },
+    "loss_identity": {
+      "loss_type": "CrossEntropyLoss",
+      "reduction": "mean",
+      "ignore_index": -100,
+      "weight_formula": "sqrt(median_frequency / class_frequency)",
+      "max_min_weight_ratio": 44.58
+    },
+    "sampler_identity": {
+      "sampler_name": "Candidate F Hybrid Sampler",
+      "parent_balanced_ratio": 0.7,
+      "class_presence_ratio": 0.3,
+      "sampling_mode": "with_replacement",
+      "samples_per_epoch": 72,
+      "max_parent_multiplier": 1.37,
+      "rare_class_min_exposure": 3.1
+    },
+    "evaluation_identity": {
+      "prediction_rule": "argmax(logits, dim=1)",
+      "binary_thresholding": "STRICTLY_PROHIBITED",
+      "exp06_tau_reuse": "STRICTLY_PROHIBITED",
+      "primary_metric": "mIoU_phenomena (macro mean across present classes 1..11, excluding BG)",
+      "secondary_metric": "mIoU_all (macro mean across present classes 0..11, including BG)",
+      "absent_class_handling": "Excluded from macro denominator when GT pixel count == 0"
+    },
+    "holdout_epistemic_status": {
+      "status": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+      "disclosures": "Holdout partition remains selection-influenced and must never be described as pristine or an independent benchmark."
+    }
+  }
+}

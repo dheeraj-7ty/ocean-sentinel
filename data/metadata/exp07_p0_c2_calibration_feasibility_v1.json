@@ -1,0 +1,98 @@
+{
+  "metadata_version": "2.0.0",
+  "version_lineage": ["1.0.0 (prior account, incomplete)", "2.0.0 (P0-C2 resume, nonlinearity correction)"],
+  "generated_at": "2026-09-13T22:28:00+05:30",
+  "phase": "EXP-07-P0-C2",
+  "purpose": "Calibration feasibility assessment for all 27 OPS-01 parent products with nonlinearity analysis",
+  "summary": {
+    "total_parent_products": 27,
+    "calibration_xml_accessible": 27,
+    "noise_xml_accessible": 27,
+    "annotation_xml_retained_locally": 12,
+    "manifest_safe_retained_locally": 12,
+    "sigma0_exactly_reconstructable": false,
+    "sigma0_approximately_reconstructable": true,
+    "approximate_bias_homogeneous_percent": 6.2,
+    "approximate_bias_dB": 0.25,
+    "parent_tiff_range_request_supported": true,
+    "overall_status": "APPROXIMATELY RECONSTRUCTABLE - REQUIRES EMPIRICAL VALIDATION"
+  },
+  "calibration_formula": {
+    "description": "Sentinel-1 Level-1 GRD radiometric calibration for detected products",
+    "formula": "sigma0(i) = DN(i)^2 / A_sigma(i)^2",
+    "dn_semantics": {
+      "parent_product_pixel": "Detected amplitude (multi-looked sqrt(I^2+Q^2)), stored as uint16",
+      "ops01_crop_pixel": "10x10 spatial block mean of parent detected amplitude values, stored as float32",
+      "value_range": "48-2699 (observed in representative sample)",
+      "consistent_with": "Amplitude (uint16 range), NOT intensity (would be ~4e9 range)"
+    }
+  },
+  "nonlinearity_analysis": {
+    "problem_statement": "OPS-01 stores mean(DN). Calibration uses DN^2. By Jensen's inequality, (mean(DN))^2 != mean(DN^2).",
+    "error_sources": [
+      {
+        "source": "A: LUT variation across 10x10 block",
+        "magnitude": "< 0.01% per block",
+        "status": "NEGLIGIBLE"
+      },
+      {
+        "source": "B: Nonlinear aggregation (mean(DN)^2 vs mean(DN^2))",
+        "magnitude": "~6.2% in homogeneous regions (CV^2 where CV~0.25 for ENL=4.4)",
+        "status": "SIGNIFICANT but SYSTEMATIC",
+        "notes": [
+          "Bias = CV^2 / (1 + CV^2) where CV is within-block coefficient of variation",
+          "For 4.4-look SAR amplitude, CV_amplitude ~= 0.5227/sqrt(4.4) ~= 0.249",
+          "Homogeneous bias ~= 0.249^2 = 6.2%",
+          "In dB: 10*log10(1.062) = 0.26 dB, within Sentinel-1 radiometric accuracy (0.34 dB)",
+          "Feature boundaries: CV >> 0.25, bias can reach 25-100%",
+          "Bias is SYSTEMATIC (same sign, same physics) across all scenes",
+          "NOT correctable from block-mean alone; requires raw parent pixels"
+        ]
+      }
+    ],
+    "conclusion": "Approximate calibration removes dominant 17% cross-swath confound at cost of ~6% systematic underestimate. Bias is constant offset in log domain. Acceptable for segmentation, not for absolute radiometry.",
+    "empirical_validation_needed": true,
+    "validation_method": "Read raw 10x10 parent pixels via /vsicurl/ range request, compute exact vs approximate sigma0"
+  },
+  "recovery_method": {
+    "source": "AWS S3 public Sentinel-1 Level-1C archive",
+    "bucket": "sentinel-s1-l1c",
+    "access": "Public, no authentication required",
+    "calibration_download": "27 calibration XMLs, ~54 MB total",
+    "range_request_supported": true,
+    "range_request_status_code": 206,
+    "parent_tiff_size_bytes": 564484656,
+    "parent_tiff_size_mb": 564.5
+  },
+  "crop_to_parent_mapping": {
+    "available": true,
+    "field": "source_window",
+    "format": "row=START..END, col=START..END",
+    "aggregation": "10x10_spatial_block_mean",
+    "example": "source_window: row=15410..17970, col=50..2610 -> crop pixel (r,c) maps to parent line=15410+r*10, pixel=50+c*10"
+  },
+  "step_5_answers": {
+    "A_parent_coordinates_locatable": true,
+    "B_calibration_lut_evaluable": true,
+    "C_raw_parent_dn_recoverable": true,
+    "D_sigma0_exactly_reconstructable": "CONDITIONALLY_YES_requires_raw_parent_pixels",
+    "E_sigma0_approximately_from_block_mean": true,
+    "F_approximation_error_bounded": "PARTIALLY_theoretical_bound_only",
+    "G_sufficient_for_intended_use": "REQUIRES_VALIDATION"
+  },
+  "decision": "CALIBRATION APPROXIMATELY RECONSTRUCTABLE BUT ERROR NOT FULLY ESTABLISHED",
+  "blocking_validations": [
+    "V-01: Empirical within-block CV measurement via range request",
+    "V-01: Compare exact vs approximate sigma0 for >= 3 diverse samples"
+  ],
+  "p0_c1_corrections": [
+    "P0-C1 REJECTED 'calibration infeasible' -> All 27 XMLs accessible via S3",
+    "P0-C1 MISSING nonlinearity analysis -> mean(DN)^2 != mean(DN^2), ~6% bias established",
+    "P0-C1 INSUFFICIENT LUT-smoothness argument -> LUT smoothness is only one of two error sources"
+  ],
+  "governance_rules_implicated": [
+    "Missing local metadata != impossible metadata",
+    "LUT smoothness != proof that nonlinear aggregation can be inverted",
+    "Calibration of already-aggregated nonlinear measurement requires explicit error analysis"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "trujillo_counts": {
+    "total_source_footprints": 1200,
+    "train_source_footprints": 840,
+    "val_source_footprints": 180,
+    "test_source_footprints": 180
+  },
+  "nooil_source_overlap_1200": {
+    "total": 2290,
+    "overlap_count": 789,
+    "overlap_pct": 34.45,
+    "no_overlap_count": 1501,
+    "no_overlap_pct": 65.55
+  },
+  "nooil_training_overlap_840": {
+    "total": 2290,
+    "overlap_count": 441,
+    "overlap_pct": 19.26,
+    "no_overlap_count": 1849,
+    "no_overlap_pct": 80.74
+  },
+  "oil_source_overlap_1200": {
+    "total": 1365,
+    "overlap_count": 712,
+    "overlap_pct": 52.16,
+    "no_overlap_count": 653,
+    "no_overlap_pct": 47.84
+  },
+  "oil_training_overlap_840": {
+    "total": 1365,
+    "overlap_count": 399,
+    "overlap_pct": 29.23,
+    "no_overlap_count": 966,
+    "no_overlap_pct": 70.77
+  },
+  "nooil_scene_clustering": {
+    "total_parent_scenes": 869,
+    "stratum1_scenes": 719,
+    "stratum2_scenes": 447,
+    "shared_parent_scenes": 297,
+    "stratum1_only_scenes": 422,
+    "stratum2_only_scenes": 150
+  },
+  "oil_scene_clustering": {
+    "total_parent_scenes": 626,
+    "stratum1_scenes": 414,
+    "stratum2_scenes": 364,
+    "shared_parent_scenes": 152,
+    "stratum1_only_scenes": 262,
+    "stratum2_only_scenes": 212
+  }
+}

@@ -1,0 +1,479 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:48:46.245127+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_6_SOURCE_IDENTITY_AUDIT",
+  "total_samples": 147,
+  "unique_parent_scene_ids": 27,
+  "unique_product_ids": 27,
+  "parent_identity_chains": {
+    "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 4,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20150220t211700"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 5,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20160111t215627"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 1,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20161130t215635"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 7,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20170119t231815"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 6,
+      "partitions": [
+        "DEV"
+      ],
+      "acquisition_datetimes": [
+        "20180103t114323"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 4,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20181221t214853"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 5,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20190109t214157"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 1,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20200109t214859"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 4,
+      "partitions": [
+        "DEV"
+      ],
+      "acquisition_datetimes": [
+        "20210103t214905"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 2,
+      "partitions": [
+        "DEV"
+      ],
+      "acquisition_datetimes": [
+        "20220103t180152"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 4,
+      "partitions": [
+        "DEV"
+      ],
+      "acquisition_datetimes": [
+        "20221231t012737"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 3,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20230128t173320"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220130T191240_20220130T191305_041694_04F5F9_079E"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 10,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20220130t191240"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20221031T055705_20221031T055730_045682_057692_B668"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 12,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20221031t055705"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220427T030924_20220427T030949_042953_0520BC_FED4"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 7,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20220427t030924"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220226T142428_20220226T142453_042085_050380_2F0D"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 6,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20220226t142428"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220201T112322_20220201T112351_041718_04F6CE_F5D9"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 9,
+      "partitions": [
+        "DEV"
+      ],
+      "acquisition_datetimes": [
+        "20220201t112322"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20221130T052301_20221130T052326_046119_05855E_C5CD"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 8,
+      "partitions": [
+        "DEV"
+      ],
+      "acquisition_datetimes": [
+        "20221130t052301"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20180409T114323_20180409T114348_021390_024D30_2B7B"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 6,
+      "partitions": [
+        "DEV"
+      ],
+      "acquisition_datetimes": [
+        "20180409t114323"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220326T001002_20220326T001027_042485_051115_30E8"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 4,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20220326t001002"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20221030T111651_20221030T111716_045670_057638_1407"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 3,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20221030t111651"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20181010T214830_20181010T214855_024079_02A1C1_BEB0"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 6,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20181010t214830"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220128T011103_20220128T011129_041654_04F498_FCDB"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 3,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20220128t011103"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220130T164749_20220130T164814_041693_04F5EC_BC98"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 10,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20220130t164749"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20221029T045229_20221029T045254_045652_057587_B5AE"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 1,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20221029t045229"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20150222T115957_20150222T120022_004736_005DC4_640F"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 10,
+      "partitions": [
+        "TRAIN"
+      ],
+      "acquisition_datetimes": [
+        "20150222t115957"
+      ],
+      "has_multiple_partitions": false
+    },
+    "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001": {
+      "parent_scene_id": "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001",
+      "source_product_ids": [
+        "S1A_IW_GRDH_1SDV_20220831T052126_20220831T052151_044792_05595D_744F"
+      ],
+      "orbit_pass_ids": [
+        null
+      ],
+      "sample_count": 6,
+      "partitions": [
+        "HOLDOUT"
+      ],
+      "acquisition_datetimes": [
+        "20220831t052126"
+      ],
+      "has_multiple_partitions": false
+    }
+  },
+  "total_issues": 0,
+  "verdict": "PASS",
+  "issues": [],
+  "identity_chain_notes": [
+    "parent_scene_id is the primary grouping key for partition assignment",
+    "source_product_id is the ESA SAFE product identifier",
+    "orbit_pass_id groups related acquisitions; may overlap across parents",
+    "A parent appearing in exactly one partition confirms grouping firewall"
+  ]
+}

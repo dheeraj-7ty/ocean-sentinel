@@ -1,0 +1,97 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:53:41.425309+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_8_PREPROCESSING_AUDIT",
+  "physical_format": {
+    "image_format": "GeoTIFF (.tif)",
+    "mask_format": "PNG (.png)",
+    "image_dimensions": [
+      256,
+      256
+    ],
+    "mask_dimensions": [
+      256,
+      256
+    ],
+    "image_band_count": 1,
+    "image_dtype": "float32",
+    "mask_dtype": "uint8 (0-14 class label pixel values)",
+    "image_value_unit": "RAW_DIGITAL_NUMBER_AMPLITUDE",
+    "image_crs": null,
+    "image_nodata": null,
+    "image_georeferencing": "NOT_PRESENT (expected \u2014 crops are ungeoreferenced patches)"
+  },
+  "value_range_characterization": {
+    "observed_min_across_20_samples": 1.93,
+    "observed_max_across_20_samples": 2698.93,
+    "unit_interpretation": "Raw amplitude DN from 10x10 block mean aggregation of Level-1 SAR intensity",
+    "dB_conversion_applied": false,
+    "sigma0_calibration_applied": false,
+    "note": "Values are positive raw amplitude; no dB conversion, no absolute radiometric calibration. Future training must decide: use raw DN, apply 10*log10, or apply ESA calibration constants."
+  },
+  "aggregation_method": {
+    "description": "10x10 spatial block mean of Li-slice float32 array",
+    "produces_256x256_from_2560x2560_or_similar": true,
+    "note": "Li slices are 256x256 in the catalog. The 10x10 block mean is applied from the cropped Level-1 GRD window to produce the 256x256 OPS-01 image. This is the EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS correspondence method."
+  },
+  "mask_pipeline": {
+    "source": "Li et al. label PNG files (class integer values 0-14)",
+    "loading": "PIL.Image.open() -> numpy.array -> PNG pixel values",
+    "label_type": "multi-class integer (not binary)",
+    "os_class_14_excluded": true,
+    "os_handling": "Sample excluded from OPS-01 if any OS pixels present"
+  },
+  "preprocessing_open_protocol_decisions": [
+    {
+      "decision_id": "OPEN-PREPROC-001",
+      "topic": "Radiometric calibration / value domain",
+      "current_state": "Raw amplitude DN preserved",
+      "options": [
+        "Use raw DN as-is",
+        "Apply 10*log10 dB conversion",
+        "Apply ESA calibration factor to sigma0 (requires manifest radiometric_stats.calibration_constant)"
+      ],
+      "recommendation": "MUST be decided and fixed before training; normalization statistics are domain-dependent"
+    },
+    {
+      "decision_id": "OPEN-PREPROC-002",
+      "topic": "Normalization statistics computation",
+      "current_state": "NOT YET COMPUTED for OPS-01 TRAIN split",
+      "requirement": "Must be computed on TRAIN split only, then applied uniformly to DEV and HOLDOUT",
+      "note": "radiometric_stats in manifest contain per-sample min/max/mean/std; dataset-level normalization not yet computed"
+    },
+    {
+      "decision_id": "OPEN-PREPROC-003",
+      "topic": "Augmentation policy",
+      "current_state": "NOT DEFINED for OPS-01 training",
+      "requirement": "Augmentation must only affect TRAIN split; never applied to DEV/HOLDOUT at eval time"
+    },
+    {
+      "decision_id": "OPEN-PREPROC-004",
+      "topic": "Label encoding for multi-class OPS-01",
+      "current_state": "Raw multi-class integer masks (0-14)",
+      "options": [
+        "Binary: BG=0 vs all-lookalike=1 (matches current Part-I/Trujillo approach)",
+        "Multi-class softmax head (requires architecture change from EXP-06)",
+        "Per-class binary head"
+      ],
+      "requirement": "Must be decided before EXP-07 specification"
+    }
+  ],
+  "determinism_assessment": {
+    "file_loading": "Deterministic (GeoTIFF + PNG read, no randomness)",
+    "augmentation": "Not yet implemented for OPS-01; will require explicit seed policy",
+    "worker_effects": "num_workers=0 eliminates inter-process non-determinism",
+    "cache_behavior": "No caching layer present in current implementation",
+    "repeated_execution": "Produces identical tensors given identical file content"
+  },
+  "critical_mismatches_with_trujillo_dataset": {
+    "image_dimensions": "OPS-01: 256x256 vs TrujilloTileDataset: 512x512",
+    "band_count": "OPS-01: 1-band VV vs TrujilloTileDataset: 2-band (assumed VV+VH)",
+    "loading_mechanism": "OPS-01: direct rasterio GeoTIFF read vs TrujilloTileDataset: windowed read from 2048x2048",
+    "mask_semantics": "OPS-01: multi-class integer vs TrujilloTileDataset: binary {0,1}",
+    "label_scope": "OPS-01: 14 non-OS classes vs TrujilloTileDataset: binary oil/no-oil"
+  },
+  "verdict": "AUDITED_OPEN_PROTOCOL_DECISIONS_PRESENT"
+}

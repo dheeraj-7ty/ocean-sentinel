@@ -1,0 +1,32 @@
+{
+  "incident_register_id": "EXP07_P0_C22A7_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.7",
+  "created_at_utc": "2026-09-14T07:35:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A7-001",
+      "severity": "HIGH",
+      "category": "DOCUMENTATION_DEFECT_RECONCILIATION",
+      "title": "Reconciliation and Repair of Erroneous Narrative '23 TRAIN Datatakes' Claim",
+      "location": "ocean_sentinel_lessons_learned_v1.json (LL-EXP07-019), OCEAN_SENTINEL_AGENT_LEARNING_FRAMEWORK.md, ops02_c21_hypothesis_information_value_v1.json",
+      "claimed_value": "23 TRAIN independent parent datatakes",
+      "machine_truth": "40 TRAIN independent parent clusters / mission datatakes (out of 64 total across OPS-02: 40 TRAIN + 12 DEV + 12 HOLDOUT = 64; 132 TRAIN samples, 40 DEV samples, 40 HOLDOUT samples = 212 total samples).",
+      "root_cause": "Typographical draft defect introduced in narrative description of LL-EXP07-019. The accompanying automated regression test derived 40 directly from the manifest and asserted len(datatakes) == 40, but the narrative text was not programmatically bound to the test assertion until C22-A.7.",
+      "impact_assessment": "DOCUMENTATION_ONLY. Exhaustive inspection of assemble_ops02_c14_dataset.py, train_exp07.py, rehearse_exp07_diag01_canonical_zero_step.py, and manifests confirms that 23 never existed as a variable, threshold, parameter, target, or metric denominator. DATASET_MEMBERSHIP_IMPACT = NONE. COMPUTATIONAL_PIPELINE_IMPACT = NONE.",
+      "remediation": "Repaired LL-EXP07-019 in lesson registry, learning framework documentation, and C21 audit statement. Enhanced test_lesson_019 to assert narrative consistency. Installed test_exp07_p0_c22a7_independence_protocol_guardrails.py. Preserved historical reports with audit trail.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "Independence-unit definition (Parent Acquisition Cluster / Mission Datatake under GOV-RULE-077) and counts (40 TRAIN, 12 DEV, 12 HOLDOUT, 64 total) are forensically proven and protected under automated regression tests. Task declared READY_FOR_PROTOCOL_REPAIR_COMPLETE."
+}

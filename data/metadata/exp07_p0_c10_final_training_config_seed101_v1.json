@@ -1,0 +1,109 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "phase": "EXP-07-P0-C10",
+  "title": "EXP-07 Final Authoritative Training Configuration (Seed 101 Replicate)",
+  "configuration_fingerprint_sha256": "7DF509EECBFF7AB0D4CFB8F2E5693A6CF7A1E86DCB3C7393B1F77BACB5355AD4",
+  "protocol_version": "v1.0.0-c8-frozen",
+  "experiment_id": "EXP-07",
+  "run_id": "EXP07_RUN002_SEED101",
+  "seed": 101,
+  "dataset_manifest_path": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+  "dataset_manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+  "taxonomy_manifest_path": "data/metadata/ops01_taxonomy_v1.json",
+  "taxonomy_manifest_sha256": "86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD",
+  "input_domain": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+  "normalization": {
+    "mean": 4.2756,
+    "std": 0.3866,
+    "raw_pixel_validity_threshold": 0.0,
+    "invalid_pixel_zeroing": true,
+    "source_provenance": "TRAIN_ONLY_4712082_VALID_PIXELS"
+  },
+  "loss": {
+    "criterion": "CrossEntropyLoss",
+    "reduction": "mean",
+    "ignore_index": -100,
+    "class_weights": {
+      "0": 0.273233,
+      "1": 2.013263,
+      "2": 0.703954,
+      "3": 2.493473,
+      "4": 0.515947,
+      "5": 1.469686,
+      "6": 0.512411,
+      "7": 1.51085,
+      "8": 0.806601,
+      "9": 2.066304,
+      "10": 0.398704,
+      "11": 12.159536
+    },
+    "max_to_min_ratio": 44.502393
+  },
+  "sampler": {
+    "name": "Candidate_F_Hybrid",
+    "parent_component_weight": 0.7,
+    "presence_component_weight": 0.3,
+    "draws_per_epoch": 72,
+    "replacement": true
+  },
+  "model": {
+    "architecture": "ResNet18-UNet",
+    "in_channels": 1,
+    "num_classes": 12,
+    "trainable_parameters": 14310860,
+    "bn_layers": 30,
+    "bn_momentum": 0.05
+  },
+  "optimizer": {
+    "algorithm": "AdamW",
+    "base_lr": 0.0005,
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "decay_filter": "conv_and_linear_weights_only",
+    "no_decay_filter": "bn_affine_and_all_biases",
+    "gradient_clipping_max_norm": 1.0,
+    "gradient_clipping_norm_type": 2.0
+  },
+  "scheduler": {
+    "type": "LinearWarmupCosineAnnealingLR",
+    "warmup_epochs": 3,
+    "warmup_start_lr": 1e-05,
+    "base_lr": 0.0005,
+    "min_lr": 1e-06,
+    "total_epochs": 30
+  },
+  "training_budget": {
+    "max_epochs": 30,
+    "min_epochs": 15,
+    "early_stopping_patience": 10,
+    "early_stopping_min_delta": 0.005,
+    "monitored_metric": "dev_mIoU_phenomena"
+  },
+  "batch_dynamics": {
+    "physical_minibatch_size": 8,
+    "gradient_accumulation_steps": 2,
+    "effective_optimizer_batch_size": 16,
+    "batchnorm_statistical_batch_size": 8,
+    "batches_per_epoch": 9
+  },
+  "augmentation": {
+    "policy": "NO_AUGMENTATION_IDENTITY"
+  },
+  "metrics": {
+    "decision_rule": "argmax(logits, dim=1)",
+    "headline_metric": "dev_mIoU_phenomena",
+    "secondary_metric": "dev_mIoU_all",
+    "absent_class_denominator_policy": "EXCLUDED_WHEN_GT_PIXELS_ZERO"
+  },
+  "software_environment": {
+    "python": "3.10.9",
+    "torch": "2.1.1+cpu",
+    "numpy": "1.26.4",
+    "rasterio": "1.4.3"
+  }
+}

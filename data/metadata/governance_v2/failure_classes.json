@@ -1,0 +1,256 @@
+{
+  "failure_classes": [
+    {
+      "class_id": "DATA-INTEGRITY",
+      "name": "Data Integrity Failure",
+      "description": "Corrupted, truncated, misaligned, or missing rasters, masks, manifests, or labels.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Verify cryptographic SHA256 hashes and physical manifest invariants before reading data."
+    },
+    {
+      "class_id": "POPULATION-CONSTRUCTION",
+      "name": "Population Construction Defect",
+      "description": "Evaluating sample eligibility prior to validity masking, cropping, or nodata filtering.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "GOV-RULE-129: All sample eligibility criteria must be evaluated after all validity transformations."
+    },
+    {
+      "class_id": "OBSERVATION-UNIT-MISMATCH",
+      "name": "Observation Unit Mismatch",
+      "description": "Conflating tiles, patches, minibatches, or pixels with physical experimental units.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Explicitly define observation unit (e.g. tile vs scene) in the registered plan and verify in data loader."
+    },
+    {
+      "class_id": "INFERENCE-UNIT-MISMATCH",
+      "name": "Inference Unit Mismatch",
+      "description": "Treating non-independent sub-units (e.g. tiles from the same scene) as independent units of inference.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Aggregate sub-unit observations to parent acquisition cluster medians before inferential testing."
+    },
+    {
+      "class_id": "INDEPENDENCE-ASSUMPTION",
+      "name": "False Independence Assumption",
+      "description": "Assuming independent observations across samples sharing parent scene, geographic cluster, or acquisition pass.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Verify clustering structure and require cluster block bootstrap or paired cluster tests."
+    },
+    {
+      "class_id": "TAXONOMY-DRIFT",
+      "name": "Taxonomy Drift",
+      "description": "Modifying or confusing dense class IDs, source labels, or semantic meanings across phases.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Enforce immutable 12-class dense taxonomy dictionary; distinguish source labels from dense indices."
+    },
+    {
+      "class_id": "MATHEMATICAL-DEFINITION",
+      "name": "Mathematical Definition Drift",
+      "description": "Altering loss functions, similarity metrics, or statistical estimators from registered specification.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Derive formulas directly from registered protocol and verify with unit tests against reference tensors."
+    },
+    {
+      "class_id": "DENOMINATOR-DRIFT",
+      "name": "Gradient or Loss Denominator Drift",
+      "description": "Substituting subset-normalized denominators for full-batch denominators in masked gradient computations.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Assert denominator semantics explicitly: masked loss must normalize by total valid pixels or registered weight sum."
+    },
+    {
+      "class_id": "IMPLEMENTATION-MISMATCH",
+      "name": "Implementation Contract Mismatch",
+      "description": "Discrepancy between mathematical/scientific specification and actual runtime code execution.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Pre-execution contract testing: verify code behavior directly against mathematical test vectors."
+    },
+    {
+      "class_id": "MODEL-STATE-MISMATCH",
+      "name": "Model State Mismatch",
+      "description": "Running diagnostics in model.train() mode, causing BatchNorm buffer mutation or dropout randomness.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Explicitly enforce model.eval() and assert running mean/var buffers remain identical before and after diagnostic."
+    },
+    {
+      "class_id": "AUTOGRAD-SEMANTICS",
+      "name": "Autograd Semantics Error",
+      "description": "Graph retention, in-place tensor mutations, or incorrect backward pass accumulation.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Verify autograd graph lifecycle and assert gradient zeroing between distinct observational backward passes."
+    },
+    {
+      "class_id": "OPTIMIZATION-SEMANTICS",
+      "name": "Optimization Semantics Error",
+      "description": "Optimizer step, learning rate schedule, or weight decay invocation during diagnostic profiling.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "BLOCK-006: Diagnostic governance counters assert optimizer_steps == 0, parameter_updates == 0."
+    },
+    {
+      "class_id": "STATISTICAL-PROVENANCE",
+      "name": "Statistical Provenance Mismatch",
+      "description": "Discrepancy between executed statistical routine and documented distribution or metadata.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "GOV-RULE-130: Explicitly bind method arguments in code and derive artifact metadata directly from the call."
+    },
+    {
+      "class_id": "STATISTICAL-INFERENCE",
+      "name": "Statistical Inference Defect",
+      "description": "Applying inappropriate parametric tests, unadjusted multiple testing, or invalid null distributions.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Require non-parametric rank tests (Wilcoxon) or cluster bootstrap with verified exchangeability."
+    },
+    {
+      "class_id": "P-VALUE-OVERINTERPRETATION",
+      "name": "P-Value Overinterpretation",
+      "description": "Interpreting p > 0.05 as proof of zero effect or absence of difference.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "GOV-RULE-131: Non-significant tests report 'did not detect a statistically distinguishable difference under registered design'."
+    },
+    {
+      "class_id": "CAUSAL-OVERCLAIM",
+      "name": "Causal Overclaim from Observational Evidence",
+      "description": "Using causal verbs (drives, causes, explains, bottleneck) on purely observational or descriptive data.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "BLOCK-004 / FP-016: Calibrate language to 'observed', 'associated with', or 'HYPOTHESIZED'."
+    },
+    {
+      "class_id": "STATIC-VS-DYNAMIC-CONFLATION",
+      "name": "Static-vs-Dynamic Conflation",
+      "description": "Extrapolating multi-step training dynamics or optimization stability from static Step-0 evaluations.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Explicitly state that Step-0 profiling characterizes initialization geometry only, not dynamic trajectory."
+    },
+    {
+      "class_id": "ARTIFACT-INTEGRITY",
+      "name": "Artifact Integrity & Immutability Violation",
+      "description": "Mutating historical closed execution artifacts in place or corrupting machine JSON hashes.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Historical machine JSON artifacts are strictly immutable; corrections must produce new versioned artifacts."
+    },
+    {
+      "class_id": "ARTIFACT-REPORT-MISMATCH",
+      "name": "Artifact-to-Report Inconsistency",
+      "description": "Discrepancy between quantitative values in machine JSON and numbers cited in markdown narrative.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "GOV-RULE-100: All quantitative assertions in reports must be machine-derived directly from verified JSON."
+    },
+    {
+      "class_id": "EXECUTION-SAFETY",
+      "name": "Operational Execution Safety Breach",
+      "description": "Attempting destructive git operations, GPU allocations, or unconstrained execution loops.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Enforce fail-closed preflight checks and assert working-tree preservation."
+    },
+    {
+      "class_id": "AUTHORIZATION",
+      "name": "Task Authorization Scope Breach",
+      "description": "Executing tasks, training phases, or experiments exceeding explicit user-authorized scope.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "Fail-closed task gating: Tier-2/H3 remains blocked until explicit separate authorization."
+    },
+    {
+      "class_id": "TELEMETRY",
+      "name": "Telemetry Inconsistency or Drift",
+      "description": "Leaving execution_authorized=true in analysis tasks or reporting incomplete tests at task close.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "BLOCK-012: Preflight verifies telemetry run state matches task constraints before permitting completion."
+    },
+    {
+      "class_id": "PSEUDOREPLICATION",
+      "name": "Pixel or Sub-Tile Pseudo-Replication",
+      "description": "Treating spatially autocorrelated pixel counts (N > 10^6) as independent degrees of freedom.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "BLOCK-009 / FP-010: Require parent acquisition cluster blocking for all inferential uncertainty estimation."
+    },
+    {
+      "class_id": "POST-HOC-ANALYSIS",
+      "name": "Post-Hoc Subgrouping Conflated with Registration",
+      "description": "Presenting post-hoc subgroup discoveries as if they were preregistered confirmatory hypotheses.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Explicitly label exploratory post-hoc subgroupings and require separate preregistered validation."
+    },
+    {
+      "class_id": "REPRODUCIBILITY",
+      "name": "Non-Deterministic or Unseeded Execution",
+      "description": "Unseeded random generators, non-deterministic CUDA algorithms, or unversioned dependency drift.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "Fix random seeds, freeze environments, and assert determinism on test subsets."
+    },
+    {
+      "class_id": "TERMINOLOGY-DRIFT",
+      "name": "Deprecated or Inaccurate Terminology",
+      "description": "Using forbidden synonyms (calling OF an 'oil spill', or HM a 'vessel' or 'Heavy Metal').",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "BLOCK-008: Automated regex scan verifies nomenclature matches canonical dictionary."
+    },
+    {
+      "class_id": "DOCUMENTATION-INTEGRITY",
+      "name": "Documentation and Reporting Integrity",
+      "description": "Inaccurate narrative claims, markdown transcription discrepancies, or outdated documentation.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "HIGH",
+      "prevention_guideline": "GOV-RULE-100: All quantitative assertions in reports must be machine-derived directly from verified JSON."
+    },
+    {
+      "class_id": "GOVERNANCE",
+      "name": "Governance Framework Defect",
+      "description": "Preflight bypass, unverified PROVEN_STABLE claims, or weakening rules to force test passing.",
+      "parent_class": null,
+      "aliases": [],
+      "typical_severity": "CRITICAL",
+      "prevention_guideline": "BLOCK-010 / BLOCK-011: Enforce preflight receipts and evidence-based promotion."
+    }
+  ]
+}

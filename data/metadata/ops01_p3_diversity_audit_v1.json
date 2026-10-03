@@ -1,0 +1,132 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:51:41.443585+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_10_DIVERSITY_ADEQUACY",
+  "total_samples": 147,
+  "total_parents": 27,
+  "partition_counts": {
+    "TRAIN": 72,
+    "DEV": 39,
+    "HOLDOUT": 36
+  },
+  "partition_parent_counts": {
+    "TRAIN": 12,
+    "DEV": 7,
+    "HOLDOUT": 8
+  },
+  "core_lookalike_coverage": {
+    "AF": {
+      "parent_count": 7,
+      "sample_count": 17,
+      "min_2_parents": true,
+      "class_name": "Atmospheric Front"
+    },
+    "BS": {
+      "parent_count": 6,
+      "sample_count": 18,
+      "min_2_parents": true,
+      "class_name": "Biological Slicks"
+    },
+    "LWA": {
+      "parent_count": 3,
+      "sample_count": 6,
+      "min_2_parents": true,
+      "class_name": "Low Wind Area"
+    },
+    "OF": {
+      "parent_count": 9,
+      "sample_count": 43,
+      "min_2_parents": true,
+      "class_name": "Ocean Front"
+    },
+    "MCC": {
+      "parent_count": 11,
+      "sample_count": 33,
+      "min_2_parents": true,
+      "class_name": "Mesoscale Cellular Convection"
+    },
+    "POW": {
+      "parent_count": 8,
+      "sample_count": 27,
+      "min_2_parents": true,
+      "class_name": "Pure Ocean Wave"
+    },
+    "RF": {
+      "parent_count": 5,
+      "sample_count": 10,
+      "min_2_parents": true,
+      "class_name": "Rain Cell / Rain Footprint"
+    },
+    "WS": {
+      "parent_count": 3,
+      "sample_count": 8,
+      "min_2_parents": true,
+      "class_name": "Wind Streak"
+    },
+    "Eddy": {
+      "parent_count": 3,
+      "sample_count": 11,
+      "min_2_parents": true,
+      "class_name": "Oceanic Eddy"
+    },
+    "IWs": {
+      "parent_count": 12,
+      "sample_count": 58,
+      "min_2_parents": true,
+      "class_name": "Internal Waves"
+    }
+  },
+  "all_core_lookalikes_satisfy_2_parents": true,
+  "hm_parent_count": 16,
+  "hm_satisfies_5_parents": true,
+  "os_class_14_admitted": false,
+  "dominant_parent_concentration": {
+    "parent_id": "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+    "sample_count": 12,
+    "fraction": 0.0816,
+    "below_20pct_threshold": true
+  },
+  "geographic_basin_distribution": {
+    "basin_sample_counts": {
+      "Indo-Pacific / South China Sea / Indonesian Waters": 42,
+      "Indian Ocean / Arabian Sea / Bay of Bengal": 32,
+      "Mediterranean Sea": 18,
+      "Global Oceanic Waters": 54,
+      "South Atlantic Ocean": 1
+    },
+    "basin_parent_counts": {
+      "Indo-Pacific / South China Sea / Indonesian Waters": 10,
+      "Indian Ocean / Arabian Sea / Bay of Bengal": 5,
+      "Mediterranean Sea": 3,
+      "Global Oceanic Waters": 8,
+      "South Atlantic Ocean": 1
+    },
+    "distinct_basin_labels": 5
+  },
+  "temporal_distribution": {
+    "year_sample_counts": {
+      "2015": 14,
+      "2016": 6,
+      "2017": 7,
+      "2018": 22,
+      "2019": 5,
+      "2020": 1,
+      "2021": 4,
+      "2022": 85,
+      "2023": 3
+    },
+    "year_range": [
+      "2015",
+      "2023"
+    ],
+    "year_count": 9
+  },
+  "epistemic_bounds": [
+    "5 basin labels != globally representative",
+    "9 operational years != continuous annual coverage",
+    "27 parents != 27 statistically independent ocean environments",
+    "all classes represented != sufficient sample complexity for every model task"
+  ],
+  "verdict": "PASS"
+}

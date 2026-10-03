@@ -1,0 +1,88 @@
+{
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T12:10:00.650421+00:00",
+  "phase": "PHASE_8_P3_C2",
+  "title": "Authoritative Evidence-Boundary Reconciliation of Pre-P3 Artifact and Physical State",
+  "doctrine": "A current filesystem hash matching the current manifest proves current file integrity. It does NOT automatically prove pre-P3 artifact content equality unless an explicit pre-P3 artifact was preserved, recovered, and directly compared byte-for-byte.",
+  "historical_hash_recovery": {
+    "status": "RECOVERED_FROM_EXPLICIT_SOURCE",
+    "source_artifact": "data/metadata/ops01_p3_artifact_inventory_v1.json",
+    "source_generated_at": "2026-09-13T10:44:37.719384+00:00",
+    "pre_p3_manifest_v3_sha256": "94521D08C00AB71269D9DE566468C1E8B8C12E3519C3AB97375F63DF75355787",
+    "post_p3_mutated_manifest_v3_sha256": "36C7D5911B420A9B22F61E13604AE86BB933F7F519CB5CC53F8D9692AB361C2D",
+    "pre_p3_sufficiency_v4_sha256": "CB5C14A68BFDC2D72BD37FA4C7E579DD6A01015E6651228B3D6CA4C8B2FEF1A4",
+    "post_p3_mutated_sufficiency_v4_sha256": "D44E05F55167EF46996722BC395FDB7D4293FBF7281E426BEAC3425C9EF45A10",
+    "direct_manifest_json_byte_comparison": "NO DIRECT PRE-P3 BINARY COMPARISON AVAILABLE"
+  },
+  "evidence_categories": {
+    "physical_samples": {
+      "category": "physical_samples",
+      "current_state": "147 verified sample image/mask pairs on disk matching manifest_v4 and split_manifest_v4",
+      "pre_p3_evidence_source": "ops01_split_manifest_v4.json (SHA bit-identical to P2-C2 inventory: 8BFC18EB21298CE2437575908F3EECF0FB64AB405F58F91F0908FCC706FE46D8), ops01_corrective_audit_ledger_v2.json",
+      "comparison_method": "Comparison of sample_id set against pre-P3 split_manifest_v4 which remained frozen and bitwise identical",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "conclusion": "PHYSICAL FILE CONTENT CURRENTLY VERIFIED (147 samples match frozen split manifest v4)",
+      "prohibited_interpretation": "Must NOT claim byte-for-byte pre-P3 manifest JSON equality as PROVEN when pre-P3 manifest_v3 file was modified in-place."
+    },
+    "image_bytes": {
+      "category": "image_bytes",
+      "current_state": "All 147 physical GeoTIFF images on disk match current manifest SHA256 hashes",
+      "pre_p3_evidence_source": "P2-R2-C2 audit ledger v2 (F08BE2BD585EC4BAB79C9CFDF911ACAB33A36735F04199419E2AEF72CC93D767) and split manifest v4",
+      "comparison_method": "Direct filesystem SHA256 hashing of all 147 GeoTIFF files on disk against current manifest values",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "conclusion": "PHYSICAL FILE CONTENT CURRENTLY VERIFIED",
+      "prohibited_interpretation": "Must NOT claim pre-P3 binary image equality as PROVEN without a frozen pre-P3 image hash ledger."
+    },
+    "mask_bytes": {
+      "category": "mask_bytes",
+      "current_state": "All 147 physical GeoTIFF masks on disk match current manifest SHA256 hashes",
+      "pre_p3_evidence_source": "P2-R2-C2 audit ledger v2 and split manifest v4",
+      "comparison_method": "Direct filesystem SHA256 hashing of all 147 GeoTIFF mask files on disk against current manifest values",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "conclusion": "PHYSICAL FILE CONTENT CURRENTLY VERIFIED",
+      "prohibited_interpretation": "Must NOT conflate current disk hash matching with historical binary proof."
+    },
+    "labels_and_os_pixels": {
+      "category": "labels_and_os_pixels",
+      "current_state": "0 Class-14 (Mineral Oil Spill) pixels audited across all 9,633,792 pixels",
+      "pre_p3_evidence_source": "P2-R2-C2 final taxonomy integrity audit report and ledger v2",
+      "comparison_method": "Full-pixel raster scan verifying 0 Class-14 values and matching canonical ops01_taxonomy_v1.json (86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD)",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "conclusion": "PHYSICAL FILE CONTENT CURRENTLY VERIFIED (0 OS pixels admitted)",
+      "prohibited_interpretation": "Must NOT claim historical pixel stability as PROVEN without pre-P3 pixel-level checksum array."
+    },
+    "source_ids_and_parents": {
+      "category": "source_ids_and_parents",
+      "current_state": "27 Sentinel-1 IW GRD Level-1 parent scene products and orbit passes",
+      "pre_p3_evidence_source": "data/metadata/ops01_source_recovery_inventory_v3.json",
+      "comparison_method": "Cryptographic SHA256 match against pre-P3 inventory record (E0825A47E831E7EE140E9A1FC75D313B0769E22C2DDF21BF60A9379900049351)",
+      "evidence_status": "PROVEN",
+      "conclusion": "PROVEN_UNCHANGED (source inventory v3 artifact is bitwise identical to pre-P3 record)",
+      "prohibited_interpretation": "Applies strictly to source_recovery_inventory_v3 artifact."
+    },
+    "partition_allocations": {
+      "category": "partition_allocations",
+      "current_state": "TRAIN=72 (12 parents), DEV=39 (7 parents), HOLDOUT=36 (8 parents); 0 parent leakage",
+      "pre_p3_evidence_source": "data/metadata/ops01_split_manifest_v4.json",
+      "comparison_method": "Cryptographic SHA256 match against pre-P3 inventory record (8BFC18EB21298CE2437575908F3EECF0FB64AB405F58F91F0908FCC706FE46D8)",
+      "evidence_status": "PROVEN",
+      "conclusion": "PROVEN_UNCHANGED (split manifest v4 artifact is bitwise identical to pre-P3 record)",
+      "prohibited_interpretation": "Applies strictly to split_manifest_v4 artifact."
+    },
+    "metadata_modifications": {
+      "category": "metadata_modifications",
+      "current_state": "Successor artifacts ops01_physical_dataset_manifest_v4.json and ops01_dataset_sufficiency_v5.json created",
+      "pre_p3_evidence_source": "Recorded pre-P3 hashes in ops01_p3_artifact_inventory_v1.json vs current manifest_v3 and sufficiency_v4 files",
+      "comparison_method": "Cryptographic hash divergence confirmation; diff inspection of added top-level disclosure fields",
+      "evidence_status": "PROVEN",
+      "conclusion": "MUTATED_IN_PLACE_DURING_P3; NO DIRECT PRE-P3 BINARY COMPARISON AVAILABLE FOR MANIFEST JSON",
+      "prohibited_interpretation": "Must NOT claim manifest_v3 was unchanged; it was mutated in place during P3."
+    }
+  },
+  "permanent_epistemic_disclosures": [
+    "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+    "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+    "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+    "DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED"
+  ]
+}

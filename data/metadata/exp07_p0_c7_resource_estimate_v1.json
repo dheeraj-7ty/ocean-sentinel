@@ -1,0 +1,54 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:50:00.000000+00:00",
+  "phase": "EXP-07-P0-C7",
+  "title": "EXP-07 Compute, Memory, and Storage Resource Estimates",
+  "hardware_assumptions": {
+    "gpu_target": "NVIDIA GPU with >= 6GB VRAM (e.g. RTX 3060, RTX 4060, T4, V100, A10)",
+    "cpu_target": "Modern x86_64 CPU (>= 4 cores, >= 16GB RAM)",
+    "storage_target": "Local SSD with >= 5GB free disk space"
+  },
+  "memory_budget": {
+    "model_parameters_bytes": 57290664,
+    "model_parameters_mb": 54.64,
+    "status_model_parameters": "MEASURED",
+    "optimizer_adamw_state_mb": 109.28,
+    "status_optimizer_state": "CALCULATED",
+    "batch_input_tensor_mb": 2.0,
+    "status_input_tensor": "CALCULATED",
+    "activation_and_gradient_vram_mb": 1200.0,
+    "status_activation_memory": "ESTIMATED",
+    "peak_gpu_vram_mb": 2048.0,
+    "status_peak_gpu_vram": "ESTIMATED (Comfortably fits on 6GB+ GPU)",
+    "peak_cpu_ram_mb": 4096.0,
+    "status_peak_cpu_ram": "ESTIMATED"
+  },
+  "runtime_estimates": {
+    "samples_per_epoch": 72,
+    "batches_per_epoch": 9,
+    "epochs_max": 30,
+    "gpu_time_per_epoch_seconds": 2.0,
+    "status_gpu_epoch_time": "ESTIMATED (1.5 - 3.0s depending on GPU model)",
+    "gpu_total_runtime_single_run_minutes": 1.5,
+    "status_gpu_single_run": "ESTIMATED",
+    "gpu_total_runtime_three_seeds_minutes": 4.5,
+    "status_gpu_three_seeds": "ESTIMATED",
+    "cpu_time_per_epoch_seconds": 15.0,
+    "status_cpu_epoch_time": "MEASURED_APPROXIMATION (Based on C5/C6 CPU dry-run forward throughput)",
+    "cpu_total_runtime_single_run_minutes": 7.5,
+    "status_cpu_single_run": "ESTIMATED",
+    "cpu_total_runtime_three_seeds_minutes": 22.5,
+    "status_cpu_three_seeds": "ESTIMATED"
+  },
+  "disk_storage_budget": {
+    "checkpoint_size_mb": 164.0,
+    "checkpoints_retained_per_run": 2,
+    "total_checkpoint_storage_per_run_mb": 328.0,
+    "telemetry_and_logs_per_run_mb": 5.0,
+    "total_storage_single_run_mb": 333.0,
+    "total_storage_three_runs_mb": 999.0,
+    "status_storage": "CALCULATED"
+  },
+  "epistemic_disclaimer": "All compute durations and VRAM sizes are engineering estimates based on model architecture parameters and single-sample CPU benchmarks. Real-world execution times will vary based on hardware acceleration, driver overhead, and thermal throttling."
+}

@@ -1,0 +1,84 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T17:14:50.451571+00:00",
+  "phase": "EXP-07-P0-C3",
+  "validation_id": "V-06",
+  "title": "EXP-07 Model Architecture Contract and Parameter Specification",
+  "input_contract": {
+    "tensor_shape": "[B, 1, 256, 256]",
+    "dtype": "float32",
+    "channel_semantics": "Sentinel-1 Level-1 GRD VV channel (1 band)"
+  },
+  "output_contract": {
+    "tensor_shape": "[B, 12, 256, 256]",
+    "dtype": "float32",
+    "semantics": "Raw unnormalized logits (no softmax / sigmoid applied in model output)",
+    "classes_count": 12
+  },
+  "candidates_evaluated": {
+    "ResNet18-UNet": {
+      "backbone": "resnet18",
+      "input_channels": 1,
+      "output_classes": 12,
+      "trainable_parameters": 14310860,
+      "non_trainable_buffers": 11776,
+      "total_parameters": 14322636,
+      "batchnorm_layers_count": 30,
+      "parameter_size_mb": 54.63652038574219,
+      "receptive_field": "Full tile (>256px)",
+      "status": "RECOMMENDED"
+    },
+    "ResNet34-UNet": {
+      "backbone": "resnet34",
+      "input_channels": 1,
+      "output_classes": 12,
+      "trainable_parameters": 24419020,
+      "non_trainable_buffers": 19200,
+      "total_parameters": 24438220,
+      "batchnorm_layers_count": 46,
+      "parameter_size_mb": 93.22441101074219,
+      "receptive_field": "Full tile (>256px)",
+      "status": "PROVISIONAL"
+    },
+    "VanillaUNet-32": {
+      "architecture": "VanillaUNet-32",
+      "input_channels": 1,
+      "output_classes": 12,
+      "trainable_parameters": 7762828,
+      "non_trainable_buffers": 5888,
+      "total_parameters": 7768716,
+      "batchnorm_layers_count": 18,
+      "parameter_size_mb": 29.635299682617188,
+      "receptive_field": "Moderate (~140-196px)",
+      "status": "ALTERNATIVE_BASELINE"
+    },
+    "VanillaUNet-16": {
+      "architecture": "VanillaUNet-16",
+      "input_channels": 1,
+      "output_classes": 12,
+      "trainable_parameters": 1942476,
+      "non_trainable_buffers": 2944,
+      "total_parameters": 1945420,
+      "batchnorm_layers_count": 18,
+      "parameter_size_mb": 7.4211883544921875,
+      "receptive_field": "Moderate (~140-196px)",
+      "status": "LIGHTWEIGHT_BASELINE"
+    }
+  },
+  "batchnorm_and_batch_size_analysis": {
+    "train_tiles_count": 72,
+    "candidate_batch_sizes": [
+      4,
+      8,
+      16
+    ],
+    "batches_per_epoch_at_bs8": 9,
+    "batches_per_epoch_at_bs4": 18,
+    "finding": "At batch_size=8 on 72 training tiles, each epoch contains only 9 forward steps. Standard BatchNorm2d with default momentum=0.1 may suffer noisy running mean/variance estimates across disparate SAR scenes (e.g. calm ocean vs severe storm convection). Recommendation: evaluate GroupNorm (num_groups=16) or reduce BN momentum to 0.05, or use gradient accumulation (virtual batch_size=16) to stabilize normalization."
+  },
+  "architecture_recommendation": {
+    "primary_recommendation": "ResNet18-UNet",
+    "rationale": "ResNet18-UNet provides an ideal parameter budget (~14.3M parameters, ~54.7 MB) for 72 training tiles, reducing overfitting risk compared to ResNet34 (~24.4M parameters, ~93 MB) while retaining the deep receptive field and ImageNet pre-trained feature extractor benefits lacking in VanillaUNet.",
+    "status": "RECOMMENDED_PENDING_PROTOCOL_FREEZE"
+  }
+}

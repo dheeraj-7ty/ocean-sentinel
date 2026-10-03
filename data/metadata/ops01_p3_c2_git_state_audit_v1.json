@@ -1,0 +1,59 @@
+{
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T12:09:44.091321+00:00",
+  "phase": "PHASE_8_P3_C2",
+  "title": "Authoritative Complete Git Working Tree State Audit",
+  "doctrine": "0 staged != clean. Full working tree state consists of staged, tracked modified, tracked deleted, and untracked files.",
+  "commands_executed": [
+    "git branch --show-current",
+    "git status --porcelain -uall",
+    "git diff --cached --name-status",
+    "git diff --name-status"
+  ],
+  "branch": "master",
+  "staged": {
+    "count": 0,
+    "files": [],
+    "is_zero_staged": true
+  },
+  "tracked_modified": {
+    "count": 2,
+    "files": [
+      ".gitignore",
+      "src/ocean_sentinel/ingestion/dataset.py"
+    ]
+  },
+  "tracked_deleted": {
+    "count": 0,
+    "files": []
+  },
+  "untracked": {
+    "count": 2224,
+    "sample_files": [
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-2.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-27.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-28.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-3.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-32.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-33.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-34.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-39.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-4.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-40.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8.png",
+      "data/derived/ops01/masks/s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001-2.png"
+    ],
+    "is_empty": false
+  },
+  "working_tree_is_clean": false,
+  "audit_conclusion": "NOT_CLEAN",
+  "audit_interpretation": "Zero staged changes (0 staged) is confirmed. However, the repository working tree is NOT clean. It contains 2 tracked working-tree modifications (.gitignore, src/ocean_sentinel/ingestion/dataset.py) and 2224 untracked files (historical reports, scratch scripts, logs, test artifacts). Any claim describing the working tree as 'clean' merely because staged count is 0 is a direct violation of project governance doctrine GOV-RULE-018."
+}

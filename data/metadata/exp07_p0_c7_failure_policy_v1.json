@@ -1,0 +1,88 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:50:00.000000+00:00",
+  "phase": "EXP-07-P0-C7",
+  "title": "EXP-07 Authoritative Training Failure and Recovery Policy",
+  "failure_lifecycle": [
+    "1. DETECT: Continuous per-step and per-epoch automated assertions.",
+    "2. CAPTURE: Dump current optimizer step, epoch, batch tensors summary, and traceback to disk.",
+    "3. STOP: Terminate execution cleanly without mutating previously saved best checkpoints.",
+    "4. PRESERVE: Retain run directory, logs, and failure telemetry under run_state.failed.json.",
+    "5. CLASSIFY: Categorize root cause (NUMERICAL, DATA_IO, RESOURCE, IMPLEMENTATION).",
+    "6. INCIDENT: Log in incident learning register if root cause is a genuine defect.",
+    "7. NO_SILENT_RETRY: Prohibit automatic retry with modified hyperparameters without an authorized revision."
+  ],
+  "failure_modes": [
+    {
+      "mode_id": "FAIL-001",
+      "name": "NaN or Inf Loss",
+      "trigger": "torch.isnan(loss) or torch.isinf(loss)",
+      "action": "Immediate halt. Save step telemetry, model weights at failure step, and current batch index. Mark status NUMERICAL_DIVERGENCE.",
+      "severity": "CRITICAL"
+    },
+    {
+      "mode_id": "FAIL-002",
+      "name": "Exploding Gradient Norm",
+      "trigger": "grad_norm > 100.0 before clipping",
+      "action": "Warning logged; gradient clipped to max_norm=1.0. If grad_norm > 1000.0 for 3 consecutive steps, halt training.",
+      "severity": "HIGH"
+    },
+    {
+      "mode_id": "FAIL-003",
+      "name": "Trivial All-Background Collapse",
+      "trigger": "Unique predicted classes across entire DEV evaluation contains only class 0 (BG) after epoch 10.",
+      "action": "Flag as DEGENERATE_COLLAPSE. Halt early stopping counter, record failure in telemetry.",
+      "severity": "HIGH"
+    },
+    {
+      "mode_id": "FAIL-004",
+      "name": "Out of Memory (OOM)",
+      "trigger": "torch.cuda.OutOfMemoryError or MemoryError",
+      "action": "Clean up CUDA cache, log allocated memory vs peak memory, terminate with RESOURCE_EXHAUSTION.",
+      "severity": "HIGH"
+    },
+    {
+      "mode_id": "FAIL-005",
+      "name": "DataLoader / Rasterio File Read Failure",
+      "trigger": "FileNotFoundError or rasterio.RasterioIOError",
+      "action": "Log missing or corrupt file path and sample ID; halt immediately with DATA_IO_FAILURE.",
+      "severity": "CRITICAL"
+    },
+    {
+      "mode_id": "FAIL-006",
+      "name": "BatchNorm Statistics Instability",
+      "trigger": "torch.isnan(running_mean) or torch.isnan(running_var) or torch.any(running_var < 0)",
+      "action": "Halt immediately with BATCHNORM_INSTABILITY. Record failing layer name and batch statistics.",
+      "severity": "CRITICAL"
+    },
+    {
+      "mode_id": "FAIL-007",
+      "name": "Corrupted Target Label",
+      "trigger": "target contains value outside {-100, 0..11}",
+      "action": "Halt immediately with INVALID_LABEL_INDEX. Record offending sample ID.",
+      "severity": "CRITICAL"
+    },
+    {
+      "mode_id": "FAIL-008",
+      "name": "Checkpoint Write Failure",
+      "trigger": "OSError or IOError during checkpoint save",
+      "action": "Retry write to temporary file once. If failed, halt and alert DISK_IO_FAILURE without deleting previous checkpoint.",
+      "severity": "HIGH"
+    },
+    {
+      "mode_id": "FAIL-009",
+      "name": "DEV Metric Undefined / NaN",
+      "trigger": "dev_mIoU_phenomena is NaN",
+      "action": "Reject checkpoint update. If persisting for 3 consecutive epochs, halt with METRIC_CALCULATION_ERROR.",
+      "severity": "HIGH"
+    },
+    {
+      "mode_id": "FAIL-010",
+      "name": "Uncontrolled Metric Divergence",
+      "trigger": "dev_loss > 10.0 after epoch 5",
+      "action": "Log warning. If dev_loss exceeds 20.0, halt with OPTIMIZATION_DIVERGENCE.",
+      "severity": "MEDIUM"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "protocol_version": "1.0.0",
+  "phase": "PHASE_8_P0",
+  "title": "OPS-01 Dataset Construction & Leakage-Safe Train/Dev/Holdout Design Protocol",
+  "creation_date": "2026-09-13",
+  "authoritative_evidence_boundary_reference": "experiments/PHASE_7C_R2_ALIGNMENT_EVIDENCE_BOUNDARY_20260913.md",
+  "training_authorization_status": "UNAUTHORIZED_PROTOCOL_DEFINITION_ONLY",
+  "governance_invariants": [
+    "Protocol definition does not authorize training.",
+    "Dataset construction does not automatically authorize training.",
+    "Training requires separate operator authorization after spot-check, leakage audit, and split manifest freeze.",
+    "Two slices belonging to the same parent SAR acquisition are never permitted to occupy different leakage partitions.",
+    "Part-III benchmark remains quarantined and untouched under Rule 38.",
+    "EXP-06 remains bitwise frozen (SHA256: B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF).",
+    "Operating threshold tau remains 0.22.",
+    "HM class must remain Artificial / Anthropogenic Objects; never renamed to Vessel.",
+    "Li OS class is strictly excluded from OPS-01 training."
+  ],
+  "source_identity_hierarchy": {
+    "level_1_ultimate_source": "ESA Copernicus Sentinel-1 Level-1 GRD/SLC SAFE Granule",
+    "level_2_parent_scene": "source_scene_id / parent_acquisition_stem (e.g. s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001)",
+    "level_3_orbit_pass": "orbit_pass_id for Wave Mode (e.g. S1A_009293_00D6BD: satellite, orbit, datatake, date)",
+    "level_4_slice_instance": "slice_index / vignette_index (e.g. slice 10, vignette 021)",
+    "grouping_policy": {
+      "iw_grouping_key": "source_scene_id",
+      "wv_grouping_key": "orbit_pass_id",
+      "unknown_grouping_policy": "Any sample with UNKNOWN grouping identity is strictly prohibited from entering the holdout benchmark."
+    }
+  },
+  "scene_level_grouping_firewall": {
+    "split_ratios": {
+      "train": 0.7,
+      "dev": 0.15,
+      "holdout": 0.15
+    },
+    "deterministic_algorithm_pseudocode": "1. Extract all unique parent grouping keys: G_IW = {scene_id}, G_WV = {orbit_pass_id}.\n2. Sort all grouping keys lexicographically: G_sorted = sorted(G_IW U G_WV).\n3. Generate deterministic hash for each group: H(g) = SHA256(salt + g).\n4. Sort groups by hash H(g) to create deterministic pseudo-random ordering.\n5. Compute slice counts per group: S(g).\n6. Assign groups sequentially into partitions (TRAIN ~70%, DEV ~15%, HOLDOUT ~15%) using greedy bin-packing to balance slice counts while enforcing that every slice in group g is assigned to the exact same partition.\n7. Assert intersection(TRAIN_groups, DEV_groups) == empty.\n8. Assert intersection(TRAIN_groups, HOLDOUT_groups) == empty.\n9. Assert intersection(DEV_groups, HOLDOUT_groups) == empty."
+  },
+  "label_image_correspondence_contracts": {
+    "contract_a_pixel_space": {
+      "description": "Verification that label raster pixel (r, c) aligns geometrically with SAR intensity pixel (r, c) of the Li GeoTIFF.",
+      "status": "REQUIRED_FOR_TRAINING_ELIGIBILITY",
+      "verification_method": "Resolution and spatial dimension equality check (256x256), bounding box validation."
+    },
+    "contract_b_geographic_space": {
+      "description": "Georeferenced placement of slice (r, c) to Earth coordinates (lat, lon).",
+      "status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+      "rule": "Must not be represented as independently validated georegistration."
+    },
+    "contract_c_parent_scene": {
+      "description": "Provenance trace of slice to exact parent Sentinel-1 SAFE acquisition.",
+      "status": "REQUIRED_FOR_LEAKAGE_FIREWALL",
+      "verification_method": "Filename stem matching against authoritative parent manifest."
+    }
+  },
+  "intensity_cross_correlation_spot_check_spec": {
+    "objective": "Empirically test whether Li slice SAR backscatter matches native Level-1 backscatter at the inferred crop window.",
+    "target_sample": "All available Level-1 SAFE granules with matching local GeoTIFF slices.",
+    "preprocessing": [
+      "Extract native Level-1 window [min_line, max_line] x [min_pixel, max_pixel].",
+      "Apply calibrated radiometry (sigma-naught) and 10x block averaging to match Li 100m grid.",
+      "Standardize dynamic range (dB conversion and z-score normalization)."
+    ],
+    "metrics": [
+      "Normalized Cross-Correlation (NCC) peak location and value",
+      "Pearson correlation coefficient (r)",
+      "Normalized Root Mean Squared Error (NRMSE)"
+    ],
+    "decision_gates": {
+      "ALIGNMENT_PASS": "NCC peak at (0, 0) +/- 0.5 pixels, NCC >= 0.85, Pearson r >= 0.85",
+      "ALIGNMENT_CONDITIONAL": "NCC peak within +/- 2.0 pixels, NCC >= 0.70, sub-pixel shift quantified",
+      "ALIGNMENT_FAIL": "NCC peak displacement > 2.0 pixels or NCC < 0.70, indicating structural mismatch or orientation error"
+    }
+  },
+  "negative_sampling_strategy": {
+    "anchors": [
+      {
+        "category": "Clean Seawater",
+        "source_class": "BG",
+        "description": "Featureless ambient ocean backscatter across varying sea states."
+      },
+      {
+        "category": "Dark Lookalikes",
+        "source_class": "BS, LWA, IWs, OF, Eddy",
+        "description": "Biogenic surfactants, calm wind, internal wave troughs, frontal slicks."
+      },
+      {
+        "category": "Bright Atmospheric Clutter",
+        "source_class": "AF, RF, WS, MCC",
+        "description": "Frontal steps, rain splash, convective cells, wind streaks."
+      },
+      {
+        "category": "Point Reflectors",
+        "source_class": "HM",
+        "description": "Offshore platforms, ships, marine structures."
+      }
+    ],
+    "balancing_principle": "Maintain balanced distribution between clean background, low-backscatter lookalikes, and discrete objects to prevent false-alarm bias."
+  },
+  "class_balance_measurement_plan": {
+    "metrics_to_measure": [
+      "Image count per class",
+      "Pixel count and percentage per class",
+      "Connected component (instance) count per class",
+      "Scene count per class (parent diversity)",
+      "Dominant-parent concentration ratio (max slices from single scene / total slices)"
+    ],
+    "policy": "No blind loss reweighting before empirical baseline evaluation on unweighted dev split."
+  },
+  "leakage_audit_spec": {
+    "audit_checks": [
+      "1. Parent scene stem overlap between splits",
+      "2. Level-1 SAFE source product ID overlap between splits",
+      "3. Duplicate file content (SHA-256 collision)",
+      "4. Spatial bounding box overlap between slices across splits",
+      "5. Temporal acquisition timestamp proximity (< 1 hour) across splits",
+      "6. Orbit pass ID overlap for Wave Mode across splits",
+      "7. Derivative/preprocessed cache artifact overlap",
+      "8. Label mask identicality across splits",
+      "9. Geographic cluster distance separation (> 50 km between train and holdout where feasible)",
+      "10. Metadata manifest leakage check"
+    ],
+    "gate_rule": "Any detected leakage violation immediately fails dataset validation."
+  },
+  "holdout_governance": {
+    "holdout_role": "Untouched final capability benchmark for OPS-01.",
+    "strict_firewall_rules": [
+      "No hyperparameter tuning against holdout.",
+      "No decision threshold calibration against holdout.",
+      "No class reweighting adjustments against holdout.",
+      "No architectural model selection against holdout.",
+      "Distinct and completely independent from protected Part-III benchmark."
+    ]
+  },
+  "dataset_versioning_schema": {
+    "required_fields": [
+      "ops01_dataset_version",
+      "source_manifest_sha256",
+      "split_manifest_sha256",
+      "taxonomy_version",
+      "alignment_protocol_version",
+      "preprocessing_version",
+      "sampling_strategy_version",
+      "random_seed",
+      "creation_timestamp_utc"
+    ]
+  }
+}

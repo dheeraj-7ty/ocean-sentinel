@@ -1,0 +1,424 @@
+{
+  "artifact_name": "ops01_p3_c3_git_baseline_v1.json",
+  "artifact_version": "1.0.0",
+  "phase": "PHASE_8_P3_C3",
+  "created_at": "2026-09-13T12:22:00.000000+00:00",
+  "git_context": {
+    "branch": "master",
+    "is_clean": false,
+    "clean_doctrine": "0 staged != clean working tree; complete porcelain accounting authoritative",
+    "staged_count": 0,
+    "staged_files": [],
+    "tracked_modified_count": 2,
+    "tracked_modified_files": [
+      ".gitignore",
+      "src/ocean_sentinel/ingestion/dataset.py"
+    ],
+    "untracked_count": 288
+  },
+  "gitignore_metadata": {
+    "path": ".gitignore",
+    "sha256": "A664092C8717F70F88941DCE08D8000E29CDCB453DF9B1D64D9EEAEB3DBD0444",
+    "size_bytes": 3310
+  },
+  "untracked_summary": {
+    "total_untracked_files": 288,
+    "total_untracked_bytes": 2381033094,
+    "total_untracked_mb": 2270.73,
+    "category_counts": {
+      "AUTHORITATIVE_METADATA": 136,
+      "EXPERIMENT_REPORT": 80,
+      "TEST_CODE": 32,
+      "SOURCE_CODE": 31,
+      "BUILD_ARTIFACT": 9
+    },
+    "extension_counts": {
+      ".json": 141,
+      ".md": 72,
+      ".py": 63,
+      ".pt": 8,
+      ".sha256": 3,
+      ".lock": 1
+    },
+    "top_level_directories": {
+      "experiments": 132,
+      "data": 92,
+      "tests": 32,
+      "scripts": 30,
+      "src": 1,
+      "uv.lock": 1
+    },
+    "top_subdirectories_by_count": {
+      "data/metadata": 92,
+      "experiments/performance": 61,
+      "experiments/ARTIFACT_REGISTRY.md": 1,
+      "experiments/EXPERIMENTAL_LESSONS_LEARNED_20260911.md": 1,
+      "experiments/PHASE_5A_DEVELOPMENT_FAILURE_ANALYSIS_20260911.md": 1,
+      "experiments/PHASE_5B_CANDIDATE_MANIFEST_FREEZE_AUDIT_20260911.md": 1,
+      "experiments/PHASE_5B_EXP03_TRAINING_EXECUTION_REPORT_20260911.md": 1,
+      "experiments/PHASE_5B_FINAL_PRETRAINING_ENVIRONMENT_AND_INTEGRITY_GATE_20260911.md": 1,
+      "experiments/PHASE_5B_FINAL_TRAINING_LAUNCH_READINESS_AUDIT_20260911.md": 1,
+      "experiments/PHASE_5B_HARD_NEGATIVE_TRAINING_CONTRACT_20260911.md": 1,
+      "experiments/PHASE_5C_EXP04_DESIGN_AND_FORENSIC_ANALYSIS_20260911.md": 1,
+      "experiments/PHASE_5C_EXP04_HYPOTHESIS_AND_TRAINING_CONTRACT_20260911.md": 1,
+      "experiments/PHASE_5D_EXP04_TRAINING_EXECUTION_REPORT_20260911.md": 1,
+      "experiments/PHASE_5E_EXP05_DESIGN_AND_FORENSIC_ANALYSIS_20260912.md": 1,
+      "experiments/PHASE_5E_EXP05_HYPOTHESIS_AND_TRAINING_CONTRACT_20260912.md": 1
+    },
+    "top_subdirectories_by_size_mb": {
+      "experiments/performance": 2235.46,
+      "data/metadata": 32.85,
+      "uv.lock": 0.18,
+      "scripts/execute_phase_8_p2_r2_c1_corrective_audit.py": 0.06,
+      "scripts/ingest_ops01_multi_scene_campaign.py": 0.04,
+      "scripts/execute_phase_7a_serial_protocol.py": 0.04,
+      "experiments/PHASE_5H_EXP06_TRAINING_EXECUTION_REPORT_20260912.md": 0.04,
+      "scripts/train_exp05.py": 0.04,
+      "tests/test_phase_7a_protocol_guardrails.py": 0.04,
+      "experiments/PROJECT_GOVERNANCE": 0.03
+    }
+  },
+  "frozen_artifacts_audit": {
+    "EXP_06_CHECKPOINT": {
+      "path": "experiments/performance/exp06_positive_bce_weight/best_model.pt",
+      "expected_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+      "actual_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF"
+    },
+    "PART_I_SPLIT_MANIFEST": {
+      "path": "data/metadata/internal_development_split_manifest.json",
+      "expected_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+      "actual_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072"
+    }
+  },
+  "protected_artifacts_allowlist": [
+    "experiments/performance/exp06_positive_bce_weight/best_model.pt",
+    "data/metadata/internal_development_split_manifest.json",
+    "data/metadata/ops01_taxonomy_v1.json",
+    "data/metadata/ops01_physical_dataset_manifest_v4.json",
+    "data/metadata/ops01_split_manifest_v4.json",
+    "data/metadata/ops01_source_recovery_inventory_v3.json",
+    "data/metadata/ops01_dataset_sufficiency_v5.json",
+    "data/metadata/ocean_sentinel_governance_rules_v1.json",
+    "experiments/PROJECT_GOVERNANCE/ocean_sentinel_governance_rules_v1.md",
+    "data/metadata/ocean_sentinel_incident_learning_register_v1.json",
+    "data/metadata/ops01_p3_c1_incident_register_v1.json",
+    "data/metadata/ocean_sentinel_reproducibility_levels_v1.json",
+    "data/metadata/ops01_dataset_identity_v1.json",
+    "data/metadata/ops01_alignment_reconstruction_evidence_v3.json",
+    "data/metadata/ops01_p3_c1_change_reconciliation_v1.json",
+    "data/metadata/ops01_p3_c2_evidence_boundary_reconciliation_v1.json",
+    "data/metadata/ops01_p3_c2_git_state_audit_v1.json",
+    "data/metadata/ops01_p3_c2_successor_language_audit_v1.json",
+    "data/metadata/ops01_p3_c2_reproducibility_language_audit_v1.json",
+    "data/metadata/ops01_p3_c2_dataset_recheck_v1.json",
+    "experiments/PHASE_8_P3_FINAL_PRETRAINING_AUDIT_20260913.md",
+    "experiments/PHASE_8_P3_C1_PROVENANCE_REPRODUCIBILITY_GOVERNANCE_CLOSURE_20260913.md",
+    "experiments/PHASE_8_P3_C2_FINAL_EVIDENCE_BOUNDARY_CLOSURE_20260913.md",
+    "tests/test_phase_8_p3_pretraining_audit_guardrails.py",
+    "tests/test_phase_8_p3_c1_governance_guardrails.py",
+    "tests/test_phase_8_p3_c2_final_closure_guardrails.py"
+  ],
+  "untracked_inventory_sample": [
+    {
+      "path": "data/metadata/benchmark_split_readiness.json",
+      "size_bytes": 6977,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/candidate_set_reconciliation.json",
+      "size_bytes": 2379,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/current_population_snapshot_v2.json",
+      "size_bytes": 4361,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/data_quality_report.json",
+      "size_bytes": 269,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/external_lookalike_benchmark_matrix.json",
+      "size_bytes": 27184,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/geographic_cluster_audit.json",
+      "size_bytes": 420,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/internal_development_split_manifest.json",
+      "size_bytes": 6097728,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/internal_development_split_manifest.sha256",
+      "size_bytes": 108,
+      "extension": ".sha256",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/li_authoritative_class_dictionary.json",
+      "size_bytes": 11690,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/li_class_dictionary.json",
+      "size_bytes": 13785,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/li_geometry_registration_audit.json",
+      "size_bytes": 3384,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/li_geometry_registration_audit_v2.json",
+      "size_bytes": 11851,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/li_iw_source_scene_manifest.json",
+      "size_bytes": 2048268,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/li_wv_source_lineage_manifest.json",
+      "size_bytes": 3697603,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/lookalike_proxy_physical_validation_report.json",
+      "size_bytes": 583003,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/lookalike_proxy_provenance_manifest.json",
+      "size_bytes": 2994871,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/lookalike_proxy_semantic_adjudication_report.json",
+      "size_bytes": 279707,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ocean_sentinel_governance_rules_v1.json",
+      "size_bytes": 37550,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ocean_sentinel_incident_learning_register_v1.json",
+      "size_bytes": 19253,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ocean_sentinel_reproducibility_levels_v1.json",
+      "size_bytes": 6236,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_alignment_spotcheck_results_v1.json",
+      "size_bytes": 71466,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_alignment_spotcheck_results_v1_reconciled.json",
+      "size_bytes": 80858,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_c2_taxonomy_incident_register.json",
+      "size_bytes": 5057,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_candidate_population_ledger_v1.json",
+      "size_bytes": 6119916,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_corrective_audit_ledger_v1.json",
+      "size_bytes": 10402,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_corrective_audit_ledger_v2.json",
+      "size_bytes": 15047,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_dataset_identity_v1.json",
+      "size_bytes": 3852,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_dataset_manifest_v1.json",
+      "size_bytes": 27701,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_dataset_sufficiency_v2.json",
+      "size_bytes": 16392,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_dataset_sufficiency_v3.json",
+      "size_bytes": 17463,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_dataset_sufficiency_v4.json",
+      "size_bytes": 18504,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_dataset_sufficiency_v5.json",
+      "size_bytes": 19944,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_geographic_basin_audit_v1.json",
+      "size_bytes": 4080,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_alignment_epistemic_audit_v1.json",
+      "size_bytes": 2007,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_artifact_inventory_v1.json",
+      "size_bytes": 10569,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c1_change_reconciliation_v1.json",
+      "size_bytes": 3140,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c1_dataset_recheck_v1.json",
+      "size_bytes": 708,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c1_decision_classification_v1.json",
+      "size_bytes": 5869,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c1_incident_register_v1.json",
+      "size_bytes": 14477,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c1_preprocessing_decision_record_v1.json",
+      "size_bytes": 2845,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c1_version_lineage_v1.json",
+      "size_bytes": 3473,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c2_dataset_recheck_v1.json",
+      "size_bytes": 769,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c2_evidence_boundary_reconciliation_v1.json",
+      "size_bytes": 6502,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c2_git_state_audit_v1.json",
+      "size_bytes": 3546,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c2_reproducibility_language_audit_v1.json",
+      "size_bytes": 1267,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c2_successor_language_audit_v1.json",
+      "size_bytes": 3011,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c3_data_tracking_policy_v1.json",
+      "size_bytes": 4653,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c3_git_baseline_v1.json",
+      "size_bytes": 16603,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c3_gitignore_audit_v1.json",
+      "size_bytes": 31647,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    },
+    {
+      "path": "data/metadata/ops01_p3_c3_ignore_regression_audit_v1.json",
+      "size_bytes": 8498,
+      "extension": ".json",
+      "category": "AUTHORITATIVE_METADATA"
+    }
+  ],
+  "untracked_inventory_total_records": 288
+}

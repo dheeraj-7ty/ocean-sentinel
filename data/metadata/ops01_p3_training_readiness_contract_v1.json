@@ -1,0 +1,96 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:53:41.425309+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_13_TRAINING_READINESS_CONTRACT",
+  "purpose": "Pre-training readiness contract specifying what must be decided and locked before any OPS-01 training experiment (EXP-07) may begin. Items marked OPEN_PROTOCOL_DECISION must be resolved and approved by operator before execution.",
+  "dataset_identity": {
+    "manifest": "data/metadata/ops01_physical_dataset_manifest_v3.json",
+    "manifest_sha256": "MUST_BE_RECORDED_AT_TRAINING_START",
+    "taxonomy": "data/metadata/ops01_taxonomy_v1.json",
+    "split": "data/metadata/ops01_split_manifest_v4.json",
+    "sample_count": 147,
+    "parent_count": 27,
+    "status": "LOCKED"
+  },
+  "preprocessing": {
+    "value_domain": "OPEN_PROTOCOL_DECISION (raw DN / dB / sigma0)",
+    "normalization": "OPEN_PROTOCOL_DECISION (must be computed on TRAIN only)",
+    "interpolation": "NOT_APPLICABLE (fixed 256x256 crops, no resizing required)",
+    "nodata_handling": "OPEN_PROTOCOL_DECISION (no nodata currently in images; policy if encountered)"
+  },
+  "augmentation": {
+    "TRAIN_only": true,
+    "policy": "OPEN_PROTOCOL_DECISION",
+    "prohibited_at_inference": "Stochastic augmentation must not be applied to DEV or HOLDOUT at evaluation time"
+  },
+  "architecture": {
+    "base": "OPEN_PROTOCOL_DECISION (U-Net ResNet18 as in EXP-06 is one candidate)",
+    "input_channels": 1,
+    "input_spatial": "256x256",
+    "output_head": "OPEN_PROTOCOL_DECISION (binary vs multi-class)",
+    "note": "EXP-06 was 2-channel 512x512 binary; EXP-07 architecture must be re-specified"
+  },
+  "loss_function": {
+    "current_best": "Positive-weight BCE (EXP-06)",
+    "ops01_decision": "OPEN_PROTOCOL_DECISION (must account for multi-class / severe imbalance)"
+  },
+  "optimizer_scheduler": {
+    "policy": "OPEN_PROTOCOL_DECISION",
+    "precedent": "EXP-06 used Adam with ReduceLROnPlateau"
+  },
+  "seed_policy": {
+    "partition_assignment": "SHA-256 deterministic (fixed)",
+    "training_shuffle": "OPEN_PROTOCOL_DECISION (must fix seed before locking)",
+    "augmentation_seed": "OPEN_PROTOCOL_DECISION",
+    "weight_initialization": "OPEN_PROTOCOL_DECISION"
+  },
+  "evaluation_protocol": {
+    "metric_definitions": "OPEN_PROTOCOL_DECISION (must match Part-III evaluation protocol for comparable reporting)",
+    "threshold_selection": "DEV split ONLY \u2014 never on HOLDOUT",
+    "holdout_evaluation": "Single final evaluation, after threshold locked on DEV",
+    "holdout_status": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION \u2014 see permanent disclosure"
+  },
+  "checkpoint_policy": {
+    "save_criterion": "OPEN_PROTOCOL_DECISION (best DEV metric)",
+    "naming": "OPEN_PROTOCOL_DECISION (must include run hash + epoch)"
+  },
+  "rollback_policy": "Any contamination of HOLDOUT before training completion requires experiment abort and new holdout",
+  "provenance_recording": {
+    "required_at_training_start": [
+      "manifest SHA256",
+      "taxonomy SHA256",
+      "split manifest SHA256",
+      "source code git hash",
+      "Python version",
+      "key package versions",
+      "GPU type",
+      "random seeds",
+      "hyperparameter snapshot"
+    ]
+  },
+  "open_protocol_decisions_summary": [
+    "OPEN-PREPROC-001: Value domain (raw DN vs dB vs sigma0)",
+    "OPEN-PREPROC-002: Normalization statistics (must compute on TRAIN only)",
+    "OPEN-PREPROC-003: Augmentation policy",
+    "OPEN-PREPROC-004: Label encoding (binary vs multi-class)",
+    "OPEN-LOADER-001: OPS-01 DataLoader implementation",
+    "OPEN-LOADER-002: Class balancing / oversampling policy",
+    "OPEN-LOADER-003: num_workers and pin_memory policy",
+    "OPEN-LOADER-004: Batch size",
+    "Architecture: input channels, spatial dims, output head",
+    "Loss function for multi-class OPS-01",
+    "Optimizer and scheduler",
+    "Seed policy (training shuffle, augmentation, init)",
+    "Metric definitions and threshold protocol",
+    "Checkpoint save criterion and naming"
+  ],
+  "authorization_required_before_training": [
+    "Operator sign-off on all OPEN_PROTOCOL_DECISION items",
+    "OPS-01 DataLoader implementation and test",
+    "EXP-07 experiment specification document",
+    "Explicit GPU training authorization"
+  ],
+  "verdict": "TRAINING_PROTOCOL_NOT_YET_SUFFICIENTLY_SPECIFIED",
+  "p3_training_readiness": "CONDITIONAL_B \u2014 dataset ready, protocol requires completion"
+}

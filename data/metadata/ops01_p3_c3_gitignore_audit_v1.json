@@ -1,0 +1,810 @@
+{
+  "artifact_name": "ops01_p3_c3_gitignore_audit_v1.json",
+  "artifact_version": "1.0.0",
+  "phase": "PHASE_8_P3_C3",
+  "created_at": "2026-09-13T12:24:00.000000+00:00",
+  "gitignore_path": ".gitignore",
+  "total_rules_audited": 70,
+  "rules": [
+    {
+      "rule_index": 2,
+      "section": "Python",
+      "pattern": "__pycache__/",
+      "reason": "Python bytecode compilation caches",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 3,
+      "section": "Python",
+      "pattern": "*.py[cod]",
+      "reason": "Python bytecode compilation caches",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 4,
+      "section": "Python",
+      "pattern": "*$py.class",
+      "reason": "Python bytecode compilation caches",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 5,
+      "section": "Python",
+      "pattern": "*.so",
+      "reason": "Python bytecode compilation caches",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 6,
+      "section": "Python",
+      "pattern": "*.egg-info/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 7,
+      "section": "Python",
+      "pattern": "dist/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 8,
+      "section": "Python",
+      "pattern": "build/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 9,
+      "section": "Python",
+      "pattern": "*.egg",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 10,
+      "section": "Python",
+      "pattern": ".eggs/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 13,
+      "section": "Virtual environment",
+      "pattern": "venv/",
+      "reason": "Local Python virtual environments",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 14,
+      "section": "Virtual environment",
+      "pattern": ".venv/",
+      "reason": "Local Python virtual environments",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 15,
+      "section": "Virtual environment",
+      "pattern": "env/",
+      "reason": "Local Python virtual environments",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 18,
+      "section": "Environment / Secrets",
+      "pattern": ".env",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 19,
+      "section": "Environment / Secrets",
+      "pattern": ".env.local",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 20,
+      "section": "Environment / Secrets",
+      "pattern": ".env.*.local",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 23,
+      "section": "IDE",
+      "pattern": ".vscode/",
+      "reason": "Local IDE configurations and editor swap files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 24,
+      "section": "IDE",
+      "pattern": ".idea/",
+      "reason": "Local IDE configurations and editor swap files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 25,
+      "section": "IDE",
+      "pattern": "*.swp",
+      "reason": "Local IDE configurations and editor swap files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 26,
+      "section": "IDE",
+      "pattern": "*.swo",
+      "reason": "Local IDE configurations and editor swap files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 27,
+      "section": "IDE",
+      "pattern": "*~",
+      "reason": "Local IDE configurations and editor swap files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 30,
+      "section": "OS",
+      "pattern": ".DS_Store",
+      "reason": "OS system files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 31,
+      "section": "OS",
+      "pattern": "Thumbs.db",
+      "reason": "OS system files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 34,
+      "section": "Testing",
+      "pattern": ".pytest_cache/",
+      "reason": "Test runner caches and coverage output",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 35,
+      "section": "Testing",
+      "pattern": "htmlcov/",
+      "reason": "Test runner caches and coverage output",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 36,
+      "section": "Testing",
+      "pattern": ".coverage",
+      "reason": "Test runner caches and coverage output",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 37,
+      "section": "Testing",
+      "pattern": "coverage.xml",
+      "reason": "Test runner caches and coverage output",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 40,
+      "section": "Raster data (large files)",
+      "pattern": "*.tif",
+      "reason": "Large satellite raster GeoTIFF files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "MEDIUM (Images are ignored by this rule; masks are not)"
+    },
+    {
+      "rule_index": 41,
+      "section": "Raster data (large files)",
+      "pattern": "*.tiff",
+      "reason": "Large satellite raster GeoTIFF files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "MEDIUM (Images are ignored by this rule; masks are not)"
+    },
+    {
+      "rule_index": 42,
+      "section": "Raster data (large files)",
+      "pattern": "*.geotiff",
+      "reason": "Large satellite raster GeoTIFF files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "MEDIUM (Images are ignored by this rule; masks are not)"
+    },
+    {
+      "rule_index": 43,
+      "section": "Raster data (large files)",
+      "pattern": "data/output/",
+      "reason": "Raw external downloads and temporary data output directories",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 44,
+      "section": "Raster data (large files)",
+      "pattern": "data/raw/",
+      "reason": "Raw external downloads and temporary data output directories",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 47,
+      "section": "Logs",
+      "pattern": "*.log",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 50,
+      "section": "Local scratch and investigation tools",
+      "pattern": "scratch/",
+      "reason": "Local scratch scripts and temporary analysis tools",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 53,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/src_dataset_staging/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 54,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/src_dataset_staging_v2/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 55,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/seed_dataset_staging/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 56,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/kaggle_push_bundle/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 57,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/kaggle_canary_bundle/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 58,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/kaggle_training_bundle/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 59,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/kernel_push/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 60,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/kernel_pull/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 61,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/kernel_pull_v2/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 62,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/bundle/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 63,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/temp/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 64,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/dry_run_preflight/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 65,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/test_data_dir/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 66,
+      "section": "ML Experiment Ephemeral Staging & Packaging",
+      "pattern": "experiments/**/test_jupyter/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 69,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/**/remote_training_output/exp02c_annealed_hard_negative_training/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 70,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/**/kernel_output/scripts/",
+      "reason": "Ephemeral training staging bundles and kernel packaging",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 71,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/performance/gate4_3B_live_kaggle_canary_20260908_102118/kernel_output/",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 72,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/performance/gate4_3B_live_kaggle_canary_20260908_102118/kernel_output_v4/",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 73,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/performance/gate4_3B_live_kaggle_canary_20260908_102118/kernel_output_v5/",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 74,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/performance/gate4_3C_A_gpu_qualification_20260908_194000/kernel_output/",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 75,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/performance/gate4_3C_B_one_epoch_pilot_20260908_220700/kernel_output/",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 76,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/performance/gate4_3C_C2_canonical_seed_20260909_000500/kernel_output/",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 77,
+      "section": "Narrowly scoped nested container duplicate outputs",
+      "pattern": "experiments/performance/gate4_3C_C4_resume_epoch2_20260909_002000/kernel_output/",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 80,
+      "section": "Checkpoint binary weights: specifically registered known generated large binary artifacts (hashes registered in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/exp01_baseline/*.pt",
+      "reason": "Specific archive/interrupted checkpoint weights",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 81,
+      "section": "Checkpoint binary weights: specifically registered known generated large binary artifacts (hashes registered in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/archive/exp01_interrupted_20260906_135852/*.pt",
+      "reason": "Specific archive/interrupted checkpoint weights",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 82,
+      "section": "Checkpoint binary weights: specifically registered known generated large binary artifacts (hashes registered in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/kernel_output/exp02b_1_hard_negative_training/*.pt",
+      "reason": "Kaggle remote run kernel outputs",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 83,
+      "section": "Checkpoint binary weights: specifically registered known generated large binary artifacts (hashes registered in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/performance/exp02c_annealed_hard_negative_20260909_144000/*.pt",
+      "reason": "Specific archive/interrupted checkpoint weights",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 84,
+      "section": "Checkpoint binary weights: specifically registered known generated large binary artifacts (hashes registered in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/performance/exp02c_annealed_hard_negative_20260909_144000/remote_training_output/*.pt",
+      "reason": "Specific archive/interrupted checkpoint weights",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 87,
+      "section": "Generated external evaluation per-scene prediction payloads (preserved on disk, verified in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/performance/trujillo_part_iii_eval_20260911_exp01/mapping_a/",
+      "reason": "External evaluation generated prediction payloads (npz, json)",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 88,
+      "section": "Generated external evaluation per-scene prediction payloads (preserved on disk, verified in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/performance/trujillo_part_iii_eval_20260911_exp01/mapping_b/",
+      "reason": "External evaluation generated prediction payloads (npz, json)",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 89,
+      "section": "Generated external evaluation per-scene prediction payloads (preserved on disk, verified in ARTIFACT_REGISTRY.md)",
+      "pattern": "experiments/performance/trujillo_part_iii_eval_20260911_exp01/logs/",
+      "reason": "External evaluation generated prediction payloads (npz, json)",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 92,
+      "section": "Generated smoke test prediction artifacts (preserved on disk)",
+      "pattern": "experiments/performance/trujillo_part_iii_smoke_20260911_baseline_exp01/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 95,
+      "section": "Generated qualitative visual diagnostic renders (preserved on disk)",
+      "pattern": "experiments/performance/phase_5a_diagnostics/",
+      "reason": "Qualitative visual diagnostic renders",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 98,
+      "section": "Generated Phase 6 external evaluation per-scene prediction payloads (P3-C3 GITIGNORE-RULE-001/002/003)",
+      "pattern": "experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 99,
+      "section": "Generated Phase 6 external evaluation per-scene prediction payloads (P3-C3 GITIGNORE-RULE-001/002/003)",
+      "pattern": "experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 100,
+      "section": "Generated Phase 6 external evaluation per-scene prediction payloads (P3-C3 GITIGNORE-RULE-001/002/003)",
+      "pattern": "experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/logs/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    },
+    {
+      "rule_index": 103,
+      "section": "Materialized OPS-01 dataset binary masks (P3-C3 GITIGNORE-RULE-004; hashes anchored in ops01_physical_dataset_manifest_v4.json)",
+      "pattern": "data/derived/ops01/masks/",
+      "reason": "Exclude standard unneeded files",
+      "appropriate_status": "APPROPRIATE",
+      "risk": "LOW"
+    }
+  ],
+  "protected_artifacts_audit": {
+    "total_protected_artifacts": 19,
+    "all_protected_artifacts_unignored": true,
+    "artifacts": [
+      {
+        "name": "EXP-06 Checkpoint",
+        "path": "experiments/performance/exp06_positive_bce_weight/best_model.pt",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Frozen pre-trained model checkpoint baseline",
+        "authority_status": "FROZEN_AUTHORITATIVE",
+        "sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+        "expected_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+        "sha_matches_expected": true
+      },
+      {
+        "name": "Part-I Split Manifest",
+        "path": "data/metadata/internal_development_split_manifest.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Frozen development partition manifest",
+        "authority_status": "FROZEN_AUTHORITATIVE",
+        "sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+        "expected_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 Canonical Taxonomy",
+        "path": "data/metadata/ops01_taxonomy_v1.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Canonical class definitions and mapping authority",
+        "authority_status": "CANONICAL_AUTHORITY",
+        "sha256": "86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 Physical Dataset Manifest v4",
+        "path": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Current authoritative physical dataset manifest",
+        "authority_status": "AUTHORITATIVE_SUCCESSOR",
+        "sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 Internal Development Split Manifest v4",
+        "path": "data/metadata/ops01_split_manifest_v4.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Current partition assignment manifest (72/39/36)",
+        "authority_status": "AUTHORITATIVE_SUCCESSOR",
+        "sha256": "8BFC18EB21298CE2437575908F3EECF0FB64AB405F58F91F0908FCC706FE46D8",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 Source Recovery Inventory v3",
+        "path": "data/metadata/ops01_source_recovery_inventory_v3.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Authoritative parent scene recovery mapping",
+        "authority_status": "AUTHORITATIVE_SUCCESSOR",
+        "sha256": "E0825A47E831E7EE140E9A1FC75D313B0769E22C2DDF21BF60A9379900049351",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 Dataset Sufficiency v5",
+        "path": "data/metadata/ops01_dataset_sufficiency_v5.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Authoritative sufficiency certification and decision",
+        "authority_status": "AUTHORITATIVE_SUCCESSOR",
+        "sha256": "CB8825D2E15036A799CE0EF6760B994891191FFA9D25D287587001ABBB885853",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "Ocean Sentinel Governance Rules JSON",
+        "path": "data/metadata/ocean_sentinel_governance_rules_v1.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Authoritative project governance rules",
+        "authority_status": "AUTHORITATIVE_GOVERNANCE",
+        "sha256": "22702BE81671BFB99B9E14340AECF686D0E4771B0AF7F1D95044F2AD92B168BA",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "Ocean Sentinel Governance Rules Markdown",
+        "path": "experiments/PROJECT_GOVERNANCE/ocean_sentinel_governance_rules_v1.md",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Human-readable permanent governance documentation",
+        "authority_status": "AUTHORITATIVE_GOVERNANCE",
+        "sha256": "108C5A3F1931632B88430C7808F92CE3CF5F945FDD5903E4980AB41DBB9F0A44",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "Incident Learning Register",
+        "path": "data/metadata/ocean_sentinel_incident_learning_register_v1.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Permanent institutional memory and incident tracking",
+        "authority_status": "AUTHORITATIVE_GOVERNANCE",
+        "sha256": "7C238383FDA2E592CBC44108BE08E63AFC4D090FDB04DC828BC0F13DEA813A26",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 P3-C1 Incident Register",
+        "path": "data/metadata/ops01_p3_c1_incident_register_v1.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "P3-C1 focused incident tracking",
+        "authority_status": "AUTHORITATIVE_GOVERNANCE",
+        "sha256": "BB8F74B97F6C9EA75A1AC89B2F11777F51C217B40AB6F01775D0CF89E899FE59",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "Reproducibility Levels Specification",
+        "path": "data/metadata/ocean_sentinel_reproducibility_levels_v1.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Reproducibility hierarchy definitions and OPS-01 Level B certification",
+        "authority_status": "AUTHORITATIVE_GOVERNANCE",
+        "sha256": "C056FF3A24FD324B3611DE3176EB9806A0F7D6F380B39A89C840D920D4C068D2",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 Dataset Identity Contract",
+        "path": "data/metadata/ops01_dataset_identity_v1.json",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Formal dataset identity contract",
+        "authority_status": "AUTHORITATIVE_CONTRACT",
+        "sha256": "A28F1C61E3D708C0CE56038CB0CDD0F35D76FEEF2A7443DF060185F9388F32B7",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "OPS-01 Alignment Reconstruction Evidence v3",
+        "path": "data/metadata/ops01_alignment_reconstruction_evidence_v3.json",
+        "exists": false,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Alignment evidence audit",
+        "authority_status": "AUTHORITATIVE_EVIDENCE",
+        "sha256": null,
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "P3-C1 Closure Report",
+        "path": "experiments/PHASE_8_P3_C1_PROVENANCE_REPRODUCIBILITY_GOVERNANCE_CLOSURE_20260913.md",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Phase 8-P3-C1 closure documentation",
+        "authority_status": "AUTHORITATIVE_REPORT",
+        "sha256": "46DDDFAEBDB2CAFA1BCA922F09EFB4A88C90F8197B95FDBB99A629CA7B55D99C",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "P3 Pre-Training Audit Report",
+        "path": "experiments/PHASE_8_P3_FINAL_PRETRAINING_AUDIT_20260913.md",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Phase 8-P3 pre-training audit documentation",
+        "authority_status": "AUTHORITATIVE_REPORT",
+        "sha256": "3F155B1551624CC2DDDD5926E48B4A2A67D06D94F9D7E50234120AD25B0622FF",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "P3-C2 Final Evidence Boundary Closure Report",
+        "path": "experiments/PHASE_8_P3_C2_FINAL_EVIDENCE_BOUNDARY_CLOSURE_20260913.md",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Phase 8-P3-C2 closure documentation",
+        "authority_status": "AUTHORITATIVE_REPORT",
+        "sha256": "045ACD5D1F83BC2ACD334AAF395AA7044295013251CC40D2E2E4B51A18E6CFB5",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "P3-C1 Governance Guardrails Suite",
+        "path": "tests/test_phase_8_p3_c1_governance_guardrails.py",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Automated governance regression tests",
+        "authority_status": "AUTHORITATIVE_TEST",
+        "sha256": "30D23751361C2A4B72EE9596C715F1F69AA637E6878CC55738C9235D1CFCC064",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      },
+      {
+        "name": "P3-C2 Final Closure Guardrails Suite",
+        "path": "tests/test_phase_8_p3_c2_final_closure_guardrails.py",
+        "exists": true,
+        "is_ignored": false,
+        "matching_ignore_rule": null,
+        "semantic_role": "Automated evidence boundary regression tests",
+        "authority_status": "AUTHORITATIVE_TEST",
+        "sha256": "DE484D7C5A6F528B5F585E53DFBA8177FCE51AF208EA07821FF12F83F6FDCF6D",
+        "expected_sha256": null,
+        "sha_matches_expected": true
+      }
+    ]
+  },
+  "findings": {
+    "finding_1": "1,800 generated external evaluation prediction payloads (.npz, .json) in experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/ and mapping_b/ are currently unignored, flooding Source Control with 11.9 GB of transient payloads.",
+    "finding_2": "All 18 authoritative protected artifacts (EXP-06 checkpoint, Part-I manifest, taxonomy, manifest v4, sufficiency v5, governance rules, test suites, and reports) are currently NOT ignored, preserving complete discoverability.",
+    "finding_3": "Tracked files .gitignore and dataset.py correctly remain visible in git status as tracked modified files.",
+    "finding_4": "OPS-01 image files (.tif) are currently ignored by broad *.tif pattern; mask files (.png) are currently untracked."
+  }
+}

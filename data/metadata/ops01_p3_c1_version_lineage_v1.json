@@ -1,0 +1,52 @@
+{
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T11:54:27.351150+00:00",
+  "phase": "PHASE_8_P3_C1",
+  "description": "Formal version lineage and supersession record resolving P3 in-place mutation of authoritative artifacts",
+  "artifacts": [
+    {
+      "artifact_family": "ops01_physical_dataset_manifest",
+      "previous_version_identity": "ops01_physical_dataset_manifest_v3.json (pre-P3)",
+      "previous_known_hash": "94521D08C00AB71269D9DE566468C1E8B8C12E3519C3AB97375F63DF75355787",
+      "previous_hash_status": "RECOVERED_FROM_EXPLICIT_SOURCE",
+      "previous_hash_source": "data/metadata/ops01_p3_artifact_inventory_v1.json",
+      "mutated_version_identity": "ops01_physical_dataset_manifest_v3.json (mutated in P3)",
+      "mutated_hash": "36C7D5911B420A9B22F61E13604AE86BB933F7F519CB5CC53F8D9692AB361C2D",
+      "successor_version_identity": "ops01_physical_dataset_manifest_v4.json",
+      "changed_by_phase": "PHASE_8_P3",
+      "reason_for_change": "Incorporation of permanent epistemic disclosures (holdout selection disclosure, alignment epistemic status, correspondence status, generation method status) to satisfy P3 pre-training audit guardrails",
+      "semantic_changes": "Added 5 top-level metadata disclosure fields. Dataset samples, partitions, and labels untouched.",
+      "sample_bytes_changed": false,
+      "labels_changed": false,
+      "partition_membership_changed": false,
+      "source_identity_changed": false,
+      "dataset_sample_count_changed": false,
+      "change_was_disclosure_only": true,
+      "supersession_relationship": "ops01_physical_dataset_manifest_v4.json supersedes ops01_physical_dataset_manifest_v3.json",
+      "reproducibility_impact": "Eliminates in-place mutation ambiguity; establishes clean hash-verifiable succession",
+      "migration_status": "ACTIVE_SUCCESSOR_ESTABLISHED"
+    },
+    {
+      "artifact_family": "ops01_dataset_sufficiency",
+      "previous_version_identity": "ops01_dataset_sufficiency_v4.json (pre-P3)",
+      "previous_known_hash": "CB5C14A68BFDC2D72BD37FA4C7E579DD6A01015E6651228B3D6CA4C8B2FEF1A4",
+      "previous_hash_status": "RECOVERED_FROM_EXPLICIT_SOURCE",
+      "previous_hash_source": "data/metadata/ops01_p3_artifact_inventory_v1.json",
+      "mutated_version_identity": "ops01_dataset_sufficiency_v4.json (mutated in P3)",
+      "mutated_hash": "D44E05F55167EF46996722BC395FDB7D4293FBF7281E426BEAC3425C9EF45A10",
+      "successor_version_identity": "ops01_dataset_sufficiency_v5.json",
+      "changed_by_phase": "PHASE_8_P3",
+      "reason_for_change": "Incorporation of permanent epistemic disclosures and P3 disclosure note to satisfy P3 pre-training audit guardrails",
+      "semantic_changes": "Added top-level epistemic disclosure fields (alignment_epistemic_status, correspondence_epistemic_status, generation_method_status, p3_disclosure_note). Evaluated criteria unchanged.",
+      "sample_bytes_changed": false,
+      "labels_changed": false,
+      "partition_membership_changed": false,
+      "source_identity_changed": false,
+      "dataset_sample_count_changed": false,
+      "change_was_disclosure_only": true,
+      "supersession_relationship": "ops01_dataset_sufficiency_v5.json supersedes ops01_dataset_sufficiency_v4.json",
+      "reproducibility_impact": "Restores immutable version semantics for sufficiency evaluations",
+      "migration_status": "ACTIVE_SUCCESSOR_ESTABLISHED"
+    }
+  ]
+}

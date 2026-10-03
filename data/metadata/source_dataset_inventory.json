@@ -1,0 +1,29 @@
+{
+  "audit_version": "1.0.0",
+  "audit_timestamp_utc": "2026-09-12T17:29:38.334371+00:00",
+  "datasets": {
+    "trujillo_part_i": {
+      "name": "Trujillo-Acatitla Part I",
+      "doi": "10.5281/zenodo.8346860",
+      "parent_scenes_count": 1200,
+      "tiles_count": 19200,
+      "dedicated_lookalike_scenes": 0,
+      "dedicated_clean_water_scenes": 0,
+      "disk_status": "PHYSICALLY_VERIFIED_ON_DISK"
+    },
+    "dartis_candidate_proxy": {
+      "name": "DARTIS (Yang & Singha 2025)",
+      "doi": "10.1594/PANGAEA.980773",
+      "raw_records_count": 5515,
+      "subset_distribution": {
+        "ow": 2284,
+        "oc": 941,
+        "nw": 1939,
+        "nc": 351
+      },
+      "candidate_regions_count": 2290,
+      "unique_parent_products": 869,
+      "disk_status": "METADATA_CATALOG_VERIFIED_RASTERS_PENDING_ACQUISITION"
+    }
+  }
+}

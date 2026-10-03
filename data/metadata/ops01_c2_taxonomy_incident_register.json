@@ -1,0 +1,111 @@
+{
+  "incident_register_version": "1.0.0",
+  "generated_at": "2026-09-13T10:16:28.644765+00:00",
+  "phase": "PHASE_8_P2_R2_C2",
+  "incidents": [
+    {
+      "incident_id": "INC-P2R2-C2-001",
+      "title": "Taxonomy Terminology Drift in C1 Report Narrative Table",
+      "discovered_by": "C2 taxonomy integrity audit",
+      "severity": "MAJOR",
+      "scope": "Narrative-layer only; data layer (manifest_v3) is unaffected",
+      "affected_artifact": "experiments/PHASE_8_P2_R2_C1_CORRECTIVE_SUFFICIENCY_AUDIT_20260913.md",
+      "drift_details": [
+        {
+          "row": 5,
+          "abbreviation": "MCC",
+          "c1_class_name": "Microalgae Bloom / Marine Organisms",
+          "canonical_class_name": "Mesoscale Cellular Convection",
+          "canonical_source_label_id": 5,
+          "verdict": "WRONG_CLASS_NAME"
+        },
+        {
+          "row": 8,
+          "abbreviation": "OF",
+          "c1_class_name": "Oil Slick Lookalike / Organic Film",
+          "canonical_class_name": "Ocean Front",
+          "canonical_source_label_id": 6,
+          "verdict": "WRONG_CLASS_NAME_AND_ROLE",
+          "additional_note": "C1 used (OF) abbreviation to mean Organic Film (a non-canonical concept close to BS, Biological Slicks); canonical OF = Ocean Front (source_label_id=6)"
+        },
+        {
+          "row": 9,
+          "abbreviation": "POW",
+          "c1_class_name": "Rain Cell / Precipitation",
+          "canonical_class_name": "Pure Ocean Wave",
+          "canonical_source_label_id": 7,
+          "verdict": "WRONG_CLASS_NAME"
+        },
+        {
+          "row": 10,
+          "abbreviation": "RF",
+          "c1_class_name": "Rain Cell Front",
+          "canonical_class_name": "Rain Cell / Rain Footprint",
+          "canonical_source_label_id": 8,
+          "verdict": "WRONG_CLASS_NAME"
+        }
+      ],
+      "data_layer_impact": "NONE",
+      "data_layer_verification": "manifest_v3 class_composition checked across all 147 samples: 0 canonical abbreviation violations, 0 class_name mismatches, 0 source_label_id mismatches. Data is correct.",
+      "resolution": "C2 report uses strictly canonical class names from ops01_taxonomy_v1.json. C1 report remains unchanged but its table rows 5, 8, 9, 10 are formally superseded.",
+      "regression_test_required": true,
+      "regression_test_description": "Add test to verify narrative audit reports reference canonical class names by checking against taxonomy_v1.json."
+    },
+    {
+      "incident_id": "INC-P2R2-C2-002",
+      "title": "OF Class ID Error in ops01_corrective_audit_ledger_v1.json Claim 11",
+      "discovered_by": "C2 taxonomy integrity audit",
+      "severity": "MAJOR",
+      "scope": "Metadata document ledger_v1, Claim 11 (of_parent_count)",
+      "affected_artifact": "data/metadata/ops01_corrective_audit_ledger_v1.json",
+      "drift_details": [
+        {
+          "field": "evidence_source",
+          "c1_value": "Materialized label masks positive for OF (Class 8)",
+          "canonical_value": "Materialized label masks positive for OF (Class 6)",
+          "verdict": "WRONG_CLASS_ID"
+        },
+        {
+          "field": "scope",
+          "c1_value": "Oil Slick lookalike class (OF)",
+          "canonical_value": "Ocean Front class (OF, source_label_id=6)",
+          "verdict": "WRONG_CLASS_NAME"
+        }
+      ],
+      "resolution": "ops01_corrective_audit_ledger_v2.json corrects both fields. Ledger_v1 is superseded by ledger_v2.",
+      "data_layer_impact": "NONE",
+      "regression_test_required": true,
+      "regression_test_description": "Add test to verify ledger OF claim references source_label_id=6 not Class 8."
+    },
+    {
+      "incident_id": "INC-P2R2-C2-003",
+      "title": "Geographic Basin Sub-label Inconsistency Between C1 Report Table and manifest_v3",
+      "discovered_by": "C2 geographic semantics audit",
+      "severity": "MINOR",
+      "scope": "Narrative description of Indian Ocean basin sub-label only",
+      "affected_artifact": "experiments/PHASE_8_P2_R2_C1_CORRECTIVE_SUFFICIENCY_AUDIT_20260913.md",
+      "drift_details": [
+        {
+          "basin_label_in_c1_table": "Indian Ocean / Andaman Sea / Bay of Bengal",
+          "basin_label_in_manifest_v3": "Indian Ocean / Arabian Sea / Bay of Bengal",
+          "parent_count": 5,
+          "verdict": "MINOR_SUBLABEL_INCONSISTENCY",
+          "note": "Both refer to the same 5 parent scenes. Manifest_v3 is authoritative."
+        }
+      ],
+      "resolution": "manifest_v3 ocean_basin field is authoritative. C2 geographic audit document ops01_geographic_basin_audit_v1.json uses manifest_v3 labels.",
+      "data_layer_impact": "NONE",
+      "regression_test_required": false
+    }
+  ],
+  "incidents_summary": {
+    "total": 3,
+    "critical": 0,
+    "major": 2,
+    "minor": 1,
+    "data_layer_affected": false,
+    "narrative_layer_affected": true,
+    "p3_blocking": false,
+    "resolution_status": "ALL_RESOLVED_IN_C2"
+  }
+}

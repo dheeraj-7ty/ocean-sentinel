@@ -1,0 +1,238 @@
+{
+  "taxonomy_version": "1.0.0",
+  "phase": "PHASE_8_P0",
+  "creation_date": "2026-09-13",
+  "dataset_source": "Sentinel-1 Typical Oceanic and Atmospheric Phenomena Semantic Segmentation Dataset (Zenodo 10.5281/zenodo.14279466)",
+  "governance_invariants": {
+    "hm_naming_rule": "Class 13 (HM) must be named Artificial / Anthropogenic Objects; renaming to Vessel is strictly forbidden.",
+    "os_exclusion_rule": "Class 14 (OS) is known to have only 4 images (1,702 pixels, 0.0005% of dataset) and is explicitly flagged as insufficient data; it is strictly excluded from OPS-01 training.",
+    "lookalike_attribution_rule": "Li classes are candidate look-alikes; specific causal attribution to EXP-06 false alarms remains an unproven engineering hypothesis requiring validation."
+  },
+  "classes": [
+    {
+      "class_name": "Background Seawater",
+      "abbreviation": "BG",
+      "source_label_id": 0,
+      "rgb_color": [
+        0,
+        0,
+        0
+      ],
+      "semantic_definition": "Ambient open-ocean sea surface without discrete identifiable meteorological or hydrodynamic phenomena. Formed by unannotated marine matrix in source annotations.",
+      "role": "CORE_BACKGROUND",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Low backscatter regions under gentle breezes may visually transition into biogenic films or low wind areas."
+    },
+    {
+      "class_name": "Atmospheric Front",
+      "abbreviation": "AF",
+      "source_label_id": 1,
+      "rgb_color": [
+        128,
+        0,
+        0
+      ],
+      "semantic_definition": "Synoptic or mesoscale air-mass boundary causing sharp spatial gradients in near-surface wind speed, visible as sharp brightness steps or linear shear zones.",
+      "role": "AUXILIARY_METEOROLOGICAL",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Frontal sharp edges can be confused with gust fronts or current shear boundaries."
+    },
+    {
+      "class_name": "Biological Slicks",
+      "abbreviation": "BS",
+      "source_label_id": 2,
+      "rgb_color": [
+        0,
+        128,
+        0
+      ],
+      "semantic_definition": "Natural monomolecular surfactant films derived from marine plankton, phytoplankton blooms, or fish oils that damp short capillary-gravity waves via the Marangoni effect.",
+      "role": "CORE_LOOKALIKE",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Primary look-alike to mineral oil spills. Distinguishable in multi-modal/context by lack of point-source discharge, diffuse dendritic morphology, and coincidence with chlorophyll/productivity zones."
+    },
+    {
+      "class_name": "Iceberg / Ice Cluster",
+      "abbreviation": "IB",
+      "source_label_id": 3,
+      "rgb_color": [
+        128,
+        128,
+        0
+      ],
+      "semantic_definition": "Discrete floating glacial ice fragments or clusters detached from ice shelves or glaciers, presenting high backscatter targets in polar waters.",
+      "role": "CRYOSPHERIC_HAZARD",
+      "training_eligible": false,
+      "exclusion_reason": "Domain-restricted cryospheric hazard; low relevance to temperate/tropical oil-spill monitoring; reserved for specialized polar models.",
+      "known_ambiguities": "Small icebergs with surrounding brash ice can produce point-target signatures similar to vessels or offshore platforms."
+    },
+    {
+      "class_name": "Low Wind Area",
+      "abbreviation": "LWA",
+      "source_label_id": 4,
+      "rgb_color": [
+        0,
+        0,
+        128
+      ],
+      "semantic_definition": "Regions of sea surface with near-surface wind speed below the capillary wave generation threshold (< 2-3 m/s), resulting in specular reflection and very low radar backscatter.",
+      "role": "CORE_LOOKALIKE",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Major natural dark look-alike. Characterized by broad amorphous boundaries, wind-shadow alignment with coastal topography, and regional meteorological context."
+    },
+    {
+      "class_name": "Mesoscale Cellular Convection",
+      "abbreviation": "MCC",
+      "source_label_id": 5,
+      "rgb_color": [
+        128,
+        0,
+        128
+      ],
+      "semantic_definition": "Atmospheric boundary layer thermal convection producing open or closed honeycomb-like cloud/wind patterns, modulating radar backscatter into polygonal cellular networks.",
+      "role": "AUXILIARY_METEOROLOGICAL",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Weak open-cell convection centers can visually mimic diffuse biogenic slicks or low-wind patches."
+    },
+    {
+      "class_name": "Ocean Front",
+      "abbreviation": "OF",
+      "source_label_id": 6,
+      "rgb_color": [
+        0,
+        128,
+        128
+      ],
+      "semantic_definition": "Boundary between distinct upper-ocean water masses (temperature, salinity, or current velocity gradients), generating intense surface current convergence and wave-current interaction.",
+      "role": "CORE_HYDRODYNAMIC",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Convergence lines frequently collect natural surfactants, forming co-located biogenic slicks."
+    },
+    {
+      "class_name": "Pure Ocean Wave",
+      "abbreviation": "POW",
+      "source_label_id": 7,
+      "rgb_color": [
+        128,
+        128,
+        128
+      ],
+      "semantic_definition": "Regular swell wave fields characterized by quasi-periodic spatial modulation of radar cross-section without significant atmospheric or slick disturbance.",
+      "role": "AUXILIARY_WAVE_FIELD",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Short-crested swell under low wind can produce localized backscatter dips."
+    },
+    {
+      "class_name": "Rain Cell / Rain Footprint",
+      "abbreviation": "RF",
+      "source_label_id": 8,
+      "rgb_color": [
+        64,
+        0,
+        0
+      ],
+      "semantic_definition": "Precipitation features causing dual modulation: volume scattering and atmospheric attenuation from raindrops, combined with splash roughness and downdraft gust fronts at the ocean surface.",
+      "role": "CORE_METEOROLOGICAL",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Heavy rain downdrafts create bright rings surrounding dark rain-damped centers, which can be misclassified as slicks."
+    },
+    {
+      "class_name": "Sea Ice",
+      "abbreviation": "SI",
+      "source_label_id": 9,
+      "rgb_color": [
+        192,
+        0,
+        0
+      ],
+      "semantic_definition": "Continuous or fragmented frozen seawater (pack ice, grease ice, nilas, floes) covering the sea surface in polar and sub-polar seas.",
+      "role": "CRYOSPHERIC_SURFACE",
+      "training_eligible": false,
+      "exclusion_reason": "Domain-restricted polar phenomenon; grease ice and pancake ice create low backscatter similar to oil, but geographic domain is restricted to polar latitudes.",
+      "known_ambiguities": "Grease ice dampens capillary waves exactly like oil slicks, requiring temperature/latitude gating."
+    },
+    {
+      "class_name": "Wind Streak",
+      "abbreviation": "WS",
+      "source_label_id": 10,
+      "rgb_color": [
+        64,
+        128,
+        0
+      ],
+      "semantic_definition": "Quasi-parallel linear surface signatures aligned with the marine boundary layer wind vector, formed by atmospheric Langmuir circulation rolls modulating roughness.",
+      "role": "AUXILIARY_ATMOSPHERIC",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Linear streaks can resemble aligned biogenic slick filaments or trailing ship wakes."
+    },
+    {
+      "class_name": "Oceanic Eddy",
+      "abbreviation": "Eddy",
+      "source_label_id": 11,
+      "rgb_color": [
+        192,
+        128,
+        0
+      ],
+      "semantic_definition": "Mesoscale or submesoscale rotating ocean vortices made visible on SAR imagery through spiral convergence filaments of natural surfactants or current-wave interaction.",
+      "role": "CORE_HYDRODYNAMIC",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Spiral arms are comprised of concentrated biogenic slicks; boundary between Eddy and BS can be hierarchical."
+    },
+    {
+      "class_name": "Internal Waves",
+      "abbreviation": "IWs",
+      "source_label_id": 12,
+      "rgb_color": [
+        64,
+        0,
+        128
+      ],
+      "semantic_definition": "Subsurface gravity waves propagating along oceanic pycnoclines, modulating surface roughness into characteristic alternating bright (convergence) and dark (divergence/slick) curved soliton bands.",
+      "role": "CORE_LOOKALIKE",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Divergence zones and surfactant-accumulating troughs form pronounced dark look-alike bands."
+    },
+    {
+      "class_name": "Artificial / Anthropogenic Objects",
+      "abbreviation": "HM",
+      "source_label_id": 13,
+      "rgb_color": [
+        192,
+        0,
+        128
+      ],
+      "semantic_definition": "Man-made marine infrastructure and vessels, including ships, oil/gas production platforms, wind turbines, aquaculture cages, and coastal installations exhibiting strong metallic corner reflector backscatter.",
+      "role": "ANTHROPOGENIC_OBJECTS",
+      "training_eligible": true,
+      "exclusion_reason": null,
+      "known_ambiguities": "Vessels vs stationary platforms; point targets vs side-lobe cross artifacts. Strictly preserved as Artificial / Anthropogenic Objects; NEVER renamed to Vessel."
+    },
+    {
+      "class_name": "Mineral Oil Spill",
+      "abbreviation": "OS",
+      "source_label_id": 14,
+      "rgb_color": [
+        64,
+        128,
+        128
+      ],
+      "semantic_definition": "Anthropogenic petroleum hydrocarbon releases on the ocean surface.",
+      "role": "EXCLUDED_DEFICIENT_DATA",
+      "training_eligible": false,
+      "exclusion_reason": "Deficient sample size (exactly 4 images, 1,702 pixels, 0.0005% of dataset). Explicitly noted by Li et al. as insufficient data for training. Must NEVER be used as an oil spill training class for OPS-01.",
+      "known_ambiguities": "High risk of degenerate overfitting; completely unrepresentative of petroleum spills."
+    }
+  ]
+}

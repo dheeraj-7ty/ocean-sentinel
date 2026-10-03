@@ -1,0 +1,244 @@
+{
+  "metadata_version": "1.2.0-evidence-boundary",
+  "phase": "PHASE_7C_R2",
+  "audit_date": "2026-09-13",
+  "final_verdict": "B. PHASE 8 CAN PROCEED WITH EXPLICIT CONDITIONAL ASSUMPTIONS",
+  "lineage_summary": {
+    "control_product_count": 12,
+    "unique_parent_product_count": 12,
+    "slice_count_declared_labels": 47,
+    "unique_slice_filename_count": 47,
+    "verified_parent_links": 47,
+    "ambiguous_links": 0,
+    "unverified_links": 0,
+    "geotiff_slices_evaluated_count": 9,
+    "controls_with_geotiff_data_count": 2,
+    "controls_lacking_geotiff_data_count": 10
+  },
+  "three_questions_separation": {
+    "question_1_l1_reproduce_source_grid": {
+      "question": "Can Sentinel-1 Level-1 coordinates reproduce the source geolocation grid?",
+      "status": "SUPPORTED",
+      "explanation": "Level-1 XML geolocation grid points reproduce their own tiepoints under piecewise bivariate bilinear interpolation with 0.00 m residual."
+    },
+    "question_2_li_corner_metadata_consistency": {
+      "question": "Can the Li GeoTIFF corner metadata be interpreted consistently?",
+      "status": "SUPPORTED_CONDITIONALLY",
+      "explanation": "Inverted corner coordinates span 2,550.0 native index units, which is mathematically consistent with 10x block aggregation of a 2,560-cell window under the Center Convention, provided perimeter ordering is re-indexed."
+    },
+    "question_3_independent_crop_transformation_established": {
+      "question": "Has the exact Li pixel-to-Level-1 crop transformation been independently established?",
+      "status": "NOT_SUPPORTED",
+      "explanation": "No independent source generation code, published crop offsets, or physical SAR intensity cross-correlation exist in project evidence. The correspondence is inferred from the same corner GCPs."
+    }
+  },
+  "arithmetic_reconciliation": {
+    "SOURCE_CELL_COUNT": 2560,
+    "SOURCE_INDEX_SPAN": 2550.0,
+    "TARGET_CELL_COUNT": 256,
+    "TARGET_INDEX_SPAN": 255.0,
+    "DOWNSAMPLE_FACTOR": 10,
+    "MATHEMATICALLY_CONSISTENT": true,
+    "DATASET_GENERATION_VERIFIED": false,
+    "verdict": "Mathematically consistent with 10x block downsampling, but unverified from source dataset generation code."
+  },
+  "residual_15_79m_audit": {
+    "observed_residual_max_m": 15.79,
+    "independence_classification": "RESIDUAL IS CONDITIONAL ON ASSUMED CORRESPONDENCE",
+    "dependency_chain": [
+      {
+        "step": "Li TIFF GCP",
+        "type": "OBSERVED"
+      },
+      {
+        "step": "corner inversion",
+        "type": "DERIVED"
+      },
+      {
+        "step": "inferred L1 window",
+        "type": "DERIVED"
+      },
+      {
+        "step": "assumed slice-coordinate mapping",
+        "type": "ASSUMED"
+      },
+      {
+        "step": "interpolated L1 coordinates",
+        "type": "DERIVED"
+      },
+      {
+        "step": "Model B fit",
+        "type": "DERIVED"
+      },
+      {
+        "step": "residual",
+        "type": "CONDITIONAL"
+      }
+    ],
+    "independent_evidence_search_result": "NO INDEPENDENT LI-PIXEL-TO-L1 CORRESPONDENCE EVIDENCE FOUND"
+  },
+  "orientation_audit": {
+    "status": "ORIENTATION_UNCERTAIN",
+    "controls_verified": [
+      "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001"
+    ],
+    "controls_untested": [
+      "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001",
+      "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+      "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+      "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+      "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+      "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+      "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001",
+      "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001",
+      "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001",
+      "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001"
+    ],
+    "note": "Verified for 9 GeoTIFF slices across 2 controls; uncertain across 10 controls due to absence of GeoTIFF metadata."
+  },
+  "gcp_ordering_audit": {
+    "status": "METADATA_ORDERING_INTERPRETATION_ISSUE",
+    "details": "Perimeter polygon vertex ordering (TL -> BL -> BR -> TR) in Tag 33922 causes diagonal shear if ingested into a Cartesian grid without re-indexing. Not established as a dataset corruption bug."
+  },
+  "models_assessment": {
+    "model_a_raw_bilinear": "FAILED_INTERIOR_ALIGNMENT_DUE_TO_PERIMETER_METADATA_ORDERING",
+    "model_b_corrected_bilinear": "CONDITIONALLY_SUPPORTED_FOR_EVALUATED_CONTROLS",
+    "model_c_direct_l1_grid": "SOURCE_PRODUCT_GEOLOCATION_GRID_INTERPOLATION",
+    "model_d_2d_affine": "Not suitable as the general physical geolocation model for this SAR geometry under the tested spatial extent; may remain a local approximation."
+  },
+  "tolerance_50m_reassessment": {
+    "classification": "DESIGN_PARAMETER",
+    "status": "CONDITIONALLY_SUPPORTED_AS_EVALUATION_PARAMETER",
+    "conceptual_distinctions": {
+      "candidate_tolerance": "50.0m buffer chosen for metric evaluation.",
+      "half_pixel_displacement": "50.0m is the distance from pixel center to pixel edge in a 100m raster.",
+      "native_cell_scale": "50.0m equals 5 native 10m Level-1 cells.",
+      "registration_uncertainty": "Physical registration uncertainty remains unquantified (no intensity matching)."
+    },
+    "conflation_warning": "These four concepts are numerically equal but conceptually distinct."
+  },
+  "phase_8_assumption_boundary": {
+    "safe_to_use": [
+      "Source-product Level-1 XML geolocation grid as source-product geometry model",
+      "Observed Li GeoTIFF raster dimensions (256x256)",
+      "Observed Tag 33922 tiepoint indices",
+      "Verified parent product lineage for the 47 slice labels",
+      "50m candidate tolerance strictly as a design evaluation parameter"
+    ],
+    "conditional_to_use": [
+      "Inferred Level-1 crop bounding boxes derived from corner GCP inversion",
+      "10x block downsampling reconstruction assumption (Center Convention)",
+      "Model B corrected bilinear transformation",
+      "15.79m maximum residual (strictly labeled as conditional on assumed correspondence)",
+      "Any spatial alignment transformation derived from inferred crop bounds"
+    ],
+    "not_safe_to_use": [
+      "Claim of dataset-wide alignment validation",
+      "Claim of exact published dataset generation procedure",
+      "Treating Model C as surveyed physical ground truth",
+      "Treating conditional residual as independent geodetic validation",
+      "Generalizing orientation from Controls 1 & 2 to Controls 3-12 without verifying metadata"
+    ]
+  },
+  "claims_table": [
+    {
+      "claim_id": "A",
+      "claim": "Li TIFF dimensions = 256x256",
+      "status": "DIRECTLY_ESTABLISHED"
+    },
+    {
+      "claim_id": "B",
+      "claim": "Li Tag 33922 contains corner coordinates 0/256",
+      "status": "DIRECTLY_ESTABLISHED"
+    },
+    {
+      "claim_id": "C",
+      "claim": "Inverted L1 coordinates corresponding to Li corner GCPs",
+      "status": "REPRODUCED_CONDITIONAL"
+    },
+    {
+      "claim_id": "D",
+      "claim": "2550 center-to-center native coordinate span",
+      "status": "REPRODUCED_CONDITIONAL"
+    },
+    {
+      "claim_id": "E",
+      "claim": "2560 native cell-count hypothesis",
+      "status": "INFERRED"
+    },
+    {
+      "claim_id": "F",
+      "claim": "Exact 10x source-to-target sampling relationship",
+      "status": "INFERRED"
+    },
+    {
+      "claim_id": "G",
+      "claim": "Exact Li crop bounding box in native Level-1 coordinates",
+      "status": "INFERRED"
+    },
+    {
+      "claim_id": "H",
+      "claim": "Bilinear corrected Model B residual <= 15.8m",
+      "status": "REPRODUCED_CONDITIONAL"
+    },
+    {
+      "claim_id": "I",
+      "claim": "Independent validation of that residual",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "claim_id": "J",
+      "claim": "Model C zero residual",
+      "status": "REPRODUCED_CONDITIONAL"
+    },
+    {
+      "claim_id": "K",
+      "claim": "50m tolerance empirically validated",
+      "status": "REPRODUCED_CONDITIONAL"
+    },
+    {
+      "claim_id": "L",
+      "claim": "47 slices linked to 12 controls",
+      "status": "REPRODUCED_CONDITIONAL"
+    },
+    {
+      "claim_id": "M",
+      "claim": "Row/column interpretation verified across all 12 controls",
+      "status": "INFERRED"
+    },
+    {
+      "claim_id": "N",
+      "claim": "Raw GCP ordering problem (Model A shear)",
+      "status": "DIRECTLY_ESTABLISHED"
+    },
+    {
+      "claim_id": "O",
+      "claim": "Model D suitability",
+      "status": "DIRECTLY_ESTABLISHED"
+    },
+    {
+      "claim_id": "P",
+      "claim": "Dataset-wide applicability",
+      "status": "UNSUPPORTED"
+    }
+  ],
+  "incidents": [
+    {
+      "incident_id": "INC-7C-01",
+      "title": "2550 vs 2560 Native Line/Pixel Arithmetic Normalization Mismatch",
+      "severity": "MEDIUM",
+      "status": "RESOLVED"
+    },
+    {
+      "incident_id": "INC-7C-02",
+      "title": "Conflation of Total Control Slices (47) with Evaluated GeoTIFF Slices (9 across 2 Controls)",
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "description": "Phase 7C and 7C-R1 reported that 47 Li slices across 12 control products were evaluated in the alignment model comparison with max residual 15.8m. Forensic audit revealed that while 47 slice label masks are linked to the 12 scenes, only 9 GeoTIFF slices (Controls 1 and 2) were present in scratch/li_sample/Image_Geo/ and evaluated in slice_level_evaluations. Controls 3-12 were not evaluated for geometric residual or orientation.",
+      "root_cause": "Conflation of metadata label inventory with local GeoTIFF sample evaluation scope.",
+      "correction": "Distinguish declared slice label count (47 across 12 controls) from evaluated GeoTIFF slice count (9 across 2 controls). Label orientation as ORIENTATION_UNCERTAIN for Controls 3-12.",
+      "lesson_learned": "Sample evaluation scope must never be conflated with metadata inventory scope."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "document_id": "PHASE_7A.2_PRE_ACQUISITION_DATA_GOVERNANCE_CORRECTION_20260912",
+  "timestamp_utc": "2026-09-12T17:41:50.977358+00:00",
+  "sets": {
+    "SET_A_raw_candidates": {
+      "regions": 2290,
+      "parent_products": 869,
+      "relation": "All DARTIS nw and nc records"
+    },
+    "SET_B_part_iii_direct_overlap": {
+      "regions": 355,
+      "parent_products": 195,
+      "relation": "Regions directly intersecting Part III bounding boxes"
+    },
+    "SET_C_part_iii_scene_contaminated": {
+      "regions": 680,
+      "parent_products": 195,
+      "relation": "All regions belonging to parent products in SET B"
+    },
+    "SET_D_part_iii_cleared": {
+      "regions": 1610,
+      "parent_products": 674,
+      "relation": "SET_A \\ SET_C (100% free of Part III parent scenes)"
+    },
+    "SET_E_part_i_direct_overlap": {
+      "regions": 543,
+      "parent_products": 331,
+      "relation": "Regions in SET D directly intersecting Part I footprints"
+    },
+    "SET_E_part_i_scene_expanded": {
+      "regions": 1063,
+      "parent_products": 331,
+      "relation": "All regions in SET D belonging to parent products with direct Part I overlap"
+    },
+    "SET_F_fully_disjoint": {
+      "regions": 547,
+      "parent_products": 343,
+      "relation": "SET_D \\ SET_E_scene (100% disjoint from Part III and Part I at scene level)"
+    },
+    "SET_G_provisional_proxies": {
+      "regions": 547,
+      "parent_products": 343,
+      "relation": "Identical to SET_F; provisionally eligible pending physical acquisition"
+    }
+  },
+  "exact_arithmetic_formulas": {
+    "part_iii_region_partition": "2290 == 680 + 1610",
+    "part_iii_product_partition": "869 == 195 + 674",
+    "part_i_region_partition": "1610 == 1063 + 547",
+    "part_i_product_partition": "674 == 331 + 343",
+    "part_i_overlapping_region_decomposition": "1063 == 543 (direct) + 520 (co-scene indirect)",
+    "arithmetic_inconsistency_resolution": "The apparent conflict (1610 - 543 = 1067 vs 547 + 1063 = 1610) is resolved by recognizing that 543 is the direct region overlap count whereas 1063 is the scene-level expanded overlap count (543 direct + 520 co-scene). Since data governance requires scene-level exclusion, all 1063 regions are assigned DEVELOPMENT_ONLY, leaving exactly 547 regions from 343 parent products fully disjoint."
+  }
+}

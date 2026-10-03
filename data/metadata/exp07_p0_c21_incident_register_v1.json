@@ -1,0 +1,103 @@
+{
+  "incident_register_id": "EXP07_P0_C21_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C21",
+  "created_at_utc": "2026-09-14T10:45:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_verified": false,
+    "epistemic_standard": "MACHINE_VERIFIABLE_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C20-001",
+      "severity": "CRITICAL",
+      "category": "SCIENTIFIC_VALIDITY",
+      "title": "Historical Baseline Inflation in Narrative Tables",
+      "location": "experiments/EXP-07/ historical reports (C15, C16, C17, C18, C19 narrative tables)",
+      "claimed_value": "C8/C10 historical baselines achieved ~0.4072 (40.7%) DEV phenomena mIoU, framing C16 (0.0494) as an ~88% catastrophic collapse.",
+      "machine_truth": "Direct forensic audit of Level 5 machine artifacts (checkpoints, training results, and logs) proved C8 best DEV phenomena mIoU was 0.119031 (11.90%) and C10 was 0.137819 (13.78%). The claimed 0.4072 was a narrative transcription error introduced in C15.",
+      "root_cause": "Unverified narrative transcription of an all-class/background-inclusive metric into a phenomena-only column in C15 report without cross-checking machine JSON artifacts.",
+      "remediation": "Established exact Level 5 machine truth in C20 and C21 audit records. Formulated GOV-RULE-100 requiring machine traceability for all historical baseline claims."
+    },
+    {
+      "incident_id": "INC-C20-002",
+      "severity": "MEDIUM",
+      "category": "DATA_INTEGRITY",
+      "title": "Dataset Freeze Specification Version Ambiguity",
+      "location": "C16 run records (OPS02_v1.0.0_FROZEN) vs C19 protocol reconciliation table (OPS02_v1.0.1_FROZEN)",
+      "claimed_value": "C19 protocol table referenced OPS02_v1.0.1_FROZEN as canonical post-freeze dataset identity, creating ambiguity whether C16 trained on an unpatched or obsolete dataset.",
+      "machine_truth": "SHA256 hashes of physical tiles, ground-truth masks, spatial dimensions (256x256), and partition assignments (132 TRAIN, 40 DEV, 40 HOLDOUT) are 100% bitwise identical between v1.0.0 and v1.0.1. The difference was exclusively a documentation text correction fixing a narrative transcription typo (41/39 to 40/40 DEV/HOLDOUT).",
+      "root_cause": "Specification version increment applied to documentation without explicitly annotating that physical bytes remained immutable.",
+      "remediation": "Preserved C16's historical provenance as v1.0.0 while recording v1.0.1 as canonical specification identity. Physical data identity is bitwise identical."
+    },
+    {
+      "incident_id": "INC-C20-003",
+      "severity": "LOW",
+      "category": "IMPLEMENTATION_INTEGRITY",
+      "title": "Checkpoint Serialization Format Polymorphism",
+      "location": "data/checkpoints/ (exp07_p0_c8_best_seed42.pth vs exp07_p0_c16_replicate003_seed42_best.pt)",
+      "claimed_value": "Assumed homogeneous serialization structure across all historical EXP-07 checkpoints.",
+      "machine_truth": "C8 and C10 checkpoints (171.9 MB each) encapsulate full training dictionaries, whereas C16 checkpoint (57.4 MB) contains only the model OrderedDict state_dict.",
+      "root_cause": "Evolution of training checkpoint export routines between C8/C10 and C16.",
+      "remediation": "Implemented polymorphic checkpoint unwrapping in evaluation scripts without altering raw checkpoint bytes."
+    },
+    {
+      "incident_id": "INC-C20-004",
+      "severity": "HIGH",
+      "category": "SCIENTIFIC_VALIDITY",
+      "title": "Overgeneralized Input Normalization Superiority Narrative",
+      "location": "experiments/EXP-07/EXP07_P0_C20_TIER1_CROSS_DOMAIN_EVALUATION_REPORT_20260914.md",
+      "claimed_value": "Model-declared normalization yielded consistently superior transfer fidelity across all evaluated models.",
+      "machine_truth": "In EVAL-A (C16 -> OPS-01 DEV), Target-Native Normalization achieved 0.028818 mIoU, which is higher than Model-Declared Normalization (0.027285 mIoU). In EVAL-B and EVAL-C, Model-Declared was higher (0.035332 vs 0.019896, and 0.029223 vs 0.019455).",
+      "root_cause": "Narrative generalization across evaluations without verifying per-evaluation directionality.",
+      "remediation": "Rectified in C21 post-audit: Normalization transfer sensitivity is formally defined as EVALUATION-DEPENDENT."
+    },
+    {
+      "incident_id": "INC-C20-005",
+      "severity": "HIGH",
+      "category": "SCIENTIFIC_VALIDITY",
+      "title": "Unsupported Causal Attribution of Performance Bounds to Dataset Domain Properties",
+      "location": "experiments/EXP-07/EXP07_P0_C20_TIER1_CROSS_DOMAIN_EVALUATION_REPORT_20260914.md",
+      "claimed_value": "OPS-02 performance is fundamentally bounded by dataset domain properties rather than an optimization failure.",
+      "machine_truth": "Cross-domain evaluation is observational and provides descriptive transfer data only. It does not isolate or manipulate optimization mechanisms.",
+      "root_cause": "Conflating descriptive cross-domain performance degradation with proof of causal limitation source.",
+      "remediation": "Restricted claim to descriptive domain transfer evidence. Optimization vs domain bounds remains an open empirical question to be investigated by single-variable diagnostics."
+    },
+    {
+      "incident_id": "INC-C20-006",
+      "severity": "MEDIUM",
+      "category": "EPISTEMIC_HYGIENE",
+      "title": "Equating Guardrail Test Passes with '100% Bug-Free' Pipeline",
+      "location": "experiments/EXP-07/EXP07_P0_C20_TIER1_CROSS_DOMAIN_EVALUATION_REPORT_20260914.md",
+      "claimed_value": "The pipeline is 100% bug-free and robust.",
+      "machine_truth": "Passing 72 automated guardrails verifies that checked invariants hold; it does not prove universal absence of bugs across untested paths.",
+      "root_cause": "Epistemic overclaim confusing bounded empirical verification with universal mathematical correctness.",
+      "remediation": "Updated language: 'Verified against the implemented guardrail suite and audited invariants.'"
+    },
+    {
+      "incident_id": "INC-C20-007",
+      "severity": "MEDIUM",
+      "category": "REPRODUCIBILITY",
+      "title": "Unverified Attribution of C8/C10 Performance Gap to Isolated Seed Variance",
+      "location": "C20 Retrospective Narrative",
+      "claimed_value": "C8 (seed 42) and C10 (seed 101) provide a clean, isolated measurement of random seed variance on OPS-01.",
+      "machine_truth": "Historical execution records indicate C8 and C10 were executed under differing runtime conditions that have not been machine-proven identical in all respects except seed.",
+      "root_cause": "Assuming two historical runs with different seed numbers represent isolated seed variance without verifying complete execution parity.",
+      "remediation": "Documented that C8/C10 seed variance is an unisolated observation. Seed variance must not be cited as a clean baseline without proof of execution parity."
+    },
+    {
+      "incident_id": "INC-C21-001",
+      "severity": "LOW",
+      "category": "REPRODUCIBILITY",
+      "title": "Canonical Loss-Weight Vector Numeric Precision Resolution",
+      "location": "EXP07_DIAG01 Protocol Definition",
+      "claimed_value": "Question whether C16 executed weights with higher precision than the documented 6-decimal constants.",
+      "machine_truth": "Forensic audit of scratch/kaggle_replicate003_kernel/train_replicate003.py lines 56-69 (the exact script executed on Kaggle in C16) and ops02_c18_class_weights_audit_v1.json confirmed that C16 ingested the exact 6-decimal literal constants from the C15 protocol. Formula derivation in float64 rounded to 6 decimals matches these constants exactly with residual difference < 5e-7 (below float32 epsilon).",
+      "root_cause": "Pre-implementation precision audit required before protocol freeze.",
+      "remediation": "Established that Historical C16 Executed Vector and Future EXP07_DIAG01 Control Vector are exactly equal to 6 decimal places: [0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.882870, 0.387652, 18.243211]."
+    }
+  ],
+  "remediation_summary": "All 8 catalogued incidents are audited, root-caused, and governed. Zero open blocking incidents remain."
+}

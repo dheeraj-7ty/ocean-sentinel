@@ -1,0 +1,64 @@
+{
+  "metadata_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "artifact_name": "C16 Replicate 003 Remote Kernel Code Lineage and Forensic Audit",
+  "audited_at_utc": "2026-09-14T04:22:00Z",
+  "kernel_slug": "dheeraj12237/ocean-sentinel-exp07-c16-replicate-003",
+  "versions_lineage": [
+    {
+      "kernel_version": 1,
+      "pushed_at_approx_utc": "2026-09-14T02:48:00Z",
+      "target_accelerator": "DEFAULT (Provisioned Tesla P100 sm_60)",
+      "exit_status": "FAILED_PREFLIGHT",
+      "root_cause": "PyTorch 2.10.0+cu128 in Kaggle runtime dropped Pascal sm_60 support, plus Windows backslash path resolution on Linux container.",
+      "epochs_trained": 0,
+      "parameters_created": 0,
+      "checkpoints_produced": null
+    },
+    {
+      "kernel_version": 2,
+      "pushed_at_approx_utc": "2026-09-14T03:02:00Z",
+      "target_accelerator": "NvidiaTeslaT4 (Dual Tesla T4 sm_75)",
+      "exit_status": "FAILED_ARCHITECTURE_ASSERTION",
+      "root_cause": "Initial custom decoder implementation yielded 14,337,516 parameters (+26,656 over frozen protocol). The assert trainable_params == 14310860 guardrail halted the script before training.",
+      "epochs_trained": 0,
+      "parameters_created": 14337516,
+      "checkpoints_produced": null
+    },
+    {
+      "kernel_version": 3,
+      "pushed_at_approx_utc": "2026-09-14T03:15:00Z",
+      "target_accelerator": "NvidiaTeslaT4 (Dual Tesla T4 sm_75)",
+      "exit_status": "FAILED_SAMPLER_INITIALIZATION",
+      "root_cause": "CandidateFWeightedSampler invoked super().__init__(None), which failed under PyTorch 2.10 / Python 3.12 where Sampler takes zero arguments.",
+      "epochs_trained": 0,
+      "parameters_created": 14310860,
+      "checkpoints_produced": null
+    },
+    {
+      "kernel_version": 4,
+      "pushed_at_approx_utc": "2026-09-14T03:25:00Z",
+      "target_accelerator": "NvidiaTeslaT4 (Dual Tesla T4 sm_75)",
+      "exit_status": "COMPLETED_SUCCESSFULLY",
+      "executed_script_name": "train_replicate003.py",
+      "executed_script_sha256": "DF9F35BB957B907671FE13029923F59C9C90704712343CE010301582F6D61ADB",
+      "executed_script_bytes": 26496,
+      "epochs_trained": 27,
+      "early_stopping_triggered": true,
+      "best_epoch": 17,
+      "best_checkpoint_sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+      "last_checkpoint_sha256": "60411490EFB81D5DE806F4DFFBA760F5D7F4486B14AB4F144AD35D37EE16FA9E",
+      "key_subsystems_executed": {
+        "dataset_loading": "OPS02Dataset with O(1) global /kaggle/input file map index and 100% SHA-256 pre-flight check.",
+        "dev_construction": "dev_dataset with partition == 'DEV', loading exactly 40 samples.",
+        "sampler": "CandidateFWeightedSampler with 70% parent / 30% phenomenon weights, 72 draws/epoch, seeded with seed + epoch * 1000.",
+        "normalization": "preprocess_sar_image with mu=4.424158, sigma=0.469261, zeroing invalid border padding.",
+        "model_creation": "ResNet18UNet with exact 14,310,860 parameters and 30 BatchNorm2d layers.",
+        "loss": "nn.CrossEntropyLoss with TRAIN square-root median frequency weights and ignore_index=-100.",
+        "metrics": "compute_metrics calculating phenomena mIoU over classes 1..11 from 12x12 confusion matrix.",
+        "checkpoint_selection": "peak dev_mIoU_phenomena (achieved at Epoch 17: 0.0494).",
+        "early_stopping": "patience=10, min_epochs=15, min_delta=0.005 (triggered at Epoch 27)."
+      }
+    }
+  ]
+}

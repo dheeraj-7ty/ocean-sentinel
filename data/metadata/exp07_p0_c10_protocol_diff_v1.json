@@ -1,0 +1,51 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C10",
+  "comparison": "Seed 42 (C8) vs Seed 101 (C10) Training Protocol Equivalence",
+  "intentional_differences": {
+    "configuration_fingerprint_sha256": {
+      "seed_42": "D93EAEF12787F9408F2C3F9DD613DC6C47F2EC5A76C02B731EB42B29AB35273A",
+      "seed_101": "7DF509EECBFF7AB0D4CFB8F2E5693A6CF7A1E86DCB3C7393B1F77BACB5355AD4"
+    },
+    "phase": {
+      "seed_42": "EXP-07-P0-C8",
+      "seed_101": "EXP-07-P0-C10"
+    },
+    "run_id": {
+      "seed_42": "EXP07_RUN001_SEED42",
+      "seed_101": "EXP07_RUN002_SEED101"
+    },
+    "seed": {
+      "seed_42": 42,
+      "seed_101": 101
+    },
+    "title": {
+      "seed_42": "EXP-07 Final Authoritative Training Configuration (Seed 42 Baseline)",
+      "seed_101": "EXP-07 Final Authoritative Training Configuration (Seed 101 Replicate)"
+    }
+  },
+  "unintentional_differences": {},
+  "identical_fields": [
+    "artifact_version",
+    "augmentation",
+    "batch_dynamics",
+    "dataset_manifest_path",
+    "dataset_manifest_sha256",
+    "experiment_id",
+    "input_domain",
+    "loss",
+    "metadata_version",
+    "metrics",
+    "model",
+    "normalization",
+    "optimizer",
+    "protocol_version",
+    "sampler",
+    "scheduler",
+    "software_environment",
+    "taxonomy_manifest_path",
+    "taxonomy_manifest_sha256",
+    "training_budget"
+  ],
+  "protocol_drift_detected": false
+}

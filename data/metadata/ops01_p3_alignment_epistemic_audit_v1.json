@@ -1,0 +1,61 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:51:41.441101+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_7_ALIGNMENT_EPISTEMIC_AUDIT",
+  "sample_level_audit": {
+    "total_samples": 147,
+    "alignment_status_counts": {
+      "CONDITIONAL_ENGINEERING_RECONSTRUCTION": 147
+    },
+    "correspondence_status_counts": {
+      "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS": 147
+    },
+    "orientation_counts": {
+      "identity": 147
+    },
+    "shift_counts": {
+      "0_native_cells": 147
+    },
+    "aggregation_method_counts": {
+      "10x10_spatial_block_mean": 147
+    },
+    "all_samples_CER": true,
+    "all_samples_ESP": true
+  },
+  "overclaim_scan": {
+    "terms_checked": [
+      "ground truth georegistration",
+      "validated registration",
+      "confirmed li method",
+      "physically validated alignment",
+      "definitive alignment",
+      "50m validated",
+      "15.79m measured uncertainty",
+      "10x block average confirmed",
+      "li dataset generation verified"
+    ],
+    "documents_checked": [
+      "ops01_physical_dataset_manifest_v3.json",
+      "ops01_dataset_sufficiency_v4.json",
+      "ops01_corrective_audit_ledger_v2.json",
+      "PHASE_8_P2_R2_C2_FINAL_TAXONOMY_INTEGRITY_AUDIT_20260913.md"
+    ],
+    "hits": [],
+    "verdict": "NO_OVERCLAIM_DETECTED"
+  },
+  "authorized_epistemic_positions": {
+    "alignment": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+    "correspondence": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+    "generation_method": "NOT_DIRECTLY_VERIFIED"
+  },
+  "prohibited_claims": [
+    "resampling == registration",
+    "50m is an empirically measured registration uncertainty",
+    "15.79m is an independently validated physical registration error",
+    "10x10 mean is the confirmed Li authorial method",
+    "4-corner interpolation residual = 0 validates interior correspondence",
+    "high NCC (0.94) proves dataset-wide georegistration accuracy"
+  ],
+  "verdict": "PASS"
+}

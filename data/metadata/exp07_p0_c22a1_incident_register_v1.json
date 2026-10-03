@@ -1,0 +1,54 @@
+{
+  "incident_register_id": "EXP07_P0_C22A1_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.1",
+  "created_at_utc": "2026-09-14T11:03:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_verified": false,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A1-001",
+      "severity": "MEDIUM",
+      "category": "SCIENTIFIC_VALIDITY",
+      "title": "False Machine-Epsilon Claim on Decimal Rounding Residual",
+      "location": "C21 / C22-A reports and test docstrings",
+      "claimed_value": "Claimed that ~4.8e-7 difference between float64 formula result and 6-decimal literal was 'below float32 machine epsilon'.",
+      "machine_truth": "Single-precision float32 machine epsilon is 2^-23 ≈ 1.192e-7. A difference of 4.8e-7 exceeds float32 epsilon and is simply the expected base-10 rounding residual (bounded by 0.5 * 10^-6 = 5e-7). Formula float64 values agree with historical literals after 6-decimal rounding (round(val, 6) == literal), and both decimal literals convert to identical torch.float32 tensors.",
+      "root_cause": "Conflating base-10 decimal rounding bounds with binary floating-point machine epsilon.",
+      "remediation": "Corrected wording in C22-A report, C22-A test suite, and C22-A.1 audit; formulated Lesson LL-EXP07-023 with regression test.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    },
+    {
+      "incident_id": "INC-C22A1-002",
+      "severity": "LOW",
+      "category": "DOCUMENTATION_INTEGRITY",
+      "title": "Competing Dimension Terminology ('18 locked' vs '19 locked')",
+      "location": "C22-A report Section 10 vs Section 1 and diagnostic protocol",
+      "claimed_value": "Section 10 referred to 'all 19 experimental dimensions... all 18 other dimensions remain strictly frozen', while Section 1 referred to 'all 19 experimental dimensions locked'.",
+      "machine_truth": "Authoritative protocol ops02_c21_single_variable_diagnostic_protocol_v1.json defines exactly 19 locked invariant dimensions (INV-01 through INV-19) and 1 independent variable (INDEPENDENT_VARIABLE = CLASS_LOSS_WEIGHT_VECTOR), for a total of 20 controlled dimensions.",
+      "root_cause": "Typographical conflation of total dimensions with invariant dimensions.",
+      "remediation": "Normalized terminology across all artifacts: 19 locked invariant dimensions and 1 isolated variable.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    },
+    {
+      "incident_id": "INC-C22A1-003",
+      "severity": "LOW",
+      "category": "DATA_INTEGRITY",
+      "title": "Imprecise 'Bitwise Subtraction' Phrasing for Pixel Decomposition",
+      "location": "C22-A report executive summary line 23",
+      "claimed_value": "Claimed that 8,595,330 - 194,270 = 8,401,060 'holds bitwise'.",
+      "machine_truth": "Source GeoTIFF rasters and PNG masks exhibit byte and decoded-array identity across partitions, while the subtraction 8,595,330 - 194,270 = 8,401,060 is an exact arithmetic equality of derived scalar counts, not a bitwise operation.",
+      "root_cause": "Imprecise colloquial use of 'bitwise' to mean exact/machine-verified.",
+      "remediation": "Explicitly distinguished byte/cryptographic identity of files, decoded-array identity of rasters/masks, and arithmetic equality of scalar counts.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "All three C22-A.1 reproducibility and governance ambiguities are formally resolved, machine-verified, and regression-protected. Zero blocking issues remain."
+}

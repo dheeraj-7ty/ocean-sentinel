@@ -1,0 +1,387 @@
+{
+  "metadata_version": "4.0.0",
+  "evaluated_at": "2026-09-13T10:15:49.681727+00:00",
+  "phase": "PHASE_8_P2_R2_C2",
+  "final_decision": "A. CORRECTED -- SUFFICIENT FOR P3",
+  "criteria": [
+    {
+      "criterion": "Physical sample count",
+      "minimum_target": ">= 100 physical slices",
+      "observed_value": "147 physical slices",
+      "status": "PASS",
+      "evidence": "Materialized 147 verified float32 GeoTIFFs with corresponding label PNGs."
+    },
+    {
+      "criterion": "Independent IW parent scenes",
+      "minimum_target": ">= 20 independent IW parent scenes",
+      "observed_value": "27 independent parent scenes",
+      "status": "PASS",
+      "evidence": "Recovered from 27 distinct Level-1 GRD acquisitions across 2015-2023."
+    },
+    {
+      "criterion": "DEV parent scenes",
+      "minimum_target": ">= 3 independent parent scenes in DEV",
+      "observed_value": "7 parent scenes",
+      "status": "PASS",
+      "evidence": "DEV partition contains 7 independent parent scenes with 39 physical slices."
+    },
+    {
+      "criterion": "HOLDOUT parent scenes",
+      "minimum_target": ">= 3 independent parent scenes in HOLDOUT",
+      "observed_value": "8 parent scenes",
+      "status": "PASS",
+      "evidence": "HOLDOUT partition contains 8 independent parent scenes with 36 physical slices."
+    },
+    {
+      "criterion": "HM parent coverage",
+      "minimum_target": "HM represented across >= 5 parent scenes",
+      "observed_value": "16 parent scenes",
+      "status": "PASS",
+      "evidence": "HM (Artificial / Anthropogenic Objects) physically represented in 16 independent scenes across TRAIN, DEV, and HOLDOUT."
+    },
+    {
+      "criterion": "Core lookalike parent coverage",
+      "minimum_target": "All core lookalike classes physically represented across >= 2 parents",
+      "observed_value": "All 10 core classes have >= 2 parents (LWA has 3 parents)",
+      "status": "PASS",
+      "evidence": "All core lookalikes (AF: 7, BS: 6, LWA: 3, OF: 9, MCC: 11, RF: 5, WS: 3, Eddy: 3, IWs: 12, POW: 8) have >= 2 independent parents."
+    },
+    {
+      "criterion": "Holdout independence",
+      "minimum_target": "Zero overlap between HOLDOUT and TRAIN/DEV",
+      "observed_value": "0 overlapping parent scenes",
+      "status": "PASS",
+      "evidence": "Strict grouping firewall verified (train_holdout=0, dev_holdout=0). Holdout classified as HOLDOUT_PARTIALLY_USED_FOR_SELECTION to reflect intentional representation."
+    },
+    {
+      "criterion": "Dominant-parent concentration",
+      "minimum_target": "Max parent slice share < 20%",
+      "observed_value": "Max share: 8.2% (12/147)",
+      "status": "PASS",
+      "evidence": "No parent exceeds 8.2% share; dominant-parent risk controlled."
+    },
+    {
+      "criterion": "Temporal diversity",
+      "minimum_target": "Multi-year coverage spanning >= 5 years",
+      "observed_value": "9 operational years (2015-2023)",
+      "status": "PASS",
+      "evidence": "Parent scenes span 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023."
+    },
+    {
+      "criterion": "Geographic diversity",
+      "minimum_target": "Mathematically evidenced multi-basin coverage",
+      "observed_value": "Verified across 5 ocean basins",
+      "status": "PASS",
+      "evidence": "Exact tiepoint bounds extracted from Level-1 XMLs verify global distribution across Mediterranean, Indo-Pacific, Indian Ocean, and Atlantic."
+    },
+    {
+      "criterion": "Alignment evidence",
+      "minimum_target": "Conditional engineering reconstruction with empirically supported correspondence hypothesis",
+      "observed_value": "CONDITIONAL_ENGINEERING_RECONSTRUCTION, 10x block mean hypothesis",
+      "status": "PASS",
+      "evidence": "10x block mean supported by Phase 8-P1 median NCC=0.94 and zero shift. Registration remains conditional, not ground-truth proven."
+    },
+    {
+      "criterion": "Zero/nodata policy",
+      "minimum_target": "Preserve raw zeros, record valid pixel fraction explicitly",
+      "observed_value": "Full radiometric stats and valid_pixel_fraction stored per sample",
+      "status": "PASS",
+      "evidence": "Zero/nodata contract verified; raw zeros preserved without silent masking."
+    },
+    {
+      "criterion": "Pixel-space validation",
+      "minimum_target": "100% of samples pass shape (256, 256), dtype float32, and zero Class 14 (OS)",
+      "observed_value": "100% pass rate (0 failures)",
+      "status": "PASS",
+      "evidence": "All 147 samples passed shape and type checks; zero Class 14 pixels exist in eligible dataset."
+    },
+    {
+      "criterion": "WV exclusion policy",
+      "minimum_target": "WV vignettes excluded from current OPS-01 candidate pending separate geometry protocol",
+      "observed_value": "2,383 WV vignettes remain excluded from physical dataset",
+      "status": "PASS",
+      "evidence": "WV vignettes not admitted into OPS-01 candidate."
+    },
+    {
+      "criterion": "Reproducibility",
+      "minimum_target": "Bitwise reproducible manifest and SHA256 hashes",
+      "observed_value": "ARTIFACT_HASH_CONSISTENCY_CONFIRMED",
+      "status": "PASS",
+      "evidence": "147 image and mask SHA256 checksums verified bitwise."
+    }
+  ],
+  "class_coverage_audit": {
+    "BG": {
+      "source_label_id": 0,
+      "class_name": "Background Seawater",
+      "slice_count": 95,
+      "pixel_count": 3415421,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+        "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+        "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001",
+        "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001"
+      ],
+      "train_slices": 56,
+      "dev_slices": 22,
+      "holdout_slices": 17,
+      "parent_scene_count": 24
+    },
+    "IWs": {
+      "source_label_id": 12,
+      "class_name": "Internal Waves",
+      "slice_count": 58,
+      "pixel_count": 1226250,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+        "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+        "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001"
+      ],
+      "train_slices": 36,
+      "dev_slices": 16,
+      "holdout_slices": 6,
+      "parent_scene_count": 12
+    },
+    "POW": {
+      "source_label_id": 7,
+      "class_name": "Pure Ocean Wave",
+      "slice_count": 27,
+      "pixel_count": 1220602,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+        "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001"
+      ],
+      "train_slices": 15,
+      "dev_slices": 11,
+      "holdout_slices": 1,
+      "parent_scene_count": 8
+    },
+    "RF": {
+      "source_label_id": 8,
+      "class_name": "Rain Cell / Rain Footprint",
+      "slice_count": 10,
+      "pixel_count": 72698,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001"
+      ],
+      "train_slices": 8,
+      "dev_slices": 2,
+      "holdout_slices": 0,
+      "parent_scene_count": 5
+    },
+    "MCC": {
+      "source_label_id": 5,
+      "class_name": "Mesoscale Cellular Convection",
+      "slice_count": 33,
+      "pixel_count": 1768904,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001",
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001"
+      ],
+      "train_slices": 12,
+      "dev_slices": 8,
+      "holdout_slices": 13,
+      "parent_scene_count": 11
+    },
+    "WS": {
+      "source_label_id": 10,
+      "class_name": "Wind Streak",
+      "slice_count": 8,
+      "pixel_count": 328163,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001"
+      ],
+      "train_slices": 6,
+      "dev_slices": 2,
+      "holdout_slices": 0,
+      "parent_scene_count": 3
+    },
+    "AF": {
+      "source_label_id": 1,
+      "class_name": "Atmospheric Front",
+      "slice_count": 17,
+      "pixel_count": 83599,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+        "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001"
+      ],
+      "train_slices": 9,
+      "dev_slices": 5,
+      "holdout_slices": 3,
+      "parent_scene_count": 7
+    },
+    "LWA": {
+      "source_label_id": 4,
+      "class_name": "Low Wind Area",
+      "slice_count": 6,
+      "pixel_count": 95259,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001"
+      ],
+      "train_slices": 2,
+      "dev_slices": 3,
+      "holdout_slices": 1,
+      "parent_scene_count": 3
+    },
+    "HM": {
+      "source_label_id": 13,
+      "class_name": "Artificial / Anthropogenic Objects",
+      "slice_count": 20,
+      "pixel_count": 4139,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001",
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001",
+        "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001",
+        "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001"
+      ],
+      "train_slices": 7,
+      "dev_slices": 5,
+      "holdout_slices": 8,
+      "parent_scene_count": 16
+    },
+    "BS": {
+      "source_label_id": 2,
+      "class_name": "Biological Slicks",
+      "slice_count": 18,
+      "pixel_count": 770190,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+        "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001",
+        "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001"
+      ],
+      "train_slices": 7,
+      "dev_slices": 4,
+      "holdout_slices": 7,
+      "parent_scene_count": 6
+    },
+    "Eddy": {
+      "source_label_id": 11,
+      "class_name": "Oceanic Eddy",
+      "slice_count": 11,
+      "pixel_count": 74122,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001"
+      ],
+      "train_slices": 3,
+      "dev_slices": 2,
+      "holdout_slices": 6,
+      "parent_scene_count": 3
+    },
+    "SI": {
+      "source_label_id": 9,
+      "class_name": "Sea Ice",
+      "slice_count": 7,
+      "pixel_count": 456960,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001"
+      ],
+      "train_slices": 0,
+      "dev_slices": 4,
+      "holdout_slices": 3,
+      "parent_scene_count": 2
+    },
+    "OF": {
+      "source_label_id": 6,
+      "class_name": "Ocean Front",
+      "slice_count": 43,
+      "pixel_count": 117485,
+      "parent_scenes": [
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001",
+        "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001",
+        "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001"
+      ],
+      "train_slices": 24,
+      "dev_slices": 11,
+      "holdout_slices": 8,
+      "parent_scene_count": 9
+    }
+  },
+  "c2_taxonomy_correction": "Terminology in class_coverage_audit uses canonical ops01_taxonomy_v1.json class names throughout. C1 report table narrative errors (MCC, OF, POW, RF class names) do NOT affect the data layer; this document and manifest_v3 use correct canonical terminology.",
+  "holdout_status_disclosure": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+  "holdout_status_explanation": "Holdout parent scenes were selected intentionally from Li catalog to satisfy class coverage criteria. The holdout cannot be treated as a completely blind benchmark; it provides only a partially blind estimate of generalization performance. This disclosure is permanent and must not be removed or weakened.",
+  "alignment_epistemic_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+  "correspondence_epistemic_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+  "generation_method_status": "NOT_DIRECTLY_VERIFIED",
+  "p3_disclosure_note": "Added by PHASE_8_P3 audit to explicitly record all 4 permanent epistemic disclosures in this artifact."
+}

@@ -1,0 +1,49 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C13",
+  "title": "OPS-02 Acquisition Pilot Coverage Matrix",
+  "evaluated_at": "2026-09-14T01:52:00Z",
+  "dimensions": [
+    {
+      "dimension": "TOTAL_INDEPENDENT_PARENTS",
+      "c12_target": 60,
+      "ops01_baseline": 27,
+      "pilot_achieved": 13,
+      "full_pool_available": 457,
+      "gap": 0,
+      "feasibility_verdict": "FULL_SCALE_ATTAINABLE"
+    },
+    {
+      "dimension": "TEMPORAL_SPAN_YEARS",
+      "c12_target": ">= 3 distinct years",
+      "ops01_baseline": "2015-2023",
+      "pilot_achieved": "8 distinct years (2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)",
+      "gap": 0,
+      "feasibility_verdict": "FULL_SCALE_ATTAINABLE"
+    },
+    {
+      "dimension": "GEOGRAPHIC_BASINS",
+      "c12_target": ">= 4 distinct regions",
+      "ops01_baseline": "Clustered Northwest Pacific",
+      "pilot_achieved": "3 major regions represented (North Pacific, North Atlantic, South China Sea)",
+      "gap": 1,
+      "feasibility_verdict": "SCALE_REQUIRES_STRATIFIED_EXPANSION"
+    },
+    {
+      "dimension": "TECHNICAL_QC_PASS_RATE",
+      "c12_target": 1.0,
+      "ops01_baseline": 1.0,
+      "pilot_achieved": 1.0,
+      "gap": 0,
+      "feasibility_verdict": "VALIDATED"
+    },
+    {
+      "dimension": "PARTITION_INDEPENDENCE",
+      "c12_target": "Zero cross-split parent leakage",
+      "ops01_baseline": "Verified",
+      "pilot_achieved": "Zero cross-split parent leakage in pilot pre-slicing",
+      "gap": 0,
+      "feasibility_verdict": "VALIDATED"
+    }
+  ]
+}

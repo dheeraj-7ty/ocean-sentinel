@@ -1,0 +1,173 @@
+{
+  "audit_version": "2.3.0",
+  "audit_phase": "PHASE_7B.2B-R3",
+  "audit_title": "Li et al. Rigorous Non-Linear Geometric Registration, Label-to-10m Contract, and Uncertainty Decomposition",
+  "dataset_doi": "10.5281/zenodo.14279466",
+  "source_sensor": "Copernicus Sentinel-1 SAR (C-Band, IW and WV modes)",
+  "sample_scope_note": "For examined Li GeoTIFFs: No interior GCPs were observed in the examined Li GeoTIFF sample (12 representative control files). Zero interior tiepoints and zero external geolocation arrays were observed in this examined sample. Independent interior geolocation accuracy is not established.",
+  "geometric_model_evaluation": {
+    "tiepoint_source": "GeoTIFF Tag 33922 (ModelTiepointTag) providing 4 corner Ground Control Points (GCPs)",
+    "control_sample_analysis": {
+      "sample_file": "Image_Geo/s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10.tiff",
+      "native_parent_granule": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "corner_gcps": [
+        {
+          "gcp_id": "1",
+          "row": 0.0,
+          "col": 0.0,
+          "lat": 1.53155289,
+          "lon": 127.482532
+        },
+        {
+          "gcp_id": "2",
+          "row": 256.0,
+          "col": 0.0,
+          "lat": 1.57931782,
+          "lon": 127.258346
+        },
+        {
+          "gcp_id": "3",
+          "row": 0.0,
+          "col": 256.0,
+          "lat": 1.35036857,
+          "lon": 127.210386
+        },
+        {
+          "gcp_id": "4",
+          "row": 256.0,
+          "col": 256.0,
+          "lat": 1.30254945,
+          "lon": 127.43453
+        }
+      ]
+    },
+    "tested_transformation_models": [
+      {
+        "model_name": "Standard 2D Affine Transformation (6 Degrees of Freedom)",
+        "degrees_of_freedom": 6,
+        "mathematical_formulation": "lat = a*col + b*row + c; lon = d*col + e*row + f",
+        "fitting_verdict": "SCIENTIFICALLY_INVALID_FOR_RADAR_GEOMETRY",
+        "residual_registration_error_deg": 0.11460174,
+        "residual_registration_error_meters": 12753.8,
+        "residual_registration_error_native_10m_pixels": 1275.38,
+        "root_cause_of_failure": "The 4 corner tiepoints form a non-parallel quadrilateral on the ellipsoidal Earth due to satellite orbital inclination (~98 deg) and range-dependent slant-to-ground projection. Forcing a parallelogram affine model introduces a massive 12.75 km displacement error."
+      },
+      {
+        "model_name": "Bilinear Corner Interpolation / Bilinear Geolocation Mapping (8 Degrees of Freedom)",
+        "degrees_of_freedom": 8,
+        "mathematical_formulation": "lat = c0 + c1*col + c2*row + c3*col*row; lon = d0 + d1*col + d2*row + d3*col*row",
+        "fitting_verdict": "MATHEMATICALLY_EXACT_AND_AUTHORITATIVE",
+        "residual_on_fitting_corners_deg": 0.0,
+        "residual_on_fitting_corners_meters": 0.0,
+        "algebraic_proof_of_zero_corner_residual": "A 4-point bilinear mapping has 4 independent parameters per axis (c0, c1, c2, c3). Evaluated at the 4 rectangular corner points (0,0), (256,0), (0,256), (256,256), the design matrix is 4x4 with non-zero determinant (det = W^2 * H^2 = 4,294,967,296). This invertible linear system yields a unique algebraic solution that reproduces all 4 corner coordinates exactly. The residual at the 4 corner points is 0.0 by construction.",
+        "governance_rule_zero_residual": "CRITICAL: Zero residual on the four fitting corners occurs by algebraic construction and IS NOT independent geometric validation.",
+        "independent_interior_accuracy_status": "Bilinear mapping is an interpolation model anchored to the supplied corner GCPs; independent interior geolocation accuracy is not established.",
+        "perspective_terminology_prohibition": "The term 'Bilinear Perspective Interpolation' is technically inaccurate and prohibited because no rational projective homography denominator h(u,v) = (ax+by+c)/(gx+hy+1) is modeled. The correct terminology is Bilinear Corner Interpolation or Bilinear Geolocation Mapping.",
+        "residual_registration_error_deg": 0.0,
+        "residual_registration_error_meters": 0.0,
+        "residual_registration_error_native_10m_pixels": 0.0
+      }
+    ]
+  },
+  "label_to_operational_10m_alignment_contract": {
+    "status": "CONCEPTUAL_PIPELINE_PRE_REGISTERED_PENDING_EMPIRICAL_DEMONSTRATION",
+    "conceptual_pipeline": "100m source label -> verified geographic/geometric representation -> independently verified source-to-operational-grid alignment -> categorical rasterization -> DERIVED_HIGH_RESOLUTION_MASK",
+    "prerequisites_to_be_established": [
+      "Exact source product identity (ESA SAFE granule ID vs Li cropped slice)",
+      "Source product native geometry (ground range vs slant range, native azimuth/range spacing)",
+      "Relationship between Li 100m multi-looked image and source Level-1 GRD frame",
+      "Deterministic spatial alignment method between the two coordinate frames",
+      "Verification that the original 100m label can be transferred reproducibly onto the native operational grid",
+      "Verification that the source product and Li image represent the identical acquisition geometry"
+    ],
+    "categorical_resampling_rule": "Nearest-Neighbor only. Continuous or fractional class interpolation is strictly prohibited.",
+    "class_overlap_precedence": "Labelme sequential polygon rasterization (higher class ID / later polygon overwrites earlier polygons; foreground discrete classes overwrite background Seawater [0]).",
+    "nodata_and_edge_handling": "Mask pixels outside valid radar imagery boundaries or beyond swath edges are flagged as NODATA (255) and excluded from metric scoring.",
+    "mandated_mask_classification": "DERIVED_HIGH_RESOLUTION_MASK",
+    "strictly_forbidden_classifications": [
+      "NATIVE_10M_GROUND_TRUTH",
+      "native 10m ground truth",
+      "10m pixel-level ground truth"
+    ],
+    "source_to_operational_grid_alignment_status": "NOT_ESTABLISHED",
+    "resampling_vs_registration_distinction": "Categorical nearest-neighbor resampling defines pixel rasterization rules; it does NOT establish spatial registration or geometric alignment between coordinate systems.",
+    "claim_scope": "SYSTEM_DESIGN"
+  },
+  "spatial_uncertainty_decomposition": {
+    "governance_rule": "Do not collapse spatial resolution, registration uncertainty, discretization scale, and annotation ambiguity into a single figure. Four distinct components must remain separate:",
+    "components": {
+      "1_annotation_resolution": {
+        "description": "Source annotations digitized on 100m multi-looked pixel grid.",
+        "quantification_status": "MEASURABLE",
+        "value": "100m source-grid cell scale / nominal half-cell spatial extent (+/-50m nominal extent)",
+        "claim_scope": "DATASET",
+        "nature": "NOMINAL_GRID_SCALE",
+        "clarification": "Nominal half-cell spatial extent of 100m grid; not an empirical measurement of human digitizer localization error."
+      },
+      "2_geolocation_registration_uncertainty": {
+        "description": "Interpolation error between 4 corner GCPs across the 25.6 km scene interior.",
+        "quantification_status": "NOT_ESTABLISHED",
+        "value": "UNKNOWN / NOT ESTABLISHED (No interior GCPs or independent tiepoints present in examined sample; interior registration accuracy is not independently validated; zero numerical bounds are source-derived)",
+        "claim_scope": "SAMPLE",
+        "nature": "UNVALIDATED_INTERIOR"
+      },
+      "3_resampling_discretization_envelope": {
+        "description": "Geometric discretization artifact when mapping 100m source pixels to 10m operational grid.",
+        "quantification_status": "MEASURABLE",
+        "value": "Nominal half-cell grid discretization scale (+/-5m at 10m pixel pitch)",
+        "claim_scope": "SYSTEM_DESIGN",
+        "nature": "NOMINAL_DISCRETIZATION_SCALE",
+        "clarification": "Nominal mathematical half-cell discretization scale of the target 10m grid; not a measured resampling spatial distortion error."
+      },
+      "4_human_annotation_ambiguity": {
+        "description": "Operator boundary digitizing variation on diffuse/low-gradient oceanic phenomena.",
+        "quantification_status": "NOT_ESTABLISHED",
+        "value": "UNKNOWN / NOT ESTABLISHED (No multi-annotator blind trial data published)",
+        "claim_scope": "DATASET",
+        "nature": "UNQUANTIFIED_HUMAN_VARIABILITY"
+      }
+    }
+  },
+  "boundary_tolerance_protocol": {
+    "parameter_characterization": "Candidate PRE-REGISTERED BOUNDARY-TOLERANCE PARAMETER. It is NOT automatically a measured physical uncertainty, exact annotation error, exact geolocation error, or ground-truth correction.",
+    "evaluation_dual_protocol": {
+      "protocol_a_strict_evaluation": "Exact pixel-to-pixel scoring without boundary buffer tolerance.",
+      "protocol_b_boundary_tolerant_evaluation": "Segregates pixels within candidate 50m tolerance envelope (5 native 10m pixels) along phenomenon perimeter to isolate interior vs boundary agreement."
+    },
+    "protocol_reporting_mandate": "Both Protocol A and Protocol B must be reported side-by-side; Protocol B must never silently replace Protocol A.",
+    "claim_scope": "EXPERIMENTAL"
+  },
+  "boundary_uncertainty_contract": {
+    "mandated_mask_classification": "DERIVED_HIGH_RESOLUTION_MASK",
+    "strictly_forbidden_classifications": [
+      "NATIVE_10M_GROUND_TRUTH",
+      "native 10m ground truth",
+      "10m pixel-level ground truth"
+    ],
+    "spatial_uncertainty_zones": {
+      "interior_certainty_zone": "Pixels located > 50 meters (> 5 native 10m pixels) inside the annotated phenomenon boundary. High physical confidence.",
+      "exterior_certainty_zone": "Pixels located > 50 meters (> 5 native 10m pixels) outside any annotated phenomenon boundary. High open-ocean confidence.",
+      "ambiguous_boundary_zone": "A 50-meter buffer (+/- 50m / +/- 5 native 10m pixels) along all phenomenon perimeter contours. Subject to human digitizer error on 100m multi-looked imagery."
+    },
+    "pre_registered_evaluation_protocol": {
+      "boundary_erosion_buffer_meters": 50.0,
+      "boundary_erosion_buffer_native_pixels": 5,
+      "parameter_characterization": "Candidate PRE-REGISTERED BOUNDARY-TOLERANCE PARAMETER. It is NOT automatically a measured physical uncertainty, exact annotation error, exact geolocation error, or ground-truth correction.",
+      "evaluation_dual_protocol": {
+        "protocol_a_strict_evaluation": "Exact pixel-to-pixel scoring without boundary buffer tolerance.",
+        "protocol_b_boundary_tolerant_evaluation": "Segregates pixels within candidate 50m tolerance envelope (5 native 10m pixels) along phenomenon perimeter to isolate interior vs boundary agreement."
+      },
+      "protocol_reporting_mandate": "Both Protocol A and Protocol B must be reported side-by-side; Protocol B must never silently replace Protocol A."
+    },
+    "claim_scope": "SYSTEM_DESIGN"
+  },
+  "sample_scope_metadata": {
+    "inspection_population": "Li distributed GeoTIFF archive",
+    "files_examined": 12,
+    "files_total_if_known": 5011,
+    "coverage_status": "SAMPLE_REPRESENTATIVE_NOT_EXHAUSTIVE",
+    "claim_scope": "SAMPLE",
+    "evidence_source": "Programmatic TIFF Tag 33922 audit across 12 representative IW control files",
+    "statement": "No interior GCPs were observed in the examined Li GeoTIFF sample (12 representative control files). Zero interior tiepoints and zero external geolocation arrays were observed in this examined sample. Independent interior geolocation accuracy across the 25.6 km scene interior is NOT ESTABLISHED."
+  }
+}

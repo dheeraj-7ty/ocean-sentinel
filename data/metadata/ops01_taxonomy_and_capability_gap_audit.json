@@ -1,0 +1,355 @@
+{
+  "audit_version": "2.3.0",
+  "audit_phase": "PHASE_7B.2B-R3",
+  "audit_title": "OPS-01 Taxonomy Justification, Multidimensional Evidence Matrix, and Capability-Gap Audit",
+  "dataset_doi": "10.5281/zenodo.14279466",
+  "core_taxonomy_classification": "B. REASONABLE ENGINEERING HYPOTHESIS REQUIRING VALIDATION",
+  "core_taxonomy_classification_justification": "The 7 core classes (BG, BS, LWA, IWs, OF, RF/RC, Eddy) are supported by direct physical oceanographic literature (Dim A) and established radar backscatter theory (Dim B), with direct/indirect look-alike mechanisms (Dim C). However, their direct empirical link to specific EXP-06 false alarms (Dim D) and their operational suppression efficacy in fusion (Dim E) remain unproven engineering hypotheses requiring validation.",
+  "capability_gap_justification": {
+    "question": "WHY DOES OPS-01 NEED TO EXIST?",
+    "governance_rule": "Rule 18: Every model must have a diagnosed reason for existing. Look-alike classes in another dataset do not justify a model.",
+    "diagnosed_gap": "EXP-06 was trained on petroleum slicks and achieves high precision on authentic oil, but exhibits false-positive sensitivity to low-backscatter natural anomalies (biogenic slicks, calm water, internal waves). Retraining or modifying EXP-06 risks catastrophic forgetting and invalidates its frozen benchmark baseline. OPS-01 is chartered to provide an independent look-alike recognition engine that detects these natural phenomena, enabling downstream multi-specialist fusion to suppress false alarms without altering the frozen oil detector.",
+    "system_level_capability_gap": "EXP-06 demonstrates a clean-water false-alarm capability gap.",
+    "look_alike_attribution_status": "Specific attribution of those false alarms to individual Li phenomena (BS, LWA, IWs, OF, RF, Eddy) is NOT ESTABLISHED and requires targeted evaluation.",
+    "causal_attribution_prohibition": "Never use CAUSE, ROOT CAUSE, or PROVEN SOURCE for individual Li classes until targeted empirical false-alarm benchmarking is executed under canonical preprocessing.",
+    "claim_scope": "SYSTEM_DESIGN",
+    "ops01_architectural_status": "ARCHITECTURAL_HYPOTHESIS_REQUIRING_VALIDATION",
+    "ops01_validation_status": "UNVALIDATED_SPECIALIST_CONCEPT",
+    "suppression_value_status": "HYPOTHESIZED_PENDING_FUSION_BENCHMARKING",
+    "clarification": "OPS-01 is chartered as an architectural hypothesis. It is not currently demonstrated or proven to suppress false alarms in operational deployment."
+  },
+  "multidimensional_evidence_matrix": [
+    {
+      "class_id": 0,
+      "abbreviation": "BG",
+      "name": "Background Seawater",
+      "operational_role": "CORE_BACKGROUND",
+      "pixel_count": 32264741,
+      "pixel_percentage": 9.8248,
+      "image_count": 1769,
+      "iw_image_count": 1267,
+      "wv_image_count": 502,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "NOT_ESTABLISHED",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Ambient open-ocean baseline matrix; provides essential negative class anchor.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 2,
+      "abbreviation": "BS",
+      "name": "Biological Slicks",
+      "operational_role": "CORE_LOOKALIKE",
+      "pixel_count": 44132805,
+      "pixel_percentage": 13.4385,
+      "image_count": 1034,
+      "iw_image_count": 880,
+      "wv_image_count": 154,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "DIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "HYPOTHESIZED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Phytoplankton/plankton monomolecular surfactant films damp short capillary waves via Marangoni effect; primary global look-alike.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 4,
+      "abbreviation": "LWA",
+      "name": "Low Wind Area",
+      "operational_role": "CORE_LOOKALIKE",
+      "pixel_count": 22918463,
+      "pixel_percentage": 6.9787,
+      "image_count": 601,
+      "iw_image_count": 506,
+      "wv_image_count": 95,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "DIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "HYPOTHESIZED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Surface wind speed < 2-3 m/s prevents Bragg ripple formation; radar backscatter drops to noise floor, producing large dark regions.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 12,
+      "abbreviation": "IWs",
+      "name": "Oceanic Internal Waves",
+      "operational_role": "CORE_LOOKALIKE",
+      "pixel_count": 10072384,
+      "pixel_percentage": 3.067,
+      "image_count": 417,
+      "iw_image_count": 375,
+      "wv_image_count": 42,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "DIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "HYPOTHESIZED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Subsurface soliton packets modulate surface roughness; dark trough stripes create curved linear features resembling oil slicks.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 6,
+      "abbreviation": "OF",
+      "name": "Oceanic Front",
+      "operational_role": "CORE_LOOKALIKE",
+      "pixel_count": 1467020,
+      "pixel_percentage": 0.4467,
+      "image_count": 437,
+      "iw_image_count": 224,
+      "wv_image_count": 213,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "INDIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "HYPOTHESIZED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Water mass boundaries and current shears collect natural surfactants along convergence lines, mimicking weathered linear slicks.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 8,
+      "abbreviation": "RC/RF",
+      "name": "Rainfall / Rain Cells",
+      "operational_role": "CORE_LOOKALIKE",
+      "pixel_count": 8424986,
+      "pixel_percentage": 2.5654,
+      "image_count": 484,
+      "iw_image_count": 425,
+      "wv_image_count": 59,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "INDIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "HYPOTHESIZED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Atmospheric precipitation downdrafts cause dark divergence footprints surrounded by turbulent bright borders.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 11,
+      "abbreviation": "Eddy",
+      "name": "Ocean Eddy",
+      "operational_role": "CORE_LOOKALIKE",
+      "pixel_count": 5008621,
+      "pixel_percentage": 1.5251,
+      "image_count": 501,
+      "iw_image_count": 309,
+      "wv_image_count": 192,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "INDIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "HYPOTHESIZED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Mesoscale/submesoscale vortices organize natural slicks into curved spiral arms.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 10,
+      "abbreviation": "WS",
+      "name": "Wind Streak",
+      "operational_role": "AUXILIARY_CONTEXT",
+      "pixel_count": 35453890,
+      "pixel_percentage": 10.7957,
+      "image_count": 585,
+      "iw_image_count": 405,
+      "wv_image_count": 180,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "INDIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Boundary layer roll vortices aligned with surface wind; provides wind direction context.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 7,
+      "abbreviation": "POW",
+      "name": "Pure Ocean Wave",
+      "operational_role": "AUXILIARY_CONTEXT",
+      "pixel_count": 91480185,
+      "pixel_percentage": 27.8557,
+      "image_count": 1746,
+      "iw_image_count": 1154,
+      "wv_image_count": 592,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "NOT_ESTABLISHED",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Open-ocean swell wave fields; provides ambient wave energy context.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 5,
+      "abbreviation": "MCC",
+      "name": "Micro Convective Cells",
+      "operational_role": "AUXILIARY_CONTEXT",
+      "pixel_count": 43978427,
+      "pixel_percentage": 13.3914,
+      "image_count": 830,
+      "iw_image_count": 712,
+      "wv_image_count": 118,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "NOT_ESTABLISHED",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Honeycomb atmospheric convection patterns; contextual atmospheric stability indicator.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 1,
+      "abbreviation": "AF",
+      "name": "Atmospheric Front",
+      "operational_role": "AUXILIARY_CONTEXT",
+      "pixel_count": 3726670,
+      "pixel_percentage": 1.1348,
+      "image_count": 644,
+      "iw_image_count": 452,
+      "wv_image_count": 192,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "NOT_ESTABLISHED",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Synoptic meteorological fronts; step-change in wind field, contextual atmospheric indicator.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 9,
+      "abbreviation": "SI",
+      "name": "Sea Ice",
+      "operational_role": "CRYOSPHERIC_MODE",
+      "pixel_count": 29179492,
+      "pixel_percentage": 8.8852,
+      "image_count": 454,
+      "iw_image_count": 367,
+      "wv_image_count": 87,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "INDIRECT",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Grease/frazil ice dampens waves in polar seas; segregated to polar mode to prevent distorting open-ocean metrics.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 3,
+      "abbreviation": "IB",
+      "name": "Iceberg",
+      "operational_role": "CRYOSPHERIC_MODE",
+      "pixel_count": 260863,
+      "pixel_percentage": 0.0794,
+      "image_count": 398,
+      "iw_image_count": 0,
+      "wv_image_count": 398,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "NOT_ESTABLISHED",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Calved glacial ice bodies (100% in WV mode); segregated to polar operating mode.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 13,
+      "abbreviation": "HM",
+      "name": "Artificial / Anthropogenic Objects",
+      "operational_role": "MARITIME_ATTRIBUTION",
+      "pixel_count": 30647,
+      "pixel_percentage": 0.0093,
+      "image_count": 207,
+      "iw_image_count": 202,
+      "wv_image_count": 5,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "NOT_ESTABLISHED",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_ESTABLISHED",
+        "E_demonstrated_ops_suppression_value": "HYPOTHESIZED"
+      },
+      "notes": "Ships, offshore drilling platforms, aquaculture rafts, and wind turbines. Strictly designated 'Artificial / Anthropogenic Objects'; renaming to 'Vessel' is forbidden.",
+      "claim_scope": "EXPERIMENTAL"
+    },
+    {
+      "class_id": 14,
+      "abbreviation": "OS",
+      "name": "Mineral Oil Spill (Incidental Tag)",
+      "operational_role": "STRICTLY_EXCLUDED",
+      "pixel_count": 1702,
+      "pixel_percentage": 0.0005,
+      "image_count": 4,
+      "iw_image_count": 4,
+      "wv_image_count": 0,
+      "ratings": {
+        "A_phenomenon_identity": "DIRECT",
+        "B_sar_signature_interpretation": "DIRECT",
+        "C_plausible_lookalike_relationship": "NOT_APPLICABLE",
+        "D_demonstrated_exp06_false_alarm_cause": "NOT_APPLICABLE",
+        "E_demonstrated_ops_suppression_value": "NOT_APPLICABLE"
+      },
+      "notes": "DISQUALIFIED. 4 images, 1,702 pixels. Excluded from OPS training, oil evaluation, and ground truth.",
+      "claim_scope": "EXPERIMENTAL"
+    }
+  ],
+  "leakage_and_independence_audit": {
+    "iw_mode": {
+      "grouping_basis": "Parent Level-1 GRD Product Scene Stem",
+      "slice_count": 2628,
+      "scene_count": 484,
+      "evidence_source": "SOURCE_METADATA_AND_DATASET_STRUCTURE",
+      "spatial_leakage_risk": "HIGH_IF_SPLIT_BY_SLICE; ZERO_IF_SPLIT_BY_PARENT_SCENE",
+      "partition_rule": "Partitioning MUST occur at parent scene stem level. Sibling slices cannot cross partitions.",
+      "confidence": "HIGH",
+      "claim_scope": "DATASET"
+    },
+    "wv_mode": {
+      "grouping_basis": "Orbit Pass (sat, orbit, data_take_id)",
+      "vignette_count": 2383,
+      "orbit_pass_count": 1678,
+      "evidence_source": "SOURCE_METADATA",
+      "temporal_leakage_risk": "HIGH_IF_SPLIT_BY_VIGNETTE; ZERO_IF_SPLIT_BY_ORBIT_PASS",
+      "partition_rule": "Partitioning MUST occur at orbit-pass level. Sibling vignettes cannot cross partitions.",
+      "confidence": "HIGH",
+      "claim_scope": "DATASET"
+    },
+    "cross_dataset_leakage": {
+      "part_i_overlap": "ZERO_CONFIRMED",
+      "part_iii_overlap": "UNKNOWN_NOT_EVALUATED_FIREWALLED",
+      "dartis_overlap": "ZERO_CONFIRMED",
+      "confidence": "MEDIUM (HIGH for Part-I dev test; UNKNOWN for firewalled Part-III)",
+      "part_iii_firewall_status": "PROTECTED_UNDER_RULE_38_QUARANTINE",
+      "firewall_governance_rule": "Rule 65: A benchmark firewall prevents evaluation, but therefore cannot establish zero overlap with the firewalled benchmark unless independent evidence exists.",
+      "claim_scope": "BENCHMARK"
+    }
+  },
+  "core_taxonomy_claim_scope": "SYSTEM_DESIGN"
+}

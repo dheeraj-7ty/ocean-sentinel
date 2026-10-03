@@ -1,0 +1,40 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:51:42.589867+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_12_REPRODUCIBILITY_AUDIT",
+  "reproducibility_levels_defined": {
+    "A_artifact_hash_consistency": "ESTABLISHED -- SHA256 hashes of all 147 images/masks verified against manifest",
+    "B_deterministic_rerun": "ESTABLISHED -- code uses SHA-256-based group assignment (deterministic partition)",
+    "C_environment_reproducibility": "PARTIALLY_ESTABLISHED -- Python version and key package versions captured",
+    "D_scientific_procedure_reproducibility": "NOT_ESTABLISHED -- Li dataset generation method NOT_DIRECTLY_VERIFIED"
+  },
+  "current_highest_level": "B_deterministic_rerun",
+  "environment": {
+    "python_version": "Python 3.10.9",
+    "key_packages": {
+      "numpy": "2.2.6",
+      "pytest": "9.1.1",
+      "rasterio": "1.4.4",
+      "torch": "2.14.0+cu126"
+    },
+    "platform": "Windows"
+  },
+  "manifest_version": "3.0.0",
+  "taxonomy_version": "UNKNOWN",
+  "split_method": "SHA-256 deterministic group assignment on parent_scene_id",
+  "random_seeds": {
+    "partition_assignment": "SHA-256 (seedless deterministic)",
+    "augmentation": "NOT_YET_DEFINED"
+  },
+  "external_data_references": [
+    "ESA Copernicus Open Access Hub / S3 bucket for Level-1 IW GRD products",
+    "Li et al. SAR oil-spill lookalike label catalog (external, not redownloaded in P3)"
+  ],
+  "prohibited_upgrades": [
+    "ARTIFACT_HASH_CONSISTENCY != FULL_END_TO_END_REPRODUCIBILITY",
+    "Deterministic partition assignment != reproducible training outcome",
+    "SHA-256 consistency != scientifically reproducible dataset generation"
+  ],
+  "verdict": "LEVEL_B_ESTABLISHED_LEVEL_D_NOT_ESTABLISHED"
+}

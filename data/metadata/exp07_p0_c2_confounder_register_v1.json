@@ -1,0 +1,148 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C2",
+  "generated_at": "2026-09-13T22:29:00+05:30",
+  "total_confounders": 14,
+  "confounders": [
+    {
+      "id": "CONF-01",
+      "name": "Incidence angle gradient",
+      "risk": "HIGH",
+      "mechanism": "GRD calibration LUT varies ~17% across swath. Uncalibrated DN values at different swath positions are not radiometrically comparable.",
+      "affected_partition": "ALL",
+      "mitigation": "Apply approximate sigma0 calibration using recovered S3 calibration XMLs",
+      "residual_risk": "~6% systematic bias from block-mean nonlinearity; larger bias at feature boundaries",
+      "status": "REQUIRES_VALIDATION"
+    },
+    {
+      "id": "CONF-02",
+      "name": "Block-mean calibration nonlinearity",
+      "risk": "MEDIUM",
+      "mechanism": "OPS-01 stores mean(DN). Calibration uses DN^2. By Jensen's inequality, (mean(DN))^2 < mean(DN^2). Approximate calibration systematically underestimates sigma0 by ~6% in homogeneous regions.",
+      "affected_partition": "ALL",
+      "mitigation": "Accept systematic bias (0.25 dB, within sensor spec); empirically validate via V-01",
+      "residual_risk": "Scene-content-dependent bias at feature boundaries (uncorrectable from block-mean)",
+      "status": "REQUIRES_VALIDATION"
+    },
+    {
+      "id": "CONF-03",
+      "name": "Parent scene concentration",
+      "risk": "HIGH",
+      "mechanism": "72 TRAIN samples from only 12 parent scenes. One parent contributes 12 tiles, another only 1 tile. Model may memorize scene-specific patterns.",
+      "affected_partition": "TRAIN",
+      "mitigation": "Parent-balanced sampler candidate; multi-seed evaluation",
+      "residual_risk": "12 parents may not represent global maritime diversity; unfixable without new data",
+      "status": "ACKNOWLEDGED"
+    },
+    {
+      "id": "CONF-04",
+      "name": "Rare-class parent diversity",
+      "risk": "HIGH",
+      "mechanism": "Eddy appears in 3 tiles from 1 parent. LWA in 2 tiles from 1 parent. HM in 7 tiles from 5 parents (985 pixels total). Model cannot generalize beyond observed parent scenes for these classes.",
+      "affected_partition": "TRAIN",
+      "mitigation": "None available without additional data. Document as limitation.",
+      "residual_risk": "Per-class IoU for Eddy, LWA, HM may reflect memorization, not generalization",
+      "status": "ACKNOWLEDGED"
+    },
+    {
+      "id": "CONF-05",
+      "name": "Zero-pixel border artifacts",
+      "risk": "MEDIUM",
+      "mechanism": "7 samples contain zero-valued border pixels (swath edge padding). In log domain, these become -60 dB artifacts. Source mask labels them BG.",
+      "affected_partition": "TRAIN (4), DEV (2), HOLDOUT (1)",
+      "mitigation": "Validity mask: valid=(raw>0); exclude zeros from normalization; map to IGNORE_INDEX in training target",
+      "residual_risk": "Validity mask design not empirically validated yet",
+      "status": "PROVISIONAL"
+    },
+    {
+      "id": "CONF-06",
+      "name": "Dominant-class sampler failure",
+      "risk": "HIGH",
+      "mechanism": "P0 proposed WeightedRandomSampler with inverse dominant-class frequency. 6/12 classes (AF, Eddy, HM, LWA, OF, RF) are never dominant in any TRAIN tile. These classes receive zero targeted upsampling.",
+      "affected_partition": "TRAIN",
+      "mitigation": "Replace with class-presence-aware or parent-balanced sampler",
+      "residual_risk": "Optimal sampler not yet determined",
+      "status": "FROZEN_DEFECT_IDENTIFIED"
+    },
+    {
+      "id": "CONF-07",
+      "name": "Sampler x loss double correction",
+      "risk": "MEDIUM",
+      "mechanism": "If sampler upweights rare classes AND loss weights also upweight rare classes, the combined effect may be extreme. HM has 147.9x raw loss weight; if also upsampled, effective gradient could destabilize training.",
+      "affected_partition": "TRAIN",
+      "mitigation": "Analyze combined effective class gradient magnitudes (V-04)",
+      "residual_risk": "Depends on final sampler+loss choice",
+      "status": "REQUIRES_VALIDATION"
+    },
+    {
+      "id": "CONF-08",
+      "name": "BatchNorm instability at small batch size",
+      "risk": "MEDIUM",
+      "mechanism": "Both architectures use BatchNorm2d. With batch_size=8 and 72 TRAIN samples, only ~9 batches/epoch. BN running statistics may be poorly estimated.",
+      "affected_partition": "TRAIN",
+      "mitigation": "Consider GroupNorm or InstanceNorm alternative. Verify BN behavior in V-06.",
+      "residual_risk": "GroupNorm may underperform BN in some settings",
+      "status": "REQUIRES_VALIDATION"
+    },
+    {
+      "id": "CONF-09",
+      "name": "Seed variance with small dataset",
+      "risk": "MEDIUM",
+      "mechanism": "72 TRAIN samples with 12-class imbalanced task. High expected variance between random seeds.",
+      "affected_partition": "ALL",
+      "mitigation": "3-seed protocol with mean +/- std reporting",
+      "residual_risk": "3 seeds may be insufficient to characterize variance; true confidence intervals require more runs",
+      "status": "ACKNOWLEDGED"
+    },
+    {
+      "id": "CONF-10",
+      "name": "Holdout selection bias",
+      "risk": "LOW-MEDIUM",
+      "mechanism": "HOLDOUT was historically used in model selection for prior experiments. Cannot claim pristine evaluation.",
+      "affected_partition": "HOLDOUT",
+      "mitigation": "Disclose as HOLDOUT_PARTIALLY_USED_FOR_SELECTION. No post-hoc best-seed selection on holdout.",
+      "residual_risk": "Cannot be fully resolved without new holdout data",
+      "status": "FROZEN"
+    },
+    {
+      "id": "CONF-11",
+      "name": "Geographic concentration",
+      "risk": "LOW-MEDIUM",
+      "mechanism": "Unknown geographic diversity of 27 parent scenes. All may be from similar regions.",
+      "affected_partition": "ALL",
+      "mitigation": "Inspect scene geographic metadata if available",
+      "residual_risk": "Geographic bias in model performance",
+      "status": "UNKNOWN"
+    },
+    {
+      "id": "CONF-12",
+      "name": "Temporal concentration",
+      "risk": "LOW",
+      "mechanism": "Parent scenes span 2015-2023. Sentinel-1 processing baseline changes over time may affect DN characteristics.",
+      "affected_partition": "ALL",
+      "mitigation": "Physical calibration normalizes processing changes; processing baseline changes are well-documented",
+      "residual_risk": "Minor processing-related DN distribution shifts",
+      "status": "ACKNOWLEDGED"
+    },
+    {
+      "id": "CONF-13",
+      "name": "Source annotation quality",
+      "risk": "MEDIUM",
+      "mechanism": "Li et al. annotations are the ground truth. Quality, consistency, and inter-annotator agreement are not independently verified for OPS-01 subset.",
+      "affected_partition": "ALL",
+      "mitigation": "None available without independent re-annotation. Treat as dataset limitation.",
+      "residual_risk": "Model performance bounded by annotation quality",
+      "status": "ACKNOWLEDGED"
+    },
+    {
+      "id": "CONF-14",
+      "name": "Augmentation orientation validity for SAR",
+      "risk": "LOW",
+      "mechanism": "SAR imagery has physical orientation (range direction = incidence angle gradient). Flips along range direction change incidence angle ordering.",
+      "affected_partition": "TRAIN",
+      "mitigation": "At 256x256 tile scale, incidence angle gradient is negligible (~2.5% across tile). Flips classified as CONDITIONALLY SAFE.",
+      "residual_risk": "Rotation/transpose require more analysis",
+      "status": "PROVISIONAL"
+    }
+  ]
+}

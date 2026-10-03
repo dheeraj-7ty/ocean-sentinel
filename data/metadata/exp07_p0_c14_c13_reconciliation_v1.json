@@ -1,0 +1,112 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "title": "C13 Residual Sanity Check and Recomputed Baseline Reconciliation",
+  "recomputed_at": "2026-09-13T20:44:35.040088+00:00",
+  "audit_methodology": "Direct programmatic recomputation from disk artifacts without narrative reliance.",
+  "all_metrics_reconciled": true,
+  "reconciliation_summary": {
+    "ops01_parents": 27,
+    "li_iw_scenes": 484,
+    "li_iw_slices": 2628,
+    "uningested_scenes": 457,
+    "uningested_datatakes": 373,
+    "uningested_slices_with_physical_labels": 2480,
+    "platform_distribution": {
+      "S1A": 455,
+      "S1B": 2
+    },
+    "years_distribution": [
+      [
+        "2015",
+        3
+      ],
+      [
+        "2016",
+        12
+      ],
+      [
+        "2017",
+        29
+      ],
+      [
+        "2018",
+        32
+      ],
+      [
+        "2019",
+        19
+      ],
+      [
+        "2020",
+        13
+      ],
+      [
+        "2021",
+        8
+      ],
+      [
+        "2022",
+        341
+      ]
+    ]
+  },
+  "records": [
+    {
+      "metric_name": "OPS01_UNIQUE_PARENTS",
+      "c13_reported_value": 27,
+      "c14_observed_value": 27,
+      "difference": 0,
+      "reconciliation_status": "EXACT_MATCH",
+      "evidence_source": "data/metadata/ops01_physical_dataset_manifest_v4.json"
+    },
+    {
+      "metric_name": "LI_IW_TOTAL_SCENES",
+      "c13_reported_value": 484,
+      "c14_observed_value": 484,
+      "difference": 0,
+      "reconciliation_status": "EXACT_MATCH",
+      "evidence_source": "data/metadata/li_iw_source_scene_manifest.json"
+    },
+    {
+      "metric_name": "LI_IW_TOTAL_SLICES",
+      "c13_reported_value": 2628,
+      "c14_observed_value": 2628,
+      "difference": 0,
+      "reconciliation_status": "EXACT_MATCH",
+      "evidence_source": "data/metadata/li_iw_source_scene_manifest.json['slices']"
+    },
+    {
+      "metric_name": "OPS01_OVERLAP_COUNT",
+      "c13_reported_value": 27,
+      "c14_observed_value": 27,
+      "difference": 0,
+      "reconciliation_status": "EXACT_MATCH",
+      "evidence_source": "Intersection of ops01 parent_scene_ids and li_iw source_scene_ids"
+    },
+    {
+      "metric_name": "UNINGESTED_CANDIDATE_SCENES",
+      "c13_reported_value": 457,
+      "c14_observed_value": 457,
+      "difference": 0,
+      "reconciliation_status": "EXACT_MATCH",
+      "evidence_source": "484 total scenes minus 27 OPS-01 overlap scenes"
+    },
+    {
+      "metric_name": "UNIQUE_DATATAKES_UNINGESTED",
+      "c13_reported_value": 373,
+      "c14_observed_value": 373,
+      "difference": 0,
+      "reconciliation_status": "EXACT_MATCH",
+      "evidence_source": "Set of mission_data_take_id across 457 uningested scenes"
+    },
+    {
+      "metric_name": "UNINGESTED_SLICES_WITH_LABELS",
+      "c13_reported_value": 2480,
+      "c14_observed_value": 2480,
+      "difference": 0,
+      "reconciliation_status": "EXACT_MATCH",
+      "evidence_source": "scratch/all_labels/label/*.png cross-referenced against uningested slices"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:53:41.425309+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_9_DATALOADER_CONTRACT_AUDIT",
+  "existing_dataloader": {
+    "class": "TrujilloTileDataset",
+    "module": "src/ocean_sentinel/ingestion/dataset.py",
+    "designed_for": "Trujillo Part-I 512x512 binary oil-spill tiles",
+    "compatible_with_ops01": false,
+    "incompatibilities": [
+      "TrujilloTileDataset reads from DatasetManifest (Part-I schema), not ops01_physical_dataset_manifest_v3.json",
+      "TrujilloTileDataset expects 512x512 tiles; OPS-01 has 256x256",
+      "TrujilloTileDataset expects 2-band images; OPS-01 has 1-band VV",
+      "TrujilloTileDataset yields binary masks {0,1}; OPS-01 masks are multi-class 0-14",
+      "TrujilloTileDataset uses windowed read from 2048x2048 GeoTIFF; OPS-01 reads whole 256x256 files",
+      "TrujilloTileDataset uses split via SplitName enum (TRAIN/VAL/TEST); OPS-01 uses TRAIN/DEV/HOLDOUT"
+    ]
+  },
+  "ops01_dataloader_status": "NOT_IMPLEMENTED",
+  "ops01_dataloader_requirement": "A new OPS-01-specific dataset class must be implemented before EXP-07 training. It must read from ops01_physical_dataset_manifest_v3.json, respect the TRAIN/DEV/HOLDOUT partition assignment, enforce Part-III firewall (no OPS-01 data must bleed into Part-III evaluation), and implement the chosen preprocessing pipeline.",
+  "required_contracts": [
+    "TRAIN dataloader loads ONLY partition=TRAIN samples from manifest",
+    "DEV dataloader loads ONLY partition=DEV samples from manifest",
+    "HOLDOUT dataloader loads ONLY partition=HOLDOUT samples from manifest",
+    "No silent fallback to 'all data' mode under any error condition",
+    "No cross-partition sampling under class-balancing or oversampling",
+    "Firewall assertion must reject any Part-III data roots",
+    "Exception on missing file \u2014 no silent skip unless explicitly authorized",
+    "Exception on corrupted file \u2014 no silent substitution",
+    "Reproducibility: shuffle=True for TRAIN requires fixed seed at DataLoader construction",
+    "Augmentation: stochastic transforms only for TRAIN; identity transform for DEV/HOLDOUT"
+  ],
+  "partition_isolation_verification": {
+    "TRAIN_vs_DEV_parent_overlap": 0,
+    "TRAIN_vs_HOLDOUT_parent_overlap": 0,
+    "DEV_vs_HOLDOUT_parent_overlap": 0,
+    "source": "Verified in Step 5 leakage audit"
+  },
+  "open_protocol_decisions": [
+    {
+      "decision_id": "OPEN-LOADER-001",
+      "topic": "OPS-01 DataLoader implementation",
+      "status": "NOT_IMPLEMENTED \u2014 must be created before EXP-07"
+    },
+    {
+      "decision_id": "OPEN-LOADER-002",
+      "topic": "Class balancing / oversampling",
+      "status": "NOT_DEFINED \u2014 must be explicitly approved before implementation",
+      "note": "Lookalike class imbalance is severe; positive-weight BCE was used for EXP-06"
+    },
+    {
+      "decision_id": "OPEN-LOADER-003",
+      "topic": "num_workers and pin_memory policy",
+      "status": "NOT_DEFINED \u2014 Windows process spawn overhead must be considered"
+    },
+    {
+      "decision_id": "OPEN-LOADER-004",
+      "topic": "Batch size policy",
+      "status": "NOT_DEFINED \u2014 depends on GPU memory and chosen architecture"
+    }
+  ],
+  "verdict": "AUDITED_OPS01_DATALOADER_NOT_YET_IMPLEMENTED"
+}

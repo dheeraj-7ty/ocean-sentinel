@@ -1,0 +1,71 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C11",
+  "title": "EXP-07 C10 Claim-by-Claim Adversarial Audit Register",
+  "audited_at": "2026-09-14T01:34:00Z",
+  "audit_table": [
+    {
+      "claim_id": "CLAIM-01",
+      "claim_text": "Protocol-identical replicate executed with zero protocol drift.",
+      "source_section": "C10 Report Section 1 & 2",
+      "evidence": "Programmatic diff shows 17 configuration blocks identical. train_exp07.py parameters match 100%. exp07_reference.py was unchanged.",
+      "verdict": "VERIFIED_TRUE",
+      "epistemic_level": "CAUSAL_ESTABLISHED",
+      "correction_required": "None."
+    },
+    {
+      "claim_id": "CLAIM-02",
+      "claim_text": "Trainable parameter count is 14,328,268.",
+      "source_section": "C10 Report Section 2 & 7",
+      "evidence": "Instantiated ResNet18UNet and both best checkpoints strictly contain 14,310,860 trainable parameters and 14,322,666 total state elements.",
+      "verdict": "REPORTING_ERROR",
+      "epistemic_level": "NOT_ESTABLISHED",
+      "correction_required": "Correct parameter count to 14,310,860."
+    },
+    {
+      "claim_id": "CLAIM-03",
+      "claim_text": "Two-seed comparison between Seed 42 and Seed 101 is bitwise-verified.",
+      "source_section": "C10 Report Section 24",
+      "evidence": "Independent evaluation of checkpoints matched recorded metrics bitwise (0.0e+00 diff), but Seed 42 and Seed 101 are different stochastic runs (0.119 vs 0.138), not bitwise identical to each other.",
+      "verdict": "LINGUISTIC_OVERCLAIM",
+      "epistemic_level": "OBSERVED",
+      "correction_required": "Clarify that bitwise verification applies to checkpoint metric recomputation, not cross-seed comparison."
+    },
+    {
+      "claim_id": "CLAIM-04",
+      "claim_text": "Rare-class zero IoU proves structural impossibility.",
+      "source_section": "C10 Report Section 12 & 16",
+      "evidence": "Two seeds demonstrate empirical failure recurrence under this protocol, but cannot prove universal structural impossibility without controlled interventional experiments.",
+      "verdict": "EPISTEMIC_OVERCLAIM",
+      "epistemic_level": "SUPPORTED",
+      "correction_required": "Downgrade from 'PROVEN / CONFIRMED' to 'OBSERVED RECURRENCE / SUPPORTED HYPOTHESIS'."
+    },
+    {
+      "claim_id": "CLAIM-05",
+      "claim_text": "BS and LWA exhibit reciprocal label swapping due to acoustic similarity.",
+      "source_section": "C10 Report Section 11 & 16",
+      "evidence": "Confusion matrix audit proves that 63.75% of BS pixels were misclassified as Eddy in Seed 101 (not LWA). LWA true positives stayed steady while precision rose because Eddy absorbed BS false positives. Modality is radar, not acoustic.",
+      "verdict": "FALSE_MECHANISTIC_NARRATIVE",
+      "epistemic_level": "NOT_ESTABLISHED",
+      "correction_required": "Replace with empirical confusion matrix finding: Eddy cannibalized BS pixels, cleaning up LWA false positives."
+    },
+    {
+      "claim_id": "CLAIM-06",
+      "claim_text": "4-stage UNet pooling causes HM point-target failure (CONFIRMED).",
+      "source_section": "C10 Report Section 15 & 16",
+      "evidence": "HM is 0.021% of TRAIN pixels (985 pixels). Receptive field downsampling is a plausible factor, but has not been isolated via architectural ablation.",
+      "verdict": "UNPROVEN_CAUSAL_CLAIM",
+      "epistemic_level": "PLAUSIBLE",
+      "correction_required": "Reclassify from 'CONFIRMED' to 'PLAUSIBLE ARCHITECTURAL HYPOTHESIS'."
+    },
+    {
+      "claim_id": "CLAIM-07",
+      "claim_text": "Parent Scene 01 failure is confirmed sensor domain shift.",
+      "source_section": "C10 Report Section 13 & 16",
+      "evidence": "Scene 01 exhibits severe prediction collapse of MCC and POW into BG and WS in both seeds, but sensor calibration / physical drift was not measured.",
+      "verdict": "UNVERIFIED_PHYSICAL_INFERENCE",
+      "epistemic_level": "SUPPORTED",
+      "correction_required": "Reclassify from 'CONFIRMED SENSOR DOMAIN SHIFT' to 'REPRODUCIBLE PARENT-SPECIFIC REPRESENTATION COLLAPSE'."
+    }
+  ]
+}

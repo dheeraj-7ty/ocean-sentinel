@@ -1,0 +1,32 @@
+{
+  "incident_register_id": "EXP07_P0_C22A8_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.8",
+  "created_at_utc": "2026-09-14T07:48:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A8-001",
+      "severity": "LOW / RESOLUTION",
+      "category": "INDEPENDENCE_CONTRACT_CLOSURE",
+      "title": "Mathematical Proof of Bijection, C22-B Computational Path Audit, and Final Source-of-Truth Closure",
+      "location": "data/ops02/manifests/ and C22-B execution dependencies",
+      "claimed_value": "Bijective correspondence between cluster_id and mission_data_take_id in frozen OPS-02; absence of stale 23 in C22-B computational paths.",
+      "machine_truth": "Bijective 64 <-> 64 mapping mathematically proven across both manifests and all 3 partitions (TRAIN 40 <-> 40, DEV 12 <-> 12, HOLDOUT 12 <-> 12). C22-B computational scripts dynamically evaluate cluster_id and contain zero stale 23 parameters. Canonical initial state verified bitwise.",
+      "root_cause": "Precautionary forensic gate mandated to prove bijection and verify that actual future C22-B execution scripts are free from stale narrative counts.",
+      "impact_assessment": "DOCUMENTATION_ONLY. The physical dataset membership, partition membership, pixel/mask content, canonical loss-weight vector, and relevant computational configurations were not changed by the correction of the erroneous '23' narrative figure. No historical computational path using the value 23 was identified.",
+      "remediation": "Established ops02_c22a8_final_independence_source_of_truth_v1.json and test_exp07_p0_c22a8_source_of_truth_guardrails.py. Preserved historical artifacts.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "All pre-training uncertainties closed. The frozen OPS-02 independence contract is proven bijective, C22-B execution dependencies are verified clean, and the system is declared READY_FOR_USER_AUTHORIZATION."
+}

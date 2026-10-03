@@ -1,0 +1,44 @@
+{
+  "incident_register_id": "EXP07_P0_C22A2_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.2",
+  "created_at_utc": "2026-09-14T05:45:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A2-001",
+      "severity": "LOW",
+      "category": "GOVERNANCE_COMPLIANCE",
+      "title": "Uncached Pretrained Backbone Handled via Non-Download Governance Rule",
+      "location": "ResNet18_Weights.IMAGENET1K_V1 resolution in data/ops02/initial_model_state.pt audit",
+      "claimed_value": "Expected pretrained weight file resnet18-f37072fd.pth to be hashed locally.",
+      "machine_truth": "File is not present in local torch hub cache directory (C:\\Users\\Dheeraj\\.cache\\torch\\hub\\checkpoints). Under strict task governance, zero network downloads are permitted merely to satisfy documentation. As instructed by protocol, PRETRAINED_FILE_HASH is explicitly recorded as 'NOT_LOCALLY_VERIFIED' with precise rationale.",
+      "root_cause": "Pretrained weights are downloaded dynamically by torchvision if requested, but local offline execution correctly avoids downloading when pretrained=False.",
+      "remediation": "Documented PRETRAINED_FILE_HASH = 'NOT_LOCALLY_VERIFIED' in audit and report; initial model state artifact data/ops02/initial_model_state.pt is locally verified with SHA256 4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    },
+    {
+      "incident_id": "INC-C22A2-002",
+      "severity": "LOW",
+      "category": "DATA_INTEGRITY",
+      "title": "Dual Serialization Clarification for Canonical Weight Vectors",
+      "location": "C22-A.1 vs C22-A.2 weight vector hashing specifications",
+      "claimed_value": "Python json.dumps produces different SHA256 depending on whitespace delimiters: default with spaces produces DBCDF612... (control) and 5587B0DF... (treatment), while compact UTF-8 with separators=(',', ':') produces 48B6F027... (control) and 42F09924... (treatment).",
+      "machine_truth": "Both representations represent the identical 12-element decimal list and load to identical torch.float32 tensors. However, cryptographic hashes of text representations differ by whitespace.",
+      "root_cause": "Default Python json.dumps() introduces space after comma, whereas canonical JSON serialization specifications often require compact representation (no whitespace).",
+      "remediation": "Explicitly catalogued and verified BOTH hashes in the preflight audit (ops02_c22a2_zero_step_preflight_v1.json), eliminating ambiguity across all future tools.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "Zero blocking issues. All zero-step preflight execution steps succeeded with bitwise and numerical parity. Zero training updates, zero backward passes, zero optimizer steps, zero HOLDOUT access, zero Part-III access."
+}

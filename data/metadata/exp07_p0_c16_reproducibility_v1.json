@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "EXP-07-P0-C16",
+  "replicate_id": "REPLICATE_003",
+  "seed": 42,
+  "reproducibility_invariants": {
+    "random_seed": 42,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "sampler_seed_formula": "seed + epoch * 1000",
+    "dataloader_num_workers": 2,
+    "pin_memory": true
+  },
+  "dataset_lineage": {
+    "dataset_version": "OPS02_v1.0.0_FROZEN",
+    "dataset_spec_file": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.json",
+    "physical_manifest_file": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "total_samples": 212,
+    "train_samples": 132,
+    "dev_samples": 40,
+    "holdout_samples": 40,
+    "holdout_access_count": 0,
+    "holdout_integrity": "PRISTINE_QUARANTINED"
+  },
+  "model_lineage": {
+    "architecture": "ResNet18-UNet",
+    "trainable_parameters": 14310860,
+    "batch_norm_2d_layers": 30,
+    "input_channels": 1,
+    "num_classes": 12,
+    "pretrained_backbone": "ResNet18_Weights.DEFAULT (ImageNet-1K)"
+  },
+  "artifacts": {
+    "best_checkpoint": {
+      "relpath": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/best_model.pt",
+      "sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+      "file_size_bytes": 57355665
+    },
+    "last_checkpoint": {
+      "relpath": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/last_model.pt",
+      "sha256": "60411490EFB81D5DE806F4DFFBA760F5D7F4486B14AB4F144AD35D37EE16FA9E",
+      "file_size_bytes": 57355665
+    },
+    "metrics_payload": {
+      "relpath": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/metrics.json"
+    },
+    "epoch_history": {
+      "relpath": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/epoch_history.json"
+    },
+    "training_log": {
+      "relpath": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/ocean-sentinel-exp07-c16-replicate-003.txt"
+    }
+  },
+  "historical_run_comparison": {
+    "EXP07_RUN001_SEED42": {
+      "phase": "C8",
+      "dataset": "OPS-01 (72 train / 24 dev)",
+      "compute": "Local CPU",
+      "best_epoch": 12,
+      "best_dev_mIoU_phenomena": 0.4072,
+      "note": "Historical run on earlier OPS-01 dataset context."
+    },
+    "EXP07_RUN002_SEED101": {
+      "phase": "C10",
+      "dataset": "OPS-01 (72 train / 24 dev)",
+      "compute": "Local CPU",
+      "best_epoch": 14,
+      "best_dev_mIoU_phenomena": 0.4057,
+      "note": "Descriptive replicate on earlier OPS-01 dataset context."
+    },
+    "EXP07_RUN003_SEED42": {
+      "phase": "C16",
+      "dataset": "OPS02_v1.0.0_FROZEN (132 train / 40 dev / 40 holdout)",
+      "compute": "Kaggle GPU (Dual Tesla T4)",
+      "best_epoch": 17,
+      "best_dev_mIoU_phenomena": 0.0494,
+      "note": "First authorized replicate on expanded frozen OPS-02 dataset."
+    }
+  },
+  "replicate_authorization_status": {
+    "run_003_seed42": "EXECUTED_AND_COMPLETED",
+    "seed_101": "NOT_EXECUTED_IN_C16",
+    "seed_2024": "STRICTLY_PROHIBITED_NEVER_STARTED"
+  }
+}

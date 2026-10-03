@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "EXP-07-P0-C17",
+  "incident_register_title": "EXP-07 Phase 0 C17 Forensic Audit Incident Register",
+  "audited_at_utc": "2026-09-14T04:25:00Z",
+  "total_incidents": 5,
+  "incidents": [
+    {
+      "incident_id": "C17-INC-001",
+      "phase": "PHASE_1_C15_BASELINE_RECONCILIATION",
+      "severity": "HIGH",
+      "classification": "DOCUMENTATION_DEFECT_HISTORICAL_ARITHMETIC_ERROR",
+      "description": "C15 report and audit narratives reported DEV as 41 samples and HOLDOUT as 39 samples. Physical manifests assembled in C14 have always had 40 DEV samples and 40 HOLDOUT samples (sum = 80). The error was a manual markdown transcription error in C14 that propagated into C15 audits without checking len(sample_ids).",
+      "scientific_impact": "LOW ON DATASET (physical data and partition memberships were 100% frozen and untouched); HIGH ON AUDIT INTEGRITY (caused confusion and suspicion of dataset mutation).",
+      "resolution": "Reconciled in data/ops02/audits/ops02_c15_c16_freeze_reconciliation_v1.json with full mathematical cluster-slice breakdown."
+    },
+    {
+      "incident_id": "C17-INC-002",
+      "phase": "PHASE_3_FREEZE_MUTATION_AUDIT",
+      "severity": "MEDIUM",
+      "classification": "UNRECORDED_METADATA_MODIFICATION",
+      "description": "During C16 pre-transfer verification, OPS02_DATASET_FREEZE_SPEC_v1.json was edited in-place to update DEV from 41 to 40 and HOLDOUT from 39 to 40 to match the manifests. This modification was not logged in the C16 incident register.",
+      "scientific_impact": "NONE on trained weights, but constitutes an operational governance violation (GOV-RULE-081).",
+      "resolution": "Codified in ops02_c16_freeze_mutation_audit_v1.json; proposed GOV-RULE-085 requiring freeze specs to be cryptographically bound and immutable."
+    },
+    {
+      "incident_id": "C17-INC-003",
+      "phase": "PHASE_10_GPU_EXECUTION_AUDIT",
+      "severity": "MEDIUM",
+      "classification": "HARDWARE_CONCURRENCY_REPORTING_INACCURACY",
+      "description": "C16 reported execution on a 'dual-T4 environment', but PyTorch code executed strictly on cuda:0 without DataParallel or DistributedDataParallel. The second T4 was idle.",
+      "scientific_impact": "BENIGN for determinism and optimization correctness; misleading for compute efficiency claims.",
+      "resolution": "Documented in ops02_c16_gpu_execution_audit_v1.json and established reporting rule: GPU provisioned != GPU utilized."
+    },
+    {
+      "incident_id": "C17-INC-004",
+      "phase": "PHASE_10_GPU_EXECUTION_AUDIT",
+      "severity": "LOW",
+      "classification": "MEMORY_METRIC_MISINTERPRETATION",
+      "description": "The C16 report cited 55.5 MB as peak VRAM consumption. Forensics proved this was solely the static model weight allocation during an eval-mode warmup loop under torch.no_grad(). Training VRAM with optimizer states and backprop graphs was substantially larger.",
+      "scientific_impact": "NONE on scientific training validity; minor technical documentation inaccuracy.",
+      "resolution": "Formally classified in ops02_c16_gpu_execution_audit_v1.json."
+    },
+    {
+      "incident_id": "C17-INC-005",
+      "phase": "PHASE_14_CLASSWISE_FAILURE_DIAGNOSIS",
+      "severity": "HIGH",
+      "classification": "EVALUATION_METRIC_COLLAPSE_BY_EXTREME_CLASS_SPARSITY",
+      "description": "DEV macro mIoU collapsed to 4.94% primarily because the macro average denominator includes classes with extreme sparsity or zero true positives (HM has 117 px, IoU=0; AF has 39k px, IoU=0; RF has 9.5k px, IoU=0; OF has 1.7k px, IoU=0.0005). Dominant phenomena (MCC, IWs, BS) average 14.50% mIoU.",
+      "scientific_impact": "Explains the apparent 'catastrophic collapse' from OPS-01 to OPS-02 as a combination of true disjoint cluster distribution shift and macro-average sensitivity to zero-TP sparse classes.",
+      "resolution": "Formulated blocking issue BLK-C17-003 requiring partitioned reporting of well-supported vs sparse phenomena."
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:25:00.000000+00:00",
+  "phase": "EXP-07-P0-C6",
+  "title": "EXP-07 Pre-Training Future Failure Mode Risk Register",
+  "total_risks_audited": 40,
+  "summary": {
+    "guardrails_count": 22,
+    "tests_count": 14,
+    "documented_limitations_count": 4
+  },
+  "risks": [
+    {
+      "risk_id": "RISK-C6-001",
+      "risk_title": "BatchNorm statistical instability",
+      "category": "ARCHITECTURE_AND_OPTIMIZATION",
+      "classification": "DOCUMENTED_LIMITATION",
+      "mitigation": "Option B retains BatchNorm with momentum=0.05 smoothing. Small-batch statistical variance across 9 batches/epoch is formally classified and documented as a known experimental risk.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestBatchNormAndGradientAccumulation::test_batchnorm_statistical_batch_size_eight"
+    },
+    {
+      "risk_id": "RISK-C6-002",
+      "risk_title": "Effective batch vs physical batch confusion",
+      "category": "ARCHITECTURE_AND_OPTIMIZATION",
+      "classification": "GUARDRAIL",
+      "mitigation": "Enforced by GOV-RULE-059: Gradient accumulation (steps=2, effective batch 16) strictly decoupled from BatchNorm forward statistical evaluation window (batch size 8).",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5BatchNormSemantics::test_effective_vs_statistical_batch_separation"
+    },
+    {
+      "risk_id": "RISK-C6-003",
+      "risk_title": "DN vs calibration terminology drift",
+      "category": "METROLOGICAL_DISCIPLINE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Enforced by GOV-RULE-060: Runtime input domain strictly designated AGGREGATED_RAW_DN_LOG1P_STANDARDIZED. Describing uncalibrated DN as physical backscatter (sigma0) is strictly prohibited.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestInputDomainSemantics::test_input_domain_designated_uncalibrated_dn"
+    },
+    {
+      "risk_id": "RISK-C6-004",
+      "risk_title": "Raw-DN model interpretation being overstated scientifically",
+      "category": "SCIENTIFIC_METHODOLOGY",
+      "classification": "DOCUMENTED_LIMITATION",
+      "mitigation": "Permanent epistemic disclosure that model representations are learned from uncalibrated aggregated DN, and transferability to calibrated backscatter requires explicit empirical validation.",
+      "verification": "experiments/EXP-07/EXP07_P0_C6_CONTROLLED_CPU_INTEGRATION_VALIDATION_REPORT_20260913.md"
+    },
+    {
+      "risk_id": "RISK-C6-005",
+      "risk_title": "Excluded class leakage",
+      "category": "DATA_GOVERNANCE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Excluded classes (3: Iceberg, 9: Sea Ice, 14: Mineral Oil Spill) mapped to ignore_index = -100; zero excluded pixels enter loss or metrics.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestExcludedClassesAndRemapping::test_excluded_classes_mapped_to_negative_100"
+    },
+    {
+      "risk_id": "RISK-C6-006",
+      "risk_title": "Source label 9 colliding with dense class 9",
+      "category": "TAXONOMY_ALIGNMENT",
+      "classification": "GUARDRAIL",
+      "mitigation": "Explicit dictionary SOURCE_LABEL_TO_DENSE maps source 11 to dense 9 (Eddy), while source 9 (Sea Ice) maps to -100.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5TaxonomyAndRemapping::test_source_label_9_does_not_map_to_dense_9"
+    },
+    {
+      "risk_id": "RISK-C6-007",
+      "risk_title": "Unknown-label-to-BG silent conversion",
+      "category": "DATA_INTEGRITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "remap_source_mask_to_dense asserts that all labels belong to known taxonomy (0..14) and raises ValueError on corrupted or unknown IDs.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestExcludedClassesAndRemapping::test_unknown_source_label_raises_error"
+    },
+    {
+      "risk_id": "RISK-C6-008",
+      "risk_title": "Train statistics leakage",
+      "category": "DATA_HYGIENE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Normalization constants (4.2756, 0.3866) and loss class weights are computed strictly from TRAIN valid pixels; zero contribution from DEV/HOLDOUT.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5NormalizationOrdering::test_train_statistics_zero_leakage_from_dev_holdout"
+    },
+    {
+      "risk_id": "RISK-C6-009",
+      "risk_title": "Holdout leakage",
+      "category": "EPISTEMIC_DISCIPLINE",
+      "classification": "GUARDRAIL",
+      "mitigation": "HOLDOUT partition is strictly quarantined from statistics, sampler weights, hyperparameter tuning, and threshold selection.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestHoldoutProtection::test_holdout_quarantine"
+    },
+    {
+      "risk_id": "RISK-C6-010",
+      "risk_title": "Parent leakage",
+      "category": "DATA_HYGIENE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Parent scenes are strictly partitioned into 12 TRAIN, 7 DEV, and 8 HOLDOUT parents with zero cross-split overlap.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestDatasetPartitionIntegrity::test_parent_scenes_disjoint"
+    },
+    {
+      "risk_id": "RISK-C6-011",
+      "risk_title": "Deterministic sampler drift",
+      "category": "REPRODUCIBILITY",
+      "classification": "TEST",
+      "mitigation": "PyTorch WeightedRandomSampler with fixed torch.Generator seed produces identical draw sequences across independent runs.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestSamplerAndDataLoader::test_sampler_deterministic_replay"
+    },
+    {
+      "risk_id": "RISK-C6-012",
+      "risk_title": "Worker RNG drift",
+      "category": "REPRODUCIBILITY",
+      "classification": "DOCUMENTED_LIMITATION",
+      "mitigation": "CPU reference baseline freezes num_workers = 0 to eliminate worker process spawn overhead, Windows pickling hazards, and asynchronous RNG drift.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestSamplerAndDataLoader::test_dataloader_num_workers_zero"
+    },
+    {
+      "risk_id": "RISK-C6-013",
+      "risk_title": "Sampler probability normalization drift",
+      "category": "STATISTICAL_RIGOR",
+      "classification": "TEST",
+      "mitigation": "Stationary Candidate F probability vector w_hybrid is explicitly normalized to sum to 1.0 within 1e-12 tolerance.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5CandidateFSamplerMath::test_hybrid_vector_sums_to_one"
+    },
+    {
+      "risk_id": "RISK-C6-014",
+      "risk_title": "Accidental tile-vs-parent balancing",
+      "category": "SAMPLER_ALGORITHM",
+      "classification": "GUARDRAIL",
+      "mitigation": "Parent balancing component explicitly weights each tile by 1 / (12 * tiles_in_parent), ensuring every parent scene receives 1/12 total probability.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5CandidateFSamplerMath::test_parent_balanced_component_weights"
+    },
+    {
+      "risk_id": "RISK-C6-015",
+      "risk_title": "Absent-class NaN metrics",
+      "category": "METRICS_EVALUATION",
+      "classification": "TEST",
+      "mitigation": "Classes with zero ground-truth pixels return IoU = None and are strictly excluded from macro average denominators.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestMetricsContract::test_absent_classes_excluded_from_macro_denominator"
+    },
+    {
+      "risk_id": "RISK-C6-016",
+      "risk_title": "Invalid pixels entering statistics",
+      "category": "DATA_HYGIENE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Validity mask is computed prior to normalization; only valid pixels (raw > 0) are used in calculating distribution statistics.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5NormalizationOrdering::test_normalization_constants_derived_from_valid_pixels_only"
+    },
+    {
+      "risk_id": "RISK-C6-017",
+      "risk_title": "Invalid pixels entering loss",
+      "category": "OPTIMIZATION_INTEGRITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "Dense target remapping sets target[~validity_mask] = -100, which is ignored by CrossEntropyLoss.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5LossContract::test_ignore_index_excludes_border_padding"
+    },
+    {
+      "risk_id": "RISK-C6-018",
+      "risk_title": "Invalid pixels entering metrics",
+      "category": "METRICS_EVALUATION",
+      "classification": "GUARDRAIL",
+      "mitigation": "compute_confusion_matrix_12x12 filters out pixels where validity_mask == False or target == -100 prior to bincount.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5MetricsContract::test_invalid_pixels_excluded_from_confusion_matrix"
+    },
+    {
+      "risk_id": "RISK-C6-019",
+      "risk_title": "Hidden transforms",
+      "category": "PREPROCESSING_INTEGRITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "Baseline transform pipeline is strictly identity; OpenCV/Albumentations transforms are prohibited from baseline.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5AugmentationAndPrediction::test_augmentation_is_identity"
+    },
+    {
+      "risk_id": "RISK-C6-020",
+      "risk_title": "Accidental resize",
+      "category": "GEOMETRY_INTEGRITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "All tensors strictly asserted to match physical tile dimensions [1, 256, 256]; runtime interpolation is prohibited.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestGeometryAndDtypes::test_tensor_dimensions_strictly_256x256"
+    },
+    {
+      "risk_id": "RISK-C6-021",
+      "risk_title": "Incorrect mask interpolation",
+      "category": "GEOMETRY_INTEGRITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "Masks are read directly as discrete integer labels via rasterio without bilinear or bicubic resampling.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestGeometryAndDtypes::test_mask_integer_labels_preserved"
+    },
+    {
+      "risk_id": "RISK-C6-022",
+      "risk_title": "Dtype truncation",
+      "category": "DATA_TYPES",
+      "classification": "TEST",
+      "mitigation": "Explicit dtype enforcement: uint16 raw raster -> float32 image input -> int64 target mask.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5ReproducibilityAndConfig::test_dataset_emits_correct_dtypes"
+    },
+    {
+      "risk_id": "RISK-C6-023",
+      "risk_title": "NaN/Inf propagation",
+      "category": "NUMERICAL_STABILITY",
+      "classification": "TEST",
+      "mitigation": "Loss, logits, and metrics verified finite across all batches and extreme edge cases (all-background, zero union).",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestNumericalStability::test_loss_and_metrics_strictly_finite"
+    },
+    {
+      "risk_id": "RISK-C6-024",
+      "risk_title": "Accidental optimizer update",
+      "category": "PHASE_RESTRICTIONS",
+      "classification": "GUARDRAIL",
+      "mitigation": "Phase C6 operates in forward-only mode; optimizer updates (optimizer.step) are strictly absent from implementation and test harness.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestPhaseBoundaries::test_zero_optimizer_updates_in_c6"
+    },
+    {
+      "risk_id": "RISK-C6-025",
+      "risk_title": "Accidental checkpoint generation",
+      "category": "PHASE_RESTRICTIONS",
+      "classification": "GUARDRAIL",
+      "mitigation": "Model weights are not saved to disk; torch.save(model.state_dict()) is strictly absent from C6.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestPhaseBoundaries::test_zero_checkpoints_created"
+    },
+    {
+      "risk_id": "RISK-C6-026",
+      "risk_title": "Binary threshold reuse",
+      "category": "EVALUATION_INTEGRITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "Enforced by GOV-RULE-057: Multiclass predictions evaluate strictly via argmax(logits, dim=1); binary tau=0.22 threshold is prohibited.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5AugmentationAndPrediction::test_prediction_rule_is_argmax"
+    },
+    {
+      "risk_id": "RISK-C6-027",
+      "risk_title": "Stale normalization constants",
+      "category": "DATA_HYGIENE",
+      "classification": "TEST",
+      "mitigation": "TRAIN_LOG1P_MEAN (4.2756) and TRAIN_LOG1P_STD (0.3866) verified against physical TRAIN valid pixels.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5NormalizationOrdering::test_normalization_constants_immutable"
+    },
+    {
+      "risk_id": "RISK-C6-028",
+      "risk_title": "Taxonomy drift",
+      "category": "TAXONOMY_ALIGNMENT",
+      "classification": "TEST",
+      "mitigation": "Dense classes verified against authoritative ops01_taxonomy_v1.json (12 eligible classes, HM named Artificial / Anthropogenic Objects, OS excluded).",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5TaxonomyAndRemapping::test_canonical_taxonomy_loaded_and_verified"
+    },
+    {
+      "risk_id": "RISK-C6-029",
+      "risk_title": "Class-order drift",
+      "category": "TAXONOMY_ALIGNMENT",
+      "classification": "TEST",
+      "mitigation": "Dense class order is frozen in DENSE_CLASSES list: BG, AF, BS, LWA, MCC, OF, POW, RF, WS, Eddy, IWs, HM.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5TaxonomyAndRemapping::test_dense_classes_list_ordering"
+    },
+    {
+      "risk_id": "RISK-C6-030",
+      "risk_title": "Holdout language drift",
+      "category": "EPISTEMIC_DISCIPLINE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Holdout status HOLDOUT_PARTIALLY_USED_FOR_SELECTION permanently enforced; forbidden terms (pristine, unbiased benchmark) rejected by tests.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5EpistemicGovernance::test_holdout_epistemic_disclosure_enforced"
+    },
+    {
+      "risk_id": "RISK-C6-031",
+      "risk_title": "Metric-definition drift",
+      "category": "METRICS_EVALUATION",
+      "classification": "TEST",
+      "mitigation": "Both mIoU_all (0..11) and mIoU_phenomena (1..11) are calculated and reported; mIoU_phenomena is established as primary headline metric.",
+      "verification": "test_exp07_p0_c5_implementation_guardrails.py::TestC5MetricsContract::test_metric_aggregation_both_reported"
+    },
+    {
+      "risk_id": "RISK-C6-032",
+      "risk_title": "Stale artifact treated as authoritative",
+      "category": "PROVENANCE_AND_STORAGE",
+      "classification": "GUARDRAIL",
+      "mitigation": "OPS-01 manifest v4 anchored by immutable SHA256 (FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E); obsolete v3 rejected.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestManifestProvenance::test_manifest_v4_sha256_exact"
+    },
+    {
+      "risk_id": "RISK-C6-033",
+      "risk_title": "Agent narrative diverging from filesystem",
+      "category": "OPERATIONAL_DOCTRINE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Core doctrine: Filesystem evidence outranks narrative; all reported metrics and counts derived directly from disk measurements.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestFilesystemVerifications::test_all_samples_verified_from_disk"
+    },
+    {
+      "risk_id": "RISK-C6-034",
+      "risk_title": "Untracked scientific artifact accidentally discarded",
+      "category": "REPOSITORY_HYGIENE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Enforced by GOV-RULE-031 and GOV-RULE-032: git clean and destructive deletion strictly prohibited; untracked != disposable.",
+      "verification": "experiments/PROJECT_GOVERNANCE/ocean_sentinel_governance_rules_v1.md"
+    },
+    {
+      "risk_id": "RISK-C6-035",
+      "risk_title": "Future implementation duplicating canonical metadata",
+      "category": "SOFTWARE_ARCHITECTURE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Canonical metadata referenced directly from data/metadata manifests rather than duplicated as hardcoded dictionary literals.",
+      "verification": "src/ocean_sentinel/ml/exp07_reference.py"
+    },
+    {
+      "risk_id": "RISK-C6-036",
+      "risk_title": "Path-resolution differences across working directories",
+      "category": "PORTABILITY",
+      "classification": "TEST",
+      "mitigation": "All dataset, manifest, and metadata paths dynamically anchored to REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestPortability::test_repo_root_resolution"
+    },
+    {
+      "risk_id": "RISK-C6-037",
+      "risk_title": "CPU/GPU reproducibility overclaim",
+      "category": "REPRODUCIBILITY",
+      "classification": "DOCUMENTED_LIMITATION",
+      "mitigation": "Reproducibility contract explicitly bounds claims to deterministic algorithmic replay; cross-platform hardware bitwise equality is not claimed.",
+      "verification": "data/metadata/exp07_p0_c5_reproducibility_contract_v1.json"
+    },
+    {
+      "risk_id": "RISK-C6-038",
+      "risk_title": "Cross-library version drift",
+      "category": "ENVIRONMENT",
+      "classification": "DOCUMENTED_LIMITATION",
+      "mitigation": "Exact versions of Python (3.10.9), PyTorch (2.1.1+cpu), NumPy (1.26.4), and Rasterio (1.4.3) recorded in reproducibility metadata.",
+      "verification": "data/metadata/exp07_p0_c5_reproducibility_contract_v1.json"
+    },
+    {
+      "risk_id": "RISK-C6-039",
+      "risk_title": "BatchNorm train/eval mismatch",
+      "category": "ARCHITECTURE_AND_OPTIMIZATION",
+      "classification": "TEST",
+      "mitigation": "Verified that model.eval() freezes running statistics completely, while model.train() updates statistics on physical forward minibatches.",
+      "verification": "test_exp07_p0_c6_integration_guardrails.py::TestBatchNormAndGradientAccumulation::test_batchnorm_eval_mode_strictly_frozen"
+    },
+    {
+      "risk_id": "RISK-C6-040",
+      "risk_title": "Future checkpoint identity ambiguity",
+      "category": "PROVENANCE_AND_STORAGE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Future checkpoint naming and metadata must embed experiment ID (EXP-07-P0-C5-OPS01-V1), manifest SHA256, protocol version, and Git commit hash.",
+      "verification": "data/metadata/exp07_p0_c5_reproducibility_contract_v1.json"
+    }
+  ]
+}

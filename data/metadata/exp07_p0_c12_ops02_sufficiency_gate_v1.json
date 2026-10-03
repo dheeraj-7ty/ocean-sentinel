@@ -1,0 +1,73 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C12",
+  "title": "OPS-02 Minimum Dataset Sufficiency and Readiness Gate Matrix",
+  "created_at": "2026-09-14T01:43:15Z",
+  "purpose": "Define objective, multi-dimensional gating criteria that must be satisfied before OPS-02 can be declared ready for model training. Reaching minimum targets is a gating condition, not proof of scientific sufficiency.",
+  "readiness_matrix": [
+    {
+      "dimension": "TOTAL_INDEPENDENT_PARENT_SCENES",
+      "minimum_target": 60,
+      "preferred_target": 120,
+      "hard_failure_threshold": "< 50 independent parent scenes",
+      "scientific_rationale": "OPS-01 contained only 27 parents (12 TRAIN / 7 DEV / 8 HOLDOUT). A minimum of 60 scenes is required to allocate >= 35 TRAIN, >= 12 DEV, and >= 13 HOLDOUT, providing enough degrees of freedom to measure scene-level generalization without high variance."
+    },
+    {
+      "dimension": "RARE_CLASS_PARENT_DIVERSITY",
+      "minimum_target": ">= 8 independent parents per class (>= 4 TRAIN, >= 2 DEV, >= 2 HOLDOUT)",
+      "preferred_target": ">= 15 independent parents per class",
+      "hard_failure_threshold": "< 4 independent parents for any priority class, or 0 parents in DEV/HOLDOUT",
+      "scientific_rationale": "In EXP-07, AF, OF, RF, IWs, and HM had 0 DEV pixels and <= 4 TRAIN parents, causing an irrecoverable zero-IoU evaluation defect. Every evaluated class must have multiple independent test scenes."
+    },
+    {
+      "dimension": "EVALUATION_SPLIT_CLASS_PRESENCE",
+      "minimum_target": "100% of the 12 canonical classes present with >= 1,000 GT pixels in DEV and >= 1,000 in HOLDOUT",
+      "preferred_target": ">= 10,000 GT pixels per class in both DEV and HOLDOUT",
+      "hard_failure_threshold": "Any canonical class having 0 GT pixels in DEV or HOLDOUT",
+      "scientific_rationale": "Evaluating IoU on an empty class yields a degenerate metric (0/0), distorting macro-mIoU and masking model capabilities."
+    },
+    {
+      "dimension": "GEOGRAPHIC_BASIN_DIVERSITY",
+      "minimum_target": ">= 4 distinct major ocean basins / regional seas; no single region > 50% of samples",
+      "preferred_target": ">= 8 distinct regional sea regimes globally distributed",
+      "hard_failure_threshold": "Single geographic region constitutes > 70% of parent scenes",
+      "scientific_rationale": "Prevents the model from memorizing specific bathymetric, coastal topography, or localized sea-surface temperature patterns."
+    },
+    {
+      "dimension": "TEMPORAL_ACQUISITION_BREADTH",
+      "minimum_target": ">= 3 calendar years represented, distributed across >= 8 calendar months",
+      "preferred_target": ">= 5 calendar years with balanced seasonal distribution",
+      "hard_failure_threshold": "Single 3-month seasonal cluster accounts for > 75% of scenes",
+      "scientific_rationale": "Mitigates seasonal bias in atmospheric stability, storm tracks, and seasonal biogenic bloom cycles."
+    },
+    {
+      "dimension": "ACQUISITION_GEOMETRY_DIVERSITY",
+      "minimum_target": "Both Ascending and Descending passes >= 30% each; all 3 IW sub-swaths (IW1, IW2, IW3) represented",
+      "preferred_target": "Multi-polarization (VV + VH) available for >= 50% of scenes",
+      "hard_failure_threshold": "Single orbit pass accounts for > 85% of scenes",
+      "scientific_rationale": "Backscatter intensity and feature visibility vary significantly with look direction relative to prevailing wind and wave vectors."
+    },
+    {
+      "dimension": "ANTHROPOGENIC_HM_REPRESENTATION",
+      "minimum_target": ">= 10 independent parent scenes containing HM; >= 5,000 valid HM pixels",
+      "preferred_target": ">= 25 independent parent scenes; >= 15,000 valid pixels",
+      "hard_failure_threshold": "< 5 parent scenes or < 1,000 valid HM pixels",
+      "scientific_rationale": "In EXP-07, HM comprised only 985 pixels (0.021% of TRAIN) across 2 scenes, making feature learning practically impossible."
+    },
+    {
+      "dimension": "LOOKALIKE_HARD_NEGATIVE_BREADTH",
+      "minimum_target": ">= 15 independent parent scenes featuring natural slicks (BS) and low-wind areas (LWA)",
+      "preferred_target": ">= 30 independent parent scenes across varied wind regimes",
+      "hard_failure_threshold": "< 10 independent scenes for dark-slick classes",
+      "scientific_rationale": "Ensures that future oil-spill models have a statistically diverse foundation of false-alarm look-alikes."
+    },
+    {
+      "dimension": "PARTITION_INDEPENDENCE_INTEGRITY",
+      "minimum_target": "Zero parent scene sharing between splits; minimum 50 km spatial buffer between repeat passes in different splits",
+      "preferred_target": "Spatially and temporally disjoint regional clusters",
+      "hard_failure_threshold": "Any parent scene or along-track slice shared across TRAIN, DEV, or HOLDOUT",
+      "scientific_rationale": "Absolute mathematical requirement to prevent data leakage and pseudo-replication."
+    }
+  ],
+  "sufficiency_rule": "OPS-02 acquisition may NOT transition to training if any single dimension fails its hard failure threshold. The minimum targets represent gating boundaries, not optimal sample counts."
+}

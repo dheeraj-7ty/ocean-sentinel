@@ -1,0 +1,90 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:50:00.000000+00:00",
+  "phase": "EXP-07-P0-C7",
+  "title": "EXP-07 Training Readiness and Optimization Risk Register",
+  "total_risks_audited": 10,
+  "risks": [
+    {
+      "risk_id": "RISK-C7-001",
+      "risk_title": "Uncontrolled hyperparameter fishing across runs",
+      "category": "EXPERIMENTAL_GOVERNANCE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Enforced by GOV-RULE-062: Baseline training configuration is strictly frozen; sweeps and explorations are prohibited in the first training phase.",
+      "verification": "data/metadata/exp07_p0_c7_experiment_matrix_v1.json"
+    },
+    {
+      "risk_id": "RISK-C7-002",
+      "risk_title": "Overclaiming single-seed performance as robust baseline",
+      "category": "STATISTICAL_RIGOR",
+      "classification": "GUARDRAIL",
+      "mitigation": "Enforced by GOV-RULE-063: RUN-001 (seed 42) is designated a preliminary baseline; reporting robust metrics requires the full 3-seed replicate set (42, 101, 2024).",
+      "verification": "experiments/EXP-07/EXP07_P0_C7_TRAINING_READINESS_REVIEW_20260913.md"
+    },
+    {
+      "risk_id": "RISK-C7-003",
+      "risk_title": "Untrained dry-run metrics conflated with trained model results",
+      "category": "METRIC_REPORTING",
+      "classification": "GUARDRAIL",
+      "mitigation": "Enforced by GOV-RULE-064: C6 CPU dry-run metrics are classified as pipeline sanity checks and must never be cited as model performance.",
+      "verification": "test_exp07_p0_c7_training_readiness_guardrails.py::TestReadinessGovernance::test_untrained_dry_run_metrics_not_baseline"
+    },
+    {
+      "risk_id": "RISK-C7-004",
+      "risk_title": "Tile-level variance confused with independent-scene variance",
+      "category": "STATISTICAL_RIGOR",
+      "classification": "DOCUMENTED_LIMITATION",
+      "mitigation": "Permanent disclosure that 72 TRAIN tiles originate from 12 independent Sentinel-1 parent scenes. Statistical reporting will include parent-stratified performance.",
+      "verification": "data/metadata/exp07_p0_c7_training_protocol_v1.json"
+    },
+    {
+      "risk_id": "RISK-C7-005",
+      "risk_title": "Gradient explosion on rare class HM (loss weight 12.16)",
+      "category": "OPTIMIZATION_STABILITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "Mandatory gradient clipping with max_norm=1.0, norm_type=2.0 prior to optimizer step.",
+      "verification": "data/metadata/exp07_p0_c7_training_protocol_v1.json"
+    },
+    {
+      "risk_id": "RISK-C7-006",
+      "risk_title": "Silent retry with changed settings upon failure",
+      "category": "EXPERIMENTAL_GOVERNANCE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Training failure policy mandates halting, capturing diagnostics to run_state.failed.json, and preserving artifacts without automatic retry.",
+      "verification": "data/metadata/exp07_p0_c7_failure_policy_v1.json"
+    },
+    {
+      "risk_id": "RISK-C7-007",
+      "risk_title": "Accidental HOLDOUT evaluation during routine training",
+      "category": "LEAKAGE_PREVENTION",
+      "classification": "GUARDRAIL",
+      "mitigation": "Holdout access firewall blocks training loops and model selection from accessing HOLDOUT samples.",
+      "verification": "test_exp07_p0_c7_training_readiness_guardrails.py::TestHoldoutAccessFirewall::test_holdout_access_blocked_in_training_protocol"
+    },
+    {
+      "risk_id": "RISK-C7-008",
+      "risk_title": "Checkpoint identity ambiguity or accidental overwrite",
+      "category": "PROVENANCE_AND_STORAGE",
+      "classification": "GUARDRAIL",
+      "mitigation": "Each run outputs to an isolated directory (e.g. experiments/EXP-07/runs/run001_seed42) with embedded run ID, seed, and manifest SHA.",
+      "verification": "data/metadata/exp07_p0_c7_experiment_matrix_v1.json"
+    },
+    {
+      "risk_id": "RISK-C7-009",
+      "risk_title": "Early stopping based on noisy DEV validation in early epochs",
+      "category": "OPTIMIZATION_STABILITY",
+      "classification": "GUARDRAIL",
+      "mitigation": "Early stopping is inactive during warmup and early training (min_epochs=15, patience=10).",
+      "verification": "data/metadata/exp07_p0_c7_training_protocol_v1.json"
+    },
+    {
+      "risk_id": "RISK-C7-010",
+      "risk_title": "Conflating OPS-01 phenomenon segmentation with oil spill attribution",
+      "category": "STRATEGIC_ALIGNMENT",
+      "classification": "DOCUMENTED_LIMITATION",
+      "mitigation": "Explicit scope boundary: EXP-07 performs multiclass semantic segmentation of ocean phenomena; mineral oil spill (OS) is excluded from OPS-01 training.",
+      "verification": "experiments/EXP-07/EXP07_P0_C7_TRAINING_READINESS_REVIEW_20260913.md"
+    }
+  ]
+}

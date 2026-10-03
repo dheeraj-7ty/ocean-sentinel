@@ -1,0 +1,140 @@
+{
+  "manifest_version": "1.0.0",
+  "phase": "PHASE_8_P2_R1",
+  "creation_timestamp_utc": "2026-09-13T13:30:00Z",
+  "summary": {
+    "total_candidate_samples": 5011,
+    "iw_slices_total": 2628,
+    "iw_parent_scenes_total": 484,
+    "wv_vignettes_total": 2383,
+    "wv_orbit_passes_total": 1678,
+    "physical_images_available_local": 9,
+    "physical_images_confirmed_remote_s3": 37,
+    "untested_iw_slices": 2578,
+    "wv_slices_outside_scope": 2383,
+    "excluded_oil_spill_slices": 4
+  },
+  "source_availability_states": {
+    "CONSTRUCTED": 9,
+    "METADATA_ONLY": 2578,
+    "PHYSICAL_IMAGE_PRESENT_REMOTE_CONFIRMED": 37,
+    "EXCLUDED_DEFICIENT_DATA_OS": 4,
+    "OUTSIDE_CURRENT_SCOPE": 2383
+  },
+  "progression_states": {
+    "CONSTRUCTED": 9,
+    "SOURCE_IDENTIFIED": 2578,
+    "SOURCE_RECOVERABLE": 37,
+    "CATALOG": 2387
+  },
+  "control_products_s3_recovery": {
+    "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001": {
+      "control_index": 1,
+      "source_product_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2015/2/20/IW/SV/S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 633052800,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001": {
+      "control_index": 2,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2016/1/11/IW/DV/S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 564484656,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001": {
+      "control_index": 3,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2016/11/30/IW/DV/S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 300438379,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001": {
+      "control_index": 4,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2017/1/19/IW/DV/S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 563622596,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001": {
+      "control_index": 5,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/1/3/IW/DV/S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 533905489,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001": {
+      "control_index": 6,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/12/21/IW/DV/S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 516085544,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001": {
+      "control_index": 7,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2019/1/9/IW/DV/S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 524523524,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001": {
+      "control_index": 8,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2020/1/9/IW/DV/S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 565981790,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001": {
+      "control_index": 9,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2021/1/3/IW/DV/S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 520368073,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001": {
+      "control_index": 10,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/3/IW/DV/S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 625148434,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001": {
+      "control_index": 11,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/12/31/IW/DV/S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 613695733,
+      "http_status": 200
+    },
+    "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001": {
+      "control_index": 12,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C",
+      "remote_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2023/1/28/IW/DV/S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C/measurement/iw-vv.tiff",
+      "remote_status": "CONFIRMED_ONLINE",
+      "content_length_bytes": 712020948,
+      "http_status": 200
+    }
+  },
+  "materialization_feasibility_analysis": {
+    "source_products_required_for_all_iw": 484,
+    "average_product_size_mb": 550.0,
+    "full_download_volume_gb": 266.2,
+    "windowed_access_volume_mb_per_slice": 25.0,
+    "windowed_access_total_volume_gb": 65.7,
+    "download_method_recommended": "GDAL /vsicurl/ remote windowed HTTP GET on AWS Open Data S3",
+    "local_storage_overhead_per_materialized_geotiff_kb": 264.0,
+    "total_derived_geotiff_storage_mb": 693.8,
+    "runtime_estimate_per_slice_seconds": 1.8,
+    "total_materialization_runtime_hours": 1.3
+  }
+}

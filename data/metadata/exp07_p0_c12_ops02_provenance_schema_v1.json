@@ -1,0 +1,138 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C12",
+  "title": "OPS-02 Authoritative Provenance Manifest Schema Specification",
+  "created_at": "2026-09-14T01:43:00Z",
+  "purpose": "Define the formal schema, required fields, validation constraints, and provenance lineage for all physical samples in the OPS-02 dataset expansion.",
+  "schema_type": "JSON_SCHEMA_DRAFT_07",
+  "manifest_structure": {
+    "top_level_fields": {
+      "manifest_version": "string (semver, e.g. 1.0.0)",
+      "dataset_name": "string (OPS-02)",
+      "campaign_phase": "string (e.g. PHASE_9_OPS02)",
+      "created_at_utc": "string (ISO8601)",
+      "total_physical_parent_scenes": "integer",
+      "total_derived_tiles": "integer",
+      "partition_counts": {
+        "train_tiles": "integer",
+        "dev_tiles": "integer",
+        "holdout_tiles": "integer",
+        "quarantine_tiles": "integer"
+      },
+      "manifest_fingerprint_sha256": "string (hex)"
+    },
+    "sample_record_fields": {
+      "sample_id": {
+        "type": "string",
+        "description": "Unique deterministic identifier: {parent_scene_short_id}_tile_{x:03d}_{y:03d}",
+        "required": true
+      },
+      "parent_scene_id": {
+        "type": "string",
+        "description": "Unique parent scene identifier resolving to physical acquisition",
+        "required": true
+      },
+      "source_product_id": {
+        "type": "string",
+        "description": "Full Sentinel-1 product name (e.g. S1A_IW_GRDH_1SDV_...)",
+        "required": true
+      },
+      "acquisition_datetime_utc": {
+        "type": "string",
+        "description": "Exact acquisition start timestamp in ISO8601 UTC format",
+        "required": true
+      },
+      "platform": {
+        "type": "string",
+        "enum": ["SENTINEL-1A", "SENTINEL-1B", "SENTINEL-1C", "UNKNOWN"],
+        "required": true
+      },
+      "orbit_pass": {
+        "type": "string",
+        "enum": ["ASCENDING", "DESCENDING", "UNKNOWN"],
+        "required": true
+      },
+      "relative_orbit_track": {
+        "type": ["integer", "null"],
+        "description": "Relative orbit track number (1-175) or null if unknown",
+        "required": true
+      },
+      "sensor_mode": {
+        "type": "string",
+        "enum": ["IW", "EW", "SM", "UNKNOWN"],
+        "required": true
+      },
+      "polarization": {
+        "type": "string",
+        "enum": ["VV", "VH", "VV+VH", "HH", "HV", "HH+HV", "UNKNOWN"],
+        "required": true
+      },
+      "geographic_metadata": {
+        "type": "object",
+        "required": true,
+        "properties": {
+          "ocean_basin": "string (e.g. North Pacific, North Atlantic, Mediterranean)",
+          "marginal_sea": "string or null (e.g. South China Sea, Gulf of Mexico)",
+          "region_name": "string",
+          "latitude_band": "string (e.g. 20N-30N)",
+          "longitude_band": "string (e.g. 110E-120E)",
+          "coastline_proximity": "string (OPEN_OCEAN, CONTINENTAL_SHELF, COASTAL, HARBOR)",
+          "centroid_lat": "number",
+          "centroid_lon": "number"
+        },
+        "required_properties": ["ocean_basin", "region_name", "coastline_proximity"]
+      },
+      "source_class_ids_present": {
+        "type": "array",
+        "items": "integer (0-14)",
+        "description": "List of original source label IDs present in this sample",
+        "required": true
+      },
+      "canonical_dense_class_ids_present": {
+        "type": "array",
+        "items": "integer (0-11)",
+        "description": "List of canonical 12-class dense indices present in this sample",
+        "required": true
+      },
+      "annotation_provenance": {
+        "type": "object",
+        "required": true,
+        "properties": {
+          "provenance_tier": "string (TIER_A, TIER_B, TIER_C, TIER_D)",
+          "annotator_authority": "string (e.g. Li et al. 2024, Zenodo 14279466)",
+          "annotation_method": "string (EXPERT_MANUAL, SEMI_AUTOMATED_VALIDATED, WEAK_LABEL)",
+          "review_status": "string (PEER_REVIEWED, RECONSTRUCTED, UNVERIFIED)"
+        },
+        "required_properties": ["provenance_tier", "annotator_authority", "annotation_method"]
+      },
+      "source_image_path": {"type": "string", "required": true},
+      "source_image_sha256": {"type": "string", "required": true},
+      "derived_image_path": {"type": "string", "required": true},
+      "derived_image_sha256": {"type": "string", "required": true},
+      "derived_mask_path": {"type": "string", "required": true},
+      "derived_mask_sha256": {"type": "string", "required": true},
+      "preprocessing_pipeline_version": {"type": "string", "required": true},
+      "partition": {
+        "type": "string",
+        "enum": ["TRAIN", "DEV", "HOLDOUT", "QUARANTINE"],
+        "required": true
+      },
+      "qc_verification_status": {
+        "type": "string",
+        "enum": ["PASSED_FULL_QC", "CONDITIONAL_ACCEPT", "REJECTED_FAILED_QC"],
+        "required": true
+      },
+      "quarantine_flag": {
+        "type": "boolean",
+        "required": true
+      },
+      "exclusion_reason": {
+        "type": ["string", "null"],
+        "required": true
+      }
+    }
+  },
+  "null_and_unknown_handling": {
+    "rule": "If an attribute is not provided by the source product or cannot be verified, it must be represented explicitly as 'UNKNOWN' or null. Inventing or interpolating values is strictly prohibited."
+  }
+}

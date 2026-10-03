@@ -1,0 +1,129 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C13",
+  "title": "OPS-02 Acquisition Pilot Technical Raster QC Results",
+  "verified_at": "2026-09-14T01:52:00Z",
+  "total_samples_tested": 13,
+  "passed_qc_count": 13,
+  "failed_qc_count": 0,
+  "qc_pass_rate": 1.0,
+  "sample_qc_records": [
+    {
+      "sample_id": "ops02_pilot_p01_s1a-iw-grd-vv-20151031t21_tile_10",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p01_s1a-iw-grd-vv-20151031t21_tile_10.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p01_s1a-iw-grd-vv-20151031t21_tile_10.png",
+      "image_sha256": "C8E2C7A1ADA641D705B80DB2C3558923CD55D1835E2C9F00F3C1950755BE81ED",
+      "mask_sha256": "5933D4C44ED2BC2F431E2698B41923A18D056B24B450540BB109E7592A547060",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p02_s1a-iw-grd-vv-20160123t21_tile_05",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p02_s1a-iw-grd-vv-20160123t21_tile_05.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p02_s1a-iw-grd-vv-20160123t21_tile_05.png",
+      "image_sha256": "74162E5BBF09479CD2DA5490F0D0234078D9CD6753FB217CCDD80BAFA19E5C73",
+      "mask_sha256": "E472E0F74DA4C7C20AA0F0BB9F95B550294396DBA321B573C71B98C1C978EF38",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p03_s1a-iw-grd-vv-20170129t21_tile_11",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p03_s1a-iw-grd-vv-20170129t21_tile_11.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p03_s1a-iw-grd-vv-20170129t21_tile_11.png",
+      "image_sha256": "C84B82B7CAF7C2F521093384DE709EAF4AF9B01BFE0C4FAABC606256E2EE6710",
+      "mask_sha256": "89882AD2DF56A232404C406DCD654DB5B286075DBF35D0FF641E6EA96455E465",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p04_s1a-iw-grd-vv-20180103t11_tile_07",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p04_s1a-iw-grd-vv-20180103t11_tile_07.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p04_s1a-iw-grd-vv-20180103t11_tile_07.png",
+      "image_sha256": "F521705E008F3D6AA80794DEC8B5D1ADB35AA8DB995E1BF5A671BBE94F8F448E",
+      "mask_sha256": "26F0F1BFA0A2512BEB9F5BFF0DBBC6F7B25F1285989BC75E00276FCC0A57133D",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p05_s1a-iw-grd-vv-20190126t21_tile_32",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p05_s1a-iw-grd-vv-20190126t21_tile_32.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p05_s1a-iw-grd-vv-20190126t21_tile_32.png",
+      "image_sha256": "D038C1B6C60939CC61C789A6DF4292209BC4E1EB80876626623A505BBB1B6411",
+      "mask_sha256": "32821C09AE29730682CC65107A080C5DCE91311CD596D05D4B972B110BB930BC",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p06_s1a-iw-grd-vv-20200114t21_tile_03",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p06_s1a-iw-grd-vv-20200114t21_tile_03.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p06_s1a-iw-grd-vv-20200114t21_tile_03.png",
+      "image_sha256": "8130997D441951A6F4D4BF14F63189B332DBFDBA96D167145649A28AABFE1E48",
+      "mask_sha256": "8EE4936C48EADA5C71CBAEDAB24D8615F267484450213E9E8FAF340A203B324A",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p07_s1a-iw-grd-vv-20210127t21_tile_31",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p07_s1a-iw-grd-vv-20210127t21_tile_31.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p07_s1a-iw-grd-vv-20210127t21_tile_31.png",
+      "image_sha256": "FADD22213BA41E9359BB845363EE88CF89066258EBCE30B509BD7E3887ED4271",
+      "mask_sha256": "30CBB9C703755C46216025D12925161953CD94BFFDD6410272FA5D626DB8D093",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p08_s1a-iw-grd-vv-20220108t08_tile_45",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p08_s1a-iw-grd-vv-20220108t08_tile_45.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p08_s1a-iw-grd-vv-20220108t08_tile_45.png",
+      "image_sha256": "97F19719863B0B9A1506E1B30D5B9C47EA1EC23C26F751C8FA4FA0495034E7CA",
+      "mask_sha256": "D2B4874957AE02D6314C4939A83F859BECC645A639C0D1B0C788EDD6F49D2492",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p09_s1a-iw-grd-vv-20151230t21_tile_01",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p09_s1a-iw-grd-vv-20151230t21_tile_01.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p09_s1a-iw-grd-vv-20151230t21_tile_01.png",
+      "image_sha256": "1F46E2772569F706B7C51EC20B5D18907EAF6ECE94BCA475982F8525FF6ADD2B",
+      "mask_sha256": "B1DC2A6F66349F44F7B6ECA5B2FB58D20584F6F467BFF464190F3B78475A9351",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p10_s1a-iw-grd-vv-20160130t23_tile_08",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p10_s1a-iw-grd-vv-20160130t23_tile_08.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p10_s1a-iw-grd-vv-20160130t23_tile_08.png",
+      "image_sha256": "5B0B9B6CBC2E11B23FF28F5C26A7ACB850CF0AB60C0831DDE71A2DA5DA027707",
+      "mask_sha256": "0D6324CA01B60E18AE891A53A12B2E14953C1FD5734201222C4C72487D90AF8F",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p11_s1a-iw-grd-vv-20160208t21_tile_01",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p11_s1a-iw-grd-vv-20160208t21_tile_01.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p11_s1a-iw-grd-vv-20160208t21_tile_01.png",
+      "image_sha256": "D9C0DDE23616FC5B16859CAC8DF273B206F1FB7816C0645FCA61D23C16062962",
+      "mask_sha256": "8CA982E4666AEE97EFF5EC5553689885D67F44401503FADBF3DFA81804D5DD67",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p12_s1a-iw-grd-vv-20160223t23_tile_15",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p12_s1a-iw-grd-vv-20160223t23_tile_15.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p12_s1a-iw-grd-vv-20160223t23_tile_15.png",
+      "image_sha256": "1ED25A375740765273391DA0390BB877DCE81A2BD10F7096CF5B1664ECA4DF36",
+      "mask_sha256": "7A825526865A72196C20D1F01FE558D4351046284AE66067EC0A5ED630335186",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    },
+    {
+      "sample_id": "ops02_pilot_p13_dartis_nc0002_000002",
+      "image_path": "data\\ops02\\derived\\images\\ops02_pilot_p13_dartis_nc0002_000002.tif",
+      "mask_path": "data\\ops02\\derived\\masks\\ops02_pilot_p13_dartis_nc0002_000002.png",
+      "image_sha256": "2C5411808E08D37A6EBCC27F3C271558EA1B7F2B4BA0C39A8D4ADF57B4BC3F93",
+      "mask_sha256": "45175F35452C0E3525ACC1955331C111A1EBC8658B94225BED132F3C1DBBABD7",
+      "qc_status": "PASSED_FULL_QC",
+      "qc_errors": []
+    }
+  ]
+}

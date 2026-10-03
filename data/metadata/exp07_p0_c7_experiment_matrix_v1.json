@@ -1,0 +1,77 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:50:00.000000+00:00",
+  "phase": "EXP-07-P0-C7",
+  "title": "EXP-07 Authoritative Experiment Execution Matrix",
+  "experiment_id": "EXP-07-P0-C7-OPS01-V1",
+  "matrix_policy": "CONTROLLED_BASELINE_THEN_REPLICATION",
+  "sweeps_authorized": false,
+  "hyperparameter_search_authorized": false,
+  "runs": [
+    {
+      "run_id": "EXP07_RUN001_SEED42",
+      "role": "CONTROLLED_PRIMARY_BASELINE",
+      "seed": 42,
+      "status": "APPROVED_FOR_FIRST_TRAINING_RUN",
+      "architecture": "ResNet18-UNet",
+      "optimizer": "AdamW(lr=5e-4, weight_decay=1e-2)",
+      "scheduler": "WarmupCosine(warmup_epochs=3, max_epochs=30, min_lr=1e-6)",
+      "sampler": "Candidate_F_Hybrid_70_30",
+      "loss": "CrossEntropy_SqrtMedianFreq",
+      "normalization": "Fixed_TRAIN_Log1p_MeanStd",
+      "gradient_clipping_max_norm": 1.0,
+      "max_epochs": 30,
+      "output_dir": "experiments/EXP-07/runs/run001_seed42",
+      "checkpoint_paths": {
+        "best": "experiments/EXP-07/runs/run001_seed42/best_model.pt",
+        "last": "experiments/EXP-07/runs/run001_seed42/last_model.pt"
+      },
+      "telemetry_path": "experiments/EXP-07/runs/run001_seed42/run_state.json"
+    },
+    {
+      "run_id": "EXP07_RUN002_SEED101",
+      "role": "STATISTICAL_REPLICATE_1",
+      "seed": 101,
+      "status": "AUTHORIZED_PENDING_RUN001_GATE",
+      "architecture": "ResNet18-UNet",
+      "optimizer": "AdamW(lr=5e-4, weight_decay=1e-2)",
+      "scheduler": "WarmupCosine(warmup_epochs=3, max_epochs=30, min_lr=1e-6)",
+      "sampler": "Candidate_F_Hybrid_70_30",
+      "loss": "CrossEntropy_SqrtMedianFreq",
+      "normalization": "Fixed_TRAIN_Log1p_MeanStd",
+      "gradient_clipping_max_norm": 1.0,
+      "max_epochs": 30,
+      "output_dir": "experiments/EXP-07/runs/run002_seed101",
+      "checkpoint_paths": {
+        "best": "experiments/EXP-07/runs/run002_seed101/best_model.pt",
+        "last": "experiments/EXP-07/runs/run002_seed101/last_model.pt"
+      },
+      "telemetry_path": "experiments/EXP-07/runs/run002_seed101/run_state.json"
+    },
+    {
+      "run_id": "EXP07_RUN003_SEED2024",
+      "role": "STATISTICAL_REPLICATE_2",
+      "seed": 2024,
+      "status": "AUTHORIZED_PENDING_RUN001_GATE",
+      "architecture": "ResNet18-UNet",
+      "optimizer": "AdamW(lr=5e-4, weight_decay=1e-2)",
+      "scheduler": "WarmupCosine(warmup_epochs=3, max_epochs=30, min_lr=1e-6)",
+      "sampler": "Candidate_F_Hybrid_70_30",
+      "loss": "CrossEntropy_SqrtMedianFreq",
+      "normalization": "Fixed_TRAIN_Log1p_MeanStd",
+      "gradient_clipping_max_norm": 1.0,
+      "max_epochs": 30,
+      "output_dir": "experiments/EXP-07/runs/run003_seed2024",
+      "checkpoint_paths": {
+        "best": "experiments/EXP-07/runs/run003_seed2024/best_model.pt",
+        "last": "experiments/EXP-07/runs/run003_seed2024/last_model.pt"
+      },
+      "telemetry_path": "experiments/EXP-07/runs/run003_seed2024/run_state.json"
+    }
+  ],
+  "governance_constraints": {
+    "no_hyperparameter_fishing": "Only identical replicates are authorized; hyperparameter changes require a formal post-RUN001 hypothesis.",
+    "execution_isolation": "Every run outputs to its own dedicated directory; checkpoints and logs never collide."
+  }
+}

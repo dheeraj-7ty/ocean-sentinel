@@ -1,0 +1,52 @@
+{
+  "issue_id": "OPEN-PREPROC-001",
+  "title": "OPS-01 Input Radiometric Value Domain Representation Decision Record",
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T11:56:33.863580+00:00",
+  "phase": "PHASE_8_P3_C1",
+  "current_physical_state": {
+    "bands": 1,
+    "polarization": "VV",
+    "dimensions": [
+      256,
+      256
+    ],
+    "observed_values": "raw intensity / DN-domain amplitude values as stored in GeoTIFF files",
+    "range_min": 1.93,
+    "range_max": 2698.93,
+    "calibrated_sigma0_status": "NOT_ESTABLISHED",
+    "decibel_db_status": "NOT_ESTABLISHED"
+  },
+  "representation_options": {
+    "RAW_AMPLITUDE_DN": {
+      "meaning": "Uncalibrated digital numbers representing detected SAR amplitude signal",
+      "required_source_data": "Currently materialized GeoTIFF files",
+      "calibration_metadata_required": false,
+      "scientific_consequences": "Values are sensor-gain dependent; backscatter across different scenes may not be directly comparable in physical units",
+      "pros": "Requires zero transformation assumptions; uses raw observed bits",
+      "cons": "Distorted dynamic range, high speckle skew, uncalibrated radiometry"
+    },
+    "CALIBRATED_SIGMA0": {
+      "meaning": "Normalized radar cross section (backscatter coefficient) in linear scale",
+      "required_source_data": "Sentinel-1 L1 calibration lookup table (LUT) from product XML metadata",
+      "calibration_metadata_required": true,
+      "scientific_consequences": "Physically meaningful unit representing ground reflectivity; comparable across acquisitions and sensors",
+      "pros": "Scientifically rigorous, physically defensible for oceanographic modeling",
+      "cons": "Requires extracting and applying XML calibration vectors to raw tile coordinates; correspondence hypothesis must be validated under calibration"
+    },
+    "DECIBEL_SIGMA0_DB": {
+      "meaning": "Log-transformed backscatter: 10 * log10(sigma0 + eps)",
+      "required_source_data": "Calibrated sigma0 or logarithmic amplitude transformation",
+      "calibration_metadata_required": true,
+      "scientific_consequences": "Compresses wide dynamic range of radar backscatter into near-Gaussian distribution suitable for standard neural network training",
+      "pros": "Well-behaved distributions for gradient descent; standard in remote sensing literature",
+      "cons": "Amplifies low-signal noise floor; introduces non-linear distortion if eps is misconfigured"
+    }
+  },
+  "closure_requirements": [
+    "Do not select representation in Phase 8-P3-C1",
+    "Formally design ablation experiment in EXP-07 protocol comparing raw DN vs log-transformed vs calibrated sigma0",
+    "Validate radiometric calibration metadata pipeline before training"
+  ],
+  "status": "OPEN_FOR_EXP07_PROTOCOL"
+}

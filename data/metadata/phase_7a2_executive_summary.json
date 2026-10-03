@@ -1,0 +1,68 @@
+{
+  "protocol_document": "PHASE_7A.2_PHYSICAL_PROXY_VALIDATION_20260912",
+  "completion_timestamp_utc": "2026-09-12T18:06:41.013428+00:00",
+  "status": "COMPLETED",
+  "governance": {
+    "exp07_training_attempted": false,
+    "model_selection_performed": false,
+    "part_iii_status": "QUARANTINED_RULE_38",
+    "part_i_internal_split_modified": false,
+    "part_i_internal_split_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+    "exp06_checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+    "decision_threshold_tau": 0.22
+  },
+  "candidate_set_reconciliation": {
+    "SET_A_raw_records": 2290,
+    "SET_B_part_iii_direct_overlap": 355,
+    "SET_C_part_iii_scene_contaminated": 680,
+    "SET_D_part_iii_cleared": 1610,
+    "SET_E_direct_part_i_overlap": 543,
+    "SET_E_scene_part_i_overlap": 1063,
+    "SET_F_fully_disjoint": 547,
+    "SET_G_provisional_proxies": 547,
+    "unique_parent_products_set_g": 343
+  },
+  "physical_acquisition_and_validation": {
+    "target_candidates": 547,
+    "physically_validated": 517,
+    "rejected_acquisition": 30,
+    "total_bytes_written": 1215095631,
+    "acquisition_method": "Copernicus Sentinel Hub Process API (SIGMA0_ELLIPSOID, FLOAT32)",
+    "raster_dimensions": [640, 640],
+    "crs": "EPSG:4326",
+    "bands": ["VV", "VH"],
+    "finite_data_requirement": "100.0% finite pixels required for physical validation"
+  },
+  "semantic_status_gate": {
+    "semantically_validated_negatives_count": 0,
+    "semantic_status_unresolved_count": 517,
+    "rejected_semantic_count": 30,
+    "forced_ground_truth_labels_permitted": false,
+    "disposition": "All physically valid candidates preserved as SEMANTIC_STATUS_UNRESOLVED due to absence of verified per-pixel natural lookalike ground truth in DARTIS metadata."
+  },
+  "proxy_dataset_manifest": {
+    "path": "data/metadata/proxy_dataset_manifest.json",
+    "sha256": "347A0CD9409377197783BBAE42A89EC77A1BE63FD84E777BCE0009804C39F6AE",
+    "total_candidates": 547,
+    "evaluation_role": "PROVISIONAL_PROXY_DIAGNOSTIC_ONLY"
+  },
+  "exp06_zero_shot_diagnostic": {
+    "population_evaluated": "PHYSICALLY_VALIDATED_PROXIES",
+    "evaluated_patches_denominator": 517,
+    "evaluated_pixels_total": 135528448,
+    "total_false_positive_pixels": 97044583,
+    "pixel_false_positive_rate_pct": 71.6046,
+    "patches_with_any_positive": 464,
+    "provisional_proxy_alarm_rate_pct": 89.7485,
+    "patches_with_significant_alarm_gte_100px": 464,
+    "significant_proxy_alarm_rate_pct": 89.7485,
+    "metric_name": "PROVISIONAL_PROXY_ALARM_RATE",
+    "prohibited_terminology_enforced": "'lookalike FAR' strictly prohibited as denominator is not a semantically validated negative set"
+  },
+  "regression_tests": {
+    "total_tests": 25,
+    "passed": 25,
+    "failed": 0,
+    "test_file": "tests/test_phase_7a_protocol_guardrails.py"
+  }
+}

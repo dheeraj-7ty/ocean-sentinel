@@ -1,0 +1,60 @@
+{
+  "normalization_audit": {
+    "canonical_source": {
+      "manifest_path": "data\\metadata\\trujillo_2024\\spatial_split_manifest.json",
+      "channel_0_vh_mean": -33.233136989478695,
+      "channel_0_vh_std": 6.489985665955077,
+      "channel_1_vv_mean": -19.941215852796695,
+      "channel_1_vv_std": 4.531345684833188
+    },
+    "phase_7a2_executed": {
+      "channel_0_vh_mean": -33.2323,
+      "channel_0_vh_std": 6.4912,
+      "channel_1_vv_mean": -19.9405,
+      "channel_1_vv_std": 4.5308
+    },
+    "discrepancy": {
+      "channel_0_vh_mean_delta": 0.0008369894786923737,
+      "channel_0_vh_std_delta": 0.0012143340449233264,
+      "channel_1_vv_mean_delta": 0.0007158527966950601,
+      "channel_1_vv_std_delta": 0.0005456848331881758,
+      "scientific_characterization": "4-decimal-place rounding discrepancy introduced during internal dev manifest compilation. Delta is ~0.0008 dB in mean and ~0.0012 dB in std."
+    }
+  },
+  "disk_audit": {
+    "total_candidates_in_manifest": 547,
+    "physically_validated_proxy_count": 517,
+    "rejected_acquisition_count": 30,
+    "rasters_on_disk_count": 517,
+    "all_sha256_match": true,
+    "all_dimensions_640x640": true,
+    "all_crs_epsg4326": true,
+    "all_dtype_float32": true,
+    "all_finite_pixels": true,
+    "unique_parent_products_validated": 325,
+    "unique_parent_products_total": 343
+  },
+  "geometry_contract": {
+    "raster_dimensions": [
+      640,
+      640
+    ],
+    "model_crop_window": {
+      "col_off": 64,
+      "row_off": 64,
+      "width": 512,
+      "height": 512
+    },
+    "pixel_center_offset": [
+      0.0,
+      0.0
+    ],
+    "max_deg_center_offset": [
+      7.105427357601002e-15,
+      7.105427357601002e-15
+    ],
+    "area_coverage_fraction": 0.64,
+    "margin_pixels": 64,
+    "scientific_assessment": "The 512x512 central crop shares the exact spatial center (320, 320) with the 640x640 candidate raster. The central window covers exactly 64.0% of the surface area. The 36.0% perimeter margin is excluded from evaluation. For candidates where lookalike features are concentrated in the outer 64 pixels, features will lie outside the model window."
+  }
+}

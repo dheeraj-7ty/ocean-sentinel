@@ -1,0 +1,132 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:50:00.000000+00:00",
+  "phase": "EXP-07-P0-C7",
+  "title": "EXP-07 Authoritative Training Protocol Specification",
+  "protocol_status": "FROZEN_FOR_EXECUTION_READINESS",
+  "experiment_id": "EXP-07-P0-C7-OPS01-V1",
+  "dataset_manifest": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+  "dataset_manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+  "taxonomy_manifest": "data/metadata/ops01_taxonomy_v1.json",
+  "input_domain": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+  "permanent_epistemic_disclosures": {
+    "holdout_disclosure": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+    "input_domain_disclosure": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+    "scope_disclosure": "OPS-01 multiclass phenomenon segmentation != oil-vs-lookalike discrimination; EXP-07 alone does not prove oil spill or vessel attribution."
+  },
+  "input_normalization": {
+    "log1p_mean": 4.2756,
+    "log1p_std": 0.3866,
+    "invalid_pixel_policy": "zeroed_after_standardization",
+    "training_samples_source_only": true,
+    "dev_holdout_leakage": false
+  },
+  "model_architecture": {
+    "architecture_name": "ResNet18-UNet",
+    "in_channels": 1,
+    "num_classes": 12,
+    "trainable_parameters": 14310860,
+    "floating_point_buffers": 11776,
+    "integer_buffers": 30,
+    "total_state_tensors": 14322666,
+    "head_activation": "none (raw float32 logits)",
+    "normalization_type": "BatchNorm2d (Option B baseline)",
+    "batchnorm_momentum": 0.05,
+    "batchnorm_layers_count": 30
+  },
+  "batch_and_optimization_dynamics": {
+    "physical_minibatch_size": 8,
+    "gradient_accumulation_steps": 2,
+    "effective_optimization_batch_size": 16,
+    "batchnorm_statistical_batch_size": 8,
+    "batches_per_epoch": 9,
+    "governance_rule": "GOV-RULE-059 (Effective optimization batch != BatchNorm statistical batch)"
+  },
+  "optimizer_specification": {
+    "optimizer_name": "AdamW",
+    "base_learning_rate": 0.0005,
+    "weight_decay": 0.01,
+    "betas": [0.9, 0.999],
+    "eps": 1e-08,
+    "gradient_clipping": {
+      "enabled": true,
+      "max_norm": 1.0,
+      "norm_type": 2.0,
+      "rationale": "Prevents gradient spikes from rare class HM (loss weight 12.16) and stabilizes early optimization."
+    }
+  },
+  "learning_rate_schedule": {
+    "schedule_type": "LinearWarmupCosineAnnealingLR",
+    "warmup_epochs": 3,
+    "warmup_start_lr": 1e-05,
+    "base_lr": 0.0005,
+    "min_lr": 1e-06,
+    "max_epochs": 30,
+    "step_timing": "epoch_end",
+    "metric_dependent": false
+  },
+  "epoch_and_stopping_budget": {
+    "max_epochs": 30,
+    "min_epochs": 15,
+    "early_stopping_patience": 10,
+    "early_stopping_min_delta": 0.005,
+    "monitored_metric": "dev_mIoU_phenomena",
+    "holdout_access_during_stopping": false
+  },
+  "sampler_specification": {
+    "sampler_name": "Candidate F Hybrid",
+    "formula": "0.70 * P_parent + 0.30 * P_presence",
+    "draws_per_epoch": 72,
+    "replacement": true,
+    "stationary_vector_sum": 1.0,
+    "max_parent_multiplier_bound": 1.45,
+    "minimum_rare_class_exposure_tiles_per_epoch": 3.0
+  },
+  "loss_specification": {
+    "loss_type": "CrossEntropyLoss",
+    "reduction": "mean",
+    "ignore_index": -100,
+    "weight_scheme": "square_root_median_frequency",
+    "median_frequency": 0.03090704,
+    "class_weights": {
+      "0": 0.273233,
+      "1": 2.013263,
+      "2": 0.703954,
+      "3": 2.493473,
+      "4": 0.515947,
+      "5": 1.469686,
+      "6": 0.512411,
+      "7": 1.510850,
+      "8": 0.806601,
+      "9": 2.066304,
+      "10": 0.398704,
+      "11": 12.159536
+    },
+    "max_min_ratio": 44.5024
+  },
+  "checkpoint_and_model_selection": {
+    "selection_criterion": "highest dev_mIoU_phenomena",
+    "tie_breaker": "lowest dev_loss then earlier epoch",
+    "minimum_valid_classes_on_dev": 4,
+    "save_latest": true,
+    "save_best": true,
+    "checkpoint_retention": "best_model.pt and last_model.pt",
+    "holdout_selection_permitted": false
+  },
+  "evaluation_metrics": {
+    "prediction_rule": "argmax(logits, dim=1)",
+    "primary_headline_metric": "mIoU_phenomena (classes 1..11)",
+    "secondary_metric": "mIoU_all (classes 0..11)",
+    "per_class_metrics": ["IoU", "Dice", "Recall"],
+    "confusion_matrix": "12x12 integer bincount over valid pixels",
+    "absent_class_policy": "Excluded from macro mean denominator when GT pixel count == 0"
+  },
+  "holdout_firewall": {
+    "training_access": "BLOCKED",
+    "sampler_access": "BLOCKED",
+    "stopping_access": "BLOCKED",
+    "selection_access": "BLOCKED",
+    "authorized_access": "Strictly once post-training for final locked model evaluation."
+  }
+}

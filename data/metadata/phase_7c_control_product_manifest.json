@@ -1,0 +1,912 @@
+{
+  "manifest_version": "1.0.0",
+  "phase": "PHASE_7C",
+  "pilot_scope": "12_CONTROL_PRODUCTS",
+  "pilot_scope_invariant": "PILOT_SCOPE = 12 CONTROL PRODUCTS. Strictly prohibited from generalizing to the 472 untested IW scenes, 484 total IW scenes, or 5,011 Li slices without separate empirical verification.",
+  "creation_timestamp_utc": "2026-09-13T06:32:37.402517+00:00",
+  "summary": {
+    "total_controls_identified": 12,
+    "total_controls_recovered": 12,
+    "total_controls_exact_match": 12,
+    "total_controls_ambiguous": 0,
+    "total_controls_failed": 0,
+    "total_untested_iw_scenes_remaining": 472,
+    "polarization_breakdown": {
+      "VV_ONLY": 1,
+      "VVVH_DUALPOL": 11
+    },
+    "pass_direction_breakdown": {
+      "DESCENDING": 9,
+      "ASCENDING": 3
+    },
+    "total_evaluated_slices_across_controls": 47
+  },
+  "controls": [
+    {
+      "control_index": 1,
+      "source_product_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "sample_stem": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "a89ddbd17c9b16e657a10c707fe89fb4",
+        "cdse_content_length_bytes": 983990475,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2015/02/20/S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HS/SA/S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -168.0385492586939,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 4712,
+        "orbit_relative_track": 90
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV",
+        "classification": "VV_ONLY",
+        "channels_available": [
+          "VV"
+        ],
+        "has_vh_channel": false
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 19470,
+        "numberOfSamples": 25174,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 9.998935,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2015-02-20T21:17:00.655425Z",
+        "stop_time_utc": "2015-02-20T21:17:29.571247Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 231,
+        "grid_lines_count": 11,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          0.1981195780901587,
+          2.416608828792793
+        ],
+        "longitude_bounds": [
+          125.2329896867942,
+          127.8098279864806
+        ],
+        "elevation_bounds_m": [
+          -0.0002314960584044456,
+          77.81666656211019
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 4,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10.png",
+          "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7.png",
+          "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8.png",
+          "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9.png"
+        ]
+      }
+    },
+    {
+      "control_index": 2,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "sample_stem": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "85c23786124a7c11ad34170ee2d9b79d",
+        "cdse_content_length_bytes": 1710284829,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2016/01/11/S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -168.0059846008508,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 9452,
+        "orbit_relative_track": 105
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 16824,
+        "numberOfSamples": 25312,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2016-01-11T21:56:27.739485Z",
+        "stop_time_utc": "2016-01-11T21:56:52.737908Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 210,
+        "grid_lines_count": 10,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          6.98897789170308,
+          8.954943908835066
+        ],
+        "longitude_bounds": [
+          116.3290355057559,
+          118.8855109866075
+        ],
+        "elevation_bounds_m": [
+          2.718530595302582e-06,
+          7.72625207901001e-06
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 5,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1.png",
+          "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2.png",
+          "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4.png",
+          "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7.png",
+          "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8.png"
+        ]
+      }
+    },
+    {
+      "control_index": 3,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D",
+      "sample_stem": "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "efb92a70d0784e29cd8196e187eedae5",
+        "cdse_content_length_bytes": 976931942,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2016/11/30/S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -168.0020664484409,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 14177,
+        "orbit_relative_track": 105
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 9680,
+        "numberOfSamples": 25119,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2016-11-30T21:56:35.972553Z",
+        "stop_time_utc": "2016-11-30T21:56:50.369133Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 126,
+        "grid_lines_count": 6,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          7.630373774248519,
+          8.951510444844864
+        ],
+        "longitude_bounds": [
+          116.4745754231749,
+          118.8855937962329
+        ],
+        "elevation_bounds_m": [
+          3.45427542924881e-06,
+          7.724389433860779e-06
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 1,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001-2.png"
+        ]
+      }
+    },
+    {
+      "control_index": 4,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242",
+      "sample_stem": "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "586e8db3ec42eaf4255f1f4823caefdf",
+        "cdse_content_length_bytes": 1853388685,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2017/01/19/S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -167.9817058349306,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 14907,
+        "orbit_relative_track": 135
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 18341,
+        "numberOfSamples": 25160,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2017-01-19T23:18:15.734561Z",
+        "stop_time_utc": "2017-01-19T23:18:43.039199Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 231,
+        "grid_lines_count": 11,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          8.93794851752162,
+          11.03535598242541
+        ],
+        "longitude_bounds": [
+          96.163596928414,
+          98.74590337002705
+        ],
+        "elevation_bounds_m": [
+          -6.024075617082417,
+          49.09018147736788
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 7,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-39.png",
+          "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-40.png",
+          "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-43.png",
+          "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-55.png",
+          "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-56.png",
+          "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-61.png",
+          "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-62.png"
+        ]
+      }
+    },
+    {
+      "control_index": 5,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602",
+      "sample_stem": "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "a3d6b313756bc613ddedde49b6f2769c",
+        "cdse_content_length_bytes": 1712219680,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2018/01/03/S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Ascending",
+        "platform_heading_deg": -11.98753297677084,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 19990,
+        "orbit_relative_track": 143
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 16826,
+        "numberOfSamples": 25337,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2018-01-03T11:43:23.480989Z",
+        "stop_time_utc": "2018-01-03T11:43:48.479034Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 210,
+        "grid_lines_count": 10,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          6.621926492371444,
+          8.589206002908089
+        ],
+        "longitude_bounds": [
+          96.46646187257905,
+          99.02325540362531
+        ],
+        "elevation_bounds_m": [
+          2.356246113777161e-06,
+          6.820075213909149e-06
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 7,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-18.png",
+          "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-23.png",
+          "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-24.png",
+          "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-27.png",
+          "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-28.png",
+          "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-3.png",
+          "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-4.png"
+        ]
+      }
+    },
+    {
+      "control_index": 6,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6",
+      "sample_stem": "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "d5b406bb5e7dc8013c1c091b9bbc5a83",
+        "cdse_content_length_bytes": 1722212071,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2018/12/21/S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -168.0169179840318,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 25129,
+        "orbit_relative_track": 32
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 16820,
+        "numberOfSamples": 25490,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2018-12-21T21:48:53.511321Z",
+        "stop_time_utc": "2018-12-21T21:49:18.509516Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 210,
+        "grid_lines_count": 10,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          5.80114476622324,
+          7.773471365369715
+        ],
+        "longitude_bounds": [
+          118.1322120907114,
+          120.6989048407629
+        ],
+        "elevation_bounds_m": [
+          1.639127731323242e-06,
+          4.998408257961273e-06
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 4,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-31.png",
+          "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-44.png",
+          "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-45.png",
+          "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-51.png"
+        ]
+      }
+    },
+    {
+      "control_index": 7,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36",
+      "sample_stem": "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "ff7381657fd41c7978a63f0c17e4a654",
+        "cdse_content_length_bytes": 1710844568,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2019/01/09/S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -168.0382021433063,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 25406,
+        "orbit_relative_track": 134
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 16819,
+        "numberOfSamples": 25324,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2019-01-09T21:41:57.130000Z",
+        "stop_time_utc": "2019-01-09T21:42:22.127000Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 210,
+        "grid_lines_count": 10,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          1.07037565643674,
+          3.051651759090819
+        ],
+        "longitude_bounds": [
+          119.231989343388,
+          121.7783204884944
+        ],
+        "elevation_bounds_m": [
+          -0.000986010767519474,
+          363.4803236946464
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 5,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-13.png",
+          "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-14.png",
+          "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-20.png",
+          "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-21.png",
+          "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-27.png"
+        ]
+      }
+    },
+    {
+      "control_index": 8,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4",
+      "sample_stem": "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "bff3c167054462c63e4c9382aef77fab",
+        "cdse_content_length_bytes": 1720373155,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2020/01/09/S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -168.0169238777274,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 30729,
+        "orbit_relative_track": 32
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 16802,
+        "numberOfSamples": 25489,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2020-01-09T21:48:59.163000Z",
+        "stop_time_utc": "2020-01-09T21:49:24.161000Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 210,
+        "grid_lines_count": 10,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          5.801177861598657,
+          7.773488038649155
+        ],
+        "longitude_bounds": [
+          118.1317750968685,
+          120.6983799511562
+        ],
+        "elevation_bounds_m": [
+          1.640990376472473e-06,
+          5.000270903110504e-06
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 1,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001-44.png"
+        ]
+      }
+    },
+    {
+      "control_index": 9,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC",
+      "sample_stem": "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "134155f50dd26ed648b4294c262bb8d7",
+        "cdse_content_length_bytes": 1720380747,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2021/01/03/S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -168.0157987320052,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 35979,
+        "orbit_relative_track": 32
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 16802,
+        "numberOfSamples": 25489,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2021-01-03T21:49:05.427000Z",
+        "stop_time_utc": "2021-01-03T21:49:30.425000Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 210,
+        "grid_lines_count": 10,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          5.801214509570389,
+          7.773565800022642
+        ],
+        "longitude_bounds": [
+          118.1318437064994,
+          120.6984703703848
+        ],
+        "elevation_bounds_m": [
+          1.640059053897858e-06,
+          5.002133548259735e-06
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 4,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-31.png",
+          "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-32.png",
+          "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-38.png",
+          "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-45.png"
+        ]
+      }
+    },
+    {
+      "control_index": 10,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70",
+      "sample_stem": "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "5bd54693cb388b7c023b89cbbe182579",
+        "cdse_content_length_bytes": 2026330306,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2022/01/03/S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Ascending",
+        "platform_heading_deg": -13.0820747032871,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 41300,
+        "orbit_relative_track": 103
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 19362,
+        "numberOfSamples": 26048,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2022-01-03T18:01:52.206000Z",
+        "stop_time_utc": "2022-01-03T18:02:21.230000Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 231,
+        "grid_lines_count": 11,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          34.81360455604452,
+          36.96581868768288
+        ],
+        "longitude_bounds": [
+          -2.199894405366287,
+          1.039118868738092
+        ],
+        "elevation_bounds_m": [
+          9.3802809715271e-05,
+          952.9541531046852
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 2,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001-34.png",
+          "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001-41.png"
+        ]
+      }
+    },
+    {
+      "control_index": 11,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8",
+      "sample_stem": "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "effcd77fd775333e05c30e5dc3df3c66",
+        "cdse_content_length_bytes": 1838598532,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2022/12/31/S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Ascending",
+        "platform_heading_deg": -23.97362766935668,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 46569,
+        "orbit_relative_track": 122
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 17739,
+        "numberOfSamples": 25799,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2022-12-31T01:27:37.577000Z",
+        "stop_time_utc": "2022-12-31T01:28:04.210000Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 210,
+        "grid_lines_count": 10,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          68.93088042247182,
+          71.01787288283495
+        ],
+        "longitude_bounds": [
+          -125.1213605740269,
+          -117.460510893213
+        ],
+        "elevation_bounds_m": [
+          5.29605895280838e-05,
+          783.9544027633965
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 4,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-17.png",
+          "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-18.png",
+          "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-23.png",
+          "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-24.png"
+        ]
+      }
+    },
+    {
+      "control_index": 12,
+      "source_product_id": "S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C",
+      "sample_stem": "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001",
+      "esa_safe_granule": "S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C.SAFE",
+      "verification_status": "EXACT_MATCH",
+      "cross_archive_evidence": {
+        "nasa_asf_daac_verified": true,
+        "esa_cdse_verified": true,
+        "asf_md5": "ce45e36661c69d47e5d9282c6a725aec",
+        "cdse_content_length_bytes": 1976242556,
+        "cdse_s3_path": "/eodata/Sentinel-1/SAR/GRD/2023/01/28/S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C.SAFE",
+        "asf_download_url": "https://datapool.asf.alaska.edu/METADATA_GRD_HD/SA/S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C.iso.xml"
+      },
+      "sensor_and_platform": {
+        "mission": "Copernicus Sentinel-1",
+        "platform": "Sentinel-1A",
+        "instrument": "C-SAR",
+        "beam_mode": "IW",
+        "flight_direction": "Descending",
+        "platform_heading_deg": -156.8722161562735,
+        "radar_frequency_ghz": 5.405,
+        "orbit_absolute": 46987,
+        "orbit_relative_track": 15
+      },
+      "polarization_configuration": {
+        "observed_polarization": "VV+VH",
+        "classification": "VVVH_DUALPOL",
+        "channels_available": [
+          "VV",
+          "VH"
+        ],
+        "has_vh_channel": true
+      },
+      "native_scene_geometry": {
+        "projection": "Ground Range",
+        "numberOfLines": 19320,
+        "numberOfSamples": 25461,
+        "rangePixelSpacing_m": 10.0,
+        "azimuthPixelSpacing_m": 10.0,
+        "nominal_resolution_note": "Pixel spacing is 10.0m x 10.0m; nominal spatial resolution for IW GRDH is ~20m (range) x ~22m (azimuth) with ENL ~ 4.4"
+      },
+      "temporal_bounds": {
+        "start_time_utc": "2023-01-28T17:33:20.856000Z",
+        "stop_time_utc": "2023-01-28T17:33:49.872000Z"
+      },
+      "geolocation_grid": {
+        "total_tiepoints": 231,
+        "grid_lines_count": 11,
+        "grid_pixels_count": 21,
+        "latitude_bounds": [
+          67.81890544242921,
+          70.02539534758485
+        ],
+        "longitude_bounds": [
+          -167.6506803937574,
+          -160.3816921840577
+        ],
+        "elevation_bounds_m": [
+          5.530938506126404e-05,
+          759.9625046215951
+        ],
+        "governance_classification": "SOURCE_PRODUCT_GEOLOCATION_CONTROLS"
+      },
+      "li_dataset_slices": {
+        "total_slices_in_scene": 3,
+        "slice_label_files": [
+          "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-58.png",
+          "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-59.png",
+          "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-60.png"
+        ]
+      }
+    }
+  ]
+}

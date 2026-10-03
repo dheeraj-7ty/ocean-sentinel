@@ -1,0 +1,32 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:46:46.517109+00:00",
+  "phase": "PHASE_8_P3",
+  "steps": [
+    "STEP_3_TAXONOMY_SEMANTICS",
+    "STEP_4_PIXEL_INTEGRITY"
+  ],
+  "taxonomy_source": "data\\metadata\\ops01_taxonomy_v1.json",
+  "canonical_class_count": 15,
+  "valid_label_id_range": [
+    0,
+    14
+  ],
+  "total_samples": 147,
+  "total_masks_checked": 147,
+  "total_pixels_audited": 9633792,
+  "summary": {
+    "taxonomy_issues": 0,
+    "pixel_issues": 0,
+    "total_issues": 0,
+    "unreadable_masks": 0,
+    "os_class_14_total_pixels": 0,
+    "unexpected_label_ids": [],
+    "issue_type_counts": {}
+  },
+  "taxonomy_verdict": "PASS",
+  "pixel_verdict": "PASS",
+  "overall_verdict": "PASS",
+  "taxonomy_issues": [],
+  "pixel_issues": []
+}

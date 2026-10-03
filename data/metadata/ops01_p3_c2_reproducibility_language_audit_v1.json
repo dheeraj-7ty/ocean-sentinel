@@ -1,0 +1,22 @@
+{
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T12:10:46.012214+00:00",
+  "phase": "PHASE_8_P3_C2",
+  "title": "Reproducibility Language and Semantic Scope Audit",
+  "hierarchy_mapping": {
+    "LEVEL_A": "Artifact identity (exact stored artifact identifiable and hash-verifiable)",
+    "LEVEL_B": "Repeatable deterministic verification/audit of stored artifacts",
+    "LEVEL_C": "Pipeline reconstruction (independent operator pipeline reconstruction from source)",
+    "LEVEL_D": "Source-process reconstruction/replication (repeatable from primary raw sensor inputs)"
+  },
+  "current_certification": {
+    "dataset": "OPS-01",
+    "certified_level": "LEVEL_B",
+    "certified_level_name": "Deterministic Verification Reproducibility",
+    "canonical_statement": "OPS-01 verification artifacts satisfy Level B deterministic verification reproducibility.",
+    "level_c_status": "BLOCKED (DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED)",
+    "level_d_status": "BLOCKED (Primary extraction pipeline from raw Copernicus L1 not independently verified)",
+    "prohibited_claim": "Claiming that OPS-01 is fully reproducible or that its generation pipeline is reconstructed"
+  },
+  "conclusion": "REPRODUCIBILITY_LANGUAGE_AUDIT_PASSED"
+}

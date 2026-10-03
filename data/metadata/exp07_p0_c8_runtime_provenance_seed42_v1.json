@@ -1,0 +1,43 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C8",
+  "title": "EXP-07 Runtime Provenance Ledger (Seed 42 Baseline)",
+  "experiment_id": "EXP-07",
+  "run_id": "EXP07_RUN001_SEED42",
+  "seed": 42,
+  "configuration_fingerprint_sha256": "D93EAEF12787F9408F2C3F9DD613DC6C47F2EC5A76C02B731EB42B29AB35273A",
+  "immutable_dataset_manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+  "immutable_taxonomy_manifest_sha256": "86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD",
+  "checkpoints": {
+    "best_model": {
+      "path": "experiments/EXP-07/runs/EXP07_RUN001_SEED42/best_model.pt",
+      "sha256": "FF30EDCFEFBDF3C321F2D531BF3A8031ABB6F8481FC4F89D3DD8E2781ACAD9D7",
+      "size_bytes": 171939633,
+      "epoch": 17,
+      "dev_mIoU_phenomena": 0.11903,
+      "selection_status": "BEST_ON_DEV"
+    },
+    "last_model": {
+      "path": "experiments/EXP-07/runs/EXP07_RUN001_SEED42/last_model.pt",
+      "sha256": "50673001346BD66DABADBEF0DDC1AD1316D4E9459E983BD8E21EEEE5C9761030",
+      "size_bytes": 171939697,
+      "epoch": 27,
+      "dev_mIoU_phenomena": 0.1132,
+      "selection_status": "FINAL_STOPPED_STATE"
+    }
+  },
+  "execution_metrics": {
+    "total_training_wall_clock_seconds": 343.71,
+    "total_epochs": 27,
+    "mean_epoch_seconds": 12.51,
+    "total_optimizer_steps": 135,
+    "total_samples_seen": 1944,
+    "device": "cpu"
+  },
+  "git_state": {
+    "branch": "master",
+    "staged_files": 0,
+    "tracked_modified_files": 4,
+    "untracked_files_preserved": 333
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C14",
+  "generated_at_utc": "2026-09-13T21:10:25.288809+00:00",
+  "dataset_name": "OPS02_v1_CANDIDATE",
+  "source_archive": "ESA Copernicus Sentinel-1 Level-1 GRD / AWS Open Data (sentinel-s1-l1c)",
+  "annotation_archive": "Li et al. Marine SAR Dataset (Zenodo 10.5281/zenodo.14279466)",
+  "total_parent_clusters": 64,
+  "total_samples": 212,
+  "partition_allocation": {
+    "TRAIN": 40,
+    "DEV": 12,
+    "HOLDOUT": 12
+  }
+}

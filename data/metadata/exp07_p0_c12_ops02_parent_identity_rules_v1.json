@@ -1,0 +1,55 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C12",
+  "title": "OPS-02 Authoritative Parent Scene Identity and Independence Rules",
+  "created_at": "2026-09-14T01:42:30Z",
+  "purpose": "Establish strict criteria for determining physical scene identity and independence to prevent data leakage and pseudo-replication in OPS-02 dataset expansion.",
+  "independence_hierarchy": {
+    "SAME_PARENT": {
+      "definition": "Identical physical SAR acquisition or slice thereof.",
+      "criteria": [
+        "Identical Sentinel-1 complete product ID (e.g., S1A_IW_GRDH_1SDV_...).",
+        "Or identical raw datatake identifier and zero-Doppler time range.",
+        "Or spatial intersection >= 90% with acquisition time delta < 60 seconds."
+      ],
+      "independence_status": "IDENTICAL_PARENT",
+      "split_constraint": "All tiles derived from the SAME_PARENT must reside in the exact same partition (TRAIN, DEV, or HOLDOUT). Never split across partitions."
+    },
+    "RELATED_ACQUISITIONS": {
+      "definition": "Acquisitions with high physical, meteorological, or sea-state correlation.",
+      "criteria": [
+        "Along-track adjacent slices from the same orbital pass (Delta t < 10 minutes).",
+        "Or same geographic footprint (spatial overlap >= 20%) acquired within Delta t <= 24 hours.",
+        "Or consecutive repeat-pass acquisitions under stable persistent weather systems."
+      ],
+      "independence_status": "HIGHLY_CORRELATED_DEPENDENT",
+      "split_constraint": "Must be assigned to the same partition as their related counterpart, or quarantined from evaluation splits."
+    },
+    "POTENTIALLY_DEPENDENT": {
+      "definition": "Acquisitions sharing orbital geometry or partial spatial footprint within standard repeat cycle.",
+      "criteria": [
+        "Same relative orbit track with spatial overlap >= 10% acquired within Delta t <= 12 days.",
+        "Or stationary anthropogenic target area (e.g. fixed oil platform or wind farm) regardless of time delta."
+      ],
+      "independence_status": "CONDITIONALLY_DEPENDENT",
+      "split_constraint": "Requires explicit spatial buffering (>= 15 km) and feature masking before cross-partition assignment; otherwise grouped into same partition."
+    },
+    "INDEPENDENT": {
+      "definition": "Acquisitions capturing physically distinct, uncorrelated oceanographic and atmospheric states.",
+      "criteria": [
+        "Geographically disjoint footprints (zero spatial intersection, distance between centroids >= 50 km).",
+        "Or overlapping footprints separated by Delta t >= 30 days under independently verified distinct synoptic wind/wave conditions.",
+        "Or different satellite tracks / relative orbits with negligible spatial overlap (< 5%) and uncorrelated acquisition timestamps."
+      ],
+      "independence_status": "TRUE_INDEPENDENT_PARENT",
+      "split_constraint": "Eligible for partition assignment across TRAIN, DEV, or HOLDOUT."
+    }
+  },
+  "forbidden_independence_heuristics": [
+    "Never treat distinct slice filenames or crop identifiers from the same parent acquisition as independent.",
+    "Never treat augmented versions (flips, crops, rotations) as independent samples.",
+    "Never treat adjacent tiles within the same parent swath as independent evidence.",
+    "Never count multiple tiles containing the same rare phenomenon from a single parent as multiple independent parents."
+  ],
+  "default_rule": "When independence between two candidate scenes is ambiguous or unverified, they must be treated as CONDITIONALLY_DEPENDENT and quarantined or co-partitioned. Never default to independent."
+}

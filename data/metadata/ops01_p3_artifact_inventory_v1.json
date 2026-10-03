@@ -1,0 +1,217 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:44:37.719384+00:00",
+  "phase": "PHASE_8_P3",
+  "description": "Authoritative artifact inventory for P3 pre-training audit. Distinguishes authoritative, superseded, protected, and supporting artifacts.",
+  "artifacts": [
+    {
+      "artifact_name": "ops01_taxonomy_v1.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "Canonical class register - source of truth for all class names/IDs",
+      "path": "data\\metadata\\ops01_taxonomy_v1.json",
+      "exists": true,
+      "size_bytes": 10743,
+      "sha256": "86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD",
+      "modified_at": "2026-09-13T06:56:48.861055+00:00",
+      "relative_path": "data\\metadata\\ops01_taxonomy_v1.json"
+    },
+    {
+      "artifact_name": "ops01_physical_dataset_manifest_v3.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "Primary dataset manifest - 147 verified samples",
+      "path": "data\\metadata\\ops01_physical_dataset_manifest_v3.json",
+      "exists": true,
+      "size_bytes": 444691,
+      "sha256": "94521D08C00AB71269D9DE566468C1E8B8C12E3519C3AB97375F63DF75355787",
+      "modified_at": "2026-09-13T09:47:02.610124+00:00",
+      "relative_path": "data\\metadata\\ops01_physical_dataset_manifest_v3.json"
+    },
+    {
+      "artifact_name": "ops01_split_manifest_v4.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "TRAIN/DEV/HOLDOUT partition assignment",
+      "path": "data\\metadata\\ops01_split_manifest_v4.json",
+      "exists": true,
+      "size_bytes": 14538,
+      "sha256": "8BFC18EB21298CE2437575908F3EECF0FB64AB405F58F91F0908FCC706FE46D8",
+      "modified_at": "2026-09-13T09:47:02.611126+00:00",
+      "relative_path": "data\\metadata\\ops01_split_manifest_v4.json"
+    },
+    {
+      "artifact_name": "ops01_source_recovery_inventory_v3.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "Source inventory - 27 Level-1 parents with XML tiepoints",
+      "path": "data\\metadata\\ops01_source_recovery_inventory_v3.json",
+      "exists": true,
+      "size_bytes": 42815,
+      "sha256": "E0825A47E831E7EE140E9A1FC75D313B0769E22C2DDF21BF60A9379900049351",
+      "modified_at": "2026-09-13T09:47:02.611126+00:00",
+      "relative_path": "data\\metadata\\ops01_source_recovery_inventory_v3.json"
+    },
+    {
+      "artifact_name": "ops01_corrective_audit_ledger_v2.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "C2 corrected 20-claim reconciliation ledger",
+      "path": "data\\metadata\\ops01_corrective_audit_ledger_v2.json",
+      "exists": true,
+      "size_bytes": 15047,
+      "sha256": "F08BE2BD585EC4BAB79C9CFDF911ACAB33A36735F04199419E2AEF72CC93D767",
+      "modified_at": "2026-09-13T10:14:59.173938+00:00",
+      "relative_path": "data\\metadata\\ops01_corrective_audit_ledger_v2.json"
+    },
+    {
+      "artifact_name": "ops01_geographic_basin_audit_v1.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "Geographic basin distribution with overclaim assessment",
+      "path": "data\\metadata\\ops01_geographic_basin_audit_v1.json",
+      "exists": true,
+      "size_bytes": 4080,
+      "sha256": "E4F5AA4E1E84A23E320CFCC1FA4E056397CDF870D835C5334895D5D4DD5970EC",
+      "modified_at": "2026-09-13T10:15:29.742254+00:00",
+      "relative_path": "data\\metadata\\ops01_geographic_basin_audit_v1.json"
+    },
+    {
+      "artifact_name": "ops01_dataset_sufficiency_v4.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "Sufficiency evaluation v4 with holdout+taxonomy disclosures",
+      "path": "data\\metadata\\ops01_dataset_sufficiency_v4.json",
+      "exists": true,
+      "size_bytes": 18162,
+      "sha256": "CB5C14A68BFDC2D72BD37FA4C7E579DD6A01015E6651228B3D6CA4C8B2FEF1A4",
+      "modified_at": "2026-09-13T10:15:49.682732+00:00",
+      "relative_path": "data\\metadata\\ops01_dataset_sufficiency_v4.json"
+    },
+    {
+      "artifact_name": "ops01_c2_taxonomy_incident_register.json",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "C2 incident register - 3 incidents, all resolved",
+      "path": "data\\metadata\\ops01_c2_taxonomy_incident_register.json",
+      "exists": true,
+      "size_bytes": 5057,
+      "sha256": "489629B0EC091B9B15E14BB86220CA088223D0B55E45C25B10C40B2D93435183",
+      "modified_at": "2026-09-13T10:16:28.645765+00:00",
+      "relative_path": "data\\metadata\\ops01_c2_taxonomy_incident_register.json"
+    },
+    {
+      "artifact_name": "best_model.pt (EXP-06)",
+      "status": "FROZEN_PROTECTED",
+      "semantic_role": "EXP-06 checkpoint - must not change",
+      "path": "experiments\\performance\\exp06_positive_bce_weight\\best_model.pt",
+      "exists": true,
+      "size_bytes": 292461395,
+      "sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+      "modified_at": "2026-09-12T07:12:59.075196+00:00",
+      "relative_path": "experiments\\performance\\exp06_positive_bce_weight\\best_model.pt"
+    },
+    {
+      "artifact_name": "internal_development_split_manifest.json (Part-I)",
+      "status": "FROZEN_PROTECTED",
+      "semantic_role": "Part-I development split manifest - must not change",
+      "path": "data\\metadata\\internal_development_split_manifest.json",
+      "exists": true,
+      "size_bytes": 6097728,
+      "sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+      "modified_at": "2026-09-12T17:30:20.728663+00:00",
+      "relative_path": "data\\metadata\\internal_development_split_manifest.json"
+    },
+    {
+      "artifact_name": "PHASE_8_P2_R2_C2_FINAL_TAXONOMY_INTEGRITY_AUDIT_20260913.md",
+      "status": "AUTHORITATIVE",
+      "semantic_role": "C2 final audit report - taxonomy + P3 gate",
+      "path": "experiments\\PHASE_8_P2_R2_C2_FINAL_TAXONOMY_INTEGRITY_AUDIT_20260913.md",
+      "exists": true,
+      "size_bytes": 13895,
+      "sha256": "17B68F074B4B9394A056A7037D2B289C3AC21727707BBF82FB913B2D64057C05",
+      "modified_at": "2026-09-13T10:20:59.722720+00:00",
+      "relative_path": "experiments\\PHASE_8_P2_R2_C2_FINAL_TAXONOMY_INTEGRITY_AUDIT_20260913.md"
+    },
+    {
+      "artifact_name": "PHASE_8_P2_R2_C1_CORRECTIVE_SUFFICIENCY_AUDIT_20260913.md",
+      "status": "HISTORICAL_SUPERSEDED_NARRATIVE",
+      "semantic_role": "C1 report - table rows 5/8/9/10 class names superseded by C2",
+      "path": "experiments\\PHASE_8_P2_R2_C1_CORRECTIVE_SUFFICIENCY_AUDIT_20260913.md",
+      "exists": true,
+      "size_bytes": 24671,
+      "sha256": "AC583CE9D92AE1B8ED23537BD7B1AEA890D48427FBCA5C2AE8365B802752A700",
+      "modified_at": "2026-09-13T09:48:03.161703+00:00",
+      "relative_path": "experiments\\PHASE_8_P2_R2_C1_CORRECTIVE_SUFFICIENCY_AUDIT_20260913.md"
+    },
+    {
+      "artifact_name": "PHASE_7C_R1_METHODOLOGICAL_VALIDITY_AUDIT_20260913.md",
+      "status": "SUPPORTING",
+      "semantic_role": "Phase 7C-R1 alignment methodology audit",
+      "path": "experiments\\PHASE_7C_R1_METHODOLOGICAL_VALIDITY_AUDIT_20260913.md",
+      "exists": true,
+      "size_bytes": 22479,
+      "sha256": "9340A8617900434291B2B9BF00E072B42D3D6D0925FF0589DD88AFC5F992B6B1",
+      "modified_at": "2026-09-13T06:43:59.358229+00:00",
+      "relative_path": "experiments\\PHASE_7C_R1_METHODOLOGICAL_VALIDITY_AUDIT_20260913.md"
+    },
+    {
+      "artifact_name": "phase_7c_r1_reconciled_alignment_results.json",
+      "status": "SUPPORTING",
+      "semantic_role": "Phase 7C-R1 alignment residual data",
+      "path": "data\\metadata\\phase_7c_r1_reconciled_alignment_results.json",
+      "exists": true,
+      "size_bytes": 12434,
+      "sha256": "DDE01E1140A28AE4B9113F38AD26A6FE339749AD09F438C1D618A70B9E85E658",
+      "modified_at": "2026-09-13T06:42:48.079646+00:00",
+      "relative_path": "data\\metadata\\phase_7c_r1_reconciled_alignment_results.json"
+    },
+    {
+      "artifact_name": "ops01_corrective_audit_ledger_v1.json",
+      "status": "SUPERSEDED",
+      "semantic_role": "Superseded by v2: OF class error in Claim 11",
+      "path": "data\\metadata\\ops01_corrective_audit_ledger_v1.json",
+      "exists": true,
+      "size_bytes": 10402,
+      "sha256": "E77A9811B3AB56221B93C2600D5401704D92CB766C0D318264BB995C3466F091",
+      "modified_at": "2026-09-13T09:47:02.599127+00:00",
+      "relative_path": "data\\metadata\\ops01_corrective_audit_ledger_v1.json"
+    },
+    {
+      "artifact_name": "ops01_dataset_sufficiency_v3.json",
+      "status": "SUPERSEDED",
+      "semantic_role": "Superseded by v4: missing em-dash fix and disclosures",
+      "path": "data\\metadata\\ops01_dataset_sufficiency_v3.json",
+      "exists": true,
+      "size_bytes": 17463,
+      "sha256": "863B31D4C159132455223D0110FF721A3D62A5D7D61B7D46078486C67882F1E2",
+      "modified_at": "2026-09-13T09:47:02.612127+00:00",
+      "relative_path": "data\\metadata\\ops01_dataset_sufficiency_v3.json"
+    },
+    {
+      "artifact_name": "test_phase_8_p2_r2_c2_guardrails.py",
+      "status": "AUTHORITATIVE_TEST",
+      "semantic_role": "C2 guardrail suite - 27 tests",
+      "path": "tests\\test_phase_8_p2_r2_c2_guardrails.py",
+      "exists": true,
+      "size_bytes": 20009,
+      "sha256": "AB509511ECA7E0133E53552EDDCB51B72E82BF2926ACF89C06CD5538F6BDE9DD",
+      "modified_at": "2026-09-13T10:18:27.941439+00:00",
+      "relative_path": "tests\\test_phase_8_p2_r2_c2_guardrails.py"
+    },
+    {
+      "artifact_name": "test_phase_8_p2_r2_c1_guardrails.py",
+      "status": "AUTHORITATIVE_TEST",
+      "semantic_role": "C1 guardrail suite - 16 tests",
+      "path": "tests\\test_phase_8_p2_r2_c1_guardrails.py",
+      "exists": true,
+      "size_bytes": 11959,
+      "sha256": "F9391EF5114459FCCFD7F72B637282B845211ED3D0551DAF7EC698B41F15A649",
+      "modified_at": "2026-09-13T09:45:49.305323+00:00",
+      "relative_path": "tests\\test_phase_8_p2_r2_c1_guardrails.py"
+    },
+    {
+      "artifact_name": "test_phase_7c_r2_alignment_evidence_guardrails.py",
+      "status": "SUPPORTING_TEST",
+      "semantic_role": "Phase 7C-R2 alignment evidence guardrails",
+      "path": "tests\\test_phase_7c_r2_alignment_evidence_guardrails.py",
+      "exists": true,
+      "size_bytes": 9112,
+      "sha256": "8092C5E56E1500203B2AD3C9949BE71C52490EC2815DAB8EC9C979BDC7BA1DFE",
+      "modified_at": "2026-09-13T06:52:31.940817+00:00",
+      "relative_path": "tests\\test_phase_7c_r2_alignment_evidence_guardrails.py"
+    }
+  ]
+}

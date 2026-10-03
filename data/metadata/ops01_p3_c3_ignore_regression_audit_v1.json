@@ -1,0 +1,247 @@
+{
+  "artifact_name": "ops01_p3_c3_ignore_regression_audit_v1.json",
+  "artifact_version": "1.0.0",
+  "phase": "PHASE_8_P3_C3",
+  "created_at": "2026-09-13T12:28:00.000000+00:00",
+  "audit_summary": {
+    "all_protected_artifacts_unignored": true,
+    "all_intended_generated_files_ignored": true,
+    "incorrectly_ignored_files_count": 0,
+    "incorrectly_visible_generated_files_count": 0,
+    "overall_status": "PASSED"
+  },
+  "protected_artifacts_tested": [
+    {
+      "path": "experiments/performance/exp06_positive_bce_weight/best_model.pt",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/internal_development_split_manifest.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_taxonomy_v1.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_split_manifest_v4.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_source_recovery_inventory_v3.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_dataset_sufficiency_v5.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ocean_sentinel_governance_rules_v1.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "experiments/PROJECT_GOVERNANCE/ocean_sentinel_governance_rules_v1.md",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ocean_sentinel_incident_learning_register_v1.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_p3_c1_incident_register_v1.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ocean_sentinel_reproducibility_levels_v1.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_dataset_identity_v1.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "data/metadata/ops01_alignment_reconstruction_evidence_v3.json",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "experiments/PHASE_8_P3_FINAL_PRETRAINING_AUDIT_20260913.md",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "experiments/PHASE_8_P3_C1_PROVENANCE_REPRODUCIBILITY_GOVERNANCE_CLOSURE_20260913.md",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "experiments/PHASE_8_P3_C2_FINAL_EVIDENCE_BOUNDARY_CLOSURE_20260913.md",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "tests/test_phase_8_p3_pretraining_audit_guardrails.py",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "tests/test_phase_8_p3_c1_governance_guardrails.py",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "tests/test_phase_8_p3_c2_final_closure_guardrails.py",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "src/ocean_sentinel/ingestion/dataset.py",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    },
+    {
+      "path": "src/ocean_sentinel/ingestion/firewall.py",
+      "is_ignored": false,
+      "expected_ignored": false,
+      "matching_rule": null,
+      "pass": true
+    }
+  ],
+  "generated_categories_tested": [
+    {
+      "path": "experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/Oil_00001.npz",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:98:experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/\texperiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/Oil_00001.npz",
+      "pass": true
+    },
+    {
+      "path": "experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/Oil_00001.json",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:98:experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/\texperiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/Oil_00001.json",
+      "pass": true
+    },
+    {
+      "path": "experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/Oil_00001.npz",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:99:experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/\texperiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/Oil_00001.npz",
+      "pass": true
+    },
+    {
+      "path": "experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/Oil_00001.json",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:99:experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/\texperiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/Oil_00001.json",
+      "pass": true
+    },
+    {
+      "path": "data/derived/ops01/images/sample_00000.tif",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:40:*.tif\tdata/derived/ops01/images/sample_00000.tif",
+      "pass": true
+    },
+    {
+      "path": "data/derived/ops01/masks/sample_00000.png",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:103:data/derived/ops01/masks/\tdata/derived/ops01/masks/sample_00000.png",
+      "pass": true
+    },
+    {
+      "path": "venv/pyvenv.cfg",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:13:venv/\tvenv/pyvenv.cfg",
+      "pass": true
+    },
+    {
+      "path": ".venv/pyvenv.cfg",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:14:.venv/\t.venv/pyvenv.cfg",
+      "pass": true
+    },
+    {
+      "path": "src/ocean_sentinel/__pycache__/foo.cpython-310.pyc",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:2:__pycache__/\tsrc/ocean_sentinel/__pycache__/foo.cpython-310.pyc",
+      "pass": true
+    },
+    {
+      "path": "scratch/test_tool.py",
+      "is_ignored": true,
+      "expected_ignored": true,
+      "matching_rule": ".gitignore:50:scratch/\tscratch/test_tool.py",
+      "pass": true
+    }
+  ],
+  "corrections_made": [
+    "Added narrow rule for experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_a/",
+    "Added narrow rule for experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/mapping_b/",
+    "Added narrow rule for experiments/performance/phase_6_part_iii_external_evaluation/attempt_001/logs/",
+    "Added narrow rule for data/derived/ops01/masks/ matching existing *.tif rule for images"
+  ]
+}

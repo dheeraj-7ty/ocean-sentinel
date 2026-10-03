@@ -1,0 +1,20 @@
+{
+  "audit_version": "1.1.0",
+  "timestamp_utc": "2026-09-12T17:41:50.977358+00:00",
+  "firewall_rule": "Section 5: Part I Leakage Firewall",
+  "part_i_scenes_evaluated": 1200,
+  "candidates_cleared_of_part_iii_regions": 1610,
+  "candidates_cleared_of_part_iii_parent_products": 674,
+  "direct_part_i_overlapping_regions": 543,
+  "direct_part_i_overlapping_parent_products": 331,
+  "scene_level_expanded_part_i_overlapping_regions": 1063,
+  "indirect_co_scene_part_i_overlapping_regions": 520,
+  "disjoint_candidate_regions_count": 547,
+  "disjoint_parent_products_count": 343,
+  "reconciliation_math": {
+    "cleared_regions_partition": "1610 = 1063 (parent-scene overlapping) + 547 (parent-scene disjoint)",
+    "overlapping_regions_decomposition": "1063 = 543 (direct footprint overlap) + 520 (co-scene indirect overlap)",
+    "parent_products_partition": "674 = 331 (parent-scene overlapping) + 343 (parent-scene disjoint)",
+    "resolution_of_apparent_discrepancy": "Subtracting direct regions (1610 - 543 = 1067) neglects 520 co-scene regions sharing parent products with direct overlaps. Scene-level exclusion groups all 1063 regions into DEVELOPMENT_ONLY, yielding exactly 547 candidate regions across 343 parent products with zero Part I footprint overlap."
+  }
+}

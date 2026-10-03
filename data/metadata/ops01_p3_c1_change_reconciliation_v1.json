@@ -1,0 +1,76 @@
+{
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T11:54:16.943962+00:00",
+  "phase": "PHASE_8_P3_C1",
+  "audit_scope": "P3 Mutation Classification and Artifact Versioning Reconciliation",
+  "historical_hash_recovery": {
+    "status": "RECOVERED_FROM_EXPLICIT_SOURCE",
+    "source_artifact": "data/metadata/ops01_p3_artifact_inventory_v1.json",
+    "source_generated_at": "2026-09-13T10:44:37.719384+00:00",
+    "ops01_physical_dataset_manifest_v3": {
+      "pre_p3_sha256": "94521D08C00AB71269D9DE566468C1E8B8C12E3519C3AB97375F63DF75355787",
+      "current_sha256": "36C7D5911B420A9B22F61E13604AE86BB933F7F519CB5CC53F8D9692AB361C2D",
+      "mutation_status": "MUTATED_IN_PLACE_DURING_P3",
+      "mutation_character": "DISCLOSURE_FIELDS_ADDED"
+    },
+    "ops01_dataset_sufficiency_v4": {
+      "pre_p3_sha256": "CB5C14A68BFDC2D72BD37FA4C7E579DD6A01015E6651228B3D6CA4C8B2FEF1A4",
+      "current_sha256": "D44E05F55167EF46996722BC395FDB7D4293FBF7281E426BEAC3425C9EF45A10",
+      "mutation_status": "MUTATED_IN_PLACE_DURING_P3",
+      "mutation_character": "DISCLOSURE_FIELDS_ADDED"
+    }
+  },
+  "content_change_determination": {
+    "physical_samples": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "147 samples identically present; 0 additions or removals"
+    },
+    "image_bytes": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "All 147 physical image files on disk match manifest SHA256 values"
+    },
+    "mask_bytes": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "All 147 physical mask files on disk match manifest SHA256 values"
+    },
+    "labels": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "0 Class-14 OS pixels across all 9,633,792 pixels; class distributions unchanged"
+    },
+    "source_ids": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "Sentinel-1 product and scene IDs match source inventory v3"
+    },
+    "parent_ids": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "27 independent parent scene IDs verified across partitions"
+    },
+    "partitions": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "TRAIN=72 (12 parents), DEV=39 (7 parents), HOLDOUT=36 (8 parents); 0 parent leakage"
+    },
+    "sample_count": {
+      "status": "PROVEN_UNCHANGED",
+      "evidence_category": "PROVEN",
+      "details": "147 verified materialized samples"
+    },
+    "metadata_changes": {
+      "status": "PROVEN_MUTATED",
+      "evidence_category": "PROVEN",
+      "details": "Only disclosure fields added to manifest_v3 and sufficiency_v4 during P3 guardrail resolution"
+    }
+  },
+  "permanent_epistemic_disclosures_verified": [
+    "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+    "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+    "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+    "DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED"
+  ]
+}

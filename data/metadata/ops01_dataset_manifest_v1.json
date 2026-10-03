@@ -1,0 +1,709 @@
+{
+  "manifest_version": "1.0.0",
+  "dataset_name": "OPS-01 Candidate Dataset v1",
+  "phase": "PHASE_8_P2",
+  "creation_timestamp_utc": "2026-09-13T13:10:00Z",
+  "epistemic_status": {
+    "dataset_generation_method": "NOT_DIRECTLY_VERIFIED",
+    "geographic_alignment": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+    "intensity_correspondence": "STRONGLY_SUPPORTED_ON_TESTED_PAIRS",
+    "dataset_wide_alignment": "NOT_VALIDATED",
+    "generalization_boundary": "LEVEL_2_MULTIPLE_INDEPENDENT_PARENT_ACQUISITIONS"
+  },
+  "dataset_summary": {
+    "total_constructed_samples": 9,
+    "parent_scene_groups_count": 2,
+    "partitions": {
+      "TRAIN": 9,
+      "DEV": 0,
+      "HOLDOUT": 0
+    },
+    "pixel_resolution_m": 100.0,
+    "image_dimensions": [
+      256,
+      256
+    ],
+    "channels": 1,
+    "polarization": "VV",
+    "source_mission": "Copernicus Sentinel-1 (C-SAR)",
+    "processing_mode": "Level-1 GRD 10x spatial block mean"
+  },
+  "samples": [
+    {
+      "sample_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "source_product_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7.png",
+      "image_sha256": "AD477CB836F2A5DF1018390EA264A96FD89BF8EA00A5D05B3E6CAC8C4FC5B328",
+      "mask_sha256": "E040D38339D91BAB9AE4CE05E956BD3B48C73B3DDF55DFF75E6944D0761807EE",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          12
+        ],
+        "background_coverage_fraction": 0.881378173828125,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 48.0,
+        "raw_max": 2698.929931640625,
+        "raw_mean": 131.1164093017578,
+        "raw_std": 60.728111267089844,
+        "zeros_count": 0,
+        "valid_min": 48.0,
+        "valid_max": 2698.929931640625,
+        "valid_mean": 131.1164093017578,
+        "valid_std": 60.728111267089844,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 15410,
+          "row_end": 17970,
+          "col_start": 50,
+          "col_end": 2610
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 57762,
+          "fraction": 0.881378173828125
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 7774,
+          "fraction": 0.118621826171875
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "source_product_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8.png",
+      "image_sha256": "F27792B53E40AF4BB5EF9E3E00F0736ABDD7FEBB3462F4A5ACE51457ECD6C4AA",
+      "mask_sha256": "F8620688DEC0C795750823982C6EB4091167F223DC6073422C254C33849B7C29",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          7,
+          12
+        ],
+        "background_coverage_fraction": 0.022735595703125,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 1.9299999475479126,
+        "raw_max": 262.2900085449219,
+        "raw_mean": 130.32815551757812,
+        "raw_std": 30.402050018310547,
+        "zeros_count": 0,
+        "valid_min": 1.9299999475479126,
+        "valid_max": 262.2900085449219,
+        "valid_mean": 130.32815551757812,
+        "valid_std": 30.402050018310547,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 50,
+          "row_end": 2610,
+          "col_start": 2610,
+          "col_end": 5170
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 1490,
+          "fraction": 0.022735595703125
+        },
+        "POW": {
+          "class_name": "Pure Ocean Wave",
+          "source_label_id": 7,
+          "pixel_count": 38266,
+          "fraction": 0.583892822265625
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 25780,
+          "fraction": 0.39337158203125
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "source_product_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9.png",
+      "image_sha256": "D58757DBD10F66FE2D3D0913C1C4DC78AC3A70D751A19BDDBF4F6357B0FD5E73",
+      "mask_sha256": "D338E439348C2C8323A4C0797A0E0795517E7E3078D1C6AEE8B356E3A36E89B1",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          12
+        ],
+        "background_coverage_fraction": 0.70452880859375,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 57.880001068115234,
+        "raw_max": 528.5399780273438,
+        "raw_mean": 127.59729766845703,
+        "raw_std": 21.998289108276367,
+        "zeros_count": 0,
+        "valid_min": 57.880001068115234,
+        "valid_max": 528.5399780273438,
+        "valid_mean": 127.59729766845703,
+        "valid_std": 21.998289108276367,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 2610,
+          "row_end": 5170,
+          "col_start": 2610,
+          "col_end": 5170
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 46172,
+          "fraction": 0.70452880859375
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 19364,
+          "fraction": 0.29547119140625
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "source_product_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10.png",
+      "image_sha256": "BD6CB9AF3EE4A32A3B32B6052B6FD9CB7E0D6F024C44C5BA8622FCF25E1E596E",
+      "mask_sha256": "0660F66ED9812CCB3A913ADA93B2B32C830BE11F5620F1B30BF214265E4586D0",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          8,
+          12
+        ],
+        "background_coverage_fraction": 0.6605377197265625,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 60.20000076293945,
+        "raw_max": 319.94000244140625,
+        "raw_mean": 115.13861083984375,
+        "raw_std": 18.36899757385254,
+        "zeros_count": 0,
+        "valid_min": 60.20000076293945,
+        "valid_max": 319.94000244140625,
+        "valid_mean": 115.13861083984375,
+        "valid_std": 18.36899757385254,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 5170,
+          "row_end": 7730,
+          "col_start": 2610,
+          "col_end": 5170
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 43289,
+          "fraction": 0.6605377197265625
+        },
+        "RF": {
+          "class_name": "Rain Cell / Rain Footprint",
+          "source_label_id": 8,
+          "pixel_count": 7957,
+          "fraction": 0.1214141845703125
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 14290,
+          "fraction": 0.218048095703125
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1.png",
+      "image_sha256": "97F56731FBD633E00594EFBC709E1C5C2F2D1E754E7D1964BCDFA7B11D498252",
+      "mask_sha256": "073244F1C0A3157D44B9AF20099066FBDA20CB000DAC94E7666669C730DFFD65",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          5,
+          10,
+          12
+        ],
+        "background_coverage_fraction": 0.006500244140625,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 69.05999755859375,
+        "raw_max": 198.3699951171875,
+        "raw_mean": 117.03546142578125,
+        "raw_std": 15.745068550109863,
+        "zeros_count": 0,
+        "valid_min": 69.05999755859375,
+        "valid_max": 198.3699951171875,
+        "valid_mean": 117.03546142578125,
+        "valid_std": 15.745068550109863,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 50,
+          "row_end": 2610,
+          "col_start": 50,
+          "col_end": 2610
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 426,
+          "fraction": 0.006500244140625
+        },
+        "MCC": {
+          "class_name": "Mesoscale Cellular Convection",
+          "source_label_id": 5,
+          "pixel_count": 3674,
+          "fraction": 0.056060791015625
+        },
+        "WS": {
+          "class_name": "Wind Streak",
+          "source_label_id": 10,
+          "pixel_count": 43772,
+          "fraction": 0.66790771484375
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 17664,
+          "fraction": 0.26953125
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2.png",
+      "image_sha256": "1D25B2620E5A4DFCCC1065B9D36A5C1AA0915306D3123DAB116B45E110C03E69",
+      "mask_sha256": "AB3BA168A717FBDF9534DE1922EBCBE1979ED36ACF006004B5B91CD68571B617",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          12
+        ],
+        "background_coverage_fraction": 0.7548065185546875,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 72.47000122070312,
+        "raw_max": 206.7100067138672,
+        "raw_mean": 115.27879333496094,
+        "raw_std": 14.163714408874512,
+        "zeros_count": 0,
+        "valid_min": 72.47000122070312,
+        "valid_max": 206.7100067138672,
+        "valid_mean": 115.27879333496094,
+        "valid_std": 14.163714408874512,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 2610,
+          "row_end": 5170,
+          "col_start": 50,
+          "col_end": 2610
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 49467,
+          "fraction": 0.7548065185546875
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 16069,
+          "fraction": 0.2451934814453125
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4.png",
+      "image_sha256": "0704F0836D2DC18750B7C9BD1552A5E158A20331AD4F0B97D17006195E1D3F6D",
+      "mask_sha256": "C5C496887F2B119FF2587E40BEA02BE73F45A703622ADBF6946B7D4A9E367430",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          12
+        ],
+        "background_coverage_fraction": 0.7031402587890625,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 70.12000274658203,
+        "raw_max": 354.0799865722656,
+        "raw_mean": 114.82122802734375,
+        "raw_std": 13.868935585021973,
+        "zeros_count": 0,
+        "valid_min": 70.12000274658203,
+        "valid_max": 354.0799865722656,
+        "valid_mean": 114.82122802734375,
+        "valid_std": 13.868935585021973,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 7730,
+          "row_end": 10290,
+          "col_start": 50,
+          "col_end": 2610
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 46081,
+          "fraction": 0.7031402587890625
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 19455,
+          "fraction": 0.2968597412109375
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7.png",
+      "image_sha256": "B52D0F81C8D3D32E09D6D08FB44F8B2D133C8ADA3CAF9CB74C48FF04D37736E4",
+      "mask_sha256": "23D4799DFCFA6564AFD002DA9338A815E3AD3DB33EFEF0904A82F3752C80475B",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          12
+        ],
+        "background_coverage_fraction": 0.663818359375,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 70.19000244140625,
+        "raw_max": 167.49000549316406,
+        "raw_mean": 99.31603240966797,
+        "raw_std": 10.778928756713867,
+        "zeros_count": 0,
+        "valid_min": 70.19000244140625,
+        "valid_max": 167.49000549316406,
+        "valid_mean": 99.31603240966797,
+        "valid_std": 10.778928756713867,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 50,
+          "row_end": 2610,
+          "col_start": 2610,
+          "col_end": 5170
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 43504,
+          "fraction": 0.663818359375
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 22032,
+          "fraction": 0.336181640625
+        }
+      }
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "derived_image_path": "data\\derived\\ops01\\images\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8.tif",
+      "derived_mask_path": "data\\derived\\ops01\\masks\\s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8.png",
+      "image_sha256": "D0C674DEC5E2B3E864799666877D006785408136E1BA94651F6394EF9E67D49B",
+      "mask_sha256": "323F00058C496D8E8CBC22A952915FFE3A401B89962283B3EFA08F6373070311",
+      "dimensions": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "radiometric_representation": "Level-1 GRD 10x block mean amplitude DN",
+      "pixel_contract": {
+        "shape_match": true,
+        "pixel_grid_match": true,
+        "unique_class_ids": [
+          0,
+          12
+        ],
+        "background_coverage_fraction": 0.7356414794921875,
+        "unexpected_values_count": 0,
+        "invalid_label_fraction": 0.0
+      },
+      "radiometric_statistics": {
+        "raw_min": 52.400001525878906,
+        "raw_max": 204.10000610351562,
+        "raw_mean": 97.8997802734375,
+        "raw_std": 12.22269344329834,
+        "zeros_count": 0,
+        "valid_min": 52.400001525878906,
+        "valid_max": 204.10000610351562,
+        "valid_mean": 97.8997802734375,
+        "valid_std": 12.22269344329834,
+        "edge_padding_fraction": 0.0
+      },
+      "alignment_metadata": {
+        "geometric_alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+        "intensity_correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+        "alignment_method": "Model B Bilinear Cartesian Inversion",
+        "aggregation_method": "10x10 spatial block mean",
+        "orientation": "identity",
+        "shift_offset_li_pixels": [
+          0.0,
+          0.0
+        ],
+        "native_crop_window": {
+          "row_start": 2610,
+          "row_end": 5170,
+          "col_start": 2610,
+          "col_end": 5170
+        },
+        "nodata_rule": "Border zero-padding cataloged; uncalibrated raw DN preserved",
+        "alignment_evidence_source": "Phase 8-P1 empirical cross-correlation (median NCC 0.9404)"
+      },
+      "class_composition": {
+        "BG": {
+          "class_name": "Background Seawater",
+          "source_label_id": 0,
+          "pixel_count": 48211,
+          "fraction": 0.7356414794921875
+        },
+        "IWs": {
+          "class_name": "Internal Waves",
+          "source_label_id": 12,
+          "pixel_count": 17325,
+          "fraction": 0.2643585205078125
+        }
+      }
+    }
+  ]
+}

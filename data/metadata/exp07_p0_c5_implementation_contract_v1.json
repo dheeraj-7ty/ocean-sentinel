@@ -1,0 +1,371 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:00:00.000000+00:00",
+  "phase": "EXP-07-P0-C5",
+  "title": "EXP-07 Authoritative Implementation Contract and Adversarial Audit",
+  "contract_status": "FROZEN_IMPLEMENTATION_AUTHORIZED",
+  "predecessor_contract": "data/metadata/exp07_p0_c4_protocol_freeze_v1.json",
+  "dataset_manifest": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+  "dataset_manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+  "taxonomy_manifest": "data/metadata/ops01_taxonomy_v1.json",
+  "corrections_to_c4": [
+    {
+      "issue_id": "CORR-C5-001",
+      "component": "BatchNorm / Gradient Accumulation Semantics",
+      "c4_statement": "To mitigate small-sample running statistics instability (72 tiles / batch_size=8 = 9 batches/epoch), implementation must use gradient accumulation (steps=2, virtual batch_size=16) and set BatchNorm momentum=0.05.",
+      "c5_scientific_correction": "Gradient accumulation aggregates gradients over multiple forward/backward passes to increase the effective optimizer batch size, but each forward step computes BatchNorm batch running statistics solely across the physical minibatch (size 8). Gradient accumulation does NOT increase or stabilize the sample size seen by BatchNorm. Retaining Option B as baseline requires explicitly documenting the small-batch statistical variance of BatchNorm as a known risk, while setting momentum=0.05 to smooth updates across steps.",
+      "incident_id": "INC-P0-C5-001",
+      "governance_rule": "GOV-RULE-059"
+    },
+    {
+      "issue_id": "CORR-C5-002",
+      "component": "Excluded Class Remapping in Evaluation Splits",
+      "c4_statement": "12 training-eligible classes (0..11). OS excluded.",
+      "c5_scientific_correction": "Physical source masks in DEV (4 tiles) and HOLDOUT (3 tiles) contain non-eligible class 9 (Sea Ice, SI, 261,120 DEV pixels and 195,840 HOLDOUT pixels). A naive identity mapping would misclassify Sea Ice as Oceanic Eddy (dense class 9) or cause out-of-bounds indexing. The implementation contract must explicitly remap source labels to dense 0..11 and map all non-eligible source classes (3: Iceberg, 9: Sea Ice, 14: Mineral Oil Spill) to ignore_index = -100.",
+      "incident_id": "PREVENTATIVE_GUARDRAIL",
+      "governance_rule": "GOV-RULE-055"
+    }
+  ],
+  "adversarial_contract_audit_table": [
+    {
+      "decision_item": "A. Radiometric Preprocessing Order",
+      "current_c4_statement": "raw -> validity -> radiometric -> log1p -> train standardization -> model",
+      "implementation_interpretation": "Raw uint16 DN -> compute validity mask (raw > 0) -> log1p(raw) -> (log1p - 4.2756) / 0.3866 -> zero-out invalid pixels -> model",
+      "ambiguity_risk": "Risk of applying calibration formula (DN^2/A^2) on the fly, which would invalidate the log1p standardization constants.",
+      "correction": "Explicitly document that stored OPS-01 tiles are pre-aggregated DN values; standardization applies directly to log1p(DN).",
+      "test_required": "test_golden_sample_preprocessing_ordering"
+    },
+    {
+      "decision_item": "B. Exact Aggregation Order",
+      "current_c4_statement": "10x10 block-mean aggregation",
+      "implementation_interpretation": "Aggregation was performed offline during dataset construction. Tiles on disk are fixed at 256x256.",
+      "ambiguity_risk": "Loader attempting runtime spatial pooling.",
+      "correction": "Declare aggregation complete offline; runtime loader must assert input shape is exactly (1, 256, 256).",
+      "test_required": "test_dataset_tile_dimensions"
+    },
+    {
+      "decision_item": "C. Validity Mask Semantics",
+      "current_c4_statement": "validity_mask = raw_image > 0",
+      "implementation_interpretation": "Zero values indicate left-swath border padding (nodata: 0.0). Valid data is strictly positive.",
+      "ambiguity_risk": "Border padding pixels leaking into loss or metric denominators; or source masks modified to include zeros.",
+      "correction": "Strictly decouple runtime validity mask from source masks. Source masks on disk remain byte-exact. In loss, target[~validity_mask] = -100. In metrics, evaluate only valid pixels.",
+      "test_required": "test_validity_mask_source_mask_decoupling"
+    },
+    {
+      "decision_item": "D. Normalization Ordering",
+      "current_c4_statement": "Fixed TRAIN-derived standardization: (log(1+x) - 4.2756) / 0.3866",
+      "implementation_interpretation": "Applied pixel-wise after validity masking and log1p transform. Invalid pixels explicitly zeroed in model input.",
+      "ambiguity_risk": "Standardizing invalid pixels and leaving negative values (-11.06) in border padding.",
+      "correction": "Mandatory masking of invalid pixels to 0.0 after standardization.",
+      "test_required": "test_invalid_pixels_zeroed_in_model_input"
+    },
+    {
+      "decision_item": "E. Normalization Statistics",
+      "current_c4_statement": "mean=4.2756, std=0.3866 from TRAIN valid pixels only",
+      "implementation_interpretation": "Immutable hardcoded constants in normalization module. Zero contribution from DEV or HOLDOUT.",
+      "ambiguity_risk": "Dynamic batch-wise standardization or data leakage from evaluation splits.",
+      "correction": "Enforce constants via regression tests asserting zero DEV/HOLDOUT pixel contribution.",
+      "test_required": "test_normalization_constants_immutable"
+    },
+    {
+      "decision_item": "F. Class Ordering & Dense Remapping",
+      "current_c4_statement": "12 training-eligible classes, indices 0..11",
+      "implementation_interpretation": "Dense indices: 0:BG, 1:AF, 2:BS, 3:LWA, 4:MCC, 5:OF, 6:POW, 7:RF, 8:WS, 9:Eddy, 10:IWs, 11:HM.",
+      "ambiguity_risk": "Source labels (0, 1, 2, 4, 5, 6, 7, 8, 10, 11, 12, 13, and 9 in DEV) colliding with dense indices.",
+      "correction": "Explicit dictionary mapping SOURCE_LABEL_TO_DENSE mapping source IDs to 0..11 and excluded classes (3, 9, 14) to -100.",
+      "test_required": "test_source_to_dense_class_remapping"
+    },
+    {
+      "decision_item": "G. Class Frequency Calculation",
+      "current_c4_statement": "Pixel frequencies computed over TRAIN valid pixels",
+      "implementation_interpretation": "BG: 0.4148, AF: 0.0076, BS: 0.0623, LWA: 0.0050, MCC: 0.1159, OF: 0.0143, POW: 0.1175, RF: 0.0135, WS: 0.0474, Eddy: 0.0072, IWs: 0.1942, HM: 0.000209.",
+      "ambiguity_risk": "Frequencies drifting if invalid border pixels are included in denominator.",
+      "correction": "Exact pixel accounting directly from TRAIN valid masks (total valid pixels: 4,712,082).",
+      "test_required": "test_exact_class_frequencies_and_pixel_counts"
+    },
+    {
+      "decision_item": "H. Sampler Algorithm",
+      "current_c4_statement": "Candidate F Hybrid: 70% Parent-Balanced + 30% Class-Presence",
+      "implementation_interpretation": "Construct stationary probability vector w_hybrid = 0.70 * w_parent + 0.30 * w_presence over the 72 training tiles. Draw 72 samples per epoch with replacement.",
+      "ambiguity_risk": "Ambiguity over integer split (50/22) vs stationary probability vector.",
+      "correction": "Implement as stationary probability vector with replacement. Eliminates integer rounding ambiguity.",
+      "test_required": "test_candidate_f_hybrid_sampler_probabilities"
+    },
+    {
+      "decision_item": "I. Replacement Semantics",
+      "current_c4_statement": "Sampling with replacement",
+      "implementation_interpretation": "Tiles are drawn with replacement to allow overrepresented rare-class tiles and underrepresented parents to meet quotas.",
+      "ambiguity_risk": "Accidental non-replacement sampling.",
+      "correction": "Explicit replacement=True in sampler configuration.",
+      "test_required": "test_sampler_replacement_true"
+    },
+    {
+      "decision_item": "J. Samples-per-Epoch Semantics",
+      "current_c4_statement": "72 tiles per epoch",
+      "implementation_interpretation": "Exactly 72 draws per epoch matching the physical training dataset size.",
+      "ambiguity_risk": "Varying epoch lengths across seeds or runs.",
+      "correction": "Hardcode num_samples = 72 in sampler contract.",
+      "test_required": "test_sampler_epoch_length_is_72"
+    },
+    {
+      "decision_item": "K. Parent Balancing",
+      "current_c4_statement": "Equal parent scene exposure",
+      "implementation_interpretation": "Each of the 12 parents receives 1/12 total probability. Tile prob = 1 / (12 * tiles_in_parent).",
+      "ambiguity_risk": "Parent imbalance due to differing tile counts (1 to 14 tiles per parent).",
+      "correction": "Explicit tile weighting inversely proportional to parent tile count.",
+      "test_required": "test_parent_balanced_component_weights"
+    },
+    {
+      "decision_item": "L. Class-Presence Sampling",
+      "current_c4_statement": "Inverse tile-frequency weighting per present class",
+      "implementation_interpretation": "Score(i) = sum(1 / tiles_with_class(c) for c in tile(i)). w_presence = Score / sum(Score).",
+      "ambiguity_risk": "Division by zero for absent classes.",
+      "correction": "Only present eligible classes in tile are evaluated. All 12 classes exist in >= 2 tiles in TRAIN.",
+      "test_required": "test_class_presence_component_weights"
+    },
+    {
+      "decision_item": "M. Hybrid 70/30 Implementation",
+      "current_c4_statement": "0.70 * Parent + 0.30 * Presence",
+      "implementation_interpretation": "Linear combination of normalized parent and presence probability vectors.",
+      "ambiguity_risk": "Weight vector sum != 1.0 due to float rounding.",
+      "correction": "Explicit normalization: w_hybrid = w_hybrid / sum(w_hybrid).",
+      "test_required": "test_hybrid_vector_sums_to_one"
+    },
+    {
+      "decision_item": "N. Random-Seed Semantics",
+      "current_c4_statement": "Deterministic replay",
+      "implementation_interpretation": "Sampler seeded with base_seed + epoch. Deterministic across runs.",
+      "ambiguity_risk": "Nondeterministic RNG across worker processes.",
+      "correction": "Seed PyTorch and NumPy generators explicitly with worker_init_fn.",
+      "test_required": "test_sampler_deterministic_replay"
+    },
+    {
+      "decision_item": "O. Duplicate Sampling Behavior",
+      "current_c4_statement": "Duplicate tiles permitted within an epoch",
+      "implementation_interpretation": "Expected maximum tile repetition is ~4.48x for rare-class tiles under Candidate F.",
+      "ambiguity_risk": "Deduplication logic silently dropping draws.",
+      "correction": "Permit duplicates; verify rare class exposure meets >= 3.10 tiles/epoch.",
+      "test_required": "test_rare_class_exposure_minimum"
+    },
+    {
+      "decision_item": "P. Loss Formula",
+      "current_c4_statement": "CrossEntropyLoss with sqrt(median_freq / freq_c) weights",
+      "implementation_interpretation": "Standard PyTorch nn.CrossEntropyLoss(weight=weights, ignore_index=-100, reduction='mean').",
+      "ambiguity_risk": "Uncapped loss weights causing gradient explosion.",
+      "correction": "Sqrt median-frequency bounds max weight ratio to 44.58. HM weight is 12.15, BG weight is 0.2726.",
+      "test_required": "test_exact_loss_weights_and_ratio"
+    },
+    {
+      "decision_item": "Q. Loss-Weight Normalization",
+      "current_c4_statement": "Weights normalized by median frequency",
+      "implementation_interpretation": "Raw weights w_c = sqrt(median_freq / freq_c). Weight for class with median frequency is exactly 1.0.",
+      "ambiguity_risk": "Arbitrary sum-to-one rescaling altering effective learning rate.",
+      "correction": "Do not rescale weights; median-centered scaling maintains standard SGD/AdamW learning rate calibration.",
+      "test_required": "test_loss_weights_median_centered"
+    },
+    {
+      "decision_item": "R. Absent Classes",
+      "current_c4_statement": "Absent classes in a minibatch have zero loss contribution",
+      "implementation_interpretation": "Standard CrossEntropyLoss behavior with reduction='mean' over valid present pixels.",
+      "ambiguity_risk": "Zero division in batch mean reduction.",
+      "correction": "CrossEntropyLoss divides by sum of weights of valid present pixels. If valid pixels > 0, loss is finite.",
+      "test_required": "test_loss_finite_on_partial_class_batches"
+    },
+    {
+      "decision_item": "S. Background Treatment",
+      "current_c4_statement": "Background (class 0) included in loss with weight 0.2726",
+      "implementation_interpretation": "BG is a valid semantic class, downweighted by ~3.67x relative to median to prevent dominant class collapse.",
+      "ambiguity_risk": "Accidental exclusion of BG from loss.",
+      "correction": "Assert BG weight is 0.272584 and included in class_weights tensor.",
+      "test_required": "test_background_weight_included"
+    },
+    {
+      "decision_item": "T. ignore_index Behavior",
+      "current_c4_statement": "ignore_index = -100",
+      "implementation_interpretation": "Pixels with target = -100 are ignored by nn.CrossEntropyLoss.",
+      "ambiguity_risk": "Invalid border pixels contributing to loss.",
+      "correction": "Target mask sets invalid pixels and excluded classes to -100. Loss strictly excludes them.",
+      "test_required": "test_ignore_index_excludes_border_and_excluded_classes"
+    },
+    {
+      "decision_item": "U. Model Input Contract",
+      "current_c4_statement": "[B, 1, 256, 256] float32",
+      "implementation_interpretation": "Batch of 1-channel 256x256 standardized float32 tensors.",
+      "ambiguity_risk": "Accidental 2-channel or 3-channel input expectation in encoder conv1.",
+      "correction": "Adapted conv1 takes exactly in_channels = 1.",
+      "test_required": "test_model_input_shape_contract"
+    },
+    {
+      "decision_item": "V. Model Output Contract",
+      "current_c4_statement": "[B, 12, 256, 256] float32 raw logits",
+      "implementation_interpretation": "Batch of 12-channel 256x256 float32 logits. No softmax or sigmoid in head.",
+      "ambiguity_risk": "Softmax applied inside model forward pass.",
+      "correction": "Final layer is pure Conv2d(32, 12, kernel_size=1) without activation.",
+      "test_required": "test_model_output_shape_and_no_activation"
+    },
+    {
+      "decision_item": "W. BatchNorm Behavior",
+      "current_c4_statement": "Option B: BatchNorm baseline retained with momentum=0.05",
+      "implementation_interpretation": "BatchNorm2d evaluated on physical minibatch size (8). Running stats smoothed with momentum=0.05.",
+      "ambiguity_risk": "Assuming gradient accumulation increases BatchNorm batch size.",
+      "correction": "Explicitly document that BN statistical batch size is 8. Record small-sample variance as known risk.",
+      "test_required": "test_batchnorm_statistical_batch_size_documented"
+    },
+    {
+      "decision_item": "X. Gradient Accumulation Semantics",
+      "current_c4_statement": "steps=2, effective batch size=16",
+      "implementation_interpretation": "Optimizer step executed every 2 minibatches of 8 samples. Effective optimization batch = 16.",
+      "ambiguity_risk": "Conflating effective optimizer batch with BN statistical batch.",
+      "correction": "Enforce strict separation: physical batch = 8, accum_steps = 2, optimizer batch = 16, BN batch = 8.",
+      "test_required": "test_effective_vs_statistical_batch_separation"
+    },
+    {
+      "decision_item": "Y. Augmentation Semantics",
+      "current_c4_statement": "BASELINE_IDENTITY_NO_AUGMENTATION",
+      "implementation_interpretation": "No spatial or radiometric augmentations applied to baseline. Identity transform.",
+      "ambiguity_risk": "Accidental activation of OpenCV or Albumentations transforms.",
+      "correction": "Identity pipeline only. Non-identity augmentations remain provisional and unvalidated.",
+      "test_required": "test_augmentation_is_identity"
+    },
+    {
+      "decision_item": "Z. Multiclass Prediction Rule",
+      "current_c4_statement": "argmax(logits, dim=1)",
+      "implementation_interpretation": "Predicted class is argmax across the 12 output channels at each pixel.",
+      "ambiguity_risk": "Reusing binary threshold tau=0.22 or sigmoid probability thresholds.",
+      "correction": "Strictly prohibit binary thresholds; enforce argmax.",
+      "test_required": "test_prediction_rule_is_argmax"
+    },
+    {
+      "decision_item": "AA. Metric Aggregation",
+      "current_c4_statement": "mIoU_macro across present phenomenon classes",
+      "implementation_interpretation": "mIoU_phenomena excludes class 0 (BG). mIoU_all includes class 0 (BG).",
+      "ambiguity_risk": "Ambiguity over whether BG is included in primary headline metric.",
+      "correction": "Report both: mIoU_all (0..11) and mIoU_phenomena (1..11). Primary scientific metric is mIoU_phenomena.",
+      "test_required": "test_metric_aggregation_both_reported"
+    },
+    {
+      "decision_item": "AB. Invalid-Pixel Exclusion",
+      "current_c4_statement": "Evaluate metrics strictly on valid pixels",
+      "implementation_interpretation": "Pixels with validity_mask == False or target == -100 excluded from confusion matrix.",
+      "ambiguity_risk": "Zero border pixels falsely counted as Background true positives.",
+      "correction": "Mask out invalid pixels prior to bincount in confusion matrix computation.",
+      "test_required": "test_invalid_pixels_excluded_from_confusion_matrix"
+    },
+    {
+      "decision_item": "AC. Absent-Class Metric Handling",
+      "current_c4_statement": "Absent classes excluded from macro denominator",
+      "implementation_interpretation": "If GT pixel count for class c is 0, IoU_c is NaN and excluded from mean calculation.",
+      "ambiguity_risk": "Absent classes scored as 0.0 or 1.0, distorting macro average.",
+      "correction": "Strict denominator exclusion for GT=0 classes.",
+      "test_required": "test_absent_class_excluded_from_macro_mean"
+    },
+    {
+      "decision_item": "AD. Holdout Reporting",
+      "current_c4_statement": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+      "implementation_interpretation": "Permanently disclosed in all reporting, logs, and metadata.",
+      "ambiguity_risk": "Calling holdout pristine or an independent benchmark.",
+      "correction": "Automated regression tests reject forbidden terms in reports.",
+      "test_required": "test_holdout_epistemic_disclosure"
+    },
+    {
+      "decision_item": "AE. Checkpoint Identity",
+      "current_c4_statement": "EXP-07-P0-C5-OPS01-V1",
+      "implementation_interpretation": "Unique experiment ID anchored to manifest SHA256 and taxonomy version.",
+      "ambiguity_risk": "Ambiguous lineage or collision with previous experiment checkpoints.",
+      "correction": "Explicit reproducibility config object saved with every run.",
+      "test_required": "test_reproducibility_config_fields"
+    },
+    {
+      "decision_item": "AF. Reproducibility",
+      "current_c4_statement": "Deterministic algorithmic replay",
+      "implementation_interpretation": "Fixed seed (42) produces identical batch draw sequences and deterministic model forward outputs.",
+      "ambiguity_risk": "Claiming cross-platform bitwise equality where hardware differences can occur.",
+      "correction": "Explicitly distinguish algorithmic replay determinism from bitwise cross-architecture equality.",
+      "test_required": "test_deterministic_algorithmic_replay"
+    },
+    {
+      "decision_item": "AG. DataLoader Worker Determinism",
+      "current_c4_statement": "worker_init_fn sets deterministic seed per worker",
+      "implementation_interpretation": "seed = (base_seed + worker_id) % (2**32).",
+      "ambiguity_risk": "Multiprocessing workers causing seed collision or random drift.",
+      "correction": "Explicit worker_init_fn provided in reference loader.",
+      "test_required": "test_worker_seed_derivation"
+    },
+    {
+      "decision_item": "AH. Dtype Conversion",
+      "current_c4_statement": "uint16 DN -> float32 input -> int64 target",
+      "implementation_interpretation": "Input image: torch.float32. Target mask: torch.int64.",
+      "ambiguity_risk": "Loss function receiving float target or uint8 mask.",
+      "correction": "Explicit dtype enforcement in dataset reader.",
+      "test_required": "test_dataset_dtypes"
+    },
+    {
+      "decision_item": "AI. CPU/GPU Numerical Consistency Assumptions",
+      "current_c4_statement": "CPU reference implementation",
+      "implementation_interpretation": "All C5 validations run strictly on CPU. Numerical calculations are deterministic float32.",
+      "ambiguity_risk": "Assuming GPU fp16 or cuDNN nondeterminism matches CPU float32.",
+      "correction": "C5 contract is CPU float32 reference only. GPU differences must be validated during GPU qualification.",
+      "test_required": "test_cpu_only_execution_verified"
+    },
+    {
+      "decision_item": "AJ. Serialization/Deserialization",
+      "current_c4_statement": "JSON-safe metadata and PyTorch state dicts",
+      "implementation_interpretation": "All configuration and metric outputs serialized to standard JSON.",
+      "ambiguity_risk": "NaN/Inf values breaking JSON serialization.",
+      "correction": "Metrics convert NaNs to None for valid JSON serialization.",
+      "test_required": "test_metrics_json_serializable"
+    },
+    {
+      "decision_item": "AK. Exception Behavior",
+      "current_c4_statement": "Missing files or invalid shapes fail loudly",
+      "implementation_interpretation": "FileNotFoundError on missing rasters; ValueError on shape or partition mismatch.",
+      "ambiguity_risk": "Silent fallback or zero-padding of missing files.",
+      "correction": "Explicit error handling without fallback.",
+      "test_required": "test_dataset_missing_file_raises_error"
+    },
+    {
+      "decision_item": "AL. Manifest/Path Validation",
+      "current_c4_statement": "ops01_physical_dataset_manifest_v4.json",
+      "implementation_interpretation": "All 147 samples verified on disk; hash matches FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E.",
+      "ambiguity_risk": "Broken file references or missing tiles.",
+      "correction": "Full path verification across all 147 images and 147 masks.",
+      "test_required": "test_all_147_manifest_paths_exist"
+    }
+  ],
+  "golden_samples": {
+    "TRAIN": {
+      "sample_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7",
+      "parent_scene_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "image_sha256": "AD477CB836F2A5DF1018390EA264A96FD89BF8EA00A5D05B3E6CAC8C4FC5B328",
+      "mask_sha256": "E040D38339D91BAB9AE4CE05E956BD3B48C73B3DDF55DFF75E6944D0761807EE",
+      "valid_pixel_count": 65536,
+      "invalid_pixel_count": 0,
+      "raw_img_mean": 131.1164,
+      "norm_img_mean": 1.4391,
+      "target_unique_labels": [0, 10]
+    },
+    "DEV": {
+      "sample_id": "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-3",
+      "parent_scene_id": "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+      "image_sha256": "EB5F258965E169990B5033A3F87D3A3FD8926CA7161C1D6DDA752A70E684B11E",
+      "mask_sha256": "14960734A5D4B76B188759408A04BFFC91A1AB9211601E4222AB849505B9162D",
+      "valid_pixel_count": 65536,
+      "invalid_pixel_count": 0,
+      "raw_img_mean": 111.1231,
+      "norm_img_mean": 1.0328,
+      "target_unique_labels": [0, 1, 3, 10]
+    },
+    "HOLDOUT": {
+      "sample_id": "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-58",
+      "parent_scene_id": "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001",
+      "image_sha256": "D1D293BA927798C147DEE34686078CFBCB1BBFBBE9EB935F786BBAAC963E5859",
+      "mask_sha256": "B8047AA937A6536DE34DADB054364BBF7FCC67D4147FF3F259DFEBF75F5CDA5A",
+      "valid_pixel_count": 65536,
+      "invalid_pixel_count": 0,
+      "raw_img_mean": 91.6570,
+      "norm_img_mean": 0.5819,
+      "target_unique_labels": [-100, 0]
+    }
+  }
+}

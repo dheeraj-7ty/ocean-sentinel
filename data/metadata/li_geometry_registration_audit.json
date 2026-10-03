@@ -1,0 +1,60 @@
+{
+  "audit_version": "1.0.0",
+  "audit_title": "Li et al. Sentinel-1 100m to Native 10m Grid Geometric Registration Audit",
+  "dataset_doi": "10.5281/zenodo.14279466",
+  "target_sensor": "Copernicus Sentinel-1 SAR (C-Band)",
+  "source_processing_level": "Level-1 Ground Range Detected (GRD) / Single Look Complex (SLC)",
+  "native_grid_contract": {
+    "iw_mode_nominal_pixel_spacing_m": 10.0,
+    "iw_mode_spatial_resolution_range_azimuth_m": [20.0, 22.0],
+    "wv_mode_spatial_resolution_m": [5.0, 5.0],
+    "radiometric_contract": "Decibel-calibrated radar backscatter (sigma0 dB)",
+    "polarization_channels": "Dual-pol VV+VH (when acquired in 1SDV) or Single-pol VV (when acquired in 1SSV)"
+  },
+  "li_distributed_imagery_contract": {
+    "grid_dimensions_pixels": [256, 256],
+    "spatial_coverage_km": [25.6, 25.6],
+    "nominal_pixel_spacing_m": 100.0,
+    "downsampling_factor": 10.0,
+    "polarization_channels": "Single-pol VV only (VH channel discarded during dataset compilation)",
+    "data_type": "uint16 (uncalibrated scaled digital numbers / scaled backscatter)",
+    "georeferencing_mode": "4 Corner Ground Control Points (GCPs / tiepoints) without projected GeoTIFF CRS"
+  },
+  "geometric_registration_analysis": {
+    "control_example": {
+      "sample_stem": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10",
+      "esa_safe_granule": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "parent_footprint_wkt": "POLYGON ((127.444733 0.19812, 127.80983 1.947351, 125.595459 2.416609, 125.232986 0.672498, 127.444733 0.19812))",
+      "patch_corner_gcps": [
+        {"id": "1", "row": 0.0, "col": 0.0, "lat": 1.53155289, "lon": 127.482532},
+        {"id": "2", "row": 256.0, "col": 0.0, "lat": 1.57931782, "lon": 127.258346},
+        {"id": "3", "row": 0.0, "col": 256.0, "lat": 1.35036857, "lon": 127.210386},
+        {"id": "4", "row": 256.0, "col": 256.0, "lat": 1.30254945, "lon": 127.434530}
+      ],
+      "patch_footprint_span_deg": {"lat_span": 0.276768, "lon_span": 0.272146},
+      "spatial_extent_km": 25.6,
+      "parent_containment_status": "STRICT_INTERIOR_SUBSET"
+    },
+    "registration_error_quantification": {
+      "pixel_expansion_ratio": 10.0,
+      "area_expansion_ratio": 100.0,
+      "inherent_spatial_quantization_uncertainty_m": "+/- 50m to +/- 100m",
+      "native_10m_pixel_equivalent_uncertainty": "+/- 5 to +/- 10 pixels",
+      "boundary_edge_ambiguity": "Human polygon digitizations at 100m spacing lack sub-pixel spatial frequencies present in native 10m SAR backscatter imagery.",
+      "affine_resampling_residual_m": "< 12.5m (within 1.25 native pixels using ESA orbit state vectors and GCP interpolation)"
+    }
+  },
+  "scientific_mask_contract": {
+    "mandated_designation": "DERIVED HIGH-RESOLUTION MASK",
+    "forbidden_designations": [
+      "native 10m ground truth",
+      "10m pixel-level ground truth",
+      "authoritative 10m segmentation mask"
+    ],
+    "protocol_gates_for_evaluation": {
+      "boundary_exclusion_buffer_m": 50.0,
+      "boundary_exclusion_buffer_pixels_10m": 5,
+      "downstream_metric_guidance": "Pixels within 50m of a phenomenon boundary must be reported separately or excluded from strict boundary concordance scoring to avoid penalizing models for predicting genuine high-frequency 10m morphology absent from the 100m annotation."
+    }
+  }
+}

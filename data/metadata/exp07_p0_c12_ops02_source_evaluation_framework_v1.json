@@ -1,0 +1,131 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C12",
+  "title": "OPS-02 External Data Source Evaluation and Acquisition Scoring Framework",
+  "created_at": "2026-09-14T01:43:30Z",
+  "purpose": "Provide a rigorous, multi-criteria quantitative evaluation framework for assessing public SAR datasets and acquisition archives before ingesting candidate scenes into OPS-02.",
+  "scoring_rubric": {
+    "scale": "1 to 5 per criterion (Total maximum score: 70 points)",
+    "acceptance_threshold": ">= 52 points (>= 74%) with no critical criterion < 3",
+    "criteria": [
+      {
+        "id": "CRIT_01_SOURCE_AUTHORITY",
+        "name": "Source Authority and Institutional Backing",
+        "weight": 1.0,
+        "description": "Peer-reviewed scientific publication, official space agency archive (ESA/Copernicus, NASA/ASF), or established academic research repository.",
+        "scoring_levels": {
+          "5": "Official space agency archive or peer-reviewed publication with published open DOI.",
+          "3": "Academic institutional archive with documented research methodology.",
+          "1": "Anonymous or unverified third-party web repository."
+        }
+      },
+      {
+        "id": "CRIT_02_PARENT_TRACEABILITY",
+        "name": "Parent Scene Traceability",
+        "weight": 1.5,
+        "critical": true,
+        "description": "Ability to trace derived tiles/crops back to the exact physical Level-1 product identifier and raw acquisition.",
+        "scoring_levels": {
+          "5": "Complete ESA product ID (S1A_IW_GRDH_...) and datatake ID provided for every patch.",
+          "3": "Product ID can be unambiguously reconstructed via acquisition time and bounding coordinates.",
+          "1": "Orphan patches with no parent scene identifier. (AUTOMATIC REJECTION)"
+        }
+      },
+      {
+        "id": "CRIT_03_PHYSICAL_IMAGERY_QUALITY",
+        "name": "Physical Imagery Availability and Radiometric Integrity",
+        "weight": 1.0,
+        "description": "Availability of raw float/int Level-1 GRD raster data vs lossy compressed 8-bit visual images.",
+        "scoring_levels": {
+          "5": "Original 16-bit GeoTIFF Level-1 GRD with full calibration metadata.",
+          "3": "Linear downsampled GeoTIFF with preserved dynamic range.",
+          "1": "Non-georeferenced 8-bit lossy compressed PNG/JPEG crops."
+        }
+      },
+      {
+        "id": "CRIT_04_ANNOTATION_QUALITY_AND_TIER",
+        "name": "Annotation Quality and Verification Level",
+        "weight": 1.5,
+        "critical": true,
+        "description": "Pixel-level manual segmentation by domain oceanographers vs coarse bounding boxes or weak pseudo-labels.",
+        "scoring_levels": {
+          "5": "Expert manual pixel-level segmentation with multi-annotator cross-validation (Tier A).",
+          "3": "Semi-automated pipeline verified by oceanographic specialists (Tier B).",
+          "1": "Unverified model-generated pseudo-labels or coarse bounding boxes (Tier D). (AUTOMATIC REJECTION)"
+        }
+      },
+      {
+        "id": "CRIT_05_METADATA_COMPLETENESS",
+        "name": "Acquisition and Sensor Metadata Completeness",
+        "weight": 1.0,
+        "description": "Availability of acquisition timestamp, orbit direction, relative track, polarization, and incidence angles.",
+        "scoring_levels": {
+          "5": "100% of acquisition, orbital, and geometric metadata parameters fully specified.",
+          "3": "Timestamp and orbit available; secondary geometry missing but derivable.",
+          "1": "Missing acquisition date/time or spatial coordinates."
+        }
+      },
+      {
+        "id": "CRIT_06_GEOGRAPHIC_EXPLICITNESS",
+        "name": "Geographic Ontology and Coordinate Validity",
+        "weight": 1.0,
+        "description": "Accurate bounding coordinates, ocean basin naming, and regional sea attribution.",
+        "scoring_levels": {
+          "5": "Exact WGS-84 polygon boundaries with standardized IHO ocean/sea attribution.",
+          "3": "Approximate centroid coordinates with regional sea label.",
+          "1": "No geographic coordinates provided."
+        }
+      },
+      {
+        "id": "CRIT_07_TAXONOMY_COMPATIBILITY",
+        "name": "Taxonomy Compatibility with OPS-01 Ontology",
+        "weight": 1.5,
+        "critical": true,
+        "description": "Degree of direct 1-to-1 semantic alignment with canonical classes (BG, AF, BS, LWA, MCC, OF, POW, RF, WS, Eddy, IWs, HM).",
+        "scoring_levels": {
+          "5": "Exact semantic 1-to-1 match with canonical OPS-01 class definitions.",
+          "3": "Well-defined subsets or superclasses that can be mapped with strict filtering.",
+          "1": "Ambiguous, conflated, or incompatible phenomenon definitions. (AUTOMATIC REJECTION)"
+        }
+      },
+      {
+        "id": "CRIT_08_DUPLICATE_AND_LEAKAGE_RISK",
+        "name": "Overlap and Duplication Risk with Existing OPS-01 Dataset",
+        "weight": 1.0,
+        "description": "Risk of ingesting acquisitions already represented in OPS-01, especially against the protected HOLDOUT.",
+        "scoring_levels": {
+          "5": "Geographically and temporally distinct from all OPS-01 parent acquisitions.",
+          "3": "Candidate shares broad regional archive; requires automated spatial/hash deduplication.",
+          "1": "High risk of containing disguised duplicates of protected HOLDOUT parent scenes."
+        }
+      },
+      {
+        "id": "CRIT_09_LICENSING_AND_REUSE",
+        "name": "Licensing and Intellectual Property Permissibility",
+        "weight": 1.0,
+        "description": "Open science license allowing commercial and non-commercial derivation, redistribution, and research.",
+        "scoring_levels": {
+          "5": "Public Domain (CC0) or Open Data Commons / Creative Commons Attribution (CC-BY).",
+          "3": "Academic research use permitted with attribution (CC-BY-NC).",
+          "1": "Proprietary, undisclosed, or restricted terms."
+        }
+      },
+      {
+        "id": "CRIT_10_AUTOMATED_ACCESS_RELIABILITY",
+        "name": "Automated Access and Download Reliability",
+        "weight": 0.5,
+        "description": "Availability of stable programmatic APIs (e.g. Copernicus Data Space Ecosystem, Zenodo API, ASF Vertex) vs fragile manual web downloads.",
+        "scoring_levels": {
+          "5": "Stable programmatic REST API or S3 bucket with high-throughput bulk access.",
+          "3": "Reliable HTTP archive with persistent URLs.",
+          "1": "Fragile manual forms or dead links."
+        }
+      }
+    ]
+  },
+  "quarantine_triggers": [
+    "Any dataset scoring < 3 on CRIT_02 (Parent Traceability) must be immediately QUARANTINED.",
+    "Any dataset scoring < 3 on CRIT_04 (Annotation Quality) must be immediately QUARANTINED.",
+    "Any dataset with ambiguous class definitions that conflate mineral oil with natural slicks must be QUARANTINED."
+  ]
+}

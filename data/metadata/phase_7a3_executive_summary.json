@@ -1,0 +1,99 @@
+{
+  "document_id": "PHASE_7A.3_EXECUTIVE_SUMMARY_20260913",
+  "audit_phase": "PHASE_7A.3",
+  "phase_title": "Semantic / Geophysical Adjudication and Proxy Evaluation-Readiness",
+  "auditor_role": "Senior CAO Scientific Data / Protocol Auditor & Implementation Engineer",
+  "timestamp_utc": "2026-09-13T00:15:00Z",
+  "execution_status": "COMPLETED",
+  "exit_code": 0,
+  "authoritative_state": {
+    "set_g_candidate_count": 547,
+    "unique_parent_products_total": 343,
+    "physical_outcome": {
+      "physically_validated_proxy": 517,
+      "rejected_acquisition": 30,
+      "unaccounted": 0
+    },
+    "semantic_outcome": {
+      "semantically_validated_negative_proxy": 0,
+      "probable_negative_proxy": 0,
+      "semantic_status_unresolved": 517,
+      "possible_hydrocarbon": 0,
+      "other_phenomenon": 0,
+      "official_negative_evaluation_denominator": 0,
+      "rejected_acquisition": 30
+    },
+    "frozen_artifacts": {
+      "proxy_dataset_manifest": "data/metadata/proxy_dataset_manifest.json",
+      "proxy_dataset_manifest_sha256": "347A0CD9409377197783BBAE42A89EC77A1BE63FD84E777BCE0009804C39F6AE",
+      "proxy_semantic_dataset_manifest": "data/metadata/proxy_semantic_dataset_manifest.json",
+      "proxy_semantic_dataset_manifest_sha256": "C7B4A5C653E9BA0E2AE676470B8FD211AB6819F07D3A6864071BC6BF7DEF3361",
+      "exp06_checkpoint": "experiments/performance/exp06_positive_bce_weight/best_model.pt",
+      "exp06_checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+      "part_i_internal_manifest": "data/metadata/internal_development_split_manifest.json",
+      "part_i_internal_manifest_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+      "trujillo_part_iii_status": "PERMANENTLY_QUARANTINED",
+      "canonical_threshold_tau": 0.22
+    }
+  },
+  "geometry_contract_audit": {
+    "candidate_dimensions": [
+      640,
+      640
+    ],
+    "model_crop_dimensions": [
+      512,
+      512
+    ],
+    "center_pixel_offset": [
+      0.0,
+      0.0
+    ],
+    "evaluated_area_fraction": 0.64,
+    "cropped_perimeter_fraction": 0.36,
+    "assessment": "Central 512x512 crop preserves exact geographic and pixel center (320, 320) but excludes 64px perimeter (36% area)."
+  },
+  "preprocessing_normalization_audit": {
+    "source_canonical_mean": [
+      -33.233136989478695,
+      -19.941215852796695
+    ],
+    "source_canonical_std": [
+      6.489985665955077,
+      4.531345684833188
+    ],
+    "phase_7a2_executed_mean": [
+      -33.2323,
+      -19.9405
+    ],
+    "phase_7a2_executed_std": [
+      6.4912,
+      4.5308
+    ],
+    "discrepancy_impact": "Rounding difference affects 0.0095% pixels; patch-level alarm rate is 100% invariant at 464 / 517."
+  },
+  "model_response_diagnostics_unblinded": {
+    "patch_level": {
+      "evaluated_patches": 517,
+      "patches_with_any_positive": 464,
+      "provisional_proxy_alarm_rate_pct": 89.7485,
+      "significant_proxy_alarm_rate_pct": 89.7485
+    },
+    "pixel_level": {
+      "total_pixels_evaluated": 135528448,
+      "canonical_predicted_positive_pixels": 97054851,
+      "predicted_positive_pixel_fraction_pct": 71.6122
+    },
+    "parent_product_level": {
+      "unique_parent_products_evaluated": 325,
+      "parent_products_with_any_alarm": 290,
+      "parent_product_alarm_rate_pct": 89.2308
+    }
+  },
+  "guardrail_verification": {
+    "total_guardrail_tests": 50,
+    "passed_guardrail_tests": 50,
+    "failed_guardrail_tests": 0
+  },
+  "next_authorized_stage": "PROTOCOL_GOVERNANCE_REVIEW_BEFORE_ANY_EXP07_PROPOSAL"
+}

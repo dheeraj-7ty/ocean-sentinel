@@ -1,0 +1,51 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C13",
+  "title": "OPS-02 Candidate Parent Scene and Source Inventory Ledger",
+  "created_at": "2026-09-14T01:51:15Z",
+  "inventory_summary": {
+    "total_candidate_records": 7931,
+    "primary_expansion_iw_parents": 457,
+    "primary_expansion_iw_slices": 2481,
+    "specialized_lookalike_rasters": 517,
+    "conditional_wv_imagettes": 2383,
+    "quarantined_oil_spill_rasters": 2403,
+    "ops01_baseline_parents": 27,
+    "ops01_baseline_samples": 147
+  },
+  "candidate_pools": [
+    {
+      "pool_name": "LI_IW_UNEXPLOITED_EXPANSION_POOL",
+      "source_ref": "SRC_01_LI_IW_ZENODO",
+      "mode": "IW",
+      "available_parent_scenes": 457,
+      "available_slices": 2481,
+      "status": "APPROVED_FOR_PRIMARY_ACQUISITION",
+      "notes": "457 physically verified Sentinel-1 Level-1 GRD IW parent scenes documented in li_iw_source_scene_manifest.json with verified S3 paths and metadata."
+    },
+    {
+      "pool_name": "DARTIS_LOOKALIKE_POOL",
+      "source_ref": "SRC_02_DARTIS_LOOKALIKES",
+      "mode": "IW",
+      "available_rasters": 517,
+      "status": "APPROVED_FOR_SUPPLEMENTARY_PILOT",
+      "notes": "Validated dark-slick lookalike rasters in data/raw/lookalike_candidates/dartis/rasters. Focus on BS and LWA classes."
+    },
+    {
+      "pool_name": "TENGEOF_WAVE_MODE_POOL",
+      "source_ref": "SRC_03_TENGEOF_SAR_WV",
+      "mode": "WV",
+      "available_imagettes": 2383,
+      "status": "CONDITIONAL_QUARANTINE",
+      "notes": "Disparate geometry (20x20 km imagettes); excluded from direct OPS-02 swath segmentation."
+    },
+    {
+      "pool_name": "TRUJILLO_OIL_SPILL_POOL",
+      "source_ref": "SRC_04_TRUJILLO_2024_OIL",
+      "mode": "IW/EW",
+      "available_rasters": 2403,
+      "status": "QUARANTINED_FOR_FUTURE_TASK",
+      "notes": "Mineral oil spill ground truth. Quarantined from EXP-07 to preserve task integrity."
+    }
+  ]
+}

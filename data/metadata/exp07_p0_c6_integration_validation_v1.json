@@ -1,0 +1,222 @@
+{
+  "metadata_version": "1.0.0",
+  "artifact_version": "1.0.0",
+  "generated_at": "2026-09-13T18:25:00.000000+00:00",
+  "phase": "EXP-07-P0-C6",
+  "title": "EXP-07 Controlled CPU Integration Validation and Pre-Training Audit",
+  "decision": "A. FINAL — EXP-07 PRE-TRAINING CPU INTEGRATION GATE PASSED",
+  "next_authorized_action": "EXP-07-P0-C7 — TRAINING READINESS REVIEW / FINAL EXPERIMENT EXECUTION GATE",
+  "predecessor_contracts": [
+    "data/metadata/exp07_p0_c4_protocol_freeze_v1.json",
+    "data/metadata/exp07_p0_c5_implementation_contract_v1.json",
+    "data/metadata/exp07_p0_c5_reproducibility_contract_v1.json"
+  ],
+  "dataset_manifest": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+  "dataset_manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+  "taxonomy_manifest": "data/metadata/ops01_taxonomy_v1.json",
+  "permanent_epistemic_disclosures": {
+    "holdout_status": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+    "input_domain_epistemic_status": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+    "alignment_epistemic_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+    "correspondence_epistemic_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS"
+  },
+  "critical_corrections_and_resolutions": [
+    {
+      "issue_id": "CORR-C6-001",
+      "component": "Input-Domain Radiometric Terminology (GOV-RULE-060)",
+      "finding": "C4/C5 referred to runtime input pipeline as EMPIRICALLY_CHARACTERIZED_APPROXIMATE_CALIBRATION_PATHWAY, but runtime input ingests uncalibrated aggregated Sentinel-1 GRD detected DN without calibration LUTs (A_sigma).",
+      "resolution": "Input domain explicitly designated AGGREGATED_RAW_DN_LOG1P_STANDARDIZED. Describing uncalibrated DN as calibrated backscatter (sigma0) is strictly prohibited.",
+      "incident_id": "INC-P0-C6-001",
+      "governance_rule": "GOV-RULE-060"
+    },
+    {
+      "issue_id": "CORR-C6-002",
+      "component": "First-Principles Independent Recomputation (GOV-RULE-061)",
+      "finding": "Validation previously relied on internal helper consistency ('function agrees with itself').",
+      "resolution": "Enacted mandatory independent mathematical recomputation of normalization, loss, confusion matrix, metrics, and sampling weights from first principles.",
+      "incident_id": "INC-P0-C6-001",
+      "governance_rule": "GOV-RULE-061"
+    }
+  ],
+  "partition_verification": {
+    "TRAIN": {
+      "tiles": 72,
+      "parents": 12,
+      "valid_pixels": 4712082,
+      "invalid_pixels": 6510
+    },
+    "DEV": {
+      "tiles": 39,
+      "parents": 7,
+      "valid_pixels": 2555904,
+      "invalid_pixels": 0,
+      "excluded_class_pixels": {
+        "Sea_Ice_SI_source_9": 261120
+      }
+    },
+    "HOLDOUT": {
+      "tiles": 36,
+      "parents": 8,
+      "valid_pixels": 2359296,
+      "invalid_pixels": 0,
+      "excluded_class_pixels": {
+        "Sea_Ice_SI_source_9": 195840
+      }
+    },
+    "total_tiles": 147,
+    "total_parents": 27,
+    "parent_overlap_across_splits": 0,
+    "image_byte_duplicates_across_splits": 0
+  },
+  "excluded_classes_audit": {
+    "class_3_Iceberg_IB": {
+      "total_tiles": 0,
+      "total_pixels": 0,
+      "remapping": "ignore_index (-100)"
+    },
+    "class_9_Sea_Ice_SI": {
+      "total_tiles": 7,
+      "total_pixels": 456960,
+      "partition_breakdown": {
+        "TRAIN": 0,
+        "DEV": 261120,
+        "HOLDOUT": 195840
+      },
+      "remapping": "ignore_index (-100) (COLLISION PREVENTED: DOES NOT MAP TO DENSE 9 EDDY)"
+    },
+    "class_14_Mineral_Oil_Spill_OS": {
+      "total_tiles": 0,
+      "total_pixels": 0,
+      "remapping": "ignore_index (-100)"
+    }
+  },
+  "train_class_frequencies_and_weights": {
+    "total_valid_pixels": 4712082,
+    "total_invalid_pixels": 6510,
+    "median_frequency": 0.03090704,
+    "classes": {
+      "0_BG": {
+        "valid_pixels": 1950756,
+        "frequency": 0.41399025,
+        "sqrt_median_weight": 0.273233
+      },
+      "1_AF": {
+        "valid_pixels": 35931,
+        "frequency": 0.00762529,
+        "sqrt_median_weight": 2.013263
+      },
+      "2_BS": {
+        "valid_pixels": 293888,
+        "frequency": 0.06236903,
+        "sqrt_median_weight": 0.703954
+      },
+      "3_LWA": {
+        "valid_pixels": 23424,
+        "frequency": 0.00497105,
+        "sqrt_median_weight": 2.493473
+      },
+      "4_MCC": {
+        "valid_pixels": 547092,
+        "frequency": 0.11610409,
+        "sqrt_median_weight": 0.515947
+      },
+      "5_OF": {
+        "valid_pixels": 67425,
+        "frequency": 0.01430896,
+        "sqrt_median_weight": 1.469686
+      },
+      "6_POW": {
+        "valid_pixels": 554669,
+        "frequency": 0.11771209,
+        "sqrt_median_weight": 0.512411
+      },
+      "7_RF": {
+        "valid_pixels": 63801,
+        "frequency": 0.01353987,
+        "sqrt_median_weight": 1.510850
+      },
+      "8_WS": {
+        "valid_pixels": 223848,
+        "frequency": 0.04750512,
+        "sqrt_median_weight": 0.806601
+      },
+      "9_Eddy": {
+        "valid_pixels": 34110,
+        "frequency": 0.00723884,
+        "sqrt_median_weight": 2.066304
+      },
+      "10_IWs": {
+        "valid_pixels": 916153,
+        "frequency": 0.19442637,
+        "sqrt_median_weight": 0.398704
+      },
+      "11_HM": {
+        "valid_pixels": 985,
+        "frequency": 0.00020904,
+        "sqrt_median_weight": 12.159536
+      }
+    },
+    "max_min_weight_ratio": 44.5024,
+    "dev_holdout_pixel_contribution": 0
+  },
+  "candidate_f_hybrid_sampler_diagnostics": {
+    "hybrid_formula": "0.70 * w_parent + 0.30 * w_presence",
+    "num_draws_per_epoch": 72,
+    "replacement": true,
+    "stationary_vector_sum": 1.0,
+    "max_parent_multiplier_observed": 1.3701,
+    "parent_exposure_range": [4.282, 8.221],
+    "parent_exposure_cv": 0.221,
+    "rare_class_exposures_tiles_per_epoch": {
+      "HM": 3.82,
+      "LWA": 3.10,
+      "Eddy": 4.19
+    }
+  },
+  "architecture_contract": {
+    "model_name": "ResNet18-UNet",
+    "in_channels": 1,
+    "num_classes": 12,
+    "trainable_parameters": 14310860,
+    "total_parameters": 14310860,
+    "floating_point_buffers": 11776,
+    "int_buffers": 30,
+    "total_state_tensors": 14322666,
+    "batchnorm_layers": 30,
+    "batchnorm_momentum": 0.05,
+    "physical_batch_size": 8,
+    "effective_optimization_batch_size": 16,
+    "batchnorm_statistical_batch_size": 8,
+    "batches_per_epoch": 9
+  },
+  "golden_sample_benchmarks": {
+    "TRAIN": {
+      "sample_id": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7",
+      "norm_img_sha256": "2850D42E1191318184A64D06FC000F5DAAA22126DC564EAED2B345AF5BD8AEB7",
+      "target_sha256": "380D55AB98A4F71814DCE01173528154D380E3C0951AE1710F19D87C6DE4DF3D"
+    },
+    "DEV": {
+      "sample_id": "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-3",
+      "norm_img_sha256": "E5C455C0A8FF8C7C4C75882C44B37C6076E16C7A8020969BA09D047CC5BFC14F",
+      "target_sha256": "EC663C1A4E794684F63E54D7E2DBD5BC7FED20AE95EB362A69592F1FBFC51EB3"
+    },
+    "HOLDOUT": {
+      "sample_id": "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-58",
+      "norm_img_sha256": "C8E8598DAD3A444F07E73104BF0BA1FF426E38A3FAEA70FB5EA326AA096DE557",
+      "target_sha256": "960A91A637DCBB333EAB2AC3F27CDBC6892B6483908E3D7D7F52037CEC31DD25"
+    }
+  },
+  "cpu_dry_run_results": {
+    "TRAIN_batch_loss_avg": 2.4035,
+    "DEV_batch_loss_avg": 2.5192,
+    "HOLDOUT_batch_loss_avg": 2.3964,
+    "status": "ZERO_ERRORS_ZERO_NANS_STRICTLY_EVAL_MODE"
+  },
+  "independent_cross_checks_status": {
+    "normalization": "100_PERCENT_AGREEMENT",
+    "loss_weighted_nll": "AGREEMENT_WITHIN_4.20e-7",
+    "confusion_matrix": "100_PERCENT_BITWISE_AGREEMENT",
+    "metrics_per_class_iou": "100_PERCENT_AGREEMENT",
+    "sampler_vector": "100_PERCENT_BITWISE_AGREEMENT"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "artifact_name": "ops01_p3_c3_data_tracking_policy_v1.json",
+  "artifact_version": "1.0.0",
+  "phase": "PHASE_8_P3_C3",
+  "created_at": "2026-09-13T12:26:00.000000+00:00",
+  "policy_doctrine": "Scientific artifact retention and git tracking must be governed by provenance, authority, and reproducibility hierarchy, not arbitrary file size.",
+  "dataset_tracking_categories": {
+    "A": "TRACKED_IN_GIT: Source code, canonical taxonomy, authoritative manifests, governance documents, regression tests, and compact audit reports.",
+    "B": "DELIBERATELY_UNTRACKED_BUT_DOCUMENTED: High-value local artifacts requiring active investigation or pending tracking decision, registered in metadata.",
+    "C": "IGNORED_BUT_RETAINED_LOCALLY: Materialized raster/mask data and large model binary weights anchored by cryptographic hashes in manifests; retained locally on filesystem, excluded from git history.",
+    "D": "EXTERNALLY_SOURCED_AND_REPRODUCIBLY_RECOVERABLE: Upstream raw Sentinel-1 GRD archives and public benchmarks downloadable from official repositories via automated fetch scripts."
+  },
+  "ops01_physical_dataset_policy": {
+    "images": {
+      "file_class": "SCIENTIFIC_DATA_RASTER_IMAGERY",
+      "file_pattern": "data/derived/ops01/images/*.tif",
+      "file_count": 147,
+      "format": "Single-band GeoTIFF, float32 raw amplitude DN, 256x256",
+      "source_status": "MATERIALIZED_DERIVED_FROM_SENTINEL1",
+      "authority_status": "AUTHORITATIVE_PHYSICAL_DATASET",
+      "whether_bytes_expected_in_git": false,
+      "whether_bytes_expected_locally": true,
+      "whether_ignored": true,
+      "matching_ignore_rule": "*.tif",
+      "tracking_category": "C (IGNORED_BUT_RETAINED_LOCALLY)",
+      "retention_policy": "PERMANENT_LOCAL_RETENTION",
+      "recovery_mechanism": "Re-extract from Sentinel-1 IW GRD parent products via candidate selection coordinates, or restore from verified offline backup.",
+      "provenance_reference": "data/metadata/ops01_physical_dataset_manifest_v4.json"
+    },
+    "masks": {
+      "file_class": "SCIENTIFIC_DATA_LABELS_AND_MASKS",
+      "file_pattern": "data/derived/ops01/masks/*.png",
+      "file_count": 147,
+      "format": "Single-band PNG, uint8 class indices (0..7), 256x256",
+      "source_status": "MATERIALIZED_DERIVED_LABELS",
+      "authority_status": "AUTHORITATIVE_PHYSICAL_DATASET",
+      "whether_bytes_expected_in_git": false,
+      "whether_bytes_expected_locally": true,
+      "whether_ignored": true,
+      "matching_ignore_rule": "data/derived/ops01/masks/",
+      "tracking_category": "C (IGNORED_BUT_RETAINED_LOCALLY)",
+      "retention_policy": "PERMANENT_LOCAL_RETENTION",
+      "recovery_mechanism": "Deterministic mask generation from polygon annotations or restore from verified offline backup.",
+      "provenance_reference": "data/metadata/ops01_physical_dataset_manifest_v4.json"
+    }
+  },
+  "other_scientific_categories_policy": {
+    "frozen_model_checkpoints": {
+      "file_class": "FROZEN_MODEL_CHECKPOINT",
+      "file_pattern": "experiments/performance/exp06_positive_bce_weight/best_model.pt",
+      "whether_bytes_expected_in_git": false,
+      "whether_bytes_expected_locally": true,
+      "whether_ignored": false,
+      "tracking_category": "B (DELIBERATELY_UNTRACKED_BUT_DOCUMENTED)",
+      "provenance_reference": "data/metadata/ops01_dataset_identity_v1.json",
+      "protected": true
+    },
+    "generated_evaluation_prediction_payloads": {
+      "file_class": "GENERATED_EXTERNAL_EVALUATION_PAYLOADS",
+      "file_pattern": "experiments/performance/*/mapping_*/",
+      "whether_bytes_expected_in_git": false,
+      "whether_bytes_expected_locally": true,
+      "whether_ignored": true,
+      "tracking_category": "C (IGNORED_BUT_RETAINED_LOCALLY)",
+      "provenance_reference": "experiments/performance/*/metrics/comparison_summary.json",
+      "protected": false
+    },
+    "authoritative_metadata_and_reports": {
+      "file_class": "AUTHORITATIVE_METADATA_AND_REPORTS",
+      "file_pattern": "data/metadata/*.json, experiments/*.md",
+      "whether_bytes_expected_in_git": true,
+      "whether_bytes_expected_locally": true,
+      "whether_ignored": false,
+      "tracking_category": "A (TRACKED_IN_GIT)",
+      "provenance_reference": "ocean_sentinel_governance_rules_v1.json",
+      "protected": true
+    }
+  },
+  "epistemic_disclosures": {
+    "HOLDOUT_PARTIALLY_USED_FOR_SELECTION": true,
+    "CONDITIONAL_ENGINEERING_RECONSTRUCTION": true,
+    "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS": true,
+    "DATASET_GENERATION_METHOD": "NOT_DIRECTLY_VERIFIED"
+  }
+}

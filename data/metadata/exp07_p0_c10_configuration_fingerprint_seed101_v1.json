@@ -1,0 +1,11 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C10",
+  "experiment_id": "EXP-07",
+  "run_id": "EXP07_RUN002_SEED101",
+  "seed": 101,
+  "configuration_fingerprint_sha256": "7DF509EECBFF7AB0D4CFB8F2E5693A6CF7A1E86DCB3C7393B1F77BACB5355AD4",
+  "target_config_path": "data/metadata/exp07_p0_c10_final_training_config_seed101_v1.json",
+  "protocol_version": "v1.0.0-c10-replicate-frozen",
+  "created_at": "2026-09-14T01:15:00Z"
+}

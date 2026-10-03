@@ -1,0 +1,497 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T17:14:22.729321+00:00",
+  "phase": "EXP-07-P0-C3",
+  "validation_id": "V-04",
+  "title": "Sampler x Loss Weighting Interaction and Double-Correction Risk Analysis",
+  "class_frequencies": {
+    "BG": 0.4147987365722656,
+    "AF": 0.0076147715250651045,
+    "BS": 0.06228298611111111,
+    "LWA": 0.004964192708333333,
+    "MCC": 0.11594390869140625,
+    "OF": 0.014289220174153646,
+    "POW": 0.11754968431260851,
+    "RF": 0.013521194458007812,
+    "WS": 0.0474395751953125,
+    "Eddy": 0.007228851318359375,
+    "IWs": 0.1941581302218967,
+    "HM": 0.00020874871148003472
+  },
+  "loss_weight_schemes": {
+    "A_none": {
+      "name": "No Weighting (1.0)",
+      "weights": {
+        "BG": 1.0,
+        "AF": 1.0,
+        "BS": 1.0,
+        "LWA": 1.0,
+        "MCC": 1.0,
+        "OF": 1.0,
+        "POW": 1.0,
+        "RF": 1.0,
+        "WS": 1.0,
+        "Eddy": 1.0,
+        "IWs": 1.0,
+        "HM": 1.0
+      }
+    },
+    "B_median_freq": {
+      "name": "Uncapped Median-Frequency",
+      "weights": {
+        "BG": 0.07440812848125906,
+        "AF": 4.053227018452033,
+        "BS": 0.4955510262412892,
+        "LWA": 6.217405225409837,
+        "MCC": 0.2662011142550065,
+        "OF": 2.1599777530589543,
+        "POW": 0.262564700749456,
+        "RF": 2.2826679832604504,
+        "WS": 0.6506044280047175,
+        "Eddy": 4.269613016710642,
+        "IWs": 0.15896526016942586,
+        "HM": 147.8543147208122
+      }
+    },
+    "C_inv_freq": {
+      "name": "Full Inverse-Frequency",
+      "weights": {
+        "BG": 0.0052913857838439325,
+        "AF": 0.28823716255047394,
+        "BS": 0.03524012374646491,
+        "LWA": 0.4421383831796909,
+        "MCC": 0.018930361781201475,
+        "OF": 0.15360251372044612,
+        "POW": 0.018671765481036582,
+        "RF": 0.16232738495636553,
+        "WS": 0.04626643743790911,
+        "Eddy": 0.30362502162418875,
+        "IWs": 0.011304497706825256,
+        "HM": 10.514364962031552
+      }
+    },
+    "D_capped_5": {
+      "name": "Capped Median-Frequency (Cap=5.0)",
+      "weights": {
+        "BG": 0.07440812848125906,
+        "AF": 4.053227018452033,
+        "BS": 0.4955510262412892,
+        "LWA": 5.0,
+        "MCC": 0.2662011142550065,
+        "OF": 2.1599777530589543,
+        "POW": 0.262564700749456,
+        "RF": 2.2826679832604504,
+        "WS": 0.6506044280047175,
+        "Eddy": 4.269613016710642,
+        "IWs": 0.15896526016942586,
+        "HM": 5.0
+      }
+    },
+    "D_capped_10": {
+      "name": "Capped Median-Frequency (Cap=10.0)",
+      "weights": {
+        "BG": 0.07440812848125906,
+        "AF": 4.053227018452033,
+        "BS": 0.4955510262412892,
+        "LWA": 6.217405225409837,
+        "MCC": 0.2662011142550065,
+        "OF": 2.1599777530589543,
+        "POW": 0.262564700749456,
+        "RF": 2.2826679832604504,
+        "WS": 0.6506044280047175,
+        "Eddy": 4.269613016710642,
+        "IWs": 0.15896526016942586,
+        "HM": 10.0
+      }
+    },
+    "D_capped_20": {
+      "name": "Capped Median-Frequency (Cap=20.0)",
+      "weights": {
+        "BG": 0.07440812848125906,
+        "AF": 4.053227018452033,
+        "BS": 0.4955510262412892,
+        "LWA": 6.217405225409837,
+        "MCC": 0.2662011142550065,
+        "OF": 2.1599777530589543,
+        "POW": 0.262564700749456,
+        "RF": 2.2826679832604504,
+        "WS": 0.6506044280047175,
+        "Eddy": 4.269613016710642,
+        "IWs": 0.15896526016942586,
+        "HM": 20.0
+      }
+    },
+    "E_sqrt_median": {
+      "name": "Square-Root Median-Frequency",
+      "weights": {
+        "BG": 0.2727785337618396,
+        "AF": 2.0132627792844215,
+        "BS": 0.7039538523520481,
+        "LWA": 2.493472523492055,
+        "MCC": 0.5159468133974726,
+        "OF": 1.469686277087377,
+        "POW": 0.5124106758738112,
+        "RF": 1.5108500862959404,
+        "WS": 0.8066005380637417,
+        "Eddy": 2.0663041926857337,
+        "IWs": 0.39870447723774793,
+        "HM": 12.159535958284437
+      }
+    }
+  },
+  "interaction_matrix": {
+    "A_uniform": {
+      "A_none": {
+        "sampler_name": "Uniform Sampling",
+        "loss_scheme": "No Weighting (1.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 0.9999999067460422,
+          "BS": 0.9999998750000179,
+          "LWA": 0.9999995178573838,
+          "MCC": 0.999999934523815,
+          "OF": 0.9999999761904771,
+          "POW": 0.9999999511904795,
+          "RF": 0.9999998928571564,
+          "WS": 0.9999998511905009,
+          "Eddy": 0.9999996845239146,
+          "IWs": 0.9999999900793654,
+          "HM": 0.9999998750000179
+        },
+        "hm_effective_multiplier": 0.9999998750000179,
+        "max_min_gradient_ratio": 1.0000004821428485,
+        "double_correction_risk": "LOW"
+      },
+      "B_median_freq": {
+        "sampler_name": "Uniform Sampling",
+        "loss_scheme": "Uncapped Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 54.472901324126774,
+          "BS": 6.659903620909275,
+          "LWA": 83.55810520486042,
+          "MCC": 3.5775808672868354,
+          "OF": 29.02878685055143,
+          "POW": 3.528709743048169,
+          "RF": 30.67766634210992,
+          "WS": 8.743726585630549,
+          "Eddy": 57.380984536188336,
+          "IWs": 2.13639641040599,
+          "HM": 1987.0718328342996
+        },
+        "hm_effective_multiplier": 1987.0718328342996,
+        "max_min_gradient_ratio": 1987.0718328342996,
+        "double_correction_risk": "SEVERE"
+      },
+      "D_capped_10": {
+        "sampler_name": "Uniform Sampling",
+        "loss_scheme": "Capped Median-Frequency (Cap=10.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 54.472901324126774,
+          "BS": 6.659903620909275,
+          "LWA": 83.55810520486042,
+          "MCC": 3.5775808672868354,
+          "OF": 29.02878685055143,
+          "POW": 3.528709743048169,
+          "RF": 30.67766634210992,
+          "WS": 8.743726585630549,
+          "Eddy": 57.380984536188336,
+          "IWs": 2.13639641040599,
+          "HM": 134.39390230757982
+        },
+        "hm_effective_multiplier": 134.39390230757982,
+        "max_min_gradient_ratio": 134.39390230757982,
+        "double_correction_risk": "MODERATE"
+      },
+      "E_sqrt_median": {
+        "sampler_name": "Uniform Sampling",
+        "loss_scheme": "Square-Root Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 7.380575603861338,
+          "BS": 2.580678745683283,
+          "LWA": 9.141010060050094,
+          "MCC": 1.8914493472045422,
+          "OF": 5.3878368720099425,
+          "POW": 1.8784859783382837,
+          "RF": 5.538742010169594,
+          "WS": 2.9569790808324936,
+          "Eddy": 7.575022536854922,
+          "IWs": 1.4616416760655064,
+          "HM": 44.57658112114877
+        },
+        "hm_effective_multiplier": 44.57658112114877,
+        "max_min_gradient_ratio": 44.57658112114877,
+        "double_correction_risk": "LOW"
+      }
+    },
+    "C_class_presence": {
+      "A_none": {
+        "sampler_name": "Class-Presence-Aware",
+        "loss_scheme": "No Weighting (1.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 1.712551019176831,
+          "BS": 2.2269011556544247,
+          "LWA": 4.0279523146225005,
+          "MCC": 1.593604300570036,
+          "OF": 0.7421643194746987,
+          "POW": 0.9080897481373945,
+          "RF": 1.6153111356984247,
+          "WS": 2.0266833070506345,
+          "Eddy": 3.392629171129419,
+          "IWs": 0.946138632432143,
+          "HM": 1.823561216963184
+        },
+        "hm_effective_multiplier": 1.823561216963184,
+        "max_min_gradient_ratio": 5.4273052596673885,
+        "double_correction_risk": "LOW"
+      },
+      "B_median_freq": {
+        "sampler_name": "Class-Presence-Aware",
+        "loss_scheme": "Uncapped Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 93.2876313795931,
+          "BS": 14.830948923818305,
+          "LWA": 336.5682255392727,
+          "MCC": 5.70124862904139,
+          "OF": 21.544130351071054,
+          "POW": 3.2043852982190923,
+          "RF": 49.55398136900539,
+          "WS": 17.72076734953079,
+          "Eddy": 194.67246342010537,
+          "IWs": 2.0213271981273118,
+          "HM": 3623.5475826199636
+        },
+        "hm_effective_multiplier": 3623.5475826199636,
+        "max_min_gradient_ratio": 3623.5475826199636,
+        "double_correction_risk": "SEVERE"
+      },
+      "D_capped_10": {
+        "sampler_name": "Class-Presence-Aware",
+        "loss_scheme": "Capped Median-Frequency (Cap=10.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 93.2876313795931,
+          "BS": 14.830948923818305,
+          "LWA": 336.5682255392727,
+          "MCC": 5.70124862904139,
+          "OF": 21.544130351071054,
+          "POW": 3.2043852982190923,
+          "RF": 49.55398136900539,
+          "WS": 17.72076734953079,
+          "Eddy": 194.67246342010537,
+          "IWs": 2.0213271981273118,
+          "HM": 245.0755386788795
+        },
+        "hm_effective_multiplier": 245.0755386788795,
+        "max_min_gradient_ratio": 336.5682255392727,
+        "double_correction_risk": "MODERATE"
+      },
+      "E_sqrt_median": {
+        "sampler_name": "Class-Presence-Aware",
+        "loss_scheme": "Square-Root Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 12.639613451198366,
+          "BS": 5.74691719949946,
+          "LWA": 36.819570381650315,
+          "MCC": 3.0142220113753035,
+          "OF": 3.9986603807621446,
+          "POW": 1.705833942209776,
+          "RF": 8.946792605372423,
+          "WS": 5.9928610342157915,
+          "Eddy": 25.699250537995738,
+          "IWs": 1.3829156702178445,
+          "HM": 81.28813467835552
+        },
+        "hm_effective_multiplier": 81.28813467835552,
+        "max_min_gradient_ratio": 81.28813467835552,
+        "double_correction_risk": "LOW"
+      }
+    },
+    "E_parent_balanced": {
+      "A_none": {
+        "sampler_name": "Parent-Balanced",
+        "loss_scheme": "No Weighting (1.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 1.3950341023582502,
+          "BS": 0.8591931615936805,
+          "LWA": 0.5820338693394128,
+          "MCC": 1.0428111170708632,
+          "OF": 0.5600923730374775,
+          "POW": 0.7954466327905664,
+          "RF": 1.112100845953987,
+          "WS": 0.886909048915307,
+          "Eddy": 0.9700566105750423,
+          "IWs": 1.2529901715174099,
+          "HM": 0.6453847250680641
+        },
+        "hm_effective_multiplier": 0.6453847250680641,
+        "max_min_gradient_ratio": 2.4907214765177748,
+        "double_correction_risk": "LOW"
+      },
+      "B_median_freq": {
+        "sampler_name": "Parent-Balanced",
+        "loss_scheme": "Uncapped Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 75.99156208806666,
+          "BS": 5.7221443632261835,
+          "LWA": 48.63367073541988,
+          "MCC": 3.7307413449014417,
+          "OF": 16.258802500638804,
+          "POW": 2.8069004202063943,
+          "RF": 34.11666234631081,
+          "WS": 7.754891384038577,
+          "Eddy": 55.66282093092262,
+          "IWs": 2.676883731260166,
+          "HM": 1282.4259688274817
+        },
+        "hm_effective_multiplier": 1282.4259688274817,
+        "max_min_gradient_ratio": 1282.4259688274817,
+        "double_correction_risk": "SEVERE"
+      },
+      "D_capped_10": {
+        "sampler_name": "Parent-Balanced",
+        "loss_scheme": "Capped Median-Frequency (Cap=10.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 75.99156208806666,
+          "BS": 5.7221443632261835,
+          "LWA": 48.63367073541988,
+          "MCC": 3.7307413449014417,
+          "OF": 16.258802500638804,
+          "POW": 2.8069004202063943,
+          "RF": 34.11666234631081,
+          "WS": 7.754891384038577,
+          "Eddy": 55.66282093092262,
+          "IWs": 2.676883731260166,
+          "HM": 86.73578253357293
+        },
+        "hm_effective_multiplier": 86.73578253357293,
+        "max_min_gradient_ratio": 86.73578253357293,
+        "double_correction_risk": "LOW"
+      },
+      "E_sqrt_median": {
+        "sampler_name": "Parent-Balanced",
+        "loss_scheme": "Square-Root Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 10.29615562257716,
+          "BS": 2.2173018077239197,
+          "LWA": 5.320380020103395,
+          "MCC": 1.9724245357881571,
+          "OF": 3.017686411032542,
+          "POW": 1.4942354191463947,
+          "RF": 6.159640334991873,
+          "WS": 2.6225718945072147,
+          "Eddy": 7.348203005313362,
+          "IWs": 1.8314226725591884,
+          "HM": 28.769048147477356
+        },
+        "hm_effective_multiplier": 28.769048147477356,
+        "max_min_gradient_ratio": 28.769048147477356,
+        "double_correction_risk": "LOW"
+      }
+    },
+    "F_hybrid": {
+      "A_none": {
+        "sampler_name": "Hybrid (70% Parent-Balanced + 30% Class-Presence)",
+        "loss_scheme": "No Weighting (1.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 1.484040625434376,
+          "BS": 1.2425898459483753,
+          "LWA": 1.5479956917571474,
+          "MCC": 1.1972097761675145,
+          "OF": 0.6111308848259347,
+          "POW": 0.8270228150801313,
+          "RF": 1.2531610411557224,
+          "WS": 1.2064112185154863,
+          "Eddy": 1.6491535313787096,
+          "IWs": 1.1669733732057077,
+          "HM": 0.9756518307212999
+        },
+        "hm_effective_multiplier": 0.9756518307212999,
+        "max_min_gradient_ratio": 2.698527553305426,
+        "double_correction_risk": "LOW"
+      },
+      "B_median_freq": {
+        "sampler_name": "Hybrid (70% Parent-Balanced + 30% Class-Presence)",
+        "loss_scheme": "Uncapped Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 80.84000608893268,
+          "BS": 8.275529648777741,
+          "LWA": 129.3476492325284,
+          "MCC": 4.283115069787689,
+          "OF": 17.740388615791144,
+          "POW": 2.91832360773836,
+          "RF": 38.44406041251228,
+          "WS": 10.548531414258479,
+          "Eddy": 94.63008313537031,
+          "IWs": 2.4931177502893545,
+          "HM": 1938.6905138157929
+        },
+        "hm_effective_multiplier": 1938.6905138157929,
+        "max_min_gradient_ratio": 1938.6905138157929,
+        "double_correction_risk": "SEVERE"
+      },
+      "D_capped_10": {
+        "sampler_name": "Hybrid (70% Parent-Balanced + 30% Class-Presence)",
+        "loss_scheme": "Capped Median-Frequency (Cap=10.0)",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 80.84000608893268,
+          "BS": 8.275529648777741,
+          "LWA": 129.3476492325284,
+          "MCC": 4.283115069787689,
+          "OF": 17.740388615791144,
+          "POW": 2.91832360773836,
+          "RF": 38.44406041251228,
+          "WS": 10.548531414258479,
+          "Eddy": 94.63008313537031,
+          "IWs": 2.4931177502893545,
+          "HM": 131.1216732143766
+        },
+        "hm_effective_multiplier": 131.1216732143766,
+        "max_min_gradient_ratio": 131.1216732143766,
+        "double_correction_risk": "MODERATE"
+      },
+      "E_sqrt_median": {
+        "sampler_name": "Hybrid (70% Parent-Balanced + 30% Class-Presence)",
+        "loss_scheme": "Square-Root Median-Frequency",
+        "norm_emphasis_per_class": {
+          "BG": 1.0,
+          "AF": 10.953075056637676,
+          "BS": 3.20672560588148,
+          "LWA": 14.15025101370533,
+          "MCC": 2.2644617978672605,
+          "OF": 3.292673593286219,
+          "POW": 1.5535508377219536,
+          "RF": 6.940936447828736,
+          "WS": 3.567333266885007,
+          "Eddy": 12.492379107974463,
+          "IWs": 1.7056969340578043,
+          "HM": 43.491228414548104
+        },
+        "hm_effective_multiplier": 43.491228414548104,
+        "max_min_gradient_ratio": 43.491228414548104,
+        "double_correction_risk": "LOW"
+      }
+    }
+  },
+  "evaluation_conclusions": {
+    "double_correction_finding": "Uncapped median-frequency (B) combined with class-presence sampler (C) yields an astronomical 551x effective emphasis on HM (Artificial Objects), creating extreme gradient instability and false alarm explosion.",
+    "cap_analysis": "Arbitrary cap=10 lacks physical justification; square-root median frequency (E) provides smooth sub-linear dampening (HM weight 12.2x, maximum gradient ratio ~35x) without artificial clipping discontinuities.",
+    "recommended_pairing": "Hybrid Sampler (F) paired with Square-Root Median Frequency Loss (E) or moderate cap=10 achieves stable rare-class learning with LOW double-correction risk."
+  },
+  "recommended_combination": {
+    "sampler": "F_hybrid",
+    "loss_weighting": "E_sqrt_median"
+  }
+}

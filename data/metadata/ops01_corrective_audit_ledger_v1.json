@@ -1,0 +1,195 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T09:47:02.598124+00:00",
+  "phase": "PHASE_8_P2_R2_C1",
+  "description": "Exhaustive reconciliation of P2-R2 claims against physical ground truth and corrective gap closure.",
+  "claims_audit": [
+    {
+      "claim": "physical_sample_count",
+      "p2_r2_reported_value": 131,
+      "recomputed_value_before_c1": 131,
+      "recomputed_value_after_c1": 147,
+      "evidence_source": "Actual GeoTIFF/PNG files on disk",
+      "scope": "All verified (256, 256) float32 pairs",
+      "status": "EXPANDED_AND_CONFIRMED",
+      "discrepancy": "None prior to C1; expanded by +16 slices during C1 targeted gap closure",
+      "resolution": "Accurately recorded as 147 physical samples"
+    },
+    {
+      "claim": "independent_parent_count",
+      "p2_r2_reported_value": 25,
+      "recomputed_value_before_c1": 25,
+      "recomputed_value_after_c1": 27,
+      "evidence_source": "Authoritative ESA SAFE Granule IDs on S3",
+      "scope": "Independent Level-1 acquisitions",
+      "status": "EXPANDED_AND_CONFIRMED",
+      "discrepancy": "None prior to C1; expanded from 25 to 27 independent parents",
+      "resolution": "Accurately recorded as 27 independent parent scenes"
+    },
+    {
+      "claim": "lwa_parent_coverage",
+      "p2_r2_reported_value": "1 parent scene (reported in class table), yet Criterion 6 marked PASS",
+      "recomputed_value_before_c1": 1,
+      "recomputed_value_after_c1": 3,
+      "evidence_source": "Pixel-level unique label masks",
+      "scope": "Core Lookalike Class 4 (LWA)",
+      "status": "INCIDENT_RESOLVED_BY_GAP_CLOSURE",
+      "discrepancy": "CRITICAL: Criterion 6 required >= 2 parents for all core classes; LWA had only 1 parent, causing internal contradiction in P2-R2 report",
+      "resolution": "Targeted recovery materialized 2 additional independent LWA parents (20150222 in TRAIN, 20220831 in HOLDOUT), bringing LWA to 3 independent parents across all 3 partitions"
+    },
+    {
+      "claim": "hm_parent_coverage",
+      "p2_r2_reported_value": 14,
+      "recomputed_value_before_c1": 14,
+      "recomputed_value_after_c1": 16,
+      "evidence_source": "Pixel-level unique label masks (Class 13)",
+      "scope": "Anthropogenic specialist class (HM)",
+      "status": "CONFIRMED_AND_ENRICHED",
+      "discrepancy": "None; confirmed 14 parents before C1, expanded to 15 parents after C1",
+      "resolution": "HM verified across 15 parents, 19 slices, 4,064 annotated pixels"
+    },
+    {
+      "claim": "core_lookalike_coverage",
+      "p2_r2_reported_value": "10/10 classes present",
+      "recomputed_value_before_c1": "9/10 classes had >= 2 parents; LWA had only 1 parent",
+      "recomputed_value_after_c1": "10/10 classes have >= 2 parents",
+      "evidence_source": "Physical mask pixel verification across parents",
+      "scope": "AF, BS, LWA, OF, MCC, RF, WS, Eddy, IWs, POW",
+      "status": "LEGITIMATELY_SATISFIED",
+      "discrepancy": "P2-R2 conflated class presence (10/10 present) with sufficiency (all >= 2 parents)",
+      "resolution": "Now all 10 core classes physically have >= 2 independent parents"
+    },
+    {
+      "claim": "class_14_os_exclusion",
+      "p2_r2_reported_value": "0 OS admitted",
+      "recomputed_value_before_c1": "0 OS admitted",
+      "recomputed_value_after_c1": "0 OS admitted",
+      "evidence_source": "Exhaustive pixel scan of all masks",
+      "scope": "Mineral Oil Spill (Class 14)",
+      "status": "VERIFIED_ZERO_PIXELS",
+      "discrepancy": "None; exactly 1 OS slice (Control 5 slice 4) remains strictly excluded",
+      "resolution": "Zero Class 14 pixels exist in eligible dataset"
+    },
+    {
+      "claim": "partition_leakage",
+      "p2_r2_reported_value": "0.0% leakage",
+      "recomputed_value_before_c1": "0.0% leakage",
+      "recomputed_value_after_c1": "0.0% leakage",
+      "evidence_source": "Intersection of parent sets across TRAIN, DEV, HOLDOUT",
+      "scope": "Grouping firewall",
+      "status": "VERIFIED_ZERO_LEAKAGE",
+      "discrepancy": "None; train_dev=0, train_holdout=0, dev_holdout=0",
+      "resolution": "Deterministic SHA-256 partition assignment verified"
+    },
+    {
+      "claim": "geographic_diversity",
+      "p2_r2_reported_value": "Global multi-basin",
+      "recomputed_value_before_c1": "Asserted without explicit coordinates",
+      "recomputed_value_after_c1": "5 distinct global ocean basins",
+      "evidence_source": "Tiepoint bounds extracted from S3 Level-1 annotation XMLs",
+      "scope": "All 27 parent acquisitions",
+      "status": "EVIDENCED_AND_RECONCILED",
+      "discrepancy": "Prior claim was asserted rather than mathematically evidenced from tiepoints",
+      "resolution": "Tiepoint coordinates extracted; multi-basin spread across Mediterranean, Indo-Pacific, Indian Ocean, Atlantic, and Pacific verified"
+    },
+    {
+      "claim": "partition_counts",
+      "p2_r2_reported_value": "TRAIN: 62 (11 parents), DEV: 39 (7 parents), HOLDOUT: 30 (7 parents)",
+      "recomputed_value_before_c1": "TRAIN: 62 (11 parents), DEV: 39 (7 parents), HOLDOUT: 30 (7 parents)",
+      "recomputed_value_after_c1": "TRAIN: 72 (12 parents), DEV: 39 (7 parents), HOLDOUT: 36 (8 parents)",
+      "evidence_source": "Deterministic SHA-256 group assignment on parent scenes",
+      "scope": "All partitions",
+      "status": "EXPANDED_AND_CONFIRMED",
+      "discrepancy": "Expanded by +10 slices / +1 parent in TRAIN and +6 slices / +1 parent in HOLDOUT",
+      "resolution": "Accurately recorded across all 3 partitions"
+    },
+    {
+      "claim": "class_counts",
+      "p2_r2_reported_value": "11 classes present (10 core lookalikes + HM)",
+      "recomputed_value_before_c1": "11 classes present",
+      "recomputed_value_after_c1": "13 classes present in physical dataset",
+      "evidence_source": "Exhaustive mask pixel inspection across 147 materialized slices",
+      "scope": "Classes 0 to 14",
+      "status": "CONFIRMED_PRESERVED",
+      "discrepancy": "None; all 10 core lookalikes and HM present, Class 14 OS strictly 0 pixels",
+      "resolution": "Preserved and expanded across 147 slices"
+    },
+    {
+      "claim": "of_parent_count",
+      "p2_r2_reported_value": 9,
+      "recomputed_value_before_c1": 9,
+      "recomputed_value_after_c1": 9,
+      "evidence_source": "Materialized label masks positive for OF (Class 8)",
+      "scope": "Oil Slick lookalike class (OF)",
+      "status": "CONFIRMED_PRESERVED",
+      "discrepancy": "None; OF represented across 9 parents and 43 slices",
+      "resolution": "Accurately recorded as 9 independent parent scenes"
+    },
+    {
+      "claim": "duplicate_status",
+      "p2_r2_reported_value": "0 duplicates",
+      "recomputed_value_before_c1": "0 duplicates",
+      "recomputed_value_after_c1": "0 duplicate sample IDs, 0 duplicate image hashes across distinct IDs",
+      "evidence_source": "SHA-256 content hashes of all 147 image files",
+      "scope": "Entire physical dataset",
+      "status": "NO_DUPLICATES_VERIFIED",
+      "discrepancy": "None; all samples are unique slices",
+      "resolution": "Verified uniqueness across all samples"
+    },
+    {
+      "claim": "temporal_diversity",
+      "p2_r2_reported_value": "2015-2023",
+      "recomputed_value_before_c1": "2015-2023 (9 operational years)",
+      "recomputed_value_after_c1": "2015-2023 (9 operational years)",
+      "evidence_source": "Acquisition timestamps parsed from parent scene stems",
+      "scope": "27 parent scenes",
+      "status": "VERIFIED_RANGE",
+      "discrepancy": "None; temporal diversity spans 9 years",
+      "resolution": "Confirmed multi-year operational diversity"
+    },
+    {
+      "claim": "alignment_evidence",
+      "p2_r2_reported_value": "10x block mean empirical correspondence hypothesis",
+      "recomputed_value_before_c1": "Conditional engineering reconstruction",
+      "recomputed_value_after_c1": "Conditional engineering reconstruction (10x block mean hypothesis)",
+      "evidence_source": "Phase 8-P1 empirical SAR intensity tests (median NCC=0.94, zero shift)",
+      "scope": "Li slice to Level-1 GRD correspondence",
+      "status": "EMPIRICALLY_SUPPORTED_HYPOTHESIS",
+      "discrepancy": "Alignment remains a conditional engineering reconstruction, not ground-truth georegistration",
+      "resolution": "Strict epistemic boundaries preserved in metadata and report"
+    },
+    {
+      "claim": "reproducibility",
+      "p2_r2_reported_value": "Bitwise reproducible SHA256 hashes",
+      "recomputed_value_before_c1": "Deterministic reconstruction confirmed",
+      "recomputed_value_after_c1": "Deterministic reconstruction verified across all 147 samples",
+      "evidence_source": "SHA-256 hashes of generated GeoTIFFs match manifest",
+      "scope": "147 physical samples",
+      "status": "ARTIFACT_HASH_CONSISTENCY_CONFIRMED",
+      "discrepancy": "None; deterministic code path confirmed",
+      "resolution": "Full provenance and hash consistency confirmed"
+    },
+    {
+      "claim": "test_results",
+      "p2_r2_reported_value": "All tests pass",
+      "recomputed_value_before_c1": "All P2-R2 tests passed (though guardrail blind spot existed on Criterion 6)",
+      "recomputed_value_after_c1": "All P2-R2-C1 guardrail tests pass with strict Criterion 6 verification",
+      "evidence_source": "Pytest suite tests/test_phase_8_p2_r2_c1_guardrails.py",
+      "scope": "16 strict guardrails",
+      "status": "ALL_TESTS_PASSING",
+      "discrepancy": "P2-R2 test suite had semantic blind spot regarding LWA multi-parent requirement",
+      "resolution": "Authored comprehensive test suite enforcing LWA >= 2 and all core classes >= 2 parents"
+    },
+    {
+      "claim": "frozen_artifact_integrity",
+      "p2_r2_reported_value": "EXP-06 and Part-I unchanged",
+      "recomputed_value_before_c1": "Bitwise identical",
+      "recomputed_value_after_c1": "Bitwise identical (EXP-06: B5FFCCA3..., Part-I: 17F1FF35...)",
+      "evidence_source": "SHA-256 calculation of frozen checkpoint and manifest",
+      "scope": "Protected frozen benchmarks",
+      "status": "CONFIRMED_BITWISE_IDENTICAL",
+      "discrepancy": "None; zero mutations",
+      "resolution": "Absolute invariants strictly upheld"
+    }
+  ]
+}

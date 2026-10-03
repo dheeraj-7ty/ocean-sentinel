@@ -1,0 +1,21 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C10",
+  "title": "EXP-07 Seed 101 Controlled Replicate Run Register",
+  "experiment_id": "EXP-07",
+  "run_id": "EXP07_RUN002_SEED101",
+  "seed": 101,
+  "protocol_status": "CONTROLLED_REPLICATE_VALIDATED",
+  "checkpoint_best": "experiments/EXP-07/runs/EXP07_RUN002_SEED101/best_model.pt",
+  "checkpoint_sha256": "D64FE6197B73F47A1B97D2881E273441C61F6562D0B68B4B3C1A9322E6C2190E",
+  "checkpoint_size_bytes": 171939633,
+  "configuration_fingerprint": "7DF509EECBFF7AB0D4CFB8F2E5693A6CF7A1E86DCB3C7393B1F77BACB5355AD4",
+  "total_epochs": 29,
+  "best_epoch": 19,
+  "best_dev_mIoU_phenomena": 0.13781942247129045,
+  "best_dev_mIoU_all": 0.13952069464905717,
+  "final_train_loss": 1.74797,
+  "final_dev_loss": 1.94561,
+  "total_training_time_seconds": 362.73,
+  "mean_epoch_time_seconds": 12.27
+}

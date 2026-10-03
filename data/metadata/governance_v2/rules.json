@@ -1,0 +1,2948 @@
+{
+  "rules": [
+    {
+      "rule_id": "GOV-RULE-001",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "LWA marked sufficient with only 1 parent scene",
+      "statement": "Never evaluate a criterion by class presence; evaluate literal contractual conditions (parent diversity >= required threshold).",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "assert class_parents >= required_parents (>= 2 for all core lookalikes)"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestDiversityCoverageAudit::test_lwa_minimum_parents"
+      ],
+      "evidence_refs": [
+        "LWA marked sufficient with only 1 parent scene"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-002",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Conflation of 2,550 vs 2,560 coordinate span",
+      "statement": "Distinguish index span from cell count and coordinate convention in all spatial calculations.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Explicitly assert cell count vs coordinate span conventions in geometry audits"
+      ],
+      "regression_test_ids": [
+        "test_phase_7c_alignment_guardrails.py::test_coordinate_convention_bounds"
+      ],
+      "evidence_refs": [
+        "Conflation of 2,550 vs 2,560 coordinate span"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-003",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "50m design evaluation buffer described as physical registration uncertainty",
+      "statement": "Design or evaluation parameter != physical uncertainty. Physical uncertainty requires empirical ground-truth validation.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Disallow labeling algorithmic window/buffer parameters as physical registration uncertainty"
+      ],
+      "regression_test_ids": [
+        "test_phase_7c_r2_alignment_evidence_guardrails.py::test_design_parameter_not_uncertainty"
+      ],
+      "evidence_refs": [
+        "50m design evaluation buffer described as physical registration uncertainty"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-004",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "15.79m residual described as independent physical alignment error",
+      "statement": "Conditional residual under an assumed correspondence != independently validated physical registration.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Mandatory CONDITIONAL_ENGINEERING_RECONSTRUCTION epistemic disclosure"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p1_r1_correspondence_guardrails.py::test_residual_not_independent_error"
+      ],
+      "evidence_refs": [
+        "15.79m residual described as independent physical alignment error"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-005",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Four-corner interpolation zero residual claimed as alignment proof",
+      "statement": "Interpolation fitting control points by construction is not independent validation.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Prohibit treating control-point interpolation residual as independent spatial accuracy"
+      ],
+      "regression_test_ids": [
+        "test_phase_7c_r1_methodology_guardrails.py::test_interpolation_residual_semantics"
+      ],
+      "evidence_refs": [
+        "Four-corner interpolation zero residual claimed as alignment proof"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-006",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "47 declared catalog labels treated as 47 physically evaluated images",
+      "statement": "Catalog declaration != physical imagery. Only materialized, hash-verified files constitute physical data.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Physical filesystem verification of all candidate tiles (sample_count on disk)"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p2_dataset_guardrails.py::test_materialized_sample_count"
+      ],
+      "evidence_refs": [
+        "47 declared catalog labels treated as 47 physically evaluated images"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-007",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Catalog splits treated as physical train/dev/holdout datasets",
+      "statement": "Catalog partition != physically populated dataset.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Reconcile physical sample paths against partition assignments in split manifest"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p2_r2_c2_guardrails.py::test_physical_partition_reconciliation"
+      ],
+      "evidence_refs": [
+        "Catalog splits treated as physical train/dev/holdout datasets"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-008",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Class presence in false positives treated as causal model explanation",
+      "statement": "Class presence != causal model failure. Co-occurrence is not proof of causality.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Disallow asserting causal failure mechanisms without controlled counterfactual ablation"
+      ],
+      "regression_test_ids": [
+        "test_phase_6_semantic_reporting.py::test_no_unsupported_causal_claims"
+      ],
+      "evidence_refs": [
+        "Class presence in false positives treated as causal model explanation"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-009",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Firewall architecture language conflated with empirical demonstration of zero overlap",
+      "statement": "Protective mechanism != empirically demonstrated overlap absence. Trust requires empirical verification.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Explicit cryptographic cross-check of image/mask hashes between datasets"
+      ],
+      "regression_test_ids": [
+        "test_part_iii_firewall.py::test_zero_byte_cross_leakage"
+      ],
+      "evidence_refs": [
+        "Firewall architecture language conflated with empirical demonstration of zero overlap"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-010",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Taxonomy terminology drift in C1 reports and tables",
+      "statement": "Canonical taxonomy file (ops01_taxonomy_v1.json) is the absolute semantic authority. No informal synonyms.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Prohibit drift terms (e.g. Organic Film, Oil Front, Marine Organisms, Rain Cell)"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p2_r2_c2_guardrails.py::test_canonical_taxonomy_no_drift"
+      ],
+      "evidence_refs": [
+        "Taxonomy terminology drift in C1 reports and tables"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-011",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "OF incorrectly described as Class 8 / Oil Slick lookalike",
+      "statement": "OF = Ocean Front (label_id=6). BS = Biological Slicks. OS = Mineral Oil Spill and remains strictly excluded.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Enforce OF = Ocean Front (label_id=6); BS = Biological Slicks; OS = Mineral Oil Spill (excluded)"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestTaxonomyIntegrity::test_of_class_identity"
+      ],
+      "evidence_refs": [
+        "OF incorrectly described as Class 8 / Oil Slick lookalike"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-012",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Geographic labels mixed and described as globally representative",
+      "statement": "Exact evidence-backed geographic wording only. Never turn a set of labels into globally representative.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Enforce specific basin reporting (e.g. 5 ocean basins); prohibit global representativeness claims"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p2_r2_c2_guardrails.py::test_geographic_basin_labels"
+      ],
+      "evidence_refs": [
+        "Geographic labels mixed and described as globally representative"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-013",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Temporal span (2015-2024) treated as continuous yearly coverage",
+      "statement": "Endpoint span != continuous temporal representation. Disclose actual temporal sparsity.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Disclose exact acquisition date distribution; prohibit claiming continuous coverage"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestDiversityCoverageAudit::test_temporal_span_disclosure"
+      ],
+      "evidence_refs": [
+        "Temporal span (2015-2024) treated as continuous yearly coverage"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-014",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Duplicate masks interpreted as duplicate imagery / contamination",
+      "statement": "Compare image content and lineage before calling contamination. Duplicate mask != duplicate image.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Distinguish all-zero background masks or recurring lookalike patterns from image duplication"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestLeakageAndDuplicates::test_zero_image_duplicates"
+      ],
+      "evidence_refs": [
+        "Duplicate masks interpreted as duplicate imagery / contamination"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-015",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Existing TrujilloTileDataset assumed to be directly usable for OPS-01",
+      "statement": "Repository component existence != dataset compatibility. Verify contracts before assuming reuse.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Formal DataLoader contract audit before declaring dataset training-ready"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestDataLoaderContract::test_ops01_loader_not_implemented"
+      ],
+      "evidence_refs": [
+        "Existing TrujilloTileDataset assumed to be directly usable for OPS-01"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-016",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "OPS-01 discovered to be 1-band 256x256 VV raw intensity, conflicting with 2-band 512x512 assumption",
+      "statement": "Actual physical data characteristics outrank stale implementation assumptions.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Inspect physical array shape, bands, and value domain directly from raster files"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestPreprocessingAudit::test_raw_amplitude_dn_documented"
+      ],
+      "evidence_refs": [
+        "OPS-01 discovered to be 1-band 256x256 VV raw intensity, conflicting with 2-band 512x512 assumption"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-017",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Historical test suite counts confused with fresh execution counts",
+      "statement": "Historical test result != freshly executed result. Always run fresh verification.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Capture live execution start/end time, exit code, and exact pass/fail counts"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestReconciliationAudit"
+      ],
+      "evidence_refs": [
+        "Historical test suite counts confused with fresh execution counts"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-018",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Empty git diff --cached described as clean repository",
+      "statement": "0 staged != clean. Staging, working tree, and untracked files are distinct states.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Always inspect git status --porcelain -uall, git diff --cached, and git diff"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestGitStateSafety::test_zero_staged_changes"
+      ],
+      "evidence_refs": [
+        "Empty git diff --cached described as clean repository"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-019",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "P2-C2 authoritative artifacts mutated in place by P3",
+      "statement": "Never modify a closed authoritative artifact in place without an explicit version transition.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Successor versioning rule: closed artifacts are immutable; create v(N+1) with parent references"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestArtifactVersioningLineage"
+      ],
+      "evidence_refs": [
+        "P2-C2 authoritative artifacts mutated in place by P3"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-020",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "LEVEL_B_ESTABLISHED used without formal operational definitions",
+      "statement": "Every reproducibility level must have a precise operational definition and evidence requirement.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Require formal operational criteria and evidence mapping for every reproducibility claim"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestReproducibilityHierarchy"
+      ],
+      "evidence_refs": [
+        "LEVEL_B_ESTABLISHED used without formal operational definitions"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-021",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Unbounded recursive repository scan became stuck searching for historical hashes",
+      "statement": "Bounded investigation is mandatory. Never launch unbounded recursive searches across the repository.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Bounded investigation rule: search only targeted authoritative locations within bounded time"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestInvestigationBounds"
+      ],
+      "evidence_refs": [
+        "Unbounded recursive repository scan became stuck searching for historical hashes"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-022",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Part-I SHA discrepancy wording error (7E vs 7F (erroneous 7B character transcription prohibited))",
+      "statement": "The correct documented discrepancy is 7E vs 7F (never 7E vs 7F (erroneous 7B character transcription prohibited)). Verify hashes directly from filesystem.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Assert absence of 7E vs 7F (erroneous 7B character transcription prohibited); assert presence of correct 7E vs 7F wording where noted"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestPartIDiscrepancyWording"
+      ],
+      "evidence_refs": [
+        "Part-I SHA discrepancy wording error (7E vs 7F (erroneous 7B character transcription prohibited))"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-023",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Conflation of scientific protocol decisions with engineering implementation choices",
+      "statement": "Scientific protocol decisions must be frozen before implementation. Engineering decisions must not silently dictate scientific protocol.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Separate scientific training protocol decisions from engineering choices; freeze protocol before implementation"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestDecisionSeparation"
+      ],
+      "evidence_refs": [
+        "Conflation of scientific protocol decisions with engineering implementation choices"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-024",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "OPS-01 DataLoader contract left open and at risk of premature implementation",
+      "statement": "The OPS-01 DataLoader gap remains open until EXP-07 protocol is frozen. The loader must not invent protocol.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Enforce that OPS-01 DataLoader is NOT implemented until EXP-07 protocol is formally frozen"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestDataLoaderGapStatus"
+      ],
+      "evidence_refs": [
+        "OPS-01 DataLoader contract left open and at risk of premature implementation"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-025",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Raw DN vs dB vs sigma0 representation at risk of premature selection",
+      "statement": "Value domain (raw DN / dB / sigma0) is an open scientific decision (OPEN-PREPROC-001). Do not choose prematurely.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Document raw DN vs dB vs sigma0 trade-offs; forbid selection during pre-training audit"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestPreprocessingDecisionStatus"
+      ],
+      "evidence_refs": [
+        "Raw DN vs dB vs sigma0 representation at risk of premature selection"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-026",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Risk of unauthorized model training or Part-III benchmark leakage",
+      "statement": "Training requires separate explicit authorization. Part-III remains protected. EXP-06 remains frozen.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Assert absence of EXP-07 training runs, check GPU execution prohibition, and verify Part-III isolation"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c1_governance_guardrails.py::TestTrainingAndFirewallProhibitions"
+      ],
+      "evidence_refs": [
+        "Risk of unauthorized model training or Part-III benchmark leakage"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-027",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C2-001: Overstated pre-P3 unchanged claims without direct before/after evidence",
+      "statement": "Never promote current-state consistency into historical-state equality. Use PROVEN only when direct before/after evidence exists.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Disallow PROVEN claim unless direct pre-P3 byte comparison is demonstrated"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestEvidenceBoundaryAndProvenClaims::test_proven_requires_evidence"
+      ],
+      "evidence_refs": [
+        "INC-P3-C2-001: Overstated pre-P3 unchanged claims without direct before/after evidence"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-028",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C2-002: Git state interpretation risked calling 0 staged clean",
+      "statement": "0 staged != clean. The full working tree state must always be reported from git status --porcelain -uall.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Full 4-command git state inspection in ops01_p3_c2_git_state_audit_v1.json"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestGitStateAuthoritativeAudit::test_no_false_clean_claim"
+      ],
+      "evidence_refs": [
+        "INC-P3-C2-002: Git state interpretation risked calling 0 staged clean"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-029",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C2-003: Shortened taxonomy name for HM used in governance",
+      "statement": "Canonical class names must strictly match ops01_taxonomy_v1.json. Shortened or informal synonyms are strictly prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Assert HM exact class_name == 'Artificial / Anthropogenic Objects' across all governance text"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestCanonicalTaxonomyExactness::test_hm_exact_canonical_name"
+      ],
+      "evidence_refs": [
+        "INC-P3-C2-003: Shortened taxonomy name for HM used in governance"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-030",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C2-004: Reproducibility Level B required narrower operational semantic wording",
+      "statement": "Level B applies strictly to deterministic audit verification of stored files, never to pipeline or source reconstruction.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Require operational statement: 'OPS-01 verification artifacts satisfy Level B deterministic verification reproducibility'"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestReproducibilityLanguageExactness::test_level_b_narrow_scope"
+      ],
+      "evidence_refs": [
+        "INC-P3-C2-004: Reproducibility Level B required narrower operational semantic wording"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-031",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-002: Risk of solving Source Control cleanliness through destructive deletion",
+      "statement": "Repository hygiene must not be achieved through deletion of evidence.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Prohibit git clean, git reset, and file deletion; resolve hygiene purely through classification and narrow ignore rules"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestSafetyAndNoDeletion"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-002: Risk of solving Source Control cleanliness through destructive deletion"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-032",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-002: Risk of solving Source Control cleanliness through destructive deletion",
+      "statement": "Untracked != disposable.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Treat untracked scientific data, models, and reports as protected until provenance is established"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestSafetyAndNoDeletion"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-002: Risk of solving Source Control cleanliness through destructive deletion"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-033",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-001: Source Control noise caused by large untracked generated/scientific artifact population",
+      "statement": "Scientific artifact retention must be decided by provenance and authority, not file size.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Evaluate whether artifact is frozen, authoritative, derived, or ephemeral before deciding tracking status"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestDataTrackingPolicyAdherence"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-001: Source Control noise caused by large untracked generated/scientific artifact population"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-034",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-003: Risk of .gitignore hiding authoritative scientific artifacts",
+      "statement": ".gitignore must never hide authoritative scientific artifacts.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Run git check-ignore against all protected artifacts whenever .gitignore changes"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestProtectedArtifactsUnignored"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-003: Risk of .gitignore hiding authoritative scientific artifacts"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-035",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C2-002: Git state interpretation risked repeating '0 staged = clean' error",
+      "statement": "Tracked modifications must never be concealed by ignore rules.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Require git diff --name-status verification that tracked modifications are not obscured"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestTrackedModificationsRemainVisible"
+      ],
+      "evidence_refs": [
+        "INC-P3-C2-002: Git state interpretation risked repeating '0 staged = clean' error"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-036",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-001: Source Control noise caused by large untracked generated/scientific artifact population",
+      "statement": "Source Control panel cleanliness != repository scientific correctness.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Explicitly report remaining legitimate untracked files and forbid artificial clean claims"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestNoFalseCleanClaims"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-001: Source Control noise caused by large untracked generated/scientific artifact population"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-037",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-004: Need for every AG task to self-audit and self-repair its own side effects",
+      "statement": "Every state-mutating task must audit and repair its own side effects before declaring COMPLETE.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Inspect changes, detect introduced inconsistencies, repair them automatically, and re-verify"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestSelfHealingGovernance"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-004: Need for every AG task to self-audit and self-repair its own side effects"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-038",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-004: Need for every AG task to self-audit and self-repair its own side effects",
+      "statement": "No task may introduce a new inconsistency and then terminate without either resolving it or explicitly marking the phase BLOCKED/CONDITIONAL.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Forbid Decision A if any known task-introduced defect remains unresolved"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestDecisionIntegrityAndBlocking"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-004: Need for every AG task to self-audit and self-repair its own side effects"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-039",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C1-002: Historical hash recovery executed as unbounded repository scan",
+      "statement": "Repository investigations must be bounded; never perform unbounded recursive scans.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Require explicit path lists and depth limits for all forensic scans"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestBoundedInvestigationPolicy"
+      ],
+      "evidence_refs": [
+        "INC-P3-C1-002: Historical hash recovery executed as unbounded repository scan"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-040",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C3-001: Source Control noise caused by large untracked generated/scientific artifact population",
+      "statement": "Generated artifacts must have an explicit retention policy: tracked, ignored-retained, externally reproducible, or temporary.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Require every generated artifact class to be registered in the project data tracking policy"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestDataTrackingPolicyAdherence"
+      ],
+      "evidence_refs": [
+        "INC-P3-C3-001: Source Control noise caused by large untracked generated/scientific artifact population"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-041",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C5-001: Conflation of historical UI snapshot with final post-phase Git state",
+      "statement": "Every final repository-state claim must be measured AFTER all artifacts for that phase are created: INTERMEDIATE GIT STATE != FINAL GIT STATE.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Require final Git inspection to be measured after all artifacts are created, distinguishing intermediate states from final state"
+      ],
+      "regression_test_ids": [
+        "test_phase_8_p3_c5_final_source_control_self_consistency.py::TestTimelineAndGitIntegrity"
+      ],
+      "evidence_refs": [
+        "INC-P3-C5-001: Conflation of historical UI snapshot with final post-phase Git state"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-042",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C6-001: C5 timeline omitted phase-created telemetry artifact from final count reconciliation",
+      "statement": "A phase's final Git state must be measured only after all phase artifacts are created.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Require final Git state measurement to occur strictly after all phase artifacts have been written to disk"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c6_final_artifact_count_guardrails.py::TestOperationalDoctrine::test_final_git_state_after_all_artifacts"
+      ],
+      "evidence_refs": [
+        "INC-P3-C6-001: C5 timeline omitted phase-created telemetry artifact from final count reconciliation"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-043",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C6-001: C5 timeline omitted phase-created telemetry artifact from final count reconciliation",
+      "statement": "A phase-created telemetry file is itself part of the repository-state timeline if Git-visible, and must be explicitly classified if ignored.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Account for every phase-created telemetry file: if Git-visible, increment timeline; if matched by .gitignore, document as IGNORED_ARTIFACT with +0 porcelain impact"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c6_final_artifact_count_guardrails.py::TestOperationalDoctrine::test_telemetry_git_visibility_accounted"
+      ],
+      "evidence_refs": [
+        "INC-P3-C6-001: C5 timeline omitted phase-created telemetry artifact from final count reconciliation"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-044",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C5-001 & INC-P3-C6-001: Intermediate snapshot conflated with final filesystem state",
+      "statement": "A final report must never use an intermediate filesystem count as its final count.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Disallow intermediate counts in executive closure summaries; mandate fresh post-artifact Git verification"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c6_final_artifact_count_guardrails.py::TestOperationalDoctrine::test_no_intermediate_count_used_as_final"
+      ],
+      "evidence_refs": [
+        "INC-P3-C5-001 & INC-P3-C6-001: Intermediate snapshot conflated with final filesystem state"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-045",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "INC-P3-C5-001 & INC-P3-C6-001: Agent tasks terminating with post-artifact discrepancies",
+      "statement": "Every state-mutating task must perform a post-artifact self-consistency check before declaring COMPLETE.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [
+        "Execute a full self-consistency verification of Git porcelain, report, telemetry, and regression tests after all phase artifacts are authored"
+      ],
+      "regression_test_ids": [
+        "tests/test_phase_8_p3_c6_final_artifact_count_guardrails.py::TestOperationalDoctrine::test_post_artifact_self_consistency"
+      ],
+      "evidence_refs": [
+        "INC-P3-C5-001 & INC-P3-C6-001: Agent tasks terminating with post-artifact discrepancies"
+      ],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-046",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Missing local metadata does not equal impossible metadata",
+      "statement": "Before concluding that metadata is unavailable, search for external recovery paths: public archives, S3 buckets, API endpoints, and range-request capable remote storage.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-047",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Calibration of aggregated nonlinear measurements requires explicit error decomposition",
+      "statement": "When applying a nonlinear calibration (e.g., DN^2/A^2) to spatially aggregated data (e.g., block-mean DN), the approximation error must be decomposed into: (1) calibration-parameter variation across the aggregation block, and (2) nonlinear aggregation bias (Jensen inequality). Both must be independently bounded.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-048",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Supervised task performance does not automatically constitute representation learning",
+      "statement": "Do not claim that a supervised segmentation model produces general-purpose representations without explicit representation-quality evaluation (transfer learning, feature probing, or linear evaluation protocols).",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-049",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "A protocol correction must itself receive adversarial review",
+      "statement": "Red-team corrections can introduce new unsupported conclusions, premature freezes, or hidden assumptions. Second-order adversarial review is required before execution of correction plans.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-050",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Nonlinear calibration after aggregation requires empirical validation",
+      "statement": "When applying nonlinear radiometric calibration equations (e.g. sigma0 = DN^2/A^2) to already-aggregated spatial blocks (e.g. 10x10 block-mean amplitude), mathematical equivalence cannot be assumed. Empirical quantification of the approximation error across stratified parent windows is mandatory before plan freeze.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-051",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "LUT smoothness alone cannot establish aggregation equivalence",
+      "statement": "Spatial smoothness of calibration lookup tables (LUTs) only demonstrates that calibration parameter variation across a block is small (E1 < 0.01%). It does not establish equivalence between calibrate(mean(DN)) and mean(calibrate(DN)), which is governed by within-block amplitude variance via Jensen's inequality (E2).",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-052",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Theoretical speckle CV does not substitute for measured dataset CV",
+      "statement": "Theoretical multi-look speckle predictions (e.g. CV = 0.249 for ENL=4.4 amplitude) apply strictly to fully developed speckle over homogeneous surfaces. Heterogeneous ocean phenomena, slick boundaries, and anthropogenic structures exhibit significantly higher CVs and localized error spikes that must be measured empirically.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-053",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Instrument radiometric accuracy is distinct from processing approximation error",
+      "statement": "Sensor absolute radiometric calibration accuracy (e.g. Sentinel-1 0.34 dB specification) belongs to the instrument error budget. It must never be cited to justify or excuse algorithmic processing approximation errors (e.g. 0.24 dB Jensen bias). The two error concepts are mathematically and operationally distinct.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-054",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Reachable metadata does not equal verified metadata content",
+      "statement": "Demonstrating that remote metadata files (e.g. S3 XML headers) return HTTP 200 establishes accessibility, not validity. Authoritative verification requires downloading, parsing XML schemas, and inspecting internal vector arrays and coordinates.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-055",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Source mask is distinct from validity mask",
+      "statement": "Ground-truth source masks define semantic label annotations and must never be altered on disk to handle padding or invalid sensors. Swath-edge padding and invalid data must be decoupled into an explicit validity mask evaluated at runtime in loss computation.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-056",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Typical/central errors must not be represented as global worst-case bounds",
+      "statement": "An empirical central tendency metric (e.g. median relative error of ~5.5%) describes typical conditions in homogeneous ocean areas. It must never be represented as a global worst-case bound across all scene features; localized errors at high-reflectivity targets or sharp boundaries can exceed 300%.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-057",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Multiclass segmentation must not inherit binary threshold semantics",
+      "statement": "Multiclass segmentation protocols must evaluate predictions using argmax or calibrated simplex decision rules. Reusing binary decision thresholds (e.g. EXP-06 tau=0.22) in multiclass contexts is strictly prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-058",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Implementation contracts must preserve epistemic status",
+      "statement": "Implementation specifications must carry forward all upstream epistemic caveats (e.g. selection-influenced holdout partitions, approximate calibration pathways) without converting conditional engineering approximations into unconditional truth.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-059",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Effective optimization batch size is distinct from BatchNorm statistical batch size",
+      "statement": "Gradient accumulation aggregates gradients across multiple forward/backward passes to increase the effective optimizer batch size, but each forward pass computes BatchNorm running statistics solely over the physical minibatch. Gradient accumulation must never be claimed to increase or stabilize BatchNorm statistical batch size.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-060",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Runtime input-domain terminology must distinguish raw uncalibrated DN, physical backscatter, and model-space representation",
+      "statement": "When machine learning models ingest raw or spatially aggregated detector counts (e.g. Sentinel-1 GRD detected DN), documentation and code must explicitly specify the uncalibrated DN domain. It is strictly forbidden to describe uncalibrated or log-transformed DN representations as radiometrically calibrated backscatter (sigma0, gamma0, beta0) or to conflate empirical aggregation studies with runtime physical calibration.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-061",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Independent recomputation is mandatory for high-impact pipeline validation",
+      "statement": "Validation of critical ML pipeline components (e.g. normalization, loss calculations, confusion matrices, metrics, sampling distributions) must include independent mathematical recomputation from first principles. Asserting that a production helper function agrees with itself does not constitute verification.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-062",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Training protocol must be frozen before execution; hyperparameter sweeps require formal authorization",
+      "statement": "A baseline machine learning experiment must have its complete training protocol (optimizer, scheduler, loss weights, batch dynamics, stopping criteria) frozen in an authoritative artifact before launching execution. Uncontrolled hyperparameter fishing or simultaneous multi-variable exploration is strictly prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-063",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Single-seed performance must not be represented as robust statistical evidence",
+      "statement": "A single random seed execution provides preliminary baseline evidence only. Claims of model performance, stability, or superiority must report mean, standard deviation, and min/max ranges across an authorized multi-seed replication set (minimum 3 seeds).",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-064",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Untrained dry-run metrics are pipeline sanity checks, not performance baselines",
+      "statement": "Metrics evaluated on untrained or initialized models during pre-flight CPU dry-runs verify pipeline mechanics and numerical safety only. They must never be compared against trained models or cited as baseline performance numbers.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-065",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Sampler semantic identity must be mathematically defined and verified across metadata, code, and reporting",
+      "statement": "Any dataset sampling strategy (e.g. Candidate F Hybrid) must have an exact mathematical definition of its component weights (e.g. 70% parent-balanced, 30% class-presence) recorded in machine-readable metadata. Reporting prose must transcribe this definition literally; informal colloquial descriptions (e.g. 50/50 uniform/stratified) are prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-066",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Experimental replication must test pre-declared hypotheses, never serve as an unprincipled rescue run",
+      "statement": "Replicate runs (e.g. Seed 101, Seed 2024) must only be authorized after the baseline run (Seed 42) is proven protocol-valid and internally consistent. Replicates exist to measure stochastic variance and empirical stability; they must never be launched to erase or compensate for unfavorable baseline results.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-067",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Stochastic replicate comparison requires strict ceteris-paribus protocol equivalence; n=2 cannot support population distribution claims",
+      "statement": "Controlled replicates executed to measure stochastic variation must have zero protocol drift from the baseline (identical dataset, normalization, taxonomy, loss, sampler weights, batch dynamics, optimizer, scheduler). Differences must be strictly limited to the random seed and run identity. Comparisons between two seeds (n=2) constitute preliminary variance evidence only and must not be reported as statistically robust confidence intervals or population distributions.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-068",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Third-seed authorization gate requires formal unresolved stochastic hypothesis; blind accumulation of seeds is prohibited",
+      "statement": "Authorizing a third random seed (e.g. Seed 2024) requires an explicit, pre-declared unresolved scientific question that two seeds cannot settle (e.g. distinguishing bimodal convergence from continuous variance). If two seeds already reveal consistent structural failure modes (e.g. rare-class parent scarcity), research effort must prioritize dataset or representational improvements rather than accumulating redundant training runs.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-069",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Model parameter and buffer counts must be verified by direct code/checkpoint introspection; prose transcription must match machine-readable configuration exactly",
+      "statement": "Model parameter counts (trainable, non-trainable, floating buffers, integer buffers, state elements) must be computed directly by programmatic inspection of the instantiated PyTorch module and checkpoint tensors. Unverified prose transcription of numbers is prohibited; any discrepancy between markdown text and machine-readable metadata constitutes an incident.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-070",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Sensor physical modality discipline: Sentinel-1 is spaceborne radar; referring to radar backscatter as acoustic or sonar is strictly prohibited",
+      "statement": "All scientific reports, comments, docstrings, and metadata must strictly adhere to the true physical modality of the sensors used. Sentinel-1 is a C-band (5.405 GHz) microwave synthetic aperture radar measuring radar backscatter cross-section (sigma0) and roughness dampening. Describing SAR backscatter signatures as 'acoustic', 'sonar', or 'sound waves' is strictly prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-071",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Causal attribution discipline: Multi-seed observational recurrence supports reproducibility, not causal proof; hypotheses must never be marked confirmed without controlled interventional isolation",
+      "statement": "Observational recurrence of an outcome across multiple random seeds (e.g. repeated zero IoU or scene-level collapse) proves empirical reproducibility under a specific protocol, but does NOT establish causality. A hypothesis regarding architecture (e.g. pooling dilution) or data (e.g. parent scarcity) must be classified as PLAUSIBLE or SUPPORTED, and must never be labeled CONFIRMED or PROVEN unless an interventional ablation experiment has isolated the factor.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-072",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Taxonomy abbreviation fidelity: Class abbreviations must resolve strictly to authoritative canonical taxonomy definitions; OF is Ocean Front, HM is Artificial / Anthropogenic Objects",
+      "statement": "Class abbreviations must resolve strictly to authoritative canonical definitions in ops01_taxonomy_v1.json. OF is Ocean Front (label 6), NOT Oil Film. HM is Artificial / Anthropogenic Objects (label 13), and must never be renamed to Ship or Vessel. Mineral oil spills (OS, label 14) are strictly quarantined and excluded from OPS-01 training.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-073",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Dense Class Index vs Source Label ID Integrity: Dense indices and source label IDs must never be conflated; OF is Dense 5 (Source 6) and POW is Dense 6 (Source 7)",
+      "statement": "All reports, metadata, tests, and code must explicitly specify whether class indices refer to Dense Class Index (0-11) or Source Label ID (0-14). OF is Dense Index 5 (Source Label 6). POW is Dense Index 6 (Source Label 7). Referring to OF as Class 6 without qualification is strictly prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-074",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "SAR Runtime Input Domain Specification: Uncalibrated DN-domain representation must not be cited as sigma0 or calibrated backscatter",
+      "statement": "Reports and code must accurately distinguish physical sensor measurements, ground-processed Level-1 products, and runtime model inputs. In EXP-07, the input is uncalibrated 10x10 spatially aggregated digital numbers (DN) transformed via log1p and z-score standardized. Citing this runtime tensor as sigma0, gamma0, or calibrated backscatter without applying radiometric calibration LUTs is strictly prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-075",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Parent-Level Partitioning Before Slicing: Data splits must be formed strictly at the independent parent scene cluster level prior to spatial tiling",
+      "statement": "In all dataset expansion campaigns (including OPS-02), partitioning into TRAIN, DEV, and HOLDOUT must occur strictly at the parent acquisition cluster level BEFORE spatial tiling or patch extraction. Assigning tiles from the same parent scene or correlated orbital pass across different partitions is strictly prohibited as data leakage.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-076",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Annotation Provenance Tiers: Every sample must record an explicit provenance tier; Tier D weak labels are quarantined from training and evaluation splits",
+      "statement": "All dataset expansion samples must record an explicit annotation provenance tier (Tier A: expert manual; Tier B: specialist-verified semi-automated; Tier C: reconstructed legacy; Tier D: unverified weak label). Samples categorized as Tier D are strictly quarantined and prohibited from entering TRAIN, DEV, or HOLDOUT partitions.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-077",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Mission Datatake and Orbital Clustering Invariant: Slices sharing datatake IDs must be clustered into a single parent entity prior to partitioning",
+      "statement": "Any candidate scenes sharing a Sentinel-1 mission datatake identifier or adjacent along-track zero-Doppler time range (Delta t < 10 minutes) must be grouped into a single parent acquisition cluster. Treating individual along-track slices from the same datatake as independent parent scenes is strictly prohibited as pseudo-replication.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-078",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Cross-Source Duplicate and Crosswalk Protection: Independent parent accounting across multiple sources must collapse identical acquisitions",
+      "statement": "Cross-Source Duplicate and Crosswalk Protection: Independent parent accounting across multiple sources must collapse identical acquisitions",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-079",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Four-Layer Distinct Quality Control Standard: Technical, Provenance, Semantic, and Independence QC must remain separate",
+      "statement": "Every physical dataset assembly must evaluate and report Technical Integrity, Provenance Integrity, Semantic/Label Integrity, and Scientific Independence as four distinct audit layers. Conflating these layers into a single aggregate '100% QC' figure without reporting individual pass/fail metrics across all four layers is strictly prohibited.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-080",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Dataset Assembly Candidate Freeze vs Model Training Gating: Dataset assembly completion does not authorize training",
+      "statement": "Assembling, verifying, and freezing a physical dataset candidate (e.g. OPS02_v1_CANDIDATE) constitutes a data engineering milestone only. Model training, hyperparameter sweeps, architecture benchmarking, or holdout evaluation remain strictly prohibited until a separate formal scientific training-readiness authorization gate is passed.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-081",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Semantic Taxonomy Encoding Validity vs Semantic Annotation Ground Truth",
+      "statement": "Semantic Taxonomy Encoding Validity vs Semantic Annotation Ground Truth",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-082",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Physical Sample Pair Count vs Independent Parent Acquisition Count",
+      "statement": "Physical Sample Pair Count vs Independent Parent Acquisition Count",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-083",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Gridded Pixel Alignment vs Physical Georeferencing Verification",
+      "statement": "Gridded Pixel Alignment vs Physical Georeferencing Verification",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-084",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Single-Archive Multi-Acquisition Expansion vs Multi-Source Benchmark Independence",
+      "statement": "Single-Archive Multi-Acquisition Expansion vs Multi-Source Benchmark Independence",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-085",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Frozen Dataset Specification Immutability and Cryptographic Binding",
+      "statement": "Frozen Dataset Specification Immutability and Cryptographic Binding",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-086",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Partition Sample Count Runtime Assertion",
+      "statement": "Partition Sample Count Runtime Assertion",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-087",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Hardware Provisioning vs Hardware Utilization Reporting",
+      "statement": "Hardware Provisioning vs Hardware Utilization Reporting",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-088",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Evaluation Warmup Memory vs Peak Training VRAM Characterization",
+      "statement": "Evaluation Warmup Memory vs Peak Training VRAM Characterization",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-089",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Partitioned Reporting for Sparse-Class Multiclass Perception",
+      "statement": "Partitioned Reporting for Sparse-Class Multiclass Perception",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-090",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Cryptographic Manifest Binding and Freeze Immutability Mandate",
+      "statement": "Cryptographic Manifest Binding and Freeze Immutability Mandate",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-091",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Runtime Dataset Sample-ID Set Equality Invariant",
+      "statement": "Runtime Dataset Sample-ID Set Equality Invariant",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-092",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Epistemic Standard for Scientific Causal Claims vs Descriptive Observation",
+      "statement": "Epistemic Standard for Scientific Causal Claims vs Descriptive Observation",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-093",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Hardware Provisioning vs Compute Utilization Transparency",
+      "statement": "Hardware Provisioning vs Compute Utilization Transparency",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-094",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Primary Benchmark Metric Invariance vs Secondary Diagnostic Metrics",
+      "statement": "Primary Benchmark Metric Invariance vs Secondary Diagnostic Metrics",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-095",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Canonical Taxonomy Vocabulary and Index Immutability",
+      "statement": "Canonical Taxonomy Vocabulary and Index Immutability",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-096",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Canonical Training Protocol Single-Source Authority",
+      "statement": "Canonical Training Protocol Single-Source Authority",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-097",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Machine-Readable Forensic Reconstruction Priority",
+      "statement": "Machine-Readable Forensic Reconstruction Priority",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-098",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Cross-Domain Evaluation Epistemic Standard",
+      "statement": "Cross-Domain Evaluation Epistemic Standard",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-099",
+      "principle_id": "PRIN-001",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Machine-Checkable Single-Variable Isolation for Diagnostic Training",
+      "statement": "Machine-Checkable Single-Variable Isolation for Diagnostic Training",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "RECORDED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "BLOCK-001-HOLDOUT",
+      "principle_id": "PRIN-007",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "HOLDOUT partition access is strictly forbidden without explicit formal protocol authorization.",
+      "statement": "HOLDOUT partition access is strictly forbidden without explicit formal protocol authorization.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Reference to data/ops02/tiles/holdout, partition=HOLDOUT, or unquarantining holdout samples."
+      ],
+      "required_checks": [
+        "Immediate preflight termination. No read, scan, or inference permitted."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-002-PART_III",
+      "principle_id": "PRIN-007",
+      "failure_class": "DATA-INTEGRITY",
+      "title": "Part III evaluation data and prediction payloads are strictly firewalled.",
+      "statement": "Part III evaluation data and prediction payloads are strictly firewalled.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Reference to Part III rasters, manifests, or predictions in development or diagnostic workflows."
+      ],
+      "required_checks": [
+        "Immediate preflight termination. Firewall assertion failure."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-003-DIAG_COLLISION",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "Diagnostic investigation IDs are immutable; never overwrite, collide, or repurpose an existing diagnostic ID.",
+      "statement": "Diagnostic investigation IDs are immutable; never overwrite, collide, or repurpose an existing diagnostic ID.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Proposing a new diagnostic question or experiment under an existing ID (e.g. DIAG-01, DIAG-02, DIAG-03)."
+      ],
+      "required_checks": [
+        "Preflight blocks plan until a new, unique identifier is assigned."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-004-CAUSAL_OVERCLAIM",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "Observational and descriptive metrics cannot be asserted as causal mechanisms without direct causal experimental intervention.",
+      "statement": "Observational and descriptive metrics cannot be asserted as causal mechanisms without direct causal experimental intervention.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Use of terms 'radiometric bottleneck', 'information bottleneck', 'root cause', 'proves model failure', 'cannot learn', 'causes low mIoU', 'explains low mIoU' on observational data."
+      ],
+      "required_checks": [
+        "Preflight blocks report/plan until prose is calibrated to 'observed', 'associated with', or 'HYPOTHESIZED'."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-005-PROTOCOL_MUTATION",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "Frozen canonical preprocessing (INV-06: raw DN -> 10x10 block -> log1p -> train standardization) cannot be mutated during diagnostics.",
+      "statement": "Frozen canonical preprocessing (INV-06: raw DN -> 10x10 block -> log1p -> train standardization) cannot be mutated during diagnostics.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Recomputing normalization constants, changing aggregation, converting to sigma0/dB, or adding channels."
+      ],
+      "required_checks": [
+        "Preflight blocks code execution."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-006-UNAUTHORIZED_TRAINING",
+      "principle_id": "PRIN-006",
+      "failure_class": "AUTHORIZATION",
+      "title": "Zero training steps, zero backward passes, zero optimizer steps, and zero GPU seconds during diagnostic investigations.",
+      "statement": "Zero training steps, zero backward passes, zero optimizer steps, and zero GPU seconds during diagnostic investigations.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Invocation of torch backward(), optimizer.step(), lr_scheduler.step(), or CUDA device allocation during diagnostic tasks."
+      ],
+      "required_checks": [
+        "Preflight and runtime governance counters assert all training metrics == 0."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-007-DESTRUCTIVE_GIT",
+      "principle_id": "PRIN-001",
+      "failure_class": "EXECUTION-SAFETY",
+      "title": "Zero destructive git operations; never run git reset --hard, git clean, git checkout -f, git push --force.",
+      "statement": "Zero destructive git operations; never run git reset --hard, git clean, git checkout -f, git push --force.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Any proposed destructive git command or unexpected deletion of working-tree changes."
+      ],
+      "required_checks": [
+        "Preflight terminates immediately; working-tree modifications (.gitignore, dataset.py) must remain preserved."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-008-DEPRECATED_TERMINOLOGY",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "Canonical taxonomy nomenclature is frozen: OF is Ocean Front (never oil spill); RF is Rain phenomenon; HM is Artificial / Anthropogenic Objects (never vessel/ship/Heavy Metal).",
+      "statement": "Canonical taxonomy nomenclature is frozen: OF is Ocean Front (never oil spill); RF is Rain phenomenon; HM is Artificial / Anthropogenic Objects (never vessel/ship/Heavy Metal).",
+      "scope": "GLOBAL",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Appearance of forbidden synonyms ('oil spill' for OF, 'heavy metal' or 'vessel' for HM) in active reports or code."
+      ],
+      "required_checks": [
+        "Preflight blocks report generation until terminology matches canonical dictionary."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-009-PSEUDO_REPLICATION",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "Pixel-level observations cannot be treated as independent experimental replicates for statistical inference.",
+      "statement": "Pixel-level observations cannot be treated as independent experimental replicates for statistical inference.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Computing standard errors or p-values treating N_pixels as sample size without parent-cluster blocking."
+      ],
+      "required_checks": [
+        "Preflight blocks analysis until cluster sample size K_cls is reported and cluster-level bootstrap is utilized."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-010-UNVERIFIED_PROVEN_STABLE",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "A lesson cannot be declared PROVEN_STABLE without documented, verifiable validation history across multiple tasks.",
+      "statement": "A lesson cannot be declared PROVEN_STABLE without documented, verifiable validation history across multiple tasks.",
+      "scope": "GLOBAL",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Setting status to PROVEN_STABLE when validation_history has fewer than 2 distinct task entries."
+      ],
+      "required_checks": [
+        "Preflight rejects status update and retains REGRESSION_PROTECTED."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-011-PREFLIGHT_BYPASS",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "Substantive task operations, git changes, or completion claims require a valid, verified preflight receipt generated by scripts/agent_governance_preflight.py.",
+      "statement": "Substantive task operations, git changes, or completion claims require a valid, verified preflight receipt generated by scripts/agent_governance_preflight.py.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Executing substantive task work or attempting to mark task COMPLETE without an unexpired, passing preflight receipt in scratch/agent_governance_preflight_receipt.json."
+      ],
+      "required_checks": [
+        "Task execution is blocked; agent must run preflight and generate a verified receipt."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "BLOCK-012-UNVERIFIED_TELEMETRY",
+      "principle_id": "PRIN-001",
+      "failure_class": "AUTHORIZATION",
+      "title": "Telemetry run state cannot claim COMPLETE unless all required verification gates pass, test count equals total, and zero forbidden operations occurred.",
+      "statement": "Telemetry run state cannot claim COMPLETE unless all required verification gates pass, test count equals total, and zero forbidden operations occurred.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [
+        "Setting final_completion_state to COMPLETE while governance counters are non-zero, blockers are active, or regression tests are missing."
+      ],
+      "required_checks": [
+        "Preflight and post-execution validation block task completion until telemetry integrity is verified."
+      ],
+      "regression_test_ids": [],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": true,
+      "precedence_weight": 100
+    },
+    {
+      "rule_id": "GOV-RULE-100",
+      "principle_id": "PRIN-001",
+      "failure_class": "ARTIFACT-REPORT-MISMATCH",
+      "title": "All quantitative assertions must derive directly from machine JSON",
+      "statement": "All quantitative assertions in reports must be machine-derived directly from verified JSON artifacts, never manual transcription.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_ocean_sentinel_agent_learning_framework.py::test_lesson_001_narrative_vs_machine_truth"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "PROVEN_STABLE",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-116",
+      "principle_id": "PRIN-005",
+      "failure_class": "INFERENCE-UNIT-MISMATCH",
+      "title": "Parent acquisition scene is the independent unit of inference",
+      "statement": "Tile-level observations cannot be treated as independent degrees of freedom when scenes contain multiple tiles.",
+      "scope": "PROJECT",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-123",
+      "principle_id": "PRIN-001",
+      "failure_class": "MODEL-STATE-MISMATCH",
+      "title": "Canonical checkpoint initialization verification",
+      "statement": "Diagnostic profiling must verify checkpoint weights match canonical SHA256 before inference.",
+      "scope": "PROJECT",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py::test_diag05_tier1_artifacts_integrity_and_hashes"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-124",
+      "principle_id": "PRIN-005",
+      "failure_class": "INDEPENDENCE-ASSUMPTION",
+      "title": "Minibatch size does not create scene independence",
+      "statement": "Physical minibatch size does not guarantee independent scene representation in clustered datasets.",
+      "scope": "PROJECT",
+      "severity": "HIGH",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_preexecution_guardrails.py"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-126",
+      "principle_id": "PRIN-005",
+      "failure_class": "INFERENCE-UNIT-MISMATCH",
+      "title": "Tile to parent scene one-to-one nesting invariant",
+      "statement": "Every tile must map deterministically to exactly one parent acquisition scene.",
+      "scope": "PROJECT",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_preexecution_guardrails.py"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-127",
+      "principle_id": "PRIN-009",
+      "failure_class": "DENOMINATOR-DRIFT",
+      "title": "Literal contractual gradient denominator preservation",
+      "statement": "Gradient sub-computations must normalize by literal contractual denominator, never subset convenience normalizations.",
+      "scope": "PROJECT",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_preexecution_guardrails.py"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-128",
+      "principle_id": "PRIN-010",
+      "failure_class": "MODEL-STATE-MISMATCH",
+      "title": "Model.eval() and frozen BatchNorm during static diagnostics",
+      "statement": "Static gradient diagnostics must execute in model.eval() mode with frozen running statistics.",
+      "scope": "PROJECT",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {},
+      "prohibited_actions": [],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_preexecution_guardrails.py"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-129",
+      "principle_id": "PRIN-002",
+      "failure_class": "POPULATION-CONSTRUCTION",
+      "title": "Post-validity support census for sample eligibility",
+      "statement": "Any sample eligibility query involving class presence (M_c >= K) must be evaluated strictly after all validity masking transformations.",
+      "scope": "PROJECT",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {
+        "operation": [
+          "sample_eligibility_census",
+          "population_census"
+        ]
+      },
+      "prohibited_actions": [
+        "raw disk mask support evaluation"
+      ],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py::test_diag05_post_validity_support_census_guardrail"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-130",
+      "principle_id": "PRIN-003",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "title": "Explicit statistical method binding in code and metadata",
+      "statement": "Statistical test routines must explicitly bind method parameters in code, and artifact schemas must derive method metadata directly from the executed call.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {
+        "operation": [
+          "paired_inference",
+          "wilcoxon",
+          "statistical_test"
+        ]
+      },
+      "prohibited_actions": [
+        "unbound statistical method parameter"
+      ],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py::test_diag05_statistical_method_binding_guardrail"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-131",
+      "principle_id": "PRIN-004",
+      "failure_class": "P-VALUE-OVERINTERPRETATION",
+      "title": "Bounded negative epistemic reporting for Step-0 diagnostics",
+      "statement": "Non-significant diagnostic findings (p > 0.05) must be reported as bounded negative findings under registered design; agents are strictly prohibited from asserting 'no effect', 'eliminated interference', or dynamic stability.",
+      "scope": "GLOBAL",
+      "severity": "CRITICAL",
+      "action": "BLOCK",
+      "applies_to": {
+        "operation": [
+          "report_generation",
+          "paired_inference"
+        ]
+      },
+      "prohibited_actions": [
+        "proves no effect",
+        "intrinsic structural characteristic",
+        "guarantees stability"
+      ],
+      "required_checks": [],
+      "regression_test_ids": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py::test_diag05_bounded_negative_interpretation_guardrail"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0
+    },
+    {
+      "rule_id": "GOV-RULE-132",
+      "principle_id": "PRIN-007",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "title": "Prohibition of informal statistical method conflation and provenance omission",
+      "statement": "Statistical methods, implementations, and distributions must not be conflated. Library argument names (e.g. SciPy method='exact') must be documented according to verified mathematical algorithm semantics (exact discrete signed-rank distribution vs permutation test vs asymptotic normal approximation) with full provenance.",
+      "scope": "GLOBAL",
+      "severity": "HIGH",
+      "action": "WARN",
+      "applies_to": {
+        "operation": [
+          "paired_inference",
+          "wilcoxon",
+          "statistical_test",
+          "report_generation"
+        ]
+      },
+      "prohibited_actions": [
+        "exact permutation test for wilcoxon",
+        "conflating exact signed-rank distribution with permutation test"
+      ],
+      "required_checks": [
+        "Record library, version, function, method argument, executed algorithm, assumptions, and zero/tie handling."
+      ],
+      "regression_test_ids": [
+        "tests/test_governance_v2_adversarial_replay.py::test_adversarial_case_13_statistical_method_conflation"
+      ],
+      "evidence_refs": [],
+      "incident_refs": [],
+      "supersedes": [],
+      "superseded_by": null,
+      "status": "REGRESSION_PROTECTED",
+      "non_overridable": false,
+      "precedence_weight": 0,
+      "evidence_strength": "DIRECT_MEASUREMENT",
+      "evidence_lineage": {
+        "verified_library": "scipy",
+        "verified_version": "1.15.3",
+        "source": "scipy.stats.wilcoxon implementation inspect"
+      }
+    }
+  ]
+}

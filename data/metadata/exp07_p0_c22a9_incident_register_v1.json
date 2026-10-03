@@ -1,0 +1,42 @@
+{
+  "incident_register_id": "EXP07_P0_C22A9_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.9",
+  "created_at_utc": "2026-09-14T08:02:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A9-001",
+      "severity": "LOW / RESOLUTION",
+      "category": "DOCUMENTATION_PARAMETER_CONSISTENCY",
+      "title": "C22-A.8 Completion Report Parameter-Consistency Discrepancies and Audit Closure",
+      "location": "experiments/EXP-07/EXP07_P0_C22A8_FINAL_INDEPENDENCE_SOURCE_OF_TRUTH_AND_READINESS_20260914.md",
+      "claimed_values": {
+        "loss_vector": "[0.0898, 0.9069, 1.0033] (3-element vector in Q10)",
+        "epochs": "epochs (15) (Q10)",
+        "input_modality": "SAR VV/VH Tiles (Q4)",
+        "metrics": "macro F1, per-class IoU, boundary distance listed without declaring primary metric contract (Q11)"
+      },
+      "machine_truth": {
+        "loss_vector": "[0.403935, 2.450546, 0.876692, 0.945945, 0.648189, 4.211476, 0.719641, 2.956203, 1.064525, 1.882870, 0.387652, 18.243211] (12-element canonical control vector)",
+        "epochs": "MAX_EPOCHS = 30, MIN_EPOCHS = 15, PATIENCE = 10",
+        "input_modality": "Single-band VV SAR (1 channel, 256x256 float32 GeoTIFF)",
+        "primary_metric": "dev_mIoU_phenomena (classes 1..11, background Class 0 excluded)"
+      },
+      "root_cause": "Typographical/narrative drafting error in C22-A.8 completion report markdown prose. The underlying executable code, rehearsal script, and frozen protocol specification were already 100% correct.",
+      "impact_assessment": "DOCUMENTATION_ONLY. The actual C22-B computational dependencies and executable pipeline were not altered or compromised. Zero protocol drift occurred.",
+      "remediation": "Established ops02_c22a9_exp07_protocol_consistency_v1.json, added formal erratum lineage to C22-A.8 report, installed test_exp07_p0_c22a9_protocol_consistency_guardrails.py.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "All parameter discrepancies resolved. Machine truth, frozen protocol, and report prose are 100% reconciled across all 22 parameters."
+}

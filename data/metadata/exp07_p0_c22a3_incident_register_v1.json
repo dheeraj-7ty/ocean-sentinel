@@ -1,0 +1,32 @@
+{
+  "incident_register_id": "EXP07_P0_C22A3_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.3",
+  "created_at_utc": "2026-09-14T06:44:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A3-001",
+      "severity": "CRITICAL",
+      "category": "SCIENTIFIC_VALIDITY / INITIALIZATION_PROVENANCE",
+      "title": "Initial Model State Randomly Initialized Violating Pretrained Backbone Invariant INV-10",
+      "location": "data/ops02/initial_model_state.pt and scripts/rehearse_exp07_diag01_zero_step.py",
+      "claimed_value": "Model initialized from ResNet18_Weights.IMAGENET1K_V1 under canonical protocol.",
+      "machine_truth": "data/ops02/initial_model_state.pt (SHA256: 4BB233DB629E44DE12E41F11809024B7A5BDA4DBCFB19D13752295973117E45C) bitwise matches an un-pretrained (pretrained=False) ResNet18UNet initialized under seed 42. It contains zero ImageNet-pretrained weights. The required pretrained weights file resnet18-f37072fd.pth was downloaded dynamically on Kaggle during C16, but is not present in local torch hub cache (~/.cache/torch/hub/checkpoints) and cannot be downloaded under strict offline governance.",
+      "root_cause": "Conflation of pairwise control/treatment parity (both conditions initialized identically) with canonical protocol initialization provenance (starting state matches ImageNet-pretrained protocol).",
+      "status": "BLOCKED",
+      "remediation": "Classified current initial_model_state.pt as NON_CANONICAL_INITIALIZATION_ARTIFACT. Superseded C22-A.2 readiness verdict to BLOCKED. Formulated Lesson LL-EXP07-024 to permanently prevent pairwise parity from masking non-canonical initialization.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": true
+    }
+  ],
+  "remediation_summary": "EXP07_DIAG01 is formally BLOCKED from training authorization until the canonical ImageNet-pretrained weights (resnet18-f37072fd.pth) are properly provisioned and verified locally."
+}

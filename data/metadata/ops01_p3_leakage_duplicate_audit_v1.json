@@ -1,0 +1,62 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:48:46.244126+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_5_LEAKAGE_DUPLICATE_FORENSICS",
+  "total_samples": 147,
+  "partition_counts": {
+    "TRAIN": 72,
+    "DEV": 39,
+    "HOLDOUT": 36
+  },
+  "partition_parent_counts": {
+    "TRAIN": 12,
+    "DEV": 7,
+    "HOLDOUT": 8
+  },
+  "inter_partition_parent_leakage_count": 0,
+  "duplicate_image_content_count": 0,
+  "duplicate_mask_sha_groups_expected": 3,
+  "duplicate_mask_sha_groups_unexpected": 0,
+  "cross_partition_image_hash_overlap": 0,
+  "total_issues": 0,
+  "verdict": "PASS",
+  "issues": [],
+  "expected_mask_duplicate_groups": {
+    "B8047AA937A6536DE34DADB054364BBF7FCC67D4147FF3F259DFEBF75F5CDA5A": {
+      "samples": [
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-17",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-18",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-23",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-24",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-58",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-59",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-60"
+      ],
+      "count": 7,
+      "classification": "EXPECTED_PHYSICS_ARTIFACT"
+    },
+    "5F65E3119BEF313B3245BD616AFF92173C746EE36FBDE065D2D66BEDB265E884": {
+      "samples": [
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001-48",
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001-54",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-19",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-42",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-43",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-44",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-45",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-48"
+      ],
+      "count": 8,
+      "classification": "EXPECTED_PHYSICS_ARTIFACT"
+    },
+    "A512561D88970D8F4F324883FC62350F1D822F97745E4B6AE658D3ACFCA3825D": {
+      "samples": [
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-27",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-34"
+      ],
+      "count": 2,
+      "classification": "EXPECTED_PHYSICS_ARTIFACT"
+    }
+  }
+}

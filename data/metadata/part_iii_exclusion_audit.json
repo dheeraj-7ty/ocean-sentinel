@@ -1,0 +1,20 @@
+{
+  "audit_version": "1.1.0",
+  "timestamp_utc": "2026-09-12T17:41:50.977358+00:00",
+  "firewall_rule": "Rule 38 / Section 4: Part III Exclusion Firewall",
+  "benchmark_scenes_evaluated": 450,
+  "candidate_regions_evaluated": 2290,
+  "unique_parent_products_evaluated": 869,
+  "direct_overlapping_regions_count": 355,
+  "contaminated_parent_products_count": 195,
+  "scene_level_excluded_regions_count": 680,
+  "indirect_scene_level_excluded_regions_count": 325,
+  "cleared_candidate_regions_count": 1610,
+  "cleared_parent_products_count": 674,
+  "decision": "EXCLUDE_ALL_SCENE_LEVEL_CONTAMINATED_PRODUCTS",
+  "reconciliation_math": {
+    "regions_partition": "2290 = 680 (scene-level rejected) + 1610 (cleared)",
+    "rejected_decomposition": "680 = 355 (direct overlap) + 325 (co-scene indirect overlap)",
+    "parent_products_partition": "869 = 195 (contaminated) + 674 (cleared)"
+  }
+}

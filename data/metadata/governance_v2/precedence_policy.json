@@ -1,0 +1,25 @@
+{
+  "framework_version": "2.0.0",
+  "severity_hierarchy": [
+    "CRITICAL",
+    "HIGH",
+    "MEDIUM",
+    "LOW",
+    "INFORMATIONAL"
+  ],
+  "scope_hierarchy": [
+    "GLOBAL",
+    "DOMAIN",
+    "PROJECT",
+    "EXPERIMENT",
+    "DIAGNOSTIC",
+    "TASK"
+  ],
+  "resolution_rules": [
+    "1. Explicit supersession declared in metadata always retires the superseded rule.",
+    "2. Non-overridable global rules (e.g. HOLDOUT, Part-III firewall) can never be overridden by local rules.",
+    "3. When severities differ, higher severity governs.",
+    "4. When severities are equal, more specific scope governs unless higher scope has non_overridable=true.",
+    "5. When severity and scope are equal with opposing directives, emit BLOCK-CONFLICT-001 requiring human review; never last record wins."
+  ]
+}

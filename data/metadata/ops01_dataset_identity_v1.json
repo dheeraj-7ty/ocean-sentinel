@@ -1,0 +1,105 @@
+{
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T11:54:46.778469+00:00",
+  "phase": "PHASE_8_P3_C1",
+  "dataset_name": "OPS-01",
+  "dataset_identity_doctrine": "CONTENT + MANIFEST + TAXONOMY + SPLIT + PROVENANCE + PROTOCOL",
+  "authoritative_manifest": {
+    "file_name": "ops01_physical_dataset_manifest_v4.json",
+    "relative_path": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+    "sha256": "A6AACE708EE904288453DF4E306427BF2F13254D7E230FDCCCE5926C3E634C0B",
+    "version": "4.0.0"
+  },
+  "dataset_composition": {
+    "sample_count": 147,
+    "parent_count": 27,
+    "partition_counts": {
+      "TRAIN": 72,
+      "DEV": 39,
+      "HOLDOUT": 36
+    },
+    "partition_parent_counts": {
+      "TRAIN": 12,
+      "DEV": 7,
+      "HOLDOUT": 8
+    },
+    "parent_leakage": 0,
+    "duplicate_images": 0,
+    "total_audited_pixels": 9633792,
+    "admitted_class_14_os_pixels": 0
+  },
+  "taxonomy": {
+    "file_name": "ops01_taxonomy_v1.json",
+    "relative_path": "data/metadata/ops01_taxonomy_v1.json",
+    "sha256": "86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD",
+    "canonical_class_count": 15,
+    "target_lookalike_classes": [
+      "AF",
+      "BS",
+      "LWA",
+      "OF",
+      "MCC",
+      "POW",
+      "RF",
+      "WS",
+      "Eddy",
+      "IWs"
+    ],
+    "mineral_oil_spill_class_id": 14,
+    "mineral_oil_spill_status": "EXCLUDED_FROM_ELIGIBLE_DATASET",
+    "hm_canonical_class_name": "Artificial / Anthropogenic Objects",
+    "of_canonical_class_name": "Ocean Front",
+    "os_canonical_class_name": "Mineral Oil Spill"
+  },
+  "split_manifest": {
+    "file_name": "ops01_split_manifest_v4.json",
+    "relative_path": "data/metadata/ops01_split_manifest_v4.json",
+    "sha256": "8BFC18EB21298CE2437575908F3EECF0FB64AB405F58F91F0908FCC706FE46D8",
+    "version": "4.0.0"
+  },
+  "source_provenance": {
+    "file_name": "ops01_source_recovery_inventory_v3.json",
+    "relative_path": "data/metadata/ops01_source_recovery_inventory_v3.json",
+    "sha256": "E0825A47E831E7EE140E9A1FC75D313B0769E22C2DDF21BF60A9379900049351",
+    "parent_scene_count": 27,
+    "sensor": "Sentinel-1 C-SAR",
+    "mode": "IW",
+    "product_type": "GRD"
+  },
+  "sufficiency_evaluation": {
+    "file_name": "ops01_dataset_sufficiency_v5.json",
+    "relative_path": "data/metadata/ops01_dataset_sufficiency_v5.json",
+    "sha256": "9A70990A1795AFC80BA0B8214AB23BF52721F014694426C40D32BC93A7D0665B",
+    "version": "5.0.0",
+    "decision": "A. CORRECTED -- SUFFICIENT FOR P3"
+  },
+  "epistemic_disclosures": {
+    "holdout_status": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+    "alignment_status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+    "correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+    "generation_method_status": "DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED"
+  },
+  "physical_representation": {
+    "bands": 1,
+    "polarization": "VV",
+    "dimensions": [
+      256,
+      256
+    ],
+    "observed_domain": "raw intensity / DN-domain values",
+    "calibrated_sigma0_status": "NOT_ESTABLISHED",
+    "decibel_db_status": "NOT_ESTABLISHED"
+  },
+  "reproducibility_level": {
+    "assigned_level": "LEVEL_B",
+    "level_name": "Deterministic Verification Reproducibility",
+    "governing_specification": "data/metadata/ocean_sentinel_reproducibility_levels_v1.json",
+    "promotion_prohibitions": "Promotion to Level C or Level D prohibited because DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED"
+  },
+  "training_dataloader_status": {
+    "status": "NOT_IMPLEMENTED",
+    "issue_id": "OPEN-LOADER-001",
+    "contract_issue_id": "OPEN-LOADER-CONTRACT-001",
+    "note": "TrujilloTileDataset is incompatible; OPS-01 DataLoader must be implemented under future approved EXP-07 protocol."
+  }
+}

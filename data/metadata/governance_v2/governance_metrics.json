@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "total_principles": 12,
+  "total_failure_classes": 28,
+  "total_rules": 122,
+  "total_incidents": 37,
+  "total_lessons": 104,
+  "total_assumptions": 12,
+  "proven_stable_lessons": 5,
+  "regression_protected_lessons": 99,
+  "recorded_lessons": 0,
+  "rules_with_tests": 56,
+  "rules_without_tests": 66,
+  "migration_status": "COMPLETED_WITHOUT_LOSS"
+}

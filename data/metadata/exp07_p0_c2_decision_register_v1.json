@@ -1,0 +1,244 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C2",
+  "generated_at": "2026-09-13T22:27:00+05:30",
+  "total_decisions": 20,
+  "frozen_count": 11,
+  "requires_validation_count": 6,
+  "provisional_count": 3,
+  "rejected_count": 0,
+  "decisions": [
+    {
+      "decision_id": "D-C2-01",
+      "question": "What is the scientific question for EXP-07?",
+      "recommended_option": "OPS-01 maritime phenomenon segmentation and representation learning",
+      "evidence": "OPS-01 contains 0 OS pixels; oil-vs-lookalike discrimination is impossible from OPS-01 alone",
+      "evidence_status": "PROVEN",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Conflating phenomenon segmentation with oil detection leads to misleading claims",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-02",
+      "question": "Is physical sigma0 calibration feasible for OPS-01 crops?",
+      "recommended_option": "APPROXIMATELY FEASIBLE after targeted metadata recovery, pending empirical validation of nonlinearity error",
+      "candidate_options": [
+        "Exact calibration from block-mean DN",
+        "Approximate calibration with ~6% systematic bias",
+        "Exact calibration requiring raw parent pixel recovery",
+        "No calibration (use empirical log transform)",
+        "Infeasible"
+      ],
+      "evidence": "All 27 calibration XMLs accessible via public S3. Nonlinearity analysis shows mean(DN)^2 != mean(DN^2) with ~6% bias from speckle CV. Parent TIFF supports range requests for empirical validation.",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "final_status": "REQUIRES_VALIDATION",
+      "risk_if_wrong": "Using uncalibrated DN leaves 17% cross-swath confound; overstating calibration accuracy misleads future analysis",
+      "validation_required": true,
+      "validation_method": "V-01: Read raw parent pixels via range request, compute exact vs approximate sigma0, measure within-block CV"
+    },
+    {
+      "decision_id": "D-C2-03",
+      "question": "What is the correct terminology for 10*log10(DN+eps)?",
+      "recommended_option": "Empirical logarithmic feature transform",
+      "evidence": "DN is uncalibrated detected amplitude; physical dB requires calibrated sigma0",
+      "evidence_status": "PROVEN",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Misleading radiometric claims in publications",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-04",
+      "question": "What is the radiometric input representation for EXP-07?",
+      "candidate_options": [
+        "A: Raw stored DN (empirical log transform)",
+        "B: Approximate sigma0 in dB: 10*log10(block_mean_DN^2 / A^2)",
+        "C: Exact sigma0 from recovered raw parent pixels",
+        "D: Raw DN without log transform"
+      ],
+      "recommended_option": "Decision deferred pending V-01 calibration validation",
+      "evidence": "Approximate calibration removes 17% swath confound but introduces ~6% systematic bias; exact calibration requires raw pixel recovery",
+      "evidence_status": "PARTIALLY_ESTABLISHED",
+      "final_status": "REQUIRES_VALIDATION",
+      "risk_if_wrong": "Choosing wrong representation introduces systematic confounds or unnecessary complexity",
+      "validation_required": true,
+      "validation_method": "V-01 result determines whether approximate or exact calibration is needed"
+    },
+    {
+      "decision_id": "D-C2-05",
+      "question": "How should zero-valued border pixels be handled?",
+      "recommended_option": "Validity mask: valid=(raw_image>0); effective_target=where(valid, source_mask, IGNORE_INDEX). Do NOT rewrite source masks.",
+      "evidence": "All 7 zero-containing samples have zeros exclusively at image borders (col 0-6 or 0-20), all labelled BG. Clear gap between 0 and min nonzero (7.99). No negative values.",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "final_status": "PROVISIONAL",
+      "risk_if_wrong": "Training on zero-valued padding creates -60 dB artifacts in log domain",
+      "validation_required": true,
+      "validation_method": "V-02: Verify against GRD product specification NoData definition"
+    },
+    {
+      "decision_id": "D-C2-06",
+      "question": "What sampler should be used?",
+      "candidate_options": [
+        "Uniform random",
+        "Dominant-class inverse frequency (P0 proposal)",
+        "Class-presence-aware",
+        "Parent-balanced",
+        "Hybrid parent-balanced + class-aware"
+      ],
+      "recommended_option": "Decision deferred; dominant-class sampler REJECTED; candidates are uniform, class-presence-aware, or parent-balanced",
+      "evidence": "6/12 classes are never dominant in any TRAIN tile. Parent-balanced achieves 1.1x parent exposure ratio. Class-presence-aware upweights multi-class tiles.",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "final_status": "REQUIRES_VALIDATION",
+      "risk_if_wrong": "Wrong sampler causes rare-class starvation or single-parent overfitting",
+      "validation_required": true,
+      "validation_method": "V-03: Extended sampler simulation; V-04: sampler x loss interaction"
+    },
+    {
+      "decision_id": "D-C2-07",
+      "question": "What loss weighting should be used?",
+      "recommended_option": "Median-frequency weighting; cap value requires validation; must analyze sampler interaction",
+      "evidence": "HM raw weight = 147.9x (extreme). Cap=10 is arbitrary. Combined sampler+loss double-correction risk exists.",
+      "evidence_status": "PARTIALLY_ESTABLISHED",
+      "final_status": "REQUIRES_VALIDATION",
+      "risk_if_wrong": "Extreme HM weight with upsampling causes training instability; wrong cap reduces rare-class learning",
+      "validation_required": true,
+      "validation_method": "V-04: Compute effective class gradient magnitudes under each (sampler, weight) combination"
+    },
+    {
+      "decision_id": "D-C2-08",
+      "question": "What is the LR rationale?",
+      "recommended_option": "AdamW lr=1e-3 is an UNVALIDATED starting point, not a theoretically justified value",
+      "evidence": "P0 rationale 'compensates for fewer batches' has no theoretical basis. LR scales with batch size, not epoch length.",
+      "evidence_status": "PROVEN",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Wrong LR prevents convergence or causes instability",
+      "validation_required": false,
+      "note": "LR=1e-3 is acceptable as a default starting point; the rationale is what was rejected"
+    },
+    {
+      "decision_id": "D-C2-09",
+      "question": "What architecture should be used?",
+      "recommended_option": "ResNet34-UNet (primary), with VanillaUNet as lightweight alternative. Both need modification for in_channels=1, num_classes=12.",
+      "evidence": "Existing code uses BatchNorm (concern with batch_size=8). GroupNorm alternative should be considered.",
+      "evidence_status": "PARTIALLY_ESTABLISHED",
+      "final_status": "REQUIRES_VALIDATION",
+      "risk_if_wrong": "BN instability at small batch size; wrong architecture capacity",
+      "validation_required": true,
+      "validation_method": "V-06: Instantiate candidates, measure params, verify BN behavior"
+    },
+    {
+      "decision_id": "D-C2-10",
+      "question": "What seed protocol should be used?",
+      "recommended_option": "Seeds 42, 101, 2024. DEV selection per seed. HOLDOUT once per seed. No post-hoc selection.",
+      "evidence": "Standard multi-seed evaluation practice",
+      "evidence_status": "CONVENTION",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Single seed gives high-variance estimate with 72 TRAIN samples",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-11",
+      "question": "What is the holdout status?",
+      "recommended_option": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION. Never claim pristine/blind/unbiased.",
+      "evidence": "Historical holdout access documented",
+      "evidence_status": "PROVEN",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Overstating holdout independence invalidates generalization claims",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-12",
+      "question": "What is the acceptance target?",
+      "recommended_option": "DEV mIoU >= 0.30 is EXPLORATORY PERFORMANCE TARGET, not a confirmatory gate",
+      "evidence": "No external benchmark establishes 0.30 as a meaningful threshold for this dataset/task",
+      "evidence_status": "CONVENTION",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Treating arbitrary threshold as scientific gate creates false confidence",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-13",
+      "question": "Is OS=0 a dataset integrity invariant?",
+      "recommended_option": "Yes. OS=0 is a DATASET INTEGRITY INVARIANT. OS (Oil Spill, class 14) is excluded from OPS-01.",
+      "evidence": "OPS-01 taxonomy explicitly excludes OS (training_eligible=False)",
+      "evidence_status": "PROVEN",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Including OS would fundamentally alter the dataset contract",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-14",
+      "question": "Can EXP-07 and EXP-06 be compared directly?",
+      "recommended_option": "No. EXP-06 is binary oil detection on Part-I. EXP-07 is 12-class phenomenon segmentation on OPS-01.",
+      "evidence": "Different datasets, different tasks, different class definitions, different evaluation protocols",
+      "evidence_status": "PROVEN",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Misleading claims about relative model performance",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-15",
+      "question": "What task formulation should be used?",
+      "recommended_option": "12-class flat softmax segmentation (initial baseline). Hierarchical or multitask formulation deferred to ablation.",
+      "evidence": "Source annotations assign single labels per pixel. Flat softmax is simplest valid formulation.",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "final_status": "PROVISIONAL",
+      "risk_if_wrong": "Flat softmax may not capture hierarchical relationships (e.g., Eddy+BS co-occurrence)",
+      "validation_required": false,
+      "note": "Hierarchical formulation is a future extension, not a blocking requirement"
+    },
+    {
+      "decision_id": "D-C2-16",
+      "question": "How should absent classes be handled in metrics?",
+      "recommended_option": "If class absent in BOTH GT and prediction: exclude from mean. Do NOT count as 0 or 1.",
+      "evidence": "Standard IoU convention for absent classes",
+      "evidence_status": "CONVENTION",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Arbitrary zeros deflate metrics; arbitrary ones inflate them",
+      "validation_required": false
+    },
+    {
+      "decision_id": "D-C2-17",
+      "question": "What augmentations should be used?",
+      "recommended_option": "Horizontal flip (SAFE), vertical flip (CONDITIONALLY SAFE). Rotation/transpose require validation. Intensity perturbation requires validation.",
+      "evidence": "Flips preserve SAR physics at 256x256 scale. Rotation may not preserve incidence angle semantics.",
+      "evidence_status": "PARTIALLY_ESTABLISHED",
+      "final_status": "PROVISIONAL",
+      "risk_if_wrong": "Physically invalid augmentations introduce confounds",
+      "validation_required": false,
+      "note": "Conservative baseline: flips only. Ablation: add rotation."
+    },
+    {
+      "decision_id": "D-C2-18",
+      "question": "P0-C1 claimed calibration is INFEASIBLE. Is this correct?",
+      "recommended_option": "REJECTED. Calibration metadata is publicly accessible for all 27 products.",
+      "evidence": "All 27 calibration XMLs return HTTP 200 from S3. Content verified for representative product. Total recovery ~54 MB.",
+      "evidence_status": "PROVEN",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Prematurely dismissing calibration leaves dominant cross-swath confound unaddressed",
+      "validation_required": false,
+      "note": "P0-C1 was correct that calibration is infeasible from CURRENTLY RETAINED LOCAL artifacts, but incorrect in implying general infeasibility"
+    },
+    {
+      "decision_id": "D-C2-19",
+      "question": "Does LUT smoothness establish calibration equivalence for block-mean DN?",
+      "recommended_option": "NO. LUT smoothness addresses only one error source (LUT variation). The second source (nonlinear aggregation: mean(DN)^2 != mean(DN^2)) is independent and introduces ~6% bias.",
+      "evidence": "Jensen's inequality; theoretical CV ~0.25 for 4.4-look amplitude; bias = CV^2 ~6%",
+      "evidence_status": "STRONGLY_SUPPORTED",
+      "final_status": "FROZEN",
+      "risk_if_wrong": "Accepting LUT smoothness alone as proof leads to unquantified calibration error",
+      "validation_required": false,
+      "note": "The EXISTENCE of the nonlinearity is proven. The MAGNITUDE requires empirical validation (V-01)."
+    },
+    {
+      "decision_id": "D-C2-20",
+      "question": "What normalization procedure should be used?",
+      "recommended_option": "TRAIN-only, valid-pixels-only mean and std. Computed after radiometric representation decision.",
+      "evidence": "Standard practice; must exclude zeros to avoid artifact",
+      "evidence_status": "CONVENTION",
+      "final_status": "REQUIRES_VALIDATION",
+      "risk_if_wrong": "Including zeros or DEV/HOLDOUT data in statistics introduces leakage",
+      "validation_required": true,
+      "validation_method": "V-07: Compute normalization statistics after representation decision"
+    }
+  ]
+}

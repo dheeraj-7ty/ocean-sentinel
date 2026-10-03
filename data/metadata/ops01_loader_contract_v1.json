@@ -1,0 +1,114 @@
+{
+  "artifact_version": "1.0.0",
+  "artifact_type": "OPS01_DATALOADER_CONTRACT",
+  "phase": "EXP-07-P0",
+  "created_at": "2026-09-13T18:37:29+05:30",
+  "protocol_document": "experiments/PHASE_EXP07_P0_SCIENTIFIC_PROTOCOL_AND_OPS01_CONTRACT_20260913.md",
+  "protocol_document_sha256": "F7BDE340AB1B2DB686A208D89267DC5F46E20B5F60B5C51B241AB131D71C93A3",
+  "dataset_manifest": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+  "dataset_manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+  "taxonomy": "data/metadata/ops01_taxonomy_v1.json",
+  "split_manifest": "data/metadata/ops01_split_manifest_v4.json",
+  "partitions": {
+    "TRAIN": {
+      "count": 72,
+      "parent_scenes": 12
+    },
+    "DEV": {
+      "count": 39,
+      "parent_scenes": 7
+    },
+    "HOLDOUT": {
+      "count": 36,
+      "parent_scenes": 8
+    }
+  },
+  "class_name": "OPS01Dataset",
+  "module": "ocean_sentinel.ingestion.ops01_dataset",
+  "num_classes": 12,
+  "ignore_index": 255,
+  "label_lut": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 255,
+    "4": 3,
+    "5": 4,
+    "6": 5,
+    "7": 6,
+    "8": 7,
+    "9": 255,
+    "10": 8,
+    "11": 9,
+    "12": 10,
+    "13": 11,
+    "14": 255
+  },
+  "class_index_map": {
+    "0": "Background Seawater (BG)",
+    "1": "Atmospheric Front (AF)",
+    "2": "Biological Slicks (BS)",
+    "3": "Low Wind Area (LWA)",
+    "4": "Mesoscale Cellular Convection (MCC)",
+    "5": "Ocean Front (OF)",
+    "6": "Pure Ocean Wave (POW)",
+    "7": "Rain Cell / Rain Footprint (RF)",
+    "8": "Wind Streak (WS)",
+    "9": "Oceanic Eddy (Eddy)",
+    "10": "Internal Waves (IWs)",
+    "11": "Artificial / Anthropogenic Objects (HM)"
+  },
+  "preprocessing": {
+    "value_domain": "pseudo_dB",
+    "formula": "10 * log10(raw_DN + 1e-6)",
+    "normalization": "z-score: (x - TRAIN_MEAN) / TRAIN_STD",
+    "normalization_stats_source": "data/metadata/exp07_normalization_stats.json",
+    "normalization_stats_status": "TO_BE_COMPUTED_AT_PREFLIGHT"
+  },
+  "augmentation": {
+    "TRAIN": [
+      "horizontal_flip(p=0.5)",
+      "vertical_flip(p=0.5)"
+    ],
+    "DEV": "identity",
+    "HOLDOUT": "identity"
+  },
+  "image_contract": {
+    "shape": [
+      1,
+      256,
+      256
+    ],
+    "dtype": "float32"
+  },
+  "label_contract": {
+    "shape": [
+      256,
+      256
+    ],
+    "dtype": "int64"
+  },
+  "safety_assertions": [
+    "manifest SHA256 verified at dataset init",
+    "Part-III firewall: ValueError on any Part-III path",
+    "OS pixels (label 14 -> ignore 255): assert zero OS in TRAIN/DEV/HOLDOUT",
+    "Partition isolation: raise on cross-partition contamination",
+    "File existence and SHA256 verified on every sample load"
+  ],
+  "sampler_policy": {
+    "TRAIN": "WeightedRandomSampler (inverse-dominant-class-freq, replacement=False per epoch)",
+    "DEV": "SequentialSampler",
+    "HOLDOUT": "SequentialSampler"
+  },
+  "batch_size": 8,
+  "num_workers": 0,
+  "pin_memory": false,
+  "governance_rules": [
+    "GOV-RULE-023",
+    "GOV-RULE-024",
+    "GOV-RULE-025",
+    "GOV-RULE-026"
+  ],
+  "open_decisions_status": "ALL_14_RESOLVED",
+  "status": "CONTRACT_SPECIFIED_AWAITING_IMPLEMENTATION"
+}

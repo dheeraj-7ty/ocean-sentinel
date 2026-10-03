@@ -1,0 +1,119 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:15:29.741252+00:00",
+  "phase": "PHASE_8_P2_R2_C2",
+  "audit_subject": "Geographic basin coverage of OPS-01 physical dataset (147 samples, 27 parent acquisitions)",
+  "evidence_basis": "XML tiepoint bounds extracted from Level-1 annotation XMLs stored on S3 for all 27 parent scenes",
+  "geographic_status_all_parents": "EXTRACTED_FROM_S3_ANNOTATION_XML",
+  "c1_basin_claim": "5 global ocean basins",
+  "c2_basin_verdict": "EVIDENCED_SUPPORTED",
+  "c2_basin_note": "5 distinct basin labels are confirmed from XML tiepoint extraction. The label Global Oceanic Waters is a composite category covering geographically disparate sub-basins (North Sea, Coral Sea, Beaufort Sea) whose specific coordinates are documented. The claim is bounded and evidence-based, not an overclaim.",
+  "c2_caveats": [
+    "Basin label Global Oceanic Waters is a composite category, not a specific named ocean basin; 8 parents from this category span North Sea (57.92N), Beaufort Sea (69.97N), and Coral Sea (-22.42S).",
+    "C1 report table used Andaman Sea sub-label for basin 2; manifest_v3 records Arabian Sea / Bay of Bengal. Both refer to the same 5 Indian Ocean parent scenes. Minor label inconsistency corrected here.",
+    "South Atlantic Ocean has only 1 parent scene (1 slice). This single-scene representation is weak for geographic generalization but does not violate any sufficiency criterion."
+  ],
+  "global_extent": {
+    "latitude_range": [
+      -22.42,
+      69.97
+    ],
+    "longitude_range": [
+      -164.02,
+      153.8
+    ],
+    "latitudinal_span_degrees": 92.39
+  },
+  "basin_distribution": [
+    {
+      "basin_label": "Indo-Pacific / South China Sea / Indonesian Waters",
+      "parent_scene_count": 10,
+      "slice_count": 42,
+      "classes_represented": [
+        "AF",
+        "BG",
+        "HM",
+        "IWs",
+        "MCC",
+        "OF",
+        "POW",
+        "RF",
+        "WS"
+      ],
+      "geographic_status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+    },
+    {
+      "basin_label": "Global Oceanic Waters",
+      "parent_scene_count": 8,
+      "slice_count": 54,
+      "classes_represented": [
+        "AF",
+        "BG",
+        "BS",
+        "Eddy",
+        "HM",
+        "MCC",
+        "OF",
+        "POW",
+        "RF",
+        "SI",
+        "WS"
+      ],
+      "geographic_status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+    },
+    {
+      "basin_label": "Indian Ocean / Arabian Sea / Bay of Bengal",
+      "parent_scene_count": 5,
+      "slice_count": 32,
+      "classes_represented": [
+        "AF",
+        "BG",
+        "BS",
+        "HM",
+        "IWs",
+        "LWA",
+        "MCC",
+        "POW",
+        "WS"
+      ],
+      "geographic_status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+    },
+    {
+      "basin_label": "Mediterranean Sea",
+      "parent_scene_count": 3,
+      "slice_count": 18,
+      "classes_represented": [
+        "AF",
+        "BG",
+        "BS",
+        "Eddy",
+        "HM",
+        "LWA",
+        "MCC"
+      ],
+      "geographic_status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+    },
+    {
+      "basin_label": "South Atlantic Ocean",
+      "parent_scene_count": 1,
+      "slice_count": 1,
+      "classes_represented": [
+        "BS",
+        "HM",
+        "OF",
+        "POW"
+      ],
+      "geographic_status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+    }
+  ],
+  "overclaim_assessment": {
+    "claim_5_global_ocean_basins": "EVIDENCED - XML tiepoints support 5 distinct basin labels",
+    "claim_globally_representative": "NOT_MADE - C1/C2 never claim globally representative; claim is geographic diversity",
+    "claim_all_ocean_basins": "NOT_MADE - No such claim in authoritative artifacts",
+    "prohibited_extensions": [
+      "Do not interpret 5 basins as global representativeness.",
+      "Do not infer that coverage extends to all major ocean basins.",
+      "South Atlantic has 1 parent only; cannot support basin-level generalization."
+    ]
+  }
+}

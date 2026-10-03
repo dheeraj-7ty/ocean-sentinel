@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "EXP-07-P0-C16",
+  "total_incidents": 5,
+  "incidents": [
+    {
+      "incident_id": "C16-INC-001",
+      "phase": "PHASE_2_KAGGLE_RUNTIME_QUALIFICATION",
+      "severity": "LOW",
+      "classification": "INFRASTRUCTURE_ACCELERATOR_SELECTION",
+      "description": "Default Kaggle GPU allocation selected Tesla P100 (Pascal, sm_60). PyTorch 2.10.0+cu128 in Kaggle Python 3.12 container dropped support for sm_60 (requires sm_70+).",
+      "scientific_impact": "NONE. Caught prior to training execution.",
+      "resolution": "Explicitly specified 'machine_shape': 'NvidiaTeslaT4' in kernel metadata and '--accelerator NvidiaTeslaT4' in Kaggle CLI push, provisioning Turing sm_75 dual T4 GPUs."
+    },
+    {
+      "incident_id": "C16-INC-002",
+      "phase": "PHASE_4_DATASET_TRANSFER_VERIFICATION",
+      "severity": "LOW",
+      "classification": "POSIX_PATH_DELIMITER_HANDLING",
+      "description": "Manifest sample paths generated on Windows contained backslashes ('\\'). On Linux POSIX, Path.name does not interpret backslashes as path separators, causing initial pre-training file hash check to report missing files.",
+      "scientific_impact": "NONE. Pre-flight assertion halted script before training.",
+      "resolution": "Implemented robust cross-platform path normalization using os.path.basename(path.replace('\\\\', '/')) and an O(1) global file dictionary index over /kaggle/input."
+    },
+    {
+      "incident_id": "C16-INC-003",
+      "phase": "PHASE_6_MODEL_CONFIGURATION_VERIFICATION",
+      "severity": "MEDIUM",
+      "classification": "ARCHITECTURE_PARAMETER_ALIGNMENT",
+      "description": "Initial standalone decoder upsampling stage in train_replicate003.py yielded 14,337,516 parameters (+26,656 over frozen protocol). Hard parameter guardrail asserted trainable_params == 14,310,860 and halted run before training.",
+      "scientific_impact": "NONE. Zero epochs trained on mismatched architecture. Exact guardrail operated as designed.",
+      "resolution": "Imported and integrated canonical ResNet18UNet implementation from src/ocean_sentinel/ml/exp07_reference.py, verified locally and remotely to have exactly 14,310,860 trainable parameters and 30 BatchNorm2d layers."
+    },
+    {
+      "incident_id": "C16-INC-004",
+      "phase": "PHASE_7_SAMPLING_PROTOCOL_INITIALIZATION",
+      "severity": "LOW",
+      "classification": "PYTORCH_VERSION_API_COMPATIBILITY",
+      "description": "CandidateFWeightedSampler called super().__init__(None), which failed under PyTorch 2.10 / Python 3.12 where Sampler inherits from object directly, taking zero arguments.",
+      "scientific_impact": "NONE. Failed at constructor initialization prior to batch loading or training.",
+      "resolution": "Updated constructor to call super().__init__() without arguments."
+    },
+    {
+      "incident_id": "C16-INC-005",
+      "phase": "PHASE_10_LIVE_TELEMETRY_MONITORING",
+      "severity": "LOW",
+      "classification": "IDE_REMOTE_API_NETWORK_INTERRUPTION",
+      "description": "Antigravity IDE encountered a transient DNS/HTTP connection drop while polling remote service, triggering an emergency continuation prompt.",
+      "scientific_impact": "NONE. Strict adherence to No-Duplicate-Run rule: Remote state was queried first, verified, and preserved without duplicate job launches.",
+      "resolution": "Executed remote status query, retrieved logs, confirmed execution identity, and monitored remote run to completion."
+    }
+  ]
+}

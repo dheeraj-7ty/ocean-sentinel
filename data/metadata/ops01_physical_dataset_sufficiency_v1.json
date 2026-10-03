@@ -1,0 +1,423 @@
+{
+  "report_version": "1.0.0",
+  "phase": "PHASE_8_P2_R1",
+  "creation_timestamp_utc": "2026-09-13T13:30:00Z",
+  "dataset_sufficiency_verdict": "INSUFFICIENT_FOR_P3",
+  "decision": "C. OPS-01 SOURCE DATA INSUFFICIENT \u2014 FURTHER RECOVERY REQUIRED",
+  "decision_rationale": "Forensic review establishes that the currently materialized dataset (9 slices from 2 parent scenes) cannot support scientific model pre-training audit (P3). DEV and HOLDOUT contain 0 physically materialized samples. Six out of 10 operational phenomena classes (AF, BS, LWA, OF, Eddy, HM) have 0 representation. HM has 0 pixels. Multi-parent diversity is bounded at 2 scenes. P3 is blocked pending controlled source recovery.",
+  "physical_dataset_metrics": {
+    "materialized_samples": 9,
+    "independent_parent_acquisitions": 2,
+    "train_physical_samples": 9,
+    "dev_physical_samples": 0,
+    "holdout_physical_samples": 0,
+    "classes_completely_absent_from_materialized": [
+      "AF",
+      "BS",
+      "LWA",
+      "OF",
+      "Eddy",
+      "HM"
+    ],
+    "classes_single_parent_only": [
+      "MCC",
+      "POW",
+      "RF",
+      "WS"
+    ],
+    "classes_multi_parent_represented": [
+      "BG",
+      "IWs"
+    ],
+    "anthropogenic_hm_status": {
+      "materialized_slice_count": 0,
+      "materialized_pixel_count": 0,
+      "status": "COMPLETELY_ABSENT",
+      "finding": "HM (Artificial / Anthropogenic Objects) has 0 samples and 0 pixels in the materialized candidate dataset. OPS-01 cannot claim anthropogenic clutter capability without recovery of HM-bearing IW scenes (202 IW scenes contain HM in full catalog)."
+    },
+    "oil_spill_os_status": {
+      "materialized_slice_count": 0,
+      "exclusion_verified": true,
+      "status": "PERMANENTLY_EXCLUDED"
+    }
+  },
+  "cohort_class_comparisons": {
+    "materialized_9": {
+      "BG": {
+        "class_id": 0,
+        "class_name": "Background Seawater",
+        "slice_count": 9,
+        "slice_percentage": 100.0,
+        "pixel_count": 336402,
+        "parent_groups_count": 2
+      },
+      "AF": {
+        "class_id": 1,
+        "class_name": "Atmospheric Front",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "BS": {
+        "class_id": 2,
+        "class_name": "Biological Slicks",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "IB": {
+        "class_id": 3,
+        "class_name": "Iceberg / Ice Cluster",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "LWA": {
+        "class_id": 4,
+        "class_name": "Low Wind Area",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "MCC": {
+        "class_id": 5,
+        "class_name": "Mesoscale Cellular Convection",
+        "slice_count": 1,
+        "slice_percentage": 11.11111111111111,
+        "pixel_count": 3674,
+        "parent_groups_count": 1
+      },
+      "OF": {
+        "class_id": 6,
+        "class_name": "Ocean Front",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "POW": {
+        "class_id": 7,
+        "class_name": "Pure Ocean Wave",
+        "slice_count": 1,
+        "slice_percentage": 11.11111111111111,
+        "pixel_count": 38266,
+        "parent_groups_count": 1
+      },
+      "RF": {
+        "class_id": 8,
+        "class_name": "Rain Cell / Rain Footprint",
+        "slice_count": 1,
+        "slice_percentage": 11.11111111111111,
+        "pixel_count": 7957,
+        "parent_groups_count": 1
+      },
+      "SI": {
+        "class_id": 9,
+        "class_name": "Sea Ice",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "WS": {
+        "class_id": 10,
+        "class_name": "Wind Streak",
+        "slice_count": 1,
+        "slice_percentage": 11.11111111111111,
+        "pixel_count": 43772,
+        "parent_groups_count": 1
+      },
+      "Eddy": {
+        "class_id": 11,
+        "class_name": "Oceanic Eddy",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "IWs": {
+        "class_id": 12,
+        "class_name": "Internal Waves",
+        "slice_count": 9,
+        "slice_percentage": 100.0,
+        "pixel_count": 159753,
+        "parent_groups_count": 2
+      },
+      "HM": {
+        "class_id": 13,
+        "class_name": "Artificial / Anthropogenic Objects",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "OS": {
+        "class_id": 14,
+        "class_name": "Mineral Oil Spill",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      }
+    },
+    "controls_47": {
+      "BG": {
+        "class_id": 0,
+        "class_name": "Background Seawater",
+        "slice_count": 36,
+        "slice_percentage": 76.59574468085107,
+        "pixel_count": 905298,
+        "parent_groups_count": 11
+      },
+      "AF": {
+        "class_id": 1,
+        "class_name": "Atmospheric Front",
+        "slice_count": 3,
+        "slice_percentage": 6.382978723404255,
+        "pixel_count": 12084,
+        "parent_groups_count": 3
+      },
+      "BS": {
+        "class_id": 2,
+        "class_name": "Biological Slicks",
+        "slice_count": 2,
+        "slice_percentage": 4.25531914893617,
+        "pixel_count": 121558,
+        "parent_groups_count": 1
+      },
+      "IB": {
+        "class_id": 3,
+        "class_name": "Iceberg / Ice Cluster",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "LWA": {
+        "class_id": 4,
+        "class_name": "Low Wind Area",
+        "slice_count": 4,
+        "slice_percentage": 8.51063829787234,
+        "pixel_count": 67552,
+        "parent_groups_count": 1
+      },
+      "MCC": {
+        "class_id": 5,
+        "class_name": "Mesoscale Cellular Convection",
+        "slice_count": 11,
+        "slice_percentage": 23.404255319148938,
+        "pixel_count": 544366,
+        "parent_groups_count": 5
+      },
+      "OF": {
+        "class_id": 6,
+        "class_name": "Ocean Front",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "POW": {
+        "class_id": 7,
+        "class_name": "Pure Ocean Wave",
+        "slice_count": 8,
+        "slice_percentage": 17.02127659574468,
+        "pixel_count": 283604,
+        "parent_groups_count": 2
+      },
+      "RF": {
+        "class_id": 8,
+        "class_name": "Rain Cell / Rain Footprint",
+        "slice_count": 4,
+        "slice_percentage": 8.51063829787234,
+        "pixel_count": 43536,
+        "parent_groups_count": 2
+      },
+      "SI": {
+        "class_id": 9,
+        "class_name": "Sea Ice",
+        "slice_count": 7,
+        "slice_percentage": 14.893617021276595,
+        "pixel_count": 456960,
+        "parent_groups_count": 2
+      },
+      "WS": {
+        "class_id": 10,
+        "class_name": "Wind Streak",
+        "slice_count": 1,
+        "slice_percentage": 2.127659574468085,
+        "pixel_count": 43772,
+        "parent_groups_count": 1
+      },
+      "Eddy": {
+        "class_id": 11,
+        "class_name": "Oceanic Eddy",
+        "slice_count": 2,
+        "slice_percentage": 4.25531914893617,
+        "pixel_count": 9514,
+        "parent_groups_count": 1
+      },
+      "IWs": {
+        "class_id": 12,
+        "class_name": "Internal Waves",
+        "slice_count": 37,
+        "slice_percentage": 78.72340425531915,
+        "pixel_count": 591180,
+        "parent_groups_count": 9
+      },
+      "HM": {
+        "class_id": 13,
+        "class_name": "Artificial / Anthropogenic Objects",
+        "slice_count": 1,
+        "slice_percentage": 2.127659574468085,
+        "pixel_count": 68,
+        "parent_groups_count": 1
+      },
+      "OS": {
+        "class_id": 14,
+        "class_name": "Mineral Oil Spill",
+        "slice_count": 1,
+        "slice_percentage": 2.127659574468085,
+        "pixel_count": 700,
+        "parent_groups_count": 1
+      }
+    },
+    "all_iw_2628": {
+      "BG": {
+        "class_id": 0,
+        "class_name": "Background Seawater",
+        "slice_count": 1267,
+        "slice_percentage": 48.21156773211568,
+        "pixel_count": 26737056,
+        "parent_groups_count": 359
+      },
+      "AF": {
+        "class_id": 1,
+        "class_name": "Atmospheric Front",
+        "slice_count": 311,
+        "slice_percentage": 11.834094368340944,
+        "pixel_count": 1639895,
+        "parent_groups_count": 117
+      },
+      "BS": {
+        "class_id": 2,
+        "class_name": "Biological Slicks",
+        "slice_count": 596,
+        "slice_percentage": 22.67884322678843,
+        "pixel_count": 27868284,
+        "parent_groups_count": 141
+      },
+      "IB": {
+        "class_id": 3,
+        "class_name": "Iceberg / Ice Cluster",
+        "slice_count": 0,
+        "slice_percentage": 0.0,
+        "pixel_count": 0,
+        "parent_groups_count": 0
+      },
+      "LWA": {
+        "class_id": 4,
+        "class_name": "Low Wind Area",
+        "slice_count": 369,
+        "slice_percentage": 14.04109589041096,
+        "pixel_count": 14604873,
+        "parent_groups_count": 121
+      },
+      "MCC": {
+        "class_id": 5,
+        "class_name": "Mesoscale Cellular Convection",
+        "slice_count": 488,
+        "slice_percentage": 18.56925418569254,
+        "pixel_count": 25239107,
+        "parent_groups_count": 141
+      },
+      "OF": {
+        "class_id": 6,
+        "class_name": "Ocean Front",
+        "slice_count": 222,
+        "slice_percentage": 8.447488584474886,
+        "pixel_count": 681286,
+        "parent_groups_count": 62
+      },
+      "POW": {
+        "class_id": 7,
+        "class_name": "Pure Ocean Wave",
+        "slice_count": 480,
+        "slice_percentage": 18.2648401826484,
+        "pixel_count": 23730473,
+        "parent_groups_count": 114
+      },
+      "RF": {
+        "class_id": 8,
+        "class_name": "Rain Cell / Rain Footprint",
+        "slice_count": 282,
+        "slice_percentage": 10.730593607305936,
+        "pixel_count": 6085627,
+        "parent_groups_count": 85
+      },
+      "SI": {
+        "class_id": 9,
+        "class_name": "Sea Ice",
+        "slice_count": 244,
+        "slice_percentage": 9.28462709284627,
+        "pixel_count": 15738972,
+        "parent_groups_count": 29
+      },
+      "WS": {
+        "class_id": 10,
+        "class_name": "Wind Streak",
+        "slice_count": 276,
+        "slice_percentage": 10.50228310502283,
+        "pixel_count": 16246930,
+        "parent_groups_count": 61
+      },
+      "Eddy": {
+        "class_id": 11,
+        "class_name": "Oceanic Eddy",
+        "slice_count": 394,
+        "slice_percentage": 14.992389649923895,
+        "pixel_count": 3556839,
+        "parent_groups_count": 111
+      },
+      "IWs": {
+        "class_id": 12,
+        "class_name": "Internal Waves",
+        "slice_count": 416,
+        "slice_percentage": 15.82952815829528,
+        "pixel_count": 10067269,
+        "parent_groups_count": 131
+      },
+      "HM": {
+        "class_id": 13,
+        "class_name": "Artificial / Anthropogenic Objects",
+        "slice_count": 202,
+        "slice_percentage": 7.686453576864535,
+        "pixel_count": 30295,
+        "parent_groups_count": 106
+      },
+      "OS": {
+        "class_id": 14,
+        "class_name": "Mineral Oil Spill",
+        "slice_count": 4,
+        "slice_percentage": 0.15220700152207,
+        "pixel_count": 1702,
+        "parent_groups_count": 4
+      }
+    }
+  },
+  "recovery_stop_criteria": {
+    "minimum_parent_scenes_total": 20,
+    "minimum_train_parent_scenes": 14,
+    "minimum_dev_parent_scenes": 3,
+    "minimum_holdout_parent_scenes": 3,
+    "minimum_physical_samples_total": 100,
+    "minimum_parent_scenes_per_core_lookalike_class": 5,
+    "minimum_parent_scenes_for_hm": 10,
+    "partition_non_emptiness_mandate": "TRAIN > 0, DEV > 0, HOLDOUT > 0 physical samples strictly required before P3.",
+    "zero_oil_spill_invariant": "Zero OS samples in any partition."
+  }
+}

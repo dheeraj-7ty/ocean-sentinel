@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "task_id": "EXP-07-P0-C16",
+  "execution_platform": "KAGGLE_GPU",
+  "kernel_slug": "dheeraj12237/ocean-sentinel-exp07-c16-replicate-003",
+  "kernel_version_executed": 4,
+  "execution_timestamp": "2026-09-14T03:45:00Z",
+  "hardware": {
+    "gpu_model": "NVIDIA Tesla T4",
+    "gpu_count": 2,
+    "vram_gb_per_gpu": 14.56,
+    "cuda_compute_capability": [7, 5],
+    "local_laptop_training": false
+  },
+  "software_stack": {
+    "os": "Linux 6.6.137+ (Kaggle Container)",
+    "python_version": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+    "pytorch_version": "2.10.0+cu128",
+    "cuda_version": "12.8",
+    "torchvision_version": "0.21.0a0",
+    "rasterio_version": "1.4.3"
+  },
+  "dataset": {
+    "dataset_version": "OPS02_v1.0.0_FROZEN",
+    "dataset_slug": "dheeraj12237/ocean-sentinel-ops02-frozen",
+    "samples_ingested": 212,
+    "partitions": {
+      "TRAIN": {
+        "samples": 132,
+        "clusters": 40
+      },
+      "DEV": {
+        "samples": 40,
+        "clusters": 12
+      },
+      "HOLDOUT": {
+        "samples": 40,
+        "clusters": 12,
+        "quarantined": true,
+        "access_count": 0
+      }
+    },
+    "sha256_verification": {
+      "checked": 212,
+      "missing": 0,
+      "mismatches": 0,
+      "status": "PASS_100_PERCENT"
+    }
+  },
+  "scientific_configuration": {
+    "replicate_id": "REPLICATE_003",
+    "seed": 42,
+    "model_architecture": "ResNet18-UNet",
+    "trainable_parameters": 14310860,
+    "batch_norm_2d_layers": 30,
+    "input_domain": "AGGREGATED_RAW_DN_LOG1P_STANDARDIZED",
+    "normalization": {
+      "mean": 4.424158,
+      "std": 0.469261
+    },
+    "optimizer": {
+      "name": "AdamW",
+      "lr": 0.0005,
+      "weight_decay_2d": 0.01,
+      "weight_decay_1d_bias": 0.0,
+      "betas": [0.9, 0.999],
+      "eps": 1e-8,
+      "gradient_clipping_norm": 1.0
+    },
+    "scheduler": {
+      "name": "LinearWarmupCosineAnnealingLR",
+      "total_epochs": 30,
+      "warmup_epochs": 3,
+      "min_lr": 1e-6
+    },
+    "batch_dynamics": {
+      "minibatch_size": 8,
+      "gradient_accumulation_steps": 2,
+      "effective_optimizer_batch_size": 16,
+      "batch_norm_statistical_batch_size": 8
+    },
+    "sampler": {
+      "name": "Candidate F Hybrid Sampler",
+      "weights": "0.70 P_parent + 0.30 P_presence",
+      "replacement": true,
+      "draws_per_epoch": 72,
+      "seed_formula": "seed + epoch * 1000"
+    },
+    "loss": {
+      "name": "CrossEntropyLoss",
+      "weights": "square-root median-frequency from frozen TRAIN",
+      "ignore_index": -100
+    },
+    "early_stopping": {
+      "min_epochs": 15,
+      "patience": 10,
+      "min_delta": 0.005,
+      "triggered_epoch": 27
+    }
+  },
+  "training_outcome": {
+    "status": "COMPLETED",
+    "total_epochs_trained": 27,
+    "best_epoch": 17,
+    "best_dev_mIoU_phenomena": 0.04939909220776271,
+    "total_training_time_seconds": 120.63,
+    "throughput_samples_per_sec": 17.35,
+    "checkpoints": {
+      "best_model_path": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/best_model.pt",
+      "best_model_sha256": "936EF935F8049FA15FBC735F8073D08F074796ACC20BE0A2885DD35C7CB09D67",
+      "last_model_path": "experiments/EXP-07/runs/EXP07_RUN003_SEED42/last_model.pt",
+      "last_model_sha256": "60411490EFB81D5DE806F4DFFBA760F5D7F4486B14AB4F144AD35D37EE16FA9E"
+    }
+  }
+}

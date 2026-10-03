@@ -1,0 +1,117 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C9",
+  "title": "EXP-07 Seed 42 Realized Sampler Exposure Audit",
+  "sampler_name": "Candidate_F_Hybrid",
+  "specification": "70% Parent-Balanced, 30% Class-Presence (stationary distribution)",
+  "weights_summary": {
+    "length": 72,
+    "min": 0.00634920634920635,
+    "max": 0.062251984126984135,
+    "sum": 1.0000000000000002
+  },
+  "total_epochs": 27,
+  "total_draws": 1944,
+  "unique_tiles_sampled_overall": 72,
+  "mean_unique_tiles_per_epoch": 42.77777777777778,
+  "parent_exposures": {
+    "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001": 139,
+    "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001": 263,
+    "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001": 125,
+    "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001": 101,
+    "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001": 147,
+    "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001": 140,
+    "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001": 134,
+    "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001": 116,
+    "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001": 169,
+    "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001": 212,
+    "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001": 227,
+    "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001": 171
+  },
+  "class_exposures": {
+    "BG": {
+      "tiles_containing_class": 56,
+      "theoretical_expected_per_epoch": 56.15,
+      "theoretical_expected_total": 1516.05,
+      "realized_total_draws": 1527,
+      "realized_draws_per_epoch": 56.55555555555556
+    },
+    "AF": {
+      "tiles_containing_class": 9,
+      "theoretical_expected_per_epoch": 13.39214285714286,
+      "theoretical_expected_total": 361.5878571428572,
+      "realized_total_draws": 355,
+      "realized_draws_per_epoch": 13.148148148148149
+    },
+    "BS": {
+      "tiles_containing_class": 7,
+      "theoretical_expected_per_epoch": 8.721428571428573,
+      "theoretical_expected_total": 235.47857142857148,
+      "realized_total_draws": 238,
+      "realized_draws_per_epoch": 8.814814814814815
+    },
+    "LWA": {
+      "tiles_containing_class": 2,
+      "theoretical_expected_per_epoch": 3.1042857142857145,
+      "theoretical_expected_total": 83.8157142857143,
+      "realized_total_draws": 99,
+      "realized_draws_per_epoch": 3.6666666666666665
+    },
+    "MCC": {
+      "tiles_containing_class": 12,
+      "theoretical_expected_per_epoch": 14.405000000000001,
+      "theoretical_expected_total": 388.93500000000006,
+      "realized_total_draws": 366,
+      "realized_draws_per_epoch": 13.555555555555555
+    },
+    "OF": {
+      "tiles_containing_class": 24,
+      "theoretical_expected_per_epoch": 14.706428571428573,
+      "theoretical_expected_total": 397.0735714285715,
+      "realized_total_draws": 396,
+      "realized_draws_per_epoch": 14.666666666666666
+    },
+    "POW": {
+      "tiles_containing_class": 15,
+      "theoretical_expected_per_epoch": 12.438571428571429,
+      "theoretical_expected_total": 335.8414285714286,
+      "realized_total_draws": 351,
+      "realized_draws_per_epoch": 13.0
+    },
+    "RF": {
+      "tiles_containing_class": 8,
+      "theoretical_expected_per_epoch": 10.052142857142858,
+      "theoretical_expected_total": 271.40785714285715,
+      "realized_total_draws": 264,
+      "realized_draws_per_epoch": 9.777777777777779
+    },
+    "WS": {
+      "tiles_containing_class": 6,
+      "theoretical_expected_per_epoch": 7.2578571428571435,
+      "theoretical_expected_total": 195.96214285714288,
+      "realized_total_draws": 194,
+      "realized_draws_per_epoch": 7.185185185185185
+    },
+    "Eddy": {
+      "tiles_containing_class": 3,
+      "theoretical_expected_per_epoch": 4.960714285714287,
+      "theoretical_expected_total": 133.93928571428575,
+      "realized_total_draws": 135,
+      "realized_draws_per_epoch": 5.0
+    },
+    "IWs": {
+      "tiles_containing_class": 36,
+      "theoretical_expected_per_epoch": 42.123571428571424,
+      "theoretical_expected_total": 1137.3364285714285,
+      "realized_total_draws": 1142,
+      "realized_draws_per_epoch": 42.2962962962963
+    },
+    "HM": {
+      "tiles_containing_class": 7,
+      "theoretical_expected_per_epoch": 6.847857142857144,
+      "theoretical_expected_total": 184.8921428571429,
+      "realized_total_draws": 184,
+      "realized_draws_per_epoch": 6.814814814814815
+    }
+  }
+}

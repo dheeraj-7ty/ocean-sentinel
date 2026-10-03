@@ -1,0 +1,70 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T17:15:04.263257+00:00",
+  "phase": "EXP-07-P0-C3",
+  "validation_id": "V-07",
+  "title": "TRAIN-Only Normalization Statistics and Validity Domain Definition",
+  "dataset_isolation": {
+    "train_tiles_analyzed": 72,
+    "dev_tiles_analyzed": 0,
+    "holdout_tiles_analyzed": 0,
+    "partition_leakage_check": "PASSED (STRICTLY TRAIN-ONLY)"
+  },
+  "pixel_accounting": {
+    "total_train_grid_pixels": 4718592,
+    "zero_padding_pixels_excluded": 6510,
+    "valid_train_pixels_included": 4712082,
+    "valid_pixel_percentage": 99.8620351155599
+  },
+  "native_dn_statistics": {
+    "mean": 76.60422461882665,
+    "std": 31.830445143195856,
+    "median": 66.7699966430664,
+    "min": 1.9299999475479126,
+    "max": 2698.929931640625,
+    "quantiles": {
+      "p01": 34.439998626708984,
+      "p05": 39.369998931884766,
+      "p10": 42.959999084472656,
+      "p25": 53.060001373291016,
+      "p50": 66.7699966430664,
+      "p75": 100.08999633789062,
+      "p90": 121.25,
+      "p95": 132.85000610351562,
+      "p99": 158.39999389648438
+    }
+  },
+  "log1p_dn_statistics": {
+    "mean": 4.275646579735868,
+    "std": 0.3866081637797383,
+    "median": 4.216119569613808,
+    "min": 1.0750024051272395,
+    "max": 7.900981100411468,
+    "quantiles": {
+      "p01": 3.567841086987133,
+      "p05": 3.698086908406706,
+      "p10": 3.7832801087090475,
+      "p25": 3.9900945662513907,
+      "p50": 4.216119569613808,
+      "p75": 4.6160111729397375,
+      "p90": 4.8060681283549815,
+      "p95": 4.896719815566029,
+      "p99": 5.071416728065552
+    }
+  },
+  "normalization_recommendations": {
+    "zscore_standardization": {
+      "domain": "log1p(DN)",
+      "mean": 4.275646579735868,
+      "std": 0.3866081637797383,
+      "formula": "(log1p(x) - mean) / std"
+    },
+    "robust_scaling": {
+      "domain": "log1p(DN)",
+      "median": 4.216119569613808,
+      "iqr": 0.6259166066883468,
+      "formula": "(log1p(x) - median) / iqr"
+    },
+    "status": "PROVISIONAL_PENDING_PROTOCOL_FREEZE"
+  }
+}

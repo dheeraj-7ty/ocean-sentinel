@@ -1,0 +1,122 @@
+{
+  "readiness_version": "1.0.0",
+  "document_title": "Li et al. Ocean Phenomena Dataset Benchmark Split & Evaluation Readiness",
+  "dataset_doi": "10.5281/zenodo.14279466",
+  "overall_training_readiness_verdict": "READY_WITH_EXPLICIT_LIMITATIONS",
+  "frozen_operating_invariants": {
+    "exp07_training": "STRICTLY_FORBIDDEN",
+    "ops01_training_in_phase_7b2": "STRICTLY_FORBIDDEN",
+    "exp06_checkpoint_frozen": true,
+    "exp06_checkpoint_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+    "canonical_threshold": 0.22,
+    "part_i_split_manifest_frozen": true,
+    "part_i_split_manifest_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+    "part_iii_status": "PERMANENTLY_QUARANTINED_UNDER_RULE_38",
+    "dartis_status": "FROZEN_SEMANTICALLY_UNRESOLVED_TIER_D"
+  },
+  "split_architecture_contract": {
+    "iw_mode_split_contract": {
+      "total_slices": 2628,
+      "unique_parent_source_scenes": 484,
+      "partition_unit": "PARENT_SOURCE_SCENE (Sentinel-1 Level-1 GRD acquisition frame)",
+      "target_split_ratio": "70% Train / 15% Dev / 15% Test",
+      "parent_scene_partition_targets": {
+        "train_scenes": 338,
+        "dev_scenes": 73,
+        "test_scenes": 73
+      },
+      "sibling_leakage_firewall": "MANDATORY: All slices sharing the same parent source scene stem (ranging from 1 to 51 slices) must strictly reside within the same split partition. Zero cross-split parent scene leakage."
+    },
+    "wv_mode_split_contract": {
+      "total_vignettes": 2383,
+      "unique_orbit_passes": 1678,
+      "unique_calendar_dates": 344,
+      "partition_unit": "ORBIT_PASS (sat, orbit, data_take_id) OR CALENDAR_DATE",
+      "target_split_ratio": "70% Train / 15% Dev / 15% Test",
+      "orbit_pass_partition_targets": {
+        "train_passes": 1174,
+        "dev_passes": 252,
+        "test_passes": 252
+      },
+      "clustered_leakage_firewall": "MANDATORY: Sibling Wave Mode vignettes originating from the same satellite orbit pass or calendar day must never be split across Train, Dev, and Test. Vignette-level random splitting is scientifically forbidden."
+    },
+    "geographic_and_temporal_holdouts": {
+      "geographic_basin_holdout": "Candidate regional holdouts: North Atlantic, Mediterranean Sea, Western Pacific / South China Sea.",
+      "temporal_holdout": "Candidate pre-2020 vs post-2020 evaluation to measure detector stability across Sentinel-1 constellation lifespan."
+    }
+  },
+  "benchmark_a_specification": {
+    "benchmark_id": "BENCHMARK_A",
+    "benchmark_name": "Ocean Phenomena Multi-Class Semantic Segmentation",
+    "task_definition": "image -> phenomenon class mask (15 classes, ID 0 to 14)",
+    "suitability_for_ops01": "HIGH (Core development target for OPS-01)",
+    "input_representations": [
+      {
+        "representation_id": "REPR_DISTRIBUTED_100M",
+        "description": "Direct 100m single-pol VV uint16 rasters from Li et al. (256x256)",
+        "suitability": "SUITABLE_FOR_COARSE_OPS01_PROTOTYPING"
+      },
+      {
+        "representation_id": "REPR_NATIVE_10M_ESA_SAFE",
+        "description": "Native Sentinel-1 Level-1 GRD dual-pol (VV+VH dB, 512x512 canonical tiles)",
+        "suitability": "REQUIRED_FOR_OPERATIONAL_OPS01_HIGH_RESOLUTION_SYSTEM"
+      }
+    ],
+    "target_loss_functions": [
+      "Multi-Class Cross-Entropy Loss with class weighting",
+      "Focal Loss (gamma=2.0) to address extreme class imbalance",
+      "Lovasz-Softmax / Multi-Class Dice Loss for phenomenon boundary optimization"
+    ],
+    "primary_metrics": [
+      "Mean Intersection over Union (mIoU across classes 1-14, excluding background)",
+      "Per-Class IoU for priority look-alikes (BS, LWA, IWs, OF, RC/RF, Eddy)",
+      "Boundary F1 Score (BF-Score) with 50m tolerance envelope"
+    ]
+  },
+  "benchmark_b_specification": {
+    "benchmark_id": "BENCHMARK_B",
+    "benchmark_name": "EXP-06 Oil Spill Detector Phenomenon Stress-Test",
+    "task_definition": "EXP-06 oil detector inference on confirmed ocean phenomena look-alikes",
+    "execution_status": "BLOCKED_PENDING_NATIVE_10M_DUAL_POL_RECOVERY",
+    "blocking_reasons": [
+      "Distributed Li files are 100m single-pol VV uint16, incompatible with EXP-06 canonical dual-pol dB contract.",
+      "Direct zero-shot inference on 100m distributed files produces scientifically meaningless artifacts.",
+      "Evaluation requires recovering native 10m ESA SAFE granules, tiling to canonical 512x512, and applying frozen preprocessing."
+    ],
+    "corrected_metric_contract": {
+      "quantity_a": {
+        "metric_name": "PATCH_PREDICTED_POSITIVE_FRACTION",
+        "definition": "Count of predicted positive pixels (probability >= 0.22) divided by total evaluated pixels in patch.",
+        "scientific_role": "Gross model activation intensity across the tile."
+      },
+      "quantity_b": {
+        "metric_name": "PHENOMENON_REGION_RESPONSE",
+        "definition": "Count of predicted positive pixels inside labelled phenomenon mask divided by total pixels in phenomenon mask.",
+        "scientific_role": "Sensitivity of the oil detector to specific phenomenon dark features. NOT a false alarm rate."
+      },
+      "quantity_c": {
+        "metric_name": "NON_PHENOMENON_RESPONSE",
+        "definition": "Count of predicted positive pixels outside labelled phenomenon mask divided by total evaluated non-phenomenon pixels.",
+        "scientific_role": "Background false positive sensitivity on unannotated open ocean."
+      },
+      "quantity_d": {
+        "metric_name": "PATCH_ALARM_RATE",
+        "definition": "Fraction of evaluated patches producing at least one predicted positive pixel (alarm trigger).",
+        "scientific_role": "Patch-level alarm trigger frequency under look-alike conditions."
+      },
+      "quantity_e": {
+        "metric_name": "PARENT_PRODUCT_ALARM_RATE",
+        "definition": "Fraction of parent source scenes producing at least one alarm trigger across all child patches.",
+        "scientific_role": "Scene-level surveillance false alarm impact."
+      }
+    },
+    "denominator_governance": "The term False Alarm Rate (FAR) or False Positive Rate (FPR) must ONLY be used when the denominator is certified negative for oil. The ratio of positive predictions inside a look-alike mask is strictly designated PHENOMENON_REGION_RESPONSE."
+  },
+  "scientific_limitations_summary": [
+    "Limitation 1: Distributed imagery is single-pol VV only and 100m resolution; native VH channel was decimated.",
+    "Limitation 2: 100m masks projected to 10m grid are Derived High-Resolution Masks with +/-50m quantization ambiguity.",
+    "Limitation 3: Wave Mode vignettes (2,383) share orbit passes (1,678 unique passes) and cannot be split at vignette level.",
+    "Limitation 4: Li Class 14 (Oil Spill) lacks rigorous in-situ chemical verification and cannot serve as authoritative ground truth.",
+    "Limitation 5: Zero training authorized during Phase 7B.2."
+  ]
+}

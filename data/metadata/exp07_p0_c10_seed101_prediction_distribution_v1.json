@@ -1,0 +1,94 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C10",
+  "title": "EXP-07 Seed 101 Prediction Distribution Analysis (Epoch 19 Best)",
+  "run_id": "EXP07_RUN002_SEED101",
+  "seed": 101,
+  "epoch": 19,
+  "dev_distribution": {
+    "BG": {
+      "gt_pixel_count": 625269,
+      "gt_pixel_fraction": 0.2737566724108944,
+      "pred_pixel_count": 771086,
+      "pred_pixel_fraction": 0.3375985975678099,
+      "avg_confidence": 0.2569069964527589
+    },
+    "AF": {
+      "gt_pixel_count": 29646,
+      "gt_pixel_fraction": 0.012979678043039677,
+      "pred_pixel_count": 34,
+      "pred_pixel_fraction": 1.4885956063662856e-05,
+      "avg_confidence": 0.12275483437320765
+    },
+    "BS": {
+      "gt_pixel_count": 129965,
+      "gt_pixel_fraction": 0.05690156705335127,
+      "pred_pixel_count": 105750,
+      "pred_pixel_fraction": 0.046299701580363145,
+      "avg_confidence": 0.20988024902231023
+    },
+    "LWA": {
+      "gt_pixel_count": 66134,
+      "gt_pixel_fraction": 0.02895493583277292,
+      "pred_pixel_count": 87771,
+      "pred_pixel_fraction": 0.038428095578345665,
+      "avg_confidence": 0.2527488474349008
+    },
+    "MCC": {
+      "gt_pixel_count": 402041,
+      "gt_pixel_fraction": 0.17602249005267878,
+      "pred_pixel_count": 261559,
+      "pred_pixel_fraction": 0.11451634653104685,
+      "avg_confidence": 0.2742959305136029
+    },
+    "OF": {
+      "gt_pixel_count": 31800,
+      "gt_pixel_fraction": 0.013922747141896437,
+      "pred_pixel_count": 12,
+      "pred_pixel_fraction": 5.253866845998655e-06,
+      "avg_confidence": 0.10351823829114437
+    },
+    "POW": {
+      "gt_pixel_count": 613904,
+      "gt_pixel_fraction": 0.2687808226854965,
+      "pred_pixel_count": 466285,
+      "pred_pixel_fraction": 0.20414994185720692,
+      "avg_confidence": 0.2318568443198737
+    },
+    "RF": {
+      "gt_pixel_count": 8897,
+      "gt_pixel_fraction": 0.003895304444070836,
+      "pred_pixel_count": 629,
+      "pred_pixel_fraction": 0.00027539018717776285,
+      "avg_confidence": 0.22627654780644113
+    },
+    "WS": {
+      "gt_pixel_count": 104315,
+      "gt_pixel_fraction": 0.045671426670029144,
+      "pred_pixel_count": 238130,
+      "pred_pixel_fraction": 0.10425860933647164,
+      "avg_confidence": 0.23178249504123857
+    },
+    "Eddy": {
+      "gt_pixel_count": 9514,
+      "gt_pixel_fraction": 0.0041654407644026005,
+      "pred_pixel_count": 113034,
+      "pred_pixel_fraction": 0.04948879875588433,
+      "avg_confidence": 0.36535611393442535
+    },
+    "IWs": {
+      "gt_pixel_count": 261247,
+      "gt_pixel_fraction": 0.11437974599305088,
+      "pred_pixel_count": 239742,
+      "pred_pixel_fraction": 0.10496437878278413,
+      "avg_confidence": 0.2960040876291393
+    },
+    "HM": {
+      "gt_pixel_count": 1300,
+      "gt_pixel_fraction": 0.000569168908316521,
+      "pred_pixel_count": 0,
+      "pred_pixel_fraction": 0.0,
+      "avg_confidence": 0.0
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "metadata_version": "2.0.0",
+  "generated_at": "2026-09-13T08:20:10.623749+00:00",
+  "phase": "PHASE_8_P2_R2",
+  "epistemic_boundary": "Epistemic separation maintained: catalog != physical != constructible != eligible",
+  "populations": {
+    "catalog_candidates": {
+      "total_samples": 5011,
+      "iw_slices": 2628,
+      "wv_vignettes": 2383,
+      "independent_parent_groups": 2162,
+      "iw_parent_scenes": 0,
+      "wv_orbit_passes": 1678
+    },
+    "source_identified": {
+      "total_products_identified": 25,
+      "control_products_identified": 12,
+      "lookalike_gap_closure_scenes_identified": 13,
+      "parent_scenes_represented": [
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+        "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+        "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001",
+        "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001",
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001",
+        "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001",
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001",
+        "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001"
+      ]
+    },
+    "source_recoverable": {
+      "remote_archive": "AWS Open Data sentinel-s1-l1c (public S3 bucket)",
+      "access_mechanism": "Direct windowed reads via GDAL /vsicurl/ HTTP range requests",
+      "verified_recoverable_products": 25,
+      "recovery_methodology": "2560x2560 native window extraction + 10x10 spatial block mean"
+    },
+    "source_materialized": {
+      "before_campaign": {
+        "physical_images": 9,
+        "parent_scenes": 2,
+        "train_slices": 9,
+        "dev_slices": 0,
+        "holdout_slices": 0
+      },
+      "campaign_target": {
+        "target_parent_scenes": 25,
+        "target_physical_slices": 131,
+        "target_partitions": {
+          "TRAIN": ">=60",
+          "DEV": ">=35",
+          "HOLDOUT": ">=30"
+        }
+      }
+    },
+    "alignment_constructible": {
+      "status": "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+      "correspondence_status": "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+      "orientation": "identity",
+      "shift": "zero_native_cells",
+      "aggregation": "10x10 block mean amplitude DN"
+    },
+    "label_verified": {
+      "pixel_space_shape": [
+        256,
+        256
+      ],
+      "mask_format": "8-bit grayscale PNG",
+      "os_policy": "Strict exclusion of Class 14 (OS) from all training/dev/holdout splits"
+    },
+    "leakage_verified": {
+      "firewall_rule": "Deterministic SHA256 grouping on parent_scene_id (IW)",
+      "inter_partition_leakage": "0% verified"
+    },
+    "training_eligible": {
+      "definition": "Materialized physical Level-1 image + shape-matched label mask + zero Class 14 + no partition leakage + verified checksums",
+      "prohibition": "OPS-01 training NOT authorized during Phase 8-P2-R2"
+    }
+  }
+}

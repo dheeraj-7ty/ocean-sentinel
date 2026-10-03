@@ -1,0 +1,75 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C12",
+  "title": "EXP-07 C11 Residual Error and Epistemic Audit Register",
+  "audited_at": "2026-09-14T01:42:00Z",
+  "audited_phase": "EXP-07-P0-C11",
+  "auditor_role": "Adversarial Scientific Reviewer",
+  "overall_verdict": "C11_SUBSTANTIALLY_SOUND_WITH_CRITICAL_RESIDUAL_CORRECTIONS",
+  "residual_errors_identified": [
+    {
+      "error_id": "RES-C11-001",
+      "category": "TAXONOMY_INDEXING_CONFLATION",
+      "severity": "HIGH",
+      "finding": "C11 report prose and incident records referenced 'Class 6 (OF)'. In the authoritative dense mapping (exp07_reference.py), OF (Ocean Front) is Dense Index 5. Dense Index 6 is POW (Pure Ocean Wave).",
+      "root_cause": "Conflation between Source Label ID (where OF is Source 6) and Dense Class Index (where OF is Dense 5, due to exclusion of Source Label 3 Iceberg).",
+      "authoritative_mapping": {
+        "dense_0": {"name": "BG", "source_label_id": 0},
+        "dense_1": {"name": "AF", "source_label_id": 1},
+        "dense_2": {"name": "BS", "source_label_id": 2},
+        "dense_3": {"name": "LWA", "source_label_id": 4},
+        "dense_4": {"name": "MCC", "source_label_id": 5},
+        "dense_5": {"name": "OF", "source_label_id": 6},
+        "dense_6": {"name": "POW", "source_label_id": 7},
+        "dense_7": {"name": "RF", "source_label_id": 8},
+        "dense_8": {"name": "WS", "source_label_id": 10},
+        "dense_9": {"name": "Eddy", "source_label_id": 11},
+        "dense_10": {"name": "IWs", "source_label_id": 12},
+        "dense_11": {"name": "HM", "source_label_id": 13}
+      },
+      "excluded_source_labels": {
+        "source_3": "Iceberg (IB) -> ignore_index -100",
+        "source_9": "Sea Ice (SI) -> ignore_index -100",
+        "source_14": "Mineral Oil Spill (OS) -> ignore_index -100"
+      },
+      "correction": "Explicitly distinguish between 'Source Label ID' and 'Dense Class Index'. When discussing model output channels or dense evaluation, OF is Dense Index 5 and POW is Dense Index 6."
+    },
+    {
+      "error_id": "RES-C11-002",
+      "category": "SENSOR_VS_REPRESENTATION_CONFLATION",
+      "severity": "HIGH",
+      "finding": "C11 report prose stated that Sentinel-1 'measures normalized radar backscatter cross-section (sigma0)'.",
+      "root_cause": "Conflation between physical radar interaction, standard radiometrically calibrated products, and the actual uncalibrated EXP-07 runtime representation.",
+      "distinction_established": {
+        "physical_sensor": "Sentinel-1 spaceborne C-band (5.405 GHz) microwave Synthetic Aperture Radar measuring backscattered electromagnetic pulses.",
+        "product_quantity": "Level-1 Ground Range Detected (GRD) amplitude/intensity digital numbers (DN). Radiometric calibration to sigma0 requires external Look-Up Tables (LUTs).",
+        "runtime_input": "Uncalibrated 10x10 spatially aggregated raw digital numbers (DN), transformed via log1p, and standardized by TRAIN statistics (mean=0.5518, std=0.3121)."
+      },
+      "correction": "Prohibit stating that EXP-07 operates on sigma0. The runtime input is an uncalibrated 'SAR-derived detected DN-domain representation'."
+    },
+    {
+      "error_id": "RES-C11-003",
+      "category": "EPISTEMIC_CAUSAL_DISCIPLINE",
+      "severity": "MEDIUM",
+      "finding": "C11 eliminated major causal overclaims ('proven', 'confirmed'), but occasionally used shorthand such as 'parent scarcity caused failure'.",
+      "root_cause": "Colloquial prose drift in analytical summary sections.",
+      "correction": "Enforce strict associational language: 'failure is associated with limited independent parent-scene representation'. Hypotheses without interventional ablation isolation remain SUPPORTED or PLAUSIBLE, never CAUSAL ESTABLISHED."
+    },
+    {
+      "error_id": "RES-C11-004",
+      "category": "HM_TAXONOMY_SOURCE_VS_DENSE",
+      "severity": "LOW",
+      "finding": "C11 referred to HM as Class 11, which is correct in Dense Index space (Dense 11), but Source Label ID is 13.",
+      "root_cause": "Failure to annotate the index space when reporting class numbers.",
+      "correction": "Always specify index space: 'HM (Dense Class 11 / Source Label 13)'."
+    }
+  ],
+  "verified_sound_conclusions": {
+    "parameter_count": "14,310,860 trainable parameters / 14,322,666 state elements across 192 tensors strictly verified.",
+    "protocol_equivalence": "Seed 101 was a protocol-identical replicate of Seed 42 with zero protocol drift.",
+    "eddy_bs_confusion": "Eddy cannibalization of 63.75% of BS pixels in Seed 101 disproved the reciprocal BS<->LWA swapping narrative.",
+    "scene01_collapse": "Scene 01 collapse is an empirical parent-specific representation collapse reproduced across both seeds.",
+    "two_seed_limits": "Two seeds provide empirical range [0.11903, 0.13782], not a population distribution.",
+    "dataset_sufficiency": "OPS-01 is an initial exploratory benchmark, structurally insufficient for operational deployment."
+  }
+}

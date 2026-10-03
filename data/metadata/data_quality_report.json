@@ -1,0 +1,8 @@
+{
+  "audit_version": "1.0.0",
+  "timestamp_utc": "2026-09-12T17:29:38.335369+00:00",
+  "trujillo_part_i_data_quality": "PASS",
+  "dartis_metadata_quality": "PASS",
+  "dartis_raster_acquisition": "PENDING",
+  "overall_status": "PASS_METADATA_AND_PART_I_RASTERS"
+}

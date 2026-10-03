@@ -1,0 +1,444 @@
+{
+  "governance_metadata": {
+    "framework_name": "Ocean Sentinel Institutional Agent Governance & Cumulative Learning Foundation",
+    "version": "1.0.0",
+    "effective_date": "2026-09-15",
+    "authoritative_markdown": "AGENT_GOVERNANCE.md",
+    "lessons_registry": "data/metadata/ocean_sentinel_lessons_learned_v1.json",
+    "preflight_script": "scripts/agent_governance_preflight.py",
+    "governance_contract": "OCEAN_SENTINEL_AGENT_GOVERNANCE_v1"
+  },
+  "learning_states": {
+    "RECORDED": {
+      "level": 1,
+      "definition": "The lesson has been documented in prose or incident log, but has no automated preventive control or regression test.",
+      "operational_effect": "Emits informational warning in preflight. Agent must manually confirm awareness.",
+      "promotion_requirement": "Implement an automated test or guardrail covering the exact failure mechanism to reach REGRESSION_PROTECTED."
+    },
+    "REGRESSION_PROTECTED": {
+      "level": 2,
+      "definition": "The lesson has an explicit, automated guardrail or pytest suite that detects, blocks, or asserts the invariant.",
+      "operational_effect": "Guardrail test runs during relevant task preflight and CI validation. Failure blocks execution.",
+      "promotion_requirement": "Must survive multiple subsequent tasks/generations (minimum 2 independent tasks) with recorded passing validation history to reach PROVEN_STABLE."
+    },
+    "PROVEN_STABLE": {
+      "level": 3,
+      "definition": "The preventive control has survived multiple subsequent relevant regression passes or execution generations without a single recurrence.",
+      "operational_effect": "Treated as a hardened invariant. Any proposed modification or regression test failure triggers a CRITICAL BLOCK.",
+      "promotion_requirement": "Requires explicit evidence-backed validation history entries. Cannot be assigned directly without historical proof."
+    }
+  },
+  "lifecycle_rules": {
+    "valid_transitions": [
+      { "from": "RECORDED", "to": "REGRESSION_PROTECTED", "requires": "Automated guardrail test implemented and passing" },
+      { "from": "REGRESSION_PROTECTED", "to": "PROVEN_STABLE", "requires": "Minimum 2 subsequent task validation events with passing records and zero recurrences" },
+      { "from": "PROVEN_STABLE", "to": "REGRESSION_PROTECTED", "requires": "Demotion due to detected regression or environment change" },
+      { "from": "REGRESSION_PROTECTED", "to": "RECORDED", "requires": "Demotion due to test deprecation or scope change" }
+    ],
+    "illegal_transitions": [
+      { "from": "RECORDED", "to": "PROVEN_STABLE", "reason": "Bypasses regression protection phase" }
+    ]
+  },
+  "hard_blockers": {
+    "BLOCK-001-HOLDOUT": {
+      "id": "BLOCK-001-HOLDOUT",
+      "severity": "CRITICAL",
+      "rule": "HOLDOUT partition access is strictly forbidden without explicit formal protocol authorization.",
+      "trigger": "Reference to data/ops02/tiles/holdout, partition=HOLDOUT, or unquarantining holdout samples.",
+      "action": "Immediate preflight termination. No read, scan, or inference permitted."
+    },
+    "BLOCK-002-PART_III": {
+      "id": "BLOCK-002-PART_III",
+      "severity": "CRITICAL",
+      "rule": "Part III evaluation data and prediction payloads are strictly firewalled.",
+      "trigger": "Reference to Part III rasters, manifests, or predictions in development or diagnostic workflows.",
+      "action": "Immediate preflight termination. Firewall assertion failure."
+    },
+    "BLOCK-003-DIAG_COLLISION": {
+      "id": "BLOCK-003-DIAG_COLLISION",
+      "severity": "CRITICAL",
+      "rule": "Diagnostic investigation IDs are immutable; never overwrite, collide, or repurpose an existing diagnostic ID.",
+      "trigger": "Proposing a new diagnostic question or experiment under an existing ID (e.g. DIAG-01, DIAG-02, DIAG-03).",
+      "action": "Preflight blocks plan until a new, unique identifier is assigned."
+    },
+    "BLOCK-004-CAUSAL_OVERCLAIM": {
+      "id": "BLOCK-004-CAUSAL_OVERCLAIM",
+      "severity": "CRITICAL",
+      "rule": "Observational and descriptive metrics cannot be asserted as causal mechanisms without direct causal experimental intervention.",
+      "trigger": "Use of terms 'radiometric bottleneck', 'information bottleneck', 'root cause', 'proves model failure', 'cannot learn', 'causes low mIoU', 'explains low mIoU' on observational data.",
+      "action": "Preflight blocks report/plan until prose is calibrated to 'observed', 'associated with', or 'HYPOTHESIZED'."
+    },
+    "BLOCK-005-PROTOCOL_MUTATION": {
+      "id": "BLOCK-005-PROTOCOL_MUTATION",
+      "severity": "CRITICAL",
+      "rule": "Frozen canonical preprocessing (INV-06: raw DN -> 10x10 block -> log1p -> train standardization) cannot be mutated during diagnostics.",
+      "trigger": "Recomputing normalization constants, changing aggregation, converting to sigma0/dB, or adding channels.",
+      "action": "Preflight blocks code execution."
+    },
+    "BLOCK-006-UNAUTHORIZED_TRAINING": {
+      "id": "BLOCK-006-UNAUTHORIZED_TRAINING",
+      "severity": "CRITICAL",
+      "rule": "Zero training steps, zero backward passes, zero optimizer steps, and zero GPU seconds during diagnostic investigations.",
+      "trigger": "Invocation of torch backward(), optimizer.step(), lr_scheduler.step(), or CUDA device allocation during diagnostic tasks.",
+      "action": "Preflight and runtime governance counters assert all training metrics == 0."
+    },
+    "BLOCK-007-DESTRUCTIVE_GIT": {
+      "id": "BLOCK-007-DESTRUCTIVE_GIT",
+      "severity": "CRITICAL",
+      "rule": "Zero destructive git operations; never run git reset --hard, git clean, git checkout -f, git push --force.",
+      "trigger": "Any proposed destructive git command or unexpected deletion of working-tree changes.",
+      "action": "Preflight terminates immediately; working-tree modifications (.gitignore, dataset.py) must remain preserved."
+    },
+    "BLOCK-008-DEPRECATED_TERMINOLOGY": {
+      "id": "BLOCK-008-DEPRECATED_TERMINOLOGY",
+      "severity": "HIGH",
+      "rule": "Canonical taxonomy nomenclature is frozen: OF is Ocean Front (never oil spill); RF is Rain phenomenon; HM is Artificial / Anthropogenic Objects (never vessel/ship/Heavy Metal).",
+      "trigger": "Appearance of forbidden synonyms ('oil spill' for OF, 'heavy metal' or 'vessel' for HM) in active reports or code.",
+      "action": "Preflight blocks report generation until terminology matches canonical dictionary."
+    },
+    "BLOCK-009-PSEUDO_REPLICATION": {
+      "id": "BLOCK-009-PSEUDO_REPLICATION",
+      "severity": "CRITICAL",
+      "rule": "Pixel-level observations cannot be treated as independent experimental replicates for statistical inference.",
+      "trigger": "Computing standard errors or p-values treating N_pixels as sample size without parent-cluster blocking.",
+      "action": "Preflight blocks analysis until cluster sample size K_cls is reported and cluster-level bootstrap is utilized."
+    },
+    "BLOCK-010-UNVERIFIED_PROVEN_STABLE": {
+      "id": "BLOCK-010-UNVERIFIED_PROVEN_STABLE",
+      "severity": "HIGH",
+      "rule": "A lesson cannot be declared PROVEN_STABLE without documented, verifiable validation history across multiple tasks.",
+      "trigger": "Setting status to PROVEN_STABLE when validation_history has fewer than 2 distinct task entries.",
+      "action": "Preflight rejects status update and retains REGRESSION_PROTECTED."
+    },
+    "BLOCK-011-PREFLIGHT_BYPASS": {
+      "id": "BLOCK-011-PREFLIGHT_BYPASS",
+      "severity": "CRITICAL",
+      "rule": "Substantive task operations, git changes, or completion claims require a valid, verified preflight receipt generated by scripts/agent_governance_preflight.py.",
+      "trigger": "Executing substantive task work or attempting to mark task COMPLETE without an unexpired, passing preflight receipt in scratch/agent_governance_preflight_receipt.json.",
+      "action": "Task execution is blocked; agent must run preflight and generate a verified receipt."
+    },
+    "BLOCK-012-UNVERIFIED_TELEMETRY": {
+      "id": "BLOCK-012-UNVERIFIED_TELEMETRY",
+      "severity": "CRITICAL",
+      "rule": "Telemetry run state cannot claim COMPLETE unless all required verification gates pass, test count equals total, and zero forbidden operations occurred.",
+      "trigger": "Setting final_completion_state to COMPLETE while governance counters are non-zero, blockers are active, or regression tests are missing.",
+      "action": "Preflight and post-execution validation block task completion until telemetry integrity is verified."
+    }
+  },
+  "preflight_task_categories": {
+    "diagnostic": {
+      "description": "Scientific diagnostics evaluating data support, radiometry, spatial scale, or gradients without model training.",
+      "required_checks": [
+        "BLOCK-001-HOLDOUT",
+        "BLOCK-002-PART_III",
+        "BLOCK-003-DIAG_COLLISION",
+        "BLOCK-004-CAUSAL_OVERCLAIM",
+        "BLOCK-005-PROTOCOL_MUTATION",
+        "BLOCK-006-UNAUTHORIZED_TRAINING",
+        "BLOCK-007-DESTRUCTIVE_GIT",
+        "BLOCK-008-DEPRECATED_TERMINOLOGY",
+        "BLOCK-009-PSEUDO_REPLICATION"
+      ],
+      "applicable_lesson_categories": [
+        "SCIENTIFIC_VALIDITY",
+        "DATA_INTEGRITY",
+        "DOCUMENTATION_INTEGRITY",
+        "OPERATIONAL_SAFETY"
+      ]
+    },
+    "training": {
+      "description": "Authorized model training or pretraining experiments under frozen protocol contracts.",
+      "required_checks": [
+        "BLOCK-001-HOLDOUT",
+        "BLOCK-002-PART_III",
+        "BLOCK-005-PROTOCOL_MUTATION",
+        "BLOCK-007-DESTRUCTIVE_GIT",
+        "BLOCK-008-DEPRECATED_TERMINOLOGY"
+      ],
+      "applicable_lesson_categories": [
+        "REPRODUCIBILITY",
+        "IMPLEMENTATION_INTEGRITY",
+        "DATA_INTEGRITY",
+        "OPERATIONAL_SAFETY"
+      ]
+    },
+    "evaluation": {
+      "description": "Formal checkpoint evaluation or validation scoring across authorized partitions.",
+      "required_checks": [
+        "BLOCK-001-HOLDOUT",
+        "BLOCK-002-PART_III",
+        "BLOCK-004-CAUSAL_OVERCLAIM",
+        "BLOCK-007-DESTRUCTIVE_GIT",
+        "BLOCK-008-DEPRECATED_TERMINOLOGY"
+      ],
+      "applicable_lesson_categories": [
+        "SCIENTIFIC_VALIDITY",
+        "REPRODUCIBILITY",
+        "DOCUMENTATION_INTEGRITY"
+      ]
+    },
+    "data_processing": {
+      "description": "Manifest assembly, tiling, filtering, or preprocessing pipeline tasks.",
+      "required_checks": [
+        "BLOCK-001-HOLDOUT",
+        "BLOCK-002-PART_III",
+        "BLOCK-005-PROTOCOL_MUTATION",
+        "BLOCK-007-DESTRUCTIVE_GIT",
+        "BLOCK-008-DEPRECATED_TERMINOLOGY"
+      ],
+      "applicable_lesson_categories": [
+        "DATA_INTEGRITY",
+        "IMPLEMENTATION_INTEGRITY",
+        "OPERATIONAL_SAFETY"
+      ]
+    },
+    "documentation": {
+      "description": "Authoring or editing reports, architectural specifications, or governance documents.",
+      "required_checks": [
+        "BLOCK-003-DIAG_COLLISION",
+        "BLOCK-004-CAUSAL_OVERCLAIM",
+        "BLOCK-007-DESTRUCTIVE_GIT",
+        "BLOCK-008-DEPRECATED_TERMINOLOGY"
+      ],
+      "applicable_lesson_categories": [
+        "SCIENTIFIC_VALIDITY",
+        "DOCUMENTATION_INTEGRITY"
+      ]
+    },
+    "artifact_repair": {
+      "description": "Forensic repair or reconciliation of audit JSONs, metadata, or run states.",
+      "required_checks": [
+        "BLOCK-004-CAUSAL_OVERCLAIM",
+        "BLOCK-007-DESTRUCTIVE_GIT",
+        "BLOCK-008-DEPRECATED_TERMINOLOGY"
+      ],
+      "applicable_lesson_categories": [
+        "DATA_INTEGRITY",
+        "REPRODUCIBILITY",
+        "DOCUMENTATION_INTEGRITY"
+      ]
+    },
+    "repository_governance": {
+      "description": "Managing agent lessons, regression suites, governance rules, and repository invariants.",
+      "required_checks": [
+        "BLOCK-007-DESTRUCTIVE_GIT",
+        "BLOCK-010-UNVERIFIED_PROVEN_STABLE"
+      ],
+      "applicable_lesson_categories": [
+        "AGENT_PROCESS",
+        "DOCUMENTATION_INTEGRITY",
+        "SCIENTIFIC_VALIDITY",
+        "OPERATIONAL_SAFETY"
+      ]
+    }
+  },
+  "failure_pattern_prevention_matrix": [
+    {
+      "pattern_id": "FP-001-GRADIENT_CLAIMS",
+      "pattern_name": "Unsupported gradient-mechanism claims based only on sampler exposure",
+      "trigger": "Assertions about gradient starvation, optimization failure, or loss dynamics based purely on tile counts or sampler counts.",
+      "check": "Verify whether gradient norms, loss trajectories, or optimization steps were directly measured.",
+      "block": "Block causal assertions attributing model performance to gradient starvation without optimization measurement.",
+      "repair": "Reframe as descriptive sampler exposure finding; assign mechanistic questions to DIAG-05.",
+      "evidence": "tests/test_exp07_p0_c22j_diag02_forensic_guardrails.py::test_lesson_c22j_001_no_unsupported_gradient_claims"
+    },
+    {
+      "pattern_id": "FP-002-SMALL_SAMPLE_CORRELATIONS",
+      "pattern_name": "Overinterpretation of small-sample correlations (n=5)",
+      "trigger": "Computing correlation coefficients across 5 rare classes and interpreting r as a mathematical performance ceiling.",
+      "check": "Assert that sample size n is documented and correlation is explicitly labeled as descriptive and non-significant.",
+      "block": "Block claims that correlation across 5 points proves a physical ceiling or rules out optimization bottlenecks.",
+      "repair": "State sample size limitation (n=5, p>0.05); classify finding as descriptive exploratory evidence.",
+      "evidence": "tests/test_exp07_p0_c22j_diag02_forensic_guardrails.py::test_lesson_c22j_002_descriptive_association_bounding"
+    },
+    {
+      "pattern_id": "FP-003-STARVATION_REFUTED_OVERCLAIM",
+      "pattern_name": "Wording 'sampler starvation refuted' stronger than supported by evidence",
+      "trigger": "Prose claiming sampler starvation is 'definitively refuted' simply because exposure > 0 tiles.",
+      "check": "Verify whether minimum required exposure threshold for feature learning has been established.",
+      "block": "Block definitive refutation claims based solely on non-zero tile exposure.",
+      "repair": "State calibrated conclusion: non-zero exposure is observed, but whether exposure is sufficient remains an open empirical question.",
+      "evidence": "tests/test_exp07_p0_c22j_diag02_forensic_guardrails.py::test_lesson_c22j_003_bounded_starvation_conclusion"
+    },
+    {
+      "pattern_id": "FP-004-AVAILABILITY_VS_ALLOCATION",
+      "pattern_name": "Confusing physical cluster availability with realized sampler coverage",
+      "trigger": "Assuming all available parent clusters in a dataset were sampled with uniform coverage by the training sampler.",
+      "check": "Verify realized per-cluster exposure from training logs or sampler indices.",
+      "block": "Block equating physical dataset existence with realized model exposure.",
+      "repair": "Distinguish available dataset parent clusters (K_total) from sampled parent clusters (K_sampled).",
+      "evidence": "tests/test_exp07_p0_c22j_diag02_forensic_guardrails.py::test_calibrated_starvation_and_concept_separation"
+    },
+    {
+      "pattern_id": "FP-005-DIAGNOSTIC_ID_COLLISION",
+      "pattern_name": "Diagnostic investigation ID collision",
+      "trigger": "Proposing a new diagnostic under an existing ID (e.g. attempting to rename or overwrite DIAG-03).",
+      "check": "Compare proposed diagnostic ID against canonical roadmap registry.",
+      "block": "Block execution of any plan reusing an existing diagnostic identifier.",
+      "repair": "Assign next available unique identifier in sequence.",
+      "evidence": "tests/test_exp07_p0_c22j_diag02_forensic_guardrails.py::test_lesson_c22j_004_roadmap_integrity"
+    },
+    {
+      "pattern_id": "FP-006-CAUSAL_VERB_OVERUSE",
+      "pattern_name": "Overclaiming explanatory language from correlation ('explains', 'drives', 'causes')",
+      "trigger": "Use of causal verbs in observational data reports.",
+      "check": "Scan text for causal verbs attached to descriptive metric differences.",
+      "block": "Block reports asserting causal attribution from observational overlap or correlation.",
+      "repair": "Replace with non-causal formulations: 'is associated with', 'is consistent with', 'HYPOTHESIZED'.",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_no_causal_overclaims"
+    },
+    {
+      "pattern_id": "FP-007-PROVENANCE_MUTATION",
+      "pattern_name": "Mutating historical audit artifacts without explicit provenance",
+      "trigger": "Editing or updating an existing Level 5 audit JSON in-place without incrementing version or recording provenance.",
+      "check": "Verify whether in-place mutation contains an embedded provenance history record.",
+      "block": "Block silent modification of historical audit JSON files.",
+      "repair": "Embed explicit forensic correction blocks documenting what changed, when, why, and previous values.",
+      "evidence": "tests/test_exp07_p0_c22j_diag02_forensic_guardrails.py::test_c22i_embedded_provenance_history"
+    },
+    {
+      "pattern_id": "FP-008-KDE_MONOTONIC_DISCREPANCY",
+      "pattern_name": "Treating raw-vs-standardized KDE evaluations as exact numerical invariants",
+      "trigger": "Treating small differences between raw and standardized OVL/Delta as independent physical evidence.",
+      "check": "Verify mathematical monotonicity of the transformation and calculate estimation discrepancy.",
+      "block": "Block claims that raw and standardized distributions provide independent corroborating evidence.",
+      "repair": "Document monotonic invariance and explain differences as kernel bandwidth and grid discretization effects.",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_numerical_safeguards"
+    },
+    {
+      "pattern_id": "FP-009-CIRCULAR_TAIL_MASS",
+      "pattern_name": "Circular tail-mass validation through post-grid normalization",
+      "trigger": "Asserting zero omitted tail mass after renormalizing discretized densities over an arbitrary grid.",
+      "check": "Measure empirical tail probability outside grid boundaries before any normalization.",
+      "block": "Block claimed tail-mass validity if grid omits >= 1e-4 probability mass for any class.",
+      "repair": "Dynamically expand support bounds until omitted empirical mass is strictly < 1e-4.",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_numerical_safeguards"
+    },
+    {
+      "pattern_id": "FP-010-PIXEL_PSEUDO_REPLICATION",
+      "pattern_name": "Treating millions of pixels as independent inferential replicates",
+      "trigger": "Computing standard errors or p-values treating pixel counts (N > 10^6) as independent degrees of freedom.",
+      "check": "Verify whether inferential statistics account for spatial autocorrelation and parent acquisition clustering.",
+      "block": "Block population-level p-values or standard errors computed directly from unclustered pixels.",
+      "repair": "Use parent acquisition cluster as the resampling unit (cluster-level block bootstrap).",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_bootstrap_and_pseudo_replication_safeguards"
+    },
+    {
+      "pattern_id": "FP-011-BOOTSTRAP_K_LIMITATION",
+      "pattern_name": "Treating bootstrap as if it creates new independent acquisitions",
+      "trigger": "Presenting bootstrap confidence intervals as robust population estimates when K <= 7.",
+      "check": "Check class-specific cluster sample size K_cls.",
+      "block": "Block claims of population-level certainty when K_cls is small.",
+      "repair": "Prominently flag small-K warning; note that bootstrap resamples existing scenes and cannot manufacture new acquisitions.",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_class_specific_effective_k"
+    },
+    {
+      "pattern_id": "FP-012-CORE_EROSION_OVERCLAIM",
+      "pattern_name": "Treating morphological core erosion as 'pure ground truth'",
+      "trigger": "Claiming core-eroded masks represent unmixed physical truth or that boundary pixels are pure annotation errors.",
+      "check": "Verify whether erosion collapses class support (< 50 pixels or < 2 tiles).",
+      "block": "Block claims that core erosion eliminates sub-pixel mixing or represents pure ground truth.",
+      "repair": "Frame core erosion strictly as a sensitivity stratum to assess boundary transition effects.",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_no_causal_overclaims"
+    },
+    {
+      "pattern_id": "FP-013-CONVENTIONAL_THRESHOLDS_AS_LAWS",
+      "pattern_name": "Turning predefined descriptive thresholds into universal physical laws",
+      "trigger": "Treating conventional thresholds (OVL >= 0.85, Delta >= 0.474, ICC > 0.40) as universal SAR physical boundaries.",
+      "check": "Verify that text explicitly states thresholds are descriptive reference conventions.",
+      "block": "Block claims that metric exceeding threshold proves segmentation impossibility or physical identity.",
+      "repair": "Emphasize continuous metric values; cite thresholds strictly as descriptive conventions.",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_no_causal_overclaims"
+    },
+    {
+      "pattern_id": "FP-014-UNVERIFIED_RUNTIME_ESTIMATES",
+      "pattern_name": "Reporting unverified runtime estimates as measured facts",
+      "trigger": "Documenting hypothetical or planning-phase execution durations as actual elapsed time in reports.",
+      "check": "Verify execution duration against timestamped telemetry or process logs.",
+      "block": "Block reporting unmeasured runtime estimates in final audit artifacts.",
+      "repair": "Record true start/end timestamps and calculate verified elapsed duration.",
+      "evidence": "tests/test_exp07_p0_diag03_radiometric_guardrails.py::test_governance_invariants"
+    },
+    {
+      "pattern_id": "FP-015-PREFLIGHT_BYPASS",
+      "pattern_name": "Executing substantive task work without verified preflight receipt",
+      "trigger": "Substantive execution or reporting attempted without prior execution of scripts/agent_governance_preflight.py generating a valid receipt.",
+      "check": "Verify existence and SHA256 integrity of scratch/agent_governance_preflight_receipt.json.",
+      "block": "Block post-execution certification and completion claim until preflight is executed and verified.",
+      "repair": "Execute preflight with authorized task category and obtain a passing receipt.",
+      "evidence": "tests/test_ocean_sentinel_agent_governance.py::test_preflight_receipt_generation_and_verification"
+    },
+    {
+      "pattern_id": "FP-016-PARAPHRASED_CAUSAL_EVASION",
+      "pattern_name": "Circumventing causal guardrails via semantic paraphrase without exact blocked keywords",
+      "trigger": "Using semantic paraphrases ('accounts for poor miou', 'primary driver of failure', 'dictates performance', 'proves spatial context is required') on observational data.",
+      "check": "Scan text with semantic regex capturing causal verb-noun pairs linked to performance metrics.",
+      "block": "Block narrative plan or report asserting causal mechanisms from observational distributions.",
+      "repair": "Rewrite using calibrated observational prose: 'is associated with', 'consistent with', or 'HYPOTHESIZED'.",
+      "evidence": "tests/test_ocean_sentinel_agent_governance.py::test_causal_paraphrase_rejection"
+    }
+  ],
+  "canonical_roadmap": {
+    "DIAG-01": {
+      "id": "DIAG-01",
+      "name": "Class Support & Metric Sensitivity",
+      "status": "COMPLETED",
+      "outcome": "CASE B (Structural multi-label ambiguity confirmed)",
+      "order": 1
+    },
+    "DIAG-02": {
+      "id": "DIAG-02",
+      "name": "Sampler Exposure & Schedule Invariance",
+      "status": "COMPLETED",
+      "outcome": "REPAIRED (Scale disparity and boundary truncation documented; starvation hypothesis bounded)",
+      "order": 2
+    },
+    "DIAG-03": {
+      "id": "DIAG-03",
+      "name": "Radiometric Feature Discriminability",
+      "status": "COMPLETED",
+      "outcome": "COMPLETED (Moderate 1-D overlap documented; substantial acquisition heterogeneity observed)",
+      "order": 3
+    },
+    "DIAG-04": {
+      "id": "DIAG-04",
+      "name": "Receptive Field & Spatial Scale Compatibility",
+      "status": "RECOMMENDED_NEXT",
+      "outcome": "PLANNED (Unexecuted; requires separate execution authorization)",
+      "order": 4
+    },
+    "DIAG-05": {
+      "id": "DIAG-05",
+      "name": "Loss Landscape & Gradient Dynamics",
+      "status": "DESIGN_ONLY",
+      "outcome": "DESIGN ONLY (Not executed; strictly deferred until spatial scale is characterized)",
+      "order": 5
+    }
+  },
+  "diagnostic_plan_contract": {
+    "required_plan_fields": [
+      "diagnostic_id",
+      "scientific_question",
+      "primary_measurement",
+      "independent_unit",
+      "authorized_partitions",
+      "forbidden_partitions",
+      "primary_metric",
+      "secondary_metrics",
+      "causal_scope",
+      "expected_artifacts",
+      "governance_counters",
+      "reproducibility_controls",
+      "known_failure_patterns",
+      "applicable_lessons"
+    ]
+  },
+  "conflict_resolution_protocol": {
+    "principles": [
+      "Never silently overwrite or delete historical lessons or audit artifacts.",
+      "Use explicit relationship descriptors: SUPERSEDES, SUPERSEDED_BY, AMENDS, DEPRECATED.",
+      "If two lessons conflict, the lesson backed by the stronger, more specific automated regression test governs.",
+      "Scientific protocol updates require a new frozen specification version and explicit migration audit."
+    ]
+  }
+}

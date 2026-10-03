@@ -1,0 +1,175 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T17:14:17.643657+00:00",
+  "phase": "EXP-07-P0-C3",
+  "validation_id": "V-02",
+  "title": "Zero / NoData Formal Physical and Metadata Verification",
+  "evidence": {
+    "esa_product_specification": "S1-RS-MDA-52-7443 Section 4.2.1: Pixels outside the valid slant-to-ground projected SAR swath are filled with 0 (zero padding)",
+    "tiff_profile_nodata_tag": 0.0,
+    "physical_noise_floor_argument": "In active C-band SAR, receiver thermal noise (NESZ ~ -22 dB) ensures legitimate natural sea/land backscatter never yields 0 DN. Observed min nonzero DN is 7.99.",
+    "spatial_distribution": "In all 7 zero-containing samples, zeros occur exclusively as continuous left-edge columns (columns 0 to 6 or 0 to 20) adjacent to the near-range swath boundary.",
+    "source_mask_consistency": "In all 7 zero-containing samples, 100% of zero pixels are currently labelled background (BG, class 0). No non-background annotations exist over zero padding."
+  },
+  "audit_summary": {
+    "total_samples_audited": 147,
+    "zero_containing_samples_count": 7,
+    "by_partition": {
+      "TRAIN": 4,
+      "DEV": 2,
+      "HOLDOUT": 1
+    },
+    "total_zero_pixels": 18798,
+    "global_min_nonzero_dn": 1.9299999475479126,
+    "strictly_left_margin_count": 7,
+    "all_zeros_labeled_bg_count": 7
+  },
+  "zero_containing_samples_detail": [
+    {
+      "sample_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-1",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+      "source_window": "row=50..2610, col=50..2610",
+      "zeros_count": 1134,
+      "zero_pixel_fraction": 0.017303466796875,
+      "bounding_box_zeros": {
+        "min_row": 94,
+        "max_row": 255,
+        "min_col": 0,
+        "max_col": 6
+      },
+      "is_border_connected": true,
+      "strictly_left_swath_margin": true,
+      "mask_labels_at_zeros": [
+        0
+      ],
+      "all_zeros_labeled_bg": true
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-2",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+      "source_window": "row=2610..5170, col=50..2610",
+      "zeros_count": 1792,
+      "zero_pixel_fraction": 0.02734375,
+      "bounding_box_zeros": {
+        "min_row": 0,
+        "max_row": 255,
+        "min_col": 0,
+        "max_col": 6
+      },
+      "is_border_connected": true,
+      "strictly_left_swath_margin": true,
+      "mask_labels_at_zeros": [
+        0
+      ],
+      "all_zeros_labeled_bg": true
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-3",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+      "source_window": "row=5170..7730, col=50..2610",
+      "zeros_count": 1792,
+      "zero_pixel_fraction": 0.02734375,
+      "bounding_box_zeros": {
+        "min_row": 0,
+        "max_row": 255,
+        "min_col": 0,
+        "max_col": 6
+      },
+      "is_border_connected": true,
+      "strictly_left_swath_margin": true,
+      "mask_labels_at_zeros": [
+        0
+      ],
+      "all_zeros_labeled_bg": true
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-4",
+      "partition": "TRAIN",
+      "parent_scene_id": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+      "source_window": "row=7730..10290, col=50..2610",
+      "zeros_count": 1792,
+      "zero_pixel_fraction": 0.02734375,
+      "bounding_box_zeros": {
+        "min_row": 0,
+        "max_row": 255,
+        "min_col": 0,
+        "max_col": 6
+      },
+      "is_border_connected": true,
+      "strictly_left_swath_margin": true,
+      "mask_labels_at_zeros": [
+        0
+      ],
+      "all_zeros_labeled_bg": true
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-4",
+      "partition": "DEV",
+      "parent_scene_id": "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+      "source_window": "row=7730..10290, col=50..2610",
+      "zeros_count": 5376,
+      "zero_pixel_fraction": 0.08203125,
+      "bounding_box_zeros": {
+        "min_row": 0,
+        "max_row": 255,
+        "min_col": 0,
+        "max_col": 20
+      },
+      "is_border_connected": true,
+      "strictly_left_swath_margin": true,
+      "mask_labels_at_zeros": [
+        0
+      ],
+      "all_zeros_labeled_bg": true
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-5",
+      "partition": "DEV",
+      "parent_scene_id": "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+      "source_window": "row=10290..12850, col=50..2610",
+      "zeros_count": 5376,
+      "zero_pixel_fraction": 0.08203125,
+      "bounding_box_zeros": {
+        "min_row": 0,
+        "max_row": 255,
+        "min_col": 0,
+        "max_col": 20
+      },
+      "is_border_connected": true,
+      "strictly_left_swath_margin": true,
+      "mask_labels_at_zeros": [
+        0
+      ],
+      "all_zeros_labeled_bg": true
+    },
+    {
+      "sample_id": "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001-2",
+      "partition": "HOLDOUT",
+      "parent_scene_id": "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001",
+      "source_window": "row=2610..5170, col=50..2610",
+      "zeros_count": 1536,
+      "zero_pixel_fraction": 0.0234375,
+      "bounding_box_zeros": {
+        "min_row": 0,
+        "max_row": 255,
+        "min_col": 0,
+        "max_col": 5
+      },
+      "is_border_connected": true,
+      "strictly_left_swath_margin": true,
+      "mask_labels_at_zeros": [
+        0
+      ],
+      "all_zeros_labeled_bg": true
+    }
+  ],
+  "final_classification": "STRONGLY_SUPPORTED_INVALID",
+  "validity_mask_policy": {
+    "rule": "validity_mask = (raw_image > 0)",
+    "effective_training_loss_mask": "Loss is evaluated strictly where validity_mask == True. Zero padding pixels are assigned ignore_index (-100 or 255) during loss computation and evaluation.",
+    "source_mask_integrity": "Source mask PNG bytes on disk remain completely unmodified, preserving exact dataset lineage and provenance."
+  }
+}

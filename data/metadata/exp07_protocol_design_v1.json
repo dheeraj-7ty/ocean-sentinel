@@ -1,0 +1,121 @@
+{
+  "artifact_version": "1.0.0",
+  "artifact_type": "EXP07_PROTOCOL_DESIGN",
+  "phase": "EXP-07-P0",
+  "created_at": "2026-09-13T18:40:00+05:30",
+  "status": "PROTOCOL_SPECIFIED__AWAITING_OPERATOR_GPU_AUTHORIZATION",
+  "frozen_baseline_hashes": {
+    "exp06_best_model_sha256": "B5FFCCA3D95A96A73ABAA895216BC42FA5FBCC673B09F56451D389DDAE41E8DF",
+    "part_i_manifest_sha256": "17F1FF35146C7CE62E90D6FCE7F197B711B55E3C3CB599610578443208669072",
+    "exp06_status": "VERIFIED",
+    "part_i_status": "VERIFIED"
+  },
+  "ops01_dataset": {
+    "manifest": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+    "manifest_sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+    "train_samples": 72,
+    "dev_samples": 39,
+    "holdout_samples": 36,
+    "total_samples": 147,
+    "parent_scenes": 27
+  },
+  "scientific_question": "Can a compact ResNet18-UNet trained on 72 OPS-01 TRAIN samples achieve DEV mIoU >= 0.30 across 12 eligible maritime SAR backscatter classes?",
+  "hypothesis": "ResNet18-UNet with 12-class CE, inverse-frequency class weighting, WeightedRandomSampler, 50-epoch CosineAnnealing, and conservative flip augmentation on OPS-01 TRAIN will achieve DEV mIoU >= 0.30.",
+  "falsification_conditions": [
+    "DEV mIoU at best checkpoint < 0.30",
+    "DEV BG IoU < 0.60",
+    "HOLDOUT contaminated during training or threshold selection",
+    "OS pixels detected in training pipeline (must be 0)"
+  ],
+  "acceptance_gates": {
+    "AG-EXP07-01": {
+      "metric": "DEV mIoU",
+      "threshold": ">=0.30",
+      "type": "PRIMARY"
+    },
+    "AG-EXP07-02": {
+      "metric": "DEV BG IoU",
+      "threshold": ">=0.60",
+      "type": "STABILITY"
+    },
+    "AG-EXP07-03": {
+      "metric": "DEV Macro Recall",
+      "threshold": ">=0.25",
+      "type": "SECONDARY"
+    },
+    "AG-EXP07-04": {
+      "metric": "Training completed",
+      "threshold": "50_epochs_or_early_stop",
+      "type": "COMPLETION"
+    },
+    "AG-EXP07-05": {
+      "metric": "HOLDOUT timing",
+      "threshold": "Exactly_once_post_DEV_selection",
+      "type": "PROTOCOL"
+    },
+    "AG-EXP07-06": {
+      "metric": "OS pixels in pipeline",
+      "threshold": "=0",
+      "type": "SAFETY"
+    }
+  },
+  "resolved_open_decisions": {
+    "OPEN-PREPROC-001": "CLOSED: 10*log10(DN+1e-6) pseudo-dB",
+    "OPEN-PREPROC-002": "CLOSED: Computed on TRAIN only, stored in exp07_normalization_stats.json (computation deferred to preflight)",
+    "OPEN-PREPROC-003": "CLOSED: Horizontal+vertical flip p=0.5 (TRAIN only)",
+    "OPEN-PREPROC-004": "CLOSED: 12-class CE with IGNORE_INDEX=255",
+    "OPEN-LOADER-001": "CONTRACT_CLOSED: OPS01Dataset class (implementation pending)",
+    "OPEN-LOADER-002": "CLOSED: WeightedRandomSampler (inverse dominant-class-freq)",
+    "OPEN-LOADER-003": "CLOSED: num_workers=0, pin_memory=False",
+    "OPEN-LOADER-004": "CLOSED: batch_size=8",
+    "OPEN-ARCH-001": "CLOSED: ResNet18-UNet, 1 input channel, 12 output classes, Kaiming init, scratch",
+    "OPEN-LOSS-001": "CLOSED: Weighted multi-class CE, w_c = median(f)/f_c, capped at 10.0",
+    "OPEN-OPT-001": "CLOSED: AdamW(lr=1e-3, wd=1e-2) + CosineAnnealingLR(T_max=50)",
+    "OPEN-SEED-001": "CLOSED: GLOBAL_SEED=42, per-epoch seeds, cuDNN deterministic=True",
+    "OPEN-METRIC-001": "CLOSED: mIoU over 12 classes (IGNORE=255 excluded), DEV for selection, HOLDOUT once",
+    "OPEN-CKPT-001": "CLOSED: Save on best DEV mIoU; best_model.pt + last_model.pt"
+  },
+  "open_decisions_count": 14,
+  "open_decisions_resolved": 14,
+  "open_decisions_remaining": 0,
+  "training_prerequisites_remaining": [
+    "exp07_normalization_stats.json (to be computed at EXP-07-P1 preflight)",
+    "OPS01Dataset implementation (to be coded and tested)",
+    "class_weights_exp07.json (to be computed from TRAIN class pixel distribution)",
+    "Operator GPU training authorization (PENDING)"
+  ],
+  "artifacts_hashed": {
+    "protocol_document": {
+      "path": "experiments/PHASE_EXP07_P0_SCIENTIFIC_PROTOCOL_AND_OPS01_CONTRACT_20260913.md",
+      "sha256": "F7BDE340AB1B2DB686A208D89267DC5F46E20B5F60B5C51B241AB131D71C93A3",
+      "status": "VERIFIED"
+    },
+    "loader_contract": {
+      "path": "data/metadata/ops01_loader_contract_v1.json",
+      "sha256": "2D1B67FF3B1364820657D719717AA0FA3369A438C201F5534303B2BF65E6E882",
+      "status": "VERIFIED"
+    },
+    "manifest_v4": {
+      "path": "data/metadata/ops01_physical_dataset_manifest_v4.json",
+      "sha256": "FF1680C9135EF5CD9C7B77FBC8373953F9924BD5BE2830617EB0EF386C8DC85E",
+      "status": "VERIFIED"
+    },
+    "taxonomy": {
+      "path": "data/metadata/ops01_taxonomy_v1.json",
+      "sha256": "86A043EFDBB641EE2073C959DA315E7BF90C5F72D35B9E40F62C39F225C551AD",
+      "status": "VERIFIED"
+    }
+  },
+  "loader_contract": "data/metadata/ops01_loader_contract_v1.json",
+  "loader_contract_sha256": "0E31378071E102EE4896D2AA7F2777F66908EFF5A7494844B611CF3F6B7D67C8",
+  "protocol_document": "experiments/PHASE_EXP07_P0_SCIENTIFIC_PROTOCOL_AND_OPS01_CONTRACT_20260913.md",
+  "protocol_document_sha256": "F7BDE340AB1B2DB686A208D89267DC5F46E20B5F60B5C51B241AB131D71C93A3",
+  "permanent_epistemic_disclosures": [
+    "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+    "CONDITIONAL_ENGINEERING_RECONSTRUCTION",
+    "EMPIRICALLY_SUPPORTED_PILOT_HYPOTHESIS",
+    "DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED"
+  ],
+  "training_authorization": "PROHIBITED__explicit_operator_GPU_authorization_required",
+  "part_iii_access": "PERMANENTLY_PROHIBITED"
+}

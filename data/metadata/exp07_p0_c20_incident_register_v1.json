@@ -1,0 +1,50 @@
+{
+  "incident_register_id": "EXP07_P0_C20_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C20",
+  "created_at_utc": "2026-09-14T06:35:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "holdout_access_count": 0,
+    "historical_artifacts_mutated": false,
+    "epistemic_standard": "DESCRIPTIVE_DOMAIN_TRANSFER_EVIDENCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C20-001",
+      "severity": "CRITICAL",
+      "location": "experiments/EXP-07/ historical reports (C15 line 147, C16, C17, C18, C19 narrative tables)",
+      "claimed_value": "C8 and C10 historical baselines achieved ~0.4072 (40.7%) DEV phenomena mIoU, framing C16 (0.0494) as an ~88% catastrophic collapse.",
+      "machine_truth": "Direct forensic audit of Level 5 machine artifacts (checkpoints, training results, and logs in data/metadata/exp07_p0_c8_training_results_seed42_v1.json and data/metadata/exp07_p0_c10_training_results_seed101_v1.json) proves C8 best DEV phenomena mIoU was 0.119031 (11.90%) and C10 was 0.137819 (13.78%). The claimed 0.4072 was a narrative transcription error introduced in C15.",
+      "impact": "Distorted four generations of retrospective reporting by misrepresenting the baseline gap as an 8.2x collapse instead of the actual ~2.4x-2.8x domain performance delta.",
+      "root_cause": "Unverified narrative transcription of an all-class or background-inclusive metric into a phenomena-only column in C15 markdown report without cross-checking machine JSON artifacts.",
+      "remediation": "Established exact Level 5 machine truth in C20 audit artifacts (ops02_c20_checkpoint_lineage_audit_v1.json and ops02_c20_cross_eval_results_v1.json). Preserved all historical reports intact while establishing definitive machine authority. Formulated GOV-RULE-100.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    },
+    {
+      "incident_id": "INC-C20-002",
+      "severity": "MEDIUM",
+      "location": "C16 run records (OPS02_v1.0.0_FROZEN) vs C19 protocol reconciliation table (OPS02_v1.0.1_FROZEN)",
+      "claimed_value": "C19 protocol table referenced OPS02_v1.0.1_FROZEN as canonical post-freeze dataset identity, creating ambiguity whether C16 trained on an unpatched or obsolete dataset.",
+      "machine_truth": "SHA256 hashes of physical tiles, ground-truth masks, spatial dimensions (256x256), and partition assignments (132 TRAIN, 40 DEV, 40 HOLDOUT) are 100% bitwise identical between v1.0.0 and v1.0.1. The difference was exclusively a documentation text correction fixing a narrative transcription error (41/39 to 40/40 DEV/HOLDOUT).",
+      "impact": "Risk of epistemic confusion regarding physical data provenance.",
+      "root_cause": "Specification version increment applied to documentation without explicitly annotating that physical bytes remained immutable.",
+      "remediation": "Documented in ops02_c20_dataset_firewall_v1.json and lineage audit that C16 physically consumed the exact bitwise dataset defined in v1.0.1. Historical records left unchanged.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    },
+    {
+      "incident_id": "INC-C20-003",
+      "severity": "LOW",
+      "location": "data/checkpoints/ (exp07_p0_c8_best_seed42.pth vs exp07_p0_c16_replicate003_seed42_best.pt)",
+      "claimed_value": "Assumed homogeneous serialization structure across all historical EXP-07 checkpoints.",
+      "machine_truth": "C8 and C10 checkpoints (171.9 MB each) encapsulate full training state dictionaries ('model_state_dict', 'optimizer_state_dict', 'scheduler_state_dict', 'epoch', 'best_dev_metric'), whereas C16 checkpoint (57.4 MB) contains only the model's OrderedDict state_dict.",
+      "impact": "Direct state_dict deserialization crashed without a conditional container unwrapper.",
+      "root_cause": "Evolution of training checkpoint export routines between C8/C10 and C16.",
+      "remediation": "Implemented dual-format polymorphic loading in scripts/run_exp07_c20_cross_evaluation.py without altering raw checkpoint bytes.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_status": "ALL_C20_INCIDENTS_AUDITED_AND_RECONCILED"
+}

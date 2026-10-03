@@ -1,0 +1,123 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C12",
+  "title": "OPS-02 Multi-Scene Dataset Expansion Campaign Master Specification",
+  "created_at": "2026-09-14T01:43:45Z",
+  "purpose": "Authoritative machine-readable specification governing the design, acquisition, ingestion, QC, partitioning, and provenance tracking for the OPS-02 multi-scene dataset expansion campaign.",
+  "core_principles": [
+    "Increase independent physical scene diversity and representation quality, NOT merely slice count.",
+    "A class with 100 tiles from 1 parent scene represents 1 degree of freedom, not 100.",
+    "Partitioning must occur at the parent scene cluster level BEFORE slicing.",
+    "Strict separation between raw authoritative imagery and deterministic derived tiles.",
+    "Absolute prohibition of training during C12."
+  ],
+  "scientific_questions": {
+    "Q1": "Does increasing independent parent-scene diversity (from 27 to >= 60-120) improve cross-parent generalization and eliminate single-scene memorization artifacts?",
+    "Q2": "Does broader acquisition-condition diversity (balanced Ascending/Descending, varied wind/sea states) reduce catastrophic parent-specific representation collapse (such as Parent Scene 01)?",
+    "Q3": "Does increasing rare-class parent diversity (>= 8 independent scenes per class) materially improve tail-class feature learning and overcome zero-IoU failure modes?",
+    "Q4": "Does multi-basin geographic diversity and multi-season temporal breadth enhance model stability across global maritime operational environments?",
+    "Q5": "Does broader physical context and explicit lookalike mapping resolve ambiguity between morphologically confusable SAR phenomena (e.g., BS vs LWA vs Eddy)?"
+  },
+  "canonical_taxonomy_targets": {
+    "dense_classes": {
+      "0": {"name": "BG", "source_id": 0, "target_parents": 60, "target_tiles": 300, "target_pixels": 2000000},
+      "1": {"name": "AF", "source_id": 1, "target_parents": 10, "target_tiles": 50, "target_pixels": 200000},
+      "2": {"name": "BS", "source_id": 2, "target_parents": 20, "target_tiles": 100, "target_pixels": 400000},
+      "3": {"name": "LWA", "source_id": 4, "target_parents": 15, "target_tiles": 75, "target_pixels": 300000},
+      "4": {"name": "MCC", "source_id": 5, "target_parents": 15, "target_tiles": 75, "target_pixels": 500000},
+      "5": {"name": "OF", "source_id": 6, "target_parents": 12, "target_tiles": 60, "target_pixels": 250000},
+      "6": {"name": "POW", "source_id": 7, "target_parents": 15, "target_tiles": 75, "target_pixels": 500000},
+      "7": {"name": "RF", "source_id": 8, "target_parents": 12, "target_tiles": 60, "target_pixels": 250000},
+      "8": {"name": "WS", "source_id": 10, "target_parents": 25, "target_tiles": 125, "target_pixels": 800000},
+      "9": {"name": "Eddy", "source_id": 11, "target_parents": 15, "target_tiles": 75, "target_pixels": 350000},
+      "10": {"name": "IWs", "source_id": 12, "target_parents": 12, "target_tiles": 60, "target_pixels": 300000},
+      "11": {"name": "HM", "source_id": 13, "target_parents": 15, "target_tiles": 50, "target_pixels": 15000}
+    },
+    "excluded_classes_mapped_to_ignore": [
+      {"source_id": 3, "name": "Iceberg (IB)", "dense_target": -100},
+      {"source_id": 9, "name": "Sea Ice (SI)", "dense_target": -100},
+      {"source_id": 14, "name": "Mineral Oil Spill (OS)", "dense_target": -100}
+    ]
+  },
+  "geographic_ontology": {
+    "primary_basins": [
+      "North Atlantic Ocean", "South Atlantic Ocean",
+      "North Pacific Ocean", "South Pacific Ocean",
+      "Indian Ocean", "Mediterranean Sea", "Arctic Marginal Seas"
+    ],
+    "marginal_seas_and_regions": [
+      "South China Sea", "East China Sea", "Gulf of Mexico", "North Sea",
+      "Baltic Sea", "Arabian Sea", "Bay of Bengal", "Norwegian Sea"
+    ],
+    "coastal_regimes": ["OPEN_OCEAN", "CONTINENTAL_SHELF", "COASTAL_NEARSHORE", "ENCLOSED_BAY_HARBOR"],
+    "rule": "Never collapse marginal seas into generic basins without recording the specific regional sea. Record both hierarchical levels."
+  },
+  "temporal_acquisition_policy": {
+    "sampling_window": "2016-01-01 to present",
+    "distribution_requirement": "Acquisitions must be distributed across all four meteorological seasons and at least 3 distinct calendar years. No single calendar quarter may contain > 35% of acquisitions."
+  },
+  "sensor_representation_specification": {
+    "sensor": "Sentinel-1 C-band (5.405 GHz) Synthetic Aperture Radar",
+    "polarization_priority": "Primary: VV (co-polarized); Secondary: VH (cross-polarized dual-pol where available)",
+    "product_level": "Level-1 Ground Range Detected (GRD) in Interferometric Wide (IW) swath mode",
+    "runtime_input_definition": "Uncalibrated 10x10 spatial aggregation of detected Digital Numbers (DN-domain representation), log1p transformed, standardized by TRAIN statistics.",
+    "terminology_invariant": "Must be cited as 'SAR-derived detected DN-domain representation'. Never casually cite as sigma0 or calibrated backscatter unless calibration LUTs have been applied."
+  },
+  "lookalike_and_anthropogenic_strategy": {
+    "lookalike_role": "BS, LWA, and IWs serve as critical natural dark-feature look-alikes to mineral oil slicks. They must be preserved with distinct class labels to build future false-alarm suppression capabilities.",
+    "hm_role": "HM is preserved strictly as canonical 'Artificial / Anthropogenic Objects'. Future vessel attribution and kinematic tracking will be implemented as an auxiliary multi-task detection/tracking layer, without mutating the 12-class EXP-07 segmentation taxonomy."
+  },
+  "provenance_and_qc_gates": {
+    "annotation_tiers": {
+      "TIER_A": "Expert manual pixel segmentation with documented peer-review / cross-validation. (TRAIN, DEV, HOLDOUT eligible)",
+      "TIER_B": "Trusted semi-automated pipeline with specialist manual verification. (TRAIN, DEV eligible)",
+      "TIER_C": "Reconstructed annotations from legacy archives with documented lineage. (TRAIN eligible only)",
+      "TIER_D": "Weakly supervised, bounding box only, or unverified model pseudo-labels. (STRICTLY QUARANTINED)"
+    },
+    "technical_raster_checks": [
+      "Valid GeoTIFF raster format readable by GDAL / rasterio",
+      "Single-band float32 or uint16 matching expected dimensions",
+      "Zero NaN, Inf, or negative non-fill pixels in imagery",
+      "NoData / out-of-swath pixels correctly masked to 0 / ignore_index",
+      "Mask pixel dimensions strictly match image dimensions (256x256)",
+      "All mask values in range [0, 11] or equal to ignore_index (-100)",
+      "Source SHA256 and derived SHA256 cryptographically verified"
+    ]
+  },
+  "stop_and_quarantine_conditions": [
+    "Discovery of ambiguous or unverifiable parent scene provenance.",
+    "Spatial overlap > 5% between a candidate scene and any existing DEV or HOLDOUT parent.",
+    "Conflation of mineral oil spills with biogenic slicks or ocean fronts.",
+    "Annotation tier dropping to Tier D.",
+    "Loss of raw Level-1 product traceability."
+  ],
+  "brute_force_vs_optimization_policy": {
+    "brute_force_mandatory": [
+      "Pairwise SHA256 hash collision checking across all image and mask files.",
+      "Exact product identifier string comparison against all historical OPS-01 products.",
+      "100% verification of technical raster QC constraints on every single candidate tile."
+    ],
+    "safe_optimization_allowed": [
+      "Spatial overlap checking: Use bounding box R-tree spatial indexing / geospatial blocking to prune candidate pairs before executing full O(N^2) polygon intersection geometry.",
+      "Proof of safety: A minimum bounding box (MBB) filter is guaranteed to contain no false negatives; any pair whose MBBs do not intersect cannot have polygon intersection."
+    ]
+  },
+  "pipeline_stages": [
+    "1. SOURCE_DISCOVERY",
+    "2. SOURCE_AUTHORITY_VERIFICATION",
+    "3. PARENT_SCENE_IDENTIFICATION",
+    "4. METADATA_EXTRACTION_AND_NORMALIZATION",
+    "5. GEOGRAPHIC_AND_TEMPORAL_STANDARDIZATION",
+    "6. TAXONOMY_AND_CLASS_MAPPING",
+    "7. DUPLICATION_AND_DEPENDENCY_AUDIT",
+    "8. PARTITION_ASSIGNMENT_AT_PARENT_LEVEL",
+    "9. RAW_IMAGERY_MATERIALIZATION",
+    "10. TECHNICAL_RASTER_AND_MASK_QC",
+    "11. SPATIAL_TILING_AND_DERIVATION",
+    "12. CRYPTOGRAPHIC_HASHING",
+    "13. MANIFEST_COMPILATION",
+    "14. FIREWALL_AND_LEAKAGE_AUDIT",
+    "15. CAMPAIGN_FREEZE_AND_SIGN_OFF"
+  ],
+  "governance_status": "LOCKED_NO_TRAINING_AUTHORIZATION"
+}

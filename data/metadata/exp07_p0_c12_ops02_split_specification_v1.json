@@ -1,0 +1,53 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C12",
+  "title": "OPS-02 Dataset Split Specification and Leakage Firewall Architecture",
+  "created_at": "2026-09-14T01:42:45Z",
+  "partition_architecture": {
+    "unit_of_partitioning": "INDEPENDENT_PARENT_SCENE_CLUSTER",
+    "rule_of_partitioning": "Splitting occurs strictly at the parent scene / acquisition cluster level BEFORE any spatial tiling, patch extraction, or preprocessing. Zero cross-partition tile assignment from the same parent is permitted.",
+    "partitions": {
+      "TRAIN": {
+        "purpose": "Representation learning, gradient optimization, and feature representation discovery.",
+        "target_share_parents": "60% - 70%",
+        "access_level": "FULL_ACCESS"
+      },
+      "DEV": {
+        "purpose": "Model checkpoint selection, early stopping, hyperparameter diagnostic validation, and error analysis.",
+        "target_share_parents": "15% - 20%",
+        "access_level": "EVALUATION_ONLY",
+        "parent_independence_constraint": "Must share zero parent scenes, zero related orbital passes, and zero spatial overlap with TRAIN."
+      },
+      "HOLDOUT": {
+        "purpose": "Final, uncompromised benchmark evaluation of operational generalization.",
+        "target_share_parents": "15% - 20%",
+        "access_level": "CRYPTOGRAPHICALLY_QUARANTINED",
+        "firewall_rules": [
+          "Zero access during exploratory data analysis (EDA).",
+          "Zero access for class weight calculation, anchor selection, or loss balancing.",
+          "Zero access for threshold tuning or post-processing calibration.",
+          "Zero access for model architecture selection or hyperparameter tuning.",
+          "Any evaluation on HOLDOUT requires a formal pre-registered evaluation protocol signed off in advance."
+        ]
+      }
+    }
+  },
+  "leakage_firewall_mechanisms": {
+    "spatial_leakage_defense": {
+      "parent_disjointness": "No two tiles from the same parent scene or along-track pass may reside in different partitions.",
+      "buffer_zone": "For repeat-pass acquisitions covering adjacent waters, a minimum spatial buffer of 50 km between centroids is required for cross-partition assignment.",
+      "stationary_feature_masking": "Fixed infrastructure (rigs, wind farms, coastlines) must not be present in both TRAIN and evaluation splits without strict geographic partitioning."
+    },
+    "temporal_leakage_defense": {
+      "time_separation": "Repeat acquisitions of the same geographic area must be separated by >= 30 days and verified for independent synoptic wind/wave conditions before being assigned across TRAIN and DEV."
+    },
+    "derivation_leakage_defense": {
+      "reprocessed_products": "Different processing versions (e.g. IPF 2.x vs IPF 3.x) of the same physical acquisition must be identified by raw datatake ID and locked to the same partition.",
+      "multi_annotation_merging": "If multiple annotation sets exist for a single scene, they must be merged into a unified mask prior to partitioning, never split across partitions."
+    }
+  },
+  "quarantine_and_audit": {
+    "firewall_guardrail": "Automated regression tests in CI must assert set_intersection(TRAIN_parents, DEV_parents) == empty and set_intersection(TRAIN_parents, HOLDOUT_parents) == empty and set_intersection(DEV_parents, HOLDOUT_parents) == empty.",
+    "failure_action": "Any detected parent overlap immediately triggers dataset invalidation and quarantine."
+  }
+}

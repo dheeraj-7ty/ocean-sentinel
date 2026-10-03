@@ -1,0 +1,42 @@
+{
+  "metadata_version": "1.0.0",
+  "generated_at": "2026-09-13T10:51:41.443585+00:00",
+  "phase": "PHASE_8_P3",
+  "step": "STEP_11_HOLDOUT_EPISTEMIC_STATUS",
+  "holdout_status": "HOLDOUT_PARTIALLY_USED_FOR_SELECTION",
+  "holdout_sample_count": 36,
+  "holdout_parent_count": 8,
+  "selection_influence": [
+    "Holdout parent scenes were selected from the Li catalog with class coverage criteria awareness",
+    "Targeted gap-closure recovery (C1) explicitly included HOLDOUT parents to satisfy LWA >= 2 parents criterion",
+    "At least one HOLDOUT parent was selected specifically to achieve multi-parent coverage for LWA",
+    "Additional HOLDOUT parents were added during C1 to satisfy >= 30 samples criterion"
+  ],
+  "what_holdout_can_support": [
+    "Partially blinded performance estimate under the specific selection protocol",
+    "Comparison of model variants where selection bias affects both equally",
+    "Identifying gross failure modes and threshold sensitivity"
+  ],
+  "what_holdout_cannot_support": [
+    "Fully blind benchmark evaluation",
+    "Unbiased estimate of generalization to unseen ocean environments",
+    "Publication-grade scientific benchmark claim",
+    "Claim of statistical independence from training data selection"
+  ],
+  "prohibited_descriptions": [
+    "pristine holdout",
+    "untouched benchmark",
+    "fully blind test set",
+    "unbiased benchmark",
+    "independent evaluation set"
+  ],
+  "recommended_future_actions": [
+    "For publication-grade evaluation: acquire a completely new dataset not used in any design decision",
+    "Current HOLDOUT appropriate for: development-phase evaluation, ablation studies, model selection among candidates",
+    "Current DEV appropriate for: hyperparameter tuning, threshold selection, validation during training",
+    "Part-III (Trujillo): independent benchmark for post-hoc evaluation if protocols are satisfied"
+  ],
+  "disclosure_present_in_manifest": false,
+  "disclosure_present_in_sufficiency_v4": true,
+  "verdict": "DISCLOSURE_VERIFIED"
+}

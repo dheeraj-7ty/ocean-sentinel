@@ -1,0 +1,727 @@
+{
+  "incidents": [
+    {
+      "incident_id": "INC-P3-C1-001",
+      "task_id": "PHASE_8_P3_C1",
+      "title": "Authoritative P2-R2-C2 artifacts mutated in place during P3 without successor versioning",
+      "failure_class": "ARTIFACT-INTEGRITY",
+      "description": "Artifact SHA256 hashes diverged from historical inventory records, creating version ambiguity.",
+      "root_cause": "P3 guardrail tests failed due to missing top-level disclosure fields; the agent edited existing authoritative artifacts in-place to resolve the failures rather than establishing successor versions.",
+      "impact": "Artifact SHA256 hashes diverged from historical inventory records, creating version ambiguity.",
+      "detection": "",
+      "correction": "Formal version lineage established in ops01_p3_c1_version_lineage_v1.json; clean successor artifacts ops01_physical_dataset_manifest_v4.json and ops01_dataset_sufficiency_v5.json created.",
+      "prevention": "Never modify a closed authoritative artifact in place without an explicit version transition.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-019"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c1_governance_guardrails.py::TestArtifactVersioningLineage::test_manifest_v4_successor_lineage"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C1-002",
+      "task_id": "PHASE_8_P3_C1",
+      "title": "Historical hash recovery executed as unbounded repository scan and became stuck",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Process was interrupted/cancelled by user after context timeout.",
+      "root_cause": "Script crawled all directory trees and large binary files looking for arbitrary hash strings without timeout or scope constraints.",
+      "impact": "Process was interrupted/cancelled by user after context timeout.",
+      "detection": "",
+      "correction": "Replaced with bounded best-effort search targeting authoritative records (found in ops01_p3_artifact_inventory_v1.json within seconds).",
+      "prevention": "Bounded investigation is mandatory. Never launch unbounded recursive searches across the repository.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-021"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c1_governance_guardrails.py::TestInvestigationBounds::test_investigation_bounds_enforced"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C1-003",
+      "task_id": "PHASE_8_P3_C1",
+      "title": "Reproducibility Level B used without formally defined operational criteria",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Risk of overclaiming pipeline reproducibility while DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED was active.",
+      "root_cause": "Assigning a qualitative grade without a formal operational evidence contract.",
+      "impact": "Risk of overclaiming pipeline reproducibility while DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED was active.",
+      "detection": "",
+      "correction": "Created ocean_sentinel_reproducibility_levels_v1.json formally defining Levels 0, A, B, C, D with explicit evidence criteria and boundary prohibitions.",
+      "prevention": "Every reproducibility level must have a precise operational definition and evidence requirement.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-020"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c1_governance_guardrails.py::TestReproducibilityHierarchy::test_reproducibility_levels_specification"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C1-004",
+      "task_id": "PHASE_8_P3_C1",
+      "title": "Part-I SHA discrepancy narrative wording error (7E vs 7F (erroneous 7B character transcription prohibited))",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Minor documentation wording error regarding the 7E vs 7F discrepancy.",
+      "root_cause": "Transcribing typo from prompt/report narrative without verifying exact hash characters.",
+      "impact": "Minor documentation wording error regarding the 7E vs 7F discrepancy.",
+      "detection": "",
+      "correction": "Narrative corrected across telemetry and metadata to 7E vs 7F; regression test added prohibiting 7E vs 7F (erroneous 7B character transcription prohibited).",
+      "prevention": "The correct documented discrepancy is 7E vs 7F (never 7E vs 7F (erroneous 7B character transcription prohibited)). Verify hashes directly from filesystem.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-022"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c1_governance_guardrails.py::TestPartIDiscrepancyWording::test_no_erroneous_7e_vs_7b"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-001",
+      "task_id": "PHASE_8_P3",
+      "title": "Missing permanent epistemic disclosures in manifest_v3 and sufficiency_v4",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "P3 pre-training audit guardrails failed.",
+      "root_cause": "P2-R2-C2 omitted holdout selection disclosure and pilot hypothesis status from top-level metadata.",
+      "impact": "P3 pre-training audit guardrails failed.",
+      "detection": "",
+      "correction": "Incorporated into manifest_v4 and sufficiency_v5 with explicit lineage.",
+      "prevention": "Permanent epistemic disclosures must be present in all authoritative manifests.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-019"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c1_governance_guardrails.py::TestEpistemicDisclosures::test_permanent_disclosures_in_manifest_v4"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-002",
+      "task_id": "PHASE_8_P3",
+      "title": "OPS-01 DataLoader incompatibility with TrujilloTileDataset",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "DataLoader gap must remain open (OPEN-LOADER-001) until EXP-07 protocol is defined.",
+      "root_cause": "TrujilloTileDataset assumed 2-band 512x512 input, while OPS-01 is 1-band 256x256.",
+      "impact": "DataLoader gap must remain open (OPEN-LOADER-001) until EXP-07 protocol is defined.",
+      "detection": "",
+      "correction": "Formally recorded OPEN-LOADER-001 and OPEN-LOADER-CONTRACT-001 without premature loader implementation.",
+      "prevention": "Repository component existence != dataset compatibility.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-015"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c1_governance_guardrails.py::TestDataLoaderGapStatus::test_ops01_loader_not_implemented"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-003",
+      "task_id": "PHASE_8_P3",
+      "title": "OPS-01 raw amplitude DN value domain requires unresolved scientific protocol decision",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Value domain choice must be frozen by experimental protocol before training.",
+      "root_cause": "Tiles are stored as uncalibrated raw amplitude DN, not calibrated sigma0 or dB.",
+      "impact": "Value domain choice must be frozen by experimental protocol before training.",
+      "detection": "",
+      "correction": "Recorded OPEN-PREPROC-001 decision record documenting trade-offs without premature choice.",
+      "prevention": "Value domain (raw DN / dB / sigma0) is an open scientific decision (OPEN-PREPROC-001).",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-025"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c1_governance_guardrails.py::TestPreprocessingDecisionStatus::test_open_preproc_001_unresolved"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P2-C2-001",
+      "task_id": "PHASE_8_P2_R2_C2",
+      "title": "Taxonomy terminology drift in C1 report tables",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "C1 report claimed OF was Class 8 lookalike; MCC was called Microalgae Bloom.",
+      "root_cause": "Human-readable descriptive names used instead of canonical class names.",
+      "impact": "C1 report claimed OF was Class 8 lookalike; MCC was called Microalgae Bloom.",
+      "detection": "",
+      "correction": "Replaced with canonical ops01_taxonomy_v1.json names and added strict guardrail.",
+      "prevention": "Canonical taxonomy file (ops01_taxonomy_v1.json) is the absolute semantic authority.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-010"
+      ],
+      "tests_created": [
+        "test_phase_8_p2_r2_c2_guardrails.py::test_canonical_taxonomy_no_drift"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P2-C1-001",
+      "task_id": "PHASE_8_P2_R2_C1",
+      "title": "LWA evaluated as sufficient with only 1 independent parent scene",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "OPS-01 candidate was non-compliant with diversity contract.",
+      "root_cause": "Sufficiency evaluated by class presence in tiles rather than parent scene diversity.",
+      "impact": "OPS-01 candidate was non-compliant with diversity contract.",
+      "detection": "",
+      "correction": "Ingested 2 additional Sentinel-1 IW scenes containing LWA to reach 3 independent parents.",
+      "prevention": "Never evaluate a criterion by class presence; evaluate literal contractual conditions.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-001"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_pretraining_audit_guardrails.py::TestDiversityCoverageAudit::test_lwa_minimum_parents"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C2-001",
+      "task_id": "PHASE_8_P3_C2",
+      "title": "Overstated pre-P3 unchanged claims where direct before/after evidence was not demonstrated",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Epistemic overclaim of PROVEN_UNCHANGED without direct pre-P3 binary comparison.",
+      "root_cause": "Conflating current filesystem hash matching with proof of historical byte-level equality when pre-P3 manifest JSON had been mutated in-place.",
+      "impact": "Epistemic overclaim of PROVEN_UNCHANGED without direct pre-P3 binary comparison.",
+      "detection": "",
+      "correction": "Re-evaluated all claims in ops01_p3_c2_evidence_boundary_reconciliation_v1.json; used STRONGLY_SUPPORTED and PHYSICAL FILE CONTENT CURRENTLY VERIFIED.",
+      "prevention": "Never promote current-state consistency into historical-state equality. Use PROVEN only when direct before/after evidence exists.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-027"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestEvidenceBoundaryAndProvenClaims"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C2-002",
+      "task_id": "PHASE_8_P3_C2",
+      "title": "Git state interpretation risked repeating '0 staged = clean' error without complete porcelain evaluation",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Violation of fundamental governance rule GOV-RULE-018.",
+      "root_cause": "Reporting 'working tree clean' based on 0 staged mutations while ignoring tracked modified files and untracked artifacts.",
+      "impact": "Violation of fundamental governance rule GOV-RULE-018.",
+      "detection": "",
+      "correction": "Executed complete 4-command git inspection in ops01_p3_c2_git_state_audit_v1.json; explicitly classified working tree as NOT_CLEAN due to untracked files and tracked modifications.",
+      "prevention": "0 staged != clean. The full working tree state must always be reported from git status --porcelain -uall.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-018"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestGitStateAuthoritativeAudit"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C2-003",
+      "task_id": "PHASE_8_P3_C2",
+      "title": "Canonical taxonomy wording in governance layer used shortened class name for HM",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Taxonomy terminology drift within the governance rules themselves.",
+      "root_cause": "Informally shortening 'Artificial / Anthropogenic Objects' to 'Anthropogenic Objects' in governance text.",
+      "impact": "Taxonomy terminology drift within the governance rules themselves.",
+      "detection": "",
+      "correction": "Audited against ops01_taxonomy_v1.json; corrected all occurrences to exact canonical class_name 'Artificial / Anthropogenic Objects'.",
+      "prevention": "Canonical class names must strictly match ops01_taxonomy_v1.json. Shortened or informal synonyms are strictly prohibited.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-010"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestCanonicalTaxonomyExactness"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C2-004",
+      "task_id": "PHASE_8_P3_C2",
+      "title": "Reproducibility Level B required narrower operational semantic wording",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Potential overclaim regarding pipeline reconstruction or source reproducibility.",
+      "root_cause": "Broad phrasing at risk of being casually interpreted as 'OPS-01 dataset is fully reproducible'.",
+      "impact": "Potential overclaim regarding pipeline reconstruction or source reproducibility.",
+      "detection": "",
+      "correction": "Narrowed canonical operational statement in ops01_p3_c2_reproducibility_language_audit_v1.json to 'OPS-01 verification artifacts satisfy Level B deterministic verification reproducibility'.",
+      "prevention": "Level B applies strictly to deterministic audit verification of stored files, never to pipeline or source reconstruction.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-020"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c2_final_closure_guardrails.py::TestReproducibilityLanguageExactness"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C3-001",
+      "task_id": "PHASE_8_P3_C3",
+      "title": "Source Control noise caused by large untracked generated/scientific artifact population",
+      "failure_class": "ARTIFACT-INTEGRITY",
+      "description": "Source Control panel flooded with 2,230 untracked files, masking meaningful project modifications.",
+      "root_cause": "Phase 6 external evaluation prediction payloads (1,800 .npz/.json files, 11.9 GB) and OPS-01 masks were left unignored without an explicit data tracking policy.",
+      "impact": "Source Control panel flooded with 2,230 untracked files, masking meaningful project modifications.",
+      "detection": "",
+      "correction": "Formulated ops01_p3_c3_data_tracking_policy_v1.json and added narrow .gitignore rules for Phase 6 evaluation payloads and OPS-01 masks without deleting any files.",
+      "prevention": "Generated artifacts must have an explicit retention policy: tracked, ignored-retained, externally reproducible, or temporary.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-040"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestGitIgnorePolicyAndNoiseReduction"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C3-002",
+      "task_id": "PHASE_8_P3_C3",
+      "title": "Risk of solving Source Control cleanliness through destructive deletion",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Would result in irreversible destruction of physical dataset masks, candidate evaluation records, or evaluation payloads.",
+      "root_cause": "Common operator/agent urge to achieve a 'clean' Git status by running git clean -fd or deleting untracked files.",
+      "impact": "Would result in irreversible destruction of physical dataset masks, candidate evaluation records, or evaluation payloads.",
+      "detection": "",
+      "correction": "Enacted GOV-RULE-031 and GOV-RULE-032 strictly prohibiting deletion of untracked files for hygiene purposes.",
+      "prevention": "Repository hygiene must never be achieved through deletion of scientific evidence or untracked artifacts.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-031"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestSafetyAndNoDeletion"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C3-003",
+      "task_id": "PHASE_8_P3_C3",
+      "title": "Risk of .gitignore hiding authoritative scientific artifacts",
+      "failure_class": "ARTIFACT-INTEGRITY",
+      "description": "Authoritative files like best_model.pt or metadata manifests become invisible and un-auditable.",
+      "root_cause": "Blanket ignore rules (e.g. data/, experiments/, *.pt) risk hiding critical manifests, governance rules, and model checkpoints from version control.",
+      "impact": "Authoritative files like best_model.pt or metadata manifests become invisible and un-auditable.",
+      "detection": "",
+      "correction": "Established protected artifact allowlist audit in ops01_p3_c3_gitignore_audit_v1.json and ops01_p3_c3_ignore_regression_audit_v1.json.",
+      "prevention": ".gitignore must never hide authoritative scientific artifacts; protected allowlist verification is mandatory.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-034"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestProtectedArtifactsUnignored"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C3-004",
+      "task_id": "PHASE_8_P3_C3",
+      "title": "Need for every AG task to self-audit and self-repair its own side effects",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Accumulation of subtle discrepancies across prompt boundaries.",
+      "root_cause": "Prior agent tasks completed execution leaving minor assertion discrepancies or side effects that required follow-on corrective phases (C1, C2, C3).",
+      "impact": "Accumulation of subtle discrepancies across prompt boundaries.",
+      "detection": "",
+      "correction": "Instituted mandatory 7-step self-healing lifecycle codified in GOV-RULE-037 and GOV-RULE-038.",
+      "prevention": "Every state-mutating task must audit, discover, and repair its own side effects before declaring COMPLETE.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-037"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c3_source_control_guardrails.py::TestSelfHealingGovernance"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C5-001",
+      "task_id": "PHASE_8_P3_C5",
+      "title": "Conflation of historical UI snapshot with final post-phase Git state",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "Apparent mismatch between intermediate baseline (288), pre-C4 UI snapshot (291 = 2+289), and final post-C4 Git state (293 = 2+291).",
+      "root_cause": "Measuring Git counts at an intermediate stage (e.g. baseline or pre-report capture) and using that intermediate count in executive summaries after new artifacts (reports, tests) were generated.",
+      "impact": "Apparent mismatch between intermediate baseline (288), pre-C4 UI snapshot (291 = 2+289), and final post-C4 Git state (293 = 2+291).",
+      "detection": "",
+      "correction": "Enacted GOV-RULE-041 requiring final Git inspections to be measured strictly after all phase artifacts are authored, distinguishing intermediate states from final truth.",
+      "prevention": "Every final repository-state claim must be measured after all artifacts for that phase are created: INTERMEDIATE GIT STATE != FINAL GIT STATE; HISTORICAL UI COUNT != CURRENT FILESYSTEM TRUTH.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-041"
+      ],
+      "tests_created": [
+        "test_phase_8_p3_c5_final_source_control_self_consistency.py::TestTimelineAndGitIntegrity"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P3-C6-001",
+      "task_id": "PHASE_8_P3_C6",
+      "title": "C5 timeline omitted phase-created telemetry artifact from final count reconciliation",
+      "failure_class": "ARTIFACT-INTEGRITY",
+      "description": "Discrepancy between the list of newly created artifacts and the Git untracked delta (+2 vs +3 files), leading to ambiguity in post-C5 Git accounting.",
+      "root_cause": "C5 execution created scratch/phase_8_p3_c5_run_state.json as an artifact but omitted it from the timeline enumeration, creating ambiguity as to whether it was an untracked Git-visible artifact or an ignored artifact.",
+      "impact": "Discrepancy between the list of newly created artifacts and the Git untracked delta (+2 vs +3 files), leading to ambiguity in post-C5 Git accounting.",
+      "detection": "",
+      "correction": "Classified scratch/ telemetry as IGNORED_ARTIFACT per .gitignore:50:scratch/ (+0 Git porcelain impact), updated C5 report and telemetry, enacted GOV-RULE-042 through GOV-RULE-045.",
+      "prevention": "A phase-created telemetry file is itself part of the repository-state timeline if Git-visible, and must be explicitly classified if ignored.",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [
+        "GOV-RULE-043"
+      ],
+      "tests_created": [
+        "tests/test_phase_8_p3_c6_final_artifact_count_guardrails.py::TestTimelineAndTelemetryAccounting::test_c5_telemetry_classified_and_accounted"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C2-001",
+      "task_id": "EXP-07-P0-C1",
+      "title": "P0-C1 declared calibration infeasible without searching for external metadata recovery",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Failure to distinguish between local artifact absence and general metadata absence",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C2-002",
+      "task_id": "EXP-07-P0-C1",
+      "title": "LUT smoothness used as sole proof that block-mean calibration is equivalent to pixel-level calibration",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Incomplete decomposition of approximation error into independent sources",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C2-003",
+      "task_id": "EXP-07-P0",
+      "title": "P0 claimed supervised segmentation constitutes representation learning without additional evidence",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Conflation of supervised task optimization with representation learning",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C3-001",
+      "task_id": "EXP-07-P0-C2",
+      "title": "Theoretical calibration nonlinearity required empirical validation across stratified parent products",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Relying on theoretical speckle models without empirical verification against parent measurement TIFFs",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C3-002",
+      "task_id": "EXP-07-P0-C2",
+      "title": "Uncapped median-frequency loss combined with class-presence sampler risks severe double-correction gradient explosion",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Analyzing loss weighting and sampler strategies in isolation without evaluating compound multiplier interactions",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C5-001",
+      "task_id": "EXP-07-P0-C4",
+      "title": "Conflation of effective optimization batch size with BatchNorm statistical batch size",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Conflating optimizer optimization batch size with neural network layer-level statistical evaluation windows",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C6-001",
+      "task_id": "EXP-07-P0-C5",
+      "title": "Runtime input domain terminology mismatch (uncalibrated aggregated DN vs calibration pathway)",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Describing the input domain using the name of the upstream validation study rather than the literal mathematical operations performed on model inputs",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C9-001",
+      "task_id": "EXP-07-P0-C8",
+      "title": "Candidate F Hybrid Sampler prose description contradiction in C8 reporting (50/50 narrative vs 70/30 code and config)",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Agent narrative hallucinated an informal 50/50 heuristic phrase in chat response text instead of directly transcribing the authoritative machine-readable configuration metadata.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C11-001",
+      "task_id": "EXP-07-P0-C10",
+      "title": "Model parameter count reporting discrepancy in C10 report (14,328,268 reported vs 14,310,860 actual)",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Typographical transcription error in report markdown; prose numbers were not directly validated against module parameter introspection.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C11-002",
+      "task_id": "EXP-07-P0-C10",
+      "title": "Taxonomy abbreviation drift: Class 6 (Ocean Front) described as 'Oil Film' and Class 13 renamed to 'Ship'",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Agent narrative hallucinated domain interpretations for abbreviations without checking ops01_taxonomy_v1.json and violated GOV-RULE-011 and hm_naming_rule.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C11-003",
+      "task_id": "EXP-07-P0-C10",
+      "title": "Sensor physical modality hallucination: SAR radar backscatter cross-section described as 'acoustic'",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Linguistic drift in narrative generation conflating underwater acoustic sensing with spaceborne radar remote sensing.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C11-004",
+      "task_id": "EXP-07-P0-C10",
+      "title": "Causal attribution overclaims from observational multi-seed recurrence",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Confusing empirical reproducibility across seeds with causal mechanism proof.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C12-001",
+      "task_id": "EXP-07-P0-C11",
+      "title": "Dense Class Index vs Source Label ID conflation in C11 report ('Class 6 (OF)' instead of Dense 5 / Source 6)",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Informal prose referencing source label index as model class index without distinguishing indexing spaces.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C12-002",
+      "task_id": "EXP-07-P0-C11",
+      "title": "SAR physical sensor measurement vs runtime uncalibrated DN representation conflation",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Imprecise physics terminology in reporting layer failing to distinguish raw detected DN from radiometrically calibrated sigma0.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-P0-C13-001",
+      "task_id": "EXP-07-P0-C13",
+      "title": "Pseudo-replication risk: Along-track consecutive Sentinel-1 slices mistaken for independent parent scenes",
+      "failure_class": "DATA-INTEGRITY",
+      "description": "",
+      "root_cause": "Relying on slice-level file naming rather than mission datatake ID and zero-Doppler along-track timing.",
+      "impact": "",
+      "detection": "",
+      "correction": "",
+      "prevention": "",
+      "evidence": "",
+      "lessons_created": [],
+      "rules_created": [],
+      "tests_created": [],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-DIAG05-001",
+      "task_id": "EXP-07-P0-DIAG-05-TIER1-STATIC-GRADIENT-PROFILING",
+      "title": "Tile 22 admitted to H2 population despite zero post-validity rare support",
+      "failure_class": "POPULATION-CONSTRUCTION",
+      "description": "Pre-validity census evaluated class support on raw disk mask, admitting Tile ...-001-22 whose 119 rare pixels were entirely located in sensor border nodata.",
+      "root_cause": "Decoupling pre-execution census query from SAR sensor validity masking (compute_validity_mask).",
+      "impact": "Tile produced zero subgradient and cosine = 0.0 in H2 runner; population construction defect.",
+      "detection": "Deterministic post-validity support census script.",
+      "correction": "Excluded Tile 22 from H2 inference; retained 27 valid tiles across 15 clusters.",
+      "prevention": "GOV-RULE-129: Sample eligibility must be evaluated after all validity masking transformations.",
+      "evidence": "data/ops02/audits/diag05_tier1_corrected_h2_eligibility_census_v1.json",
+      "lessons_created": [
+        "LL-DIAG05-EXEC-001"
+      ],
+      "rules_created": [
+        "GOV-RULE-129"
+      ],
+      "tests_created": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py::test_diag05_post_validity_support_census_guardrail"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-DIAG05-002",
+      "task_id": "EXP-07-P0-DIAG-05-TIER1-STATIC-GRADIENT-PROFILING",
+      "title": "SciPy Wilcoxon default parameter mismatch (exact permutation vs asymptotic metadata)",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "description": "Runner called wilcoxon without method='asymptotic', defaulting to exact permutation (p=0.1514) while artifact metadata declared asymptotic inference (p=0.1475).",
+      "root_cause": "SciPy 1.15.3 defaults to method='exact' when N <= 50; caller did not explicitly bind method argument.",
+      "impact": "Discrepancy between stated statistical distribution and executed mathematical value in artifact metadata.",
+      "detection": "Forensic recalculation comparing asymptotic with exact permutation distributions.",
+      "correction": "Separated asymptotic and exact distributions in corrected artifact diag05_tier1_corrected_h2_paired_inference_v1.json.",
+      "prevention": "GOV-RULE-130: Explicitly bind method argument in code and derive artifact metadata directly from execution.",
+      "evidence": "data/ops02/audits/diag05_tier1_corrected_h2_paired_inference_v1.json",
+      "lessons_created": [
+        "LL-DIAG05-EXEC-002"
+      ],
+      "rules_created": [
+        "GOV-RULE-130"
+      ],
+      "tests_created": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py::test_diag05_statistical_method_binding_guardrail"
+      ],
+      "timestamp": ""
+    },
+    {
+      "incident_id": "INC-DIAG05-003",
+      "task_id": "EXP-07-P0-DIAG-05-TIER1-STATIC-GRADIENT-PROFILING",
+      "title": "Epistemic overclaim of 'intrinsic' gradient orientation and zero effect",
+      "failure_class": "P-VALUE-OVERINTERPRETATION",
+      "description": "Initial reporting characterized negative cosine as an 'intrinsic structural characteristic' across domains and equated p > 0.05 with proof of no effect.",
+      "root_cause": "Over-generalizing static Step-0 observation to architecture and inferring dynamic stability from non-significance.",
+      "impact": "Risk of premature authorization of training interventions and uncalibrated scientific claims.",
+      "detection": "Forensic review and preflight causal language audit.",
+      "correction": "Calibrated language to bounded negative Step-0 empirical observation; gated Tier-2 as NOT_JUSTIFIED_YET.",
+      "prevention": "GOV-RULE-131: Enforce bounded negative epistemic reporting and prohibit 'intrinsic' generalizations.",
+      "evidence": "experiments/performance/diag05_tier1_corrective_analysis_report_v1.md",
+      "lessons_created": [
+        "LL-DIAG05-EXEC-003"
+      ],
+      "rules_created": [
+        "GOV-RULE-131"
+      ],
+      "tests_created": [
+        "tests/test_exp07_p0_diag05_tier1_forensic_guardrails.py::test_diag05_bounded_negative_interpretation_guardrail"
+      ],
+      "timestamp": ""
+    }
+  ]
+}

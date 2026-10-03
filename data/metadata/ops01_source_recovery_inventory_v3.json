@@ -1,0 +1,913 @@
+{
+  "metadata_version": "3.0.0",
+  "generated_at": "2026-09-13T09:47:02.610124+00:00",
+  "phase": "PHASE_8_P2_R2_C1",
+  "total_attempted_products": 27,
+  "total_recovered_products": 27,
+  "total_failed_products": 0,
+  "parent_scenes": [
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001",
+      "source_product_id": "S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2015/2/20/IW/SV/S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2015/2/20/IW/SV/S1A_IW_GRDH_1SSV_20150220T211700_20150220T211729_004712_005D33_2C05/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          0.1981,
+          2.4166
+        ],
+        "longitude_bounds": [
+          125.233,
+          127.8098
+        ],
+        "center_point": [
+          1.3074,
+          126.5214
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 4,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-7",
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-8",
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-9",
+        "s1a-iw-grd-vv-20150220t211700-20150220t211729-004712-005d33-001-10"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2016/1/11/IW/DV/S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2016/1/11/IW/DV/S1A_IW_GRDH_1SDV_20160111T215627_20160111T215652_009452_00DB41_5652/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          6.989,
+          8.9549
+        ],
+        "longitude_bounds": [
+          116.329,
+          118.8855
+        ],
+        "center_point": [
+          7.972,
+          117.6073
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 5,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-1",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-2",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-4",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-7",
+        "s1a-iw-grd-vv-20160111t215627-20160111t215652-009452-00db41-001-8"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2016/11/30/IW/DV/S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2016/11/30/IW/DV/S1A_IW_GRDH_1SDV_20161130T215635_20161130T215650_014177_016E6A_202D/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          7.6304,
+          8.9515
+        ],
+        "longitude_bounds": [
+          116.4746,
+          118.8856
+        ],
+        "center_point": [
+          8.2909,
+          117.6801
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 1,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20161130t215635-20161130t215650-014177-016e6a-001-2"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2017/1/19/IW/DV/S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2017/1/19/IW/DV/S1A_IW_GRDH_1SDV_20170119T231815_20170119T231843_014907_018531_2242/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          8.9379,
+          11.0354
+        ],
+        "longitude_bounds": [
+          96.1636,
+          98.7459
+        ],
+        "center_point": [
+          9.9867,
+          97.4548
+        ],
+        "ocean_basin": "Indian Ocean / Arabian Sea / Bay of Bengal",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 7,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-39",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-40",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-43",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-55",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-56",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-61",
+        "s1a-iw-grd-vv-20170119t231815-20170119t231843-014907-018531-001-62"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/1/3/IW/DV/S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/1/3/IW/DV/S1A_IW_GRDH_1SDV_20180103T114323_20180103T114348_019990_0220C9_9602/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          6.6219,
+          8.5892
+        ],
+        "longitude_bounds": [
+          96.4665,
+          99.0233
+        ],
+        "center_point": [
+          7.6056,
+          97.7449
+        ],
+        "ocean_basin": "Indian Ocean / Arabian Sea / Bay of Bengal",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "DEV",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 6,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-3",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-18",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-23",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-24",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-27",
+        "s1a-iw-grd-vv-20180103t114323-20180103t114348-019990-0220c9-001-28"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/12/21/IW/DV/S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/12/21/IW/DV/S1A_IW_GRDH_1SDV_20181221T214853_20181221T214918_025129_02C65E_77D6/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          5.8011,
+          7.7735
+        ],
+        "longitude_bounds": [
+          118.1322,
+          120.6989
+        ],
+        "center_point": [
+          6.7873,
+          119.4156
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 4,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-31",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-44",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-45",
+        "s1a-iw-grd-vv-20181221t214853-20181221t214918-025129-02c65e-001-51"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2019/1/9/IW/DV/S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2019/1/9/IW/DV/S1A_IW_GRDH_1SDV_20190109T214157_20190109T214222_025406_02D066_0D36/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          1.0704,
+          3.0517
+        ],
+        "longitude_bounds": [
+          119.232,
+          121.7783
+        ],
+        "center_point": [
+          2.061,
+          120.5052
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 5,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-13",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-14",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-20",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-21",
+        "s1a-iw-grd-vv-20190109t214157-20190109t214222-025406-02d066-001-27"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2020/1/9/IW/DV/S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2020/1/9/IW/DV/S1A_IW_GRDH_1SDV_20200109T214859_20200109T214924_030729_0385EB_75A4/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          5.8012,
+          7.7735
+        ],
+        "longitude_bounds": [
+          118.1318,
+          120.6984
+        ],
+        "center_point": [
+          6.7873,
+          119.4151
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 1,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20200109t214859-20200109t214924-030729-0385eb-001-44"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2021/1/3/IW/DV/S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2021/1/3/IW/DV/S1A_IW_GRDH_1SDV_20210103T214905_20210103T214930_035979_04370E_97FC/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          5.8012,
+          7.7736
+        ],
+        "longitude_bounds": [
+          118.1318,
+          120.6985
+        ],
+        "center_point": [
+          6.7874,
+          119.4152
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "DEV",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 4,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-31",
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-32",
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-38",
+        "s1a-iw-grd-vv-20210103t214905-20210103t214930-035979-04370e-001-45"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/3/IW/DV/S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/3/IW/DV/S1A_IW_GRDH_1SDV_20220103T180152_20220103T180221_041300_04E8C6_FD70/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          34.8136,
+          36.9658
+        ],
+        "longitude_bounds": [
+          -2.1999,
+          1.0391
+        ],
+        "center_point": [
+          35.8897,
+          -0.5804
+        ],
+        "ocean_basin": "Mediterranean Sea",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "DEV",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 2,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001-34",
+        "s1a-iw-grd-vv-20220103t180152-20220103t180221-041300-04e8c6-001-41"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/12/31/IW/DV/S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/12/31/IW/DV/S1A_IW_GRDH_1SDV_20221231T012737_20221231T012804_046569_0594A7_0ED8/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          68.9309,
+          71.0179
+        ],
+        "longitude_bounds": [
+          -125.1214,
+          -117.4605
+        ],
+        "center_point": [
+          69.9744,
+          -121.2909
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "DEV",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 4,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-17",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-18",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-23",
+        "s1a-iw-grd-vv-20221231t012737-20221231t012804-046569-0594a7-001-24"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2023/1/28/IW/DV/S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2023/1/28/IW/DV/S1A_IW_GRDH_1SDV_20230128T173320_20230128T173349_046987_05A2C5_224C/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          67.8189,
+          70.0254
+        ],
+        "longitude_bounds": [
+          -167.6507,
+          -160.3817
+        ],
+        "center_point": [
+          68.9222,
+          -164.0162
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": true,
+      "gap_closure_target": null,
+      "materialized_slices_count": 3,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-58",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-59",
+        "s1a-iw-grd-vv-20230128t173320-20230128t173349-046987-05a2c5-001-60"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220130T191240_20220130T191305_041694_04F5F9_079E",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/30/IW/DV/S1A_IW_GRDH_1SDV_20220130T191240_20220130T191305_041694_04F5F9_079E/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/30/IW/DV/S1A_IW_GRDH_1SDV_20220130T191240_20220130T191305_041694_04F5F9_079E/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          -23.4613,
+          -21.3707
+        ],
+        "longitude_bounds": [
+          152.3522,
+          155.2556
+        ],
+        "center_point": [
+          -22.416,
+          153.8039
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 10,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-1",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-2",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-3",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-4",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-23",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-24",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-28",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-30",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-37",
+        "s1a-iw-grd-vv-20220130t191240-20220130t191305-041694-04f5f9-001-38"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20221031T055705_20221031T055730_045682_057692_B668",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/10/31/IW/DV/S1A_IW_GRDH_1SDV_20221031T055705_20221031T055730_045682_057692_B668/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/10/31/IW/DV/S1A_IW_GRDH_1SDV_20221031T055705_20221031T055730_045682_057692_B668/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          56.9641,
+          58.8828
+        ],
+        "longitude_bounds": [
+          3.2997,
+          8.2171
+        ],
+        "center_point": [
+          57.9235,
+          5.7584
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 12,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-12",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-24",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-29",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-32",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-33",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-34",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-35",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-40",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-43",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-46",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-50",
+        "s1a-iw-grd-vv-20221031t055705-20221031t055730-045682-057692-001-51"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220427T030924_20220427T030949_042953_0520BC_FED4",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/4/27/IW/DV/S1A_IW_GRDH_1SDV_20220427T030924_20220427T030949_042953_0520BC_FED4/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/4/27/IW/DV/S1A_IW_GRDH_1SDV_20220427T030924_20220427T030949_042953_0520BC_FED4/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          -21.5045,
+          -19.4219
+        ],
+        "longitude_bounds": [
+          33.6129,
+          36.477
+        ],
+        "center_point": [
+          -20.4632,
+          35.045
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 7,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001-17",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001-18",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001-21",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001-22",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001-26",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001-27",
+        "s1a-iw-grd-vv-20220427t030924-20220427t030949-042953-0520bc-001-31"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220226T142428_20220226T142453_042085_050380_2F0D",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/2/26/IW/DV/S1A_IW_GRDH_1SDV_20220226T142428_20220226T142453_042085_050380_2F0D/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/2/26/IW/DV/S1A_IW_GRDH_1SDV_20220226T142428_20220226T142453_042085_050380_2F0D/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          36.8756,
+          38.7754
+        ],
+        "longitude_bounds": [
+          -126.7527,
+          -123.5643
+        ],
+        "center_point": [
+          37.8255,
+          -125.1585
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 6,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001-13",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001-21",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001-28",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001-29",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001-35",
+        "s1a-iw-grd-vv-20220226t142428-20220226t142453-042085-050380-001-52"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220201T112322_20220201T112351_041718_04F6CE_F5D9",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/2/1/IW/DV/S1A_IW_GRDH_1SDV_20220201T112322_20220201T112351_041718_04F6CE_F5D9/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/2/1/IW/DV/S1A_IW_GRDH_1SDV_20220201T112322_20220201T112351_041718_04F6CE_F5D9/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          -7.6918,
+          -5.4329
+        ],
+        "longitude_bounds": [
+          103.5297,
+          106.187
+        ],
+        "center_point": [
+          -6.5624,
+          104.8584
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "DEV",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 9,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-4",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-5",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-13",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-20",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-23",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-31",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-32",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-39",
+        "s1a-iw-grd-vv-20220201t112322-20220201t112351-041718-04f6ce-001-40"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20221130T052301_20221130T052326_046119_05855E_C5CD",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/11/30/IW/DV/S1A_IW_GRDH_1SDV_20221130T052301_20221130T052326_046119_05855E_C5CD/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/11/30/IW/DV/S1A_IW_GRDH_1SDV_20221130T052301_20221130T052326_046119_05855E_C5CD/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          1.6469,
+          3.6258
+        ],
+        "longitude_bounds": [
+          4.1698,
+          6.7022
+        ],
+        "center_point": [
+          2.6363,
+          5.436
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "DEV",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 8,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-5",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-11",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-17",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-23",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-36",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-42",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-48",
+        "s1a-iw-grd-vv-20221130t052301-20221130t052326-046119-05855e-001-54"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20180409T114323_20180409T114348_021390_024D30_2B7B",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/4/9/IW/DV/S1A_IW_GRDH_1SDV_20180409T114323_20180409T114348_021390_024D30_2B7B/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/4/9/IW/DV/S1A_IW_GRDH_1SDV_20180409T114323_20180409T114348_021390_024D30_2B7B/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          6.6217,
+          8.5891
+        ],
+        "longitude_bounds": [
+          96.4657,
+          99.0227
+        ],
+        "center_point": [
+          7.6054,
+          97.7442
+        ],
+        "ocean_basin": "Indian Ocean / Arabian Sea / Bay of Bengal",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "DEV",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 6,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001-8",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001-9",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001-10",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001-28",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001-29",
+        "s1a-iw-grd-vv-20180409t114323-20180409t114348-021390-024d30-001-30"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220326T001002_20220326T001027_042485_051115_30E8",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/3/26/IW/DV/S1A_IW_GRDH_1SDV_20220326T001002_20220326T001027_042485_051115_30E8/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/3/26/IW/DV/S1A_IW_GRDH_1SDV_20220326T001002_20220326T001027_042485_051115_30E8/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          27.2175,
+          29.1424
+        ],
+        "longitude_bounds": [
+          -92.9965,
+          -90.0887
+        ],
+        "center_point": [
+          28.18,
+          -91.5426
+        ],
+        "ocean_basin": "Global Oceanic Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 4,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001-2",
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001-15",
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001-20",
+        "s1a-iw-grd-vv-20220326t001002-20220326t001027-042485-051115-001-21"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20221030T111651_20221030T111716_045670_057638_1407",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/10/30/IW/DV/S1A_IW_GRDH_1SDV_20221030T111651_20221030T111716_045670_057638_1407/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/10/30/IW/DV/S1A_IW_GRDH_1SDV_20221030T111651_20221030T111716_045670_057638_1407/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          -2.1148,
+          -0.12
+        ],
+        "longitude_bounds": [
+          104.4485,
+          107.0079
+        ],
+        "center_point": [
+          -1.1174,
+          105.7282
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 3,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001-17",
+        "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001-24",
+        "s1a-iw-grd-vv-20221030t111651-20221030t111716-045670-057638-001-41"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20181010T214830_20181010T214855_024079_02A1C1_BEB0",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/10/10/IW/DV/S1A_IW_GRDH_1SDV_20181010T214830_20181010T214855_024079_02A1C1_BEB0/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2018/10/10/IW/DV/S1A_IW_GRDH_1SDV_20181010T214830_20181010T214855_024079_02A1C1_BEB0/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          7.3135,
+          9.2817
+        ],
+        "longitude_bounds": [
+          118.4358,
+          121.0097
+        ],
+        "center_point": [
+          8.2976,
+          119.7227
+        ],
+        "ocean_basin": "Indo-Pacific / South China Sea / Indonesian Waters",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 6,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001-38",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001-39",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001-45",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001-46",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001-52",
+        "s1a-iw-grd-vv-20181010t214830-20181010t214855-024079-02a1c1-001-53"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220128T011103_20220128T011129_041654_04F498_FCDB",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/28/IW/DV/S1A_IW_GRDH_1SDV_20220128T011103_20220128T011129_041654_04F498_FCDB/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/28/IW/DV/S1A_IW_GRDH_1SDV_20220128T011103_20220128T011129_041654_04F498_FCDB/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          19.6159,
+          21.5899
+        ],
+        "longitude_bounds": [
+          69.3971,
+          72.1351
+        ],
+        "center_point": [
+          20.6029,
+          70.7661
+        ],
+        "ocean_basin": "Indian Ocean / Arabian Sea / Bay of Bengal",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 3,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001-48",
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001-53",
+        "s1a-iw-grd-vv-20220128t011103-20220128t011129-041654-04f498-001-54"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220130T164749_20220130T164814_041693_04F5EC_BC98",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/30/IW/DV/S1A_IW_GRDH_1SDV_20220130T164749_20220130T164814_041693_04F5EC_BC98/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/1/30/IW/DV/S1A_IW_GRDH_1SDV_20220130T164749_20220130T164814_041693_04F5EC_BC98/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          34.9458,
+          36.8629
+        ],
+        "longitude_bounds": [
+          16.3268,
+          19.5416
+        ],
+        "center_point": [
+          35.9043,
+          17.9342
+        ],
+        "ocean_basin": "Mediterranean Sea",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 10,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-19",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-28",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-29",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-30",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-37",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-42",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-43",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-44",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-45",
+        "s1a-iw-grd-vv-20220130t164749-20220130t164814-041693-04f5ec-001-48"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20221029T045229_20221029T045254_045652_057587_B5AE",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/10/29/IW/DV/S1A_IW_GRDH_1SDV_20221029T045229_20221029T045254_045652_057587_B5AE/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/10/29/IW/DV/S1A_IW_GRDH_1SDV_20221029T045229_20221029T045254_045652_057587_B5AE/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          -6.9203,
+          -4.9108
+        ],
+        "longitude_bounds": [
+          10.5365,
+          13.1137
+        ],
+        "center_point": [
+          -5.9156,
+          11.8251
+        ],
+        "ocean_basin": "South Atlantic Ocean",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": false,
+      "gap_closure_target": null,
+      "materialized_slices_count": 1,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20221029t045229-20221029t045254-045652-057587-001-26"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20150222T115957_20150222T120022_004736_005DC4_640F",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2015/2/22/IW/DV/S1A_IW_GRDH_1SDV_20150222T115957_20150222T120022_004736_005DC4_640F/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2015/2/22/IW/DV/S1A_IW_GRDH_1SDV_20150222T115957_20150222T120022_004736_005DC4_640F/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          8.1978,
+          10.1578
+        ],
+        "longitude_bounds": [
+          92.027,
+          94.5765
+        ],
+        "center_point": [
+          9.1778,
+          93.3017
+        ],
+        "ocean_basin": "Indian Ocean / Arabian Sea / Bay of Bengal",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "TRAIN",
+      "is_control": false,
+      "gap_closure_target": "LWA_TRAIN_EXPANSION",
+      "materialized_slices_count": 10,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-2",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-3",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-4",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-27",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-28",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-32",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-33",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-34",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-39",
+        "s1a-iw-grd-vv-20150222t115957-20150222t120022-004736-005dc4-001-40"
+      ]
+    },
+    {
+      "parent_scene_stem": "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001",
+      "source_product_id": "S1A_IW_GRDH_1SDV_20220831T052126_20220831T052151_044792_05595D_744F",
+      "s3_measurement_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/8/31/IW/DV/S1A_IW_GRDH_1SDV_20220831T052126_20220831T052151_044792_05595D_744F/measurement/iw-vv.tiff",
+      "annotation_url": "https://sentinel-s1-l1c.s3.amazonaws.com/GRD/2022/8/31/IW/DV/S1A_IW_GRDH_1SDV_20220831T052126_20220831T052151_044792_05595D_744F/annotation/iw-vv.xml",
+      "geographic_metadata": {
+        "latitude_bounds": [
+          37.1842,
+          39.0982
+        ],
+        "longitude_bounds": [
+          8.9886,
+          12.3028
+        ],
+        "center_point": [
+          38.1412,
+          10.6457
+        ],
+        "ocean_basin": "Mediterranean Sea",
+        "status": "EXTRACTED_FROM_S3_ANNOTATION_XML"
+      },
+      "partition": "HOLDOUT",
+      "is_control": false,
+      "gap_closure_target": "LWA_HOLDOUT_EXPANSION",
+      "materialized_slices_count": 6,
+      "materialized_sample_ids": [
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001-7",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001-8",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001-14",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001-17",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001-19",
+        "s1a-iw-grd-vv-20220831t052126-20220831t052151-044792-05595d-001-25"
+      ]
+    }
+  ]
+}

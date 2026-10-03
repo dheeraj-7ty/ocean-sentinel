@@ -1,0 +1,62 @@
+{
+  "incident_register_id": "EXP07_P0_C19_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C19",
+  "created_at_utc": "2026-09-14T05:52:00Z",
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C18-001",
+      "severity": "HIGH",
+      "title": "C16 Best Epoch Narrative Contradiction",
+      "reported_in_c18": "Section 11 Table & Section 1 stated best DEV mIoU was achieved at epoch 4.",
+      "actual_machine_truth": "Best DEV mIoU was achieved at epoch 17 (0.049399). Early stopping triggered at epoch 27 (17 + 10).",
+      "root_cause": "Typographical transcription error in C18 markdown report compilation.",
+      "resolution": "C19 audited metrics.json line 7, epoch_history.json, and execution logs, restoring epoch 17 as machine truth. Codified under GOV-RULE-097."
+    },
+    {
+      "incident_id": "INC-C18-002",
+      "severity": "CRITICAL",
+      "title": "Optimizer and Training Protocol Hyperparameter Drift in C18 Table",
+      "reported_in_c18": "Section 11 table listed lr=3e-4, wd=1e-4, 20 epochs, accumulation=1, effective_bs=8.",
+      "actual_machine_truth": "C15 frozen protocol and C16 actual execution used lr=5e-4, wd=0.01, 30 epochs budget (3 warmup, 27 decay), accumulation=2, effective_bs=16.",
+      "root_cause": "Template contamination from default unverified hyperparameter drafts in C18 report synthesis.",
+      "resolution": "C19 formally purged the 3e-4 / 1e-4 / 20 epoch / accumulation 1 values and reaffirmed the verified C15 canonical protocol. Codified under GOV-RULE-096 and GOV-RULE-099."
+    },
+    {
+      "incident_id": "INC-C18-003",
+      "severity": "MEDIUM",
+      "title": "Sampler Epoch Seed Formula Truncation",
+      "reported_in_c18": "Section 9 narrative stated seed formula as 'seed + epoch'.",
+      "actual_machine_truth": "Established protocol and actual C16 execution used 'base_seed + epoch * 1000'.",
+      "root_cause": "Omission of the '* 1000' factor in narrative text (despite JSON audit containing the correct formula).",
+      "resolution": "C19 locked the generator formula to 'base_seed + epoch * 1000' across all specifications. Reaffirmed under Level 4 authority."
+    },
+    {
+      "incident_id": "INC-C18-004",
+      "severity": "HIGH",
+      "title": "Canonical Taxonomy Terminology Drift ('AS' and 'Thermal')",
+      "reported_in_c18": "Section 4, 6, 8, 14, 15 introduced 'AS' and 'Thermal' and jumbled class indices.",
+      "actual_machine_truth": "Canonical taxonomy consists strictly of: 0 BG, 1 AF, 2 BS, 3 LWA, 4 MCC, 5 OF, 6 POW, 7 RF, 8 WS, 9 Eddy, 10 IWs, 11 HM.",
+      "root_cause": "Unauthorized synonym substitution and taxonomy reordering in retrospective reporting.",
+      "resolution": "C19 repudiated all occurrences of 'AS' and 'Thermal'. Reaffirmed the 12-class canonical taxonomy under GOV-RULE-095."
+    },
+    {
+      "incident_id": "INC-C18-005",
+      "severity": "HIGH",
+      "title": "Input Tensor Dimensions Stated as [1, 512, 512]",
+      "reported_in_c18": "Section 7 narrative stated model input tensor shape as [1, 512, 512].",
+      "actual_machine_truth": "Physical samples are strictly 256x256; model input contract is [B, 1, 256, 256].",
+      "root_cause": "Copy-paste formatting error from standard UNet documentation.",
+      "resolution": "C19 confirmed 100% of 212 samples are 256x256 and model operates on [B, 1, 256, 256]. Audited in ops02_c19_input_shape_audit_v1.json."
+    },
+    {
+      "incident_id": "INC-C18-006",
+      "severity": "HIGH",
+      "title": "Epistemic Overclaim on Tier-1 Cross-Domain Evaluation",
+      "reported_in_c18": "C18 claimed Tier 1 cross-evaluation would 'directly separate' distribution shift from optimization defect.",
+      "actual_machine_truth": "Cross-domain evaluation across confounded dataset pairs is descriptive evidence only and cannot causally isolate individual mechanisms.",
+      "root_cause": "Inductive leap conflating domain transfer diagnostics with controlled counterfactual ablation.",
+      "resolution": "C19 downgraded Tier 1 cross-evaluation to descriptive transfer evidence. Codified under GOV-RULE-098."
+    }
+  ],
+  "remediation_status": "ALL_SIX_INCIDENTS_RESOLVED_AND_GOVERNED"
+}

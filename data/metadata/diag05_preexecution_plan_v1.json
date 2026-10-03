@@ -1,0 +1,834 @@
+{
+  "plan_metadata": {
+    "plan_version": "1.9.0",
+    "effective_date": "2026-09-15",
+    "task_id": "EXP-07-P0-DIAG-05-FINAL-BATCH-CLUSTER-IDENTIFIABILITY-AUDIT",
+    "investigation_id": "DIAG-05-LOSS-LANDSCAPE-GRADIENT-DYNAMICS",
+    "formal_title": "Loss Landscape & Gradient Dynamics Diagnostic (Batch-to-Cluster Identifiability Audit Edition)",
+    "authoritative_markdown_plan": "docs/diag05_preexecution_audit_and_hardened_plan.md",
+    "governance_standard": "Level 5 Machine-Verifiable Operational Governance",
+    "readiness_verdict": "PLAN_READY_WITH_PREREQUISITES",
+    "execution_authorization": "NOT_GRANTED"
+  },
+  "scientific_specification": {
+    "primary_question": "Across the 12 canonical Ocean Sentinel taxonomy classes on the OPS-02 development dataset using the baseline ResNet18-UNet architecture, does the canonical inverse-frequency class-weighting schedule induce severe Step-0 spatial cross-batch gradient-norm heterogeneity (dispersion across minibatches) or within-batch cross-class gradient direction interference (negative cosine similarity between rare-class masked gradients and dominant-class masked gradients on identical inputs) relative to an unweighted (uniform) control arm under strictly identical minibatch inputs?",
+    "readiness_verdict": "PLAN_READY_WITH_PREREQUISITES",
+    "curvature_scope_disclaimer": "DIAG-05 measures first-order gradient dynamics (layer norms, dispersion, vector cosine angles, and short-horizon trajectory evolution). It does NOT measure second-order loss-landscape curvature, Hessians, or landscape sharpness.",
+    "prior_diagnostics_closure": {
+      "DIAG-01": "COMPLETED_VALID (CASE B: Support-sensitive but valid frozen metric on OPS-02 DEV)",
+      "DIAG-02": "COMPLETED_FORENSICALLY_REPAIRED (Sampler exposure schedule bounded on OPS-02 TRAIN)",
+      "DIAG-03": "COMPLETED (Radiometric discriminability characterized on OPS-02 TRAIN + DEV; 1-D radiometric overlap motivates evaluating spatial context; does not establish sufficiency)",
+      "DIAG-04": "COMPLETED_VALID_RESULT_WITH_INTERPRETATION_CORRECTION (Multi-path skip connections structurally overlap compact and intermediate features; pervasive crop boundary contact >80-98%; does not establish representational adequacy or cause of low mIoU; learned-weight ERF unmeasured)"
+    },
+    "investigation_hypotheses": [
+      {
+        "hypothesis_id": "HYP-01-GRADIENT_NORM_VOLATILITY",
+        "description": "Canonical inverse-frequency class weights induce extreme layer-wise gradient norm dispersion and log-norm ratio shifts across minibatches containing rare vs dominant classes.",
+        "test": "Compute IQR, max-to-median ratio, and log-norm ratios Lambda_l of ||\u2207_\u03b8 L||_2 across minibatches under Control (canonical) vs Treatment (uniform).",
+        "dispersion_metrics": {
+          "primary_robust": "IQR (Interquartile Range of raw ||g_l||_2)",
+          "secondary_tail": "max-to-median ratio (max ||g_l||_2 / median ||g_l||_2)",
+          "prohibited_metric": "Coefficient of Variation (CV = sigma / mu eliminated due to instability from near-zero denominators)"
+        }
+      },
+      {
+        "hypothesis_id": "HYP-02-WITHIN_BATCH_GRADIENT_INTERFERENCE",
+        "description": "Masked gradients computed on dominant classes point in opposing directions (negative cosine similarity) relative to the aggregate rare-core resultant vector within the identical physical minibatch.",
+        "test": "Compute continuous cosine similarity cos(g_rare, g_common) using within-batch counterfactual masking on frozen checkpoints.",
+        "cosine_interpretation": "Designated strictly as opposing gradient direction; claims of destructive interference or optimization failure are prohibited without paired dynamic trajectory evidence."
+      },
+      {
+        "hypothesis_id": "HYP-03-UNIFORM_WEIGHT_GRADIENT_ATTENUATION",
+        "description": "Under unweighted uniform loss, rare-class masked gradients exhibit severe magnitude attenuation relative to dominant-class masked gradients due to pixel volume disparity.",
+        "test": "Quantify ratio of rare-class to common-class gradient norms under uniform weighting."
+      }
+    ],
+    "evidence_levels": {
+      "OBSERVED": "Direct deterministic mathematical measurements: per-layer gradient norms, log-ratios Lambda_l, exact vector cosine similarities on identical batches, finite checks",
+      "SUPPORTED": "Descriptive correspondence backed by multiple replications and non-overlapping bootstrap CIs across parent clusters (K=52) or seeds (n=3)",
+      "PLAUSIBLE": "Mechanistic hypothesis logically consistent with gradient geometry but not definitively established by intervention",
+      "CAUSAL_SHORT_HORIZON_INTERVENTION": "Permitted ONLY for outcomes within the controlled 5-epoch, constant-LR intervention where all other variables are strictly locked",
+      "FULL_CANONICAL_TRAINING_RECOVERY": "STRICTLY PROHIBITED TO CLAIM FROM DIAG-05 DESIGN (extrapolation to 20-epoch production training forbidden)"
+    },
+    "hypothesis_estimand_mapping": {
+      "H1": {
+        "hypothesis_id": "HYP-01-GRADIENT_NORM_VOLATILITY",
+        "scientific_question": "Is canonical inverse-frequency class weighting associated with severe cross-batch gradient norm dispersion across physical minibatches compared to uniform weighting at Step 0 initialization?",
+        "exact_estimand": "Spatial cross-batch heterogeneity of within-batch unclipped gradient norms ||g_{l,b}(theta_0)||_2 across minibatches in Population B (unconditional full-dataset physical census, B_phys=4) at Step 0. Primary robust dispersion metric: raw IQR(||g_{l,b}||_2) within each arm. Secondary comparative metrics: dispersion ratio IQR_canonical / IQR_uniform, secondary tail ratio max-to-median ratio, and paired log-ratio difference Delta log10(IQR) = log10(IQR_canonical) - log10(IQR_uniform) under strict categorical handling for zero denominators. Purely descriptive physical-census profiling across 132 TRAIN tiles / 40 parent clusters; zero formal NHST tests registered.",
+        "exact_measurement": "For each stage-representative layer l and global parameters theta, compute within-batch unclipped gradient norm IQR({||g_{l,b}^{canonical}(theta_0)||_2}_b) / IQR({||g_{l,b}^{uniform}(theta_0)||_2}_b) and [max_b ||g_{l,b}^{canonical}||_2 / median_b ||g_{l,b}^{canonical}||_2] / [max_b ||g_{l,b}^{uniform}||_2 / median_b ||g_{l,b}^{uniform}||_2]. Terminology note: designated strictly as within-batch unclipped gradient norm; the word 'accumulated' is reserved exclusively for Tier 2 optimizer boundaries. Purely descriptive census evaluation.",
+        "allowable_conclusion": "If canonical weighting produces substantially elevated IQR or max/median ratios, we conclude that canonical weighting induces higher instantaneous spatial cross-batch gradient heterogeneity across minibatches at Step 0 initialization. We CANNOT conclude from H1 alone that this causes temporal training volatility, iteration-to-iteration instability, or optimizer divergence without Tier 2 trajectory evidence. Prohibit making formal NHST claims on H1 physical census data.",
+        "scope_boundary": "Measures spatial cross-batch heterogeneity across scenes at Step 0 initialization. Prohibits claiming temporal training volatility, iteration-to-iteration instability, or training divergence.",
+        "zero_denominator_policy": {
+          "FINITE_RATIO": "Evaluated when IQR_uniform > 0 and IQR_canonical > 0.",
+          "UNDEFINED_ZERO_DENOMINATOR": "Categorically censored when IQR_uniform == 0 and IQR_canonical > 0.",
+          "BOTH_IQR_ZERO": "Categorically censored when IQR_uniform == 0 and IQR_canonical == 0.",
+          "NONFINITE": "Categorically flagged if any computation yields non-finite values.",
+          "NEAR_ZERO_FLAG": "Flagged as NEAR_ZERO_HIGH_VARIANCE_DENOMINATOR if 0 < IQR_uniform < 1e-7.",
+          "prohibition": "Zero artificial epsilon regularizers added to denominators."
+        }
+      },
+      "H2": {
+        "hypothesis_id": "HYP-02-WITHIN_BATCH_GRADIENT_INTERFERENCE",
+        "scientific_question": "Do masked gradient contributions from the rare-core classes (M_rare) exhibit opposing directional geometry relative to the aggregate common-class resultant (M_common) within co-occurring minibatches, and does canonical weighting alter this directional alignment?",
+        "exact_estimand": "Continuous cosine similarity distribution S_cos(g_rare, g_common) = <g_rare, g_common> / (||g_rare||_2 ||g_common||_2) evaluated on within-batch masked gradient contributions from cluster-pure dual-supported physical observations (Population A, B_phys=1 individual tile or cluster-pure batch <= 4 tiles, LL-DIAG05-PLAN-024), evaluated under canonical weights and counterfactually under uniform weights on identical inputs and parameters theta_0. Explicitly, H2 is a Step-0 directional-gradient diagnostic that prevents multi-cluster batch mixing and does NOT reproduce the optimizer accumulation boundary.",
+        "exact_measurement": "Continuous empirical distribution of masked gradient contributions cos(g_{rare,i}, g_{common,i}) evaluated on cluster-pure dual-supported physical observations (Population A) on identical inputs X, Y and weights theta_0 for global theta and stage-representative layers l. Statistical unit structure: (1) Raw descriptive unit is the cluster-pure physical observation; (2) Primary independence unit is the parent acquisition mission datatake cluster; (3) Inferential unit is the paired parent-cluster median summary. Multi-cluster batch mixing is prohibited (LL-DIAG05-PLAN-024). Formal paired inference uses Wilcoxon signed-rank test on matched cluster-level paired median differences Delta cos_k = median_{i in T_k}(cos(canonical, i)) - median_{i in T_k}(cos(uniform, i)). Zero-difference handling: pairs with Delta cos_k == 0 are handled per standard Wilcoxon policy (zero_method='wilcox'), with n_paired, n_zero, and n_effective = n_paired - n_zero explicitly recorded in audit JSON rather than silently dropped. Tie handling: ties in |Delta cos_k| receive average ranks, evaluating p-values with continuity-corrected tie adjustment (or exact permutations over tied ranks). Only matched clusters with valid dual-support observations in both arms enter paired inference; unmatched clusters are reported and excluded (UNMATCHED_CLUSTER_EXCLUDED). Confirmatory inference is restricted to the primary global full-network contrast; stage/layer-representative targets are secondary descriptive diagnostics without multiplicity inflation.",
+        "allowable_conclusion": "If the paired cluster-level contrast Delta cos_k exhibits a consistent shift or if cos(g_rare, g_common) < 0 across a substantial proportion of parent clusters, conclude that rare and aggregate-common gradient contributions exhibit an opposing gradient direction in parameter space at Step 0 initialization across independent parent clusters; cannot conclude destructive interference or optimization failure. Prohibit claiming destructive interference, optimization failure, or treating multiple batches from the same cluster as independent observations (pseudo-replication)."
+      },
+      "H3": {
+        "hypothesis_id": "HYP-03-UNIFORM_WEIGHT_GRADIENT_ATTENUATION",
+        "scientific_question": "Does changing the loss weighting intervention from canonical inverse-frequency weights to uniform weights alter short-horizon training dynamics, gradient clipping activation frequency, observed parameter displacement, and early validation performance?",
+        "exact_estimand": "Trajectory contrast between canonical-weighted and uniform-weighted models across 5 epochs under Candidate F sampling protocol with fixed learning rate (eta = 2e-4), evaluated across 3 paired random seeds (seeds 42, 101, 202). Accumulation across A=2 physical batches (B_phys=8, effective optimizer batch size 16) is evaluated at the optimizer accumulation boundary.",
+        "exact_measurement": "Global gradient clipping activation frequency (I(||g_t^{accum}||_2 > 1.0)) evaluated strictly at optimizer accumulation boundaries, actual observed parameter displacement ||theta_t - theta_{t-1}||_2, training loss trajectory L(t), and end-of-5-epoch validation mIoU on phenomena classes (dev_mIoU_phenomena).",
+        "allowable_conclusion": "If the uniform intervention yields consistent reductions in gradient clipping frequency across seeds, stabilizes observed parameter displacement, and improves dev_mIoU_phenomena, conclude that this supports a causal effect of the loss-weighting intervention on short-horizon optimization behavior under this protocol. Endpoint-specific results must remain separately interpretable (clipping activation, observed parameter displacement, training loss, and DEV mIoU); inferring an unmeasured mechanism merely because multiple endpoints move together is prohibited. If no consistent difference across seeds is observed, conclude that no detectable difference was observed under the 3-seed short-horizon protocol; explicitly acknowledge that this protocol is powered only to observe gross trajectory divergence and cannot rule out moderate or longer-horizon effects. Prohibit claiming absence of effect or rejecting weighting as an optimization bottleneck based on n=3 non-significance.",
+        "paired_seed_structure": "3 paired seed replications (seeds 42, 101, 202) x 2 arms. Within each seed, Control and Treatment share identical initial weights theta_0 and identical Candidate F tile draw sequence, isolating the loss weight vector w. Prohibits claiming 6 independent runs."
+      }
+    }
+  },
+  "within_batch_counterfactual_masking": {
+    "methodological_principle": "Gradients g_rare and g_common are evaluated on the exact same physical input tensor X and target raster Y to isolate loss-gradient dynamics from scene differences.",
+    "primary_authoritative_grouping": {
+      "status": "AUTHORITATIVE_PRIMARY_ESTIMAND",
+      "rare_set": [5, 7, 11],
+      "rare_names": ["OF (5, Oceanic Front)", "RF (7, Rain Footprint)", "HM (11, Human-Made Objects)"],
+      "common_set": [1, 2, 4, 6, 8, 9, 10],
+      "common_names": ["AF (1)", "BS (2)", "MCC (4)", "POW (6)", "WS (8)", "Eddy (9)", "IWs (10)"],
+      "other_set": [0, 3],
+      "other_names": ["BG (0, Background Seawater)", "LWA (3, Low Wind Area)"],
+      "governance_rule": "The 3-way partition (rare {5,7,11}, common {1,2,4,6,8,9,10}, other {0,3}) is the ONE and ONLY primary confirmatory estimand for H2. All other subset combinations (extended rare with BS, dominant with BG, 2-class common subset) are strictly designated as secondary exploratory sensitivity checks and must NEVER replace or dilute the primary H2 question."
+    },
+    "rare_class_sets": {
+      "primary_core": [
+        "OF (5, Oceanic Front)",
+        "RF (7, Rain Footprint)",
+        "HM (11, Human-Made Objects)"
+      ],
+      "extended": [
+        "OF (5, Oceanic Front)",
+        "RF (7, Rain Footprint)",
+        "HM (11, Human-Made Objects)",
+        "BS (2, Biological Slicks)"
+      ]
+    },
+    "dominant_class_sets": {
+      "common_with_background": [
+        "BG (0, Background)",
+        "MCC (4, Mesoscale Cellular Convection)",
+        "IWs (10, Internal Waves)"
+      ],
+      "common_phenomena_only": [
+        "MCC (4, Mesoscale Cellular Convection)",
+        "IWs (10, Internal Waves)"
+      ]
+    },
+    "minimum_pixel_support": {
+      "rare_mask_min_pixels": 16,
+      "common_mask_min_pixels": 64
+    },
+    "dual_support_policy": {
+      "insufficient_support_flag": "INSUFFICIENT_DUAL_SUPPORT",
+      "action": "Exclude from within-batch cosine angle analysis; retain only for single-mask norm profiling."
+    },
+    "dual_population_reporting": {
+      "population_1_co_occurrence": {
+        "description": "Conditional Co-Occurrence Gradient-Geometry Estimand evaluating within-batch cosine alignment strictly on eligible dual-supported minibatches.",
+        "ascertainment_bias_acknowledged": true,
+        "reporting_requirements": [
+          "total_batches_evaluated",
+          "eligible_dual_support_batches",
+          "excluded_batches_count",
+          "exclusion_reasons_breakdown"
+        ],
+        "population_id": "POPULATION_A",
+        "definition": "Eligible dual-supported physical observations containing at least 1 pixel of rare-core classes (M_rare) and at least 1 pixel of common phenomena classes (M_common), evaluated as cluster-pure physical observations (B_phys=1 individual dual-supported tiles, or cluster-pure physical batches containing up to 4 tiles from that single cluster, LL-DIAG05-PLAN-024). Multi-cluster batch mixing is strictly prohibited to guarantee unambiguous 1-to-1 mapping to parent acquisition clusters. Explicitly, Population A operates as a Step-0 directional-gradient diagnostic and does NOT reproduce the optimizer accumulation boundary (A=2 / effective batch 16 is reserved strictly for Tier 2)."
+      },
+      "population_2_unconditional_profile": {
+        "description": "Unconditional layer-wise gradient norm distributions and Log-Norm Ratios Lambda_l evaluated across all 33 minibatches in OPS-02 TRAIN.",
+        "ascertainment_bias_acknowledged": false,
+        "population_id": "POPULATION_B",
+        "definition": "Unconditional full-dataset physical census across all 132 physical TRAIN tiles (33 batches of physical B_phys=4). This is a deterministic physical census, NOT a sample from the Candidate F dynamic class-conditioned sampler."
+      },
+      "census_vs_sampler_rationale": "Option 1 (full-dataset deterministic census) is retained for Tier 1 static profiling because it provides exhaustive, zero-variance geometric coverage of the physical training tiles at Step 0. Tier 2 provides operational Candidate F dynamic sampling."
+    },
+    "population_a_exact_census": {
+      "eligible_tiles_count": 28,
+      "parent_clusters_count": 15,
+      "rare_mask_min_pixels": 16,
+      "common_mask_min_pixels": 64,
+      "raw_observation_unit": "cluster_pure_physical_tile (B_phys=1)",
+      "backward_passes_per_tile": 4,
+      "backward_pass_implementation_rationale": "Four backward passes are the registered execution implementation because the required masked gradient vectors are obtained through independent forward/backward evaluations without retained computation graphs; this avoids the memory and graph-lifetime risks of graph reuse.",
+      "total_h2_backward_passes": 112,
+      "total_h1_backward_passes": 66,
+      "total_deterministic_backward_passes": 178,
+      "hard_authorization_ceiling": 200,
+      "governance_rule": "LL-DIAG05-PLAN-025"
+    },
+    "h2_paired_inference_schema": {
+      "required_fields": [
+        "statistic",
+        "p_value",
+        "n_paired",
+        "n_zero",
+        "n_effective",
+        "method",
+        "alternative",
+        "correction",
+        "zero_method",
+        "tie_handling"
+      ],
+      "strictly_prohibited_fields": [
+        "df",
+        "degrees_of_freedom"
+      ],
+      "mathematical_rationale": "Wilcoxon signed-rank test operates on rank sums W and asymptotic standard normal distribution Z; degrees of freedom is a t/F/chi2 concept and has no mathematical meaning for Wilcoxon signed-rank tests."
+    },
+    "forward_recomputation_invariant": {
+      "method": "DETERMINISTIC_RECOMPUTATION_ON_IDENTICAL_INPUTS",
+      "description": "Model in eval mode; sequential forward passes on identical X and theta with zero_grad() between passes. PyTorch retain_graph=True is prohibited to avoid in-place ReLU mutation errors and memory retention bloat.",
+      "execution_rationale": "Four backward passes are the registered execution implementation because the required masked gradient vectors are obtained through independent forward/backward evaluations without retained computation graphs; this avoids the memory and graph-lifetime risks of graph reuse."
+    },
+    "masked_loss_mathematical_definition": {
+      "formula": "L_masked(B; w) = sum_{i in M, y_i != -100} w_{y_i} * ell(f(X)_i, y_i) / sum_{i in M, y_i != -100} w_{y_i}",
+      "reduction_semantics": "mean",
+      "ignore_index": -100,
+      "class_weights_w_canonical": [
+        0.403935,
+        2.450546,
+        0.876692,
+        0.945945,
+        0.648189,
+        4.211476,
+        0.719641,
+        2.956203,
+        1.064525,
+        1.88287,
+        0.387652,
+        18.243211
+      ],
+      "class_weights_w_uniform": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "weight_provenance": "data/ops02/audits/ops02_c19_loss_weight_canonicalization_v1.json and src/ocean_sentinel/ml/exp07_fingerprint.py::CANONICAL_HISTORICAL_C16_LITERALS",
+      "subgradient_formulation_recommended": {
+        "formula": "g_subset = nabla_theta ( sum_{i in M_subset} w_{y_i} * ell_i / sum_{i in B_valid} w_{y_i} )",
+        "denominator": "Full physical minibatch valid-pixel weight sum D_batch = sum_{i in B_valid} w_{y_i}",
+        "justification": "Preserves linear decomposition g_total = g_rare + g_common + g_other and prevents single-class mask cancellation of class weights."
+      },
+      "isolated_mask_mean_formulation": {
+        "formula": "L_isolated(B; w) = sum_{i in M_subset} w_{y_i} * ell_i / sum_{i in M_subset} w_{y_i}",
+        "warning": "If M_subset contains only one class c, w_c in numerator and denominator cancels out, rendering weighted and unweighted loss mathematically identical."
+      },
+      "partition_condition": "The three class sets M_rare, M_common, and M_other form a mutually exclusive and exhaustive partition of all valid pixels: M_rare cap M_common = emptyset, M_rare cap M_other = emptyset, M_common cap M_other = emptyset, and M_rare cup M_common cup M_other = B_valid. All ignored pixels (y_i == -100) are strictly excluded from all numerators and denominators.",
+      "mathematical_proof_of_subgradient_decomposition": "Let L_batch(X, Y; theta, w) = (1 / D_batch) * sum_{i in B_valid} w_{y_i} * ell_i, where D_batch = sum_{i in B_valid} w_{y_i}. Because D_batch depends strictly on ground-truth labels Y and fixed loss weights w, it is a constant scalar with respect to model parameters theta (nabla_theta D_batch = 0). By linearity of differentiation, nabla_theta L_batch = (1 / D_batch) * sum_{i in B_valid} w_{y_i} * nabla_theta ell_i = sum_k (1 / D_batch) * sum_{i in M_k} w_{y_i} * nabla_theta ell_i = sum_k g_{M_k}. Therefore, g_rare + g_common + g_other = g_total holds identically if and only if all components share the identical full-batch denominator D_batch.",
+      "estimand_distinction": {
+        "estimand_A_contribution": "Masked gradient contribution under the full-batch reduction denominator: g_subset = nabla_theta ( sum_{i in M_subset} w_{y_i} * ell_i / D_batch(w) ). Measures the actual force vector exerted by this subset on the optimizer update step in full-batch training.",
+        "estimand_B_isolated": "Gradient of an isolated loss normalized only on that subset: g_isolated = nabla_theta ( sum_{i in M_subset} w_{y_i} * ell_i / sum_{i in M_subset} w_{y_i} ). Measures what the update would be if training solely on that subset, but cancels class weights on single-class scenes and does NOT sum to g_total.",
+        "mandatory_qualification": "DIAG-05 strictly measures and reports Estimand A. Calling this simply 'the class-specific loss gradient' without qualification is prohibited; it must be designated 'masked gradient contribution under the full-batch reduction denominator'."
+      },
+      "single_class_cancellation_proof": "For any single-class mask M_c where y_i = c for all i in M_c, sum_{i in M_c} w_{y_i} ell_i / sum_{i in M_c} w_{y_i} = (w_c * sum_{i in M_c} ell_i) / (w_c * |M_c|) = (1 / |M_c|) * sum_{i in M_c} ell_i. The class weight w_c cancels identically in numerator and denominator, rendering isolated weighted and unweighted loss gradients bitwise identical. The full-batch denominator D_batch avoids this cancellation because D_batch sums over all valid pixels in the entire scene, preserving w_c / D_batch scaling.",
+      "weight_intervention_identifiability": {
+        "intervention_definition": "Replacing canonical class weights w_canonical with uniform weights 1.0 while preserving standard PyTorch CrossEntropyLoss(reduction='mean') semantics.",
+        "mixed_effects_acknowledgment": "Comparing ||g_subset,canonical||_2 vs ||g_subset,uniform||_2 inherently reflects both: (1) numerator class-weight scaling (w_{y_i} vs 1.0); and (2) normalization denominator shift (D_batch(w_canonical) vs N_valid). This reflects the actual mathematical reality experienced by the optimizer during training.",
+        "ratio_decomposition": "For a single-class mask c: ||g_c,canonical||_2 / ||g_c,uniform||_2 = w_c * (N_valid / D_batch(w_canonical)) = w_c / bar{w}_batch, where bar{w}_batch is the batch-mean class weight. The net gradient scaling experienced by AdamW is exactly w_c normalized by the batch average weight."
+      },
+      "resultant_vector_warning": "g_common = sum_{c in C_common} g_c is an aggregate resultant vector over 7 heterogeneous phenomena (AF, BS, MCC, POW, WS, Eddy, IWs). Internal orthogonalities or opposing subgradients among common classes can attenuate ||g_common||_2 through internal vector cancellation. Cosine similarity cos(g_rare, g_common) reflects alignment against this net resultant vector, not a representative single-class gradient.",
+      "class_grouping_rationale": {
+        "rare_set": [
+          "OF (5, Oceanic Front)",
+          "RF (7, Rain Footprint)",
+          "HM (11, Human-Made Objects)"
+        ],
+        "rare_rationale": "Lowest train pixel counts (HM: 1,201, OF: 22,536, RF: 45,738) and highest canonical inverse-frequency weights (18.243211, 4.211476, 2.956203).",
+        "common_set": [
+          "AF (1)",
+          "BS (2)",
+          "MCC (4)",
+          "POW (6)",
+          "WS (8)",
+          "Eddy (9)",
+          "IWs (10)"
+        ],
+        "common_rationale": "Dynamic meteorological/oceanographic phenomena with moderate to high prevalence.",
+        "other_set": [
+          "BG (0, Background Seawater)",
+          "LWA (3, Low Wind Area)"
+        ],
+        "other_rationale": "BG is ambient sea surface matrix (>28% pixels). LWA is a calm sea state lookalike regime (<2.5 m/s wind) characterized by absence of Bragg scattering rather than dynamic phenomena. Assigning BG and LWA to M_other ensures the 3-way partition M_rare disjoint M_common disjoint M_other covers 100% of valid pixels, preserving exact decomposition g_rare + g_common + g_other = g_total without distorting common phenomena dynamics."
+      },
+      "cosine_denominator_cancellation_proof": {
+        "mathematical_proof": "Both g_rare = (1/D_batch) * tilde{g}_rare and g_common = (1/D_batch) * tilde{g}_common share the identical positive scalar factor 1/D_batch. In cos(g_rare, g_common) = <g_rare, g_common> / (||g_rare|| * ||g_common||), (1/D_batch)^2 appears in both numerator and denominator and cancels identically: cos(g_rare, g_common) = <tilde{g}_rare, tilde{g}_common> / (||tilde{g}_rare|| * ||tilde{g}_common||). Therefore, denominator differences between canonical and uniform arms have zero effect on directional cosine.",
+        "numerator_vector_reweighting_effect": "Changing w alters cosine strictly through numerator composition: w_c reweights individual class contributions inside tilde{g}_rare (HM=18.24, RF=2.96, OF=4.21 vs 1.0) and tilde{g}_common (7 classes), reorienting the resultant vectors in parameter space."
+      }
+    },
+    "batch_selection_procedure": "Sequential evaluation of OPS-02 TRAIN tiles (132 tiles, sorted by tile ID) forming 33 minibatches of size B=4. Co-occurring minibatches (~11-12 batches) evaluated for Population 1; all 33 minibatches evaluated for Population 2.",
+    "batch_parity_rule": "Exactly identical physical batches evaluated under Control (W_canonical) and Treatment (W_uniform).",
+    "model_state_and_bn_invariants": {
+      "model_mode": "eval",
+      "batchnorm_behavior": "All 30 BatchNorm2d layers hold frozen running statistics (mu, sigma^2). Zero running stat mutations.",
+      "parameter_equality": "Gradients g_rare and g_common computed sequentially on identical model weights theta with zero_grad() between passes."
+    },
+    "zero_mask_policy": {
+      "condition": "sum(M_subset) == 0",
+      "status": "INELIGIBLE_ABSENT_MASK",
+      "action": "Skip backward pass; log in excluded_batches_count; strictly do NOT record 0.0 loss or zero gradient norm into gradient distribution.",
+      "zero_support": "sum(M_subset) == 0: classified as INELIGIBLE_ABSENT_MASK, backward pass skipped, excluded from continuous distributions.",
+      "positive_low_support": "0 < sum(M_subset) < 16: RETAINED in analysis; exact pixel support count |M_subset| logged alongside gradient estimates; flagged as LOW_SUPPORT_ESTIMATE to prevent rarity from becoming exclusion bias; evaluated in sensitivity analysis against higher-support stratum."
+    },
+    "three_way_partition_contract": {
+      "taxonomy_classes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "excluded_source_classes": [
+        3,
+        9,
+        14
+      ],
+      "rare_set": [
+        5,
+        7,
+        11
+      ],
+      "rare_set_names": [
+        "OF (5)",
+        "RF (7)",
+        "HM (11)"
+      ],
+      "common_set": [
+        1,
+        2,
+        4,
+        6,
+        8,
+        9,
+        10
+      ],
+      "common_set_names": [
+        "AF (1)",
+        "BS (2)",
+        "MCC (4)",
+        "POW (6)",
+        "WS (8)",
+        "Eddy (9)",
+        "IWs (10)"
+      ],
+      "other_set": [
+        0,
+        3
+      ],
+      "other_set_names": [
+        "BG (0)",
+        "LWA (3)"
+      ],
+      "invariants": {
+        "disjointness_1": "M_rare intersect M_common == empty",
+        "disjointness_2": "M_rare intersect M_other == empty",
+        "disjointness_3": "M_common intersect M_other == empty",
+        "exhaustiveness": "M_rare union M_common union M_other == B_valid",
+        "ignored_pixel_exclusion": "Ignored pixels (-100, 255) must be strictly excluded from numerator, denominator, and mask counts."
+      }
+    }
+  },
+  "norm_ratio_and_denominator_policy": {
+    "primary_summary_metric": "Log-Norm Ratio: Lambda_l = log10(||grad_canonical,l||_2) - log10(||grad_uniform,l||_2)",
+    "raw_ratio_formula": "R_l = ||grad_canonical,l||_2 / ||grad_uniform,l||_2",
+    "denominator_floor_threshold": 1e-07,
+    "floor_theoretical_justification": "tau_floor = 1e-07 matches IEEE 754 float32 machine epsilon (~1.19e-07) to prevent numerical division by unresolvable roundoff noise, derived from precision limits rather than empirical leakage.",
+    "exact_zero_policy": {
+      "flag": "DENOMINATOR_EXACT_ZERO_VANISHED",
+      "action": "Exclude from continuous ratio aggregations; report occurrence frequency separately."
+    },
+    "near_zero_policy": {
+      "flag": "DENOMINATOR_NEAR_ZERO_ILL_CONDITIONED",
+      "action": "Flag when ||grad_uniform,l||_2 < 1e-07; log as ill-conditioned."
+    },
+    "arbitrary_epsilon_prohibition": "Adding arbitrary ad-hoc epsilon constants to denominator is strictly prohibited.",
+    "float32_precision_specification": {
+      "machine_epsilon": 1.1920929e-07,
+      "smallest_normal_float32": 1.1754944e-38,
+      "smallest_subnormal_float32": 1.4012985e-45,
+      "precision_interpretation": "Machine epsilon is a relative unit roundoff for order-unity values, not an absolute lower bound on gradient magnitude. Gradients are representable down to 1.18e-38.",
+      "regularizer_tau": 1e-07,
+      "regularizer_purpose": "Arbitrary numerical regularizer for ratio stability/visualization, NOT a physical noise cutoff.",
+      "discrete_zero_handling": "Norm == 0 is flagged as CENSORED_ZERO_GRADIENT and excluded from continuous ratio distributions."
+    },
+    "exact_positive_logs_policy": "For all positive norms ||g||_2 > 0, log10(||g||_2) is computed directly without adding any artificial regularizer. Positive float32 gradients down to 1.18e-38 are fully representable. Norm == 0 is categorically censored as CENSORED_ZERO_GRADIENT. Norm < 1e-07 is flagged descriptively as NEAR_ZERO_HIGH_VARIANCE without altering the gradient value."
+  },
+  "cosine_threshold_calibration": {
+    "primary_evidence": "Continuous empirical distribution cos(g_rare, g_common) in [-1, 1] across dual-supported batches and layers.",
+    "descriptive_categories": {
+      "strong_negative_alignment": "cos < -0.5",
+      "moderate_negative_alignment": "-0.5 <= cos < -0.1",
+      "orthogonal_unaligned": "-0.1 <= cos <= 0.1",
+      "moderate_positive_alignment": "0.1 < cos <= 0.5",
+      "strong_positive_alignment": "cos > 0.5"
+    },
+    "interpretation_boundary": "Threshold categories are descriptive only. Crossing any arbitrary threshold (e.g. cos < -0.2) does NOT prove harmful training dynamics or destabilizing interference without interventional evidence."
+  },
+  "governance_and_protocol_reconciliation": {
+    "governance_conflict": {
+      "conflicting_rule": "BLOCK-006-UNAUTHORIZED_TRAINING",
+      "description": "Diagnostic governance strictly mandates backward_passes == 0, optimizer_steps == 0, and training_steps == 0. Measuring gradients requires loss.backward().",
+      "resolution": "Partition DIAG-05 into Tier 1 (Static Profiling) and Tier 2 (Controlled Training). Classify execution readiness as PLAN_READY_WITH_PREREQUISITES requiring a targeted protocol amendment."
+    },
+    "prerequisites_required": [
+      "Governance protocol amendment authorizing Tier 1 Static Checkpoint Profiling (backward_passes <= 120, optimizer_steps == 0, parameter_updates == 0)",
+      "Dedicated interventional protocol specification (EXP07_P0_C23) before any Tier 2 training",
+      "Explicit user authorization granting DIAG-05 execution",
+      "Verification of authentic preflight receipt"
+    ],
+    "two_tier_design": {
+      "tier_1_static_profiling": {
+        "status": "DESIGN_COMPLETE_PENDING_PROTOCOL_AMENDMENT",
+        "model_mode": "eval (BatchNorm running stats frozen)",
+        "checkpoints": [
+          {
+            "checkpoint_id": "STEP_0_CANONICAL_INIT",
+            "artifact_path": "data/ops02/initial_model_state_canonical.pt",
+            "sha256": "67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D",
+            "provenance": "ImageNet pretrained ResNet18 + Kaiming normal UNet decoder under seed 42 (EXP07_P0_C22A4)"
+          }
+        ],
+        "max_backward_passes": 120,
+        "max_optimizer_steps": 0,
+        "max_parameter_updates": 0,
+        "target_hardware": "CPU or local GPU",
+        "budget_seconds": 180.0,
+        "checkpoint_scope_limitation": "Tier 1 measures instantaneous loss-gradient geometry exclusively at initialization (Step 0). Artifact path: data/ops02/initial_model_state_canonical.pt. Because no post-adaptation checkpoint is authorized or exists, Tier 1 CANNOT answer whether gradient geometry changes after adaptation. Post-adaptation dynamics are investigated strictly through Tier 2 controlled training."
+      },
+      "tier_2_controlled_training": {
+        "status": "DESIGN_COMPLETE_REQUIRES_SEPARATE_C23_SPECIFICATION",
+        "protocol_name": "SHORT_HORIZON_INTERVENTION_PROTOCOL",
+        "model_mode": "train",
+        "number_of_arms": 2,
+        "arms": [
+          "Control (Canonical Weights)",
+          "Treatment (Uniform Weights 1.0)"
+        ],
+        "batch_geometry": {
+          "physical_batch_size": 8,
+          "gradient_accumulation_steps": 2,
+          "effective_optimizer_batch_size": 16,
+          "batchnorm_statistical_batch_size": 8
+        },
+        "step_arithmetic": {
+          "batches_per_epoch": 17,
+          "optimizer_steps_per_epoch": 9,
+          "optimizer_steps_per_run": 45,
+          "total_optimizer_steps_6_runs": 270,
+          "total_physical_batches_6_runs": 510
+        },
+        "deliberately_held_constant": [
+          "AdamW optimizer structure (betas=(0.9, 0.999), eps=1e-8, clip=1.0)",
+          "Batch geometry (physical batch 8, accumulation 2, virtual batch 16, BN batch 8)",
+          "Initialization seed",
+          "Candidate F hybrid sampler schedule draws"
+        ],
+        "intentionally_altered_for_isolation": [
+          "Class weight vector (W_canonical vs W_uniform)",
+          "Scheduler disabled (constant LR 2e-4 across all 5 epochs)",
+          "Truncated horizon (5 epochs)"
+        ],
+        "causal_scope": "CAUSAL_SHORT_HORIZON_INTERVENTION strictly within the 5-epoch constant-LR protocol. Predicts zero full-protocol 20-epoch recovery.",
+        "seeds": [
+          42,
+          101,
+          202
+        ],
+        "epochs_per_run": 5,
+        "max_gpu_minutes": 60.0,
+        "primary_metric": "dev_mIoU_phenomena",
+        "step_arithmetic_options": {
+          "primary_candidate_f_sampler_schedule": {
+            "description": "Strict parity with canonical INV-16 training pipeline (72 draws per epoch with replacement)",
+            "draws_per_epoch": 72,
+            "physical_batch_size": 8,
+            "gradient_accumulation": 2,
+            "batches_per_epoch": 9,
+            "partial_batches_per_epoch": 0,
+            "optimizer_steps_per_epoch": 5,
+            "optimizer_steps_per_run_5_epochs": 25,
+            "total_optimizer_steps_6_runs": 150,
+            "total_physical_batches_6_runs": 270
+          },
+          "alternative_full_132_tile_traversal": {
+            "description": "Sequential unweighted pass over all 132 physical TRAIN tiles",
+            "tiles_per_epoch": 132,
+            "physical_batch_size": 8,
+            "gradient_accumulation": 2,
+            "batches_per_epoch": 17,
+            "partial_batches_per_epoch": 1,
+            "partial_batch_size": 4,
+            "optimizer_steps_per_epoch": 9,
+            "optimizer_steps_per_run_5_epochs": 45,
+            "total_optimizer_steps_6_runs": 270,
+            "total_physical_batches_6_runs": 510
+          }
+        },
+        "four_endpoints": {
+          "endpoint_1_clipping_frequency": "I(||g_t^{accum}||_2 > 1.0) at optimizer boundaries (tests gradient saturation)",
+          "endpoint_2_parameter_displacement": "||theta_t - theta_{t-1}||_2 per optimizer step (tests actual observed displacement under AdamW preconditioning and weight decay)",
+          "endpoint_3_training_loss_trajectory": "L(t) per optimizer step (tests training objective progress)",
+          "endpoint_4_validation_miou": "dev_mIoU_phenomena at epoch boundaries (tests rare and common phenomena generalization on DEV)",
+          "non_redundancy_justification": "Each endpoint measures a distinct physical stage: saturation, parameter space displacement, optimization loss, and generalization."
+        }
+      }
+    },
+    "batch_geometry_specifications": {
+      "population_a_physical_batch_size": {
+        "batch_size": 1,
+        "symbol": "B_phys = 1 (cluster-pure tile observation, or cluster-pure batch <= 4 tiles)",
+        "total_tiles": 1,
+        "accumulation_steps": 1,
+        "effective_batch_size": 1,
+        "rationale": "Guarantees 1-to-1 batch-to-cluster identifiability (LL-DIAG05-PLAN-024) by evaluating within-tile masked subgradient geometry (H2) on cluster-pure physical inputs at Step 0, preventing multi-cluster batch mixing."
+      },
+      "tier_1_physical_batch_size": {
+        "batch_size": 4,
+        "symbol": "B_phys = 4",
+        "total_physical_batches": 33,
+        "partial_batches": 0,
+        "rationale": "Matches fine spatial contrast and cleanly divides 132 physical TRAIN tiles with zero remainder."
+      },
+      "tier_2_batch_and_accumulation_semantics": {
+        "physical_batch_size": 8,
+        "symbol": "B_phys = 8",
+        "accumulation_steps": 2,
+        "sampler_draws_per_epoch": 72,
+        "physical_batches_per_epoch": 9,
+        "optimizer_steps_per_epoch": 5,
+        "step_breakdown": {
+          "steps_1_to_4": "Accumulate 2 physical batches of 8 tiles each -> effective optimizer batch size of 16 tiles.",
+          "step_5": "Flushed at epoch boundary on physical batch 9 (1 physical batch of 8 tiles) -> effective optimizer batch size of 8 tiles."
+        },
+        "accumulation_warning": "Optimizer Step 5 operates on 8 tiles, NOT 16. This exact implementation arithmetic is preserved."
+      }
+    },
+    "reproducibility_contract": {
+      "mathematical_equivalence": "Subgradient decomposition g_rare + g_common + g_other = g_total holds identically under exact arithmetic.",
+      "deterministic_repeated_evaluation": "Guaranteed within a single execution environment given identical seed, model weights, input tensors, and PyTorch deterministic flags.",
+      "cross_platform_bitwise_identity": "NOT guaranteed across heterogeneous GPU architectures, CUDA versions, or BLAS parallel reduction implementations due to floating-point non-associativity.",
+      "supported_guarantee": "Single-environment deterministic reproducibility under fixed seeds and torch.use_deterministic_algorithms(True)."
+    },
+    "clipping_boundary_semantics": {
+      "clipping_boundary": "OPTIMIZER_STEP_ACCUMULATION_BOUNDARY",
+      "execution_order": [
+        "1. Forward pass on physical batch b (B_phys=8)",
+        "2. Compute loss L(B_b; w)",
+        "3. Scale loss: L_scaled = L / A (accumulation_steps A=2)",
+        "4. Backward pass: accumulate scaled gradients into param.grad",
+        "5. If at accumulation boundary (b is even or last batch b=9):",
+        "   a. Evaluate unclipped accumulated norm ||g_t^{accum}||_2 via clip_grad_norm_",
+        "   b. Record clipping indicator I(||g_t^{accum}||_2 > 1.0)",
+        "   c. Apply clipping scale if ||g_t^{accum}||_2 > 1.0",
+        "   d. optimizer.step()",
+        "   e. optimizer.zero_grad()"
+      ],
+      "unclipped_accumulated_norm_capture": "Directly captured from return value of torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)",
+      "prohibition": "Measuring clipping on unaccumulated per-physical-batch gradients is strictly prohibited."
+    }
+  },
+  "data_contract": {
+    "dataset_id": "OPS-02",
+    "freeze_spec": "OPS02_v1.0.1_FROZEN",
+    "specification_version": "1.0.1",
+    "manifest_path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "train_tile_count": 132,
+    "dev_tile_count": 40,
+    "holdout_tile_count": 40,
+    "development_tile_count": 172,
+    "development_cluster_count": 52,
+    "grid_shape": [
+      256,
+      256
+    ],
+    "nominal_pixel_spacing_m": 100.0,
+    "spatial_coverage_km": [
+      25.6,
+      25.6
+    ],
+    "authorized_partitions": [
+      "TRAIN",
+      "DEV"
+    ],
+    "forbidden_partitions": [
+      "HOLDOUT",
+      "PART_III"
+    ],
+    "sample_counts": {
+      "train_tiles": 132,
+      "train_parent_clusters": 40,
+      "dev_tiles": 40,
+      "dev_parent_clusters": 12,
+      "holdout_tiles": 40,
+      "holdout_parent_clusters": 12,
+      "development_tiles_accessible": 172,
+      "development_parent_clusters": 52
+    },
+    "normalization_constants": {
+      "mean": 4.424158,
+      "std": 0.469261
+    }
+  },
+  "architecture_contract": {
+    "model_name": "ResNet18-UNet",
+    "total_trainable_parameters": 14310860,
+    "input_contract": "[B, 1, 256, 256] float32",
+    "output_contract": "[B, 12, 256, 256] float32 logits",
+    "pre_registered_layer_targets": [
+      "conv1",
+      "layer1.0.conv1",
+      "layer2.0.conv1",
+      "layer3.0.conv1",
+      "layer4.0.conv1",
+      "dec4.conv.conv.0",
+      "dec3.conv.conv.0",
+      "dec2.conv.conv.0",
+      "dec1.conv.conv.0",
+      "head"
+    ],
+    "canonical_training_optimizer": {
+      "type": "AdamW",
+      "base_lr": 0.0005,
+      "weight_decay": 0.01,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "gradient_clipping": 1.0,
+      "scheduler": "LinearWarmupCosineAnnealingLR (3 warmup epochs, 30 total epochs)"
+    }
+  },
+  "statistical_design": {
+    "unit_of_independence": "Parent acquisition mission datatake cluster (K)",
+    "computational_observations_distinction": "Pixels (N > 1e7) and minibatches (B=4) are computational observations, not independent degrees of freedom.",
+    "replication_seeds": [
+      42,
+      101,
+      202
+    ],
+    "resampling_method": "Parent-cluster block bootstrap (B >= 1000)",
+    "primary_metric": "dev_mIoU_phenomena",
+    "multiplicity_control": "Benjamini-Hochberg FDR (q = 0.05)",
+    "zero_access_assertions": {
+      "holdout_access": 0,
+      "part_iii_access": 0
+    },
+    "current_governance_counters": {
+      "training_steps": 0,
+      "backward_passes": 0,
+      "optimizer_steps": 0,
+      "scheduler_steps": 0,
+      "parameter_updates": 0,
+      "gpu_seconds": 0.0,
+      "holdout_access": 0,
+      "part_iii_access": 0,
+      "diag05_execution": 0
+    },
+    "multiple_comparison_policy": "Tier 1 static profiling is descriptive empirical estimation across modules and batches, not a family of NHST null-hypothesis tests. FDR (q=0.05) applies if and only if formal hypothesis test families are defined across the 10 stage-representative targets.",
+    "cluster_balanced_reporting": {
+      "raw_descriptive_unit": "Cluster-pure dual-supported physical tile observation (B_phys=1 or cluster-pure batch <= 4 tiles, LL-DIAG05-PLAN-024)",
+      "primary_independence_unit": "Parent mission datatake acquisition cluster (K=40 in TRAIN, K=12 in DEV)",
+      "inferential_unit": "Paired parent-cluster median summary (matched clusters with valid dual-support observations in both arms)",
+      "reporting_requirement": "Report raw tile-level descriptive distributions alongside parent cluster-aggregated summaries (cluster medians) to prevent multi-tile acquisitions from dominating descriptive conclusions.",
+      "unmatched_cluster_handling": "Reported as UNMATCHED_CLUSTER_EXCLUDED from paired inferential contrast; documented in audit JSON",
+      "multiplicity_structure": "Primary confirmatory inference is restricted to the global full-network paired cluster contrast; 10 stage-representative targets are secondary descriptive diagnostics without multiplicity inflation",
+      "h1_census_status": "Descriptive physical-census profiling across all 132 TRAIN tiles / 40 parent clusters; zero formal NHST tests",
+      "pairing_parity_guarantee": "Canonical and uniform counterfactual H2 measurements are evaluated on identical physical inputs X, Y and identical initial weights theta_0",
+      "h2_inference_method": "Paired Wilcoxon signed-rank test on matched cluster-level paired median differences Delta cos_k = median_{b in B_k}(cos(canonical, b)) - median_{b in B_k}(cos(uniform, b))",
+      "zero_difference_policy": "Zero paired differences (Delta cos_k == 0) are excluded from rank assignment following zero_method='wilcox', with total paired clusters (n_paired), zero-difference count (n_zero), and effective non-zero rankable pairs (n_effective = n_paired - n_zero) explicitly reported in audit JSON; zero differences must NEVER be silently dropped without machine accounting. If all differences are zero (n_effective == 0), the outcome is designated ZERO_DIFFERENCE_ALL_PAIRS.",
+      "tie_handling_policy": "Ties in non-zero absolute differences |Delta cos_k| are assigned average ranks. In the presence of ties or zeros, p-values are computed using continuity-corrected tie-adjusted asymptotic normal distribution (method='asymptotic', correction=True in scipy.stats.wilcoxon) rather than assuming an unadjusted tie-free exact table.",
+      "small_n_discipline": "Report paired effect direction, cluster-level effect magnitude (median Delta cos_k), and non-zero rankable sample size n_effective. Minimum effective sample size condition: n_effective >= 10; if n_effective < 10, designated DESCRIPTIVE_ONLY_LOW_POWER. Prohibit interpreting non-significance under small n as proof of no effect or using low power to reject H2."
+    }
+  },
+  "failure_mode_threat_model": {
+    "audited_threat_count": 23,
+    "threat_identifiers": [
+      "A_DATASET_LEAKAGE",
+      "B_SEED_LEAKAGE_RNG_REUSE",
+      "C_CHECKPOINT_LEAKAGE",
+      "D_HOLDOUT_CONTAMINATION",
+      "E_PART_III_CONTAMINATION",
+      "F_PARENT_PSEUDOREPLICATION",
+      "G_SELECTION_BIAS",
+      "H_HYPERPARAMETER_CHERRY_PICKING",
+      "I_POST_HOC_ENDPOINT_SELECTION",
+      "J_MULTIPLE_COMPARISONS",
+      "K_REGRESSION_TO_THE_MEAN",
+      "L_RANDOM_SEED_VARIABILITY",
+      "M_OPTIMIZATION_INSTABILITY",
+      "N_GRADIENT_CLIPPING_CONFOUNDING",
+      "O_BATCH_NORM_CONFOUNDING",
+      "P_SCHEDULER_CONFOUNDING",
+      "Q_CLASS_BALANCE_CONFOUNDING",
+      "R_CHECKPOINT_SELECTION_CONFOUNDING",
+      "S_METRIC_DENOMINATOR_EFFECTS",
+      "T_CAUSAL_OVERCLAIMING",
+      "U_NARRATIVE_REPORT_CONTRADICTION",
+      "V_PROVENANCE_DRIFT",
+      "W_RUNAWAY_COMPUTE"
+    ]
+  },
+  "contingency_matrix_summary": {
+    "scenarios_defined": 12,
+    "calibrated_interpretation_rules": {
+      "gradient_explosion": "Observed numerical event demonstrating extreme gradient magnitude under tested batch/weight condition; prompts operational halt, does NOT prove universal instability mechanism.",
+      "negative_alignment": "Descriptive evidence of within-batch gradient opposition; does NOT prove destructive cancellation without interventional ablation.",
+      "orthogonal_alignment": "Disproves active antagonism; supports gradient magnitude imbalance.",
+      "treatment_fails_to_alter_trajectory": "Decouples short-horizon gradient stability from representation learning capacity."
+    },
+    "hard_abort_scenarios": [
+      "Gradient Explosion (Inf/NaN)",
+      "Accidental Optimizer Step in Tier 1",
+      "Manifest Hash Mismatch",
+      "HOLDOUT File Access Attempt"
+    ]
+  },
+  "registered_lessons": [
+    "LL-EXP07-001",
+    "LL-EXP07-002",
+    "LL-EXP07-007",
+    "LL-EXP07-008",
+    "LL-EXP07-010",
+    "LL-C22I-001",
+    "LL-C22I-002",
+    "LL-C22J-001",
+    "LL-C22J-002",
+    "LL-C22J-004",
+    "LL-DIAG04-PLAN-002",
+    "LL-DIAG04-PLAN-003",
+    "LL-DIAG05-PLAN-001",
+    "LL-DIAG05-PLAN-002",
+    "LL-DIAG05-PLAN-003",
+    "LL-DIAG05-PLAN-004",
+    "LL-DIAG05-PLAN-005",
+    "LL-DIAG05-PLAN-006",
+    "LL-DIAG05-PLAN-007",
+    "LL-DIAG05-PLAN-008",
+    "LL-DIAG05-PLAN-009",
+    "LL-DIAG05-PLAN-010",
+    "LL-DIAG05-PLAN-011",
+    "LL-DIAG05-PLAN-012",
+    "LL-DIAG05-PLAN-013",
+    "LL-DIAG05-PLAN-014",
+    "LL-DIAG05-PLAN-015",
+    "LL-DIAG05-PLAN-016",
+    "LL-DIAG05-PLAN-017",
+    "LL-DIAG05-PLAN-018",
+    "LL-DIAG05-PLAN-019",
+    "LL-DIAG05-PLAN-020",
+    "LL-DIAG05-PLAN-021",
+    "LL-DIAG05-PLAN-022",
+    "LL-DIAG05-PLAN-023",
+    "LL-DIAG05-PLAN-024",
+    "LL-DIAG05-PLAN-025"
+  ],
+  "architecture_and_target_modules": {
+    "model_identity": "ResNet18-UNet (Option B BatchNorm baseline)",
+    "total_trainable_parameters": 14310860,
+    "target_submodules": [
+      {
+        "module_name": "conv1",
+        "description": "Initial 7x7 encoder stem conv",
+        "trainable_params": 3136
+      },
+      {
+        "module_name": "layer1.0.conv1",
+        "description": "ResNet stage 1 entry conv",
+        "trainable_params": 36864
+      },
+      {
+        "module_name": "layer2.0.conv1",
+        "description": "ResNet stage 2 entry conv",
+        "trainable_params": 73728
+      },
+      {
+        "module_name": "layer3.0.conv1",
+        "description": "ResNet stage 3 entry conv",
+        "trainable_params": 294912
+      },
+      {
+        "module_name": "layer4.0.conv1",
+        "description": "ResNet stage 4 entry conv",
+        "trainable_params": 1179648
+      },
+      {
+        "module_name": "dec4.conv.conv.0",
+        "description": "Decoder stage 4 first conv",
+        "trainable_params": 1179648
+      },
+      {
+        "module_name": "dec3.conv.conv.0",
+        "description": "Decoder stage 3 first conv",
+        "trainable_params": 294912
+      },
+      {
+        "module_name": "dec2.conv.conv.0",
+        "description": "Decoder stage 2 first conv",
+        "trainable_params": 73728
+      },
+      {
+        "module_name": "dec1.conv.conv.0",
+        "description": "Decoder stage 1 first conv",
+        "trainable_params": 18432
+      },
+      {
+        "module_name": "head",
+        "description": "Final 1x1 classification head conv",
+        "trainable_params": 780
+      }
+    ],
+    "global_gradient_aggregation": {
+      "type": "CONCATENATED_ALL_PARAMETER_AGGREGATION",
+      "is_module": false,
+      "total_parameters": 14310860,
+      "description": "Flattened 1D concatenation across all 14,310,860 trainable parameters including 2D conv weights/biases and BatchNorm affine parameters; excludes non-trainable running buffers."
+    },
+    "cross_layer_comparison_metric": "RMS gradient magnitude RMS(g_l) = ||g_l||_2 / sqrt(P_l) to normalize for parameter count differences.",
+    "target_module_representativeness": {
+      "classification": "STAGE_REPRESENTATIVE_TARGETS",
+      "scope": "The 10 pre-registered modules (conv1, layer1.0.conv1, layer2.0.conv1, layer3.0.conv1, layer4.0.conv1, dec4.conv.conv.0, dec3.conv.conv.0, dec2.conv.conv.0, dec1.conv.conv.0, head) sample key architectural depth transitions across encoder stem, residual stage entries, decoder block entries, and output head. They represent stage depth samples rather than an exhaustive layer census. Global aggregation covers all 14,310,860 trainable parameters, ensuring zero parameter omission at the macro level."
+    },
+    "raw_l2_vs_rms_roles": {
+      "raw_l2_role": "Primary physical metric answering total Euclidean force vector magnitude in module parameter subspace; directly determines global gradient clipping activation (threshold max_norm=1.0), but does NOT directly govern AdamW parameter update magnitude due to second-moment preconditioning (division by sqrt(v_t) + eps) and decoupled weight decay.",
+      "rms_role": "Secondary normalized metric RMS(g_l) = ||g_l||_2 / sqrt(P_l) answering average gradient scale per scalar parameter; strictly used for cross-layer depth comparisons to normalize for parameter count disparities spanning 780 to 1,179,648 parameters."
+    },
+    "adamw_update_distinction": {
+      "raw_gradient_l2_norm": "||g_t||_2: aggregate gradient magnitude in parameter space; triggers clipping if ||g_t||_2 > max_norm (1.0).",
+      "clipped_gradient_norm": "min(1.0, max_norm / ||g_t||_2) * g_t: bounded gradient vector entering optimizer moments.",
+      "adamw_preconditioned_update": "hat{m}_t / (sqrt(hat{v}_t) + eps) + lambda * theta_{t-1}: coordinate-normalized adaptive update step.",
+      "observed_parameter_displacement": "||theta_t - theta_{t-1}||_2: actual observed parameter displacement magnitude in parameter space during Tier 2.",
+      "governance_rule": "GOV-RULE-114: Protocols must not claim raw gradient L2 directly governs AdamW parameter update magnitude."
+    }
+  },
+  "simplification_decisions": {
+    "volatility_metric_simplification": "Eliminated Coefficient of Variation (CV) due to near-zero denominator instability; retained IQR as primary robust dispersion and max/median as secondary tail metric.",
+    "target_module_simplification": "Retained 10 stage-representative modules rather than profiling all 68 network modules, covering encoder, bottleneck, decoder, and head.",
+    "resultant_vector_simplification": "Retained aggregate resultant vectors (g_common and g_rare) rather than expanding to all 21 pairwise class combinations, materially reducing compute while answering directional opposition.",
+    "checkpoint_simplification": "Retained single canonical Step 0 initialization checkpoint (data/ops02/initial_model_state_canonical.pt) rather than creating fictional intermediate checkpoints.",
+    "population_simplification": "Retained Option 1 (full-dataset deterministic census) for Tier 1 static profiling to eliminate Monte Carlo draw variance from Step 0 geometry."
+  }
+}

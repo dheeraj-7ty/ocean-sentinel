@@ -1,0 +1,111 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C13",
+  "title": "OPS-02 Source Registry and Multi-Criteria Evaluation Ledger",
+  "created_at": "2026-09-14T01:51:00Z",
+  "evaluator_role": "Adversarial Data Architecture Reviewer",
+  "registry": [
+    {
+      "source_id": "SRC_01_LI_IW_ZENODO",
+      "name": "Sentinel-1 Typical Oceanic and Atmospheric Phenomena Dataset (IW Mode)",
+      "citation": "Li et al. (2024), Zenodo DOI 10.5281/zenodo.14279466",
+      "repository": "Zenodo / AWS S3 Open Data (sentinel-s1-l1c)",
+      "total_parent_scenes_available": 484,
+      "total_slices_available": 2628,
+      "unexploited_parent_scenes": 457,
+      "sensor_mode": "IW (Interferometric Wide)",
+      "evaluation_scores": {
+        "CRIT_01_SOURCE_AUTHORITY": 5,
+        "CRIT_02_PARENT_TRACEABILITY": 5,
+        "CRIT_03_PHYSICAL_IMAGERY_QUALITY": 5,
+        "CRIT_04_ANNOTATION_QUALITY_AND_TIER": 5,
+        "CRIT_05_METADATA_COMPLETENESS": 5,
+        "CRIT_06_GEOGRAPHIC_EXPLICITNESS": 4,
+        "CRIT_07_TAXONOMY_COMPATIBILITY": 5,
+        "CRIT_08_DUPLICATE_AND_LEAKAGE_RISK": 4,
+        "CRIT_09_LICENSING_AND_REUSE": 5,
+        "CRIT_10_AUTOMATED_ACCESS_RELIABILITY": 5
+      },
+      "weighted_total_score": 68.0,
+      "max_score": 70.0,
+      "decision": "ACCEPT_PRIMARY_EXPANSION_POOL",
+      "operational_role": "Core source for expanding independent IW parent scenes from 27 to >= 60-120 across all 12 canonical natural ocean phenomena.",
+      "provenance_tier": "TIER_A"
+    },
+    {
+      "source_id": "SRC_02_DARTIS_LOOKALIKES",
+      "name": "DARTIS: Dataset of Synthetic Aperture Radar Oceanic Look-Alikes",
+      "citation": "Yang & Singha (2025), Remote Sensing of Environment",
+      "repository": "Local Raw Repository (data/raw/lookalike_candidates/dartis) / CDSE",
+      "total_rasters_available": 517,
+      "sensor_mode": "IW (Interferometric Wide)",
+      "evaluation_scores": {
+        "CRIT_01_SOURCE_AUTHORITY": 4,
+        "CRIT_02_PARENT_TRACEABILITY": 4,
+        "CRIT_03_PHYSICAL_IMAGERY_QUALITY": 4,
+        "CRIT_04_ANNOTATION_QUALITY_AND_TIER": 4,
+        "CRIT_05_METADATA_COMPLETENESS": 4,
+        "CRIT_06_GEOGRAPHIC_EXPLICITNESS": 4,
+        "CRIT_07_TAXONOMY_COMPATIBILITY": 3,
+        "CRIT_08_DUPLICATE_AND_LEAKAGE_RISK": 4,
+        "CRIT_09_LICENSING_AND_REUSE": 4,
+        "CRIT_10_AUTOMATED_ACCESS_RELIABILITY": 4
+      },
+      "weighted_total_score": 56.0,
+      "max_score": 70.0,
+      "decision": "PILOT_ONLY_SPECIALIZED_CONTEXT",
+      "operational_role": "High-quality supplementary source for biogenic slicks (BS) and low-wind areas (LWA) to enrich dark-feature lookalike diversity.",
+      "provenance_tier": "TIER_B"
+    },
+    {
+      "source_id": "SRC_03_TENGEOF_SAR_WV",
+      "name": "TenGeoP-SARwv: A Dataset of Sentinel-1 Wave Mode Imagettes",
+      "citation": "Wang et al. (2022), ESSD",
+      "repository": "Zenodo / ESA Copernicus",
+      "total_imagettes_available": 2383,
+      "sensor_mode": "WV (Wave Mode, 20x20 km imagettes)",
+      "evaluation_scores": {
+        "CRIT_01_SOURCE_AUTHORITY": 5,
+        "CRIT_02_PARENT_TRACEABILITY": 4,
+        "CRIT_03_PHYSICAL_IMAGERY_QUALITY": 3,
+        "CRIT_04_ANNOTATION_QUALITY_AND_TIER": 4,
+        "CRIT_05_METADATA_COMPLETENESS": 4,
+        "CRIT_06_GEOGRAPHIC_EXPLICITNESS": 5,
+        "CRIT_07_TAXONOMY_COMPATIBILITY": 3,
+        "CRIT_08_DUPLICATE_AND_LEAKAGE_RISK": 5,
+        "CRIT_09_LICENSING_AND_REUSE": 5,
+        "CRIT_10_AUTOMATED_ACCESS_RELIABILITY": 4
+      },
+      "weighted_total_score": 55.0,
+      "max_score": 70.0,
+      "decision": "CONDITIONAL_RESERVED_FOR_PRETRAINING",
+      "operational_role": "Not suitable for direct IW swath segmentation due to imagette sampling geometry; reserved for auxiliary self-supervised feature learning.",
+      "provenance_tier": "TIER_B"
+    },
+    {
+      "source_id": "SRC_04_TRUJILLO_2024_OIL",
+      "name": "Trujillo et al. Sentinel-1 Marine Oil Spill Dataset",
+      "citation": "Trujillo et al. (2024), Marine Pollution Bulletin",
+      "repository": "Local Raw Repository (data/raw/trujillo_2024)",
+      "total_rasters_available": 2403,
+      "sensor_mode": "IW / EW",
+      "evaluation_scores": {
+        "CRIT_01_SOURCE_AUTHORITY": 5,
+        "CRIT_02_PARENT_TRACEABILITY": 4,
+        "CRIT_03_PHYSICAL_IMAGERY_QUALITY": 5,
+        "CRIT_04_ANNOTATION_QUALITY_AND_TIER": 5,
+        "CRIT_05_METADATA_COMPLETENESS": 4,
+        "CRIT_06_GEOGRAPHIC_EXPLICITNESS": 4,
+        "CRIT_07_TAXONOMY_COMPATIBILITY": 1,
+        "CRIT_08_DUPLICATE_AND_LEAKAGE_RISK": 5,
+        "CRIT_09_LICENSING_AND_REUSE": 4,
+        "CRIT_10_AUTOMATED_ACCESS_RELIABILITY": 5
+      },
+      "weighted_total_score": 48.0,
+      "max_score": 70.0,
+      "decision": "QUARANTINED_FOR_EXP07_RESERVED_FOR_FUTURE_OIL_SPILL_TASK",
+      "operational_role": "Strictly quarantined from EXP-07 multiclass natural phenomena segmentation. Preserved as an authoritative resource for future dedicated oil-spill detection models.",
+      "provenance_tier": "TIER_A"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "audit_version": "1.0.0",
+  "timestamp_utc": "2026-09-12T17:30:09.563136+00:00",
+  "firewall_rule": "Section 6: Source-Geographic Cluster Firewall",
+  "total_parent_scenes": 1200,
+  "total_connected_components": 204,
+  "component_breakdown": {
+    "train_components": 140,
+    "dev_components": 32,
+    "internal_holdout_components": 32,
+    "mixed_components": 0
+  },
+  "cross_split_leakage_count": 0
+}

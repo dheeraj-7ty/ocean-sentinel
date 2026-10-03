@@ -1,0 +1,204 @@
+{
+  "plan_metadata": {
+    "plan_version": "1.3.0",
+    "effective_date": "2026-09-15",
+    "task_id": "EXP-07-P0-DIAG-04-LINEAGE-GATE",
+    "investigation_id": "DIAG-04-RECEPTIVE-FIELD-SCALE-COMPATIBILITY",
+    "authoritative_markdown_plan": "docs/diag04_preexecution_audit_and_hardened_plan.md",
+    "governance_standard": "Level 5 Machine-Verifiable Operational Governance",
+    "execution_authorization": "NOT_GRANTED"
+  },
+  "scientific_specification": {
+    "primary_question": "Across the 12 canonical Ocean Sentinel taxonomy classes on the 256x256 (100m pixel, 25.6x25.6 km) grid, does the canonical ResNet18-UNet baseline architecture provide spatial and receptive-field scales (multi-path theoretical receptive fields from 19 pixels along shallow skip paths to 531-563 pixels through the bottleneck, and 32-pixel / 3.2 km encoder bottleneck sampling scale) that are demonstrably compatible, incompatible, or uncertain relative to the observed spatial structure and boundary extents of annotated connected components in the canonical training/development masks?",
+    "readiness_verdict": "READY_WITH_PREREQUISITES",
+    "prior_diagnostics_closure": {
+      "DIAG-01": "COMPLETED_VALID (CASE B: Support-sensitive but valid frozen metric on OPS-02 DEV)",
+      "DIAG-02": "COMPLETED_FORENSICALLY_REPAIRED (Sampler exposure schedule bounded on OPS-02 TRAIN)",
+      "DIAG-03": "COMPLETED (Radiometric discriminability characterized on OPS-02 TRAIN + DEV; 1-D radiometric overlap motivates evaluating whether spatial context provides additional discriminative information; 1-D radiometry alone does not uniquely separate several observed class distributions)"
+    },
+    "scale_hypotheses": [
+      {
+        "hypothesis_id": "HYP-01-EDGE_CENSORED_SUPPORT",
+        "description": "Large mesoscale phenomena (MCC, AF, Eddy, LWA) frequently touch the 25.6 km tile boundary (EDGE_CENSORED_OBSERVATION), bounding their observable extent within single crops.",
+        "test": "Quantify boundary intersection rate across parent scenes; compare uncensored vs censored size distributions."
+      },
+      {
+        "hypothesis_id": "HYP-02-BOTTLENECK_SAMPLING_ALIGNMENT",
+        "description": "Compact annotated components (HM: 1-3 pixels, point-like RF) fall below the 32-pixel (3.2 km) encoder bottleneck sampling stride, relying on shallow skip connections for fine spatial localization.",
+        "test": "Component equivalent diameter distribution vs multi-path receptive fields and bottleneck sampling interval."
+      },
+      {
+        "hypothesis_id": "HYP-03-ANNOTATION_MORPHOLOGY_PERIODICITY",
+        "description": "Structured classes (IWs, POW, WS, MCC) exhibit spatial layout periodicity in human annotation masks that can be compared against architectural receptive field envelopes.",
+        "test": "2D radial power spectral density and autocorrelation of binary masks with multi-taper peak stability checks, explicitly categorized as annotation layout morphology."
+      }
+    ],
+    "evidence_levels": {
+      "OBSERVED": "Direct mathematical or geometric measurement on data or architecture",
+      "SUPPORTED": "Descriptive correspondence backed by multiple geometric and architectural metrics",
+      "PLAUSIBLE": "Hypothesis logically consistent with observations but not definitively established",
+      "CAUSAL_ESTABLISHED": "STRICTLY PROHIBITED in DIAG-04 (observational/architectural design cannot establish performance causation)"
+    }
+  },
+  "scale_taxonomy": {
+    "data_window_scale": "256 x 256 pixels = 25.6 x 25.6 km (Observation aperture; border contact designates EDGE_CENSORED_OBSERVATION)",
+    "architectural_sampling_scale": "32 pixels = 3.2 km (Encoder bottleneck feature map grid spacing; not a hard detection limit)",
+    "architectural_receptive_field_scale": "Multi-scale spectrum from 19 pixels (shallow skip) to 531-563 pixels (deepest bottleneck path) (TRF)",
+    "observed_annotation_scale": "Geometric dimensions of annotated connected components in the raster mask",
+    "inferred_physical_scale": "True physical scale of oceanographic phenomenon in nature (requires external domain metadata)"
+  },
+  "measurement_semantics": {
+    "pixel_area": "ANNOTATION_GEOMETRY",
+    "equivalent_diameter": "PROXY_ANNOTATION_GEOMETRY",
+    "bounding_box_dimensions": "ANNOTATION_GEOMETRY",
+    "major_axis_length": "ANNOTATION_GEOMETRY",
+    "boundary_complexity": "ANNOTATION_GEOMETRY",
+    "edge_intersection_flag": "ANNOTATION_GEOMETRY_EDGE_CENSORED_OBSERVATION",
+    "mask_2d_radial_psd": "ANNOTATION_MORPHOLOGY_PROXY",
+    "theoretical_receptive_field": "ARCHITECTURAL_SCALE",
+    "bottleneck_sampling_stride": "ARCHITECTURAL_SAMPLING_SCALE"
+  },
+  "data_contract": {
+    "dataset_id": "OPS-02",
+    "dataset_identifier": "OPS-02",
+    "freeze_spec": "OPS02_v1.0.1_FROZEN",
+    "dataset_version": "OPS02_v1.0.1_FROZEN",
+    "specification_version": "1.0.1",
+    "manifest_path": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "authoritative_physical_manifest": "data/ops02/manifests/ops02_physical_dataset_manifest_v1.json",
+    "manifest_sha256": "F5480EA2E26AF8D963EDE40CA658138CDCD6157CD79438E9C8673AD0C1DD8102",
+    "train_tile_count": 132,
+    "dev_tile_count": 40,
+    "holdout_tile_count": 40,
+    "development_tile_count": 172,
+    "development_cluster_count": 52,
+    "partition_manifest": "data/ops02/manifests/ops02_partition_manifest_v1.json",
+    "partition_manifest_sha256": "757DEAF7A7E72BE331843B518A99AF32E14D68A080822F1D9B4FDBADF889F94D",
+    "parent_cluster_manifest": "data/ops02/manifests/ops02_parent_cluster_manifest_v1.json",
+    "parent_cluster_manifest_sha256": "08ED21FBB492363E1D05040020F73177BFD4DC84F1A39E2D9C5C9B38BC97D10B",
+    "freeze_spec_path": "data/ops02/OPS02_DATASET_FREEZE_SPEC_v1.0.1.json",
+    "freeze_spec_sha256": "3B362DECD210679DCC7BF5EB6879A020416E4A8BB780845F3FCC59A4DFBF3B35",
+    "grid_shape": [256, 256],
+    "nominal_pixel_spacing_m": 100.0,
+    "spatial_coverage_km": [25.6, 25.6],
+    "authorized_partitions": ["TRAIN", "DEV"],
+    "forbidden_partitions": ["HOLDOUT", "PART_III"],
+    "total_physical_tiles": 212,
+    "total_parent_clusters": 64,
+    "total_mission_datatakes": 64,
+    "total_constituent_scenes": 85,
+    "sample_counts": {
+      "train_tiles": 132,
+      "train_parent_clusters": 40,
+      "dev_tiles": 40,
+      "dev_parent_clusters": 12,
+      "holdout_tiles": 40,
+      "holdout_parent_clusters": 12,
+      "development_tiles_accessible": 172,
+      "development_parent_clusters": 52
+    },
+    "normalization_constants": {
+      "mean": 4.424158,
+      "std": 0.469261
+    },
+    "dev_class_support_k": {
+      "OF": 1,
+      "RF": 1,
+      "BS": 2,
+      "WS": 2,
+      "Eddy": 2,
+      "AF": 3,
+      "LWA": 3,
+      "POW": 3,
+      "HM": 3,
+      "MCC": 7,
+      "IWs": 9,
+      "BG": 10
+    }
+  },
+  "statistical_design": {
+    "unit_of_independence": "Parent acquisition mission datatake cluster (K)",
+    "component_extraction_semantics": "Exhaustive descriptive enumeration across finite dataset, not independent i.i.d. observations",
+    "resampling_method": "Parent-cluster block bootstrap (B >= 1000)",
+    "sparsity_rules": {
+      "k_equals_zero": "Report ZERO_DEV_GROUND_TRUTH_SUPPORT",
+      "k_equals_one": "Descriptive only; suppress between-cluster confidence intervals (OF, RF)",
+      "k_equals_two": "Mark with extreme uncertainty caveat; descriptive only (BS, WS, Eddy)"
+    },
+    "zero_access_assertions": {
+      "holdout_access": 0,
+      "part_iii_access": 0
+    },
+    "governance_counter_limits": {
+      "training_steps": 0,
+      "backward_passes": 0,
+      "optimizer_steps": 0,
+      "scheduler_steps": 0,
+      "parameter_updates": 0,
+      "gpu_seconds": 0.0
+    }
+  },
+  "architecture_specification": {
+    "model_name": "ResNet18-UNet",
+    "total_trainable_parameters": 14310860,
+    "input_contract": "[B, 1, 256, 256] float32",
+    "output_contract": "[B, 12, 256, 256] float32 logits",
+    "encoder_bottleneck_downsampling_factor": 32,
+    "encoder_bottleneck_spatial_spacing_km": 3.2,
+    "encoder_bottleneck_feature_grid": [8, 8],
+    "theoretical_receptive_field_encoder_stages": {
+      "conv1": 7,
+      "maxpool": 11,
+      "layer1": 43,
+      "layer2": 99,
+      "layer3": 211,
+      "layer4": 435
+    },
+    "theoretical_receptive_field_unet_output_paths": {
+      "shallow_skip_x0": 19,
+      "skip_x1": 71,
+      "skip_x2_span_range": [155, 163],
+      "skip_x3_span_range": [323, 339],
+      "deep_bottleneck_x4_span_range": [531, 563]
+    },
+    "crop_clipping_policy": "Usable context is strictly clipped by the 256x256 crop aperture; theoretical dependency exceeding 256 px is zero-padded or swath-masked (LL-EXP07-028)",
+    "effective_receptive_field_policy": {
+      "true_learned_weight_erf_measured": false,
+      "reason": "Learned-weight sensitivity requires backward passes, violating BLOCK-006 (backward_passes == 0)",
+      "analytical_proxy_mode": "ANALYTICAL_LUO_GAUSSIAN (Descriptive architectural proxy under random i.i.d. weights)"
+    }
+  },
+  "contingency_policy": {
+    "all_components_touch_boundary": "Report uncensored size distribution as EMPTY; flag class as fully censored",
+    "class_contains_only_tiny_components": "Report discrete pixel histogram; analyze overlap with 19-px skip RF vs 32-px bottleneck stride",
+    "insufficient_cluster_support": "K=1: descriptive only, suppress CIs; K=2: flag extreme uncertainty",
+    "disconnected_components_unmapped": "Treat 8-connected polygons strictly as annotated connected components; do not apply heuristic grouping",
+    "psd_has_no_stable_peak": "Classify as BROADBAND_MONOTONIC; report spectral decay slope; do not force harmonic peak",
+    "psd_peak_changes_with_windowing": "Report peak sensitivity range; flag spatial periodicity as windowing artifact",
+    "analytical_proxy_disagrees_with_trf": "Report both values; explain distinction between theoretical support and Gaussian proxy",
+    "multi_path_architecture_dependency": "Report multi-scale profile across all 5 paths; do not reduce architecture to single scalar RF",
+    "architecture_differs_from_roadmap": "Correct plan artifacts to authoritative implementation values (Layer 4 TRF = 435 px)",
+    "metric_cannot_support_interpretation": "Re-label metric to true descriptive scope; state boundaries explicitly"
+  },
+  "registered_lessons": [
+    "LL-EXP07-001",
+    "LL-EXP07-002",
+    "LL-EXP07-004",
+    "LL-EXP07-007",
+    "LL-EXP07-008",
+    "LL-EXP07-027",
+    "LL-EXP07-028",
+    "LL-C22B-004",
+    "LL-C22F-001",
+    "LL-C22F-004",
+    "LL-C22J-001",
+    "LL-C22J-004",
+    "LL-C22J-005",
+    "LL-DIAG03-001",
+    "LL-DIAG04-PLAN-001",
+    "LL-DIAG04-PLAN-002",
+    "LL-DIAG04-PLAN-003",
+    "LL-GOV-001",
+    "LL-GOV-002"
+  ]
+}

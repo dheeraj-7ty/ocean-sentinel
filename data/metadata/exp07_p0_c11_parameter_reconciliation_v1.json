@@ -1,0 +1,42 @@
+{
+  "metadata_version": "1.0.0",
+  "phase": "EXP-07-P0-C11",
+  "title": "EXP-07 Model Parameter and Buffer Forensic Reconciliation",
+  "reconciled_at": "2026-09-14T01:34:00Z",
+  "authoritative_model": "ocean_sentinel.ml.exp07_reference.ResNet18UNet",
+  "authoritative_counts": {
+    "trainable_parameters": 14310860,
+    "non_trainable_parameters": 0,
+    "total_parameters": 14310860,
+    "floating_buffers": 11776,
+    "integer_buffers": 30,
+    "total_buffers": 11806,
+    "total_state_elements": 14322666,
+    "state_dict_tensors": 192,
+    "batch_norm_layers": 30
+  },
+  "checkpoint_verification": {
+    "seed42_best": {
+      "path": "experiments/EXP-07/runs/EXP07_RUN001_SEED42/best_model.pt",
+      "sha256": "FF30EDCFEFBDF3C321F2D531BF3A8031ABB6F8481FC4F89D3DD8E2781ACAD9D7",
+      "state_dict_tensors": 192,
+      "state_dict_elements": 14322666,
+      "strict_load_match": true
+    },
+    "seed101_best": {
+      "path": "experiments/EXP-07/runs/EXP07_RUN002_SEED101/best_model.pt",
+      "sha256": "D64FE6197B73F47A1B97D2881E273441C61F6562D0B68B4B3C1A9322E6C2190E",
+      "state_dict_tensors": 192,
+      "state_dict_elements": 14322666,
+      "strict_load_match": true
+    }
+  },
+  "discrepancy_audit": {
+    "c10_reported_number": 14328268,
+    "actual_trainable_number": 14310860,
+    "actual_state_elements": 14322666,
+    "delta_against_trainable": 17408,
+    "root_cause": "Typographical / prose transcription error in C10 report text. No code, configuration, or checkpoint modification occurred. Config JSONs and tests throughout C4-C10 consistently specify 14310860.",
+    "status": "RECONCILED_AND_CORRECTED"
+  }
+}

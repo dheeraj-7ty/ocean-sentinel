@@ -1,0 +1,31 @@
+{
+  "incident_register_id": "EXP07_P0_C22A6_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.6",
+  "created_at_utc": "2026-09-14T07:20:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A6-001",
+      "severity": "CRITICAL",
+      "category": "SCIENTIFIC_INTEGRITY / SPECIFICATION_CONTRADICTION",
+      "title": "Manifest-Derived TRAIN Independence Count (40) Contradicts Expected Prompt Value (23)",
+      "location": "ops02_physical_dataset_manifest_v1.json vs task prompt expected count",
+      "claimed_value": "Expected TRAIN independent parent datatakes = 23; prompt states: 'If manifest-derived count != 23: STOP and BLOCK. Do not force the expected value.'",
+      "machine_truth": "Authoritative physical manifest ops02_physical_dataset_manifest_v1.json, parent cluster manifest ops02_parent_cluster_manifest_v1.json, and freeze spec OPS02_DATASET_FREEZE_SPEC_v1.0.1.json independently and unanimously derive 40 TRAIN independent datatakes/clusters (out of 64 total: 40 TRAIN + 12 DEV + 12 HOLDOUT = 64). No manifest field evaluates to 23. If TRAIN were 23, total clusters would equal 47, violating the frozen 64-cluster specification.",
+      "root_cause": "Historical narrative typographical defect in LL-EXP07-019 text and C22-A report line 137 claiming '23 TRAIN datatakes', whereas the machine-checkable manifest and its automated test test_lesson_019_parent_datatake_accounting have always derived 40.",
+      "remediation": "Per governance rules Part B and Part M ('If manifest-derived count != 23: STOP and BLOCK'), the agent refuses to force or fabricate numbers and strictly reports BLOCKED. Lineage and mathematical proofs documented in ops02_c22a6_independence_count_reconciliation_v1.json.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": true
+    }
+  ],
+  "remediation_summary": "Zero training occurred. Zero backward passes. Zero HOLDOUT access. Zero Part-III access. Task halted at BLOCKED in strict adherence to Part B and Part M governance mandates."
+}

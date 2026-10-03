@@ -1,0 +1,33 @@
+{
+  "incident_register_id": "EXP07_P0_C22A4_INCIDENT_REGISTER_v1",
+  "task_id": "EXP-07-P0-C22-A.4",
+  "created_at_utc": "2026-09-14T06:54:00Z",
+  "governance_compliance": {
+    "zero_training_verified": true,
+    "zero_backward_verified": true,
+    "zero_optimizer_step_verified": true,
+    "zero_scheduler_step_verified": true,
+    "zero_kaggle_verified": true,
+    "holdout_access_count": 0,
+    "part_iii_access_count": 0,
+    "network_access_scope": "RESTRICTED_EXCLUSIVELY_TO_OFFICIAL_PRETRAINED_WEIGHTS_DOWNLOAD",
+    "epistemic_standard": "LEVEL_5_MACHINE_VERIFIABLE_OPERATIONAL_GOVERNANCE"
+  },
+  "incidents_catalogued": [
+    {
+      "incident_id": "INC-C22A4-001",
+      "severity": "CRITICAL",
+      "category": "SCIENTIFIC_VALIDITY / INITIALIZATION_PROVENANCE",
+      "title": "Resolution of Missing Pretrained Backbone and Canonical State Reconstruction",
+      "location": "data/ops02/initial_model_state_canonical.pt and ~/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth",
+      "claimed_value": "EXP07_DIAG01 lacked local ImageNet-pretrained backbone and relied on a non-canonical random initial state.",
+      "machine_truth": "Official resnet18-f37072fd.pth downloaded from official PyTorch URL, cryptographically verified with complete SHA256 F37072FD47E89C5E827621C5BAFFA7500819F7896BBACEC160B1A16C560E07EC. Canonical initial model state deterministically reconstructed under seed 42, verified across two clean builds (SHA256: 67181C4ECD420DEABA4129AB67AA34D617C1C581ACB3A1A7A9DE8BEAF2F1544D). Previous non-canonical random state preserved without destruction.",
+      "root_cause": "Historical C16 downloaded weights dynamically on Kaggle without persisting them to local repository.",
+      "status": "RESOLVED",
+      "remediation": "Pretrained weights provisioned, verified, and mapped in exp07_diag01_initialization_lineage_v1.json. Status advanced from BLOCKED to READY_FOR_NEXT_PREFLIGHT.",
+      "whether_historical_evidence_was_changed": false,
+      "whether_current_evaluation_was_blocked": false
+    }
+  ],
+  "remediation_summary": "All scientific initialization blockers resolved. Canonical state reconstructed with 100% determinism. Zero training occurred. Ready for the next zero-step preflight rehearsal."
+}

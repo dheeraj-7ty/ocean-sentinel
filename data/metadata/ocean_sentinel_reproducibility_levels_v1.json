@@ -1,0 +1,112 @@
+{
+  "metadata_version": "1.0.0",
+  "created_at": "2026-09-13T11:54:55.389235+00:00",
+  "phase": "PHASE_8_P3_C1",
+  "title": "Ocean Sentinel Reproducibility Hierarchy and Operational Semantic Definitions",
+  "levels": {
+    "LEVEL_0": {
+      "level_name": "Non-Reproducible / Insufficient Record",
+      "definition": "No reliable provenance, hash integrity, or verification procedure exists. Stored artifacts or claimed results cannot be independently verified.",
+      "evidence_requirements": [
+        "Absence of content-hash records or verification tools",
+        "Ambiguous or missing source files"
+      ],
+      "acceptable_claims": [
+        "Unverified exploratory prototype"
+      ],
+      "prohibited_claims": [
+        "Scientific reproducibility",
+        "Dataset integrity",
+        "Benchmarking validity"
+      ],
+      "verification_method": "N/A"
+    },
+    "LEVEL_A": {
+      "level_name": "Artifact Identity Reproducibility",
+      "definition": "Artifact identity: exact stored artifact identifiable and hash-verifiable (cryptographic SHA-256). Guarantees bitwise integrity of stored files against accidental modification or bit-rot.",
+      "evidence_requirements": [
+        "Cryptographic SHA-256 content hashes recorded in authoritative manifests",
+        "Explicit artifact lineage without ambiguous in-place modification"
+      ],
+      "acceptable_claims": [
+        "Artifact bitwise integrity verified",
+        "Artifact identity guaranteed against bit-rot or accidental corruption"
+      ],
+      "prohibited_claims": [
+        "Pipeline reproducibility",
+        "Source-generation reproducibility",
+        "Independent algorithmic validation"
+      ],
+      "verification_method": "Direct filesystem SHA-256 computation against recorded manifest values"
+    },
+    "LEVEL_B": {
+      "level_name": "Deterministic Verification Reproducibility",
+      "definition": "Repeatable deterministic verification/audit of stored artifacts: given the same stored inputs and declared execution environment, the same audit or verification procedure can reproduce the same derived outputs and invariant assertions within defined deterministic tolerances.",
+      "evidence_requirements": [
+        "Level A compliance on all input artifacts",
+        "Documented and executable verification scripts",
+        "Deterministic reconciliation of counts, partition distributions, leakage, pixel values, and class assignments"
+      ],
+      "acceptable_claims": [
+        "Audit reproducibility established",
+        "Dataset invariant verification repeatable by third parties on recorded data"
+      ],
+      "prohibited_claims": [
+        "End-to-end pipeline reconstruction from raw source sensors",
+        "Physical registration uncertainty solved"
+      ],
+      "verification_method": "Automated execution of audit suites and reconciliation scripts verifying 100% of reported assertions"
+    },
+    "LEVEL_C": {
+      "level_name": "Pipeline Reconstruction Reproducibility",
+      "definition": "Pipeline reconstruction: an independent operator can reconstruct the dataset-processing pipeline from recorded source inputs, code, configuration, and documented procedures, obtaining equivalent outputs.",
+      "evidence_requirements": [
+        "Level B compliance",
+        "Full executable source-to-dataset ingestion pipeline",
+        "Primary input availability and validated end-to-end transformation code",
+        "Demonstrated absence of NOT_DIRECTLY_VERIFIED generation steps"
+      ],
+      "acceptable_claims": [
+        "Dataset pipeline reconstruction verified",
+        "Transformation determinism established"
+      ],
+      "prohibited_claims": [
+        "Independent primary sensor data acquisition validity"
+      ],
+      "verification_method": "End-to-end execution of pipeline from raw source files yielding matching dataset artifacts"
+    },
+    "LEVEL_D": {
+      "level_name": "Source-Process Reproducibility",
+      "definition": "Source-process reconstruction/replication: the underlying source-generation procedure and primary sensor acquisition are sufficiently documented and independently repeatable from primary raw satellite inputs.",
+      "evidence_requirements": [
+        "Level C compliance",
+        "Unambiguous ground-truth collection protocol documentation",
+        "Independent external sensor acquisition calibration and physical ground validation"
+      ],
+      "acceptable_claims": [
+        "Full scientific process reproducibility"
+      ],
+      "prohibited_claims": [
+        "Omniscience over unmodeled physical environmental noise"
+      ],
+      "verification_method": "Independent external replication of data acquisition and annotation campaigns"
+    }
+  },
+  "current_ops01_evaluation": {
+    "highest_supported_level": "LEVEL_B",
+    "level_name": "Deterministic Verification Reproducibility",
+    "operational_status": "LEVEL_B_ESTABLISHED",
+    "justification": "All 147 physical sample images and masks, 27 parent scene tiepoint records, and metadata manifests are cryptographically verified (Level A). All dataset invariants (sample counts, 0 leakage, 0 OS pixels, 15-class taxonomy, 61/61 P3 guardrails, 220/220 Phase 7/8 tests) deterministically execute and reconcile 20/20 items from scratch (Level B). Level C and Level D are explicitly prohibited because DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED remains active.",
+    "prohibition_enforcement": {
+      "level_c_prohibited": true,
+      "level_d_prohibited": true,
+      "reason": "The block-mean correspondence hypothesis and engineering alignment reconstruction are empirically supported pilot hypotheses; DATASET_GENERATION_METHOD = NOT_DIRECTLY_VERIFIED remains active."
+    },
+    "operational_statement": "OPS-01 verification artifacts satisfy Level B deterministic verification reproducibility.",
+    "prohibited_interpretations": [
+      "Must NOT be casually interpreted as 'OPS-01 dataset is fully reproducible'.",
+      "Must NOT claim Level C pipeline reconstruction reproducibility.",
+      "Must NOT claim Level D source-process reproducibility."
+    ]
+  }
+}
