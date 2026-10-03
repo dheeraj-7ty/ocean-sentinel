@@ -30,14 +30,14 @@ TRACK 5: INVESTIGATION SPINE & PRESENTATION LAYER (Phase 7) [CURRENT / ACTIVE EN
 
 ## 2. Track 1: Foundation & Satellite Access Prototype (Phases 1A – 1C)
 
-*Status*: **HISTORICAL / SUPERSEDED BY PRODUCTION STACK**
+*Status*: **HISTORICAL / SUPERSEDED BY CURRENT OPERATIONAL STACK**
 
 | Milestone | Objective | Implementation Scope | Verification / Proof | Disposition |
 | :--- | :--- | :--- | :--- | :--- |
 | **Phase 1A** | Foundation & Core Models | Basic package structure, Pydantic configuration, AOI models, error taxonomy. | Unit tests in `tests/test_config.py`, `tests/test_models.py` | Complete |
-| **Phase 1B.1** | Copernicus OAuth2 | CDSE token exchange, token caching, credential security. | `src/ocean_sentinel/satellite/auth.py`, `tests/test_auth.py` | Active in Prod |
-| **Phase 1B.2** | STAC Product Discovery | Spatio-temporal STAC queries for Sentinel-1 GRD imagery. | `src/ocean_sentinel/satellite/discovery.py`, `tests/test_discovery.py` | Active in Prod |
-| **Phase 1B.3** | Process API Imagery Retrieval | Sentinel Hub evalscript generation and raw raster retrieval. | `src/ocean_sentinel/satellite/imagery.py`, `tests/test_imagery_service.py` | Active in Prod |
+| **Phase 1B.1** | Copernicus OAuth2 | CDSE token exchange, token caching, credential security. | `src/ocean_sentinel/satellite/auth.py`, `tests/test_auth.py` | Implemented / Operationally Verified |
+| **Phase 1B.2** | STAC Product Discovery | Spatio-temporal STAC queries for Sentinel-1 GRD imagery. | `src/ocean_sentinel/satellite/discovery.py`, `tests/test_discovery.py` | Implemented / Operationally Verified |
+| **Phase 1B.3** | Process API Imagery Retrieval | Sentinel Hub evalscript generation and raw raster retrieval. | `src/ocean_sentinel/satellite/imagery.py`, `tests/test_imagery_service.py` | Implemented / Operationally Verified |
 | **Phase 1C.1** | SAR Preprocessing | Backscatter conversion, invalid masking, dB normalization. | `src/ocean_sentinel/processing/sar.py`, `tests/test_preprocessing.py` | Historical |
 | **Phase 1C.2** | Dataset Reconnaissance | Analysis of Trujillo et al. (2024) Peruvian dataset vs CDSE. | `docs/dataset-reconnaissance.md`, `docs/dataset-selection.md` | Complete |
 
@@ -80,7 +80,7 @@ TRACK 5: INVESTIGATION SPINE & PRESENTATION LAYER (Phase 7) [CURRENT / ACTIVE EN
 
 ## 5. Track 4: Operational Pipeline (Phases 6A – 6C)
 
-*Status*: **CURRENT VERIFIED MILESTONE (COMPLETE)**
+*Status*: **OPERATIONAL BASELINE (COMPLETE)**
 
 | Sub-Phase | Focus Area | Technical Scope | Empirical Proof / Tests |
 | :--- | :--- | :--- | :--- |

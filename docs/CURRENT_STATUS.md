@@ -1,10 +1,10 @@
 # Ocean Sentinel — Current Operational & Governance Status
 
 **Authoritative Current State Document**
-**Last Verified Timestamp**: 2026-10-04T02:25:00+05:30
+**Last Verified Timestamp**: 2026-10-04T02:35:00+05:30
 **Current Branch**: `master`
-**Current Synchronized Baseline HEAD**: `f43b1d4a81ee91f3e459d17ac01383689595c9d4`
-**Remote Target**: `origin/master` (Synchronized, clean working tree)
+**Synchronization**: `IN_SYNC` (`HEAD == origin/master`, clean working tree)
+**Authoritative Commit Identity**: Derived dynamically from live Git via `git rev-parse HEAD`
 
 ---
 
@@ -29,12 +29,14 @@ Ocean Sentinel is an Earth-observation maritime investigation platform combining
 REPOSITORY: dheeraj-7ty/ocean-sentinel
 CANONICAL_TARGET: refs/heads/master
 GIT_BRANCH: master
-GIT_HEAD: f43b1d4a81ee91f3e459d17ac01383689595c9d4
-ORIGIN_MASTER: f43b1d4a81ee91f3e459d17ac01383689595c9d4
+AUTHORITATIVE_COMMIT_DERIVATION: "git rev-parse HEAD"
 SYNCHRONIZATION: IN_SYNC (HEAD == origin/master)
 WORKING_TREE_STATE: CLEAN (0 staged, 0 modified, 0 untracked)
 GITHUB_RULESET: master-canonical-protection (ID: 24407361)
 ```
+
+> [!NOTE]
+> Exact repository commit identity is intentionally derived from live Git (`git rev-parse HEAD`) rather than duplicated statically here, because editing this version-controlled document modifies the repository commit whenever changes are committed. Static reports are historical execution records; repository HEAD is authoritative from live Git.
 
 ### 2.1 PR #12 Merge Governance Analysis & Forward Merge Policy
 - **Investigation of PR #12 Merge**: PR #12 was merged using CLI invocation `gh pr merge 12 --squash --delete-branch --admin`. Inspection of the active repository ruleset #24407361 (`master-canonical-protection`) reveals:
