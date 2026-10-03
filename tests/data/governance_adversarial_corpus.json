@@ -1,0 +1,480 @@
+{
+  "corpus_name": "GOVERNANCE_REGRESSION_CORPUS",
+  "version": "2.0.0",
+  "description": "Permanent adversarial regression corpus of 13 historical failure modes from DIAG-05 and 13 compliant controls.",
+  "acceptance_criteria": "All critical unsafe adversarial cases must be detected and produce their registered enforcement action (BLOCK); non-critical cases must produce their registered WARN/REVIEW/INFORM action. Compliant controls must PASS.",
+  "scenarios": [
+    {
+      "case_id": "ADV-CASE-01",
+      "name": "Raw Disk Mask Census Failure",
+      "failure_class": "POPULATION-CONSTRUCTION",
+      "rule_id": "GOV-RULE-129",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "GOV-RULE-129-POPULATION_CONSTRUCTION",
+      "input_context": {
+        "task_id": "ADV-CASE-01",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["sample_eligibility_census"],
+        "proposed_plan": "Evaluate rare class pixel count directly from raw disk mask files."
+      },
+      "expected_remediation": "Evaluate class support strictly after applying sensor validity masking (compute_validity_mask).",
+      "evidence_ref": "DIAG-05 raw mask vs post-validity support discrepancy audit"
+    },
+    {
+      "case_id": "ADV-CASE-01-COMPLIANT",
+      "name": "Post-Validity Support Census Compliant Control",
+      "failure_class": "POPULATION-CONSTRUCTION",
+      "rule_id": "GOV-RULE-129",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-01-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["sample_eligibility_census"],
+        "proposed_plan": "Evaluate class support strictly after applying canonical SAR validity mask (compute_validity_mask)."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 validity mask implementation contract"
+    },
+    {
+      "case_id": "ADV-CASE-02",
+      "name": "Unbound Wilcoxon Method Parameter",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "rule_id": "GOV-RULE-130",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "GOV-RULE-130-UNBOUND_METHOD",
+      "input_context": {
+        "task_id": "ADV-CASE-02",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["wilcoxon"],
+        "proposed_plan": "Execute scipy.stats.wilcoxon(diffs) for paired inference."
+      },
+      "expected_remediation": "Explicitly pass method='asymptotic' or method='exact' in code.",
+      "evidence_ref": "SciPy 1.15.3 wilcoxon method defaulting audit"
+    },
+    {
+      "case_id": "ADV-CASE-02-COMPLIANT",
+      "name": "Explicit Wilcoxon Method Binding Compliant Control",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "rule_id": "GOV-RULE-130",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-02-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["wilcoxon"],
+        "statistical_test": "wilcoxon_asymptotic",
+        "proposed_plan": "Execute scipy.stats.wilcoxon(diffs, method='asymptotic') with explicit distribution binding."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 registered statistical plan"
+    },
+    {
+      "case_id": "ADV-CASE-03",
+      "name": "Metadata vs Result Mismatch",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "rule_id": "GOV-RULE-130",
+      "severity": "HIGH",
+      "expected_action": "WARN",
+      "expected_code": "GOV-RULE-130-METADATA_MISMATCH",
+      "input_context": {
+        "task_id": "ADV-CASE-03",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["paired_inference"],
+        "proposed_plan": "Report asymptotic p-value while exact permutation method was executed (metadata mismatch)."
+      },
+      "expected_remediation": "Ensure artifact metadata declares the exact distribution used in computation.",
+      "evidence_ref": "DIAG-05 Tier 1 forensic artifact audit"
+    },
+    {
+      "case_id": "ADV-CASE-03-COMPLIANT",
+      "name": "Consistent Metadata Compliant Control",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "rule_id": "GOV-RULE-130",
+      "severity": "HIGH",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-03-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["paired_inference"],
+        "proposed_plan": "Report asymptotic p-value derived from verified asymptotic distribution with matching metadata."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 metadata reconciliation"
+    },
+    {
+      "case_id": "ADV-CASE-04",
+      "name": "p > 0.05 Described as Proof of No Effect",
+      "failure_class": "P-VALUE-OVERINTERPRETATION",
+      "rule_id": "GOV-RULE-131",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "GOV-RULE-131-OVERCLAIM_NO_EFFECT",
+      "input_context": {
+        "task_id": "ADV-CASE-04",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "The non-significant p-value proves no effect and guarantees stability of optimization."
+      },
+      "expected_remediation": "Report non-significant findings as 'did not detect a statistically distinguishable difference'.",
+      "evidence_ref": "DIAG-05 statistical reporting audit"
+    },
+    {
+      "case_id": "ADV-CASE-04-COMPLIANT",
+      "name": "Bounded Negative Reporting Compliant Control",
+      "failure_class": "P-VALUE-OVERINTERPRETATION",
+      "rule_id": "GOV-RULE-131",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-04-COMPLIANT",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "The Wilcoxon test did not detect a statistically distinguishable paired difference under the registered design."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 formal reporting standard"
+    },
+    {
+      "case_id": "ADV-CASE-05",
+      "name": "Directional Alignment Described as Intrinsic",
+      "failure_class": "CAUSAL-OVERCLAIM",
+      "rule_id": "GOV-RULE-131",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "GOV-RULE-131-OVERCLAIM_INTRINSIC",
+      "input_context": {
+        "task_id": "ADV-CASE-05",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "Opposing directional gradient alignment is an intrinsic structural characteristic of the architecture."
+      },
+      "expected_remediation": "State finding as conditional Step-0 empirical observation; avoid generalizing to architecture.",
+      "evidence_ref": "DIAG-05 Step-0 observational scope restriction"
+    },
+    {
+      "case_id": "ADV-CASE-05-COMPLIANT",
+      "name": "Bounded Empirical Observation Compliant Control",
+      "failure_class": "CAUSAL-OVERCLAIM",
+      "rule_id": "GOV-RULE-131",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-05-COMPLIANT",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "Negative rare-vs-common directional cosine was observed under both weighting regimes in this Step-0 OPS-02 evaluation."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 final synthesized report"
+    },
+    {
+      "case_id": "ADV-CASE-06",
+      "name": "Tile-Level N Treated as Inferential N",
+      "failure_class": "INFERENCE-UNIT-MISMATCH",
+      "rule_id": "GOV-RULE-116",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "GOV-RULE-116-INFERENCE_UNIT_MISMATCH",
+      "input_context": {
+        "task_id": "ADV-CASE-06",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["paired_inference"],
+        "proposed_plan": "Treating tile-level n as inferential n when parent clusters are clustered."
+      },
+      "expected_remediation": "Aggregate tile observations to parent acquisition cluster medians before inference.",
+      "evidence_ref": "DIAG-05 spatial clustering audit"
+    },
+    {
+      "case_id": "ADV-CASE-06-COMPLIANT",
+      "name": "Cluster-Aggregated Inferential N Compliant Control",
+      "failure_class": "INFERENCE-UNIT-MISMATCH",
+      "rule_id": "GOV-RULE-116",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-06-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["paired_inference"],
+        "proposed_plan": "Compute paired Wilcoxon inference across K=15 parent acquisition clusters."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 cluster-level aggregation"
+    },
+    {
+      "case_id": "ADV-CASE-07",
+      "name": "Minibatch Independence Misattribution",
+      "failure_class": "INDEPENDENCE-ASSUMPTION",
+      "rule_id": "GOV-RULE-124",
+      "severity": "HIGH",
+      "expected_action": "WARN",
+      "expected_code": "GOV-RULE-124-MINIBATCH_INDEPENDENCE",
+      "input_context": {
+        "task_id": "ADV-CASE-07",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["minibatch_profiling"],
+        "proposed_plan": "Assume B=8 provides parent-cluster independence across tiles."
+      },
+      "expected_remediation": "Acknowledge parent cluster multi-tile nesting within minibatches.",
+      "evidence_ref": "OPS-02 minibatch composition forensics"
+    },
+    {
+      "case_id": "ADV-CASE-07-COMPLIANT",
+      "name": "Explicit Clustered Minibatch Acknowledgment Compliant Control",
+      "failure_class": "INDEPENDENCE-ASSUMPTION",
+      "rule_id": "GOV-RULE-124",
+      "severity": "HIGH",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-07-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["minibatch_profiling"],
+        "proposed_plan": "Account for intra-scene tile correlation within minibatches using cluster-aware sampling."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 sampling contract"
+    },
+    {
+      "case_id": "ADV-CASE-08",
+      "name": "Denominator Estimand Drift",
+      "failure_class": "DENOMINATOR-DRIFT",
+      "rule_id": "GOV-RULE-127",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "GOV-RULE-127-DENOMINATOR_DRIFT",
+      "input_context": {
+        "task_id": "ADV-CASE-08",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["backward_pass"],
+        "proposed_plan": "Substitute subset-normalized gradient for full-batch denominator."
+      },
+      "expected_remediation": "Preserve literal contractual gradient denominator.",
+      "evidence_ref": "DIAG-05 gradient denominator invariant"
+    },
+    {
+      "case_id": "ADV-CASE-08-COMPLIANT",
+      "name": "Contractual Denominator Compliant Control",
+      "failure_class": "DENOMINATOR-DRIFT",
+      "rule_id": "GOV-RULE-127",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-08-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "operation": ["diagnostic_profiling"],
+        "proposed_plan": "Evaluate gradients strictly preserving the literal full-batch denominator."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 loss landscape specification"
+    },
+    {
+      "case_id": "ADV-CASE-09",
+      "name": "Model.train() Invocation During Diagnostic",
+      "failure_class": "EXECUTION-SAFETY",
+      "rule_id": "BLOCK-006-UNAUTHORIZED_TRAINING",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "BLOCK-006-UNAUTHORIZED_TRAINING",
+      "input_context": {
+        "task_id": "ADV-CASE-09",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "proposed_command": "python scripts/execute_exp07_diag05_tier1.py --model.train()"
+      },
+      "expected_remediation": "Diagnostics permit zero training steps and must execute in explicit model.eval() mode.",
+      "evidence_ref": "DIAG-05 static evaluation protocol"
+    },
+    {
+      "case_id": "ADV-CASE-09-COMPLIANT",
+      "name": "Model.eval() Static Evaluation Compliant Control",
+      "failure_class": "EXECUTION-SAFETY",
+      "rule_id": "BLOCK-006-UNAUTHORIZED_TRAINING",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-09-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "proposed_command": "python scripts/execute_exp07_diag05_tier1.py --eval"
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 execution script"
+    },
+    {
+      "case_id": "ADV-CASE-10",
+      "name": "Unregistered Destructive Interference Claim",
+      "failure_class": "TERMINOLOGY-DRIFT",
+      "rule_id": "GOV-RULE-131",
+      "severity": "HIGH",
+      "expected_action": "WARN",
+      "expected_code": "GOV-RULE-131-UNREGISTERED_INTERFERENCE",
+      "input_context": {
+        "task_id": "ADV-CASE-10",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "The opposing vectors cause destructive interference during gradient descent."
+      },
+      "expected_remediation": "Describe geometric angle as 'negative directional cosine' rather than functional interference.",
+      "evidence_ref": "DIAG-05 cosine terminology governance"
+    },
+    {
+      "case_id": "ADV-CASE-10-COMPLIANT",
+      "name": "Directional Cosine Geometry Compliant Control",
+      "failure_class": "TERMINOLOGY-DRIFT",
+      "rule_id": "GOV-RULE-131",
+      "severity": "HIGH",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-10-COMPLIANT",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "The parameter vectors exhibit a negative directional cosine (-0.68) under static Step-0 evaluation."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 vector orientation analysis"
+    },
+    {
+      "case_id": "ADV-CASE-11",
+      "name": "Analysis-Only Task Leaves Execution Authorized",
+      "failure_class": "TELEMETRY",
+      "rule_id": "BLOCK-012-UNVERIFIED_TELEMETRY",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "BLOCK-012-TELEMETRY_AUTHORIZATION_AMBIGUITY",
+      "input_context": {
+        "task_id": "ADV-CASE-11",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "telemetry_state": {
+          "analysis_authorized": true,
+          "execution_authorized": true
+        }
+      },
+      "expected_remediation": "Set execution_authorized=false and scientific_execution=false.",
+      "evidence_ref": "DIAG-05 telemetry authorization invariant"
+    },
+    {
+      "case_id": "ADV-CASE-11-COMPLIANT",
+      "name": "Fail-Closed Analysis Telemetry Compliant Control",
+      "failure_class": "TELEMETRY",
+      "rule_id": "BLOCK-012-UNVERIFIED_TELEMETRY",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-11-COMPLIANT",
+        "task_type": "diagnostic",
+        "diagnostic": "DIAG-05",
+        "telemetry_state": {
+          "analysis_authorized": true,
+          "execution_authorized": false,
+          "scientific_execution": false
+        }
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 active telemetry run state"
+    },
+    {
+      "case_id": "ADV-CASE-12",
+      "name": "Ambiguous VALID Status with Defective Population",
+      "failure_class": "ARTIFACT-REPORT-MISMATCH",
+      "rule_id": "GOV-RULE-100",
+      "severity": "CRITICAL",
+      "expected_action": "BLOCK",
+      "expected_code": "GOV-RULE-100-AMBIGUOUS_VALID_STATUS",
+      "input_context": {
+        "task_id": "ADV-CASE-12",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "Overall status: VALID despite defective population and zero valid rare pixels."
+      },
+      "expected_remediation": "Separate execution artifact integrity from scientific population validity.",
+      "evidence_ref": "DIAG-05 Tier-1 population validity audit"
+    },
+    {
+      "case_id": "ADV-CASE-12-COMPLIANT",
+      "name": "Disambiguated Validity Status Compliant Control",
+      "failure_class": "ARTIFACT-REPORT-MISMATCH",
+      "rule_id": "GOV-RULE-100",
+      "severity": "CRITICAL",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-12-COMPLIANT",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "Execution integrity is COMPLETE; scientific population validity is DEFECTIVE due to zero post-validity rare pixels."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 forensic report"
+    },
+    {
+      "case_id": "ADV-CASE-13",
+      "name": "Statistical Method Conflation (Exact vs Permutation)",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "rule_id": "GOV-RULE-132",
+      "severity": "HIGH",
+      "expected_action": "WARN",
+      "expected_code": "GOV-RULE-132-STATISTICAL_CONFLATION",
+      "input_context": {
+        "task_id": "ADV-CASE-13",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "Report scipy wilcoxon exact permutation test results for paired gradient differences."
+      },
+      "expected_remediation": "Accurately describe method as 'exact discrete signed-rank distribution' or use PermutationMethod.",
+      "evidence_ref": "SciPy 1.15.3 wilcoxon mathematical semantics audit"
+    },
+    {
+      "case_id": "ADV-CASE-13-COMPLIANT",
+      "name": "Exact Signed-Rank Distribution Semantics Compliant Control",
+      "failure_class": "STATISTICAL-PROVENANCE",
+      "rule_id": "GOV-RULE-132",
+      "severity": "HIGH",
+      "expected_action": "PASS",
+      "expected_code": null,
+      "input_context": {
+        "task_id": "ADV-CASE-13-COMPLIANT",
+        "task_type": "documentation",
+        "diagnostic": "DIAG-05",
+        "operation": ["report_generation"],
+        "proposed_plan": "Report paired Wilcoxon signed-rank test evaluated against exact discrete null distribution (method='exact')."
+      },
+      "expected_remediation": null,
+      "evidence_ref": "DIAG-05 statistical provenance specification"
+    }
+  ]
+}
