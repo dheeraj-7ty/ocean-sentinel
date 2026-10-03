@@ -13,7 +13,10 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-from ocean_sentinel.orchestration.investigation_run import ArtifactRef
+from ocean_sentinel.orchestration.investigation_run import (
+    ArtifactRef,
+    assert_no_raw_credentials,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -113,7 +116,7 @@ class InvestigationContext:
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize context to dictionary."""
-        return {
+        data = {
             "run_id": self.run_id,
             "request": self.request,
             "aoi": self.aoi,
@@ -134,10 +137,13 @@ class InvestigationContext:
             "resource_metadata": self.resource_metadata,
             "authorization_state": self.authorization_state.to_dict(),
         }
+        assert_no_raw_credentials(data, "InvestigationContext")
+        return data
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> InvestigationContext:
         """Reconstruct context from serialized dictionary."""
+        assert_no_raw_credentials(data, "InvestigationContext")
         artifacts = {
             k: ArtifactRef.from_dict(v) for k, v in data.get("artifact_refs", {}).items()
         }

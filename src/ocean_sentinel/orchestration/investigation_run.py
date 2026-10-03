@@ -102,8 +102,32 @@ class ContentStatus(str, Enum):
 
 
 # ---------------------------------------------------------------------------
-# Core Dataclasses
+# Core Dataclasses & Security Guardrails
 # ---------------------------------------------------------------------------
+
+FORBIDDEN_SECRET_KEYS = frozenset({
+    "password", "secret", "client_secret", "access_token",
+    "refresh_token", "bearer_token", "api_key", "private_key",
+    "auth_token", "id_token"
+})
+
+
+def assert_no_raw_credentials(data: Any, context_path: str = "root") -> None:
+    """Validate recursively that no raw secrets or tokens exist in durable state.
+
+    Raises ValueError immediately if sensitive credential keys are discovered.
+    """
+    if isinstance(data, dict):
+        for k, v in data.items():
+            if str(k).lower() in FORBIDDEN_SECRET_KEYS:
+                raise ValueError(
+                    f"Security violation: Raw credential field '{k}' detected at '{context_path}'. "
+                    "Credentials must remain outside durable investigation state."
+                )
+            assert_no_raw_credentials(v, f"{context_path}.{k}")
+    elif isinstance(data, (list, tuple, set)):
+        for idx, item in enumerate(data):
+            assert_no_raw_credentials(item, f"{context_path}[{idx}]")
 
 
 @dataclass
@@ -487,7 +511,7 @@ class InvestigationRun:
 
     def to_dict(self) -> Dict[str, Any]:
         """Serialize complete run to machine-readable dictionary."""
-        return {
+        data = {
             "run_id": self.run_id,
             "created_at": self.created_at,
             "started_at": self.started_at,
@@ -505,10 +529,13 @@ class InvestigationRun:
             "error": self.error,
             "recovery_state": self.recovery_state.to_dict(),
         }
+        assert_no_raw_credentials(data, "InvestigationRun")
+        return data
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> InvestigationRun:
         """Reconstruct an InvestigationRun from a serialized dictionary."""
+        assert_no_raw_credentials(data, "InvestigationRun")
         stages = {k: InvestigationStageState.from_dict(v) for k, v in data.get("stages", {}).items()}
         artifacts = [ArtifactRef.from_dict(a) for a in data.get("artifacts", [])]
         attempts = [StageAttempt.from_dict(a) for a in data.get("attempts", [])]

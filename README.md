@@ -6,7 +6,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Governance: V2](https://img.shields.io/badge/Governance-V2%20Active-brightgreen.svg)](docs/governance/)
-[![Tests: 212 Passing](https://img.shields.io/badge/Tests-212%20In--Scope%20Pass-success.svg)](tests/)
+[![Tests: 216 Passing](https://img.shields.io/badge/Tests-216%20In--Scope%20Pass-success.svg)](tests/)
 [![Scientific Execution: Gated](https://img.shields.io/badge/Scientific%20Execution-Gated-orange.svg)](docs/CURRENT_STATUS.md)
 
 ---
@@ -35,7 +35,7 @@ For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](do
 | **Operational Pipeline** | **Operational synchronous acquisition workflow & durable execution spine verified** | Proven via live CDSE, live REST API, and crash-recovery smoke tests |
 | **Scientific Safety** | **Strictly Gated (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` fail-closed firewall |
 | **Protected Baseline** | **8/8 Canonical baseline files bitwise intact (100%)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Tests** | **212/212 In-scope tests passing (100%)** | 10 governed operational, spine, and guardrail suites |
+| **Automated Tests** | **216/216 In-scope tests passing (100%)** | 10 governed operational, spine, and guardrail suites |
 | **Git Working Tree** | **Clean (0 staged, 0 modified, 0 untracked)** | Synchronized with `origin/master` |
 | **Next Milestone** | **Phase 7B: Event Spine & Stream Telemetry** | Structured Event Stream & Durable Logging |
 
@@ -161,7 +161,7 @@ ocean-sentinel/
 │   ├── drift.py                 # Particle drift simulation & windage models
 │   ├── ais.py                   # Vessel AIS trajectory ingestion & correlation
 │   └── fusion.py                # Multi-source evidence fusion & scoring
-├── tests/                       # Automated test battery (142 files; 201 in-scope tests)
+├── tests/                       # Automated test battery (142 files; 216 in-scope tests)
 ├── scripts/                     # Operational runners (run_backend.py, verify_auth.py, etc.)
 ├── docs/                        # Architecture, reports, status, and governance contracts
 │   ├── CURRENT_STATUS.md        # Single authoritative current-state document
@@ -200,10 +200,10 @@ uv pip install -e ".[dev]"
 
 ### Running In-Scope Automated Tests
 
-The authoritative in-scope Phase 6 test suite comprises 201 tests across 9 operational and policy suites:
+The authoritative in-scope test suite comprises 216 tests across 10 operational, investigation spine, and policy suites:
 
 ```bash
-# Run the 201 in-scope operational & guardrail tests
+# Run the 216 in-scope operational, spine & guardrail tests
 pytest \
   tests/test_acquisition_job.py \
   tests/test_backend_api.py \
@@ -213,7 +213,8 @@ pytest \
   tests/test_discovery.py \
   tests/test_pipeline_orchestration.py \
   tests/test_source_control_policy_and_reporting_guardrails.py \
-  tests/test_artifact_policy.py
+  tests/test_artifact_policy.py \
+  tests/test_investigation_spine.py
 ```
 
 ### Running the Backend API Server
