@@ -238,12 +238,22 @@ npm run dev
 
 ---
 
-## 10. Roadmap & Next Milestone
+## 10. Roadmap & Engineering Tracks
 
-- **Phase 7: 3D Operational Globe & Geospatial Investigation Interface**:
-  - Connect the Three.js interactive globe directly to the Phase 6C REST API.
-  - Visualize Sentinel-1 observation footprints, AOI bounding boxes, and persisted GeoTIFF metadata.
-  - Stream real-time acquisition state transitions (`REQUESTED` → `READY_FOR_DETECTION`).
+- **Phase 7A: Investigation Run Kernel & Durable Scientific Execution Spine** (`COMPLETE`):
+  - Durable `InvestigationRun` lifecycle kernel, `InvestigationContext`, and 10-stage `ScientificDAG`.
+  - Content-integrity verification via `ArtifactRef` SHA-256 bindings.
+  - Granular `StageAttempt` audit ledgers and protocol-derived idempotency fingerprinting.
+  - Process-restart crash recovery with fail-closed remediation for corrupted artifacts.
+  - Strict preservation of the scientific safety boundary (`EXECUTION_AUTHORIZED = False`).
+
+- **Phase 7B: Event Spine & Stream Telemetry** (`NEXT / PLANNED`):
+  - In-memory and durable structured event emitter.
+  - Server-Sent Events (SSE) streaming for real-time stage progress reporting to web clients.
+
+- **Phase 7C: 3D Operational Globe & Geospatial Investigation Interface** (`FUTURE / PLANNED`):
+  - Connect the Three.js interactive 3D globe console directly to the investigation REST API.
+  - Visualize Sentinel-1 observation footprints, AOI bounding polygons, and validated GeoTIFF evidence.
   - Maintain the scientific safety firewall (`EXECUTION_AUTHORIZED = False`).
 
 ---

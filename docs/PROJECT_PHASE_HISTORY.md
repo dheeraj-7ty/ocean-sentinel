@@ -8,7 +8,7 @@
 
 ## 1. Executive Taxonomy Reconciliation
 
-Project Ocean Sentinel's development history is structured across four historical / current engineering tracks plus one planned next engineering track. Because these tracks originated in separate historical project workstreams that have now been unified into a single coherent repository, phase numbers can recur across distinct tracks (for example, historical scientific Phase 6 external evaluation vs. operational Phase 6A–6C pipeline; historical scientific Phase 7 lookalikes vs. planned operational Phase 7 3D globe interface).
+Project Ocean Sentinel's development history is structured across five engineering tracks (four historical/operational foundation tracks and one current/active investigation spine and presentation track). Because these tracks originated in separate historical project workstreams that have now been unified into a single coherent repository, phase numbers can recur across distinct tracks (for example, historical scientific Phase 6 external evaluation vs. operational Phase 6A–6C pipeline; historical scientific Phase 7 lookalikes vs. operational Phase 7A investigation spine / Phase 7C 3D globe interface).
 
 ```
 TRACK 1: HISTORICAL PROTOTYPE & DATA ACCESS (Phases 1A – 1C) [HISTORICAL]
@@ -20,10 +20,10 @@ TRACK 2: HISTORICAL SCIENTIFIC RESEARCH & ML (Phases 2 – 8, EXP-01 – EXP-08)
 TRACK 3: GOVERNANCE V2 & REPOSITORY INTEGRATION (10-Commit Group Boundary) [GOVERNED / ACTIVE]
    │
    ▼
-TRACK 4: CURRENT OPERATIONAL PIPELINE (Phases 6A – 6C) [CURRENT COMPLETED MILESTONE]
+TRACK 4: OPERATIONAL PIPELINE (Phases 6A – 6C) [OPERATIONAL BASELINE / COMPLETE]
    │
    ▼
-TRACK 5: PLANNED OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [PLANNED NEXT ENGINEERING TRACK]
+TRACK 5: INVESTIGATION SPINE & PRESENTATION LAYER (Phase 7) [CURRENT / ACTIVE ENGINEERING TRACK]
 ```
 
 ---
@@ -93,21 +93,23 @@ TRACK 5: PLANNED OPERATIONAL VISUALIZATION & GLOBE (Phase 7) [PLANNED NEXT ENGIN
 
 ## 6. Track 5: Investigation Spine & Presentation Layer (Phase 7)
 
+*Status*: **CURRENT / ACTIVE ENGINEERING TRACK**
+
 ### Phase 7A: Investigation Run Kernel & Durable Scientific Execution Spine
-*Status*: **CURRENT VERIFIED MILESTONE (COMPLETE)**
+*Status*: **COMPLETE**
 
 | Sub-Phase | Focus Area | Technical Scope | Empirical Proof / Tests |
 | :--- | :--- | :--- | :--- |
 | **Phase 7A** | Investigation Spine & Crash Recovery | `InvestigationRun` domain root, `InvestigationContext`, 10-stage `ScientificDAG`, `ArtifactRef` SHA-256 integrity binding, stage attempt idempotency, process restart crash recovery, fail-closed missing-handler semantics, and Phase 6C manifest backward compatibility. | `src/ocean_sentinel/orchestration/` (`investigation_run.py`, `investigation_context.py`, `dag.py`, `engine.py`, `investigation_store.py`), `tests/test_investigation_spine.py` (15 tests passing, 216 total in-scope tests passing) |
 
 ### Phase 7B: Event Spine & Stream Telemetry
-*Status*: **PLANNED / DEFERRED TO PHASE 7B**
+*Status*: **NEXT / PLANNED**
 
 - **Milestone Name**: **Phase 7B — Event Spine & Real-Time Telemetry**
 - **Objective**: Introduce structured event emission and server-sent event (SSE) streaming for real-time stage progress reporting.
 
 ### Phase 7C: 3D Operational Globe & Geospatial Investigation Interface
-*Status*: **PLANNED / NEXT ACTIVE PRESENTATION MILESTONE**
+*Status*: **FUTURE / PLANNED**
 
 - **Milestone Name**: **Phase 7C — 3D Operational Globe & Geospatial Investigation Interface**
 - **Objective**: Connect the existing React/Three.js frontend dashboard (`frontend/`) directly to the investigation API and evidence surface.
