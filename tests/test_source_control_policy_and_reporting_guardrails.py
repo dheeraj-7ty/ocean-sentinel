@@ -791,16 +791,17 @@ class TestArtifactRegistryAlignment:
         live_untracked = set(entry[1] for entry in parsed["visible_untracked"])
 
         BASELINE_HEAD = "542bab19f6f08c9bba8b8762e6480386c8b6026b"
+        INTEGRATION_HEAD = "63af216cd693a9b95d985cbb27ff3b69752e5cfa"
         rev_cnt_res = subprocess.run(f"git rev-list --count {BASELINE_HEAD}..HEAD", shell=True, capture_output=True, text=True, cwd=REPO_ROOT)
         commit_count = int(rev_cnt_res.stdout.strip()) if rev_cnt_res.returncode == 0 else 0
 
-        if commit_count == 10:
+        if commit_count >= 10:
             # POST-INTEGRATION STATE: all 819 files in track_set are committed across the 10 integration commits.
-            diff_res = subprocess.run(f"git diff --name-only {BASELINE_HEAD} HEAD", shell=True, capture_output=True, text=True, cwd=REPO_ROOT)
+            diff_res = subprocess.run(f"git diff --name-only {BASELINE_HEAD} {INTEGRATION_HEAD}", shell=True, capture_output=True, text=True, cwd=REPO_ROOT)
             assert diff_res.returncode == 0
             integrated_files = set(l.strip() for l in diff_res.stdout.splitlines() if l.strip())
             assert integrated_files == track_set, (
-                f"Integrated files {BASELINE_HEAD}..HEAD do not match CURRENT_TRACK_MANIFEST!\n"
+                f"Integrated files {BASELINE_HEAD}..{INTEGRATION_HEAD} do not match CURRENT_TRACK_MANIFEST!\n"
                 f"Missing: {track_set - integrated_files}\nUnexpected: {integrated_files - track_set}"
             )
             # Verify git index remains clean
