@@ -1,5 +1,6 @@
 """Tests for repository artifact policy and gitignore rules."""
 
+import re
 import subprocess
 from pathlib import Path
 
@@ -16,18 +17,17 @@ def is_ignored(path_str: str) -> bool:
 
 
 def test_registered_checkpoint_binaries_are_ignored():
-    # Verify explicitly registered checkpoint binaries are ignored
-    registered_checkpoints = [
-        "experiments/exp01_baseline/best_model.pt",
-        "experiments/exp01_baseline/final_model.pt",
-        "experiments/exp01_baseline/latest_checkpoint.pt",
-        "experiments/archive/exp01_interrupted_20260906_135852/best_model.pt",
-        "experiments/performance/exp02b_1_hard_negative_training_20260909_094500/kernel_output/exp02b_1_hard_negative_training/best_model.pt",
-        "experiments/performance/exp02c_annealed_hard_negative_20260909_144000/best_model.pt",
-        "experiments/performance/exp02c_annealed_hard_negative_20260909_144000/remote_training_output/best_model.pt",
-    ]
+    """Verify all 36 explicitly registered checkpoint binaries from canonical ARTIFACT_REGISTRY.md are ignored."""
+    registry_text = (REPO_ROOT / "experiments" / "ARTIFACT_REGISTRY.md").read_text(encoding="utf-8")
+    section_7_1 = registry_text.split("### 7.1 Checkpoint Inventory & Canonical Verification")[1].split("### 7.2")[0]
+    registered_checkpoints = []
+    for line in section_7_1.splitlines():
+        m = re.findall(r"\|([^|]+)", line)
+        if len(m) >= 3 and ".pt" in m[0]:
+            registered_checkpoints.append(m[0].strip().replace("`", "").replace("\\", "/").strip())
+    assert len(registered_checkpoints) == 36, f"Expected 36 registered checkpoints in Section 7.1, found {len(registered_checkpoints)}"
     for c in registered_checkpoints:
-        assert is_ignored(c), f"Expected {c} to be ignored"
+        assert is_ignored(c), f"Expected registered checkpoint {c} to be ignored"
 
 
 def test_future_checkpoints_are_not_globally_suppressed():

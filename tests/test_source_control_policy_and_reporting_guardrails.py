@@ -1024,6 +1024,10 @@ class TestArtifactRegistryAlignment:
             assert report_fields["EXTERNAL_PRESENCE"] == "264/264"
             assert report_fields["EXTERNAL_CLASSIFICATION"] == "PASS"
             assert report_fields["EXTERNAL_GIT_IGNORE_BOUNDARY"] == "PASS"
+            if "ACCESSIBLE_AI_EVIDENCE_COUNT" in report_fields:
+                assert int(report_fields["ACCESSIBLE_AI_EVIDENCE_COUNT"]) == 13
+            if "AI_EVIDENCE_INVENTORY_COUNT" in report_fields:
+                assert int(report_fields["AI_EVIDENCE_INVENTORY_COUNT"]) == 17
 
         assert report_fields["PROTECTED_HASHES"] == "8/8 MATCH"
         assert report_fields.get("FINAL_INDEX_STATE") == "CLEAN" or report_fields.get("GIT_INDEX_MUTATED") == "NO"
@@ -1338,6 +1342,20 @@ class TestArtifactRegistryAlignment:
                     assert current_ledger_head == live_head, (
                         f"AI-SRC-001 live-tree HEAD in ledger ({current_ledger_head}) does not match live git rev-parse HEAD ({live_head})"
                     )
+
+        # Mathematical reconciliation of AI evidence counts:
+        # AI_EVIDENCE_INVENTORY_COUNT == ACCESSIBLE_AI_EVIDENCE_COUNT + UNAVAILABLE_EXTERNAL_SOURCES
+        report_summary = self._parse_report_summary()
+        if "AI_EVIDENCE_INVENTORY_COUNT" in report_summary and "ACCESSIBLE_AI_EVIDENCE_COUNT" in report_summary:
+            total_inv = int(report_summary["AI_EVIDENCE_INVENTORY_COUNT"])
+            accessible = int(report_summary["ACCESSIBLE_AI_EVIDENCE_COUNT"])
+            unavailable = int(report_summary.get("UNAVAILABLE_EXTERNAL_SOURCES", 4))
+            assert total_inv == accessible + unavailable, (
+                f"Evidence count mismatch: total={total_inv} != accessible({accessible}) + unavailable({unavailable})"
+            )
+            assert accessible == 13, f"Expected 13 accessible AI sources, got {accessible}"
+            assert unavailable == 4, f"Expected 4 unavailable external sources, got {unavailable}"
+            assert total_inv == 17, f"Expected 17 total inventory sources, got {total_inv}"
 
     def test_candidate_lessons_count_and_header_consistency(self):
         """Verify candidate lessons catalog header matches actual count of defined CL items."""

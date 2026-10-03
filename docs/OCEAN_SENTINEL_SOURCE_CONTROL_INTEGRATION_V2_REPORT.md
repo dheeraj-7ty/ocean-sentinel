@@ -833,6 +833,8 @@ DEFECT_AND_GOVERNANCE_STATUS:
   CAO_RATIFICATION_ITEMS: 1
   TECHNICAL_POLICY_DEFERRED: 1
   FUTURE_RECOMMENDATIONS: 3
+  AI_EVIDENCE_INVENTORY_COUNT: 17
+  ACCESSIBLE_AI_EVIDENCE_COUNT: 13
   UNAVAILABLE_EXTERNAL_SOURCES: 4
 ```
 
@@ -844,7 +846,9 @@ DEFECT_AND_GOVERNANCE_STATUS:
   1. Git LFS or external object storage migration for 36 preserved PyTorch model weights (`*.pt` ~4.5 GB).
   2. Automated dependency vulnerability scanning pipeline integration.
   3. Formalization of persistent caching policy for `.pytest_cache/` in remote CI runners.
-- **`UNAVAILABLE_EXTERNAL_SOURCES = 4`**: Historical session transcripts for Claude (`AI-SRC-014`), Perplexity (`AI-SRC-015`), ChatGPT/Codex (`AI-SRC-016`), and OpenCode (`AI-SRC-017`) remain unavailable and unverified (`DECLARED_INVENTORY_ONLY`).
+- **`AI_EVIDENCE_INVENTORY_COUNT = 17`**: Total declared AI sources in inventory (`AI-SRC-001` through `AI-SRC-017`).
+- **`ACCESSIBLE_AI_EVIDENCE_COUNT = 13`**: Actually accessible and evaluable sources physically present and verified within repository scope (`AI-SRC-001` through `AI-SRC-013`).
+- **`UNAVAILABLE_EXTERNAL_SOURCES = 4`**: Historical session transcripts for Claude (`AI-SRC-014`), Perplexity (`AI-SRC-015`), ChatGPT/Codex (`AI-SRC-016`), and OpenCode (`AI-SRC-017`) remain unavailable and unverified (`DECLARED_INVENTORY_ONLY`). Reconciles mathematically: $13 \text{ accessible} + 4 \text{ unavailable} = 17 \text{ total inventory}$.
 
 ```
 CURRENT_FINAL_MACHINE_SUMMARY
@@ -971,6 +975,8 @@ HOLDOUT_ACCESS_OBSERVED = NO
 PART_III_ACCESS_OBSERVED = NO
 
 AI_EVIDENCE_INVENTORY_COUNT = 17
+ACCESSIBLE_AI_EVIDENCE_COUNT = 13
+UNAVAILABLE_EXTERNAL_SOURCES = 4
 AI_EVIDENCE_RECONCILIATION_SCOPE = DECLARED_INVENTORY_ONLY
 ALL_AVAILABLE_AND_INVENTORIED_AI_EVIDENCE_RECONCILED = YES
 
