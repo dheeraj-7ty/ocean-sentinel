@@ -1,7 +1,7 @@
 # Ocean Sentinel — Current Operational & Governance Status
 
 **Authoritative Current State Document**
-**Last Verified Timestamp**: 2026-10-04T13:40:00+05:30
+**Last Verified Snapshot**: 2026-10-05T01:45:00+05:30 (LAST_VERIFIED_SNAPSHOT_AT)
 **Current Branch**: `master`
 **Synchronization**: `IN_SYNC` (`HEAD == origin/master`, clean working tree)
 **Authoritative Commit Identity**: Derived dynamically from live Git via `git rev-parse HEAD`
@@ -135,8 +135,8 @@ Deterministic collection and execution across the 11 governed operational, spine
 Domain & Investigation Spine Suites (9 files, 193 tests):
   tests/test_acquisition_job.py                             22 passed
   tests/test_backend_api.py                                20 passed
-  tests/test_acquisition_persistence.py                     11 passed
-  tests/test_operational_pipeline.py                        25 passed
+  tests/test_acquisition_persistence.py                     10 passed
+  tests/test_operational_pipeline.py                        26 passed
   tests/test_imagery_service.py                             32 passed
   tests/test_discovery.py                                   37 passed
   tests/test_pipeline_orchestration.py                      12 passed
