@@ -25,6 +25,7 @@ import asyncio
 import hashlib
 import json
 from pathlib import Path
+from unittest import mock
 import pytest
 from fastapi.testclient import TestClient
 
@@ -635,3 +636,123 @@ def test_phase6c_compatibility_and_missing_event_log(tmp_path: Path):
     assert new_evt.sequence == 1
     assert log.get_latest_sequence() == 1
     assert events_file.exists()
+
+
+def test_sse_reconnect_replay_handoff_race_gapless_delivery(tmp_path: Path):
+    """Verify that an event committed concurrently during replay/live handoff is gaplessly delivered exactly once."""
+    from ocean_sentinel.api.routes import set_investigation_engine, set_investigation_store
+
+    store = InvestigationRunStore(base_dir=tmp_path / "investigations", repo_root=tmp_path)
+    engine = InvestigationEngine(store=store, repo_root=tmp_path)
+    set_investigation_store(store)
+    set_investigation_engine(engine)
+
+    run = InvestigationRun(
+        run_id="inv_race_01",
+        overall_status=InvestigationRunStatus.RUNNING.value,
+        request=InvestigationRunRequest(),
+    )
+    store.save_run(run)
+    log = store.get_event_log(run.run_id)
+
+    # Initial historical events 1 and 2
+    log.emit(InvestigationEventType.RUN_CREATED)
+    log.emit(InvestigationEventType.RUN_STARTED)
+
+    # Hook into event_log.replay: while replay is occurring, simulate a concurrent event emission!
+    orig_replay = log.replay
+
+    def mock_replay(*args, **kwargs):
+        res = orig_replay(*args, **kwargs)
+        # Emit concurrent event 3 to disk and broadcast to event bus
+        engine.emit_event(run, InvestigationEventType.STAGE_STARTED, stage_id="VALIDATE")
+        # Explicitly close the active subscription after concurrent event broadcast
+        # to cleanly terminate client stream observation without declaring run terminal
+        for s in engine.event_bus._async_subscribers.get(run.run_id, []):
+            s.close()
+        return res
+
+    with mock.patch.object(log, "replay", side_effect=mock_replay):
+        app = create_app()
+        client = TestClient(app)
+        # Reconnect asking for events after seq 1 using streaming response
+        with client.stream("GET", f"/api/v1/investigations/{run.run_id}/events", headers={"Last-Event-ID": "1"}) as resp:
+            assert resp.status_code == 200
+            assert "text/event-stream" in resp.headers["content-type"]
+            body = "\n".join(resp.iter_lines()) + "\n"
+
+    # Verify event 2 (from replay) and event 3 (from concurrent handoff) are present exactly once
+    assert "id: 2\n" in body
+    assert "id: 3\n" in body
+    assert body.count("id: 2\n") == 1
+    assert body.count("id: 3\n") == 1
+    assert "id: 1\n" not in body
+
+
+def test_event_append_failure_suppresses_broadcast_and_fails_closed(tmp_path: Path):
+    """Verify that an event persistence failure suppresses broadcast to the EventBus and fails closed."""
+    from ocean_sentinel.orchestration.engine import InvestigationEngineError
+
+    store = InvestigationRunStore(base_dir=tmp_path / "investigations", repo_root=tmp_path)
+    engine = InvestigationEngine(store=store, repo_root=tmp_path)
+
+    run = InvestigationRun(
+        run_id="inv_fail_closed_01",
+        overall_status=InvestigationRunStatus.RUNNING.value,
+        request=InvestigationRunRequest(),
+    )
+    store.save_run(run)
+
+    # Register an active subscriber
+    sub = engine.event_bus.subscribe(run.run_id)
+
+    # Patch event_log.emit to simulate a disk write error
+    log = store.get_event_log(run.run_id)
+    with mock.patch.object(log, "emit", side_effect=IOError("Simulated disk write failure")):
+        with pytest.raises(InvestigationEngineError) as exc_info:
+            engine.emit_event(run, InvestigationEventType.STAGE_STARTED, stage_id="VALIDATE")
+        assert "Durable event persistence failed" in str(exc_info.value)
+
+    # Verify EventBus received ZERO events (no phantom broadcast)
+    assert sub.queue.empty(), "Phantom event was leaked to subscriber queue despite disk failure!"
+
+
+def test_event_bus_overflow_resynchronizes_from_durable_disk_log(tmp_path: Path):
+    """Verify that subscriber queue overflow automatically resynchronizes all missed events from disk."""
+    from ocean_sentinel.api.routes import set_investigation_engine, set_investigation_store
+
+    store = InvestigationRunStore(base_dir=tmp_path / "investigations", repo_root=tmp_path)
+    engine = InvestigationEngine(store=store, repo_root=tmp_path)
+    set_investigation_store(store)
+    set_investigation_engine(engine)
+
+    run = InvestigationRun(
+        run_id="inv_overflow_01",
+        overall_status=InvestigationRunStatus.READY_FOR_DETECTION.value,
+        request=InvestigationRunRequest(),
+    )
+    store.save_run(run)
+
+    # Subscribe with tiny queue of size 2
+    sub = engine.event_bus.subscribe(run.run_id, max_queue_size=2)
+
+    # Emit 5 events through the engine
+    for stage in ["VALIDATE", "DISCOVER", "ACQUIRE", "PERSIST", "PREFLIGHT"]:
+        engine.emit_event(run, InvestigationEventType.STAGE_COMPLETED, stage_id=stage)
+
+    # Confirm that subscriber queue overflowed
+    assert sub.has_overflowed is True
+    # The queue can hold at most 2 items
+    assert sub.queue.qsize() <= 2
+
+    # Consuming the SSE stream triggers automatic disk resynchronization
+    app = create_app()
+    client = TestClient(app)
+    resp = client.get(f"/api/v1/investigations/{run.run_id}/events")
+    assert resp.status_code == 200
+    body = resp.text
+
+    # All 5 events must be delivered sequentially without any gap
+    for seq in [1, 2, 3, 4, 5]:
+        assert f"id: {seq}\n" in body
+        assert body.count(f"id: {seq}\n") == 1
