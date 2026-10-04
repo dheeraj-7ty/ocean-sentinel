@@ -6,7 +6,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Governance: V2](https://img.shields.io/badge/Governance-V2%20Active-brightgreen.svg)](docs/governance/)
-[![Tests: 216 Passing](https://img.shields.io/badge/Tests-216%20In--Scope%20Pass-success.svg)](tests/)
+[![Tests: 232 Passing](https://img.shields.io/badge/Tests-232%20In--Scope%20Pass-success.svg)](tests/)
 [![Scientific Execution: Gated](https://img.shields.io/badge/Scientific%20Execution-Gated-orange.svg)](docs/CURRENT_STATUS.md)
 
 ---
@@ -22,8 +22,9 @@ The system provides an end-to-end, fail-closed operational bridge from user-defi
 - **Validates** radiometric properties, geospatial coordinate reference systems, and polarization channel contracts (`Ch0 = VH`, `Ch1 = VV`).
 - **Orchestrates** investigation runs via a 10-stage `ScientificDAG` through a deterministic lifecycle into a structured operational evidence state (`READY_FOR_DETECTION`).
 - **Recovers** deterministically after process interruption without duplicate stage re-execution.
+- **Streams** real-time Server-Sent Events (SSE) and durable operational telemetry with `Last-Event-ID` replay.
 
-For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md) and [**`docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md`**](docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md).
+For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md), [**`docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md`**](docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md), and [**`docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md`**](docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md).
 
 ---
 
@@ -31,13 +32,13 @@ For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](do
 
 | Status Dimension | Verified Reality | Evidence Authority |
 | :--- | :--- | :--- |
-| **Current Milestone** | **Phase 7A: Investigation Run Kernel & Durable Execution Spine** | `InvestigationRun`, `ScientificDAG`, Dynamic Recovery Proof |
-| **Operational Pipeline** | **Operational synchronous acquisition workflow & durable execution spine verified** | Proven via live CDSE, live REST API, and crash-recovery smoke tests |
+| **Current Milestone** | **Phase 7B: Event Spine & Stream Telemetry** | `InvestigationEvent`, `DurableEventLog`, `EventBus`, SSE & Telemetry Proof |
+| **Operational Pipeline** | **Operational synchronous acquisition workflow, durable spine & observable event stream verified** | Proven via live CDSE, live REST API, crash-recovery, and SSE smoke tests |
 | **Scientific Safety** | **Strictly Gated (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` fail-closed firewall |
 | **Protected Baseline** | **8/8 Canonical baseline files bitwise intact (100%)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Tests** | **216/216 In-scope tests passing (100%)** | 10 governed operational, spine, and guardrail suites |
+| **Automated Tests** | **232/232 In-scope tests passing (100%)** | 11 governed operational, spine, event, and guardrail suites |
 | **Git Working Tree** | **Clean (0 staged, 0 modified, 0 untracked)** | Synchronized with `origin/master` |
-| **Next Milestone** | **Phase 7B: Event Spine & Stream Telemetry** | Structured Event Stream & Durable Logging |
+| **Next Milestone** | **Phase 7C: 3D Geospatial Investigation Globe** | Interactive 3D Visualization & Investigation Console |
 
 ---
 
@@ -200,10 +201,10 @@ uv pip install -e ".[dev]"
 
 ### Running In-Scope Automated Tests
 
-The authoritative in-scope test suite comprises 216 tests across 10 operational, investigation spine, and policy suites:
+The authoritative in-scope test suite comprises 232 tests across 11 operational, investigation spine, event, and policy suites:
 
 ```bash
-# Run the 216 in-scope operational, spine & guardrail tests
+# Run the 232 in-scope operational, spine, event & guardrail tests
 pytest \
   tests/test_acquisition_job.py \
   tests/test_backend_api.py \
@@ -214,7 +215,8 @@ pytest \
   tests/test_pipeline_orchestration.py \
   tests/test_source_control_policy_and_reporting_guardrails.py \
   tests/test_artifact_policy.py \
-  tests/test_investigation_spine.py
+  tests/test_investigation_spine.py \
+  tests/test_event_spine.py
 ```
 
 ### Running the Backend API Server
@@ -247,11 +249,14 @@ npm run dev
   - Process-restart crash recovery with fail-closed remediation for corrupted artifacts.
   - Strict preservation of the scientific safety boundary (`EXECUTION_AUTHORIZED = False`).
 
-- **Phase 7B: Event Spine & Stream Telemetry** (`NEXT / PLANNED`):
-  - In-memory and durable structured event emitter.
-  - Server-Sent Events (SSE) streaming for real-time stage progress reporting to web clients.
+- **Phase 7B: Event Spine & Stream Telemetry** (`COMPLETE`):
+  - Typed `InvestigationEvent` domain model and canonical event taxonomy.
+  - Append-only durable event log (`events.jsonl`) with sequence monotonicity and crash recovery.
+  - In-process non-blocking `EventBus` subscriber hub with run-level isolation.
+  - Server-Sent Events (SSE) streaming (`/api/v1/investigations/{run_id}/events`) with `Last-Event-ID` cursor replay.
+  - Live operational telemetry without fabricating uncomputed scientific metrics.
 
-- **Phase 7C: 3D Operational Globe & Geospatial Investigation Interface** (`FUTURE / PLANNED`):
+- **Phase 7C: 3D Operational Globe & Geospatial Investigation Interface** (`NEXT / PLANNED`):
   - Connect the Three.js interactive 3D globe console directly to the investigation REST API.
   - Visualize Sentinel-1 observation footprints, AOI bounding polygons, and validated GeoTIFF evidence.
   - Maintain the scientific safety firewall (`EXECUTION_AUTHORIZED = False`).

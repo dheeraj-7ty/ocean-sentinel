@@ -36,7 +36,7 @@ CANONICAL_PROTECTED_HASHES = {
     "docs/exp08_corrected_protocol.md": "E6691A6C3A70D6762A03462E5A8E6B6B60F0DD1AD066A552DD047375DE6FB50E",
 }
 
-# Post-reconciliation engineering phase files (Phase 6/6B/6C/7A) excluded from historical baseline commit plan checks
+# Post-reconciliation engineering phase files (Phase 6/6B/6C/7A/7B) excluded from historical baseline commit plan checks
 POST_BASELINE_OPERATIONAL_FILES = {
     "src/ocean_sentinel/operational_pipeline.py",
     "tests/test_operational_pipeline.py",
@@ -49,11 +49,16 @@ POST_BASELINE_OPERATIONAL_FILES = {
     "src/ocean_sentinel/orchestration/dag.py",
     "src/ocean_sentinel/orchestration/investigation_store.py",
     "src/ocean_sentinel/orchestration/engine.py",
+    "src/ocean_sentinel/orchestration/events.py",
+    "src/ocean_sentinel/orchestration/event_log.py",
+    "src/ocean_sentinel/orchestration/event_bus.py",
     "tests/test_investigation_spine.py",
+    "tests/test_event_spine.py",
     "docs/CURRENT_STATUS.md",
     "docs/PROJECT_PHASE_HISTORY.md",
     "docs/EVIDENCE_MATRIX.md",
     "docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md",
+    "docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md",
 }
 
 
