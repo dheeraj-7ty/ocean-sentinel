@@ -15,6 +15,7 @@ CLAIM ──► IMPLEMENTING MODULE ──► AUTOMATED TESTS ──► EMPIRICA
 ```
 
 ### Evidence Scope Definitions
+- **`CURRENT PHASE 7C LIVE / DETERMINISTIC PROOF`**: Capabilities verified by interactive Three.js 3D visualization, real evidence inspection, SSE streaming, and deterministic frontend/backend test suites.
 - **`CURRENT PHASE 6C LIVE / OPERATIONAL PROOF`**: Capabilities verified by direct, authenticated execution against external live services (Copernicus CDSE / live REST API smoke tests).
 - **`CURRENT DETERMINISTIC UNIT-TEST PROOF`**: Capabilities verified by deterministic, offline automated unit and contract test suites.
 - **`STANDING GOVERNANCE INVARIANT`**: Enforced repository, safety, and source-control properties verified dynamically against canonical oracles.
@@ -54,6 +55,7 @@ CLAIM ──► IMPLEMENTING MODULE ──► AUTOMATED TESTS ──► EMPIRICA
 | **Raw Secret Leakage Prohibition** | [`src/ocean_sentinel/orchestration/investigation_run.py`](src/ocean_sentinel/orchestration/investigation_run.py), [`investigation_context.py`](src/ocean_sentinel/orchestration/investigation_context.py) | `tests/test_investigation_spine.py`, `tests/test_event_spine.py` | Strict fail-closed prohibition of raw credentials from entering persisted state or event payloads | **CURRENT DETERMINISTIC PROOF** |
 | **Tampered Artifact Detection & Recovery** | [`src/ocean_sentinel/orchestration/engine.py`](src/ocean_sentinel/orchestration/engine.py), [`investigation_store.py`](src/ocean_sentinel/orchestration/investigation_store.py) | `tests/test_investigation_spine.py` | On-disk SHA-256 verification rejects tampered artifacts and fails recovery closed | **CURRENT PHASE 7A DETERMINISTIC PROOF** |
 | **Durable Event Spine & SSE Telemetry** | [`src/ocean_sentinel/orchestration/events.py`](src/ocean_sentinel/orchestration/events.py), [`event_log.py`](src/ocean_sentinel/orchestration/event_log.py), [`event_bus.py`](src/ocean_sentinel/orchestration/event_bus.py), [`api/routes.py`](src/ocean_sentinel/api/routes.py) | `tests/test_event_spine.py` (19 tests) | Strictly monotonic append-oriented events.jsonl with tail-corruption recovery, live subscription handoff gapless delivery, durable append failure broadcast suppression, subscriber queue overflow disk resynchronization, non-blocking in-process EventBus, SSE streaming with Last-Event-ID replay, and live operational telemetry | **CURRENT PHASE 7B DETERMINISTIC PROOF** |
+| **3D Geospatial Console & Evidence Inspector** | [`frontend/src/components/GlobeView.tsx`](frontend/src/components/GlobeView.tsx), [`RightInspector.tsx`](frontend/src/components/RightInspector.tsx), [`BottomTimeline.tsx`](frontend/src/components/BottomTimeline.tsx), [`services/api.ts`](frontend/src/services/api.ts) | `frontend/src/test/Phase7C.test.tsx` (13 tests), `frontend/src/test/App.test.tsx` (66 tests) | Interactive 3D Earth globe rendering operator AOI and Sentinel-1 observation footprints, real evidence inspection, visible scientific gate banner (`EXECUTION_AUTHORIZED = False`), real-time SSE stream with `Last-Event-ID` replay, and sequence deduplication | **CURRENT PHASE 7C LIVE / DETERMINISTIC PROOF** |
 
 ---
 

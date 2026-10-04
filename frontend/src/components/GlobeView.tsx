@@ -17,6 +17,7 @@ import {
 import type {
   CandidateVesselHypothesis,
   EvidenceItem,
+  InvestigationRun,
   JobResultResponse,
   LayerVisibility,
   SelectedLocation,
@@ -24,6 +25,9 @@ import type {
 
 interface GlobeViewProps {
   result: JobResultResponse | null
+  investigation?: InvestigationRun | null
+  aoiGeometry?: any
+  observationFootprint?: any
   selectedEvidenceId: string | null
   onSelectEvidence: (id: string | null) => void
   selectedLocation: SelectedLocation | null
@@ -58,6 +62,9 @@ export function vector3ToLatLon(v: THREE.Vector3, _radius = 100): { lat: number;
 
 export const GlobeView: React.FC<GlobeViewProps> = ({
   result,
+  investigation,
+  aoiGeometry,
+  observationFootprint,
   selectedEvidenceId,
   onSelectEvidence,
   selectedLocation,
@@ -81,6 +88,8 @@ export const GlobeView: React.FC<GlobeViewProps> = ({
   const aisGroupRef = useRef<THREE.Group>(new THREE.Group())
   const fusionGroupRef = useRef<THREE.Group>(new THREE.Group())
   const userLocationGroupRef = useRef<THREE.Group>(new THREE.Group())
+  const aoiGroupRef = useRef<THREE.Group>(new THREE.Group())
+  const footprintGroupRef = useRef<THREE.Group>(new THREE.Group())
   const highlightGroupRef = useRef<THREE.Group>(new THREE.Group())
 
   const interactiveObjectsRef = useRef<THREE.Object3D[]>([])
@@ -294,6 +303,8 @@ export const GlobeView: React.FC<GlobeViewProps> = ({
     scene.add(aisGroupRef.current)
     scene.add(fusionGroupRef.current)
     scene.add(userLocationGroupRef.current)
+    scene.add(aoiGroupRef.current)
+    scene.add(footprintGroupRef.current)
     scene.add(highlightGroupRef.current)
 
     // Raycaster for mouse interaction & HUD coordinates
@@ -446,7 +457,162 @@ export const GlobeView: React.FC<GlobeViewProps> = ({
     originGroupRef.current.visible = layers.drift_origin
     aisGroupRef.current.visible = layers.ais_tracks
     fusionGroupRef.current.visible = layers.fused_evidence
+    aoiGroupRef.current.visible = layers.aoi_geometry ?? true
+    footprintGroupRef.current.visible = layers.observation_footprint ?? true
   }, [layers])
+
+  // 3D AOI & Observation Footprint Render & Lifecycle (Phase 7C)
+  useEffect(() => {
+    // Clear existing AOI children
+    while (aoiGroupRef.current.children.length > 0) {
+      const obj = aoiGroupRef.current.children[0]
+      aoiGroupRef.current.remove(obj)
+    }
+    // Clear existing footprint children
+    while (footprintGroupRef.current.children.length > 0) {
+      const obj = footprintGroupRef.current.children[0]
+      footprintGroupRef.current.remove(obj)
+    }
+
+    const R = 100
+
+    // 1. Render AOI Geometry (USER_INPUT)
+    let aoiCoords: [number, number][] | null = null
+    const rawAoi = aoiGeometry || investigation?.request?.aoi
+    const rawBbox = investigation?.request?.bbox
+
+    if (rawAoi && rawAoi.type === 'Polygon' && Array.isArray(rawAoi.coordinates?.[0])) {
+      aoiCoords = rawAoi.coordinates[0].map(([lon, lat]: [number, number]) => [lat, lon])
+    } else if (rawBbox && Array.isArray(rawBbox) && rawBbox.length === 4) {
+      const [w, s, e, n] = rawBbox
+      aoiCoords = [
+        [s, w],
+        [s, e],
+        [n, e],
+        [n, w],
+        [s, w],
+      ]
+    }
+
+    if (aoiCoords && aoiCoords.length >= 4) {
+      const points = aoiCoords.map(([lat, lon]) => latLonToVector3(lat, lon, R, 0.28))
+      let centerLat = 0
+      let centerLon = 0
+      aoiCoords.slice(0, aoiCoords.length - 1).forEach(([lat, lon]) => {
+        centerLat += lat
+        centerLon += lon
+      })
+      const count = aoiCoords.length - 1
+      centerLat /= count
+      centerLon /= count
+
+      const aoiGeo = new THREE.BufferGeometry().setFromPoints(points)
+      const aoiMat = new THREE.LineBasicMaterial({
+        color: 0x00f2fe,
+        linewidth: 2,
+      })
+      const aoiLoop = new THREE.LineLoop(aoiGeo, aoiMat)
+      aoiLoop.userData = {
+        evidenceId: 'USER_AOI',
+        label: 'OPERATOR AOI (USER_INPUT)',
+        lat: centerLat,
+        lon: centerLon,
+        isUserInput: true,
+      }
+      aoiGroupRef.current.add(aoiLoop)
+      interactiveObjectsRef.current.push(aoiLoop)
+
+      // Corner target spheres
+      points.slice(0, points.length - 1).forEach((pt) => {
+        const cornerGeo = new THREE.SphereGeometry(0.5, 12, 12)
+        const cornerMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe })
+        const cornerMesh = new THREE.Mesh(cornerGeo, cornerMat)
+        cornerMesh.position.copy(pt)
+        cornerMesh.userData = aoiLoop.userData
+        aoiGroupRef.current.add(cornerMesh)
+      })
+
+      // Center marker
+      const centerGeo = new THREE.SphereGeometry(0.8, 16, 16)
+      const centerMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe })
+      const centerMesh = new THREE.Mesh(centerGeo, centerMat)
+      centerMesh.position.copy(latLonToVector3(centerLat, centerLon, R, 0.32))
+      centerMesh.userData = aoiLoop.userData
+      aoiGroupRef.current.add(centerMesh)
+      interactiveObjectsRef.current.push(centerMesh)
+
+      // Auto-focus if investigation is present without full result
+      if (!result && investigation) {
+        flyTo(centerLat, centerLon, 135)
+      }
+    }
+
+    // 2. Render Observation Footprint (REAL_REPOSITORY_EVIDENCE)
+    let footprintCoords: [number, number][] | null = null
+    const rawFootprint = observationFootprint || investigation?.evidence_state?.footprint
+    const rawEvidenceBbox = investigation?.evidence_state?.bbox
+
+    if (rawFootprint && rawFootprint.type === 'Polygon' && Array.isArray(rawFootprint.coordinates?.[0])) {
+      footprintCoords = rawFootprint.coordinates[0].map(([lon, lat]: [number, number]) => [lat, lon])
+    } else if (rawEvidenceBbox && Array.isArray(rawEvidenceBbox) && rawEvidenceBbox.length === 4) {
+      const [w, s, e, n] = rawEvidenceBbox
+      footprintCoords = [
+        [s, w],
+        [s, e],
+        [n, e],
+        [n, w],
+        [s, w],
+      ]
+    }
+
+    if (footprintCoords && footprintCoords.length >= 4) {
+      const points = footprintCoords.map(([lat, lon]) => latLonToVector3(lat, lon, R, 0.35))
+      let centerLat = 0
+      let centerLon = 0
+      footprintCoords.slice(0, footprintCoords.length - 1).forEach(([lat, lon]) => {
+        centerLat += lat
+        centerLon += lon
+      })
+      const count = footprintCoords.length - 1
+      centerLat /= count
+      centerLon /= count
+
+      const fpGeo = new THREE.BufferGeometry().setFromPoints(points)
+      const fpMat = new THREE.LineBasicMaterial({
+        color: 0xf59e0b, // Amber / gold
+        linewidth: 2,
+      })
+      const fpLoop = new THREE.LineLoop(fpGeo, fpMat)
+      fpLoop.userData = {
+        evidenceId: 'OBSERVATION_FOOTPRINT',
+        label: 'SENTINEL-1 SAR OBSERVATION FOOTPRINT (REAL_REPOSITORY_EVIDENCE)',
+        lat: centerLat,
+        lon: centerLon,
+        isRealEvidence: true,
+      }
+      footprintGroupRef.current.add(fpLoop)
+      interactiveObjectsRef.current.push(fpLoop)
+
+      // Corner target spheres
+      points.slice(0, points.length - 1).forEach((pt) => {
+        const cornerGeo = new THREE.SphereGeometry(0.5, 12, 12)
+        const cornerMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+        const cornerMesh = new THREE.Mesh(cornerGeo, cornerMat)
+        cornerMesh.position.copy(pt)
+        cornerMesh.userData = fpLoop.userData
+        footprintGroupRef.current.add(cornerMesh)
+      })
+
+      // Center marker
+      const centerGeo = new THREE.SphereGeometry(0.8, 16, 16)
+      const centerMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+      const centerMesh = new THREE.Mesh(centerGeo, centerMat)
+      centerMesh.position.copy(latLonToVector3(centerLat, centerLon, R, 0.38))
+      centerMesh.userData = fpLoop.userData
+      footprintGroupRef.current.add(centerMesh)
+      interactiveObjectsRef.current.push(centerMesh)
+    }
+  }, [aoiGeometry, observationFootprint, investigation, flyTo, result])
 
   // 3D User Location Marker Render & Lifecycle
   useEffect(() => {
@@ -737,6 +903,128 @@ export const GlobeView: React.FC<GlobeViewProps> = ({
       })
     }
   }, [result, flyTo])
+
+  // Synchronize layer group visibility with toggle states
+  useEffect(() => {
+    if (sarGroupRef.current) sarGroupRef.current.visible = Boolean(layers.sar_detection)
+    if (temporalGroupRef.current) temporalGroupRef.current.visible = Boolean(layers.temporal_change)
+    if (driftGroupRef.current) driftGroupRef.current.visible = Boolean(layers.drift_trajectory)
+    if (originGroupRef.current) originGroupRef.current.visible = Boolean(layers.drift_origin)
+    if (aisGroupRef.current) aisGroupRef.current.visible = Boolean(layers.ais_tracks)
+    if (fusionGroupRef.current) fusionGroupRef.current.visible = Boolean(layers.fused_evidence)
+    if (aoiGroupRef.current) aoiGroupRef.current.visible = layers.aoi_geometry !== false
+    if (footprintGroupRef.current) footprintGroupRef.current.visible = layers.observation_footprint !== false
+  }, [layers])
+
+  // Clear & Rebuild Phase 7C AOI & Observation Footprint Layers
+  useEffect(() => {
+    const clearGroup = (group: THREE.Group) => {
+      while (group.children.length > 0) {
+        const obj = group.children[0]
+        group.remove(obj)
+      }
+    }
+
+    clearGroup(aoiGroupRef.current)
+    clearGroup(footprintGroupRef.current)
+
+    const effectiveAoi = aoiGeometry || investigation?.request?.aoi_bounding_box
+    const effectiveFootprint = observationFootprint || investigation?.observation_footprint
+
+    const R = 100
+
+    // Render AOI Geometry (User Input / Operator Parameter)
+    if (effectiveAoi) {
+      let aoiRings: [number, number][][] = []
+      if (Array.isArray(effectiveAoi) && effectiveAoi.length === 4) {
+        // [min_lon, min_lat, max_lon, max_lat]
+        const [minLon, minLat, maxLon, maxLat] = effectiveAoi
+        aoiRings = [[
+          [minLon, minLat],
+          [maxLon, minLat],
+          [maxLon, maxLat],
+          [minLon, maxLat],
+          [minLon, minLat],
+        ]]
+      } else if (effectiveAoi.coordinates) {
+        aoiRings = effectiveAoi.type === 'Polygon' ? effectiveAoi.coordinates : effectiveAoi.coordinates[0]
+      }
+
+      aoiRings.forEach((ring) => {
+        if (!Array.isArray(ring) || ring.length < 3) return
+        const points = ring.map(([lon, lat]: [number, number]) => latLonToVector3(lat, lon, R, 0.28))
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points)
+        const lineMat = new THREE.LineBasicMaterial({
+          color: 0x00f2fe, // Cyan for operator AOI input
+          linewidth: 2,
+        })
+        const lineLoop = new THREE.LineLoop(lineGeo, lineMat)
+        const centerLat = ring.reduce((sum, p) => sum + p[1], 0) / ring.length
+        const centerLon = ring.reduce((sum, p) => sum + p[0], 0) / ring.length
+
+        lineLoop.userData = {
+          evidenceId: 'USER_AOI',
+          label: `AOI: ${investigation?.request?.aoi_name || 'Operator Selected AOI'} (USER_INPUT)`,
+          lat: centerLat,
+          lon: centerLon,
+          isUserInput: true,
+        }
+        aoiGroupRef.current.add(lineLoop)
+        interactiveObjectsRef.current.push(lineLoop)
+
+        // Subtle corner markers
+        ring.slice(0, 4).forEach(([lon, lat]: [number, number]) => {
+          const cornerGeo = new THREE.SphereGeometry(0.5, 8, 8)
+          const cornerMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe })
+          const cornerMesh = new THREE.Mesh(cornerGeo, cornerMat)
+          cornerMesh.position.copy(latLonToVector3(lat, lon, R, 0.3))
+          cornerMesh.userData = lineLoop.userData
+          aoiGroupRef.current.add(cornerMesh)
+          interactiveObjectsRef.current.push(cornerMesh)
+        })
+
+        if (!result) {
+          flyTo(centerLat, centerLon, 135)
+        }
+      })
+    }
+
+    // Render Observation Footprint (Real Sentinel-1 SAR Evidence)
+    if (effectiveFootprint) {
+      let footprintRings: [number, number][][] = []
+      if (effectiveFootprint.coordinates) {
+        footprintRings = effectiveFootprint.type === 'Polygon' ? effectiveFootprint.coordinates : effectiveFootprint.coordinates[0]
+      } else if (Array.isArray(effectiveFootprint) && Array.isArray(effectiveFootprint[0])) {
+        footprintRings = [effectiveFootprint]
+      }
+
+      footprintRings.forEach((ring) => {
+        if (!Array.isArray(ring) || ring.length < 3) return
+        const points = ring.map(([lon, lat]: [number, number]) => latLonToVector3(lat, lon, R, 0.22))
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(points)
+        const lineMat = new THREE.LineBasicMaterial({
+          color: 0x10b981, // Emerald for authentic repository observation
+          linewidth: 2,
+        })
+        const lineLoop = new THREE.LineLoop(lineGeo, lineMat)
+        const centerLat = ring.reduce((sum, p) => sum + p[1], 0) / ring.length
+        const centerLon = ring.reduce((sum, p) => sum + p[0], 0) / ring.length
+
+        lineLoop.userData = {
+          evidenceId: 'OBSERVATION_FOOTPRINT',
+          label: `Sentinel-1 Observation Footprint (REAL_REPOSITORY_EVIDENCE)`,
+          lat: centerLat,
+          lon: centerLon,
+        }
+        footprintGroupRef.current.add(lineLoop)
+        interactiveObjectsRef.current.push(lineLoop)
+
+        if (!result && !effectiveAoi) {
+          flyTo(centerLat, centerLon, 135)
+        }
+      })
+    }
+  }, [investigation, aoiGeometry, observationFootprint, flyTo, result])
 
   // Focus camera when selectedEvidenceId changes
   useEffect(() => {

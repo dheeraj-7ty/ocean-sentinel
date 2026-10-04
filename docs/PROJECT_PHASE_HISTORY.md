@@ -110,12 +110,8 @@ TRACK 5: INVESTIGATION SPINE & PRESENTATION LAYER (Phase 7) [CURRENT / ACTIVE EN
 | **Phase 7B** | Event Spine & Stream Telemetry | Typed `InvestigationEvent` domain model, append-oriented `events.jsonl` durable persistence with trailing partial corruption remediation, in-process non-blocking `EventBus` pub/sub hub, SSE streaming endpoint (`/api/v1/investigations/{run_id}/events`) with `Last-Event-ID` replay cursor, live subscription handoff gapless delivery, durable append failure broadcast suppression, subscriber queue overflow disk resynchronization, operational telemetry snapshots, process restart continuity, secret and host path rejection, and Phase 6C backward compatibility. | `src/ocean_sentinel/orchestration/` (`events.py`, `event_log.py`, `event_bus.py`, `engine.py`), `tests/test_event_spine.py` (19 tests passing, 235 total in-scope tests passing) |
 
 ### Phase 7C: 3D Operational Globe & Geospatial Investigation Interface
-*Status*: **NEXT / PLANNED**
+*Status*: **COMPLETE**
 
-- **Milestone Name**: **Phase 7C — 3D Operational Globe & Geospatial Investigation Interface**
-- **Objective**: Connect the existing React/Three.js frontend dashboard (`frontend/`) directly to the investigation API and evidence surface.
-- **Target Capabilities**:
-  - Interactive 3D globe visualization of user AOI polygons and Sentinel-1 observation footprints.
-  - Real-time job lifecycle tracking via HTTP polling and SSE event stream against `/api/v1/investigations/{run_id}/events`.
-  - Inspection of persisted GeoTIFF metadata, SAR preflight attributes, and evidence objects in terminal state `READY_FOR_DETECTION`.
-  - Strict preservation of the scientific safety boundary (`EXECUTION_AUTHORIZED = False`).
+| Sub-Phase | Focus Area | Technical Scope | Empirical Proof / Tests |
+| :--- | :--- | :--- | :--- |
+| **Phase 7C** | 3D Geospatial Console & Evidence Interface | Interactive Three.js 3D Globe with operator AOI and Sentinel-1 observation footprints, layer toggling, real evidence metadata inspection (CRS, dimensions, polarizations, SHA-256, repository-relative paths), visible scientific execution gate (`BLOCKED`, `EXECUTION_AUTHORIZED = False`), real-time SSE stream lifecycle integration (`Last-Event-ID` reconnection, sequence deduplication, reactive run state updates), investigation run creator/selector, strict semantic distinction between `USER_INPUT` and `REAL_REPOSITORY_EVIDENCE`, and host path/credential safety. | `frontend/src/` (`GlobeView.tsx`, `RightInspector.tsx`, `BottomTimeline.tsx`, `LeftControlPanel.tsx`, `services/api.ts`, `types/api.ts`), `frontend/src/test/Phase7C.test.tsx` (13 tests passing, 79 total frontend tests passing), `tests/test_backend_api.py` (20 tests), `scratch/test_phase7c_integration_smoke.py` (live end-to-end integration verified), 235 total backend tests passing. |

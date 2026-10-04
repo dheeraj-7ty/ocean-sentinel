@@ -7,9 +7,14 @@
 
 import type {
   ArtifactListResponse,
+  CreateInvestigationPayload,
   CreateJobPayload,
   HealthResponse,
+  InvestigationEvent,
+  InvestigationListResponse,
+  InvestigationRun,
   InvestigationScenario,
+  InvestigationTelemetry,
   JobResponse,
   JobResultResponse,
   ScenarioListResponse,
@@ -117,5 +122,157 @@ export const oceanSentinelApi = {
   async getScenario(scenarioId: string): Promise<InvestigationScenario> {
     const res = await fetch(`${API_BASE}/investigations/scenarios/${encodeURIComponent(scenarioId)}`)
     return handleResponse<InvestigationScenario>(res)
+  },
+
+  /**
+   * List stored investigation runs and recent operational acquisitions.
+   */
+  async listInvestigations(limit = 50): Promise<InvestigationSummary[]> {
+    const res = await fetch(`${API_BASE}/investigations?limit=${limit}`)
+    const data = await handleResponse<{ total_runs: number; limit: number; runs: any[] }>(res)
+    return (data.runs || []).map((r) => ({
+      run_id: r.run_id,
+      status: r.status,
+      created_at_utc: r.created_at || r.created_at_utc,
+      execution_authorized: false,
+      stages_count: r.stages_count || (r.stages ? Object.keys(r.stages).length : 0),
+    }))
+  },
+
+  /**
+   * Retrieve full canonical InvestigationRun state by ID.
+   */
+  async getInvestigation(runId: string): Promise<InvestigationRun> {
+    const res = await fetch(`${API_BASE}/investigations/${encodeURIComponent(runId)}`)
+    return handleResponse<InvestigationRun>(res)
+  },
+
+  /**
+   * Retrieve structured operational telemetry snapshot for an investigation run.
+   */
+  async getInvestigationTelemetry(runId: string): Promise<InvestigationTelemetry> {
+    const res = await fetch(`${API_BASE}/investigations/${encodeURIComponent(runId)}/telemetry`)
+    return handleResponse<InvestigationTelemetry>(res)
+  },
+
+  /**
+   * Retrieve recorded event log history from durable disk log.
+   */
+  async getInvestigationEventHistory(
+    runId: string,
+    afterSequence?: number,
+    limit = 100
+  ): Promise<{ run_id: string; after_sequence?: number; total_returned: number; events: InvestigationEvent[] }> {
+    const params = new URLSearchParams()
+    if (afterSequence !== undefined) {
+      params.set('after_sequence', String(afterSequence))
+    }
+    params.set('limit', String(limit))
+    const res = await fetch(`${API_BASE}/investigations/${encodeURIComponent(runId)}/events/history?${params.toString()}`)
+    return handleResponse<{ run_id: string; after_sequence?: number; total_returned: number; events: InvestigationEvent[] }>(res)
+  },
+
+  /**
+   * Initialize and start a durable investigation run.
+   */
+  async createInvestigation(payload: CreateInvestigationPayload): Promise<InvestigationRun> {
+    const res = await fetch(`${API_BASE}/investigations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+    return handleResponse<InvestigationRun>(res)
+  },
+
+  /**
+   * Subscribe to real-time Server-Sent Events (SSE) for an investigation run.
+   * Handles Last-Event-ID replay, reconnection, gapless delivery, and duplicate suppression.
+   */
+  subscribeInvestigationEvents(
+    runId: string,
+    onEvent: (event: InvestigationEvent) => void,
+    onError?: (error: any) => void,
+    initialLastEventId?: number
+  ): () => void {
+    let isClosed = false
+    let currentLastEventId = initialLastEventId ?? 0
+    let eventSource: EventSource | null = null
+    const seenEventSequences = new Set<number>()
+
+    const connect = () => {
+      if (isClosed) return
+
+      const url = new URL(`${window.location.origin}${API_BASE}/investigations/${encodeURIComponent(runId)}/events`)
+      if (currentLastEventId > 0) {
+        url.searchParams.set('last_event_id', String(currentLastEventId))
+      }
+
+      eventSource = new EventSource(url.toString())
+
+      const handleEventData = (rawData: string) => {
+        try {
+          const evt: InvestigationEvent = JSON.parse(rawData)
+          if (evt && typeof evt.sequence === 'number') {
+            if (seenEventSequences.has(evt.sequence)) {
+              // Duplicate suppression: ignore already processed sequence
+              return
+            }
+            seenEventSequences.add(evt.sequence)
+            if (evt.sequence > currentLastEventId) {
+              currentLastEventId = evt.sequence
+            }
+            onEvent(evt)
+          }
+        } catch (err) {
+          console.warn('Malformed SSE event payload:', rawData, err)
+        }
+      }
+
+      eventSource.onmessage = (e) => {
+        handleEventData(e.data)
+      }
+
+      // Also listen on named canonical event types
+      const eventTypes = [
+        'RUN_CREATED',
+        'RUN_STARTED',
+        'RUN_COMPLETED',
+        'RUN_FAILED',
+        'RUN_SUSPENDED',
+        'RUN_RESUMED',
+        'STAGE_STARTED',
+        'STAGE_PROGRESS',
+        'STAGE_COMPLETED',
+        'STAGE_FAILED',
+        'STAGE_SKIPPED',
+        'STAGE_BLOCKED',
+        'ARTIFACT_DISCOVERED',
+        'ARTIFACT_REGISTERED',
+        'PROVENANCE_BLOCKED',
+        'TELEMETRY_SNAPSHOT',
+      ]
+      eventTypes.forEach((type) => {
+        eventSource?.addEventListener(type, (e: any) => {
+          handleEventData(e.data)
+        })
+      })
+
+      eventSource.onerror = (err) => {
+        if (isClosed) return
+        if (onError) onError(err)
+      }
+    }
+
+    connect()
+
+    return () => {
+      isClosed = true
+      if (eventSource) {
+        eventSource.close()
+        eventSource = null
+      }
+    }
   },
 }

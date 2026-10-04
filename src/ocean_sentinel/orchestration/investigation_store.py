@@ -129,15 +129,15 @@ class InvestigationRunStore:
         # 2. Granular sidecars for efficient query / inspection
         self._atomic_write_json(
             self.get_stages_path(run.run_id),
-            {k: v.to_dict() for k, v in run.stages.items()},
+            {k: (v.to_dict() if hasattr(v, "to_dict") else v) for k, v in run.stages.items()},
         )
         self._atomic_write_json(
             self.get_attempts_path(run.run_id),
-            [a.to_dict() for a in run.attempts],
+            [(a.to_dict() if hasattr(a, "to_dict") else a) for a in run.attempts],
         )
         self._atomic_write_json(
             self.get_artifacts_path(run.run_id),
-            [a.to_dict() for a in run.artifacts],
+            [(a.to_dict() if hasattr(a, "to_dict") else a) for a in run.artifacts],
         )
 
         return manifest_path

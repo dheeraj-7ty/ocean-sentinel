@@ -9,8 +9,12 @@ import { oceanSentinelApi, ApiError } from './services/api'
 import type {
   ApplicationGate,
   ConnectionStatus,
+  CreateInvestigationPayload,
   HealthResponse,
+  InvestigationEvent,
+  InvestigationRun,
   InvestigationScenario,
+  InvestigationSummary,
   JobMode,
   JobResponse,
   JobResultResponse,
@@ -32,6 +36,14 @@ export const App: React.FC = () => {
   const [currentJob, setCurrentJob] = useState<JobResponse | null>(null)
   const [jobList, setJobList] = useState<JobResponse[]>([])
   const [jobResult, setJobResult] = useState<JobResultResponse | null>(null)
+  const [investigations, setInvestigations] = useState<InvestigationSummary[]>([])
+  const [currentInvestigation, setCurrentInvestigation] = useState<InvestigationRun | null>(null)
+  const [investigationEvents, setInvestigationEvents] = useState<InvestigationEvent[]>([])
+  const [selectedEvent, setSelectedEvent] = useState<InvestigationEvent | null>(null)
+  const [isSseStreaming, setIsSseStreaming] = useState<boolean>(false)
+  const [sseConnectionState, setSseConnectionState] = useState<
+    'IDLE' | 'CONNECTING' | 'STREAMING' | 'RECONNECTING' | 'DISCONNECTED'
+  >('IDLE')
   const [selectedEvidenceId, setSelectedEvidenceId] = useState<string | null>(null)
   const [selectedLocation, setSelectedLocation] = useState<SelectedLocation | null>(null)
   const [selectionType, setSelectionType] = useState<SelectionType>('NONE')
@@ -248,6 +260,34 @@ export const App: React.FC = () => {
       } catch (err) {
         console.warn('Failed to load registered scenarios on mount:', err)
       }
+
+      // Fetch stored investigation runs (Phase 7)
+      try {
+        const invs = await oceanSentinelApi.listInvestigations()
+        if (isMountedRef.current && initToken === executionTokenRef.current && invs.length > 0) {
+          setInvestigations(invs)
+          try {
+            const firstRun = await oceanSentinelApi.getInvestigation(invs[0].run_id)
+            if (isMountedRef.current && initToken === executionTokenRef.current) {
+              setCurrentInvestigation(firstRun)
+              const evs = await oceanSentinelApi.getInvestigationEventHistory(firstRun.run_id)
+              if (isMountedRef.current && initToken === executionTokenRef.current) {
+                setInvestigationEvents(evs)
+              }
+            }
+          } catch (e: any) {
+            console.warn('Failed to load initial investigation details:', e)
+            if (isMountedRef.current && initToken === executionTokenRef.current) {
+              setActiveError({
+                code: 'INVESTIGATION_FETCH_ERROR',
+                message: e?.message || 'Unable to retrieve investigation run',
+              })
+            }
+          }
+        }
+      } catch (err: any) {
+        console.warn('Failed to list investigations on mount:', err)
+      }
     }
 
     initApp()
@@ -270,6 +310,133 @@ export const App: React.FC = () => {
     }
   }, [])
 
+  // Handle selecting an investigation run
+  const handleSelectInvestigation = useCallback(async (runId: string) => {
+    try {
+      const inv = await oceanSentinelApi.getInvestigation(runId)
+      if (!isMountedRef.current) return
+      setCurrentInvestigation(inv)
+      setSelectedEvent(null)
+      try {
+        const events = await oceanSentinelApi.getInvestigationEventHistory(runId)
+        if (isMountedRef.current) {
+          setInvestigationEvents(events)
+        }
+      } catch (err) {
+        console.warn('Failed to load event history:', err)
+      }
+    } catch (err: any) {
+      console.warn('Failed to fetch investigation:', err)
+      setActiveError({
+        code: 'INVESTIGATION_FETCH_ERROR',
+        message: err?.message || 'Unable to retrieve investigation run',
+      })
+    }
+  }, [])
+
+  // Handle creating / dispatching a new AOI investigation run
+  const handleCreateInvestigation = useCallback(async (payload: CreateInvestigationPayload) => {
+    setIsExecuting(true)
+    setActiveError(null)
+    try {
+      const newRun = await oceanSentinelApi.createInvestigation(payload)
+      if (!isMountedRef.current) return
+      setInvestigations((prev) => [
+        {
+          run_id: newRun.run_id,
+          status: newRun.status,
+          created_at_utc: newRun.created_at_utc,
+          execution_authorized: false,
+          stages_count: Object.keys(newRun.stages || {}).length,
+        },
+        ...prev.filter((i) => i.run_id !== newRun.run_id),
+      ])
+      setCurrentInvestigation(newRun)
+      setSelectedEvent(null)
+      try {
+        const evs = await oceanSentinelApi.getInvestigationEventHistory(newRun.run_id)
+        if (isMountedRef.current) {
+          setInvestigationEvents(evs)
+        }
+      } catch (err) {
+        console.warn('Failed to fetch initial events for new run:', err)
+      }
+    } catch (err: any) {
+      if (!isMountedRef.current) return
+      setActiveError({
+        code: 'INVESTIGATION_DISPATCH_FAILED',
+        message: err?.message || 'Failed to dispatch AOI investigation run',
+      })
+    } finally {
+      if (isMountedRef.current) {
+        setIsExecuting(false)
+      }
+    }
+  }, [])
+
+  // Subscribe to live SSE events for active investigation run
+  useEffect(() => {
+    if (!currentInvestigation?.run_id) {
+      setSseConnectionState('IDLE')
+      setIsSseStreaming(false)
+      return
+    }
+
+    const runId = currentInvestigation.run_id
+    const unsubscribe = oceanSentinelApi.subscribeInvestigationEvents(
+      runId,
+      (event: InvestigationEvent) => {
+        if (!isMountedRef.current) return
+        setInvestigationEvents((prev) => {
+          if (prev.some((e) => e.sequence === event.sequence)) {
+            return prev
+          }
+          return [...prev, event]
+        })
+
+        // Update run state reactively from durable events
+        if (event.stage_name && (event.event_type === 'STAGE_COMPLETED' || event.event_type === 'STAGE_BLOCKED')) {
+          setCurrentInvestigation((prev) => {
+            if (!prev || prev.run_id !== runId) return prev
+            const existingStages = prev.stages ? { ...prev.stages } : {}
+            existingStages[event.stage_name!] = {
+              status: event.event_type === 'STAGE_BLOCKED' ? 'BLOCKED' : 'COMPLETED',
+              message: (event.payload?.reason as string) || (event.payload?.message as string) || '',
+              completed_at_utc: event.timestamp_utc,
+            }
+            return {
+              ...prev,
+              stages: existingStages,
+            }
+          })
+        }
+
+        if (event.event_type === 'RUN_COMPLETED') {
+          setCurrentInvestigation((prev) => {
+            if (!prev || prev.run_id !== runId) return prev
+            return {
+              ...prev,
+              status: 'READY_FOR_DETECTION',
+              completed_at_utc: event.timestamp_utc,
+            }
+          })
+        }
+      },
+      (err: any) => {
+        console.warn('SSE subscription notice:', err)
+      },
+      (status) => {
+        if (!isMountedRef.current) return
+        setSseConnectionState(status)
+        setIsSseStreaming(status === 'STREAMING')
+      }
+    )
+
+    return () => {
+      unsubscribe()
+    }
+  }, [currentInvestigation?.run_id])
+
   // Handle evidence / candidate hypothesis selection
   const handleSelectEvidence = useCallback(
     (id: string | null) => {
@@ -279,7 +446,11 @@ export const App: React.FC = () => {
         return
       }
 
-      if (jobResult?.candidate_vessel_hypotheses?.some((v) => v.hypothesis_id === id)) {
+      if (id === 'USER_AOI') {
+        setSelectionType('USER_AOI')
+      } else if (id === 'OBSERVATION_FOOTPRINT') {
+        setSelectionType('OBSERVATION_FOOTPRINT')
+      } else if (jobResult?.candidate_vessel_hypotheses?.some((v) => v.hypothesis_id === id)) {
         setSelectionType('CANDIDATE_VESSEL')
       } else if (jobResult?.candidate_spill_hypotheses?.some((s) => s.hypothesis_id === id)) {
         setSelectionType('CANDIDATE_SPILL_ORIGIN')
@@ -674,6 +845,11 @@ export const App: React.FC = () => {
           activeMode={activeMode}
           currentJob={currentJob}
           jobList={jobList}
+          investigations={investigations}
+          currentInvestigation={currentInvestigation}
+          onSelectInvestigation={handleSelectInvestigation}
+          onCreateInvestigation={handleCreateInvestigation}
+          selectedLocation={selectedLocation}
           layers={layers}
           scenarios={scenarios}
           selectedScenarioId={selectedScenarioId}
@@ -691,6 +867,7 @@ export const App: React.FC = () => {
         <div style={{ flex: 1, position: 'relative', display: 'flex' }}>
           <GlobeView
             result={jobResult}
+            investigation={currentInvestigation}
             selectedEvidenceId={selectedEvidenceId}
             onSelectEvidence={handleSelectEvidence}
             selectedLocation={selectedLocation}
@@ -705,6 +882,10 @@ export const App: React.FC = () => {
         {/* Right Evidence & Candidate Inspector */}
         <RightInspector
           result={jobResult}
+          investigation={currentInvestigation}
+          selectedEvent={selectedEvent}
+          onClearEvent={() => setSelectedEvent(null)}
+          onClearInvestigation={() => setCurrentInvestigation(null)}
           selectedEvidenceId={selectedEvidenceId}
           onSelectEvidence={handleSelectEvidence}
           selectedLocation={selectedLocation}
@@ -722,6 +903,12 @@ export const App: React.FC = () => {
         currentPhaseIndex={currentPhaseIndex}
         onPhaseChange={(idx) => setCurrentPhaseIndex(idx)}
         result={jobResult}
+        investigation={currentInvestigation}
+        investigationEvents={investigationEvents}
+        selectedEvent={selectedEvent}
+        onSelectEvent={(ev) => setSelectedEvent(ev)}
+        isSseStreaming={isSseStreaming}
+        sseConnectionState={sseConnectionState}
         isQuarantined={isQuarantined}
         isTemporalBlocked={isTemporalBlocked}
       />

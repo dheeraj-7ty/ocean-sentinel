@@ -14,12 +14,12 @@ Ocean Sentinel is an Earth-observation maritime investigation platform combining
 
 | Status Dimension | Current State | Verification Authority |
 | :--- | :--- | :--- |
-| **Current Verified Milestone** | **Phase 7B: Event Spine & Stream Telemetry** | `InvestigationEvent`, `DurableEventLog`, `EventBus`, SSE & Telemetry Proof |
-| **Operational Pipeline Status** | **Operational Synchronous Workflow, Durable Spine & Observable Event Stream Verified** | End-to-End Live CDSE, API, Recovery & SSE Smoke Tests |
+| **Current Verified Milestone** | **Phase 7C: 3D Operational Globe & Geospatial Investigation Interface** | Interactive Three.js 3D Globe, Real S1 Evidence Inspector, SSE Stream Telemetry Proof |
+| **Operational Pipeline Status** | **Operational Synchronous Workflow, 3D Geospatial Console & Observable Event Stream Verified** | End-to-End Live CDSE, API, Recovery, SSE & 3D Globe Smoke Tests |
 | **Scientific Safety Status** | **STRICTLY GATED (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` & Scientific Gate Firewall |
 | **Protected Baseline Integrity** | **8/8 Canonical Hashes Intact (100% Match)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Test Battery** | **235/235 In-Scope Tests Passing (100%)** | 11 Governed Operational, Spine, Event & Policy Suites |
-| **Next Engineering Milestone** | **Phase 7C: 3D Geospatial Investigation Globe** | Interactive Visualization & Investigation Console |
+| **Automated Test Battery** | **235/235 Backend In-Scope + 79/79 Frontend Tests Passing (100%)** | 11 Governed Operational, Spine, Event & Policy Suites + 2 Frontend Suites |
+| **Next Engineering Milestone** | **Separately Authorized Scientific Inference Activation Gate** | Controlled Model Forward Passes under Strict Authorization |
 
 ---
 
@@ -157,5 +157,5 @@ Total Errors:                                                0
 ## 7. Deferred Items & Future Roadmap
 
 1. **Distributed Asynchronous Worker Queue**: Support for Celery / Redis / arq background task processing for multi-tile batch acquisition.
-2. **Scientific Inference Activation Gate**: Controlled model forward pass execution under operator authorization.
-3. **Phase 7C: 3D Geospatial Investigation Globe**: Interactive Three.js / React operational visualization console consuming validated investigation evidence payloads.
+2. **Scientific Inference Activation Gate**: Controlled model forward pass execution under strict operator authorization (`EXECUTION_AUTHORIZED = True`).
+3. **Multi-Sensor Data Fusion (Phase 8)**: Integration of optical and multispectral imagery with Synthetic Aperture Radar baseline evidence.

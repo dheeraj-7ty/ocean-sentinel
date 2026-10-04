@@ -36,7 +36,7 @@ CANONICAL_PROTECTED_HASHES = {
     "docs/exp08_corrected_protocol.md": "E6691A6C3A70D6762A03462E5A8E6B6B60F0DD1AD066A552DD047375DE6FB50E",
 }
 
-# Post-reconciliation engineering phase files (Phase 6/6B/6C/7A/7B) excluded from historical baseline commit plan checks
+# Post-reconciliation engineering phase files (Phase 6/6B/6C/7A/7B/7C) excluded from historical baseline commit plan checks
 POST_BASELINE_OPERATIONAL_FILES = {
     "src/ocean_sentinel/operational_pipeline.py",
     "tests/test_operational_pipeline.py",
@@ -59,6 +59,8 @@ POST_BASELINE_OPERATIONAL_FILES = {
     "docs/EVIDENCE_MATRIX.md",
     "docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md",
     "docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md",
+    "docs/PHASE_7C_3D_OPERATIONAL_GLOBE.md",
+    "frontend/src/test/Phase7C.test.tsx",
 }
 
 
@@ -577,6 +579,8 @@ class TestArtifactRegistryAlignment:
                     if p.name.endswith(".pyc") or "__pycache__" in p.parts:
                         continue  # DISPOSABLE / TEMPORARY (Section 2)
                     rel = p.relative_to(REPO_ROOT).as_posix()
+                    if rel in POST_BASELINE_OPERATIONAL_FILES:
+                        continue  # Post-reconciliation operational pipeline test / UI file
                     if "node_modules" in rel or rel.startswith("frontend/dist/"):
                         continue  # External package dependencies and build bundles
                     policy_eligible.add(rel)

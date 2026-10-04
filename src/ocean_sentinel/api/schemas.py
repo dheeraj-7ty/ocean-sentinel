@@ -332,3 +332,16 @@ class AcquisitionJobListResponse(BaseModel):
     total_jobs: int
     limit: int
     jobs: List[Dict[str, Any]]
+
+
+class CreateInvestigationRequest(BaseModel):
+    """Request schema to initialize a Phase 7 investigation run."""
+
+    aoi: Optional[Dict[str, Any]] = Field(None, description="AOI GeoJSON geometry or bounding box dict")
+    bbox: Optional[List[float]] = Field(None, description="Bounding box [west, south, east, north]")
+    start_time: Optional[str] = Field(None, description="Start time ISO UTC")
+    end_time: Optional[str] = Field(None, description="End time ISO UTC")
+    polarizations: Optional[List[str]] = Field(default_factory=lambda: ["VV", "VH"])
+    analysis_mode: str = Field("OPERATIONAL", description="Analysis mode: 'OPERATIONAL' or 'DEMO'")
+    investigation_label: Optional[str] = Field(None, description="Human readable label for investigation")
+    scenario_id: Optional[str] = Field(None, description="Registered scenario ID if applicable")
