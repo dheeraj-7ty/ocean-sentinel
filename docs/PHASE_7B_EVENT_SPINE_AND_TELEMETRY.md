@@ -47,10 +47,10 @@ InvestigationStore        EventBus (In-Process Hub)
    An event indicates that an execution step occurred or was evaluated. An event does not grant permission to execute.
 2. **Canonical State Precedence**:
    - Manifest / Domain State (`InvestigationRun`) = Authoritative current run state.
-   - Event Log (`events.jsonl`) = Append-only historical event stream.
+   - Event Log (`events.jsonl`) = Append-oriented historical event stream with tail-corruption recovery.
    - Safety Boundary (`AuthorizationState`) = Authoritative execution gate.
-3. **Strict Write Order**:
-   State update is persisted to canonical run storage first, durably appended to `events.jsonl` second, and broadcast to in-process subscribers third. Subscribers can never observe an event that cannot be replayed from durable disk.
+3. **Strict Write Order & Broadcast Suppression**:
+   State update is persisted to canonical run storage first, durably appended to `events.jsonl` second, and broadcast to in-process subscribers third. Subscribers can never observe an event that cannot be replayed from durable disk; a durable persistence failure fails closed and strictly suppresses EventBus broadcast to prevent phantom events.
 4. **Local-First, No External Broker**:
    Phase 7B uses synchronous local filesystem persistence and in-process async event dispatching without external dependencies (no Redis, Kafka, Celery, or Postgres).
 
@@ -88,7 +88,7 @@ The canonical event shape is implemented in `src/ocean_sentinel/orchestration/ev
 
 ## 3. Durable Event Log (`events.jsonl`)
 
-The durable event log is managed by `DurableEventLog` in `src/ocean_sentinel/orchestration/event_log.py`.
+The append-oriented durable event log is managed by `DurableEventLog` in `src/ocean_sentinel/orchestration/event_log.py` with automatic trailing-corruption remediation.
 
 - **Storage Path**: `outputs/investigations/{run_id}/events.jsonl`
 - **Format**: Structured JSON Lines (one valid JSON object per line).
@@ -103,7 +103,7 @@ The durable event log is managed by `DurableEventLog` in `src/ocean_sentinel/orc
 The in-process broadcast mechanism is implemented in `src/ocean_sentinel/orchestration/event_bus.py`:
 
 - **Run Isolation**: Subscriptions are scoped by `run_id`. Events from run A are never leaked to subscribers of run B.
-- **Non-Blocking Execution**: Event emission utilizes non-blocking `put_nowait` on bounded subscriber queues (`maxsize=1000`). If a queue overflows or is closed, the event is safely dropped for that subscriber without blocking pipeline execution.
+- **Non-Blocking Execution & Overflow Resync**: Event emission utilizes non-blocking `put_nowait` on bounded subscriber queues (`maxsize=1000`). If a queue overflows or is closed, the event is safely dropped for that subscriber without blocking pipeline execution, and the subscriber's `has_overflowed` flag is set, enabling automatic resynchronization from the durable disk log.
 - **Subscriber Exception Isolation**: Synchronous callback exceptions are caught and logged; broken subscribers cannot disrupt stage execution.
 - **Clean Unsubscription**: Subscribers disconnect cleanly, releasing queue resources.
 
@@ -124,12 +124,14 @@ data: {"event_id": "evt_...", "run_id": "inv_...", "sequence": 3, "payload": {..
 : keepalive
 ```
 
-### Reconnection via `Last-Event-ID`
+### Reconnection via `Last-Event-ID` & Gapless Handoff Protocol
 
 A client that disconnects can resume streaming by providing the `Last-Event-ID` header (or `?after_sequence=N` query parameter):
-1. **Replay Phase**: The server reads `events.jsonl` and streams all historical events with sequence `> N`.
-2. **Live Phase**: If the run is active, the server subscribes the client to the `EventBus` and forwards newly arriving events in real time.
-3. **Termination**: If the run is in a terminal state (`COMPLETED`, `FAILED`, `READY_FOR_DETECTION`, `BLOCKED`), the stream closes gracefully after history replay.
+1. **Subscribe First**: The server subscribes the client to the in-process `EventBus` *before* reading disk history, eliminating the replay-to-subscription race gap.
+2. **Replay Phase**: The server reads `events.jsonl` and streams all historical durable events with sequence `> N`.
+3. **Drain & Deduplicate**: The server drains newly arrived events accumulated in the subscriber queue during disk replay, dropping any whose sequence was already yielded, guaranteeing gapless exactly-once delivery.
+4. **Overflow Resync**: If subscriber queue overflow occurred during replay or streaming, the server queries missed events directly from `events.jsonl` before continuing.
+5. **Termination**: If the run is in a terminal state (`SUCCEEDED`, `FAILED`, `READY_FOR_DETECTION`, `BLOCKED`) and no buffered events remain, or if the client subscription is closed, the stream completes cleanly.
 
 ---
 

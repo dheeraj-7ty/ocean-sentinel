@@ -250,3 +250,22 @@ Future agents can invoke v2 preflight directly:
 .venv\Scripts\python scripts/agent_governance_preflight.py --query-lessons "wilcoxon method binding"
 ```
 
+---
+
+## 12. Agent Execution Invariants & Operational Failure Handling (Phases 6–7 Lessons)
+
+To prevent recurrent anti-patterns and maintain epistemic integrity across development generations, all agents must adhere to these durable operational rules:
+
+1. **Epistemic Authority**: Live repository bytes, physical files, and raw Git state outrank old reports, AI narratives, and historical conversation summaries.
+2. **Historical Snapshot Preservation**: Historical reports and milestone records must remain intact as immutable audit lineage. Do not retroactively rewrite historical documents to match current state; mark them explicitly as historical snapshots.
+3. **Current-State Anti-Staleness**: Never persist volatile or mutable runtime identifiers (such as current Git HEAD SHA or dynamic test counts) as static current-state assertions without explicit derivation or snapshot qualification.
+4. **External AI Evidence Quarantine**: Declared external AI sources (`AI-SRC-014`–`AI-SRC-017`) are unavailable and unverified. Never simulate, reconstruct, or assert unverified historical conversations. `AI-SRC-008` remains formally superseded.
+5. **Consolidate Defects Before Repair**: Execute `SCAN -> CONSOLIDATE -> FIX -> VERIFY -> STOP`. Address all identified defects in a single consolidated pass. Maximum two repair attempts per run.
+6. **Hard Stop On Proof**: When automated verification proves that the material issue is solved, stop immediately. Do not trigger endless audit or reconciliation loops.
+7. **Technical vs. Documentation Drift**: Distinguish concrete code defects from documentation drift. Never modify functional code when resolving documentation or reporting discrepancies.
+8. **Deterministic Stream Testing**: Long-lived Server-Sent Events (SSE) and asynchronous generators must be tested using streaming clients (`client.stream()` or explicit iteration). Never use synchronous requests (`client.get()`) that block waiting for EOF on non-terminal streams.
+9. **Durable Write Order & Broadcast Suppression**: Canonical state update precedes durable append; durable append strictly precedes `EventBus` broadcast. A durable persistence failure must fail closed and suppress event broadcast to prevent phantom events.
+10. **Subscriber Overflow Resynchronization**: In-process event pub/sub queues must remain bounded. When a subscriber queue overflows, the subscriber must set an overflow indicator and automatically resynchronize from the durable disk log starting from the highest received sequence.
+11. **Observability Firewall**: Events and telemetry represent historical execution observation, never authorization. `EXECUTION_AUTHORIZED = False` remains fail-closed regardless of event generation.
+12. **Targeted Concurrency Probes**: Use brute force only where exhaustive enumeration is formally required. For concurrency, races, and handoffs, use deterministic test hooks and targeted probes rather than random delays or keepalive timeouts.
+13. **Bounded Task Execution & Diagnostics**: A task or test exceeding its historical runtime envelope by orders of magnitude is an immediate diagnostic signal of a deadlock, unclosed stream, or blocked loop. Terminate the hung process, diagnose the exact blocked line, and apply the minimal fix. Never wait indefinitely.

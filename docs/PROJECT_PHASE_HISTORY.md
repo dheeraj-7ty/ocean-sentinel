@@ -107,7 +107,7 @@ TRACK 5: INVESTIGATION SPINE & PRESENTATION LAYER (Phase 7) [CURRENT / ACTIVE EN
 
 | Sub-Phase | Focus Area | Technical Scope | Empirical Proof / Tests |
 | :--- | :--- | :--- | :--- |
-| **Phase 7B** | Event Spine & Stream Telemetry | Typed `InvestigationEvent` domain model, append-only `events.jsonl` durable persistence, in-process non-blocking `EventBus` pub/sub hub, SSE streaming endpoint (`/api/v1/investigations/{run_id}/events`) with `Last-Event-ID` replay cursor, operational telemetry snapshots, trailing partial corruption remediation, process restart continuity, secret and host path rejection, and Phase 6C backward compatibility. | `src/ocean_sentinel/orchestration/` (`events.py`, `event_log.py`, `event_bus.py`, `engine.py`), `tests/test_event_spine.py` (16 tests passing, 232 total in-scope tests passing) |
+| **Phase 7B** | Event Spine & Stream Telemetry | Typed `InvestigationEvent` domain model, append-oriented `events.jsonl` durable persistence with trailing partial corruption remediation, in-process non-blocking `EventBus` pub/sub hub, SSE streaming endpoint (`/api/v1/investigations/{run_id}/events`) with `Last-Event-ID` replay cursor, live subscription handoff gapless delivery, durable append failure broadcast suppression, subscriber queue overflow disk resynchronization, operational telemetry snapshots, process restart continuity, secret and host path rejection, and Phase 6C backward compatibility. | `src/ocean_sentinel/orchestration/` (`events.py`, `event_log.py`, `event_bus.py`, `engine.py`), `tests/test_event_spine.py` (19 tests passing, 235 total in-scope tests passing) |
 
 ### Phase 7C: 3D Operational Globe & Geospatial Investigation Interface
 *Status*: **NEXT / PLANNED**
