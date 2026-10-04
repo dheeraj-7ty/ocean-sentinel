@@ -13,6 +13,7 @@ outputs/
       stages.json      # Granular stage execution states
       attempts.json    # Historical execution attempt audit log
       artifacts.json   # First-class registered artifact references
+      events.jsonl     # Append-only durable event log (Phase 7B)
       artifacts/       # Directory for run-materialized files
       evidence/        # Operational evidence objects & payloads
       logs/            # Optional task-local execution logs
@@ -25,7 +26,10 @@ import json
 import logging
 from pathlib import Path
 import secrets
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Set, Tuple
+
+if TYPE_CHECKING:
+    from ocean_sentinel.orchestration.event_log import DurableEventLog
 
 from ocean_sentinel.orchestration.dag import ScientificDAG, create_canonical_scientific_dag
 from ocean_sentinel.orchestration.investigation_run import (
@@ -73,6 +77,15 @@ class InvestigationRunStore:
 
     def get_artifacts_path(self, run_id: str) -> Path:
         return self.get_run_dir(run_id) / "artifacts.json"
+
+    def get_events_path(self, run_id: str) -> Path:
+        return self.get_run_dir(run_id) / "events.jsonl"
+
+    def get_event_log(self, run_id: str) -> DurableEventLog:
+        """Retrieve the durable event log for this run."""
+        from ocean_sentinel.orchestration.event_log import DurableEventLog
+
+        return DurableEventLog(self.get_events_path(run_id))
 
     def get_artifacts_dir(self, run_id: str) -> Path:
         d = self.get_run_dir(run_id) / "artifacts"

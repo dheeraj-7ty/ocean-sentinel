@@ -103,18 +103,19 @@ TRACK 5: INVESTIGATION SPINE & PRESENTATION LAYER (Phase 7) [CURRENT / ACTIVE EN
 | **Phase 7A** | Investigation Spine & Crash Recovery | `InvestigationRun` domain root, `InvestigationContext`, 10-stage `ScientificDAG`, `ArtifactRef` SHA-256 integrity binding, stage attempt idempotency, process restart crash recovery, fail-closed missing-handler semantics, and Phase 6C manifest backward compatibility. | `src/ocean_sentinel/orchestration/` (`investigation_run.py`, `investigation_context.py`, `dag.py`, `engine.py`, `investigation_store.py`), `tests/test_investigation_spine.py` (15 tests passing, 216 total in-scope tests passing) |
 
 ### Phase 7B: Event Spine & Stream Telemetry
-*Status*: **NEXT / PLANNED**
+*Status*: **COMPLETE**
 
-- **Milestone Name**: **Phase 7B — Event Spine & Real-Time Telemetry**
-- **Objective**: Introduce structured event emission and server-sent event (SSE) streaming for real-time stage progress reporting.
+| Sub-Phase | Focus Area | Technical Scope | Empirical Proof / Tests |
+| :--- | :--- | :--- | :--- |
+| **Phase 7B** | Event Spine & Stream Telemetry | Typed `InvestigationEvent` domain model, append-only `events.jsonl` durable persistence, in-process non-blocking `EventBus` pub/sub hub, SSE streaming endpoint (`/api/v1/investigations/{run_id}/events`) with `Last-Event-ID` replay cursor, operational telemetry snapshots, trailing partial corruption remediation, process restart continuity, secret and host path rejection, and Phase 6C backward compatibility. | `src/ocean_sentinel/orchestration/` (`events.py`, `event_log.py`, `event_bus.py`, `engine.py`), `tests/test_event_spine.py` (16 tests passing, 232 total in-scope tests passing) |
 
 ### Phase 7C: 3D Operational Globe & Geospatial Investigation Interface
-*Status*: **FUTURE / PLANNED**
+*Status*: **NEXT / PLANNED**
 
 - **Milestone Name**: **Phase 7C — 3D Operational Globe & Geospatial Investigation Interface**
 - **Objective**: Connect the existing React/Three.js frontend dashboard (`frontend/`) directly to the investigation API and evidence surface.
 - **Target Capabilities**:
   - Interactive 3D globe visualization of user AOI polygons and Sentinel-1 observation footprints.
-  - Real-time job lifecycle tracking via HTTP polling against `/api/v1/acquisitions/{job_id}`.
+  - Real-time job lifecycle tracking via HTTP polling and SSE event stream against `/api/v1/investigations/{run_id}/events`.
   - Inspection of persisted GeoTIFF metadata, SAR preflight attributes, and evidence objects in terminal state `READY_FOR_DETECTION`.
   - Strict preservation of the scientific safety boundary (`EXECUTION_AUTHORIZED = False`).

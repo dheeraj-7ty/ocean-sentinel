@@ -6,12 +6,13 @@ artifact discovery, and machine-readable result retrieval.
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request, status
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from ocean_sentinel.api.schemas import (
     AcquisitionJobLinks,
@@ -32,6 +33,16 @@ from ocean_sentinel.orchestration.acquisition_job import (
     AcquisitionJobOrchestrator,
     AcquisitionJobStatus,
 )
+from ocean_sentinel.orchestration.engine import InvestigationEngine
+from ocean_sentinel.orchestration.events import (
+    InvestigationEvent,
+    InvestigationEventType,
+)
+from ocean_sentinel.orchestration.investigation_run import (
+    InvestigationRun,
+    InvestigationRunStatus,
+)
+from ocean_sentinel.orchestration.investigation_store import InvestigationRunStore
 from ocean_sentinel.orchestration.jobs import (
     JobManifest,
     JobMode,
@@ -50,6 +61,8 @@ router = APIRouter(prefix="/api/v1", tags=["Ocean Sentinel V1"])
 # Default singleton orchestrators
 _default_orchestrator: Optional[PipelineOrchestrator] = None
 _default_acquisition_orchestrator: Optional[AcquisitionJobOrchestrator] = None
+_default_investigation_store: Optional[InvestigationRunStore] = None
+_default_investigation_engine: Optional[InvestigationEngine] = None
 
 
 def get_orchestrator() -> PipelineOrchestrator:
@@ -78,6 +91,37 @@ def set_acquisition_orchestrator(orchestrator: AcquisitionJobOrchestrator) -> No
     """Override acquisition orchestrator for testing."""
     global _default_acquisition_orchestrator
     _default_acquisition_orchestrator = orchestrator
+
+
+def get_investigation_store() -> InvestigationRunStore:
+    """Dependency provider for InvestigationRunStore."""
+    global _default_investigation_store
+    if _default_investigation_store is None:
+        _default_investigation_store = InvestigationRunStore(repo_root=REPO_ROOT)
+    return _default_investigation_store
+
+
+def set_investigation_store(store: InvestigationRunStore) -> None:
+    """Override investigation store for testing."""
+    global _default_investigation_store
+    _default_investigation_store = store
+
+
+def get_investigation_engine() -> InvestigationEngine:
+    """Dependency provider for InvestigationEngine."""
+    global _default_investigation_engine
+    if _default_investigation_engine is None:
+        _default_investigation_engine = InvestigationEngine(
+            store=get_investigation_store(),
+            repo_root=REPO_ROOT,
+        )
+    return _default_investigation_engine
+
+
+def set_investigation_engine(engine: InvestigationEngine) -> None:
+    """Override investigation engine for testing."""
+    global _default_investigation_engine
+    _default_investigation_engine = engine
 
 
 def _build_job_links(request: Request, job_id: str) -> JobLinks:
@@ -562,3 +606,187 @@ def get_acquisition_result(
         )
 
     return manifest.evidence_result
+
+
+# ---------------------------------------------------------------------------
+# Phase 7B Investigation & Event Telemetry Endpoints
+# ---------------------------------------------------------------------------
+
+
+def _resolve_investigation_run(
+    run_id: str,
+    store: InvestigationRunStore,
+    orchestrator: AcquisitionJobOrchestrator,
+) -> InvestigationRun:
+    """Resolve an InvestigationRun from store or convert from Phase 6C AcquisitionJob."""
+    try:
+        run = store.load_run(run_id)
+        if run:
+            return run
+    except Exception:
+        pass
+
+    acq_manifest = orchestrator.get_job_manifest(run_id)
+    if acq_manifest:
+        return InvestigationRun.from_acquisition_job(acq_manifest)
+
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail={
+            "code": "RUN_NOT_FOUND",
+            "message": f"Investigation run '{run_id}' not found.",
+        },
+    )
+
+
+@router.get(
+    "/investigations/{run_id}",
+    summary="Get current state and manifest for an investigation run",
+    responses={
+        404: {"model": ErrorResponse, "description": "Run not found"},
+    },
+)
+def get_investigation_run(
+    run_id: str,
+    store: InvestigationRunStore = Depends(get_investigation_store),
+    orchestrator: AcquisitionJobOrchestrator = Depends(get_acquisition_orchestrator),
+) -> Dict[str, Any]:
+    """Retrieve full canonical InvestigationRun domain state by ID."""
+    run = _resolve_investigation_run(run_id, store, orchestrator)
+    return run.to_dict()
+
+
+@router.get(
+    "/investigations/{run_id}/telemetry",
+    summary="Get operational telemetry snapshot for an investigation run",
+    responses={
+        404: {"model": ErrorResponse, "description": "Run not found"},
+    },
+)
+def get_investigation_telemetry(
+    run_id: str,
+    store: InvestigationRunStore = Depends(get_investigation_store),
+    engine: InvestigationEngine = Depends(get_investigation_engine),
+    orchestrator: AcquisitionJobOrchestrator = Depends(get_acquisition_orchestrator),
+) -> Dict[str, Any]:
+    """Retrieve structured operational telemetry without exposing unverified scientific metrics."""
+    run = _resolve_investigation_run(run_id, store, orchestrator)
+    return engine.get_run_telemetry(run)
+
+
+@router.get(
+    "/investigations/{run_id}/events/history",
+    summary="Retrieve recorded event log history for an investigation run",
+    responses={
+        404: {"model": ErrorResponse, "description": "Run not found"},
+    },
+)
+def get_investigation_event_history(
+    run_id: str,
+    after_sequence: Optional[int] = Query(None, description="Return events with sequence > after_sequence"),
+    limit: int = Query(100, ge=1, le=500),
+    store: InvestigationRunStore = Depends(get_investigation_store),
+    orchestrator: AcquisitionJobOrchestrator = Depends(get_acquisition_orchestrator),
+) -> Dict[str, Any]:
+    """Read historical events from the append-only durable event log."""
+    _resolve_investigation_run(run_id, store, orchestrator)
+    event_log = store.get_event_log(run_id)
+    events = event_log.replay(after_sequence=after_sequence, limit=limit)
+    return {
+        "run_id": run_id,
+        "after_sequence": after_sequence,
+        "total_returned": len(events),
+        "events": [e.to_dict() for e in events],
+    }
+
+
+@router.get(
+    "/investigations/{run_id}/events",
+    summary="Stream live investigation events via Server-Sent Events (SSE) with replay support",
+    responses={
+        404: {"model": ErrorResponse, "description": "Run not found"},
+    },
+)
+async def stream_investigation_events(
+    run_id: str,
+    request: Request,
+    last_event_id: Optional[int] = Query(None, description="Sequence cursor for replaying events"),
+    last_event_id_header: Optional[str] = Header(None, alias="Last-Event-ID"),
+    store: InvestigationRunStore = Depends(get_investigation_store),
+    engine: InvestigationEngine = Depends(get_investigation_engine),
+    orchestrator: AcquisitionJobOrchestrator = Depends(get_acquisition_orchestrator),
+) -> StreamingResponse:
+    """Stream real-time SSE events for an investigation run.
+
+    Replay & Reconnection:
+        - If Last-Event-ID or last_event_id is provided, replays all historical durable events
+          from events.jsonl after that sequence before attaching live subscription.
+        - Emits keepalive ping comments every 15s to preserve HTTP stream health.
+        - Disconnects gracefully upon client cancellation without affecting engine execution.
+    """
+    initial_run = _resolve_investigation_run(run_id, store, orchestrator)
+
+    # Resolve replay cursor
+    cursor: Optional[int] = None
+    if last_event_id is not None:
+        cursor = last_event_id
+    elif last_event_id_header is not None:
+        try:
+            cursor = int(last_event_id_header.strip())
+        except ValueError:
+            cursor = None
+
+    async def event_generator():
+        event_log = store.get_event_log(run_id)
+        highest_seq = cursor or 0
+
+        # 1. Replay historical durable events from disk
+        historical_events = event_log.replay(after_sequence=cursor)
+        for evt in historical_events:
+            if evt.sequence > highest_seq:
+                highest_seq = evt.sequence
+            yield evt.to_sse()
+
+        # Check if run is already in terminal state and no new events can occur
+        terminal_statuses = {
+            InvestigationRunStatus.SUCCEEDED.value,
+            InvestigationRunStatus.FAILED.value,
+            InvestigationRunStatus.READY_FOR_DETECTION.value,
+            InvestigationRunStatus.BLOCKED.value,
+        }
+        latest_run = store.load_run(run_id) or initial_run
+        if latest_run.overall_status in terminal_statuses:
+            return
+
+        # 2. Subscribe to live events on in-process EventBus
+        sub = engine.event_bus.subscribe(run_id)
+        try:
+            while not await request.is_disconnected():
+                try:
+                    evt = await asyncio.wait_for(sub.queue.get(), timeout=15.0)
+                    if evt is None:
+                        break
+                    # Prevent duplicate emission if event was already replayed
+                    if evt.sequence > highest_seq:
+                        highest_seq = evt.sequence
+                        yield evt.to_sse()
+
+                    if evt.event_type in [
+                        InvestigationEventType.RUN_COMPLETED.value,
+                        InvestigationEventType.RUN_FAILED.value,
+                    ]:
+                        break
+                except asyncio.TimeoutError:
+                    yield ": keepalive\n\n"
+        finally:
+            engine.event_bus.unsubscribe(sub)
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
