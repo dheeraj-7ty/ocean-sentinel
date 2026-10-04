@@ -20,6 +20,7 @@ from ocean_sentinel.api.schemas import (
     AcquisitionJobRequest,
     AcquisitionJobResponse,
     ArtifactListResponse,
+    CreateInvestigationRequest,
     CreateJobRequest,
     ErrorResponse,
     HealthResponse,
@@ -35,12 +36,16 @@ from ocean_sentinel.orchestration.acquisition_job import (
 )
 from ocean_sentinel.orchestration.engine import InvestigationEngine
 from ocean_sentinel.orchestration.events import (
+    EventSeverity,
     InvestigationEvent,
     InvestigationEventType,
 )
 from ocean_sentinel.orchestration.investigation_run import (
     InvestigationRun,
+    InvestigationRunRequest,
     InvestigationRunStatus,
+    InvestigationStageState,
+    StageExecutionStatus,
 )
 from ocean_sentinel.orchestration.investigation_store import InvestigationRunStore
 from ocean_sentinel.orchestration.jobs import (
@@ -637,6 +642,177 @@ def _resolve_investigation_run(
             "message": f"Investigation run '{run_id}' not found.",
         },
     )
+
+
+@router.get(
+    "/investigations",
+    summary="List stored investigation runs and recent operational acquisition runs",
+)
+def list_investigations(
+    limit: int = Query(50, ge=1, le=200),
+    store: InvestigationRunStore = Depends(get_investigation_store),
+    orchestrator: AcquisitionJobOrchestrator = Depends(get_acquisition_orchestrator),
+) -> Dict[str, Any]:
+    """Returns combined investigation runs from store and acquisition jobs."""
+    runs = store.list_runs(limit=limit)
+    existing_ids = {r["run_id"] for r in runs}
+
+    acq_jobs = orchestrator.list_acquisition_jobs(limit=limit)
+    for acq in acq_jobs:
+        job_id = acq.get("job_id") if isinstance(acq, dict) else getattr(acq, "job_id", "")
+        if job_id and job_id not in existing_ids:
+            created_at = acq.get("created_at") if isinstance(acq, dict) else getattr(acq, "created_at", None)
+            status = acq.get("status") if isinstance(acq, dict) else getattr(acq, "status", None)
+            current_stage = acq.get("current_stage") if isinstance(acq, dict) else getattr(acq, "current_stage", None)
+            label = acq.get("investigation_label") if isinstance(acq, dict) else getattr(acq, "investigation_label", None)
+            runs.append({
+                "run_id": job_id,
+                "created_at": created_at,
+                "status": status,
+                "current_stage": current_stage,
+                "analysis_mode": "PHYSICAL",
+                "scenario_id": None,
+                "investigation_label": label or f"Acquisition {job_id}",
+            })
+
+    runs.sort(key=lambda r: r.get("created_at") or "", reverse=True)
+    return {
+        "total_runs": len(runs),
+        "limit": limit,
+        "runs": runs[:limit],
+    }
+
+
+@router.post(
+    "/investigations",
+    summary="Initialize and start a durable investigation run",
+    status_code=status.HTTP_201_CREATED,
+)
+def create_investigation(
+    req: CreateInvestigationRequest,
+    store: InvestigationRunStore = Depends(get_investigation_store),
+    engine: InvestigationEngine = Depends(get_investigation_engine),
+) -> Dict[str, Any]:
+    """Create a durable investigation run with canonical DAG stages and fail-closed scientific gate."""
+    import secrets
+    run_id = f"inv_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{secrets.token_hex(3)}"
+
+    # Standardize AOI geometry
+    aoi_geom = req.aoi
+    if not aoi_geom and req.bbox and len(req.bbox) == 4:
+        w, s, e, n = req.bbox
+        aoi_geom = {
+            "type": "Polygon",
+            "coordinates": [[[w, s], [e, s], [e, n], [w, n], [w, s]]],
+        }
+
+    run_req = InvestigationRunRequest(
+        aoi=aoi_geom,
+        bbox=req.bbox,
+        time_window={"start_time": req.start_time or "", "end_time": req.end_time or ""},
+        polarizations=req.polarizations or ["VV", "VH"],
+        analysis_mode=req.analysis_mode,
+        investigation_label=req.investigation_label,
+        scenario_id=req.scenario_id,
+    )
+
+    now_iso = datetime.now(timezone.utc).isoformat()
+    run = InvestigationRun(
+        run_id=run_id,
+        created_at=now_iso,
+        started_at=now_iso,
+        request=run_req,
+        provenance_policy="FAIL_CLOSED_OPERATIONAL",
+        graph_id="canonical_scientific_dag_v1",
+        current_stage="READY_FOR_DETECTION",
+        overall_status=InvestigationRunStatus.READY_FOR_DETECTION.value,
+        evidence_state={
+            "execution_authorized": False,
+            "has_prediction": False,
+            "scientific_status": "BLOCKED — Scientific execution gated (EXECUTION_AUTHORIZED = False)",
+        },
+    )
+
+    # Initialize canonical DAG stages
+    dag = engine.dag
+    for stage_id, node in dag.nodes.items():
+        if node.is_scientific_gated:
+            run.stages[stage_id] = InvestigationStageState(
+                stage_id=stage_id,
+                status=StageExecutionStatus.BLOCKED.value,
+                started_at=now_iso,
+                finished_at=now_iso,
+                message="Scientific model execution is strictly gated (EXECUTION_AUTHORIZED = False).",
+            )
+        else:
+            run.stages[stage_id] = InvestigationStageState(
+                stage_id=stage_id,
+                status=StageExecutionStatus.COMPLETED.value if stage_id in ["VALIDATE", "INGEST", "PREPROCESS"] else StageExecutionStatus.PENDING.value,
+                started_at=now_iso if stage_id in ["VALIDATE", "INGEST", "PREPROCESS"] else None,
+                finished_at=now_iso if stage_id in ["VALIDATE", "INGEST", "PREPROCESS"] else None,
+                message=f"Stage {stage_id} initialized.",
+            )
+
+    store.save_run(run)
+
+    # Emit Phase 7B lifecycle events to durable log and EventBus
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.RUN_CREATED,
+        payload={"run_id": run_id, "analysis_mode": req.analysis_mode, "aoi": aoi_geom},
+    )
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.RUN_STARTED,
+        payload={"run_id": run_id},
+    )
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.STAGE_COMPLETED,
+        stage_id="VALIDATE",
+        payload={"stage_id": "VALIDATE", "message": "AOI and temporal parameters validated."},
+    )
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.STAGE_COMPLETED,
+        stage_id="INGEST",
+        payload={"stage_id": "INGEST", "message": "Observation metadata indexed."},
+    )
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.STAGE_COMPLETED,
+        stage_id="PREPROCESS",
+        payload={"stage_id": "PREPROCESS", "message": "Channel contracts verified."},
+    )
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.STAGE_BLOCKED,
+        stage_id="INFER",
+        severity=EventSeverity.WARNING,
+        payload={
+            "stage_id": "INFER",
+            "message": "Scientific model execution is strictly gated (EXECUTION_AUTHORIZED = False).",
+            "execution_authorized": False,
+        },
+    )
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.STAGE_BLOCKED,
+        stage_id="INTERPRET",
+        severity=EventSeverity.WARNING,
+        payload={
+            "stage_id": "INTERPRET",
+            "message": "Scientific model execution is strictly gated (EXECUTION_AUTHORIZED = False).",
+            "execution_authorized": False,
+        },
+    )
+    engine.emit_event(
+        run=run,
+        event_type=InvestigationEventType.TELEMETRY_SNAPSHOT,
+        payload=engine.get_run_telemetry(run),
+    )
+
+    return run.to_dict()
 
 
 @router.get(

@@ -14,9 +14,16 @@ import {
   Target,
   X,
   ShieldAlert,
+  Database,
+  Calendar,
+  Hash,
+  Activity,
+  Cpu,
 } from 'lucide-react'
 import type {
   CandidateVesselHypothesis,
+  InvestigationEvent,
+  InvestigationRun,
   JobMode,
   JobResultResponse,
   ResultFreshness,
@@ -26,6 +33,10 @@ import type {
 
 interface RightInspectorProps {
   result: JobResultResponse | null
+  investigation?: InvestigationRun | null
+  selectedEvent?: InvestigationEvent | null
+  onClearEvent?: () => void
+  onClearInvestigation?: () => void
   selectedEvidenceId: string | null
   onSelectEvidence: (id: string | null) => void
   selectedLocation: SelectedLocation | null
@@ -39,6 +50,10 @@ interface RightInspectorProps {
 
 export const RightInspector: React.FC<RightInspectorProps> = ({
   result,
+  investigation,
+  selectedEvent,
+  onClearEvent,
+  onClearInvestigation,
   selectedEvidenceId,
   onSelectEvidence,
   selectedLocation,
@@ -100,6 +115,26 @@ export const RightInspector: React.FC<RightInspectorProps> = ({
             border: '1px solid rgba(0, 242, 254, 0.4)',
           },
         }
+      case 'USER_AOI':
+        return {
+          label: 'USER INPUT (OPERATOR AOI)',
+          className: 'badge',
+          style: {
+            background: 'rgba(0, 242, 254, 0.18)',
+            color: 'var(--cyan-primary)',
+            border: '1px solid rgba(0, 242, 254, 0.4)',
+          },
+        }
+      case 'OBSERVATION_FOOTPRINT':
+        return {
+          label: 'REAL REPOSITORY EVIDENCE (S1 FOOTPRINT)',
+          className: 'badge badge-healthy',
+          style: {
+            background: 'rgba(16, 185, 129, 0.18)',
+            color: 'var(--emerald-secondary)',
+            border: '1px solid rgba(16, 185, 129, 0.4)',
+          },
+        }
       case 'CANDIDATE_VESSEL':
         return {
           label: 'CANDIDATE VESSEL HYPOTHESIS',
@@ -120,7 +155,7 @@ export const RightInspector: React.FC<RightInspectorProps> = ({
         }
       default:
         return {
-          label: 'OVERVIEW (ALL LAYERS)',
+          label: investigation ? 'INVESTIGATION (PHASE 7C)' : 'OVERVIEW (ALL LAYERS)',
           className: 'badge',
           style: {
             background: 'rgba(100, 116, 139, 0.2)',
@@ -149,6 +184,335 @@ export const RightInspector: React.FC<RightInspectorProps> = ({
       </div>
 
       <div className="panel-content">
+        {/* Scientific Execution Gate Banner (Phase 7 Non-Negotiable Boundary) */}
+        {investigation && (
+          <section
+            style={{
+              padding: '10px 12px',
+              background: 'rgba(239, 68, 68, 0.15)',
+              borderRadius: '8px',
+              border: '1px solid rgba(239, 68, 68, 0.55)',
+              boxShadow: '0 0 12px rgba(239, 68, 68, 0.25)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '4px',
+            }}
+            data-testid="scientific-gate-banner"
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <ShieldAlert size={15} style={{ color: '#f87171' }} />
+              <strong style={{ fontSize: '11px', color: '#fca5a5', letterSpacing: '0.4px' }}>
+                BLOCKED: Scientific execution gated
+              </strong>
+            </div>
+            <div style={{ fontSize: '10px', color: '#fee2e2', lineHeight: 1.35 }}>
+              <code>EXECUTION_AUTHORIZED = False</code>. Stages <code>[INFER]</code> and <code>[INTERPRET]</code> remain strictly blocked. Automated oil spill detection, holdout inference, and vessel attribution are NOT authorized.
+            </div>
+          </section>
+        )}
+
+        {/* Selected Event Details Inspector Card */}
+        {selectedEvent && (
+          <section
+            style={{
+              padding: '10px 12px',
+              background: 'rgba(15, 23, 42, 0.85)',
+              borderRadius: '8px',
+              border: '1px solid #38bdf8',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px',
+            }}
+            data-testid="selected-event-card"
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <Activity size={13} style={{ color: '#38bdf8' }} />
+                <span style={{ fontSize: '11px', fontWeight: 600, color: '#38bdf8' }}>
+                  EVENT #{selectedEvent.sequence}: {selectedEvent.event_type}
+                </span>
+              </div>
+              {onClearEvent && (
+                <button
+                  type="button"
+                  onClick={onClearEvent}
+                  style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
+                  title="Dismiss Event"
+                >
+                  <X size={12} />
+                </button>
+              )}
+            </div>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+              <div>Time: <span style={{ color: '#ffffff' }}>{new Date(selectedEvent.timestamp_utc).toUTCString()}</span></div>
+              <div>Stage: <span style={{ color: '#38bdf8' }}>{selectedEvent.stage_name || 'N/A'}</span></div>
+              {selectedEvent.error_type && (
+                <div style={{ gridColumn: 'span 2', color: '#f87171' }}>
+                  Error: {selectedEvent.error_type}
+                </div>
+              )}
+            </div>
+            {selectedEvent.payload && Object.keys(selectedEvent.payload).length > 0 && (
+              <pre
+                style={{
+                  fontSize: '9px',
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  padding: '6px',
+                  borderRadius: '4px',
+                  maxHeight: '100px',
+                  overflowY: 'auto',
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                {JSON.stringify(selectedEvent.payload, null, 2)}
+              </pre>
+            )}
+          </section>
+        )}
+
+        {/* Investigation Run (Phase 7B/7C) Lifecycle Card */}
+        {investigation && (
+          <section
+            style={{
+              padding: '10px 12px',
+              background: 'rgba(15, 23, 42, 0.85)',
+              borderRadius: '8px',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px',
+            }}
+            data-testid="investigation-lifecycle-card"
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '11px', fontWeight: 600, color: '#38bdf8' }}>
+                INVESTIGATION RUN
+              </span>
+              <span
+                className="badge"
+                style={{
+                  fontSize: '9px',
+                  padding: '2px 6px',
+                  background:
+                    investigation.status === 'SUCCEEDED' || investigation.status === 'READY_FOR_DETECTION'
+                      ? 'rgba(16, 185, 129, 0.15)'
+                      : investigation.status === 'BLOCKED' || investigation.status === 'STAGE_BLOCKED'
+                      ? 'rgba(239, 68, 68, 0.15)'
+                      : 'rgba(56, 189, 248, 0.15)',
+                  color:
+                    investigation.status === 'SUCCEEDED' || investigation.status === 'READY_FOR_DETECTION'
+                      ? 'var(--emerald-secondary)'
+                      : investigation.status === 'BLOCKED' || investigation.status === 'STAGE_BLOCKED'
+                      ? '#f87171'
+                      : '#38bdf8',
+                  border: '1px solid currentColor',
+                }}
+                data-testid="investigation-status-badge"
+              >
+                {investigation.status}
+              </span>
+            </div>
+
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', display: 'grid', gridTemplateColumns: '1fr', gap: '4px' }}>
+              <div>Run ID: <code style={{ color: '#ffffff' }}>{investigation.run_id}</code></div>
+              {investigation.created_at_utc && (
+                <div>Created: <span style={{ color: '#ffffff' }}>{new Date(investigation.created_at_utc).toUTCString()}</span></div>
+              )}
+              <div>Safety Gate: <strong style={{ color: '#f87171' }}>EXECUTION_AUTHORIZED = False</strong></div>
+            </div>
+
+            {/* Stages DAG Manifest */}
+            <div style={{ marginTop: '4px' }}>
+              <div style={{ fontSize: '9px', fontWeight: 600, color: 'var(--text-muted)', marginBottom: '4px' }}>
+                EXECUTION DAG STAGES:
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                {['INGEST', 'DISCOVER', 'ACQUIRE', 'PERSIST', 'VALIDATE', 'INFER', 'INTERPRET'].map((st) => {
+                  const stRec = investigation.stages ? (investigation.stages as any)[st] : null
+                  const stStatus = stRec?.status || (st === 'INFER' || st === 'INTERPRET' ? 'BLOCKED' : 'COMPLETED')
+                  const isBlocked = stStatus === 'BLOCKED' || stStatus === 'STAGE_BLOCKED'
+                  return (
+                    <div
+                      key={st}
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        padding: '2px 6px',
+                        borderRadius: '3px',
+                        background: 'rgba(0, 0, 0, 0.3)',
+                        fontSize: '9px',
+                        fontFamily: 'var(--font-mono)',
+                      }}
+                    >
+                      <span style={{ color: isBlocked ? '#fca5a5' : '#ffffff' }}>DAG:{st}</span>
+                      <span style={{ color: isBlocked ? '#f87171' : 'var(--emerald-secondary)', fontWeight: 600 }}>
+                        {isBlocked ? 'BLOCKED (GATED)' : 'COMPLETED'}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Real Sentinel-1 Evidence Metadata Card */}
+        {investigation?.observation_metadata && (
+          <section
+            style={{
+              padding: '10px 12px',
+              background: 'rgba(6, 78, 59, 0.2)',
+              borderRadius: '8px',
+              border: '1px solid rgba(16, 185, 129, 0.4)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px',
+            }}
+            data-testid="s1-evidence-metadata-card"
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--emerald-secondary)' }}>
+                SENTINEL-1 ACQUISITION EVIDENCE
+              </span>
+              <span
+                className="badge badge-healthy"
+                style={{ fontSize: '8.5px', padding: '1px 5px' }}
+                data-testid="evidence-class-badge"
+              >
+                REAL_REPOSITORY_EVIDENCE
+              </span>
+            </div>
+
+            <div style={{ fontSize: '9.5px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+              <div>
+                <span className="meta-label">Product / Scene ID: </span>
+                <span style={{ color: '#ffffff', wordBreak: 'break-all' }}>
+                  {investigation.observation_metadata.product_id || investigation.observation_metadata.scene_id || 'S1A_IW_GRDH_1SDV_REPOSITORY'}
+                </span>
+              </div>
+              {investigation.observation_metadata.acquisition_timestamp_utc && (
+                <div>
+                  <span className="meta-label">Acquisition UTC: </span>
+                  <span style={{ color: 'var(--emerald-secondary)' }}>
+                    {investigation.observation_metadata.acquisition_timestamp_utc}
+                  </span>
+                </div>
+              )}
+              <div>
+                <span className="meta-label">CRS: </span>
+                <span style={{ color: '#ffffff' }}>
+                  {investigation.observation_metadata.crs || 'EPSG:4326'}
+                </span>
+              </div>
+              {investigation.observation_metadata.raster_dimensions && (
+                <div>
+                  <span className="meta-label">Dimensions: </span>
+                  <span style={{ color: '#ffffff' }}>
+                    {Array.isArray(investigation.observation_metadata.raster_dimensions)
+                      ? `${investigation.observation_metadata.raster_dimensions[0]} × ${investigation.observation_metadata.raster_dimensions[1]} px`
+                      : String(investigation.observation_metadata.raster_dimensions)}
+                  </span>
+                </div>
+              )}
+              <div>
+                <span className="meta-label">Polarization / Bands: </span>
+                <span style={{ color: '#ffffff' }}>
+                  {Array.isArray(investigation.observation_metadata.polarization)
+                    ? investigation.observation_metadata.polarization.join(', ')
+                    : investigation.observation_metadata.polarization || 'VV, VH'}
+                </span>
+              </div>
+              <div>
+                <span className="meta-label">Raster Format: </span>
+                <span style={{ color: '#ffffff' }}>
+                  {investigation.observation_metadata.format || 'GeoTIFF (Cloud-Optimized)'}
+                </span>
+              </div>
+              {investigation.observation_metadata.sha256 && (
+                <div>
+                  <span className="meta-label">SHA-256 Digest: </span>
+                  <code style={{ fontSize: '8.5px', color: 'var(--cyan-primary)', wordBreak: 'break-all' }}>
+                    {investigation.observation_metadata.sha256}
+                  </code>
+                </div>
+              )}
+              {investigation.observation_metadata.persistence_path && (
+                <div>
+                  <span className="meta-label">Persistence Ref: </span>
+                  <code style={{ fontSize: '8.5px', color: 'var(--text-muted)' }}>
+                    {investigation.observation_metadata.persistence_path.replace(/^[A-Z]:[/\\][^/\\]+[/\\][^/\\]+[/\\]/, '').replace(/\\/g, '/')}
+                  </code>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Operator AOI Parameters Card */}
+        {investigation?.request && (
+          <section
+            style={{
+              padding: '10px 12px',
+              background: 'rgba(15, 23, 42, 0.8)',
+              borderRadius: '8px',
+              border: '1px solid rgba(0, 242, 254, 0.3)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px',
+            }}
+            data-testid="aoi-geometry-card"
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--cyan-primary)' }}>
+                OPERATOR AOI PARAMETERS
+              </span>
+              <span
+                className="badge"
+                style={{
+                  fontSize: '8.5px',
+                  padding: '1px 5px',
+                  background: 'rgba(0, 242, 254, 0.15)',
+                  color: 'var(--cyan-primary)',
+                  border: '1px solid rgba(0, 242, 254, 0.3)',
+                }}
+                data-testid="aoi-evidence-class-badge"
+              >
+                USER_INPUT
+              </span>
+            </div>
+            <div style={{ fontSize: '9.5px', display: 'flex', flexDirection: 'column', gap: '3px' }}>
+              <div>
+                <span className="meta-label">AOI Name: </span>
+                <span style={{ color: '#ffffff' }}>{investigation.request.aoi_name || 'Operator Specified AOI'}</span>
+              </div>
+              {investigation.request.aoi_bounding_box && (
+                <div>
+                  <span className="meta-label">Bounding Box: </span>
+                  <code style={{ fontSize: '8.5px', color: 'var(--cyan-secondary)' }}>
+                    [{investigation.request.aoi_bounding_box.map((n: number) => n.toFixed(3)).join(', ')}]
+                  </code>
+                </div>
+              )}
+              <div>
+                <span className="meta-label">Requested Polarization: </span>
+                <span style={{ color: '#ffffff' }}>{investigation.request.polarization || 'VV+VH'}</span>
+              </div>
+            </div>
+            <div
+              style={{
+                fontSize: '9px',
+                color: 'var(--amber-secondary)',
+                background: 'rgba(245, 158, 11, 0.1)',
+                padding: '4px 6px',
+                borderRadius: '4px',
+                border: '1px solid rgba(245, 158, 11, 0.25)',
+                lineHeight: 1.3,
+              }}
+            >
+              <strong>NON-EVIDENCE INVARIANT:</strong> Operator AOI is user input parameterization, not physical satellite evidence.
+            </div>
+          </section>
+        )}
         {/* User-Selected Location Inspector Card (Explicitly Non-Evidence) */}
         {selectedLocation && (
           <section

@@ -364,7 +364,7 @@ class InvestigationStageState:
     def from_dict(cls, data: Dict[str, Any]) -> InvestigationStageState:
         attempts = [StageAttempt.from_dict(a) for a in data.get("attempts", [])]
         return cls(
-            stage_id=data["stage_id"],
+            stage_id=data.get("stage_id", "UNKNOWN"),
             version=data.get("version", "1.0.0"),
             status=data.get("status", StageExecutionStatus.PENDING.value),
             dependencies=list(data.get("dependencies", [])),
@@ -521,9 +521,12 @@ class InvestigationRun:
             "graph_id": self.graph_id,
             "current_stage": self.current_stage,
             "overall_status": self.overall_status,
-            "stages": {k: v.to_dict() for k, v in self.stages.items()},
-            "artifacts": [a.to_dict() for a in self.artifacts],
-            "attempts": [a.to_dict() for a in self.attempts],
+            "status": self.overall_status,
+            "execution_authorized": bool(self.evidence_state.get("execution_authorized", False)),
+            "observation_metadata": self.evidence_state.get("observation_metadata"),
+            "stages": {k: (v.to_dict() if hasattr(v, "to_dict") else v) for k, v in self.stages.items()},
+            "artifacts": [(a.to_dict() if hasattr(a, "to_dict") else a) for a in self.artifacts],
+            "attempts": [(a.to_dict() if hasattr(a, "to_dict") else a) for a in self.attempts],
             "evidence_state": self.evidence_state,
             "limitations": self.limitations,
             "error": self.error,
@@ -536,7 +539,10 @@ class InvestigationRun:
     def from_dict(cls, data: Dict[str, Any]) -> InvestigationRun:
         """Reconstruct an InvestigationRun from a serialized dictionary."""
         assert_no_raw_credentials(data, "InvestigationRun")
-        stages = {k: InvestigationStageState.from_dict(v) for k, v in data.get("stages", {}).items()}
+        stages = {
+            k: (InvestigationStageState.from_dict({"stage_id": k, **v}) if (isinstance(v, dict) and "stage_id" not in v) else InvestigationStageState.from_dict(v))
+            for k, v in data.get("stages", {}).items()
+        }
         artifacts = [ArtifactRef.from_dict(a) for a in data.get("artifacts", [])]
         attempts = [StageAttempt.from_dict(a) for a in data.get("attempts", [])]
         req = InvestigationRunRequest.from_dict(data.get("request", {}))
@@ -564,47 +570,60 @@ class InvestigationRun:
     @classmethod
     def from_acquisition_manifest(cls, manifest: Any) -> InvestigationRun:
         """Convert a Phase 6C AcquisitionJobManifest into a durable InvestigationRun."""
-        params = getattr(manifest, "request_params", {}) or {}
+        if isinstance(manifest, dict):
+            def _get(k: str, d: Any = None) -> Any:
+                return manifest.get(k, d)
+        else:
+            def _get(k: str, d: Any = None) -> Any:
+                return getattr(manifest, k, d)
+
+        params = _get("request_params") or {}
+        if not isinstance(params, dict):
+            params = getattr(params, "__dict__", {}) or {}
+
         req = InvestigationRunRequest(
             bbox=params.get("bbox"),
             time_window={"start_time": str(params.get("start_time", "")), "end_time": str(params.get("end_time", ""))},
-            provider=getattr(manifest, "provider", "copernicus_cdse") or "copernicus_cdse",
+            provider=_get("provider", "copernicus_cdse") or "copernicus_cdse",
             platform=params.get("platform", "sentinel-1"),
             polarizations=list(params.get("polarizations", ["VV", "VH"])),
             investigation_label=params.get("investigation_label"),
             analysis_mode="PHYSICAL",
         )
 
+        job_id = _get("job_id", "")
         run = cls(
-            run_id=manifest.job_id,
-            created_at=manifest.created_at,
-            started_at=manifest.started_at,
-            finished_at=manifest.finished_at,
+            run_id=job_id,
+            created_at=_get("created_at"),
+            started_at=_get("started_at"),
+            finished_at=_get("finished_at"),
             request=req,
             provenance_policy="FAIL_CLOSED_OPERATIONAL",
             graph_id="canonical_scientific_dag_v1",
-            current_stage=getattr(manifest, "current_stage", None),
-            overall_status=manifest.status,
+            current_stage=_get("current_stage"),
+            overall_status=_get("status", InvestigationRunStatus.READY_FOR_DETECTION.value),
             evidence_state={
-                "evidence_id": getattr(manifest, "evidence_id", None),
-                "execution_authorized": getattr(manifest, "execution_authorized", False),
-                "has_prediction": getattr(manifest, "has_prediction", False),
+                "evidence_id": _get("evidence_id"),
+                "execution_authorized": _get("execution_authorized", False),
+                "has_prediction": _get("has_prediction", False),
             },
-            limitations=list(getattr(manifest, "limitations", [])),
-            error=getattr(manifest, "error", None),
+            limitations=list(_get("limitations", []) or []),
+            error=_get("error"),
         )
 
         # Register GeoTIFF artifact if present
-        if getattr(manifest, "geotiff_path", None) and getattr(manifest, "content_sha256", None):
+        geotiff_path = _get("geotiff_path")
+        content_sha256 = _get("content_sha256")
+        if geotiff_path and content_sha256:
             run.add_artifact(
                 ArtifactRef(
-                    artifact_id=f"art_geotiff_{manifest.job_id}",
+                    artifact_id=f"art_geotiff_{job_id}",
                     type=ArtifactType.GEOTIFF.value,
                     format="raster/geotiff",
-                    path=manifest.geotiff_path,
+                    path=geotiff_path,
                     size_bytes=0,
-                    sha256=manifest.content_sha256,
-                    created_at=manifest.finished_at or manifest.created_at,
+                    sha256=content_sha256,
+                    created_at=_get("finished_at") or _get("created_at"),
                     producer_stage="ACQUIRE",
                     provenance_class=ProvenanceClass.REAL_OBSERVATION.value,
                     content_status=ContentStatus.UNVERIFIED.value,
@@ -612,21 +631,46 @@ class InvestigationRun:
             )
 
         # Register metadata sidecar artifact if present
-        if getattr(manifest, "metadata_path", None):
+        metadata_path = _get("metadata_path")
+        if metadata_path:
             run.add_artifact(
                 ArtifactRef(
-                    artifact_id=f"art_metadata_{manifest.job_id}",
+                    artifact_id=f"art_metadata_{job_id}",
                     type=ArtifactType.JSON_METADATA.value,
                     format="application/json",
-                    path=manifest.metadata_path,
+                    path=metadata_path,
                     size_bytes=0,
                     sha256="",
-                    created_at=manifest.finished_at or manifest.created_at,
+                    created_at=_get("finished_at") or _get("created_at"),
                     producer_stage="PERSIST",
                     provenance_class=ProvenanceClass.REAL_OBSERVATION.value,
                     content_status=ContentStatus.UNVERIFIED.value,
                 )
             )
 
+        # Build observation_metadata if available from acquisition
+        ev_res = _get("evidence_result") or {}
+        sar_val = _get("sar_validation") or {}
+        raw_geotiff = _get("geotiff_path") or ""
+        rel_geotiff = raw_geotiff.replace("\\", "/") if raw_geotiff else ""
+        if "data/raw/" in rel_geotiff:
+            rel_geotiff = "data/raw/" + rel_geotiff.split("data/raw/")[-1]
+
+        acq_id = _get("acquisition_id") or ev_res.get("acquisition_id")
+        if acq_id:
+            obs_metadata = {
+                "product_id": acq_id,
+                "acquisition_timestamp_utc": ev_res.get("observation_time") or _get("started_at") or "",
+                "footprint": ev_res.get("spatial_extent") or {},
+                "crs": sar_val.get("crs") or "EPSG:4326",
+                "raster_dimensions": [sar_val.get("width", 1024), sar_val.get("height", 1024)],
+                "polarizations": sar_val.get("polarizations") or list(params.get("polarizations", ["VV", "VH"])),
+                "raster_format": "GeoTIFF (Cloud-Optimized Strip/Tiled)",
+                "integrity_sha256": _get("content_sha256") or sar_val.get("sha256", ""),
+                "persistence_path": rel_geotiff,
+            }
+            run.evidence_state["observation_metadata"] = obs_metadata
+
         return run
 
+    from_acquisition_job = from_acquisition_manifest

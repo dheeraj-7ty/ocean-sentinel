@@ -320,4 +320,127 @@ export interface LayerVisibility {
   ais_tracks: boolean
   fused_evidence: boolean
   hypotheses: boolean
+  aoi_geometry?: boolean
+  observation_footprint?: boolean
+}
+
+export type EvidenceClass =
+  | 'REAL_REPOSITORY_EVIDENCE'
+  | 'LIVE_EXTERNAL_SERVICE_EVIDENCE'
+  | 'DERIVED_OPERATIONAL_STATE'
+  | 'USER_INPUT'
+  | 'DEMO / MOCK'
+  | 'GATED_SCIENTIFIC_OUTPUT'
+
+export interface InvestigationArtifact {
+  artifact_id: string
+  type: string
+  format: string
+  path: string
+  size_bytes: number
+  sha256: string
+  producer_stage: string
+  provenance_class?: string
+  content_status?: string
+}
+
+export interface InvestigationStageState {
+  stage_id: string
+  status: string
+  started_at?: string
+  finished_at?: string
+  duration_seconds?: number
+  message?: string
+  details?: Record<string, any>
+}
+
+export interface InvestigationRunRequest {
+  aoi?: any
+  bbox?: [number, number, number, number]
+  time_window?: { start_time?: string; end_time?: string }
+  polarizations?: string[]
+  analysis_mode?: string
+  investigation_label?: string
+  scenario_id?: string
+}
+
+export interface InvestigationRun {
+  run_id: string
+  created_at: string
+  started_at?: string
+  finished_at?: string
+  overall_status: string
+  current_stage?: string
+  provenance_policy?: string
+  request: InvestigationRunRequest
+  stages: Record<string, InvestigationStageState>
+  artifacts: InvestigationArtifact[]
+  evidence_state?: Record<string, any>
+  limitations: string[]
+  error?: {
+    code?: string
+    message?: string
+    stage?: string
+    details?: Record<string, any>
+  }
+  recovery_state?: {
+    can_resume: boolean
+    next_resumable_stage?: string
+    completed_stages?: string[]
+  }
+}
+
+export interface InvestigationEvent {
+  event_id: string
+  run_id: string
+  sequence: number
+  event_type: string
+  schema_version?: string
+  occurred_at: string
+  stage_id?: string
+  attempt_id?: string
+  producer?: string
+  severity?: 'INFO' | 'WARNING' | 'ERROR' | 'CRITICAL'
+  payload: Record<string, any>
+}
+
+export interface InvestigationTelemetry {
+  run_id: string
+  status: string
+  telemetry_generated_at: string
+  total_stages: number
+  stages_completed: number
+  stages_failed: number
+  stages_blocked: number
+  stages_pending: number
+  total_artifacts: number
+  scientific_execution_authorized: boolean
+  model_inference_status: string
+  operational_metrics: Record<string, any>
+}
+
+export interface InvestigationSummary {
+  run_id: string
+  created_at: string
+  status: string
+  current_stage?: string
+  analysis_mode?: string
+  investigation_label?: string
+}
+
+export interface InvestigationListResponse {
+  total_runs: number
+  limit: number
+  runs: InvestigationSummary[]
+}
+
+export interface CreateInvestigationPayload {
+  aoi?: any
+  bbox?: [number, number, number, number]
+  start_time?: string
+  end_time?: string
+  polarizations?: string[]
+  analysis_mode?: string
+  investigation_label?: string
+  scenario_id?: string
 }

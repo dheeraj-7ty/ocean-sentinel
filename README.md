@@ -24,7 +24,7 @@ The system provides an end-to-end, fail-closed operational bridge from user-defi
 - **Recovers** deterministically after process interruption without duplicate stage re-execution.
 - **Streams** real-time Server-Sent Events (SSE) and durable operational telemetry with `Last-Event-ID` replay.
 
-For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md), [**`docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md`**](docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md), and [**`docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md`**](docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md).
+For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](docs/CURRENT_STATUS.md), [**`docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md`**](docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md), [**`docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md`**](docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md), and [**`docs/PHASE_7C_3D_OPERATIONAL_GLOBE.md`**](docs/PHASE_7C_3D_OPERATIONAL_GLOBE.md).
 
 ---
 
@@ -32,13 +32,13 @@ For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](do
 
 | Status Dimension | Verified Reality | Evidence Authority |
 | :--- | :--- | :--- |
-| **Current Milestone** | **Phase 7B: Event Spine & Stream Telemetry** | `InvestigationEvent`, `DurableEventLog`, `EventBus`, SSE & Telemetry Proof |
-| **Operational Pipeline** | **Operational synchronous acquisition workflow, durable spine & observable event stream verified** | Proven via live CDSE, live REST API, crash-recovery, and SSE smoke tests |
+| **Current Milestone** | **Phase 7C: 3D Operational Globe & Geospatial Investigation Interface** | Interactive Three.js 3D Globe, Real S1 Evidence Inspector, SSE Stream Telemetry Proof |
+| **Operational Pipeline** | **Operational synchronous acquisition workflow, 3D geospatial console & observable event stream verified** | Proven via live CDSE, live REST API, crash-recovery, SSE, and 3D globe smoke tests |
 | **Scientific Safety** | **Strictly Gated (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` fail-closed firewall |
 | **Protected Baseline** | **8/8 Canonical baseline files bitwise intact (100%)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Tests** | **235/235 In-scope tests passing (100%)** | 11 governed operational, spine, event, and guardrail suites |
+| **Automated Tests** | **235/235 Backend + 79/79 Frontend tests passing (100%)** | 11 governed backend suites + 2 frontend suites |
 | **Git Working Tree** | **Clean (0 staged, 0 modified, 0 untracked)** | Synchronized with `origin/master` |
-| **Next Milestone** | **Phase 7C: 3D Geospatial Investigation Globe** | Interactive 3D Visualization & Investigation Console |
+| **Next Milestone** | **Separately Authorized Scientific Inference Activation Gate** | Controlled Model Forward Passes under Strict Authorization |
 
 ---
 

@@ -6,20 +6,33 @@ import {
   ShieldCheck,
   AlertOctagon,
   Navigation,
+  Send,
+  Compass,
+  FileSearch,
+  ShieldAlert,
 } from 'lucide-react'
 import type {
+  CreateInvestigationPayload,
+  InvestigationRun,
   InvestigationScenario,
+  InvestigationSummary,
   JobMode,
   JobResponse,
   LayerVisibility,
   PipelineType,
   ResultFreshness,
+  SelectedLocation,
 } from '../types/api'
 
 interface LeftControlPanelProps {
   activeMode: JobMode
   currentJob: JobResponse | null
   jobList: JobResponse[]
+  investigations?: InvestigationSummary[]
+  currentInvestigation?: InvestigationRun | null
+  onSelectInvestigation?: (runId: string) => void
+  onCreateInvestigation?: (payload: CreateInvestigationPayload) => void
+  selectedLocation?: SelectedLocation | null
   layers: LayerVisibility
   scenarios: InvestigationScenario[]
   selectedScenarioId: string
@@ -37,6 +50,11 @@ export const LeftControlPanel: React.FC<LeftControlPanelProps> = ({
   activeMode,
   currentJob,
   jobList,
+  investigations = [],
+  currentInvestigation,
+  onSelectInvestigation,
+  onCreateInvestigation,
+  selectedLocation,
   layers,
   scenarios,
   selectedScenarioId,
@@ -62,6 +80,26 @@ export const LeftControlPanel: React.FC<LeftControlPanelProps> = ({
     'FUSION',
     'EXPORT',
   ]
+
+  const handleDispatchAoiInvestigation = () => {
+    if (!onCreateInvestigation) return
+    let bbox = [30.15, 31.65, 31.15, 32.65] // Default Eastern Med AOI
+    let aoiName = 'Eastern Mediterranean AOI'
+
+    if (selectedLocation) {
+      const lat = selectedLocation.lat
+      const lon = selectedLocation.lon
+      bbox = [lon - 0.5, lat - 0.5, lon + 0.5, lat + 0.5]
+      aoiName = `AOI Target (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`
+    }
+
+    onCreateInvestigation({
+      aoi_name: aoiName,
+      aoi_bounding_box: bbox,
+      polarization: 'VV+VH',
+      max_cloud_cover: 20.0,
+    })
+  }
 
   return (
     <aside className="side-panel left-panel">
@@ -96,6 +134,111 @@ export const LeftControlPanel: React.FC<LeftControlPanelProps> = ({
       </div>
 
       <div className="panel-content">
+        {/* Phase 7 Investigation Console & AOI Dispatch Section */}
+        <section
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            background: 'rgba(15, 23, 42, 0.7)',
+            border: '1px solid rgba(56, 189, 248, 0.35)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+          }}
+          data-testid="phase7-investigation-console"
+        >
+          <div
+            style={{
+              fontSize: '11px',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              color: '#38bdf8',
+              letterSpacing: '0.4px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <FileSearch size={13} />
+              <span>INVESTIGATIONS (PHASE 7)</span>
+            </div>
+            <span style={{ fontSize: '9px', color: 'var(--text-muted)' }}>
+              {investigations.length} RUNS
+            </span>
+          </div>
+
+          {/* Investigation Selector */}
+          <div>
+            <label style={{ fontSize: '9.5px', color: 'var(--text-muted)', marginBottom: '3px', display: 'block' }}>
+              SELECT INVESTIGATION RUN:
+            </label>
+            <select
+              className="btn btn-secondary btn-block"
+              style={{
+                textAlign: 'left',
+                padding: '5px 8px',
+                fontSize: '10.5px',
+                background: 'rgba(11, 18, 33, 0.9)',
+                borderColor: 'var(--cyan-primary)',
+                color: '#ffffff',
+                cursor: 'pointer',
+              }}
+              value={currentInvestigation?.run_id || ''}
+              onChange={(e) => onSelectInvestigation && onSelectInvestigation(e.target.value)}
+              disabled={isExecuting}
+              data-testid="investigation-select"
+            >
+              <option value="" disabled style={{ background: '#0b1120' }}>
+                -- Choose Stored Investigation --
+              </option>
+              {investigations.map((inv) => (
+                <option key={inv.run_id} value={inv.run_id} style={{ background: '#0b1120' }}>
+                  {inv.run_id.substring(0, 20)}... [{inv.status}]
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Dispatch AOI Investigation Button */}
+          <button
+            type="button"
+            className="btn btn-primary btn-block"
+            onClick={handleDispatchAoiInvestigation}
+            disabled={isExecuting}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              padding: '7px 10px',
+              fontSize: '11px',
+            }}
+            data-testid="dispatch-aoi-investigation-btn"
+          >
+            <Send size={12} />
+            <span>
+              {selectedLocation
+                ? `DISPATCH INVESTIGATION FOR PIN (${selectedLocation.lat.toFixed(2)}°, ${selectedLocation.lon.toFixed(2)}°)`
+                : 'DISPATCH AOI INVESTIGATION (EASTERN MED)'}
+            </span>
+          </button>
+
+          {/* Scientific Gating Notice */}
+          <div
+            style={{
+              fontSize: '9px',
+              color: '#fca5a5',
+              background: 'rgba(239, 68, 68, 0.1)',
+              padding: '4px 6px',
+              borderRadius: '4px',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              lineHeight: 1.3,
+            }}
+          >
+            <strong>SCIENTIFIC EXECUTION GATED:</strong> <code>EXECUTION_AUTHORIZED = False</code>. Detection and interpretation stages remain strictly blocked. No automated detections are produced.
+          </div>
+        </section>
         {/* Real Repository Scenario Investigation Mode */}
         {activeMode === 'REAL_REPOSITORY' && (
           <section>

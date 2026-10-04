@@ -367,6 +367,8 @@ describe('Ocean Sentinel Frontend Geospatial Console V1.1 Suite', () => {
       if (id === 'TRUJILLO_00260_00608') return mockScenarioB
       return mockScenario
     })
+    vi.spyOn(oceanSentinelApi, 'listInvestigations').mockResolvedValue([])
+    vi.spyOn(oceanSentinelApi, 'subscribeInvestigationEvents').mockReturnValue(() => {})
   })
 
   // 1. App renders

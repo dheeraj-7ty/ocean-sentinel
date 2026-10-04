@@ -5,12 +5,19 @@ import { vi } from 'vitest'
 HTMLCanvasElement.prototype.getContext = vi.fn((type: string) => {
   if (type === 'webgl' || type === 'webgl2' || type === 'experimental-webgl') {
     return {
+      VERSION: 7938,
       getExtension: vi.fn(),
-      getParameter: vi.fn(() => 2048),
+      getParameter: vi.fn((param) => {
+        if (param === 7938 || param === undefined) return 'WebGL 1.0' // gl.VERSION
+        if (param === 7937) return 'WebKit' // gl.RENDERER
+        if (param === 7936) return 'WebKit' // gl.VENDOR
+        return 2048
+      }),
       createTexture: vi.fn(),
       bindTexture: vi.fn(),
       texParameteri: vi.fn(),
       texImage2D: vi.fn(),
+      texImage3D: vi.fn(),
       clearColor: vi.fn(),
       clearDepth: vi.fn(),
       clear: vi.fn(),
@@ -24,6 +31,7 @@ HTMLCanvasElement.prototype.getContext = vi.fn((type: string) => {
       createShader: vi.fn(),
       shaderSource: vi.fn(),
       compileShader: vi.fn(),
+      getShaderPrecisionFormat: vi.fn(() => ({ precision: 23, rangeMin: 127, rangeMax: 127 })),
       getShaderParameter: vi.fn(() => true),
       getShaderInfoLog: vi.fn(() => ''),
       createProgram: vi.fn(),
