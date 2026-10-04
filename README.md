@@ -6,7 +6,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Governance: V2](https://img.shields.io/badge/Governance-V2%20Active-brightgreen.svg)](docs/governance/)
-[![Tests: 232 Passing](https://img.shields.io/badge/Tests-232%20In--Scope%20Pass-success.svg)](tests/)
+[![Tests: 235 Passing](https://img.shields.io/badge/Tests-235%20In--Scope%20Pass-success.svg)](tests/)
 [![Scientific Execution: Gated](https://img.shields.io/badge/Scientific%20Execution-Gated-orange.svg)](docs/CURRENT_STATUS.md)
 
 ---
@@ -36,7 +36,7 @@ For current operational state and metrics, see [**`docs/CURRENT_STATUS.md`**](do
 | **Operational Pipeline** | **Operational synchronous acquisition workflow, durable spine & observable event stream verified** | Proven via live CDSE, live REST API, crash-recovery, and SSE smoke tests |
 | **Scientific Safety** | **Strictly Gated (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` fail-closed firewall |
 | **Protected Baseline** | **8/8 Canonical baseline files bitwise intact (100%)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Tests** | **232/232 In-scope tests passing (100%)** | 11 governed operational, spine, event, and guardrail suites |
+| **Automated Tests** | **235/235 In-scope tests passing (100%)** | 11 governed operational, spine, event, and guardrail suites |
 | **Git Working Tree** | **Clean (0 staged, 0 modified, 0 untracked)** | Synchronized with `origin/master` |
 | **Next Milestone** | **Phase 7C: 3D Geospatial Investigation Globe** | Interactive 3D Visualization & Investigation Console |
 
@@ -201,10 +201,10 @@ uv pip install -e ".[dev]"
 
 ### Running In-Scope Automated Tests
 
-The authoritative in-scope test suite comprises 232 tests across 11 operational, investigation spine, event, and policy suites:
+The authoritative in-scope test suite comprises 235 tests across 11 operational, investigation spine, event, and policy suites:
 
 ```bash
-# Run the 232 in-scope operational, spine, event & guardrail tests
+# Run the 235 in-scope operational, spine, event & guardrail tests
 pytest \
   tests/test_acquisition_job.py \
   tests/test_backend_api.py \
