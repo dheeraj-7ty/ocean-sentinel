@@ -18,7 +18,7 @@ Ocean Sentinel is an Earth-observation maritime investigation platform combining
 | **Operational Pipeline Status** | **Operational Synchronous Workflow, Durable Spine & Observable Event Stream Verified** | End-to-End Live CDSE, API, Recovery & SSE Smoke Tests |
 | **Scientific Safety Status** | **STRICTLY GATED (`EXECUTION_AUTHORIZED = False`)** | `OperationalDetectionBoundary` & Scientific Gate Firewall |
 | **Protected Baseline Integrity** | **8/8 Canonical Hashes Intact (100% Match)** | `test_all_eight_protected_baseline_hashes_match` |
-| **Automated Test Battery** | **232/232 In-Scope Tests Passing (100%)** | 11 Governed Operational, Spine, Event & Policy Suites |
+| **Automated Test Battery** | **235/235 In-Scope Tests Passing (100%)** | 11 Governed Operational, Spine, Event & Policy Suites |
 | **Next Engineering Milestone** | **Phase 7C: 3D Geospatial Investigation Globe** | Interactive Visualization & Investigation Console |
 
 ---
@@ -127,12 +127,12 @@ The 8 canonical baseline authorities remain strictly frozen and bitwise verified
 
 ---
 
-## 6. Automated Test Battery (232 In-Scope Tests)
+## 6. Automated Test Battery (235 In-Scope Tests)
 
 Deterministic collection and execution across the 11 governed operational, spine, event, and guardrail suites:
 
 ```
-Domain & Investigation Spine Suites (9 files, 190 tests):
+Domain & Investigation Spine Suites (9 files, 193 tests):
   tests/test_acquisition_job.py                             22 passed
   tests/test_backend_api.py                                20 passed
   tests/test_acquisition_persistence.py                     11 passed
@@ -141,13 +141,13 @@ Domain & Investigation Spine Suites (9 files, 190 tests):
   tests/test_discovery.py                                   37 passed
   tests/test_pipeline_orchestration.py                      12 passed
   tests/test_investigation_spine.py                         15 passed
-  tests/test_event_spine.py                                 16 passed
+  tests/test_event_spine.py                                 19 passed
 
 Policy & Guardrail Suites (2 files, 42 tests):
   tests/test_source_control_policy_and_reporting_guardrails.py  35 passed
   tests/test_artifact_policy.py                              7 passed
 
-Total In-Scope Suite:                                      232 passed (100%)
+Total In-Scope Suite:                                      235 passed (100%)
 Total Failures:                                              0
 Total Errors:                                                0
 ```

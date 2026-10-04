@@ -28,6 +28,7 @@ class EventSubscription:
         self.run_id = run_id
         self.queue: asyncio.Queue[Optional[InvestigationEvent]] = asyncio.Queue(maxsize=max_queue_size)
         self.is_active = True
+        self.has_overflowed = False
 
     def put_nowait(self, event: InvestigationEvent) -> bool:
         """Push an event to the subscriber queue without blocking."""
@@ -37,8 +38,9 @@ class EventSubscription:
             self.queue.put_nowait(event)
             return True
         except asyncio.QueueFull:
+            self.has_overflowed = True
             logger.warning(
-                "Subscriber queue full for run '%s'. Dropping event seq=%d to preserve engine responsiveness.",
+                "Subscriber queue full for run '%s'. Dropping event seq=%d and setting overflow flag for disk resynchronization.",
                 self.run_id,
                 event.sequence,
             )

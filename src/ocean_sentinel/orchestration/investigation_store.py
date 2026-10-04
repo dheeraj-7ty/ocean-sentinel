@@ -85,7 +85,11 @@ class InvestigationRunStore:
         """Retrieve the durable event log for this run."""
         from ocean_sentinel.orchestration.event_log import DurableEventLog
 
-        return DurableEventLog(self.get_events_path(run_id))
+        if not hasattr(self, "_event_logs"):
+            self._event_logs = {}
+        if run_id not in self._event_logs:
+            self._event_logs[run_id] = DurableEventLog(self.get_events_path(run_id))
+        return self._event_logs[run_id]
 
     def get_artifacts_dir(self, run_id: str) -> Path:
         d = self.get_run_dir(run_id) / "artifacts"

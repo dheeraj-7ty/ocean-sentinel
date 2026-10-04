@@ -740,32 +740,79 @@ async def stream_investigation_events(
         event_log = store.get_event_log(run_id)
         highest_seq = cursor or 0
 
-        # 1. Replay historical durable events from disk
-        historical_events = event_log.replay(after_sequence=cursor)
-        for evt in historical_events:
-            if evt.sequence > highest_seq:
-                highest_seq = evt.sequence
-            yield evt.to_sse()
-
-        # Check if run is already in terminal state and no new events can occur
-        terminal_statuses = {
-            InvestigationRunStatus.SUCCEEDED.value,
-            InvestigationRunStatus.FAILED.value,
-            InvestigationRunStatus.READY_FOR_DETECTION.value,
-            InvestigationRunStatus.BLOCKED.value,
-        }
-        latest_run = store.load_run(run_id) or initial_run
-        if latest_run.overall_status in terminal_statuses:
-            return
-
-        # 2. Subscribe to live events on in-process EventBus
+        # 1. Subscribe to live events on in-process EventBus FIRST to eliminate the replay-to-subscription race gap
         sub = engine.event_bus.subscribe(run_id)
+
         try:
+            # 2. Replay historical durable events from disk (captures everything up to this instant)
+            historical_events = event_log.replay(after_sequence=cursor)
+            for evt in historical_events:
+                if evt.sequence > highest_seq:
+                    highest_seq = evt.sequence
+                yield evt.to_sse()
+
+            # 3. Drain any events already captured in sub.queue that arrived during replay
+            stream_closed = False
+            while not sub.queue.empty():
+                try:
+                    q_evt = sub.queue.get_nowait()
+                except asyncio.QueueEmpty:
+                    break
+                if q_evt is None:
+                    stream_closed = True
+                    break
+                if q_evt.sequence > highest_seq:
+                    highest_seq = q_evt.sequence
+                    yield q_evt.to_sse()
+
+            if stream_closed:
+                return
+
+            # Resynchronize from disk if queue overflowed during initial replay
+            if getattr(sub, "has_overflowed", False):
+                sub.has_overflowed = False
+                missed_events = event_log.replay(after_sequence=highest_seq)
+                for m_evt in missed_events:
+                    if m_evt.sequence > highest_seq:
+                        highest_seq = m_evt.sequence
+                        yield m_evt.to_sse()
+
+            # Check if run is already in terminal state and no new events can occur
+            terminal_statuses = {
+                InvestigationRunStatus.SUCCEEDED.value,
+                InvestigationRunStatus.FAILED.value,
+                InvestigationRunStatus.READY_FOR_DETECTION.value,
+                InvestigationRunStatus.BLOCKED.value,
+            }
+            latest_run = store.load_run(run_id) or initial_run
+            if latest_run.overall_status in terminal_statuses and sub.queue.empty():
+                return
+
+            # 4. Stream live events with automatic queue-overflow recovery from durable disk
             while not await request.is_disconnected():
+                # Resynchronize from durable disk log if bounded subscriber queue overflowed
+                if getattr(sub, "has_overflowed", False):
+                    sub.has_overflowed = False
+                    missed_events = event_log.replay(after_sequence=highest_seq)
+                    for m_evt in missed_events:
+                        if m_evt.sequence > highest_seq:
+                            highest_seq = m_evt.sequence
+                            yield m_evt.to_sse()
+
                 try:
                     evt = await asyncio.wait_for(sub.queue.get(), timeout=15.0)
                     if evt is None:
                         break
+
+                    # Check overflow again upon waking to ensure gapless delivery
+                    if getattr(sub, "has_overflowed", False):
+                        sub.has_overflowed = False
+                        missed_events = event_log.replay(after_sequence=highest_seq)
+                        for m_evt in missed_events:
+                            if m_evt.sequence > highest_seq:
+                                highest_seq = m_evt.sequence
+                                yield m_evt.to_sse()
+
                     # Prevent duplicate emission if event was already replayed
                     if evt.sequence > highest_seq:
                         highest_seq = evt.sequence

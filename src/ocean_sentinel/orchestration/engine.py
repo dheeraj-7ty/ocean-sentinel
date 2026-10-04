@@ -89,15 +89,27 @@ class InvestigationEngine:
         """
         event_log = self.store.get_event_log(run.run_id)
         clean_payload = payload or {}
-        evt = event_log.emit(
-            event_type=event_type,
-            payload=clean_payload,
-            stage_id=stage_id,
-            attempt_id=attempt_id,
-            producer="InvestigationEngine",
-            severity=severity,
-            correlation_id=correlation_id,
-        )
+        try:
+            evt = event_log.emit(
+                event_type=event_type,
+                payload=clean_payload,
+                stage_id=stage_id,
+                attempt_id=attempt_id,
+                producer="InvestigationEngine",
+                severity=severity,
+                correlation_id=correlation_id,
+            )
+        except Exception as err:
+            logger.critical(
+                "EventLog append failed for run '%s' (event %s): %s. Suppressing broadcast to prevent phantom events.",
+                run.run_id,
+                event_type,
+                err,
+            )
+            raise InvestigationEngineError(
+                f"Durable event persistence failed for run '{run.run_id}': {err}"
+            ) from err
+
         self.event_bus.publish(evt)
         return evt
 
