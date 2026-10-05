@@ -209,6 +209,12 @@ export const oceanSentinelApi = {
         url.searchParams.set('last_event_id', String(currentLastEventId))
       }
 
+      if (typeof EventSource === 'undefined') {
+        if (onStatusChange) onStatusChange('ERROR')
+        if (onError) onError(new Error('EventSource is not supported or defined in this environment'))
+        return
+      }
+
       eventSource = new EventSource(url.toString())
 
       const handleEventData = (rawData: string) => {
