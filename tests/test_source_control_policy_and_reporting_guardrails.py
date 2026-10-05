@@ -60,6 +60,7 @@ POST_BASELINE_OPERATIONAL_FILES = {
     "docs/PHASE_7A_INVESTIGATION_RUN_KERNEL.md",
     "docs/PHASE_7B_EVENT_SPINE_AND_TELEMETRY.md",
     "docs/PHASE_7C_3D_OPERATIONAL_GLOBE.md",
+    "docs/PHASE_7C_FINAL_CLOSURE_REPORT.md",
     "frontend/src/test/Phase7C.test.tsx",
 }
 
