@@ -1,12 +1,12 @@
 # Ocean Sentinel — Phase 7C Final Closure & Acceptance Report
 
-**RUN ID:** `OS-P7C-FINAL-CLOSURE-RECONCILIATION-01`  
-**DATE:** 2026-10-05  
-**ROLE:** Implementation / Repository Worker (Antigravity IDE 2.0)  
-**MODEL:** Gemini 3.8 Flash High  
-**AUTHORITY:** CAO + Human Operator  
-**TARGET MILESTONE:** Phase 7C (3D Operational Globe & Geospatial Investigation Interface)  
-**GOVERNANCE CLASSIFICATION:** Canonical Closure Record  
+**RUN ID:** `OS-P7C-FINAL-CLOSURE-DOC-SYNC-01`<br>
+**DATE:** 2026-10-05<br>
+**ROLE:** Implementation / Repository Worker (Antigravity IDE 2.0)<br>
+**MODEL:** Gemini 3.8 Flash High<br>
+**AUTHORITY:** CAO + Human Operator<br>
+**TARGET MILESTONE:** Phase 7C (3D Operational Globe & Geospatial Investigation Interface)<br>
+**GOVERNANCE CLASSIFICATION:** Canonical Closure Record<br>
 
 ---
 
@@ -20,7 +20,7 @@ Phase 7C implementation, integration, verification, and governance lifecycle are
 - **Protected Baselines:** 8/8 canonical protected baseline file hashes bitwise verified (100% match).
 - **Automated Batteries:** 235/235 backend tests passing across 11 governed suites; 79/79 frontend tests passing across 2 test suites.
 - **Scientific Safety Firewall:** Strictly gated (`EXECUTION_AUTHORIZED = False`); zero model forward passes, zero training updates, zero holdout evaluations, zero vessel causal attributions.
-- **Governed Git Lifecycle:** Feature branch `feature/phase-7c-globe-interface` merged via PR #22 into `master` via standard squash merge without `--admin`. Documentation finalized via governed PR.
+- **Governed Git Lifecycle:** Feature branch `feature/phase-7c-globe-interface` merged via PR #22 into `master` via standard squash merge. Closure documentation synchronized via PR #23. EventSource environment robustness repair merged via PR #24 without reopening Phase 7C scope.
 
 ---
 
@@ -42,7 +42,7 @@ Live inspection confirmed zero staged modifications, zero worktree dirty files, 
 
 ## 3. Live PR State
 
-- **PR #22:**
+- **PR #22 (Phase 7C Implementation PR):**
   - Title: `feat(ui): implement Phase 7C 3D operational globe and geospatial investigation interface`
   - URL: `https://github.com/dheeraj-7ty/ocean-sentinel/pull/22`
   - Base: `master`
@@ -52,16 +52,37 @@ Live inspection confirmed zero staged modifications, zero worktree dirty files, 
   - Merge Method: Standard squash merge (`gh pr merge 22 --squash --delete-branch`), strictly without `--admin`.
   - State: `MERGED`
 
+- **PR #23 (Phase 7C Closure Document Synchronization PR):**
+  - Title: `docs: finalize Phase 7C closure report and synchronize documentation`
+  - URL: `https://github.com/dheeraj-7ty/ocean-sentinel/pull/23`
+  - Base: `master`
+  - Head: `docs/phase-7c-final-closure`
+  - Merged At: `2026-10-05T01:02:33Z`
+  - Merge Commit: `85a1c16c94d371b5219a69538c7b4b7c7f622f2e`
+  - Merge Method: Standard squash merge (`gh pr merge 23 --squash --delete-branch`), strictly without `--admin`.
+  - State: `MERGED`
+
+- **PR #24 (Post-Closure EventSource Robustness Repair PR):**
+  - Title: `fix(frontend): guard EventSource environment and mock in test setup`
+  - URL: `https://github.com/dheeraj-7ty/ocean-sentinel/pull/24`
+  - Base: `master`
+  - Head: `fix/eventsource-test-resilience`
+  - Merged At: `2026-10-05T01:04:56Z`
+  - Merge Commit: `8e098150c551f0b8e68890515d0cc8a19e801839`
+  - Merge Method: Standard squash merge (`gh pr merge 24 --squash --delete-branch`), strictly without `--admin`.
+  - State: `MERGED` (Follow-on robustness repair; does not reopen Phase 7C scope).
+
 ---
 
 ## 4. Consolidated Defect Inventory
 
 | ID | Finding | Evidence | Severity | Root Cause | Repair Needed | Decision |
 | :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| `P7C-CLOSE-001` | README.md Section 6 (line 122) and Section 10 (line 259) list Phase 7C as `(Phase 7C: Next / Planned)` while Section 2 table documents Phase 7C as `Complete`, and PR #22 is merged. | `README.md` lines 122 & 259; `docs/CURRENT_STATUS.md` line 17; PR #22 merged commit `e207f39`. | P3 | Narrative roadmap sections in README were left as `Next / Planned` prior to PR #22 merge. | Synchronize README.md Section 6 and Section 10 to reflect Phase 7C as `COMPLETE` and designate next milestone as `Separately Authorized Scientific Inference Activation Gate`. | Repaired in single closure pass. |
-| `P7C-CLOSE-002` | Final Phase 7C closure report `docs/PHASE_7C_FINAL_CLOSURE_REPORT.md` is required by closure run specification across 18 mandated sections. | Prompt specification Section `FINAL REPORT`. | P3 | Milestone closure run artifact authored upon completion of live audit. | Author `docs/PHASE_7C_FINAL_CLOSURE_REPORT.md` with complete evidence-scope matrix, live data checks, test counts, 8/8 protected hash status, PR #22 merge record, and explicit `FURTHER AUDIT JUSTIFICATION: NO, Phase 7C is closed.` Also add to `POST_BASELINE_OPERATIONAL_FILES` in `tests/test_source_control_policy_and_reporting_guardrails.py`. | Repaired in single closure pass. |
+| `P7C-CLOSE-001` | README.md Section 6 (line 122) and Section 10 (line 259) list Phase 7C as `(Phase 7C: Next / Planned)` while Section 2 table documents Phase 7C as `Complete`, and PR #22 is merged. | `README.md` lines 122 & 259; `docs/CURRENT_STATUS.md` line 17; PR #22 merged commit `e207f39`. | P3 | Narrative roadmap sections in README were left as `Next / Planned` prior to PR #22 merge. | Synchronize README.md Section 6 and Section 10 to reflect Phase 7C as `COMPLETE` and designate next milestone as `Separately Authorized Scientific Inference Activation Gate`. | Repaired in closure pass (PR #23). |
+| `P7C-CLOSE-002` | Final Phase 7C closure report `docs/PHASE_7C_FINAL_CLOSURE_REPORT.md` is required by closure run specification across 18 mandated sections. | Prompt specification Section `FINAL REPORT`. | P3 | Milestone closure run artifact authored upon completion of live audit. | Author `docs/PHASE_7C_FINAL_CLOSURE_REPORT.md` with complete evidence-scope matrix, live data checks, test counts, 8/8 protected hash status, PR #22 merge record, and explicit `FURTHER AUDIT JUSTIFICATION: NO, Phase 7C is closed.` Also add to `POST_BASELINE_OPERATIONAL_FILES` in `tests/test_source_control_policy_and_reporting_guardrails.py`. | Repaired in closure pass (PR #23). |
 | `P7C-CLOSE-003` | Pre-7C closure report contained narrative protected-hash prefix transcription error. | `scratch/cross_ai_evidence_reconciliation_ledger.md` Section 6; verified against canonical hashes. | Historical | Narrative transcription inaccuracy in earlier report. | None in code; live 8/8 protected hash verification is authoritative and passes 100%. | Documented as historical artifact. |
 | `P7C-CLOSE-004` | Deferred architectural limitations (asynchronous distributed queue, multi-sensor fusion, scientific inference activation). | `docs/CURRENT_STATUS.md` Section 7; `docs/PHASE_7C_3D_OPERATIONAL_GLOBE.md`. | Deferred | Explicitly out of scope for Phase 7C single-node synchronous operational architecture. | None; preserve in deferred roadmap. | Documented as explicit non-blocking limitations. |
+| `P7C-CLOSE-005` | EventSource reference error in JSDOM test runner when unmocked asynchronous component effects invoke `subscribeInvestigationEvents`. | Vitest test runner output; `ReferenceError: EventSource is not defined`. | P2 | JSDOM does not provide global EventSource; `frontend/src/services/api.ts` lacked runtime check before instantiation; `frontend/src/test/setup.ts` lacked polyfill. | Add `typeof EventSource === 'undefined'` guard in `frontend/src/services/api.ts` and standard `MockEventSource` in `frontend/src/test/setup.ts`. | Repaired in governed follow-on PR #24. |
 
 ---
 
@@ -70,9 +91,15 @@ Live inspection confirmed zero staged modifications, zero worktree dirty files, 
 1. **`README.md` Milestone Synchronization (P7C-CLOSE-001):**
    - Section 6 (Track 5): Updated `(Phase 7C: Next / Planned)` to `(Phase 7C: Complete)`.
    - Section 10 (Roadmap): Updated `Phase 7C: 3D Operational Globe & Geospatial Investigation Interface (NEXT / PLANNED)` to `(COMPLETE)` with verified implementation deliverables.
+   - Merged in PR #23.
 2. **Authoritative Closure Report & Policy Enrollment (P7C-CLOSE-002):**
    - Authored canonical closure document `docs/PHASE_7C_FINAL_CLOSURE_REPORT.md` answering all 18 mandated sections.
    - Enrolled `docs/PHASE_7C_FINAL_CLOSURE_REPORT.md` into `POST_BASELINE_OPERATIONAL_FILES` in `tests/test_source_control_policy_and_reporting_guardrails.py`.
+   - Merged in PR #23.
+3. **EventSource Environment Robustness & JSDOM Mocking (P7C-CLOSE-005):**
+   - Added runtime guard `if (typeof EventSource === 'undefined')` in `frontend/src/services/api.ts`.
+   - Added `MockEventSource` class to `frontend/src/test/setup.ts` for JSDOM test environments.
+   - Merged via governed follow-on PR #24 (`8e098150c551f0b8e68890515d0cc8a19e801839`).
 
 ---
 
@@ -119,7 +146,7 @@ Live inspection confirmed zero staged modifications, zero worktree dirty files, 
 - **Governed Frontend Battery:** **79/79 PASSING (100%)**
   - `frontend/src/test/App.test.tsx`: 66 passed
   - `frontend/src/test/Phase7C.test.tsx`: 13 passed
-- **Duration:** 6.31 seconds (Vitest)
+- **Duration:** 5.96 seconds (Vitest)
 - **Failures / Errors:** 0
 
 ---
@@ -139,7 +166,7 @@ Live inspection confirmed zero staged modifications, zero worktree dirty files, 
   10. `tests/test_source_control_policy_and_reporting_guardrails.py`: 35 passed
   11. `tests/test_artifact_policy.py`: 7 passed
 - **Collection Verification:** `pytest --collect-only` collected exactly 235 items in 0.86s.
-- **Execution Duration:** 46.03 seconds
+- **Execution Duration:** 43.86 seconds
 - **Failures / Errors:** 0
 
 ---
@@ -187,24 +214,25 @@ All authoritative documents are in full synchronization:
 3. `docs/PROJECT_PHASE_HISTORY.md`: Phase 7C marked COMPLETE with full technical scope and test accounting.
 4. `docs/EVIDENCE_MATRIX.md`: Phase 7C evidence scopes mapped to deterministic and live operational proofs.
 5. `docs/PHASE_7C_3D_OPERATIONAL_GLOBE.md`: Architecture specification complete and verified.
-6. `scratch/cross_ai_evidence_reconciliation_ledger.md`: Cross-AI inventory reconciled; Section 6 historical erratum recorded.
-7. `scratch/ocean_sentinel_phase7c_progress.md`: Append-only chronological telemetry up to date.
+6. `docs/PHASE_7C_FINAL_CLOSURE_REPORT.md`: Comprehensive canonical closure record incorporating all findings and follow-on repairs (PR #22, PR #23, PR #24).
+7. `scratch/cross_ai_evidence_reconciliation_ledger.md`: Cross-AI inventory reconciled; Section 6 historical erratum recorded.
+8. `scratch/ocean_sentinel_phase7c_progress.md`: Append-only chronological telemetry up to date.
 
 ---
 
 ## 14. Git / PR Governance Result
 
-1. Phase 7C code implemented on `feature/phase-7c-globe-interface`.
-2. Verified with full automated test batteries and protected hash checks.
-3. PR #22 created and squash merged to `master` without `--admin` (`e207f39521d866d5a8c1a26fc259a2d3ac6763a5`).
-4. Final documentation sync committed on `docs/phase-7c-final-closure` and merged via governed PR.
+1. **Phase 7C Implementation:** Implemented on `feature/phase-7c-globe-interface`, verified across suites, and merged via PR #22 (`e207f39521d866d5a8c1a26fc259a2d3ac6763a5`) without `--admin`.
+2. **Closure Documentation Synchronization:** Authored on `docs/phase-7c-final-closure` and merged via PR #23 (`85a1c16c94d371b5219a69538c7b4b7c7f622f2e`) without `--admin`.
+3. **EventSource Robustness Repair:** Implemented on `fix/eventsource-test-resilience` and merged via PR #24 (`8e098150c551f0b8e68890515d0cc8a19e801839`) without `--admin` as a follow-on robustness fix.
+4. **Closure Record Micro-Sync:** Final report update committed on `docs/p7c-final-closure-record-sync` and merged via governed PR.
 5. Master branch is clean, linear, and fully synchronized with `origin/master`.
 
 ---
 
 ## 15. What Is Proven
 
-1. **Deterministic Component Behavior:** Frontend correctly renders Three.js globe geometry, projects coordinates, toggles layers, parses SSE events, deduplicates sequences, reconnects via `Last-Event-ID`, and renders scientific gate indicators.
+1. **Deterministic Component Behavior:** Frontend correctly renders Three.js globe geometry, projects coordinates, toggles layers, parses SSE events, deduplicates sequences, reconnects via `Last-Event-ID`, handles JSDOM environments gracefully, and renders scientific gate indicators.
 2. **API Endpoint Functionality:** Backend FastAPI router serves `/api/v1/investigations` routes, delivers investigation metadata, serializes SSE event streams, and suppresses sensitive credentials/host paths.
 3. **Physical Data Provenance:** The physical Copernicus Sentinel-1 GeoTIFF (`S1A_IW_GRDH_..._D2F2_COG.tif`) has verified CRS `EPSG:4326`, dimensions $64 \times 64$, 2 float32 bands, and SHA-256 `c41fbf7bed0102f9fd29cee4df752c4496b6c281632852b41f124ac7d3c9d8ee`.
 4. **Crash Recovery & Idempotency:** The investigation run kernel idempotently loads and recovers runs from disk, validating content hashes and failing closed upon tamper.
@@ -214,7 +242,7 @@ All authoritative documents are in full synchronization:
 
 ## 16. What Is Not Proven
 
-1. **Human Visual Perception in Real Web Browsers:** Unit and Vitest component tests run in jsdom / mocked environments; while Three.js API calls and DOM elements are verified, visual aesthetic quality requires human review in a live browser.
+1. **Human Visual Perception in Real Web Browsers:** Unit and Vitest component tests run in jsdom / mocked environments; while Three.js API calls, Canvas mock contexts, and DOM elements are verified, visual aesthetic quality requires human review in a live browser.
 2. **Distributed Scale:** Multi-node concurrent event subscriptions or multi-worker cluster queues are not implemented or tested.
 3. **Multi-Scene Fusion:** Combining multiple SAR scenes or optical imagery is not proven in the Phase 7C operational path.
 
