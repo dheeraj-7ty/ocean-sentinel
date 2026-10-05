@@ -119,7 +119,7 @@ The repository history comprises four historical / current engineering tracks pl
 2. **Track 2: Scientific Research & ML Training (Phases 2 – 8, EXP-01 – EXP-08)**: Baseline model exploration, hard negative training (EXP-03–EXP-06), Part III external evaluation, and OPS-01/OPS-02 dataset split freezes. *(Historical Research Baseline)*
 3. **Track 3: Governance V2 & Repository Integration**: 8 protected baseline files, machine-verifiable rule/lesson/incident catalogs, 10-commit-group integration, and surgical artifact accounting. *(Governed / Active)*
 4. **Track 4: Operational Pipeline (Phases 6A – 6C)**: Fail-closed operational SAR pipeline, live CDSE acquisition proof, persistent GeoTIFF storage, and FastAPI REST endpoints. *(Operational Baseline / Complete)*
-5. **Track 5: Investigation Spine & Presentation Layer (Phase 7)**: Investigation run kernel and durable execution spine (Phase 7A: Complete), event spine & telemetry (Phase 7B: Complete), and 3D operational globe interface (Phase 7C: Next / Planned). *(Current / Active Engineering Track)*
+5. **Track 5: Investigation Spine & Presentation Layer (Phase 7)**: Investigation run kernel and durable execution spine (Phase 7A: Complete), event spine & telemetry (Phase 7B: Complete), and 3D operational globe interface (Phase 7C: Complete). *(Current / Active Engineering Track)*
 
 For the complete evidence-backed timeline, see [**`docs/PROJECT_PHASE_HISTORY.md`**](docs/PROJECT_PHASE_HISTORY.md).
 For the complete claim-to-proof mapping, see [**`docs/EVIDENCE_MATRIX.md`**](docs/EVIDENCE_MATRIX.md).
@@ -256,10 +256,11 @@ npm run dev
   - Server-Sent Events (SSE) streaming (`/api/v1/investigations/{run_id}/events`) with `Last-Event-ID` cursor replay.
   - Live operational telemetry without fabricating uncomputed scientific metrics.
 
-- **Phase 7C: 3D Operational Globe & Geospatial Investigation Interface** (`NEXT / PLANNED`):
-  - Connect the Three.js interactive 3D globe console directly to the investigation REST API.
-  - Visualize Sentinel-1 observation footprints, AOI bounding polygons, and validated GeoTIFF evidence.
-  - Maintain the scientific safety firewall (`EXECUTION_AUTHORIZED = False`).
+- **Phase 7C: 3D Operational Globe & Geospatial Investigation Interface** (`COMPLETE`):
+  - Connected the Three.js interactive 3D globe console directly to the investigation REST API.
+  - Visualized Sentinel-1 observation footprints, AOI bounding polygons, and validated GeoTIFF evidence.
+  - Verified real-time SSE stream lifecycle integration (`Last-Event-ID` reconnection, sequence deduplication).
+  - Maintained the scientific safety firewall (`EXECUTION_AUTHORIZED = False`).
 
 ---
 
