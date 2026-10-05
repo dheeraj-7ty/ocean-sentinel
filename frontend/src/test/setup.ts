@@ -70,3 +70,22 @@ global.ResizeObserver = class ResizeObserver {
   unobserve() {}
   disconnect() {}
 } as any
+
+// Mock EventSource for JSDOM
+class MockEventSource {
+  static CONNECTING = 0
+  static OPEN = 1
+  static CLOSED = 2
+  readyState = MockEventSource.OPEN
+  url: string
+  onopen: ((ev: any) => any) | null = null
+  onmessage: ((ev: any) => any) | null = null
+  onerror: ((ev: any) => any) | null = null
+  constructor(url: string) {
+    this.url = url
+  }
+  close() {
+    this.readyState = MockEventSource.CLOSED
+  }
+}
+;(globalThis as any).EventSource = MockEventSource as any
